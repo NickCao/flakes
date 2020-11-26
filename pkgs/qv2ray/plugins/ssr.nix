@@ -9,7 +9,7 @@ mkDerivation rec {
     repo = "QvPlugin-SSR";
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 = "59g8ykq31SvyAt9joRI0r/xhWWbWPAppeWOLY87WDSM=";
+    sha256 = "sha256-59g8ykq31SvyAt9joRI0r/xhWWbWPAppeWOLY87WDSM=";
   };
 
   nativeBuildInputs = [ cmake ];

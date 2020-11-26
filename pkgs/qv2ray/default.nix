@@ -5,14 +5,14 @@ let
 
 unwrapped = mkDerivation rec {
   pname = "qv2ray";
-  version = "git";
+  version = "2.7.0-pre1-7b04b83";
 
   src = fetchFromGitHub {
     owner = "Qv2ray";
     repo = "Qv2ray";
     rev = "7b04b83";
     fetchSubmodules = true;
-    sha256 = "P2ObRtbRpf3i1d0n/t24Zam5SFXLmZ1p2B5oKkP8USA=";
+    sha256 = "sha256-KCDorY/jytumjI1Kp9HZHeb3SNSECwK0Sbll9K876xg=";
   };
 
   cmakeFlags = [
