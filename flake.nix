@@ -12,8 +12,6 @@
         packages = {
           auth-thu = pkgs.callPackage ./pkgs/auth-thu { };
           qv2ray = pkgs.libsForQt5.callPackage ./pkgs/qv2ray { };
-          qv2ray-plugin-ssr =
-            pkgs.libsForQt5.callPackage ./pkgs/qv2ray-plugin-ssr { };
         };
       });
 }

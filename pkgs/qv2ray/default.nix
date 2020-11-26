@@ -1,17 +1,27 @@
-{ mkDerivation, fetchFromGitHub, lib, cmake, curl, protobuf, grpc, qtbase
-, qttools, c-ares, abseil-cpp }:
+{ mkDerivation, fetchFromGitHub, symlinkJoin, lib, cmake, curl, protobuf, grpc, qtbase
+, qttools, c-ares, abseil-cpp, enableSSR ? true }:
 
-mkDerivation rec {
+let
+
+unwrapped = mkDerivation rec {
   pname = "qv2ray";
-  version = "2.7.0-pre1";
+  version = "git";
 
   src = fetchFromGitHub {
     owner = "Qv2ray";
     repo = "Qv2ray";
-    rev = "v${version}";
+    rev = "7b04b83";
     fetchSubmodules = true;
-    sha256 = "P1ObRtbRpf3i1d0n/t24Zam5SFXLmZ1p2B5oKkP8USA=";
+    sha256 = "P2ObRtbRpf3i1d0n/t24Zam5SFXLmZ1p2B5oKkP8USA=";
   };
+
+  cmakeFlags = [
+    "-DQV2RAY_DISABLE_AUTO_UPDATE=ON"
+    #"-DQV2RAY_BUILD_INFO='Qv2ray Nixpkgs'"
+    #"-DQV2RAY_BUILD_EXTRA_INFO='(Nixpkgs build) nixpkgs'"
+    "-DQV2RAY_HAS_BUILT_IN_THEMES=ON"
+    "-DEMBED_TRANSLATIONS=ON"
+  ];
 
   buildInputs = [ curl protobuf grpc qtbase qttools c-ares abseil-cpp ];
   nativeBuildInputs = [ cmake ];
@@ -21,4 +31,16 @@ mkDerivation rec {
     homepage = "https://qv2ray.net";
     license = licenses.gpl3Only;
   };
-}
+};
+
+ssr = import ./plugins/ssr.nix {
+  inherit mkDerivation fetchFromGitHub lib cmake;
+};
+
+plugins = [ ssr ];
+
+in
+  symlinkJoin {
+    name = unwrapped.name;
+    paths = [ unwrapped ] ++ plugins;
+  }
