@@ -15,11 +15,10 @@
           v2ray-core = pkgs.callPackage ./pkgs/v2ray-core { };
         };
       }) // {
-        overlay = final: prev:
-          {
-            auth-thu = ./pkgs/auth-thu;
-            qv2ray = ./pkgs/qv2ray;
-            v2ray-core = ./pkgs/v2ray-core;
-          };
+        overlay = final: prev: {
+          auth-thu = prev.callPackage ./pkgs/auth-thu { };
+          qv2ray = prev.callPackage ./pkgs/qv2ray { };
+          v2ray-core = prev.callPackage ./pkgs/v2ray-core { };
+        };
       };
 }
