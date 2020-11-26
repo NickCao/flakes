@@ -15,7 +15,7 @@ mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "适用于 Qv2ray 的 ShadowSocksR 插件";
+    description = "ShadowsocksR plugin for Qv2ray";
     homepage = "https://qv2ray.net";
     license = licenses.gpl3Only;
   };

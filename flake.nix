@@ -9,9 +9,10 @@
           config = { allowUnfree = true; };
         };
       in {
-        packages = {
+        packages = rec {
           auth-thu = pkgs.callPackage ./pkgs/auth-thu { };
-          qv2ray = pkgs.libsForQt5.callPackage ./pkgs/qv2ray { };
+          qv2ray = pkgs.callPackage ./pkgs/qv2ray { };
+          v2ray-core = pkgs.callPackage ./pkgs/v2ray-core { };
         };
       });
 }
