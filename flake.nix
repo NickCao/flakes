@@ -13,12 +13,14 @@
           auth-thu = pkgs.callPackage ./pkgs/auth-thu { };
           qv2ray = pkgs.callPackage ./pkgs/qv2ray { };
           v2ray-core = pkgs.callPackage ./pkgs/v2ray-core { };
+          rait = pkgs.callPackage ./pkgs/rait { };
         };
       }) // {
         overlay = final: prev: {
           auth-thu = prev.callPackage ./pkgs/auth-thu { };
           qv2ray = prev.callPackage ./pkgs/qv2ray { };
           v2ray-core = prev.callPackage ./pkgs/v2ray-core { };
+          rait = prev.callPackage ./pkgs/rait { };
         };
       };
 }
