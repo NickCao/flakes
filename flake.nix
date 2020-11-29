@@ -15,7 +15,7 @@
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
-          overlays = [ self.overlay ( final: prev: prev.prefer-remote-fetch final prev)];
+          overlays = [ self.overlay ];
         };
       in { packages = genPkgs (name: pkgs.${name}); }) // {
         overlay = final: prev:
