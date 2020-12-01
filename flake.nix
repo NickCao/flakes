@@ -14,7 +14,7 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          config = { allowUnfree = true; };
+          config = { allowUnfree = true; allowUnsupportedSystem = true; };
           overlays = [ self.overlay ( final: prev: prev.prefer-remote-fetch final prev)];
         };
       in { packages = genPkgs (name: pkgs.${name}); }) // {
