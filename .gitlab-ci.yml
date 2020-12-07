@@ -3,4 +3,6 @@ image: docker.io/nixpkgs/nix-flakes:latest
 check:
   stage: build
   script:
-    - nix flake check -vL --experimental-features "nix-command flakes"
+    - echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+    - STORE_PATHS=$(nix eval .#packages --json | jq -r .[$(nix eval --impure --expr builtins.currentSystem)][])
+    - nix build --no-link $STORE_PATHS
