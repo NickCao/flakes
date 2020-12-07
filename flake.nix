@@ -23,6 +23,7 @@
         };
       in rec {
         packages = getPackages (name: pkgs.${name});
+        checks = packages;
       }) // {
         overlay = final: prev:
           getPackages (name: final.callPackage (./pkgs + "/${name}") { });
