@@ -4,7 +4,7 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
   outputs = { self, nixpkgs, flake-utils }:
     let
-      genPkgs = val:
+      getPackages = val:
         with builtins;
         listToAttrs (map (name: {
           inherit name;
@@ -22,10 +22,10 @@
             [ self.overlay (final: prev: prev.prefer-remote-fetch final prev) ];
         };
       in rec {
-        packages = genPkgs (name: pkgs.${name});
-        hydraJobs = packages;
+        packages = getPackages (name: pkgs.${name});
+        checks = packages;
       }) // {
         overlay = final: prev:
-          genPkgs (name: final.callPackage (./pkgs + "/${name}") { });
+          getPackages (name: final.callPackage (./pkgs + "/${name}") { });
       };
 }
