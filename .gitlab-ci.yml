@@ -4,5 +4,6 @@ check:
   stage: build
   script:
     - mkdir /etc/nix && echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+    - nix profile install nixpkgs#jq
     - STORE_PATHS=$(nix eval .#packages --json | jq -r .[$(nix eval --impure --expr builtins.currentSystem)][])
     - nix build --no-link $STORE_PATHS
