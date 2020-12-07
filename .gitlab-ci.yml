@@ -3,7 +3,8 @@ image: docker.io/nixpkgs/nix-flakes:latest
 check:
   stage: build
   script:
-    - mkdir /etc/nix && echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+    - mkdir /etc/nix && echo "experimental-features = nix-command flakes ca-references" >> /etc/nix/nix.conf
+    - nix shell nixpkgs#jq -c jq
     - nix profile install nixpkgs#jq
     - STORE_PATHS=$(nix eval .#packages --json | jq -r .[$(nix eval --impure --expr builtins.currentSystem)][])
     - nix build --no-link $STORE_PATHS
