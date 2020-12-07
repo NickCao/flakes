@@ -14,10 +14,17 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          config = { allowUnfree = true; allowUnsupportedSystem = true; };
-          overlays = [ self.overlay ( final: prev: prev.prefer-remote-fetch final prev)];
+          config = {
+            allowUnfree = true;
+            allowUnsupportedSystem = true;
+          };
+          overlays =
+            [ self.overlay (final: prev: prev.prefer-remote-fetch final prev) ];
         };
-      in { packages = genPkgs (name: pkgs.${name}); }) // {
+      in rec {
+        packages = genPkgs (name: pkgs.${name});
+        hydraJobs = packages;
+      }) // {
         overlay = final: prev:
           genPkgs (name: final.callPackage (./pkgs + "/${name}") { });
       };
