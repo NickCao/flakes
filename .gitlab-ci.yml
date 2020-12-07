@@ -1,0 +1,6 @@
+image: docker.io/nixpkgs/nix-flakes:latest
+
+check:
+  stage: build
+  script:
+    - nix flake check --experimental-features "nix-command flakes"
