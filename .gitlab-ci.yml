@@ -7,4 +7,4 @@ check:
     - nix shell nixpkgs#cachix -c cachix authtoken $CACHIX_TOKEN
     - nix shell nixpkgs#cachix -c cachix use nichi
     - nix flake check -vL
-    - nix shell nixpkgs#cachix -c cachix push $(nix eval .#checks.$(nix eval --impure --expr builtins.currentSystem) --json | nix shell nixpkgs#jq -c jq -r .[])
+    - nix shell nixpkgs#cachix -c cachix push nichi $(nix eval .#checks.$(nix eval --impure --expr builtins.currentSystem) --json | nix shell nixpkgs#jq -c jq -r .[])
