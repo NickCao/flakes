@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "mmp-go";
-  version = "1ff4cdd";
+  version = "c8644b4";
 
   src = fetchFromGitHub {
     owner = "Qv2ray";
     repo = "mmp-go";
     rev = "${version}";
-    sha256 = "sha256-G17OwaoN/F+Dhc7y7nDoaDyKzF/A4r5DcUHTo/ZKPh8=";
+    sha256 = "sha256-xJEmE1F5WP5tCeB6RZ4V4AxUgpPhxY9LAbWkH2MAqoE=";
   };
 
   vendorSha256 = "sha256-uVMa8DRMIKGpPrCLuROUBIQGHwxnACGfOyE5MWnKNos=";
