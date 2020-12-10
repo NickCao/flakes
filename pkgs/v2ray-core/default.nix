@@ -28,12 +28,11 @@ in buildGoModule rec {
   buildPhase = ''
     runHook preBuild
     go build -o v2ray v2ray.com/core/main
-    go build -o v2ctl v2ray.com/core/infra/control/main
     runHook postBuild
   '';
 
   installPhase = ''
-    install -Dm755 v2ray v2ctl -t $out/bin
+    install -Dm755 v2ray -t $out/bin
     install -Dm644 $geoip $out/share/v2ray/geoip.dat
     install -Dm644 $geosite $out/share/v2ray/geosite.dat
   '';
