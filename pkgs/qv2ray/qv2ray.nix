@@ -8,9 +8,9 @@ mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Qv2ray";
     repo = "Qv2ray";
-    rev = "699ec5e62ab52b6ce6b8200663967cd0d4f67413";
+    rev = "eccfcaf03f6a9e9a2a49eb361e18a798620b7dad";
     fetchSubmodules = true;
-    sha256 = "sha256-mBxsk9ZB97+0o5Vx/BZ5HnsvJFDCy9PGTzb0kffmbk4=";
+    sha256 = "sha256-jN6cVRI75pfSwemEbCNEjVtVVGA7FULoxLBev6j31PM=";
   };
 
   cmakeFlags = [
