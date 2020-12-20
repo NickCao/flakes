@@ -1,26 +1,26 @@
 { fetchurl, stdenv }:
 
 stdenv.mkDerivation {
-  pname = "v2ray-assets";
-  version = "";
+  name = "v2ray-assets";
   srcs = [
     (fetchurl {
       url =
-        "https://github.com/v2fly/geoip/releases/download/202011260013/geoip.dat";
-      sha256 = "sha256-z1cBFjUcnLRlx8KJzYDIb+amNYe7nu0J3CLcRgQShJI=";
+        "https://github.com/v2fly/geoip/releases/download/202012170018/geoip.dat";
+      sha256 = "sha256-WflraAHhGVHjavkk1CCXJi/fCP/bz7lYDhLvXSfAFcs=";
     })
     (fetchurl {
       url =
-        "https://github.com/v2fly/domain-list-community/releases/download/20201124133241/dlc.dat";
-      sha256 = "sha256-bSpp3Hcq0PmcvAksNgXvgN+0B1jiFBxR0iCUSD2cMYo=";
+        "https://github.com/v2fly/domain-list-community/releases/download/20201220111409/dlc.dat";
+      sha256 = "sha256-jhzu5PKxQcr//tIXp0vxZ7Y0I8oB9lqnTi4xtybWPWI=";
     })
   ];
 
-  phases = [ "installPhase" ];
+  unpackCmd = ''
+    install -m 0644 $curSrc -D src/''${curSrc#*-}
+  '';
+
   installPhase = ''
-    export
-    for file in $srcs; do
-      install -m 0644 $file -D $out/share/v2ray/''${file#*-}
-    done
+    install -m 0644 geoip.dat -D $out/share/v2ray/geoip.dat
+    install -m 0644 dlc.dat -D $out/share/v2ray/geosite.dat
   '';
 }
