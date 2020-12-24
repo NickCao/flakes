@@ -7,7 +7,7 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "v2fly";
     repo = "domain-list-community";
-    rev = "60f5b723e0cc7452388b2821de2413800a990c0d"; # master
+    rev = "60f5b723e0cc7452388b2821de2413800a990c0d"; # heads/master
     sha256 = "167d8bryj0b8v2hlw4g05qvixr4fnwxaw4k56y97dav1z98yywfx";
   };
 
