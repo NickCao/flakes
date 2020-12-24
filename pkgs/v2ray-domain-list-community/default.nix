@@ -17,7 +17,7 @@ buildGoModule {
 
   postInstall = ''
     $out/bin/domain-list-community -datapath $src/data --exportlists=category-ads-all,tld-cn,cn,tld-\!cn,geolocation-\!cn,apple,icloud
-    install -m 644 dlc.dat -D $data/share/v2ray/geosite.dat
+    install -Dm644 dlc.dat $data/share/v2ray/geosite.dat
   '';
 
   meta = with lib; {
