@@ -2,14 +2,14 @@
 
 mkDerivation rec {
   pname = "qv2ray-plugin-ssr";
-  version = "3.0.0-git";
+  version = "2020-12-14";
 
   src = fetchFromGitHub {
     owner = "Qv2ray";
     repo = "QvPlugin-SSR";
-    rev = "663617c";
+    rev = "6f4f87e3377ec3bb335d87464806edaad92bd639"; #dev
     fetchSubmodules = true;
-    sha256 = "sha256-Oomm+kwIOsHU6uc0JADeAg+bwzZ8OnLpL7K/p3LpWME=";
+    sha256 = "14h2pz4sjn5v640s38zgyx4xzbymnwf3i4ylghfscpikgax8vb1w";
   };
 
   nativeBuildInputs = [ cmake ];
