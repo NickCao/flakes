@@ -1,5 +1,15 @@
-{ mkDerivation, fetchFromGitHub, lib, cmake, curl, protobuf, grpc, qtbase
-, qttools, c-ares, abseil-cpp }:
+{ mkDerivation
+, fetchFromGitHub
+, lib
+, cmake
+, curl
+, protobuf
+, grpc
+, qtbase
+, qttools
+, c-ares
+, abseil-cpp
+}:
 
 mkDerivation rec {
   pname = "qv2ray";

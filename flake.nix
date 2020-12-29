@@ -6,26 +6,31 @@
     let
       getPackages = val:
         with builtins;
-        listToAttrs (map (name: {
-          inherit name;
-          value = val name;
-        }) (attrNames (readDir ./pkgs)));
-    in flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          config = {
-            allowUnfree = true;
-            allowUnsupportedSystem = true;
+        listToAttrs (map
+          (name: {
+            inherit name;
+            value = val name;
+          })
+          (attrNames (readDir ./pkgs)));
+    in
+    flake-utils.lib.eachDefaultSystem
+      (system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              allowUnsupportedSystem = true;
+            };
+            overlays =
+              [ self.overlay (final: prev: prev.prefer-remote-fetch final prev) ];
           };
-          overlays =
-            [ self.overlay (final: prev: prev.prefer-remote-fetch final prev) ];
-        };
-      in rec {
-        packages = getPackages (name: pkgs.${name});
-        checks = packages;
-      }) // {
-        overlay = final: prev:
-          getPackages (name: final.callPackage (./pkgs + "/${name}") { });
-      };
+        in
+        rec {
+          packages = getPackages (name: pkgs.${name});
+          checks = packages;
+        }) // {
+      overlay = final: prev:
+        getPackages (name: final.callPackage (./pkgs + "/${name}") { });
+    };
 }
