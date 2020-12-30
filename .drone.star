@@ -1,7 +1,8 @@
 def main(ctx):
     return [
         step("linux", "amd64"),
-        step("linux", "arm64"),
+        step("darwin", "amd64"),
+        #step("linux", "arm64"),
         {
             "kind": "secret",
             "name": "cachix_token",
