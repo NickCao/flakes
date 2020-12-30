@@ -27,7 +27,7 @@
           };
         in
         rec {
-          packages = getPackages (name: pkgs.${name});
+          packages = pkgs.lib.filterAttrs (n: p: p.meta.only or true) (getPackages (name: pkgs.${name}));
           checks = packages;
         }) // {
       overlay = final: prev:

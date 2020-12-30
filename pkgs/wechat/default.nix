@@ -40,8 +40,8 @@ let
     VERSION_CODENAME=eagle
   '';
 in
-writeShellScriptBin "wechat" ''
+(writeShellScriptBin "wechat" ''
   ${wechat-run}/bin/steam-run ${bubblewrap}/bin/bwrap --dev-bind / / \
     --symlink ${os-release} /etc/os-release --symlink ${lsb-release} /etc/lsb-release \
     /usr/share/com.qq.weixin/files/wechat
-''
+'').overrideAttrs (attrs: { meta.only = stdenv.hostPlatform.isi686; })
