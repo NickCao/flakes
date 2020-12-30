@@ -30,7 +30,7 @@ def step(os, arch):
                     "nix shell nixpkgs#cachix -c cachix use nichi",
                     "nix path-info --all > /tmp/store-path-pre-build",
                     "nix flake check -vL",
-                    "bash -c \"comm -13 <(sort /tmp/store-path-pre-build | grep -v '\\\\.drv$') <(nix path-info --all | grep -v '\\\\.drv$' | sort) | cachix push nichi\"",
+                    "bash -c \"comm -13 <(sort /tmp/store-path-pre-build | nix shell nixpkgs#gnugrep -c grep -v '\\\\.drv$') <(nix path-info --all | nix shell nixpkgs#gnugrep -c grep -v '\\\\.drv$' | sort) | nix shell nixpkgs#cachix -c cachix push nichi\"",
                 ],
                 "environment": {
                     "CACHIX_TOKEN": {
