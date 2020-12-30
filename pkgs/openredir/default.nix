@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ autoconf automake libtool lua ];
-  buildPhase = ''
+  preConfigure = ''
     ./autogen.sh
-    ./configure --prefix=$out
-    make
   '';
 }
