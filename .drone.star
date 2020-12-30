@@ -28,7 +28,7 @@ def step(os, arch):
                     "echo 'sandbox = false' >> /etc/nix/nix.conf",
                     "nix shell nixpkgs#cachix -c cachix authtoken $CACHIX_TOKEN",
                     "nix shell nixpkgs#cachix -c cachix use nichi",
-                    "nix path-info --all > /tmp/store-path-pre-build";
+                    "nix path-info --all > /tmp/store-path-pre-build",
                     "nix flake check -vL",
                     "comm -13 <(sort /tmp/store-path-pre-build | grep -v '\.drv$') <(nix path-info --all | grep -v '\.drv$' | sort) | cachix push nichi",
                 ],
