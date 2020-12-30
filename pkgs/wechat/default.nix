@@ -29,9 +29,13 @@ let
 
     installPhase = ''
       ${dpkg}/bin/dpkg -x $src $out
+      sed -i 's/\/etc\/lsb-release/\/tmp\/lsb-release/' $out/opt/apps/com.qq.weixin/files/wechat
+      sed -i 's/\/etc\/os-release/\/tmp\/os-release/' $out/usr/lib/license/libuosdevicea.so
     '';
   };
 in
 writeShellScriptBin "wechat" ''
+  cp ${lsb-release} /tmp/lsb-release
+  cp ${os-release} /tmp/os-release
   ${steam-run-native}/bin/steam-run ${wechat-wrapped}/opt/apps/com.qq.weixin/files/wechat
 ''
