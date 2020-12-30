@@ -23,7 +23,9 @@ def step(os, arch):
                 "name": "check",
                 "image": "docker.io/nixpkgs/nix-flakes:latest",
                 "commands": [
-                    "mkdir /etc/nix && echo 'experimental-features = nix-command flakes ca-references' >> /etc/nix/nix.conf",
+                    "mkdir /etc/nix",
+                    "echo 'experimental-features = nix-command flakes ca-references' >> /etc/nix/nix.conf",
+                    "echo 'sandbox = false' >> /etc/nix/nix.conf",
                     "nix shell nixpkgs#cachix -c cachix authtoken $CACHIX_TOKEN",
                     "nix shell nixpkgs#cachix -c cachix use nichi",
                     "nix flake check -vL",
