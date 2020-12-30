@@ -1,0 +1,20 @@
+kind: pipeline
+type: docker
+name: nix
+steps:
+  - name: check
+    image: docker.io/nixpkgs/nix-flakes:latest
+    commands:
+      - mkdir /etc/nix && echo "experimental-features = nix-command flakes ca-references" >> /etc/nix/nix.conf
+      - nix shell nixpkgs#cachix -c cachix authtoken $CACHIX_TOKEN
+      - nix shell nixpkgs#cachix -c cachix use nichi
+      - nix flake check -vL
+      - nix shell nixpkgs#cachix -c cachix push nichi $(nix eval .#checks.$(nix eval --impure --expr builtins.currentSystem) --json | nix shell nixpkgs#jq -c jq -r .[])
+    environment:
+      CACHIX_TOKEN:
+        from_secret: cachix_token
+
+---
+kind: secret
+name: cachix_token
+data: phZuIBNAXrxnaa84cTWkm2OBR3OhdZ1Du3e3iJtEzp1CtVXCc4t52Afz6H5wrJuS/b9s24udCCDF6gqw+G1E6vRH2R0Ryz5RSZJn0UPRfT8aeMFHcHSLQ1m9oFe3p8bS+RErNrc1TEytop90xuP/RyIgTSHXwUN0ras+L32GSAAy4dRWhq9LFZ4DWmSWwJJcWr+oVEcGsLZ4EfOCEjXKB+L/1vmRVqnKAnNAfM+tqmBEnEY/q+MfDQyOuZuac2pjK/71/yU=
