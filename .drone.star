@@ -25,7 +25,7 @@ def step(os, arch, image):
                 "commands": [
                     "nix-env -iA nixpkgs.nixFlakes",
                     "echo 'experimental-features = nix-command flakes ca-references' >> /etc/nix/nix.conf",
-                    "nix profile install nixpkgs#cachix nixpkgs#gnugrep",
+                    "nix profile install nixpkgs#cachix nixpkgs#gnugrep nixpkgs#git",
                     "cachix authtoken $CACHIX_TOKEN",
                     "cachix use nichi",
                     "nix path-info --all > /tmp/store-path-pre-build",
