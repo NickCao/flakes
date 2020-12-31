@@ -5,11 +5,11 @@ let
     extraPkgs = pkgs: [
       (stdenv.mkDerivation rec {
         pname = "wechat-wrapped";
-        version = "2.0.0";
+        version = "2.0.0-2";
 
         src = fetchurl {
           url = "https://cdn-package-store6.deepin.com/appstore/pool/appstore/c/com.qq.weixin/com.qq.weixin_${version}_amd64.deb";
-          sha256 = "0l5i3nvl241y4cwwv733b170bjqfipybm7ky277bhkm49jph808b";
+          sha256 = "0kwk4b97d1i96bzms5zkw0zgwa7ba5l1bv16pvgbzbhj8agxsyzm";
         };
 
         phases = [ "installPhase" ];
