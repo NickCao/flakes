@@ -1,7 +1,7 @@
 def main(ctx):
     return [
-        step("linux", "amd64", "nixery.dev/shell/nixflakes:latest"),
-        step("linux", "arm64", "nixery.dev/arm64/shell/nixflakes:latest"),
+        step("linux", "amd64", "docker.io/nixos/nix"),
+        step("linux", "arm64", "docker.io/nickcao/nix-aarch64"),
         {
             "kind": "secret",
             "name": "cachix_token",
@@ -23,14 +23,14 @@ def step(os, arch, image):
                 "name": "check",
                 "image": image,
                 "commands": [
-                    "mkdir /etc/nix",
+                    "nix-env -iA nixpkgs.nixFlakes",
                     "echo 'experimental-features = nix-command flakes ca-references' >> /etc/nix/nix.conf",
-                    "echo 'sandbox = false' >> /etc/nix/nix.conf",
-                    "nix shell nixpkgs#cachix -c cachix authtoken $CACHIX_TOKEN",
-                    "nix shell nixpkgs#cachix -c cachix use nichi",
+                    "nix profile install nixpkgs#cachix nixpkgs#gnugrep",
+                    "cachix authtoken $CACHIX_TOKEN",
+                    "cachix use nichi",
                     "nix path-info --all > /tmp/store-path-pre-build",
                     "nix flake check -vL",
-                    "bash -c \"comm -13 <(sort /tmp/store-path-pre-build | nix shell nixpkgs#gnugrep -c grep -v '\\\\.drv$') <(nix path-info --all | nix shell nixpkgs#gnugrep -c grep -v '\\\\.drv$' | sort) | nix shell nixpkgs#cachix -c cachix push nichi\"",
+                    "bash -c \"comm -13 <(sort /tmp/store-path-pre-build | grep -v '\\\\.drv$') <(nix path-info --all | grep -v '\\\\.drv$' | sort) | cachix push nichi\"",
                 ],
                 "environment": {
                     "CACHIX_TOKEN": {
