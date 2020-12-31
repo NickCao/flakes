@@ -1,4 +1,4 @@
-{ mkDerivation, fetchFromGitHub, lib, cmake }:
+{ mkDerivation, fetchFromGitHub, lib, cmake, libsodium, libuv }:
 
 mkDerivation rec {
   pname = "qv2ray-plugin-ssr";
@@ -12,7 +12,14 @@ mkDerivation rec {
     sha256 = "14h2pz4sjn5v640s38zgyx4xzbymnwf3i4ylghfscpikgax8vb1w";
   };
 
+  cmakeFlags = [
+    "-DUSE_SYSTEM_SODIUM=ON"
+    "-DUSE_SYSTEM_LIBUV=ON"
+    "-DLibUV_LIBRARY=${libuv}/lib/libuv.so"
+  ];
+
   nativeBuildInputs = [ cmake ];
+  buildInputs = [ libsodium libuv ];
 
   meta = with lib; {
     description = "ShadowsocksR plugin for Qv2ray";
