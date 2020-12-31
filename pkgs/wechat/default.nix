@@ -1,4 +1,4 @@
-{ stdenv, writeShellScriptBin, writeText, fetchurl, steam, dpkg, bubblewrap }:
+{ stdenv, writeShellScriptBin, writeText, fetchurl, steam, dpkg, bubblewrap, lib }:
 let
   wechat-run = (steam.override {
     nativeOnly = true;
@@ -19,6 +19,10 @@ let
           mv usr/ $out/
           mv opt/apps/com.qq.weixin/ $out/share/
         '';
+
+        meta = with lib; {
+          license = licenses.unfreeRedistributable;
+        };
       })
     ];
   }).run;

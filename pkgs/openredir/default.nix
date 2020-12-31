@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, automake, autoconf, libtool, lua }:
+{ stdenv, fetchFromGitHub, automake, autoconf, libtool, lua, lib }:
 stdenv.mkDerivation rec {
   pname = "openredir";
   version = "1.0";
@@ -14,4 +14,10 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     ./autogen.sh
   '';
+
+  meta = with lib; {
+    homepage = "https://github.com/lilydjwg/openredir";
+    description = "redirect file open operations via LD_PRELOAD";
+    license = licenses.bsd2;
+  };
 }
