@@ -1,7 +1,7 @@
 def main(ctx):
     return [
-        step("linux", "amd64", "nixery.dev/bash/nixflakes"),
-        step("linux", "arm64", "nixery.dev/arm64/bash/nixflakes"),
+        step("linux", "amd64", "nixery.dev/shell/nixflakes"),
+        step("linux", "arm64", "nixery.dev/arm64/shell/nixflakes"),
         {
             "kind": "secret",
             "name": "cachix_token",
