@@ -1,7 +1,7 @@
 def main(ctx):
     return [
-        step("linux", "amd64"),
-        #step("linux", "arm64"),
+        step("linux", "amd64", "nixery.dev/bash/nixflakes"),
+        step("linux", "arm64", "nixery.dev/arm64/bash/nixflakes"),
         {
             "kind": "secret",
             "name": "cachix_token",
@@ -9,7 +9,7 @@ def main(ctx):
         },
     ]
 
-def step(os, arch):
+def step(os, arch, image):
     return {
         "kind": "pipeline",
         "type": "docker",
@@ -21,7 +21,7 @@ def step(os, arch):
         "steps": [
             {
                 "name": "check",
-                "image": "docker.io/nixpkgs/nix-flakes:latest",
+                "image": image,
                 "commands": [
                     "mkdir /etc/nix",
                     "echo 'experimental-features = nix-command flakes ca-references' >> /etc/nix/nix.conf",
