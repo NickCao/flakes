@@ -31,6 +31,6 @@
           checks = packages;
         }) // {
       overlay = final: prev:
-        getPackages (name: final.callPackage (./pkgs + "/${name}") { }) // { pam = prev.pam.overrideAttrs (attrs: { patches = [ ]; }); };
+        getPackages (name: final.callPackage (./pkgs + "/${name}") { });
     };
 }
