@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "mmp-go";
-  version = "2020-12-22";
+  version = "2021-01-07";
 
   src = fetchFromGitHub {
     owner = "Qv2ray";
     repo = "mmp-go";
-    rev = "0157e09b009ccb077555ece10fa664d364629523"; # heads/main
-    sha256 = "0rxlzb5bm1l2nz6i936ashzgzlvjvax2fg1g52538g7mxqnbd0vp";
+    rev = "00d3b64c272922ed7743fdc11381e1f2659760fd"; # heads/main
+    sha256 = "1n08bmw0kyjwqi7lw8nqi32i58ligl9ki4a00mck6f1jybk0ycs3";
   };
 
-  vendorSha256 = "sha256-uVMa8DRMIKGpPrCLuROUBIQGHwxnACGfOyE5MWnKNos=";
+  vendorSha256 = "sha256-LnKhfxZiaWQspfF/wMVA9ApnoxSBBzo7HFc5pGoG+CY=";
 
   meta = with lib; {
     description =

@@ -2,16 +2,16 @@
 
 buildGoModule {
   pname = "v2ray-domain-list-community";
-  version = "2020-12-23";
+  version = "2021-01-11";
 
   src = fetchFromGitHub {
     owner = "v2fly";
     repo = "domain-list-community";
-    rev = "60f5b723e0cc7452388b2821de2413800a990c0d"; # heads/master
-    sha256 = "167d8bryj0b8v2hlw4g05qvixr4fnwxaw4k56y97dav1z98yywfx";
+    rev = "c278c257243aae63ea61343522706a40b36f14f0"; # heads/master
+    sha256 = "028r82wh3yvb4jy5rz9vgmbyzw6k13mcnqnsi6b7l52psyj0lbhi";
   };
 
-  vendorSha256 = "sha256-6YIRA6xBFrb5s3drVTSPLvN0wKdtgNvSCEZ8r6samxw=";
+  vendorSha256 = "sha256-bWEJ6PgkmQo5ZoZqt2FU7i9x4lPo70DbZ2FSwdnHlxw=";
 
   outputs = [ "out" "data" ];
 
