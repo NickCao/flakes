@@ -1,36 +1,35 @@
 {
   description = "a nix derivation collection by nickcao";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-  outputs = { self, nixpkgs, flake-utils }:
-    let
-      getPackages = val:
-        with builtins;
-        listToAttrs (map
-          (name: {
-            inherit name;
-            value = val name;
-          })
-          (attrNames (readDir ./pkgs)));
-    in
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    flake-utils.url = "github:numtide/flake-utils";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sops-nix = {
+      url = github:Mic92/sops-nix;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+  outputs = { self, nixpkgs, flake-utils, home-manager, sops-nix }:
     flake-utils.lib.eachDefaultSystem
       (system:
         let
           pkgs = import nixpkgs {
             inherit system;
-            config = {
-              allowUnfree = true;
-              allowUnsupportedSystem = true;
-            };
-            overlays =
-              [ self.overlay (final: prev: prev.prefer-remote-fetch final prev) ];
+            config.allowUnfree = true;
+            overlays = [ self.overlay ];
           };
         in
         rec {
-          packages = pkgs.lib.filterAttrs (n: p: p.meta.only or true) (getPackages (name: pkgs.${name}));
+          packages = (import ./pkgs).getPackages pkgs;
           checks = packages;
-        }) // {
-      overlay = final: prev:
-        getPackages (name: final.callPackage (./pkgs + "/${name}") { });
+        })
+    // {
+      overlay = (import ./pkgs).overlay;
+      nixosConfigurations.local = import ./nixos {
+        inherit self nixpkgs home-manager sops-nix;
+      };
     };
 }

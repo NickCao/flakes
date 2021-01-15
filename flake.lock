@@ -15,13 +15,33 @@
         "type": "github"
       }
     },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1610454723,
+        "narHash": "sha256-krxWl7xc0dXNImghYdPHsPPqWfdqJvlUk3VKCACzj9o=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "4b772fd6988dd206f0ed4cb1b2d7c4c6d4f0f455",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1610367525,
-        "narHash": "sha256-7kmRpawkC3692V+r9MCEpP0FqQFmkKV11bgNML+9l0w=",
+        "lastModified": 1610647549,
+        "narHash": "sha256-XGuRhbHcpv11MHfxfceUoYsWXaY529BP5O1hfeNiFng=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "187af93c1972b7c1930bc48a91c42a22ecba86ec",
+        "rev": "2416b9da70719402edd473b0bc26bd879c6a6a9c",
         "type": "github"
       },
       "original": {
@@ -34,7 +54,29 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs",
+        "sops-nix": "sops-nix"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1610083436,
+        "narHash": "sha256-Hw7AitbnNq5XqDl6OKqqzB4xz7UqQqrA69BMsCu4Doo=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "4a7bf1c67c987ea65806d0e21e15c747102caaac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     }
   },
