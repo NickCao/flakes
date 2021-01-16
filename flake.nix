@@ -26,10 +26,11 @@
           packages = (import ./pkgs).getPackages pkgs;
           checks = packages;
         })
-    // {
+    // rec {
       overlay = (import ./pkgs).overlay;
       nixosConfigurations.local = import ./nixos {
         inherit self nixpkgs home-manager sops-nix;
       };
+      pkgs = nixosConfigurations.local.pkgs;
     };
 }
