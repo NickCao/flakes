@@ -25,11 +25,6 @@ in
 
   nix = {
     autoOptimiseStore = true;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 15d";
-    };
     binaryCaches =
       [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://r.nichi.co/https:/cache.nixos.org" "https://nichi.cachix.org" ];
     binaryCachePublicKeys = [ "nichi.cachix.org-1:ZWn4Jui6odEcNEMjcHM/WXbDSVO4Ai+jrzWHf+pqwj0=" ];

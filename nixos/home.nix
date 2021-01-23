@@ -101,6 +101,7 @@ in
       shellInit = ''
         set fish_greeting
         set -x PATH /home/nickcao/Bin /home/nickcao/.local/bin $PATH
+        set -x SOPS_PGP_FP 068A56CEF48FA2C1
       '';
       shellAliases = {
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
