@@ -21,7 +21,7 @@ in
 
   sops.defaultSopsFile = ./secrets.yaml;
   sops.secrets.rait = {};
-  sops.sshKeyPaths = ["/etc/ssh/ssh_host_rsa_key"];
+  sops.sshKeyPaths = ["/var/lib/ssh/ssh_host_rsa_key"];
 
   nix = {
     autoOptimiseStore = true;
@@ -50,6 +50,8 @@ in
     networkmanager.extraConfig = ''
       [main]
       rc-manager = unmanaged
+      [keyfile]
+      path = /var/lib/NetworkManager/system-connections
     '';
     nameservers = [ "127.0.0.53" ];
   };
