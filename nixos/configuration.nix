@@ -13,15 +13,15 @@ in
 {
   imports = [ ./hardware.nix ];
 
-  home-manager ={
+  home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     users.nickcao = import ./home.nix;
   };
 
   sops.defaultSopsFile = ./secrets.yaml;
-  sops.secrets.rait = {};
-  sops.sshKeyPaths = ["/var/lib/ssh/ssh_host_rsa_key"];
+  sops.secrets.rait = { };
+  sops.sshKeyPaths = [ "/var/lib/ssh/ssh_host_rsa_key" ];
 
   nix = {
     autoOptimiseStore = true;
@@ -212,6 +212,7 @@ in
     };
   };
 
+  environment.etc."machine-id".text = "c9943e5a9c6c416184c4b49c733607b4";
   environment.etc."rait/rait.conf".source = "/run/secrets/rait";
   environment.etc."rait/babeld.conf".text = ''
     random-id true

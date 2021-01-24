@@ -12,9 +12,19 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
+    fsType = "tmpfs";
+  };
+
+  fileSystems."/nix" = {
     device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
     fsType = "btrfs";
-    options = [ "subvol=root" "noatime" "compress-force=zstd" ];
+    options = [ "subvol=nix" "noatime" "compress-force=zstd" ];
+  };
+
+  fileSystems."/var" = {
+    device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
+    fsType = "btrfs";
+    options = [ "subvol=var" "noatime" "compress-force=zstd" ];
   };
 
   fileSystems."/boot" = {
