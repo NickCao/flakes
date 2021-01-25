@@ -26,7 +26,7 @@ in
   nix = {
     autoOptimiseStore = true;
     binaryCaches =
-      [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://r.nichi.co/https:/cache.nixos.org" "https://nichi.cachix.org" ];
+      [ "https://mirrors4.tuna.tsinghua.edu.cn/nix-channels/store" "https://r.nichi.co/https:/cache.nixos.org" "https://nichi.cachix.org" ];
     binaryCachePublicKeys = [ "nichi.cachix.org-1:ZWn4Jui6odEcNEMjcHM/WXbDSVO4Ai+jrzWHf+pqwj0=" ];
     trustedUsers = [ "root" "nickcao" ];
     package = pkgs.nixFlakes;
