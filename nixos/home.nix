@@ -62,7 +62,7 @@ let
   };
 in
 {
-  home.packages = with pkgs; [ update-nix-fetchgit drone-cli buildifier ];
+  home.packages = with pkgs; [ sops update-nix-fetchgit drone-cli buildifier ];
   programs = {
     direnv = {
       enable = true;
