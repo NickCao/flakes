@@ -80,18 +80,7 @@ in
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_latest.extend
-      (self: super: {
-        virtualbox = super.virtualbox.overrideAttrs (attrs: {
-          patches = [
-            (builtins.fetchurl {
-              url = "https://pb.nichi.co/steak-denial-penalty";
-              sha256 =
-                "sha256:04wp9fggyid8drfc4z7rd9bq56z54532js7azw5nnbydhjxaigwd";
-            })
-          ];
-        });
-      });
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = pkgs.lib.mkAfter [
       "mitigations=off"
       "nowatchdog"
@@ -141,8 +130,8 @@ in
           domain = "gitlab.freedesktop.org";
           owner = "pipewire";
           repo = "pipewire";
-          rev = "4b076549f743b8fd6d1b0346c9b878282b88ca6a";
-          sha256 = "sha256-xLilT2zxzf+WK1JEuQNxVvpj3Ma9QTGO43E42I0bAHs=";
+          rev = "0.3.19";
+          sha256 = "sha256-9zMDdy3Uqr4Ada5uMRuqTpzr5BjSDY5UjTo4g2InezE=";
         };
         buildInputs = attrs.buildInputs ++ [ pkgs.fdk_aac ];
       });
