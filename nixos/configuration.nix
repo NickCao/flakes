@@ -21,6 +21,7 @@ in
 
   sops.defaultSopsFile = ./secrets.yaml;
   sops.secrets.rait = { };
+  sops.secrets.machine-id = { };
   sops.sshKeyPaths = [ "/var/lib/ssh/ssh_host_rsa_key" ];
 
   nix = {
@@ -215,7 +216,7 @@ in
     };
   };
 
-  environment.etc."machine-id".text = "c9943e5a9c6c416184c4b49c733607b4";
+  environment.etc."machine-id".source = "/run/secrets/machine-id";
   environment.etc."rait/rait.conf".source = "/run/secrets/rait";
   environment.etc."rait/babeld.conf".text = ''
     random-id true
