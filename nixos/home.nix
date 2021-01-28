@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   dark = {
     bright = {
@@ -63,6 +63,9 @@ let
 in
 {
   home.packages = with pkgs; [ sops update-nix-fetchgit drone-cli buildifier ];
+  systemd.user.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+  };
   programs = {
     direnv = {
       enable = true;
@@ -144,6 +147,23 @@ in
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
+    };
+  };
+  home = {
+    file = {
+      ".ssh/authorized_keys" = {
+        text = "";
+      };
+      ".ssh/config" = {
+        text = ''
+          Match User core
+            StrictHostKeyChecking=no
+            UserKnownHostsFile=/dev/null
+          Host *
+            CheckHostIP=no
+            ServerAliveInterval 60
+        '';
+      };
     };
   };
   xdg = {

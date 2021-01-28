@@ -123,6 +123,7 @@ in
   };
 
   services = {
+    gnome3.core-utilities.enable = false;
     pipewire = {
       enable = true;
       package = pkgs.pipewire.overrideAttrs (attrs: {
@@ -264,7 +265,6 @@ in
     python3
     hugo
     nfs-utils
-    google-cloud-sdk
     v2ray.core
     v2ray-geoip
     v2ray-domain-list-community
@@ -288,33 +288,15 @@ in
     wireguard-tools
     smartmontools
     numix-icon-theme-circle
-    gnome3.gnome-tweak-tool
-    gnomeExtensions.appindicator
     chromium
+    minio-client
     jetbrains.clion
     jetbrains.goland
-    minio-client
-  ];
-
-  environment.gnome3.excludePackages = with pkgs.gnome3; [
-    geary
-    gnome-terminal
-    gnome-calculator
-    gnome-calendar
-    gnome-characters
-    gnome-clocks
-    gnome-contacts
-    gnome-font-viewer
-    gnome-maps
-    gnome-logs
-    gnome-music
-    gnome-weather
-    simple-scan
-    gedit
-    totem
-    yelp
-    cheese
-    pkgs.gnome-connections
+    gnome3.gnome-tweak-tool
+    gnome3.nautilus
+    gnome3.gnome-screenshot
+    gnome3.baobab
+    gnomeExtensions.appindicator
   ];
 
   fonts.fonts = with pkgs; [
