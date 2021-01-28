@@ -108,7 +108,6 @@ in
     cpu = { intel = { updateMicrocode = true; }; };
     bluetooth = { enable = true; };
     nvidia = {
-      #nvidiaPersistenced = true;
       prime = {
         offload.enable = true;
         intelBusId = "PCI:0:2:0";
@@ -243,13 +242,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    (pkgs.writeShellScriptBin "prime-run" ''
-      export __NV_PRIME_RENDER_OFFLOAD=1
-      export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export __VK_LAYER_NV_optimus=NVIDIA_only
-      exec -a "$0" "$@"
-    '')
+    prime-run
     steam-run-native
     cachix
     ldns
@@ -271,16 +264,6 @@ in
     qv2ray
     rait
     mpv
-    (pkgs.vscode-with-extensions.override {
-      vscodeExtensions = (with pkgs.vscode-extensions;
-        [ redhat.vscode-yaml bbenoist.Nix ]
-        ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [{
-          name = "terraform";
-          publisher = "hashicorp";
-          version = "2.3.0";
-          sha256 = "sha256-GJv6zSEwv6aAgyz8h8JHKdMjOV77lyQQwGVNky3CJhk=";
-        }]);
-    })
     terraform-ls
     yubikey-manager
     tdesktop
@@ -297,6 +280,9 @@ in
     gnome3.gnome-screenshot
     gnome3.baobab
     gnomeExtensions.appindicator
+    (pkgs.vscode-with-extensions.override {
+      vscodeExtensions = with pkgs.vscode-extensions;[ redhat.vscode-yaml bbenoist.Nix pkgs.vscode-extension-terraform ];
+    })
   ];
 
   fonts.fonts = with pkgs; [
