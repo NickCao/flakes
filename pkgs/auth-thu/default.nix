@@ -15,6 +15,10 @@ buildGoModule rec {
 
   subPackages = [ "cli" ];
 
+  prePatch = ''
+    substituteInPlace cli/main.go --replace ".auth-thu" ".config/auth-thu"
+  '';
+
   postInstall = ''
     mv $out/bin/cli $out/bin/auth-thu
   '';
