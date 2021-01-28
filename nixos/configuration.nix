@@ -280,8 +280,8 @@ in
     gnome3.gnome-screenshot
     gnome3.baobab
     gnomeExtensions.appindicator
-    (pkgs.vscode-with-extensions.override {
-      vscodeExtensions = with pkgs.vscode-extensions;[ redhat.vscode-yaml bbenoist.Nix pkgs.vscode-extension-terraform ];
+    (vscode-with-extensions.override {
+      vscodeExtensions = with vscode-extensions;[ redhat.vscode-yaml bbenoist.Nix vscode-extension-terraform ];
     })
   ];
 
