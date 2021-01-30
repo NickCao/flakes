@@ -109,14 +109,6 @@ in
   };
   xdg = {
     configFile = {
-      "autostart/gnome-keyring-ssh.desktop" = {
-        text = ''
-          [Desktop Entry]
-          Type=Application
-          Name=gnome-keyring-ssh
-          Exec=${pkgs.coreutils}/bin/true
-        '';
-      };
       "go/env" = {
         text = ''
           GO111MODULE=on

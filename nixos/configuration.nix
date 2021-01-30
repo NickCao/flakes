@@ -123,6 +123,7 @@ in
 
   services = {
     gnome3.core-utilities.enable = false;
+    gnome3.gnome-keyring.enable = pkgs.lib.mkForce false;
     pipewire = {
       enable = true;
       package = pkgs.pipewire.overrideAttrs (attrs: {
