@@ -242,6 +242,15 @@ in
     wantedBy = [ "multi-user.target" ];
   };
 
+  security.pam.u2f = {
+    enable = true;
+    authFile = pkgs.writeText "u2f-mappings" ''
+      nickcao:8KGtTGZAEfnsqPDCY3MQFv3Ef9njqy39JHgc5WDC8aiekH1mGS5hq1XmT+og8TpaxgMPzHs7G/oa58RyLw/Odw==,At2tDFQSBa+P+GPNVLPzVzHpVOfS4l+mJOFhCThAf2VEeBVf315Wocy9kFRDr05QdGPlwcOkXOao4Dja6cl7/w==,es256,+presence
+    '';
+    control = "sufficient";
+    cue = true;
+  };
+
   environment.systemPackages = with pkgs; [
     prime-run
     steam-run-native
