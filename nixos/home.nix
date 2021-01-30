@@ -98,10 +98,10 @@ in
       ".ssh/config" = {
         text = ''
           Match User core
-            StrictHostKeyChecking=no
-            UserKnownHostsFile=/dev/null
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
           Host *
-            CheckHostIP=no
+            CheckHostIP no
             ServerAliveInterval 60
         '';
       };
