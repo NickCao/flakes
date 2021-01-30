@@ -3,7 +3,7 @@ let
   toTOMLDrv = v: (pkgs.formats.toml { }).generate "" v;
 in
 {
-  home.packages = with pkgs; [ sops update-nix-fetchgit drone-cli buildifier ];
+  home.packages = with pkgs; [ sops update-nix-fetchgit drone-cli buildifier kubectl kubernetes-helm ];
   systemd.user.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
   };
@@ -109,6 +109,26 @@ in
   };
   xdg = {
     configFile = {
+      "autostart/telegramdesktop.desktop"= {
+        text = ''
+          [Desktop Entry]
+          Version=1.0
+          Name=Telegram Desktop
+          Type=Application
+          Exec=${pkgs.tdesktop}/bin/telegram-desktop -workdir ${config.xdg.dataHome}/TelegramDesktop/ -autostart
+          Terminal=false
+        '';
+      };
+      "autostart/qv2ray.desktop"= {
+        text = ''
+          [Desktop Entry]
+          Version=1.0
+          Name=Qv2ray
+          Type=Application
+          Exec=${pkgs.qv2ray}/bin/qv2ray
+          Terminal=false
+        '';
+      };
       "go/env" = {
         text = ''
           GO111MODULE=on
