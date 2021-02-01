@@ -109,7 +109,7 @@ in
   };
   xdg = {
     configFile = {
-      "autostart/telegramdesktop.desktop"= {
+      "autostart/telegramdesktop.desktop" = {
         text = ''
           [Desktop Entry]
           Version=1.0
@@ -119,7 +119,7 @@ in
           Terminal=false
         '';
       };
-      "autostart/qv2ray.desktop"= {
+      "autostart/qv2ray.desktop" = {
         text = ''
           [Desktop Entry]
           Version=1.0
