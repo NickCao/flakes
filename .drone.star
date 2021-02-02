@@ -30,7 +30,6 @@ def step(os, arch, image):
                     "cachix use nichi",
                     "nix path-info --all > /tmp/store-path-pre-build",
                     "nix flake check -vL",
-                    "nix build .#nixosConfigurations.local.config.system.build.toplevel -vL",
                     "bash -c \"comm -13 <(sort /tmp/store-path-pre-build | grep -v '\\\\.drv$') <(nix path-info --all | grep -v '\\\\.drv$' | sort) | cachix push nichi\"",
                 ],
                 "environment": {
