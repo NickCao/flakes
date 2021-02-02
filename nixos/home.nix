@@ -3,7 +3,7 @@ let
   toTOMLDrv = v: (pkgs.formats.toml { }).generate "" v;
 in
 {
-  home.packages = with pkgs; [ sops update-nix-fetchgit drone-cli buildifier kubectl kubernetes-helm ];
+  home.packages = with pkgs; [ sops update-nix-fetchgit drone-cli buildifier kubectl kubernetes-helm cabal-install ghc ];
   systemd.user.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
   };

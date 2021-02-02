@@ -1,6 +1,6 @@
-{ self, nixpkgs, home-manager, sops-nix }:
+{ system, self, nixpkgs, home-manager, sops-nix }:
 nixpkgs.lib.nixosSystem {
-  system = "x86_64-linux";
+  inherit system;
   modules = [
     ./configuration.nix
     home-manager.nixosModules.home-manager

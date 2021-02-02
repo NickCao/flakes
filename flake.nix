@@ -29,6 +29,7 @@
     // rec {
       overlay = (import ./pkgs).overlay;
       nixosConfigurations.local = import ./nixos {
+        system = "x86_64-linux";
         inherit self nixpkgs home-manager sops-nix;
       };
       pkgs = nixosConfigurations.local.pkgs;
