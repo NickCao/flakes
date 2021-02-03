@@ -80,11 +80,7 @@ in
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_testing.extend (self: super: {
-      virtualbox = super.virtualbox.overrideAttrs (attrs: {
-        patches = [ (pkgs.fetchpatch { url = "https://pb.nichi.co/raise-plate-quick"; sha256 = "sha256-B0gq1v9/U66Bl+0a1jsXOgiNI+RwK6WZ/Pb6fyjhDsY="; }) ];
-      });
-    });
+    kernelPackages = pkgs.linuxPackages_testing;
     kernelParams = pkgs.lib.mkAfter [
       "mitigations=off"
       "nowatchdog"
