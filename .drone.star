@@ -28,7 +28,7 @@ def step(os, arch, image):
                     "nix profile install github:NixOS/nixpkgs/nixos-unstable-small#cachix github:NixOS/nixpkgs/nixos-unstable-small#git",
                     "cachix authtoken $CACHIX_TOKEN",
                     "cachix use nichi",
-                    "cachix watch-exec nichi nix flake check -vL",
+                    "cachix watch-exec nichi -- nix flake check -vL",
                 ],
                 "environment": {
                     "CACHIX_TOKEN": {
