@@ -25,12 +25,10 @@ def step(os, arch, image):
                 "commands": [
                     "nix-env -iA nixpkgs.nixFlakes",
                     "echo 'experimental-features = nix-command flakes ca-references' >> /etc/nix/nix.conf",
-                    "nix profile install nixpkgs#cachix nixpkgs#gnugrep nixpkgs#git nixpkgs#bash",
+                    "nix profile install github:NixOS/nixpkgs/nixos-unstable-small#cachix github:NixOS/nixpkgs/nixos-unstable-small#git",
                     "cachix authtoken $CACHIX_TOKEN",
                     "cachix use nichi",
-                    "nix path-info --all > /tmp/store-path-pre-build",
-                    "nix flake check -vL",
-                    "bash -c \"comm -13 <(sort /tmp/store-path-pre-build | grep -v '\\\\.drv$') <(nix path-info --all | grep -v '\\\\.drv$' | sort) | cachix push nichi\"",
+                    "cachix watch-exec nichi nix flake check -vL",
                 ],
                 "environment": {
                     "CACHIX_TOKEN": {

@@ -8,7 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
-      url = github:Mic92/sops-nix;
+      url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -25,8 +25,7 @@
         rec {
           packages = (import ./pkgs).getPackages pkgs;
           checks = packages;
-        })
-    // rec {
+        }) // rec {
       overlay = (import ./pkgs).overlay;
       nixosConfigurations.local = import ./nixos {
         system = "x86_64-linux";

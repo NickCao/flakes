@@ -205,19 +205,22 @@ in
     };
   };
 
-  environment.etc."machine-id".text = "34df62c767c846d5a93eb2d6f05d9e1d";
-  environment.etc."rait/rait.conf".source = "/run/secrets/rait";
-  environment.etc."rait/babeld.conf".text = ''
-    random-id true
-    export-table 254
-    local-path-readwrite /run/babeld.ctl
+  environment.etc = {
+    "nixos/flake.nix".source = config.users.users.nickcao.home + "/Projects/flakes/flake.nix";
+    "machine-id".text = "34df62c767c846d5a93eb2d6f05d9e1d";
+    "rait/rait.conf".source = config.sops.secrets.rait.path;
+    "rait/babeld.conf".text = ''
+      random-id true
+      export-table 254
+      local-path-readwrite /run/babeld.ctl
 
-    # to make babeld happy
-    interface foo
+      # to make babeld happy
+      interface foo
 
-    redistribute ip 2a0c:b641:690::/44 ge 64 le 64 allow
-    redistribute local deny
-  '';
+      redistribute ip 2a0c:b641:690::/44 ge 64 le 64 allow
+      redistribute local deny
+    '';
+  };
 
   systemd.services.gravity = {
     description = "the gravity overlay network";
