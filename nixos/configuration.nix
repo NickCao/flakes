@@ -255,6 +255,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    lens
     prime-run
     steam-run-native
     cachix
@@ -294,7 +295,7 @@ in
     gnome3.baobab
     gnomeExtensions.appindicator
     (vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions;[ redhat.vscode-yaml bbenoist.Nix justusadam.language-haskell haskell.haskell vscode-extension-terraform ];
+      vscodeExtensions = with vscode-extensions;[ redhat.vscode-yaml bbenoist.Nix vscode-extension-terraform ];
     })
   ];
 
