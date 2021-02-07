@@ -176,13 +176,13 @@ in
           "${smartdns-china-list}/google.china.smartdns.conf"
         ];
         nameserver =
-          [ "/.cn/china" "/.tsinghua.edu.cn/china" "/cache.nixos.org/china" ];
+          [ "/cache.nixos.org/china" "/.6in4.dev/china" ];
         bind = [ "127.0.0.53:53" ];
         server = [
           "127.0.0.1 -group china -exclude-default-group"
           "2a0c:b641:69c:f254:0:5:0:3"
         ];
-        server-https = [ "https://1.0.0.1/dns-query" ];
+        server-https = [ "https://101.6.6.6:8443/dns-query" ];
       };
     };
   };
