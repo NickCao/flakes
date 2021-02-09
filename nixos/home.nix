@@ -6,6 +6,7 @@ in
   home.packages = with pkgs; [ sops update-nix-fetchgit drone-cli buildifier kubectl kubernetes-helm ];
   systemd.user.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
+    KO_DOCKER_REPO = "quay.io/nickcao";
   };
   programs = {
     direnv = {
