@@ -39,7 +39,15 @@ in
     '';
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "vscode-with-extensions"
+    "vscode"
+    "steam"
+    "steam-original"
+    "steam-runtime"
+    "nvidia-x11"
+    "nvidia-settings"
+  ];
 
   networking = {
     hostName = "local";
