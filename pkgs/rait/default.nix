@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "18ahpsfisf21zaw3jc1k82nc57i58cvy294k2dfw02wxqh99p3ml";
   };
 
-  vendorSha256 = "sha256-NfUDR7yU1S/ixEQgBQfC6gl6EJlrATvojPQD2AxIMsg=";
+  vendorSha256 = "sha256-55Zu1g+pwTt6dU1QloxfFkG2dbnK5gg84WvRhz2ND3M=";
 
   subPackages = [ "cmd/rait" ];
 
