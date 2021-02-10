@@ -14,6 +14,7 @@ in
   programs = {
     vim = {
       enable = true;
+      plugins = with pkgs.vimPlugins; [ vim-lastplace ];
       extraConfig = ''
         filetype indent off
         set viminfo+=n${config.xdg.cacheHome}/viminfo
