@@ -266,7 +266,6 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    lens
     prime-run
     steam-run-native
     cachix
