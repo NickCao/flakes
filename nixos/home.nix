@@ -9,6 +9,7 @@ in
     KO_DOCKER_REPO = "quay.io/nickcao";
     LESSHISTFILE = "-";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
+    VSCODE_PORTABLE = "${config.xdg.dataHome}/vscode";
   };
   programs = {
     vim = {
