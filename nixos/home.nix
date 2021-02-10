@@ -10,6 +10,12 @@ in
     LESSHISTFILE = "-";
   };
   programs = {
+    vim = {
+      enable = true;
+      settings = {
+        copyindent = false;
+      };
+    };
     direnv = {
       enable = true;
       enableNixDirenvIntegration = true;
