@@ -134,16 +134,6 @@ in
     gnome3.gnome-keyring.enable = pkgs.lib.mkForce false;
     pipewire = {
       enable = true;
-      package = pkgs.pipewire.overrideAttrs (attrs: {
-        src = pkgs.fetchFromGitLab {
-          domain = "gitlab.freedesktop.org";
-          owner = "pipewire";
-          repo = "pipewire";
-          rev = "0.3.19";
-          sha256 = "sha256-9zMDdy3Uqr4Ada5uMRuqTpzr5BjSDY5UjTo4g2InezE=";
-        };
-        buildInputs = attrs.buildInputs ++ [ pkgs.fdk_aac ];
-      });
       pulse.enable = true;
       jack.enable = true;
     };

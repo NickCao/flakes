@@ -9,6 +9,7 @@ in
     KO_DOCKER_REPO = "quay.io/nickcao";
     LESSHISTFILE = "-";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
+    TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
   };
   programs = {
     vim = {
@@ -114,6 +115,8 @@ in
       };
     };
   };
+
+  xdg.enable = true;
   xdg = {
     configFile = {
       "autostart/telegramdesktop.desktop" = {
