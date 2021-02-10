@@ -13,9 +13,10 @@ in
   programs = {
     vim = {
       enable = true;
-      settings = {
-        copyindent = false;
-      };
+      extraConfig = ''
+        filetype indent off
+        set viminfo+=n${config.xdg.cacheHome}/viminfo
+      '';
     };
     direnv = {
       enable = true;
