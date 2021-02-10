@@ -8,7 +8,6 @@ in
     LIBVA_DRIVER_NAME = "iHD";
     KO_DOCKER_REPO = "quay.io/nickcao";
     LESSHISTFILE = "-";
-    VSCODE_PORTABLE = "${config.xdg.dataHome}/vscode";
   };
   programs = {
     direnv = {
