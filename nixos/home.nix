@@ -8,6 +8,7 @@ in
     LIBVA_DRIVER_NAME = "iHD";
     KO_DOCKER_REPO = "quay.io/nickcao";
     LESSHISTFILE = "-";
+    __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
   };
   programs = {
     vim = {
@@ -28,7 +29,9 @@ in
     };
     gpg = {
       enable = true;
-      settings = { };
+      settings = {
+        trust-model = "tofu";
+      };
     };
     git = {
       enable = true;
@@ -47,7 +50,7 @@ in
       enable = true;
       shellInit = ''
         set fish_greeting
-        set -x PATH /home/nickcao/Bin /home/nickcao/.local/bin $PATH
+        set -x PATH ${config.home.homeDirectory}/Bin $PATH
         set -x SOPS_PGP_FP 068A56CEF48FA2C1
       '';
       shellAliases = {
@@ -134,7 +137,7 @@ in
       };
       "go/env" = {
         text = ''
-          GOPATH=${config.home.homeDirectory}/.cache/go
+          GOPATH=${config.xdg.cacheHome}/go
           GOBIN=${config.home.homeDirectory}/Bin
           GO111MODULE=on
           GOPROXY=https://goproxy.cn
@@ -145,7 +148,7 @@ in
         source = toTOMLDrv {
           storage = {
             driver = "btrfs";
-            rootless_storage_path = "$HOME/Data/Containers/";
+            rootless_storage_path = "${config.home.homeDirectory}/Data/Containers/";
           };
         };
       };
