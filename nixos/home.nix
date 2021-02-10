@@ -3,10 +3,12 @@ let
   toTOMLDrv = v: (pkgs.formats.toml { }).generate "" v;
 in
 {
-  home.packages = with pkgs; [ sops update-nix-fetchgit drone-cli buildifier kubectl kubernetes-helm ];
+  home.packages = with pkgs; [ go sops update-nix-fetchgit drone-cli buildifier kubectl kubernetes-helm ];
   systemd.user.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
     KO_DOCKER_REPO = "quay.io/nickcao";
+    LESSHISTFILE = "-";
+    VSCODE_PORTABLE = "${config.xdg.dataHome}/vscode";
   };
   programs = {
     direnv = {
@@ -18,11 +20,6 @@ in
       config = {
         theme = "Solarized (light)";
       };
-    };
-    go = {
-      enable = true;
-      goBin = "Bin";
-      goPath = ".cache/go";
     };
     gpg = {
       enable = true;
@@ -132,6 +129,8 @@ in
       };
       "go/env" = {
         text = ''
+          GOPATH=${config.home.homeDirectory}/.cache/go
+          GOBIN=${config.home.homeDirectory}/Bin
           GO111MODULE=on
           GOPROXY=https://goproxy.cn
           GOSUMDB=sum.golang.google.cn
