@@ -14,7 +14,7 @@ in
   programs = {
     vim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; [ vim-lastplace pkgs.tabnine-vim ];
+      plugins = with pkgs.vimPlugins; [ vim-lastplace vim-autoformat pkgs.tabnine-vim ];
       extraConfig = ''
         set viminfo+=n${config.xdg.cacheHome}/viminfo
 
@@ -26,6 +26,12 @@ in
 
         " line number
         set number
+
+        " format
+        let g:formatdef_nixpkgs_fmt = '"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"'
+        let g:formatdef_prettier = '"${pkgs.nodePackages.prettier}/bin/prettier"'
+        let g:formatters_nix = [ 'nixpkgs_fmt' ]
+        let g:formatters_yaml = [ 'prettier' ]
       '';
     };
     direnv = {
