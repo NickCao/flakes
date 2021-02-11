@@ -73,6 +73,9 @@ in
         function fish_user_key_bindings
           fish_vi_key_bindings
         end
+        function g
+          xdg-open "https://www.google.com/search?q=$argv"
+        end
       '';
       shellAliases = {
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
