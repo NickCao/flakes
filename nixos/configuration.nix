@@ -40,8 +40,6 @@ in
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "vscode-with-extensions"
-    "vscode"
     "steam"
     "steam-original"
     "steam-runtime"
@@ -294,9 +292,6 @@ in
     gnome3.gnome-screenshot
     gnome3.baobab
     gnomeExtensions.appindicator
-    (vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions;[ redhat.vscode-yaml bbenoist.Nix vscode-extension-terraform ];
-    })
   ];
 
   fonts.fonts = with pkgs; [
