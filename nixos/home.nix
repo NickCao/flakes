@@ -3,7 +3,7 @@ let
   toTOMLDrv = v: (pkgs.formats.toml { }).generate "" v;
 in
 {
-  home.packages = with pkgs; [ go sops update-nix-fetchgit drone-cli buildifier kubectl kubernetes-helm ];
+  home.packages = with pkgs; [ gopls go sops update-nix-fetchgit drone-cli buildifier kubectl kubernetes-helm ];
   systemd.user.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
     KO_DOCKER_REPO = "quay.io/nickcao";
@@ -63,6 +63,9 @@ in
         set fish_greeting
         set -x PATH ${config.home.homeDirectory}/Bin $PATH
         set -x SOPS_PGP_FP 068A56CEF48FA2C1
+        function fish_user_key_bindings
+          fish_vi_key_bindings
+        end
       '';
       shellAliases = {
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
