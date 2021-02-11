@@ -14,10 +14,9 @@ in
   programs = {
     vim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; pkgs.lib.mkForce [ vim-lastplace pkgs.tabnine-vim ];
+      plugins = with pkgs.vimPlugins; [ vim-lastplace pkgs.tabnine-vim ];
       extraConfig = ''
         set viminfo+=n${config.xdg.cacheHome}/viminfo
-        set backspace=indent,eol,start
 
         " file explorer
         let g:netrw_liststyle = 3

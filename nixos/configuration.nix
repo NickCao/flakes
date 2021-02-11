@@ -45,6 +45,7 @@ in
     "steam-runtime"
     "nvidia-x11"
     "nvidia-settings"
+    "vimplugin-tabnine-vim"
   ];
 
   networking = {
