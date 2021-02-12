@@ -14,9 +14,10 @@ in
   programs = {
     vim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; [ vim-lastplace vim-autoformat pkgs.tabnine-vim ];
+      plugins = with pkgs.vimPlugins; [ vim-lastplace vim-autoformat vim-airline vim-airline-themes pkgs.tabnine-vim ];
       extraConfig = ''
         set viminfo+=n${config.xdg.cacheHome}/viminfo
+        let g:airline_theme = 'solarized'
 
         " file explorer
         let g:netrw_liststyle = 3
