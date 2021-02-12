@@ -1,11 +1,57 @@
-{ symlinkJoin, makeWrapper, libsForQt5, lib }:
+{ qt5
+, fetchFromGitHub
+, lib
+, cmake
+, curl
+, protobuf
+, grpc
+, c-ares
+, abseil-cpp
+, libuv
+, symlinkJoin
+, makeWrapper
+, plugins ? [ ]
+}:
+
+with qt5;
 let
-  qv2ray = libsForQt5.callPackage ./qv2ray.nix { };
-  ssr = libsForQt5.callPackage ./plugins/ssr.nix { };
+  qv2ray = mkDerivation
+    rec {
+      pname = "qv2ray";
+      version = "2.7.0-pre2";
+
+      src = fetchFromGitHub {
+        owner = "Qv2ray";
+        repo = "Qv2ray";
+        rev = "v${version}";
+        fetchSubmodules = true;
+        sha256 = "sha256-UsD7ibR5Fan5ztGkaSC8FiCWaeobDpE+rZQ8q3Wy32M=";
+      };
+
+      cmakeFlags = [
+        "-DQV2RAY_DISABLE_AUTO_UPDATE=ON"
+        "-DQV2RAY_BUILD_INFO=nixpkgs"
+        # "-DQV2RAY_BUILD_EXTRA_INFO="
+        "-DQV2RAY_DEFAULT_VASSETS_PATH=/run/current-system/sw/share/v2ray"
+        "-DQV2RAY_DEFAULT_VCORE_PATH=/run/current-system/sw/bin/v2ray"
+        "-DQV2RAY_HAS_BUILT_IN_THEMES=ON"
+        "-DQV2RAY_EMBED_TRANSLATIONS=ON"
+        "-DUSE_SYSTEM_LIBUV=ON"
+      ];
+
+      buildInputs = [ curl protobuf grpc qtbase qttools c-ares abseil-cpp libuv ];
+      nativeBuildInputs = [ cmake ];
+
+      meta = with lib; {
+        description = "A Qt frontend for V2Ray. Written in C++";
+        homepage = "https://qv2ray.net";
+        license = licenses.gpl3Only;
+      };
+    };
 in
 symlinkJoin {
   inherit (qv2ray) name meta;
-  paths = [ qv2ray ssr ];
+  paths = [ qv2ray ] ++ plugins;
   nativeBuildInputs = [ makeWrapper ];
   postBuild = ''
     wrapProgram $out/bin/qv2ray --prefix XDG_DATA_DIRS : $out/share
