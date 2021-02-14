@@ -31,9 +31,9 @@ in
 
         " format
         let g:formatdef_nixpkgs_fmt = '"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"'
-        let g:formatdef_prettier = '"${pkgs.nodePackages.prettier}/bin/prettier"'
+        let g:formatdef_prettier_yaml = '"${pkgs.nodePackages.prettier}/bin/prettier --parser yaml"'
         let g:formatters_nix = [ 'nixpkgs_fmt' ]
-        let g:formatters_yaml = [ 'prettier' ]
+        let g:formatters_yaml = [ 'prettier_yaml' ]
       '';
     };
     direnv = {
