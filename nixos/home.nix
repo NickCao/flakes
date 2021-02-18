@@ -32,8 +32,10 @@ in
         " format
         let g:formatdef_nixpkgs_fmt = '"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"'
         let g:formatdef_prettier_yaml = '"${pkgs.nodePackages.prettier}/bin/prettier --parser yaml"'
+        let g:formatdef_terraform = '"${pkgs.terraform_0_14}/bin/terraform fmt -"'
         let g:formatters_nix = [ 'nixpkgs_fmt' ]
         let g:formatters_yaml = [ 'prettier_yaml' ]
+        let g:formatters_tf = [ 'terraform' ]
       '';
     };
     direnv = {

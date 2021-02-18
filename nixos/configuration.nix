@@ -3,8 +3,8 @@ let
   flake-registry = pkgs.writeText "flake-registry.json" (builtins.toJSON {
     flakes = [
       {
-        from = { id = "p"; type = "indirect"; };
-        to = { owner = "NixOS"; ref = "nixos-unstable-small"; repo = "nixpkgs"; type = "github"; };
+        from = { id = "f"; type = "indirect"; };
+        to = { path = "${config.users.users.nickcao.home}/Projects/flakes"; type = "path"; };
       }
     ];
     version = 2;
@@ -40,6 +40,7 @@ in
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "goland"
     "steam"
     "steam-original"
     "steam-runtime"
@@ -87,7 +88,7 @@ in
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_testing;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = pkgs.lib.mkAfter [
       "mitigations=off"
       "nowatchdog"
@@ -286,7 +287,6 @@ in
     numix-icon-theme-circle
     chromium
     minio-client
-    jetbrains.clion
     jetbrains.goland
     gnome3.gnome-tweak-tool
     gnome3.nautilus
