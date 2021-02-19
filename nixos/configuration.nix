@@ -263,15 +263,11 @@ in
     nixpkgs-fmt
     tree
     mtr
-    gcc
-    gnumake
-    patchage
     auth-thu
     jq
     terraform_0_14
     python3
     hugo
-    nfs-utils
     v2ray.core
     v2ray-geoip
     v2ray-domain-list-community
