@@ -3,8 +3,8 @@ let
   flake-registry = pkgs.writeText "flake-registry.json" (builtins.toJSON {
     flakes = [
       {
-        from = { id = "f"; type = "indirect"; };
-        to = { path = "${config.users.users.nickcao.home}/Projects/flakes"; type = "path"; };
+        from = { id = "p"; type = "indirect"; };
+        to = { path = "${pkgs.f.inputs.nixpkgs}"; type = "path"; };
       }
     ];
     version = 2;

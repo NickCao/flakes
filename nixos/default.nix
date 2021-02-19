@@ -9,6 +9,7 @@ nixpkgs.lib.nixosSystem {
       nixpkgs.overlays = [
         self.overlay
         (final: prev: {
+          f = self;
           virtualbox = prev.virtualbox.overrideAttrs (attrs: {
             nativeBuildInputs = attrs.nativeBuildInputs ++ [ prev.breakpointHook ];
             patches = attrs.patches ++ [
