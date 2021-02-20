@@ -256,33 +256,16 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    prime-run
-    steam-run-native
-    cachix
-    ldns
-    nixpkgs-fmt
-    tree
-    mtr
-    auth-thu
-    jq
-    terraform_0_14
-    python3
-    hugo
     v2ray.core
     v2ray-geoip
     v2ray-domain-list-community
     qv2ray
-    rait
     mpv
-    terraform-ls
     yubikey-manager
     tdesktop
     materia-theme
-    wireguard-tools
-    smartmontools
     numix-icon-theme-circle
     chromium
-    minio-client
     jetbrains.goland
     gnome3.gnome-tweak-tool
     gnome3.nautilus

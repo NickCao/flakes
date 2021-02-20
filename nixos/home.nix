@@ -3,7 +3,31 @@ let
   toTOMLDrv = v: (pkgs.formats.toml { }).generate "" v;
 in
 {
-  home.packages = with pkgs; [ gopls go sops update-nix-fetchgit drone-cli buildifier kubectl kubernetes-helm ];
+  home.packages = with pkgs; [
+    prime-run
+    wireguard-tools
+    steam-run-native
+    jq
+    auth-thu
+    nixpkgs-fmt
+    cachix
+    smartmontools
+    minio-client
+    terraform_0_14
+    rait
+    hugo
+    python3
+    ldns
+    tree
+    mtr
+    gopls
+    go_1_16
+    sops
+    update-nix-fetchgit
+    kubectl
+    kubernetes-helm
+  ];
+
   systemd.user.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
     KO_DOCKER_REPO = "quay.io/nickcao";
@@ -11,6 +35,7 @@ in
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
   };
+
   programs = {
     vim = {
       enable = true;
