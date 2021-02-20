@@ -102,7 +102,6 @@ in
       options i915 enable_guc=2
       options i915 enable_fbc=1
       options i915 fastboot=1
-      options nvidia NVreg_DynamicPowerManagement=0x02
     '';
   };
 
@@ -120,6 +119,10 @@ in
         offload.enable = true;
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
+      };
+      powerManagement = {
+        enable = true;
+        finegrained = true;
       };
     };
     opengl = {
@@ -144,15 +147,6 @@ in
     };
     udev = {
       packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
-      extraRules = ''
-        # Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
-        ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
-        ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="auto"
-
-        # Disable runtime PM for NVIDIA VGA/3D controller devices on driver unbind
-        ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
-        ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
-      '';
       extraHwdb = ''
         evdev:input:b0005v05ACp024F*
           KEYBOARD_KEY_70039=backspace
