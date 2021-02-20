@@ -25,8 +25,7 @@ in
 
   nix = {
     autoOptimiseStore = true;
-    binaryCaches =
-      [ "https://mirrors4.bfsu.edu.cn/nix-channels/store" "https://r.nichi.co/https:/cache.nixos.org" "https://nichi.cachix.org" ];
+    binaryCaches = [ "https://mirrors4.bfsu.edu.cn/nix-channels/store" "https://nichi.cachix.org" ];
     binaryCachePublicKeys = [ "nichi.cachix.org-1:ZWn4Jui6odEcNEMjcHM/WXbDSVO4Ai+jrzWHf+pqwj0=" ];
     trustedUsers = [ "root" "nickcao" ];
     package = pkgs.nixFlakes;
@@ -77,6 +76,8 @@ in
   powerManagement.cpuFreqGovernor = "schedutil";
 
   boot = {
+    consoleLogLevel = 0;
+    initrd.verbose = false;
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -89,7 +90,9 @@ in
       };
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = pkgs.lib.mkAfter [
+    kernelParams = [
+      "quiet"
+      "udev.log_level=3"
       "mitigations=off"
       "nowatchdog"
       "systemd.unified_cgroup_hierarchy=1"
@@ -192,8 +195,7 @@ in
     users = {
       nickcao = {
         isNormalUser = true;
-        hashedPassword =
-          "$6$n7lnnelApqi$ulDiRUraojX4zlMiuP4qP./qGZYbTGKVqTsN5z.5HlAGgIy23WMpxBA5fjFyY.RGOepAaZV8cK0tt3duMgVy30";
+        hashedPassword = "$6$n7lnnelApqi$ulDiRUraojX4zlMiuP4qP./qGZYbTGKVqTsN5z.5HlAGgIy23WMpxBA5fjFyY.RGOepAaZV8cK0tt3duMgVy30";
         extraGroups = [ "wheel" "networkmanager" ];
       };
     };
