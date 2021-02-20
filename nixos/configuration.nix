@@ -88,7 +88,7 @@ in
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_5_10;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = pkgs.lib.mkAfter [
       "mitigations=off"
       "nowatchdog"
