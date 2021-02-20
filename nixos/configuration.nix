@@ -154,11 +154,11 @@ in
     };
     xserver = {
       enable = true;
-      displayManager = { gdm = { enable = true; }; };
-      desktopManager = { gnome3 = { enable = true; }; };
+      displayManager.gdm.enable = true;
+      desktopManager.gnome3.enable = true;
       videoDrivers = [ "nvidia" ];
     };
-    pcscd = { enable = true; };
+    pcscd.enable = true;
     smartdns = {
       enable = true;
       settings = with pkgs; {
@@ -183,9 +183,8 @@ in
   };
 
   programs = {
-    command-not-found = { enable = false; };
-    vim = { defaultEditor = true; };
-    steam = { enable = true; };
+    command-not-found.enable = false;
+    steam.enable = true;
   };
 
   users = {
