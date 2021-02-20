@@ -100,9 +100,6 @@ in
         set fish_greeting
         set -x PATH ${config.home.homeDirectory}/Bin $PATH
         set -x SOPS_PGP_FP 068A56CEF48FA2C1
-        function fish_user_key_bindings
-          fish_vi_key_bindings
-        end
         function g
           xdg-open "https://www.google.com/search?q=$argv"
         end
