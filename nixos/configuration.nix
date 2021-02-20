@@ -1,12 +1,10 @@
 { config, pkgs, ... }:
 let
   flake-registry = pkgs.writeText "flake-registry.json" (builtins.toJSON {
-    flakes = [
-      {
-        from = { id = "p"; type = "indirect"; };
-        to = { path = "${pkgs.f.inputs.nixpkgs}"; type = "path"; };
-      }
-    ];
+    flakes = [{
+      from = { id = "p"; type = "indirect"; };
+      to = { path = "${pkgs.f.inputs.nixpkgs}"; type = "path"; };
+    }];
     version = 2;
   });
 in
@@ -19,9 +17,11 @@ in
     users.nickcao = import ./home.nix;
   };
 
-  sops.defaultSopsFile = ./secrets.yaml;
-  sops.secrets.rait = { };
-  sops.sshKeyPaths = [ "/var/lib/ssh/ssh_host_rsa_key" ];
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    secrets.rait = { };
+    sshKeyPaths = [ "/var/lib/ssh/ssh_host_rsa_key" ];
+  };
 
   nix = {
     autoOptimiseStore = true;
@@ -106,14 +106,14 @@ in
   };
 
   virtualisation = {
-    virtualbox = { host = { enable = true; }; };
-    podman = { enable = true; };
+    virtualbox.host.enable = true;
+    podman.enable = true;
   };
 
   hardware = {
     pulseaudio.enable = false;
-    cpu = { intel = { updateMicrocode = true; }; };
-    bluetooth = { enable = true; };
+    cpu.intel.updateMicrocode = true;
+    bluetooth.enable = true;
     nvidia = {
       prime = {
         offload.enable = true;
