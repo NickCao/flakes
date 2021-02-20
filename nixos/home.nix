@@ -4,6 +4,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    kubeseal
     prime-run
     wireguard-tools
     steam-run-native
