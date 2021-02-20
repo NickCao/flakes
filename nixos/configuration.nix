@@ -208,6 +208,10 @@ in
   };
 
   programs = {
+    chromium = {
+      enable = true;
+      extensions = [ "padekgcemlokbadohgkifijomclgjgif" "cjpalhdlnbpafiamejdnhcphjbkeiagm" ];
+    };
     command-not-found.enable = false;
     steam.enable = true;
   };
@@ -274,6 +278,7 @@ in
 
   environment.systemPackages = with pkgs; [
     mode
+    chromium
     v2ray.core
     v2ray-geoip
     v2ray-domain-list-community
@@ -283,7 +288,6 @@ in
     tdesktop
     materia-theme
     numix-icon-theme-circle
-    chromium
     jetbrains.goland
     gnome3.gnome-tweak-tool
     gnome3.nautilus
