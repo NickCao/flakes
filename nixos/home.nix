@@ -27,6 +27,8 @@ in
     update-nix-fetchgit
     kubectl
     kubernetes-helm
+    ko
+    kubeone
   ];
 
   systemd.user.sessionVariables = {
