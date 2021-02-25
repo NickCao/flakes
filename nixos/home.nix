@@ -30,7 +30,6 @@ in
   ];
 
   systemd.user.sessionVariables = {
-    EDITOR = "vim";
     LIBVA_DRIVER_NAME = "iHD";
     KO_DOCKER_REPO = "quay.io/nickcao";
     LESSHISTFILE = "-";

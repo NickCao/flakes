@@ -75,7 +75,7 @@ in
     domain = "nichi.link";
     firewall.enable = false;
     networkmanager.dns = "dnsmasq";
-    networkmanager.wifi.backend = "iwd";
+    # networkmanager.wifi.backend = "iwd";
     networkmanager.extraConfig = ''
       [main]
       rc-manager = unmanaged
@@ -208,6 +208,9 @@ in
   };
 
   programs = {
+    vim = {
+      defaultEditor = true;
+    };
     chromium = {
       enable = true;
       extensions = [ "padekgcemlokbadohgkifijomclgjgif" "cjpalhdlnbpafiamejdnhcphjbkeiagm" ];
