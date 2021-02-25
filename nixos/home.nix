@@ -29,6 +29,7 @@ in
     kubernetes-helm
     ko
     kubeone
+    fcct
   ];
 
   systemd.user.sessionVariables = {
