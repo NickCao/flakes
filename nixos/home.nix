@@ -30,6 +30,7 @@ in
     ko
     kubeone
     fcct
+    restic
   ];
 
   systemd.user.sessionVariables = {
