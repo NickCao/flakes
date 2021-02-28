@@ -108,6 +108,7 @@ in
         end
       '';
       shellAliases = {
+        lp = "ls -dUl -- .* *";
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
       };
     };
