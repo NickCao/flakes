@@ -105,6 +105,7 @@ in
       options i915 enable_guc=2
       options i915 enable_fbc=1
       options i915 fastboot=1
+      blacklist ideapad_laptop
     '';
   };
 
@@ -150,10 +151,6 @@ in
     };
     udev = {
       packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
-      extraHwdb = ''
-        evdev:input:b0005v05ACp024F*
-          KEYBOARD_KEY_70039=backspace
-      '';
     };
     xserver = {
       enable = true;
@@ -203,7 +200,7 @@ in
       nickcao = {
         isNormalUser = true;
         hashedPassword = "$6$n7lnnelApqi$ulDiRUraojX4zlMiuP4qP./qGZYbTGKVqTsN5z.5HlAGgIy23WMpxBA5fjFyY.RGOepAaZV8cK0tt3duMgVy30";
-        extraGroups = [ "wheel" "networkmanager" ];
+        extraGroups = [ "wheel" "networkmanager" "vboxusers" ];
       };
     };
   };

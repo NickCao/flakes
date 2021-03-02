@@ -39,6 +39,8 @@ in
     LESSHISTFILE = "-";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
+    PYTHONSTARTUP = (pkgs.writeText "start.py" ''
+    '').outPath;
   };
 
   programs = {
