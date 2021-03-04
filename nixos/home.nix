@@ -40,6 +40,10 @@ in
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     KUBECONFIG = "${config.xdg.configHome}/kubeconfig";
     TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
+    PYTHONSTARTUP = (pkgs.writeText "start.py" ''
+      import sys
+      del sys.__interactivehook__
+    '').outPath;
   };
 
   programs = {
@@ -164,9 +168,24 @@ in
     };
   };
 
-  xdg.enable = true;
   xdg = {
+    enable = true;
+    userDirs = {
+      enable = true;
+      desktop = "$HOME";
+      templates = "$HOME";
+      music = "$HOME";
+      videos = "$HOME";
+      publicShare = "$HOME";
+    };
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "x-scheme-handler/tg" = [ "telegramdesktop.desktop" ];
+      };
+    };
     configFile = {
+      "gnome-initial-setup-done".text = "yes";
       "go/env" = {
         text = ''
           GOPATH=${config.xdg.cacheHome}/go
