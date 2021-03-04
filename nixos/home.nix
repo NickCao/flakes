@@ -34,8 +34,9 @@ in
 
   systemd.user.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
+    SOPS_PGP_FP = "068A56CEF48FA2C1";
     KO_DOCKER_REPO = "quay.io/nickcao";
-    LESSHISTFILE = "-";
+    LESSHISTFILE = "${config.xdg.cacheHome}/lesshst";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     KUBECONFIG = "${config.xdg.configHome}/kubeconfig";
     TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
@@ -101,11 +102,6 @@ in
       enable = true;
       shellInit = ''
         set fish_greeting
-        set -x PATH ${config.home.homeDirectory}/Bin $PATH
-        set -x SOPS_PGP_FP 068A56CEF48FA2C1
-        function g
-          xdg-open "https://www.google.com/search?q=$argv"
-        end
       '';
       shellAliases = {
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
@@ -171,26 +167,6 @@ in
   xdg.enable = true;
   xdg = {
     configFile = {
-      "autostart/telegramdesktop.desktop" = {
-        text = ''
-          [Desktop Entry]
-          Version=1.0
-          Name=Telegram Desktop
-          Type=Application
-          Exec=${pkgs.tdesktop}/bin/telegram-desktop -workdir ${config.xdg.dataHome}/TelegramDesktop/ -autostart
-          Terminal=false
-        '';
-      };
-      "autostart/qv2ray.desktop" = {
-        text = ''
-          [Desktop Entry]
-          Version=1.0
-          Name=Qv2ray
-          Type=Application
-          Exec=${pkgs.qv2ray}/bin/qv2ray
-          Terminal=false
-        '';
-      };
       "go/env" = {
         text = ''
           GOPATH=${config.xdg.cacheHome}/go
