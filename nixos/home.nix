@@ -36,6 +36,7 @@ in
     LIBVA_DRIVER_NAME = "iHD";
     SOPS_PGP_FP = "068A56CEF48FA2C1";
     KO_DOCKER_REPO = "quay.io/nickcao";
+    XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
     LESSHISTFILE = "${config.xdg.cacheHome}/lesshst";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     KUBECONFIG = "${config.xdg.configHome}/kubeconfig";
