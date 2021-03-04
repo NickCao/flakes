@@ -40,9 +40,6 @@ in
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "goland"
-    "steam"
-    "steam-original"
-    "steam-runtime"
     "nvidia-x11"
     "nvidia-settings"
     "vimplugin-tabnine-vim"
@@ -191,7 +188,6 @@ in
       extensions = [ "padekgcemlokbadohgkifijomclgjgif" "cjpalhdlnbpafiamejdnhcphjbkeiagm" ];
     };
     command-not-found.enable = false;
-    steam.enable = true;
   };
 
   users = {

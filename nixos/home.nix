@@ -26,7 +26,6 @@ in
     sops
     update-nix-fetchgit
     kubectl
-    kubernetes-helm
     ko
     kubeone
     fcct
@@ -38,9 +37,8 @@ in
     KO_DOCKER_REPO = "quay.io/nickcao";
     LESSHISTFILE = "-";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
+    KUBECONFIG = "${config.xdg.configHome}/kubeconfig";
     TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
-    PYTHONSTARTUP = (pkgs.writeText "start.py" ''
-    '').outPath;
   };
 
   programs = {
@@ -110,7 +108,6 @@ in
         end
       '';
       shellAliases = {
-        lp = "ls -dUl -- .* *";
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
       };
     };
