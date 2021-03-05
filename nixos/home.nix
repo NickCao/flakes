@@ -42,8 +42,8 @@ in
     KUBECONFIG = "${config.xdg.configHome}/kubeconfig";
     TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
     PYTHONSTARTUP = (pkgs.writeText "start.py" ''
-      import sys
-      del sys.__interactivehook__
+      import readline
+      readline.set_auto_history(False)
     '').outPath;
   };
 
