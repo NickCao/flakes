@@ -43,7 +43,7 @@ in
     TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
     PYTHONSTARTUP = (pkgs.writeText "start.py" ''
       import readline
-      readline.set_auto_history(False)
+      readline.write_history_file = lambda *args: None
     '').outPath;
   };
 
