@@ -39,10 +39,12 @@ in
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "typora"
     "goland"
     "nvidia-x11"
     "nvidia-settings"
     "vimplugin-tabnine-vim"
+    "quartus-prime-lite-unwrapped"
   ];
 
   networking = {
@@ -251,6 +253,8 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    typora
+    quartus-prime-lite
     mode
     chromium
     v2ray.core
