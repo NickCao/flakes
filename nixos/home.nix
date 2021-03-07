@@ -33,16 +33,22 @@ in
   ];
 
   systemd.user.sessionVariables = {
-    HISTFILE = "${config.xdg.cacheHome}/bash_history";
-    DOCKER_CONFIG = "${config.xdg.configHome}/docker";
+    GOOGLE_DEFAULT_CLIENT_ID = "77185425430.apps.googleusercontent.com";
+    GOOGLE_DEFAULT_CLIENT_SECRET = "OTJgUOQcT7lO7GsGZq2G4IlT";
     LIBVA_DRIVER_NAME = "iHD";
     SOPS_PGP_FP = "068A56CEF48FA2C1";
     KO_DOCKER_REPO = "quay.io/nickcao";
+    # cache
     XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
-    LESSHISTFILE = "${config.xdg.cacheHome}/lesshst";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
+    # config
+    DOCKER_CONFIG = "${config.xdg.configHome}/docker";
     KUBECONFIG = "${config.xdg.configHome}/kubeconfig";
     TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
+    # data
+    HISTFILE = "${config.xdg.dataHome}/bash_history";
+    LESSHISTFILE = "${config.xdg.dataHome}/lesshst";
+    # shit
     PYTHONSTARTUP = (pkgs.writeText "start.py" ''
       import readline
       readline.write_history_file = lambda *args: None
