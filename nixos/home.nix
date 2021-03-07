@@ -33,6 +33,8 @@ in
   ];
 
   systemd.user.sessionVariables = {
+    HISTFILE = "${config.xdg.cacheHome}/bash_history";
+    DOCKER_CONFIG = "${config.xdg.configHome}/docker";
     LIBVA_DRIVER_NAME = "iHD";
     SOPS_PGP_FP = "068A56CEF48FA2C1";
     KO_DOCKER_REPO = "quay.io/nickcao";

@@ -39,7 +39,6 @@ in
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "typora"
     "goland"
     "nvidia-x11"
     "nvidia-settings"
@@ -253,7 +252,6 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    typora
     quartus-prime-lite
     mode
     chromium
