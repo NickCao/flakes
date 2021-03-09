@@ -207,6 +207,21 @@ in
         StartupNotify=false
         X-GNOME-Autostart-enabled=true
       '';
+      "autostart/telegramdesktop.desktop".text = ''
+        [Desktop Entry]
+        Version=1.0
+        Name=Telegram Desktop
+        Comment=Official desktop version of Telegram messaging app
+        Exec=telegram-desktop -workdir /home/nickcao/.local/share/TelegramDesktop/ -autostart
+        Icon=telegram
+        Terminal=false
+        StartupWMClass=TelegramDesktop
+        Type=Application
+        Categories=Chat;Network;InstantMessaging;Qt;
+        MimeType=x-scheme-handler/tg;
+        Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;
+        X-GNOME-UsesNotifications=true
+      '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
         GOBIN=${config.home.homeDirectory}/Bin
