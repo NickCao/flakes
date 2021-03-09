@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 let
   toTOMLDrv = v: (pkgs.formats.toml { }).generate "" v;
+  mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
 in
 {
   home.packages = with pkgs; [
@@ -13,7 +14,6 @@ in
     nixpkgs-fmt
     cachix
     smartmontools
-    minio-client
     terraform_0_14
     rait
     hugo
@@ -25,7 +25,8 @@ in
     go_1_16
     sops
     update-nix-fetchgit
-    kubectl
+    (mkWrap "mc" "${minio-client}/bin/mc --config-dir ${config.xdg.configHome}/mc")
+    (mkWrap "kubectl" "${kubectl}/bin/kubectl --cache-dir=${config.xdg.cacheHome}/kube --kubeconfig=${config.xdg.configHome}/kubeconfig")
     ko
     kubeone
     fcct
@@ -42,7 +43,6 @@ in
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     # config
     DOCKER_CONFIG = "${config.xdg.configHome}/docker";
-    KUBECONFIG = "${config.xdg.configHome}/kubeconfig";
     TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
     # data
     HISTFILE = "${config.xdg.dataHome}/bash_history";
