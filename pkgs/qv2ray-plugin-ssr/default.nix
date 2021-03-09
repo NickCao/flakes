@@ -3,14 +3,14 @@
 with qt5;
 mkDerivation rec {
   pname = "qv2ray-plugin-ssr";
-  version = "3.0.0-pre3";
+  version = "2020-12-14";
 
   src = fetchFromGitHub {
     owner = "Qv2ray";
     repo = "QvPlugin-SSR";
-    rev = "v${version}";
+    rev = "6f4f87e3377ec3bb335d87464806edaad92bd639"; # heads/dev
     fetchSubmodules = true;
-    sha256 = "sha256-59g8ykq31SvyAt9joRI0r/xhWWbWPAppeWOLY87WDSM=";
+    sha256 = "14h2pz4sjn5v640s38zgyx4xzbymnwf3i4ylghfscpikgax8vb1w";
   };
 
   cmakeFlags = [

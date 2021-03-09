@@ -1,16 +1,16 @@
-{ qt5, fetchFromGitHub, lib, cmake, libsodium, libuv }:
+{ qt5, fetchFromGitHub, lib, cmake, libsodium, libuv, mbedtls }:
 
 with qt5;
 mkDerivation rec {
   pname = "qv2ray-plugin-ss";
-  version = "3.0.0-pre3";
+  version = "2020-12-14";
 
   src = fetchFromGitHub {
     owner = "Qv2ray";
     repo = "QvPlugin-SS";
-    rev = "v${version}";
+    rev = "b8a497ed610b968eab0dc0a47e87ded63a2d64a9"; # heads/dev
     fetchSubmodules = true;
-    sha256 = "sha256-oHzSyKLaPyub+5bOaOfXWhPJjLvSABa9py9s6WYqjpM=";
+    sha256 = "1acnqvfwgxjn2d3gbbkd3dp1vw7j53a7flwwn4mn93l9y6y0n72r";
   };
 
   cmakeFlags = [
@@ -23,7 +23,7 @@ mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ libuv libsodium ];
+  buildInputs = [ libuv libsodium mbedtls ];
 
   meta = with lib; {
     description = "Shadowsocks plugin for Qv2ray";

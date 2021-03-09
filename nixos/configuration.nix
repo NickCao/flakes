@@ -255,10 +255,10 @@ in
     quartus-prime-lite
     mode
     chromium
-    v2ray.core
+    v2ray
     v2ray-geoip
     v2ray-domain-list-community
-    qv2ray
+    (qv2ray.override { plugins = [ qv2ray-plugin-ss qv2ray-plugin-ssr ]; })
     mpv
     yubikey-manager
     tdesktop
