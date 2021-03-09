@@ -36,7 +36,6 @@ in
     GOOGLE_DEFAULT_CLIENT_ID = "77185425430.apps.googleusercontent.com";
     GOOGLE_DEFAULT_CLIENT_SECRET = "OTJgUOQcT7lO7GsGZq2G4IlT";
     LIBVA_DRIVER_NAME = "iHD";
-    SOPS_PGP_FP = "068A56CEF48FA2C1";
     KO_DOCKER_REPO = "quay.io/nickcao";
     # cache
     XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
