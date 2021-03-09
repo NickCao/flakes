@@ -195,15 +195,25 @@ in
     };
     configFile = {
       "gnome-initial-setup-done".text = "yes";
-      "go/env" = {
-        text = ''
-          GOPATH=${config.xdg.cacheHome}/go
-          GOBIN=${config.home.homeDirectory}/Bin
-          GO111MODULE=on
-          GOPROXY=https://goproxy.cn
-          GOSUMDB=sum.golang.google.cn
-        '';
-      };
+      "autostart/qv2ray.desktop".text = ''
+        [Desktop Entry]
+        Name=qv2ray
+        GenericName=V2Ray Frontend
+        Exec=bash -c "sleep 5; qv2ray"
+        Terminal=false
+        Icon=qv2ray
+        Categories=Network
+        Type=Application
+        StartupNotify=false
+        X-GNOME-Autostart-enabled=true
+      '';
+      "go/env".text = ''
+        GOPATH=${config.xdg.cacheHome}/go
+        GOBIN=${config.home.homeDirectory}/Bin
+        GO111MODULE=on
+        GOPROXY=https://goproxy.cn
+        GOSUMDB=sum.golang.google.cn
+      '';
       "containers/storage.conf" = {
         source = toTOMLDrv {
           storage = {
