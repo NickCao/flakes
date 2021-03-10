@@ -269,6 +269,7 @@ in
     gnome3.nautilus
     gnome3.gnome-screenshot
     gnome3.baobab
+    gnome3.eog
     gnomeExtensions.appindicator
   ];
 
