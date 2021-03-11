@@ -8,6 +8,8 @@
 , c-ares
 , abseil-cpp
 , libuv
+, re2
+, pkg-config
 , symlinkJoin
 , makeWrapper
 , plugins ? [ ]
@@ -31,16 +33,14 @@ let
       cmakeFlags = [
         "-DQV2RAY_DISABLE_AUTO_UPDATE=ON"
         "-DQV2RAY_BUILD_INFO=nixpkgs"
-        # "-DQV2RAY_BUILD_EXTRA_INFO="
         "-DQV2RAY_DEFAULT_VASSETS_PATH=/run/current-system/sw/share/v2ray"
         "-DQV2RAY_DEFAULT_VCORE_PATH=/run/current-system/sw/bin/v2ray"
         "-DQV2RAY_HAS_BUILT_IN_THEMES=ON"
-        "-DQV2RAY_EMBED_TRANSLATIONS=ON"
         "-DUSE_SYSTEM_LIBUV=ON"
       ];
 
-      buildInputs = [ curl protobuf grpc qtbase qttools c-ares abseil-cpp libuv ];
-      nativeBuildInputs = [ cmake ];
+      buildInputs = [ curl protobuf re2 grpc qtbase qttools c-ares abseil-cpp libuv ];
+      nativeBuildInputs = [ cmake pkg-config ];
 
       meta = with lib; {
         description = "A Qt frontend for V2Ray. Written in C++";
