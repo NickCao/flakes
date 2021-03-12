@@ -190,6 +190,9 @@ in
       enable = true;
       defaultApplications = {
         "x-scheme-handler/tg" = [ "telegramdesktop.desktop" ];
+        "image/jpeg" = [ "org.gnome.eog.desktop" ];
+        "image/jpg" = [ "org.gnome.eog.desktop" ];
+        "image/png" = [ "org.gnome.eog.desktop" ];
       };
     };
     configFile = {
