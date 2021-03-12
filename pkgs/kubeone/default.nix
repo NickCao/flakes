@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "kubeone";
-  version = "2021-03-08";
+  version = "2021-03-12";
 
   src = fetchFromGitHub {
     owner = "kubermatic";
     repo = "kubeone";
-    rev = "1e5f11a19267138d5f580ee16011f83e32cc32e7"; # tags/v*
-    sha256 = "1f9d5ww2v1yix3c76dw52rj6h1qrjghgspsxiy9l01wbzxqq1brj";
+    rev = "fde1f267769e04acc07bbdb94c09b0d6a18ea4cc"; # tags/v*
+    sha256 = "06ib79kgd7kc68s62cqqx9s6cklp3jylfqmjcnhlf04llkkyc2na";
   };
 
   vendorSha256 = "sha256-VvO5YnDofdEku9+RC6PPHWSZY8qZt9N3JNzlm5omNAc=";
