@@ -14,7 +14,6 @@ in
     nixpkgs-fmt
     cachix
     smartmontools
-    terraform_0_14
     rait
     hugo
     python3
@@ -27,6 +26,7 @@ in
     update-nix-fetchgit
     (mkWrap "mc" "${minio-client}/bin/mc --config-dir ${config.xdg.configHome}/mc")
     (mkWrap "kubectl" "${kubectl}/bin/kubectl --cache-dir=${config.xdg.cacheHome}/kube --kubeconfig=${config.xdg.configHome}/kubeconfig")
+    (mkWrap "terraform" "${coreutils}/bin/env TF_PLUGIN_CACHE_DIR=${config.xdg.cacheHome}/terraform CHECKPOINT_DISABLE=1 ${terraform_0_14}/bin/terraform")
     ko
     kubeone
     fcct
@@ -43,7 +43,6 @@ in
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     # config
     DOCKER_CONFIG = "${config.xdg.configHome}/docker";
-    TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraformrc";
     # data
     HISTFILE = "${config.xdg.dataHome}/bash_history";
     LESSHISTFILE = "${config.xdg.dataHome}/lesshst";
