@@ -8,7 +8,7 @@ buildGoModule rec {
     owner = "google";
     repo = "ko";
     rev = "a6442e66741f64627a95012194bfb7f022c05d61"; # tags/v*
-    sha256 = "sha256-D8nwGW5vHLIwe9jpFFyxe1WckAcdJKrOeLHR25hsFiM=";
+    sha256 = "sha256-wvL+vstd6N7pfO4ZLLRIYiz1cVNz3yOgMpWhFI/aolA=";
   };
 
   vendorSha256 = null;
