@@ -34,7 +34,6 @@
           system = "x86_64-linux";
           inherit self nixpkgs home-manager sops-nix;
         };
-        checks.x86_64-linux.nixos = nixosConfigurations.local.config.system.build.toplevel;
         pkgs = nixosConfigurations.local.pkgs;
       });
 }
