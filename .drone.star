@@ -24,7 +24,7 @@ def step(os, arch, image):
                 "image": image,
                 "commands": [
                     "nix-env -iA nixpkgs.nixFlakes",
-                    "echo 'experimental-features = nix-command flakes ca-references' >> /etc/nix/nix.conf",
+                    "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf",
                     "nix profile install github:NixOS/nixpkgs/nixos-unstable-small#cachix github:NixOS/nixpkgs/nixos-unstable-small#git",
                     "cachix authtoken $CACHIX_TOKEN",
                     "cachix use nichi",
