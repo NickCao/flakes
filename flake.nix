@@ -13,8 +13,9 @@
     };
   };
   outputs = { self, nixpkgs, flake-utils, home-manager, sops-nix }:
-    flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ]
-      (system:
+    let this = import ./pkgs; in
+    nixpkgs.lib.recursiveUpdate
+      (flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ] (system:
         let
           pkgs = import nixpkgs {
             inherit system;
@@ -23,14 +24,17 @@
           };
         in
         rec {
-          packages = (import ./pkgs).getPackages pkgs;
+          packages = this.getPackages pkgs;
           checks = packages;
-        }) // rec {
-      overlay = (import ./pkgs).overlay;
-      nixosConfigurations.local = import ./nixos {
-        system = "x86_64-linux";
-        inherit self nixpkgs home-manager sops-nix;
-      };
-      pkgs = nixosConfigurations.local.pkgs;
-    };
+        }
+      ))
+      (rec {
+        overlay = this.overlay;
+        nixosConfigurations.local = import ./nixos {
+          system = "x86_64-linux";
+          inherit self nixpkgs home-manager sops-nix;
+        };
+        checks.x86_64-linux.nixos = nixosConfigurations.local.config.system.build.toplevel;
+        pkgs = nixosConfigurations.local.pkgs;
+      });
 }
