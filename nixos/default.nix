@@ -10,15 +10,6 @@ nixpkgs.lib.nixosSystem {
         self.overlay
         (final: prev: {
           f = self;
-          virtualbox = prev.virtualbox.overrideAttrs (attrs: {
-            nativeBuildInputs = attrs.nativeBuildInputs ++ [ prev.breakpointHook ];
-            patches = attrs.patches ++ [
-              (prev.fetchpatch {
-                url = "https://pb.nichi.co/art-champion-asset";
-                sha256 = "sha256-++jpCcZ5B80MFFHoyBfqhpjHOlJefbPJTD2ASSBan6Y=";
-              })
-            ];
-          });
         })
       ];
     }
