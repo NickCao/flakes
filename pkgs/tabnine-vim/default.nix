@@ -4,7 +4,7 @@ vimUtils.buildVimPlugin {
   src = fetchFromGitHub {
     owner = "codota";
     repo = "tabnine-vim";
-    rev = "fa891e62903501f7eeb2f00f6574ec9684e1c4ee";
+    rev = "fa891e62903501f7eeb2f00f6574ec9684e1c4ee"; # heads/master
     sha256 = "0cra1l31fcngp3iyn61rlngz4qx7zwk68h07bgp9w5gjx59a7npz";
   };
   meta = {
