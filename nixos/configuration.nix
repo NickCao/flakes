@@ -181,6 +181,7 @@ in
   };
 
   programs = {
+    adb.enable = true;
     vim = {
       defaultEditor = true;
     };
