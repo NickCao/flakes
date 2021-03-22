@@ -253,6 +253,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    fcitx5-pinyin-zhwiki-rime
     quartus-prime-lite
     mode
     chromium

@@ -9,6 +9,6 @@ stdenv.mkDerivation rec {
   };
   phases = [ "installPhase" ];
   installPhase = ''
-    install -Dm644 $src $out/usr/share/rime-data/zhwiki.dict.yaml
+    install -Dm644 $src $out/share/rime-data/zhwiki.dict.yaml
   '';
 }
