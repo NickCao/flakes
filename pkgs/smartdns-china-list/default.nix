@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "smartdns-china-list";
-  version = "2021-03-21";
+  version = "2021-03-22";
 
   src = fetchFromGitHub {
     owner = "felixonmars";
     repo = "dnsmasq-china-list";
-    rev = "3e4b03ec852293170fb6940e14a682133b26237a"; # heads/master
-    sha256 = "1wxs0zqymx34ibv8siycrcjgph7inbzbxrvsnm4613cshf7h6yhq";
+    rev = "40162d93848f8a62298d02ef887cff80104a3fcc"; # heads/master
+    sha256 = "0zk6d24hw9sj76crlji4432wxcgzrfb5q8jrj4ah5vps4ggfspna";
   };
 
   buildPhase = ''

@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "auth-thu";
-  version = "2020-12-17";
+  version = "2021-01-19";
 
   src = fetchFromGitHub {
     owner = "z4yx";
     repo = "GoAuthing";
-    rev = "f8acce6ce173458ff3a34a44ae7b84408599bdc8"; # tags/v*
-    sha256 = "1z1anpp16d01ncp2bg1ahnyn0707xnavhbaqhddjhzw78zsh120q";
+    rev = "0b9cecc866fff41db1ef09248ed58e5ce8a575ff"; # heads/master
+    sha256 = "058kqphb83rmkh4c5i5axvarid53zsr2q3kcrf5alsb7ryidsyc9";
   };
 
   vendorSha256 = "sha256-SCLbX9NqMLBNSBHC3a921b8+3Vy7VHjUcFHbjidwQ+c=";
