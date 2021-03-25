@@ -46,6 +46,7 @@ in
     # data
     HISTFILE = "${config.xdg.dataHome}/bash_history";
     LESSHISTFILE = "${config.xdg.dataHome}/lesshst";
+    CARGO_HOME = "${config.xdg.dataHome}/cargo";
     # shit
     PYTHONSTARTUP = (pkgs.writeText "start.py" ''
       import readline
