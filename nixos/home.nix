@@ -5,6 +5,8 @@ let
 in
 {
   home.packages = with pkgs; [
+    pandoc
+    wkhtmltopdf
     kubeseal
     prime-run
     wireguard-tools
@@ -15,12 +17,10 @@ in
     cachix
     smartmontools
     rait
-    hugo
     python3
     ldns
     tree
     mtr
-    gopls
     go_1_16
     sops
     update-nix-fetchgit
