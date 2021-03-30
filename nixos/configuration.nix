@@ -100,15 +100,16 @@ in
     ];
     kernelModules = [ "ec_sys" ];
     extraModprobeConfig = ''
-      options i915 enable_guc=2
+      options i915 enable_guc=0
       options i915 enable_fbc=1
       options i915 fastboot=1
+      options i915 enable_gvt=1
       blacklist ideapad_laptop
     '';
   };
 
   virtualisation = {
-    virtualbox.host.enable = true;
+    libvirtd.enable = true;
     podman.enable = true;
   };
 
@@ -198,7 +199,7 @@ in
       nickcao = {
         isNormalUser = true;
         hashedPassword = "$6$n7lnnelApqi$ulDiRUraojX4zlMiuP4qP./qGZYbTGKVqTsN5z.5HlAGgIy23WMpxBA5fjFyY.RGOepAaZV8cK0tt3duMgVy30";
-        extraGroups = [ "wheel" "networkmanager" "vboxusers" ];
+        extraGroups = [ "wheel" "networkmanager" "libvirtd" ];
       };
     };
   };
@@ -253,6 +254,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    virt-manager
     fcitx5-pinyin-zhwiki-rime
     quartus-prime-lite
     mode
