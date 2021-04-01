@@ -157,6 +157,9 @@ in
     };
     udev = {
       packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
+      extraRules = ''
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6001", MODE="0666"
+      '';
     };
     xserver = {
       enable = true;

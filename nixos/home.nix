@@ -31,6 +31,7 @@ in
     kubeone
     butane
     restic
+    libarchive
   ];
 
   systemd.user.sessionVariables = {
@@ -79,6 +80,8 @@ in
         let g:formatters_nix = [ 'nixpkgs_fmt' ]
         let g:formatters_yaml = [ 'prettier_yaml' ]
         let g:formatters_tf = [ 'terraform' ]
+
+        set tabstop=2 shiftwidth=2
       '';
     };
     direnv = {
