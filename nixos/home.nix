@@ -29,7 +29,7 @@ in
     (mkWrap "terraform" "${coreutils}/bin/env TF_PLUGIN_CACHE_DIR=${config.xdg.cacheHome}/terraform CHECKPOINT_DISABLE=1 ${terraform_0_14}/bin/terraform")
     ko
     kubeone
-    fcct
+    butane
     restic
   ];
 
