@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "k0sctl";
-  version = "2021-03-11";
+  version = "2021-03-31";
 
   src = fetchFromGitHub {
     owner = "k0sproject";
     repo = "k0sctl";
-    rev = "57db32192b852671ee2f839f45e18d3cf0458142"; # tags/v*
-    sha256 = "167763wd2j55k47ws7byvzcrdghv2scf4dmvasndk84k2y2qayml";
+    rev = "410eca55cfefb632ae9443c91bbebb4c99969152"; # tags/v*
+    sha256 = "19248jyx7kp0ibrzm7bj1zimaxc0zdc65h44hpmv67v7nm632wf6";
   };
 
   vendorSha256 = "sha256-DIrTDJp/VJzkjFdOkme95L7MqILIeyFEtVHYnsa5bks=";

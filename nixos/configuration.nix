@@ -86,7 +86,7 @@ in
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_testing;
     kernelParams = [
       "quiet"
       "udev.log_level=3"
@@ -142,6 +142,7 @@ in
   };
 
   services = {
+    logind.lidSwitch = "ignore";
     gnome3.core-utilities.enable = false;
     gnome3.gnome-keyring.enable = pkgs.lib.mkForce false;
     pipewire = {
