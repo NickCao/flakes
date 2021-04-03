@@ -10,7 +10,6 @@ in
     kubeseal
     prime-run
     wireguard-tools
-    steam-run-native
     jq
     auth-thu
     nixpkgs-fmt
@@ -23,7 +22,7 @@ in
     mtr
     go_1_16
     sops
-    update-nix-fetchgit
+    # update-nix-fetchgit
     (mkWrap "mc" "${minio-client}/bin/mc --config-dir ${config.xdg.configHome}/mc")
     (mkWrap "kubectl" "${kubectl}/bin/kubectl --cache-dir=${config.xdg.cacheHome}/kube --kubeconfig=${config.xdg.configHome}/kubeconfig")
     (mkWrap "terraform" "${coreutils}/bin/env TF_PLUGIN_CACHE_DIR=${config.xdg.cacheHome}/terraform CHECKPOINT_DISABLE=1 ${terraform_0_14}/bin/terraform")
