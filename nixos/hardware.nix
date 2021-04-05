@@ -41,12 +41,6 @@
     fsType = "btrfs";
     options = [ "subvol=home" "noatime" "compress-force=zstd" ];
   };
-
-  fileSystems."/home/nickcao/Data" = {
-    device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
-    fsType = "btrfs";
-    options = [ "subvol=data" "noatime" "compress-force=zstd" ];
-  };
   /*
     fileSystems."/home/nickcao/Test" = {
     device = "/dev/mapper/test";
