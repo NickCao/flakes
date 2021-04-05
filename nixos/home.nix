@@ -216,7 +216,7 @@ in
         Version=1.0
         Name=Telegram Desktop
         Comment=Official desktop version of Telegram messaging app
-        Exec=telegram-desktop -workdir /home/nickcao/.local/share/TelegramDesktop/ -autostart
+        Exec=telegram-desktop -workdir ${config.xdg.dataHome}/TelegramDesktop/ -autostart
         Icon=telegram
         Terminal=false
         StartupWMClass=TelegramDesktop
