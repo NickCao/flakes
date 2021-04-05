@@ -243,4 +243,11 @@ in
       };
     };
   };
+
+  home.persistence."/persistent/home" = {
+    directories = [
+      ".pki"
+      ".gnupg"
+    ];
+  };
 }

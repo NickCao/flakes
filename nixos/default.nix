@@ -10,6 +10,7 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [ self.overlay ];
       nix.registry.p.flake = nixpkgs;
+      home-manager.users.nickcao.imports = [ "${impermanence}/home-manager.nix" ];
     }
   ];
 }
