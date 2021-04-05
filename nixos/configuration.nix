@@ -216,7 +216,6 @@ in
 
   environment.etc = {
     "nixos/flake.nix".source = config.users.users.nickcao.home + "/Projects/flakes/flake.nix";
-    "machine-id".text = "34df62c767c846d5a93eb2d6f05d9e1d";
     "rait/rait.conf".source = config.sops.secrets.rait.path;
     "rait/babeld.conf".text = ''
       random-id true
@@ -296,6 +295,17 @@ in
     noto-fonts-extra
     noto-fonts-emoji
   ];
+
+  environment.persistence."/persistent" = {
+    directories = [
+      "/var/log"
+      "/var/db"
+      "/var/lib"
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
 
   system.stateVersion = "20.09";
 }

@@ -18,10 +18,17 @@
     options = [ "subvol=nix" "noatime" "compress-force=zstd" ];
   };
 
-  fileSystems."/var" = {
+  fileSystems."/persistent" = {
     device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
     fsType = "btrfs";
-    options = [ "subvol=var" "noatime" "compress-force=zstd" ];
+    options = [ "subvol=persistent" "noatime" "compress-force=zstd" ];
+    neededForBoot = true;
+  };
+
+  fileSystems."/var/cache" = {
+    device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
+    fsType = "btrfs";
+    options = [ "subvol=cache" "noatime" "compress-force=zstd" ];
   };
 
   fileSystems."/boot" = {
@@ -42,13 +49,13 @@
   };
   /*
     fileSystems."/home/nickcao/Test" = {
-      device = "/dev/mapper/test";
-      fsType = "ext4";
-      encrypted = {
-        enable = true;
-        blkDev = "/dev/disk/by-partuuid/334ecef1-fc71-4ffa-8f27-338a99db67a6";
-        label = "test";
-      };
+    device = "/dev/mapper/test";
+    fsType = "ext4";
+    encrypted = {
+    enable = true;
+    blkDev = "/dev/disk/by-partuuid/334ecef1-fc71-4ffa-8f27-338a99db67a6";
+    label = "test";
+    };
     };
   */
 }

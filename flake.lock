@@ -35,13 +35,28 @@
         "type": "github"
       }
     },
+    "impermanence": {
+      "locked": {
+        "lastModified": 1611747548,
+        "narHash": "sha256-2z5wmWda1uI4IkTZrW52jiHq3bzhYLc+GgjvaSd544M=",
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "rev": "58558845bc68dcf2bb32caa80564f7fe3f6cbc61",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1617358763,
-        "narHash": "sha256-mtP//Kk4GdHnxtkYzK/92qcg5X6tW9f53gJxMgmCneM=",
+        "lastModified": 1617577082,
+        "narHash": "sha256-oNVkQXmq2wZHXC+5Pvxn48qYKda28ik3GdUY3GH3+g8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "905ecb920edc73922beea028adf3b139f96f3bd6",
+        "rev": "b5734315fcce4a573d5a731c44dd62559244d816",
         "type": "github"
       },
       "original": {
@@ -55,6 +70,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
         "sops-nix": "sops-nix"
       }
@@ -66,11 +82,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1615031779,
-        "narHash": "sha256-uCdrsI0poKOAt0BxxjbLMNY6bOZNrDxOTAx4DQQTAEM=",
+        "lastModified": 1617518988,
+        "narHash": "sha256-k02iASMkinlgdcjkQcaOBaDYSRe14JQK3jkP1NWaaDc=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "137d387e784783eac52dfd9d1b35227eb0c211f1",
+        "rev": "441227c4fd831818fb55f366ea16ea6364850102",
         "type": "github"
       },
       "original": {
