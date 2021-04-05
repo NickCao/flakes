@@ -10,7 +10,9 @@ nixpkgs.lib.nixosSystem {
       nixpkgs.overlays = [
         self.overlay
         (final: prev: {
-          f = self;
+          inputs = {
+            inherit self nixpkgs impermanence;
+          };
         })
       ];
     }

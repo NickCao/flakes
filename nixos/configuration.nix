@@ -1,13 +1,4 @@
 { config, pkgs, ... }:
-let
-  flake-registry = pkgs.writeText "flake-registry.json" (builtins.toJSON {
-    flakes = [{
-      from = { id = "p"; type = "indirect"; };
-      to = { path = "${pkgs.f.inputs.nixpkgs}"; type = "path"; };
-    }];
-    version = 2;
-  });
-in
 {
   imports = [ ./hardware.nix ];
 
@@ -24,6 +15,7 @@ in
   };
 
   nix = {
+    registry.p.flake = pkgs.inputs.nixpkgs;
     autoOptimiseStore = true;
     binaryCaches = [ "https://mirrors4.bfsu.edu.cn/nix-channels/store" "https://cache.nichi.workers.dev" "https://nichi.cachix.org" "https://nix-community.cachix.org" ];
     binaryCachePublicKeys = [ "nichi.cachix.org-1:ZWn4Jui6odEcNEMjcHM/WXbDSVO4Ai+jrzWHf+pqwj0=" "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
@@ -32,7 +24,6 @@ in
     extraOptions = ''
       experimental-features = nix-command flakes ca-references
       builders-use-substitutes = true
-      flake-registry = ${flake-registry}
       keep-outputs = true
       keep-derivations = true
     '';
