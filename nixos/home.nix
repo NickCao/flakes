@@ -80,7 +80,7 @@ in
         let g:formatters_yaml = [ 'prettier_yaml' ]
         let g:formatters_tf = [ 'terraform' ]
 
-        set tabstop=2 shiftwidth=2
+        set tabstop=4 shiftwidth=4 expandtab smarttab
       '';
     };
     direnv = {
@@ -108,7 +108,7 @@ in
         key = "A1E513A77CC0D91C8806A4EB068A56CEF48FA2C1";
       };
       extraConfig = {
-        pull.rebase = false;
+        pull.rebase = true;
         init.defaultBranch = "master";
       };
     };
