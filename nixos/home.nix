@@ -54,34 +54,6 @@ in
   };
 
   programs = {
-    vim = {
-      enable = true;
-      plugins = with pkgs.vimPlugins; [ vim-lastplace vim-autoformat vim-airline vim-airline-themes pkgs.tabnine-vim ];
-      extraConfig = ''
-        set viminfo+=n${config.xdg.cacheHome}/viminfo
-        let g:airline_theme = 'solarized'
-
-        " file explorer
-        let g:netrw_liststyle = 3
-        let g:netrw_banner = 0
-        let g:netrw_browse_split = 3
-        let g:netrw_winsize = 25
-        let g:netrw_dirhistmax = 0
-
-        " line number
-        set number
-
-        " format
-        let g:formatdef_nixpkgs_fmt = '"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"'
-        let g:formatdef_prettier_yaml = '"${pkgs.nodePackages.prettier}/bin/prettier --parser yaml"'
-        let g:formatdef_terraform = '"${pkgs.terraform_0_14}/bin/terraform fmt -"'
-        let g:formatters_nix = [ 'nixpkgs_fmt' ]
-        let g:formatters_yaml = [ 'prettier_yaml' ]
-        let g:formatters_tf = [ 'terraform' ]
-
-        set tabstop=4 shiftwidth=4 expandtab smarttab
-      '';
-    };
     direnv = {
       enable = true;
       enableNixDirenvIntegration = true;

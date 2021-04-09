@@ -181,10 +181,33 @@
   };
 
   programs = {
-    adb.enable = true;
-    vim = {
+    neovim = {
+      enable = true;
+      vimAlias = true;
+      viAlias = true;
       defaultEditor = true;
+      configure = {
+        customRC = ''
+          set number
+          let g:netrw_liststyle = 3 " tree style
+          let g:netrw_banner = 0 " no banner
+          let g:netrw_browse_split = 3 " new tab
+          let g:airline_theme = 'solarized'
+          set tabstop=2 shiftwidth=2 expandtab smarttab
+          " auto format
+          let g:formatdef_nix = '"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"'
+          let g:formatdef_yaml = '"${pkgs.nodePackages.prettier}/bin/prettier --parser yaml"'
+          let g:formatdef_tf = '"${pkgs.terraform_0_14}/bin/terraform fmt -"'
+          let g:formatters_nix = [ 'nix' ]
+          let g:formatters_yaml = [ 'yaml' ]
+          let g:formatters_tf = [ 'tf' ]
+        '';
+        packages.vim = {
+          start = with pkgs.vimPlugins; [ vim-nix vim-lastplace vim-autoformat vim-airline vim-airline-themes ];
+        };
+      };
     };
+    adb.enable = true;
     chromium = {
       enable = true;
       extensions = [ "padekgcemlokbadohgkifijomclgjgif" "cjpalhdlnbpafiamejdnhcphjbkeiagm" ];
