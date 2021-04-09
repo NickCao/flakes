@@ -108,6 +108,8 @@ in
       extraConfig = ''
         set -g mouse on
         set -g status-right ""
+        set-option -sg escape-time 10
+        set-option -sa terminal-overrides ',alacritty:RGB'
       '';
     };
     alacritty = {
