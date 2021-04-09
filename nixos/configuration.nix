@@ -183,13 +183,7 @@
   programs = {
     neovim = {
       enable = true;
-      package = pkgs.neovim-nightly.overrideAttrs (attrs: {
-        postInstall = attrs.postInstall + ''
-          substituteInPlace $out/share/applications/nvim.desktop \
-            --replace 'Terminal=true' 'Terminal=false' \
-            --replace 'Exec=nvim %F' 'Exec=alacritty -e nvim %F'
-        '';
-      });
+      package = pkgs.neovim-nightly;
       vimAlias = true;
       viAlias = true;
       defaultEditor = true;
@@ -291,6 +285,9 @@
   };
 
   environment.systemPackages = with pkgs; [
+    (writeShellScriptBin "xterm" ''
+      exec alacritty "$@"
+    '')
     virt-manager
     fcitx5-pinyin-zhwiki-rime
     quartus-prime-lite
