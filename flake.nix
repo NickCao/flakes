@@ -4,6 +4,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     flake-utils.url = "github:numtide/flake-utils";
     impermanence.url = "github:nix-community/impermanence";
+    neovim = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,7 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, flake-utils, impermanence, home-manager, sops-nix }:
+  outputs = { self, nixpkgs, flake-utils, impermanence, neovim, home-manager, sops-nix }:
     let this = import ./pkgs; in
     nixpkgs.lib.recursiveUpdate
       (flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ] (system:
@@ -21,7 +25,7 @@
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
-            overlays = [ self.overlay ];
+            overlays = [ self.overlay neovim.overlay ];
           };
         in
         rec {
@@ -33,7 +37,7 @@
         overlay = this.overlay;
         nixosConfigurations.local = import ./nixos {
           system = "x86_64-linux";
-          inherit self nixpkgs impermanence home-manager sops-nix;
+          inherit self nixpkgs impermanence neovim home-manager sops-nix;
         };
         pkgs = nixosConfigurations.local.pkgs;
       });

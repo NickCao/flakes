@@ -183,12 +183,15 @@
   programs = {
     neovim = {
       enable = true;
+      package = pkgs.neovim-nightly;
       vimAlias = true;
       viAlias = true;
       defaultEditor = true;
       configure = {
         customRC = ''
           set number
+          set background=light
+          colorscheme solarized
           let g:netrw_liststyle = 3 " tree style
           let g:netrw_banner = 0 " no banner
           let g:netrw_browse_split = 3 " new tab
@@ -203,7 +206,7 @@
           let g:formatters_tf = [ 'tf' ]
         '';
         packages.vim = {
-          start = with pkgs.vimPlugins; [ vim-nix vim-lastplace vim-autoformat vim-airline vim-airline-themes ];
+          start = with pkgs.vimPlugins; [ solarized nvim-lspconfig vim-nix vim-lastplace vim-autoformat vim-airline vim-airline-themes ];
         };
       };
     };

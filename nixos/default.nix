@@ -1,4 +1,4 @@
-{ system, self, nixpkgs, impermanence, home-manager, sops-nix }:
+{ system, self, nixpkgs, impermanence, neovim, home-manager, sops-nix }:
 nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
@@ -8,7 +8,7 @@ nixpkgs.lib.nixosSystem {
     home-manager.nixosModules.home-manager
     sops-nix.nixosModules.sops
     {
-      nixpkgs.overlays = [ self.overlay ];
+      nixpkgs.overlays = [ self.overlay neovim.overlay ];
       nix.registry.p.flake = nixpkgs;
       home-manager.users.nickcao.imports = [ "${impermanence}/home-manager.nix" ];
     }
