@@ -204,9 +204,16 @@
           let g:formatters_nix = [ 'nix' ]
           let g:formatters_yaml = [ 'yaml' ]
           let g:formatters_tf = [ 'tf' ]
+          " completion
+          lua require'lspconfig'.gopls.setup{on_attach=require'completion'.on_attach,cmd={"${pkgs.gopls}/bin/gopls"}}
+          lua require'lspconfig'.rust_analyzer.setup{on_attach=require'completion'.on_attach,cmd={"${pkgs.rust-analyzer}/bin/rust-analyzer"}}
+          inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+          inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+          set completeopt=menuone,noinsert,noselect
+          set shortmess+=c
         '';
         packages.vim = {
-          start = with pkgs.vimPlugins; [ solarized nvim-lspconfig vim-nix vim-lastplace vim-autoformat vim-airline vim-airline-themes ];
+          start = with pkgs.vimPlugins; [ solarized nvim-lspconfig completion-nvim vim-nix vim-lastplace vim-autoformat vim-airline vim-airline-themes ];
         };
       };
     };
