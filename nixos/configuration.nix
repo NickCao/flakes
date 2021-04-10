@@ -204,14 +204,30 @@
           let g:formatters_nix = [ 'nix' ]
           let g:formatters_yaml = [ 'yaml' ]
           let g:formatters_tf = [ 'tf' ]
-          " completion
-          lua require'lspconfig'.gopls.setup{on_attach=require'completion'.on_attach,cmd={"${pkgs.gopls}/bin/gopls"}}
-          lua require'lspconfig'.rust_analyzer.setup{on_attach=require'completion'.on_attach,cmd={"${pkgs.rust-analyzer}/bin/rust-analyzer"}}
+          " cycle through completions with tab
           inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
           inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
           set completeopt=menuone,noinsert,noselect
           set shortmess+=c
-        '';
+          lua << EOF
+          local nvim_lsp = require('lspconfig')
+          local on_attach = function(client, bufnr)
+            require('completion').on_attach()
+            local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+            local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+            buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+            local opts = { noremap=true, silent=true }
+            buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+            buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+            buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+            buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+            buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+            buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+          end
+          nvim_lsp['gopls'].setup { on_attach = on_attach, cmd = { '${pkgs.gopls}/bin/gopls' } }
+          nvim_lsp['rust_analyzer'].setup { on_attach = on_attach, cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' } }
+          EOF
+       '';
         packages.vim = {
           start = with pkgs.vimPlugins; [ solarized nvim-lspconfig completion-nvim vim-nix vim-lastplace vim-autoformat vim-airline vim-airline-themes ];
         };
