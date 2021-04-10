@@ -27,7 +27,6 @@
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "goland"
     "nvidia-x11"
     "nvidia-settings"
     "vimplugin-tabnine-vim"
@@ -318,7 +317,6 @@
     tdesktop
     materia-theme
     numix-icon-theme-circle
-    jetbrains.goland
     gnome3.gnome-tweak-tool
     gnome3.nautilus
     gnome3.gnome-screenshot
