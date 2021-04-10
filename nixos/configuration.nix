@@ -188,8 +188,12 @@
       defaultEditor = true;
       configure = {
         customRC = ''
+          " shortcuts
+          noremap <C-x> <esc>:x<cr>
+          noremap <C-q> <esc>:q!<cr>
           set number
           set background=light
+          set clipboard+=unnamedplus
           colorscheme solarized
           let g:netrw_liststyle = 3 " tree style
           let g:netrw_banner = 0 " no banner
