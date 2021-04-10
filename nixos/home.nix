@@ -104,12 +104,13 @@ in
       enable = true;
       shell = "${pkgs.fish}/bin/fish";
       keyMode = "vi";
-      newSession = true;
       extraConfig = ''
         set -g mouse on
         set -g status-right ""
-        set-option -sg escape-time 10
-        set-option -sa terminal-overrides ',alacritty:RGB'
+        set -gs escape-time 10
+        set -g default-terminal "tmux-256color"
+        set -ga terminal-overrides ",alacritty:Tc"
+        new-session -s main
       '';
     };
     alacritty = {
@@ -122,7 +123,7 @@ in
         colors = (import ./alacritty.nix).light;
         shell = {
           program = "${pkgs.tmux}/bin/tmux";
-          args = [ "attach" ];
+          args = [ "new-session" "-t" "main" ];
         };
       };
     };
