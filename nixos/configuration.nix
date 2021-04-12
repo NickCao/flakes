@@ -29,7 +29,6 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "nvidia-x11"
     "nvidia-settings"
-    "vimplugin-tabnine-vim"
     "quartus-prime-lite-unwrapped"
   ];
 
@@ -190,6 +189,7 @@
         customRC = ''
           " shortcuts
           noremap <C-x> <esc>:x<cr>
+          noremap <C-s> <esc>:w<cr>
           noremap <C-q> <esc>:q!<cr>
           set number
           set background=light
@@ -305,7 +305,7 @@
 
   environment.systemPackages = with pkgs; [
     (writeShellScriptBin "xterm" ''
-      exec alacritty "$@"
+      exec ${alacritty}/bin/alacritty "$@"
     '')
     virt-manager
     fcitx5-pinyin-zhwiki-rime
