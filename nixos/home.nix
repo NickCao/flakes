@@ -41,7 +41,7 @@ in
     XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     # config
-    DOCKER_CONFIG = "${config.xdg.configHome}/docker";
+    DOCKER_CONFIG = "${config.xdg.configHome}/docker/config.json";
     # data
     HISTFILE = "${config.xdg.dataHome}/bash_history";
     LESSHISTFILE = "${config.xdg.dataHome}/lesshst";
@@ -202,7 +202,7 @@ in
       '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
-        GOBIN=${config.home.homeDirectory}/Bin
+        GOBIN=${config.xdg.dataHome}/go/bin
         GO111MODULE=on
         GOPROXY=https://goproxy.cn
         GOSUMDB=sum.golang.google.cn
