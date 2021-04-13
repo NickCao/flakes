@@ -5,6 +5,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    rust-nightly.default.toolchain
     age
     pandoc
     prime-run
