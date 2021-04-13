@@ -73,7 +73,7 @@
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_testing;
+    kernelPackages = pkgs.linuxPackages_xanmod;
     kernelParams = [
       "quiet"
       "udev.log_level=3"
@@ -230,7 +230,7 @@
           nvim_lsp['gopls'].setup { on_attach = on_attach, cmd = { '${pkgs.gopls}/bin/gopls' } }
           nvim_lsp['rust_analyzer'].setup { on_attach = on_attach, cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' } }
           EOF
-       '';
+        '';
         packages.vim = {
           start = with pkgs.vimPlugins; [ solarized nvim-lspconfig completion-nvim vim-nix vim-lastplace vim-autoformat vim-airline vim-airline-themes ];
         };
