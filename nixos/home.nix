@@ -6,6 +6,7 @@ in
 {
   home.packages = with pkgs; [
     rust-nightly.default.toolchain
+    clang_12
     age
     pandoc
     prime-run
@@ -42,7 +43,7 @@ in
     XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     # config
-    DOCKER_CONFIG = "${config.xdg.configHome}/docker/config.json";
+    DOCKER_CONFIG = "${config.xdg.configHome}/docker/";
     # data
     HISTFILE = "${config.xdg.dataHome}/bash_history";
     LESSHISTFILE = "${config.xdg.dataHome}/lesshst";
