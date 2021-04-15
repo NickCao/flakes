@@ -221,12 +221,4 @@ in
       };
     };
   };
-
-  home.persistence."/persistent/home" = {
-    allowOther = false;
-    directories = [
-      ".pki"
-      ".ssh"
-    ];
-  };
 }
