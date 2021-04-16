@@ -17,6 +17,7 @@ nixpkgs.lib.nixosSystem {
                 buildInputs = attrs.buildInputs ++ [ prev.mesa ];
               });
               gnome-session = prev.gnome3.gnome-session.override { gnome3 = final.gnome3; };
+              gnome-tweaks = prev.gnome3.gnome-tweaks.override { gnome3 = final.gnome3; };
             };
           }
         )
