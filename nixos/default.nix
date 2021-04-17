@@ -25,8 +25,7 @@ nixpkgs.lib.nixosSystem {
         inputs.neovim.overlay
         inputs.fenix.overlay
       ];
-      nix.registry.p.flake = nixpkgs;
-      home-manager.users.nickcao.imports = [ "${inputs.impermanence}/home-manager.nix" ];
+      nix.registry.p.flake = self;
     }
   ];
 }

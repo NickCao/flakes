@@ -26,18 +26,15 @@
     nixpkgs.lib.recursiveUpdate
       (flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ] (system:
         let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ self.overlay ];
-          };
+          pkgs = import nixpkgs { inherit system; overlays = [ self.overlay ]; };
         in
         rec {
-          packages = this.getPackages pkgs;
+          packages = this.packages pkgs;
           checks = packages;
           legacyPackages = pkgs;
         }
       ))
-      (rec {
+      ({
         overlay = this.overlay;
         nixosConfigurations.local = import ./nixos { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       });
