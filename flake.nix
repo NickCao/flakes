@@ -21,28 +21,24 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, flake-utils, impermanence, fenix, neovim, home-manager, sops-nix }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     let this = import ./pkgs; in
     nixpkgs.lib.recursiveUpdate
       (flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ] (system:
         let
           pkgs = import nixpkgs {
             inherit system;
-            config.allowUnfree = true;
             overlays = [ self.overlay ];
           };
         in
         rec {
           packages = this.getPackages pkgs;
           checks = packages;
+          legacyPackages = pkgs;
         }
       ))
       (rec {
         overlay = this.overlay;
-        nixosConfigurations.local = import ./nixos {
-          system = "x86_64-linux";
-          inherit self nixpkgs impermanence fenix neovim home-manager sops-nix;
-        };
-        pkgs = nixosConfigurations.local.pkgs;
+        nixosConfigurations.local = import ./nixos { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       });
 }
