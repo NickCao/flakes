@@ -1,2 +1,0 @@
-{}:
-(builtins.getFlake (toString ../..)).pkgs

@@ -9,18 +9,6 @@ nixpkgs.lib.nixosSystem {
     inputs.sops-nix.nixosModules.sops
     {
       nixpkgs.overlays = [
-        (
-          final: prev: {
-            gnome3 = prev.gnome3 // {
-              gnome-shell = prev.gnome3.gnome-shell.overrideAttrs (attrs: {
-                pname = "gnome-shell-fixed";
-                buildInputs = attrs.buildInputs ++ [ prev.mesa ];
-              });
-              gnome-session = prev.gnome3.gnome-session.override { gnome3 = final.gnome3; };
-              gnome-tweaks = prev.gnome3.gnome-tweaks.override { gnome3 = final.gnome3; };
-            };
-          }
-        )
         self.overlay
         inputs.neovim.overlay
         inputs.fenix.overlay
