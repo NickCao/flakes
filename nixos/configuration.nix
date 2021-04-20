@@ -129,6 +129,7 @@
   };
 
   services = {
+    fstrim.enable = true;
     logind.lidSwitch = "ignore";
     gnome3.core-utilities.enable = false;
     gnome3.gnome-keyring.enable = pkgs.lib.mkForce false;
