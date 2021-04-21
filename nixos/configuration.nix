@@ -86,7 +86,7 @@
     ];
     kernelModules = [ "ec_sys" ];
     extraModprobeConfig = ''
-      options i915 enable_guc=0
+      options i915 enable_guc=2
       options i915 enable_fbc=1
       options i915 fastboot=1
       blacklist ideapad_laptop
@@ -94,14 +94,6 @@
   };
 
   virtualisation = {
-    kvmgt = {
-      enable = true;
-      vgpus = {
-        i915-GVTg_V5_4 = {
-          uuid = [ "ccde96df-75f1-4846-bb66-4454f1482029" ];
-        };
-      };
-    };
     libvirtd.enable = true;
     podman.enable = true;
   };
