@@ -1,0 +1,9 @@
+[[package]]
+name = "ko"
+src.github = "google/ko"
+fetch.github = "google/ko"
+
+[[package]]
+name = "auth-thu"
+src.github = "z4yx/GoAuthing"
+fetch.github = "z4yx/GoAuthing"
