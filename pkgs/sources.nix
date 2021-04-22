@@ -13,6 +13,30 @@
       sha256 = "1z1anpp16d01ncp2bg1ahnyn0707xnavhbaqhddjhzw78zsh120q";
     };
   };
+  butane = {
+    pname = "butane";
+    version = "v0.11.0";
+    src = fetchgit {
+      url = "https://github.com/coreos/butane";
+      rev = "v0.11.0";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1s4rkq7mj1lyi8h47jyfy3qygfxhrmpihdy8rcnn55gcy04lm0qc";
+    };
+  };
+  k0sctl = {
+    pname = "k0sctl";
+    version = "v0.8.1";
+    src = fetchgit {
+      url = "https://github.com/k0sproject/k0sctl";
+      rev = "v0.8.1";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0n71xbk7q3fwsv6vzjrc8q0ja26fklpy103j8fh7r35r7n6li2bs";
+    };
+  };
   ko = {
     pname = "ko";
     version = "v0.8.2";
@@ -23,6 +47,30 @@
       deepClone = false;
       leaveDotGit = false;
       sha256 = "0c96bd1izcqy8n088iy7bdc3xwz5har6669k7zxfxwnb19dzxjnv";
+    };
+  };
+  kubeone = {
+    pname = "kubeone";
+    version = "v1.2.1";
+    src = fetchgit {
+      url = "https://github.com/kubermatic/kubeone";
+      rev = "v1.2.1";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1abm7735c4pjv31pfggkvia7br19zbhjpp2w0n5zckwrjm9hxns6";
+    };
+  };
+  material-decoration = {
+    pname = "material-decoration";
+    version = "e652d62451dc67a9c6bc16c00ccbc38fed3373dd";
+    src = fetchgit {
+      url = "https://github.com/Zren/material-decoration";
+      rev = "e652d62451dc67a9c6bc16c00ccbc38fed3373dd";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "182hqn4kbh0vmnbhj7nrqx2lypkddd6appp5y4kqinnw8dmpdyqx";
     };
   };
 }
