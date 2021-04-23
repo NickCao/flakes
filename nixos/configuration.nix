@@ -196,7 +196,7 @@
           " auto format
           let g:formatdef_nix = '"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"'
           let g:formatdef_yaml = '"${pkgs.nodePackages.prettier}/bin/prettier --parser yaml"'
-          let g:formatdef_tf = '"${pkgs.terraform_0_14}/bin/terraform fmt -"'
+          let g:formatdef_tf = '"${pkgs.terraform_0_15}/bin/terraform fmt -"'
           let g:formatters_nix = [ 'nix' ]
           let g:formatters_yaml = [ 'yaml' ]
           let g:formatters_tf = [ 'tf' ]
@@ -301,7 +301,6 @@
       exec ${alacritty}/bin/alacritty "$@"
     '')
     virt-manager
-    fcitx5-pinyin-zhwiki-rime
     quartus-prime-lite
     mode
     chromium
