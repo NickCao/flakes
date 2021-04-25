@@ -36,12 +36,11 @@ in
     GOOGLE_DEFAULT_CLIENT_ID = "77185425430.apps.googleusercontent.com";
     GOOGLE_DEFAULT_CLIENT_SECRET = "OTJgUOQcT7lO7GsGZq2G4IlT";
     LIBVA_DRIVER_NAME = "iHD";
-    KO_DOCKER_REPO = "quay.io/nickcao";
     # cache
     XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     # config
-    DOCKER_CONFIG = "${config.xdg.configHome}/docker/";
+    REGISTRY_AUTH_FILE = "${config.xdg.configHome}/containers/auth.json";
     # data
     HISTFILE = "${config.xdg.dataHome}/bash_history";
     LESSHISTFILE = "${config.xdg.dataHome}/lesshst";
