@@ -11,7 +11,7 @@ nixpkgs.lib.nixosSystem {
       nixpkgs.overlays = [
         self.overlay
         inputs.neovim.overlay
-        inputs.fenix.overlay
+        inputs.rust-overlay.overlay
       ];
       nix.registry.p.flake = self;
     }

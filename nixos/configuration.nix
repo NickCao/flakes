@@ -14,8 +14,8 @@
 
   nix = {
     autoOptimiseStore = true;
-    binaryCaches = [ "https://mirrors4.bfsu.edu.cn/nix-channels/store" "https://cache.nichi.workers.dev" "https://nichi.cachix.org" "https://nix-community.cachix.org" ];
-    binaryCachePublicKeys = [ "nichi.cachix.org-1:ZWn4Jui6odEcNEMjcHM/WXbDSVO4Ai+jrzWHf+pqwj0=" "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+    binaryCaches = pkgs.lib.mkForce [ "https://mirrors4.bfsu.edu.cn/nix-channels/store" "https://cache.nichi.workers.dev" "https://nichi.cachix.org" ];
+    binaryCachePublicKeys = [ "nichi.cachix.org-1:ZWn4Jui6odEcNEMjcHM/WXbDSVO4Ai+jrzWHf+pqwj0=" ];
     trustedUsers = [ "root" "nickcao" ];
     package = pkgs.nixFlakes;
     extraOptions = ''

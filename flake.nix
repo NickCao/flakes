@@ -4,9 +4,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/gnome-40";
     flake-utils.url = "github:numtide/flake-utils";
     impermanence.url = "github:nix-community/impermanence";
-    fenix = {
-      url = "github:nix-community/fenix";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
     neovim = {
       url = "github:nix-community/neovim-nightly-overlay";
