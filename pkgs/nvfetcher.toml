@@ -1,29 +1,23 @@
-[[package]]
-name = "ko"
+[ko]
 src.github = "google/ko"
 fetch.github = "google/ko"
 
-[[package]]
-name = "auth-thu"
+[auth-thu]
 src.github = "z4yx/GoAuthing"
 fetch.github = "z4yx/GoAuthing"
 
-[[package]]
-name = "butane"
+[butane]
 src.github = "coreos/butane"
 fetch.github = "coreos/butane"
 
-[[package]]
-name = "k0sctl"
+[k0sctl]
 src.github = "k0sproject/k0sctl"
 fetch.github = "k0sproject/k0sctl"
 
-[[package]]
-name = "kubeone"
+[kubeone]
 src.github = "kubermatic/kubeone"
 fetch.github = "kubermatic/kubeone"
 
-[[package]]
-name = "material-decoration"
+[material-decoration]
 src.git = "https://github.com/Zren/material-decoration"
 fetch.github = "Zren/material-decoration"
