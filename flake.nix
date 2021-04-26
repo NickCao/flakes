@@ -27,7 +27,7 @@
     nixpkgs.lib.recursiveUpdate
       (flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ] (system:
         let
-          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay ]; };
+          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.rust-overlay.overlay ]; };
         in
         rec {
           packages = this.packages pkgs;

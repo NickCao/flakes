@@ -5,6 +5,8 @@ let
 in
 {
   home.packages = with pkgs; [
+    clang_12
+    rust-bin.nightly.latest.minimal
     age
     pandoc
     prime-run

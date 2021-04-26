@@ -139,6 +139,7 @@
       packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
       extraRules = ''
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="09fb", ATTRS{idProduct}=="6001", MODE="0666"
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="1050", ATTRS{idProduct}=="0113|0114|0115|0116|0120|0200|0402|0403|0406|0407|0410", TAG+="uaccess"
       '';
     };
     xserver = {
@@ -147,7 +148,6 @@
       desktopManager.gnome3.enable = true;
       videoDrivers = [ "nvidia" ];
     };
-    pcscd.enable = true;
     smartdns = {
       enable = true;
       settings = with pkgs; {
