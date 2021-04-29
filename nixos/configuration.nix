@@ -19,6 +19,7 @@
     trustedUsers = [ "root" "nickcao" ];
     package = pkgs.nixFlakes;
     extraOptions = ''
+      flake-registry = /etc/nix/registry.json
       experimental-features = nix-command flakes ca-references
       builders-use-substitutes = true
       keep-outputs = true
