@@ -6,7 +6,7 @@ in
 {
   home.packages = with pkgs; [
     clang_12
-    rust-bin.nightly.latest.minimal
+    (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default))
     age
     pandoc
     prime-run
