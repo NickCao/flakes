@@ -182,9 +182,9 @@
       configure = {
         customRC = ''
           " shortcuts
-          noremap <C-x> <esc>:x<cr>
-          noremap <C-s> <esc>:w<cr>
-          noremap <C-q> <esc>:q!<cr>
+          noremap <C-x> <Esc>:x<CR>
+          noremap <C-s> <Esc>:w<CR>
+          noremap <C-q> <Esc>:q!<CR>
           set number
           set background=light
           set clipboard+=unnamedplus
@@ -194,13 +194,6 @@
           let g:netrw_browse_split = 3 " new tab
           let g:airline_theme = 'solarized'
           set tabstop=2 shiftwidth=2 expandtab smarttab
-          " auto format
-          let g:formatdef_nix = '"${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"'
-          let g:formatdef_yaml = '"${pkgs.nodePackages.prettier}/bin/prettier --parser yaml"'
-          let g:formatdef_tf = '"${pkgs.terraform_0_15}/bin/terraform fmt -"'
-          let g:formatters_nix = [ 'nix' ]
-          let g:formatters_yaml = [ 'yaml' ]
-          let g:formatters_tf = [ 'tf' ]
           " cycle through completions with tab
           inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
           inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -215,18 +208,33 @@
             buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
             local opts = { noremap=true, silent=true }
             buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-            buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-            buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-            buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-            buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-            buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+            buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+            buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
+            buf_set_keymap('n', '<Space>h', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+            buf_set_keymap('n', '<Space>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+            buf_set_keymap('n', '<Space>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
           end
+          nvim_lsp['rnix'].setup { on_attach = on_attach, cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' } }
           nvim_lsp['gopls'].setup { on_attach = on_attach, cmd = { '${pkgs.gopls}/bin/gopls' } }
           nvim_lsp['rust_analyzer'].setup { on_attach = on_attach, cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' } }
+          nvim_lsp['yamlls'].setup { on_attach = on_attach, cmd = { '${pkgs.yaml-language-server}/bin/yaml-language-server', '--stdio'} }
+          nvim_lsp['terraformls'].setup { on_attach = on_attach, cmd = { '${pkgs.terraform-ls}/bin/terraform-ls', 'serve' }, filetypes = { 'tf' } }
           EOF
         '';
         packages.vim = {
-          start = with pkgs.vimPlugins; [ solarized nvim-lspconfig completion-nvim vim-nix vim-lastplace vim-autoformat vim-airline vim-airline-themes ];
+          start = with pkgs.vimPlugins; [
+            # solarized themes make my day
+            solarized
+            # nice and lean status line
+            vim-airline
+            vim-airline-themes
+            # lsp client config
+            nvim-lspconfig
+            completion-nvim
+            # misc
+            vim-nix
+            vim-lastplace
+          ];
         };
       };
     };
@@ -298,9 +306,11 @@
   };
 
   environment.systemPackages = with pkgs; [
-    (writeShellScriptBin "xterm" ''
-      exec ${alacritty}/bin/alacritty "$@"
-    '')
+    (
+      writeShellScriptBin "xterm" ''
+        exec ${alacritty}/bin/alacritty "$@"
+      ''
+    )
     virt-manager
     quartus-prime-lite
     mode
