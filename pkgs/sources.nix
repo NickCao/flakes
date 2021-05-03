@@ -27,14 +27,14 @@
   };
   k0sctl = {
     pname = "k0sctl";
-    version = "v0.8.2";
+    version = "v0.8.3";
     src = fetchgit {
       url = "https://github.com/k0sproject/k0sctl";
-      rev = "v0.8.2";
+      rev = "v0.8.3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1pw2fw615vgflhn2zphngckmlwvinyqlvvasx5c15fzjk4175wly";
+      sha256 = "1iyw8b87y354v2b83fdgq742kc6c7v8vmn79gimpxil0lp3cj3lf";
     };
   };
   ko = {
