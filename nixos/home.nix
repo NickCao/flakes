@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 let
   toTOMLDrv = v: (pkgs.formats.toml { }).generate "" v;
+  toYAMLDrv = v: (pkgs.formats.yaml { }).generate "" v;
   mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
 in
 {
@@ -48,10 +49,12 @@ in
     LESSHISTFILE = "${config.xdg.dataHome}/lesshst";
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
     # shit
-    PYTHONSTARTUP = (pkgs.writeText "start.py" ''
-      import readline
-      readline.write_history_file = lambda *args: None
-    '').outPath;
+    PYTHONSTARTUP = (
+      pkgs.writeText "start.py" ''
+        import readline
+        readline.write_history_file = lambda *args: None
+      ''
+    ).outPath;
   };
 
   programs = {
@@ -89,6 +92,10 @@ in
       enable = true;
       shellInit = ''
         set fish_greeting
+        function fish_user_key_bindings
+          fish_vi_key_bindings
+          bind f accept-autosuggestion
+        end
       '';
       shellAliases = {
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
@@ -209,14 +216,21 @@ in
         GOPROXY=https://goproxy.cn
         GOSUMDB=sum.golang.google.cn
       '';
-      "containers/storage.conf" = {
-        source = toTOMLDrv {
-          storage = {
-            driver = "btrfs";
-            rootless_storage_path = "${config.home.homeDirectory}/Data/Containers/";
-          };
+      "containers/storage.conf".source = toTOMLDrv {
+        storage = {
+          driver = "btrfs";
+          rootless_storage_path = "${config.home.homeDirectory}/Data/Containers/";
         };
       };
+      "ibus/rime/default.custom.yaml".text = ''
+        patch:
+          schema_list:
+            - schema: double_pinyin_flypy
+      '';
+      "ibus/rime/double_pinyin_flypy.custom.yaml".text = ''
+        patch:
+          translator/preedit_format: []
+      '';
     };
   };
 }
