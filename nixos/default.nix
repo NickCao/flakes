@@ -3,6 +3,7 @@ nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
     ./configuration.nix
+    ./gravity.nix
     ./hardware.nix
     inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
