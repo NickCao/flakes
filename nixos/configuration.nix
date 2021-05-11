@@ -300,7 +300,7 @@
   fonts.fonts = with pkgs; [
     roboto
     jetbrains-mono
-    powerline-fonts
+    nerdfonts
     noto-fonts
     noto-fonts-cjk
     noto-fonts-extra

@@ -3,14 +3,14 @@
 {
   ko = {
     pname = "ko";
-    version = "v0.8.2";
+    version = "v0.8.3";
     src = fetchgit {
       url = "https://github.com/google/ko";
-      rev = "v0.8.2";
+      rev = "v0.8.3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0c96bd1izcqy8n088iy7bdc3xwz5har6669k7zxfxwnb19dzxjnv";
+      sha256 = "1ccw09ghpnxsv88mp6y6amyif95hrq004m8x3albbxda77whxb1q";
     };
   };
   material-decoration = {

@@ -107,6 +107,7 @@ in
         add_newline = false;
         gcloud = { disabled = true; };
         battery = { disabled = true; };
+        shlvl = { disabled = false; symbol = ""; };
       };
     };
     tmux = {
