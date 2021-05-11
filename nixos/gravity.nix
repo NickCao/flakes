@@ -41,15 +41,15 @@
     gravity = {
       serviceConfig = with pkgs;{
         ExecStartPre = [
-          "${iproute}/bin/ip netns add gravity"
-          "${iproute}/bin/ip link add vrf-gravity type vrf table 100"
+          "-${iproute}/bin/ip netns add gravity"
+          "-${iproute}/bin/ip link add vrf-gravity type vrf table 100"
           "${iproute}/bin/ip link set vrf-gravity up"
-          "${iproute}/bin/ip link add gravity type veth peer host netns gravity"
+          "-${iproute}/bin/ip link add gravity type veth peer host netns gravity"
           "${iproute}/bin/ip link set gravity up master vrf-gravity"
-          "${iproute}/bin/ip addr add 2a0c:b641:69c:99cc::2/128 dev gravity"
+          "${iproute}/bin/ip addr replace 2a0c:b641:69c:99cc::2/128 dev gravity"
           "${iproute}/bin/ip -n gravity link set host up"
           "${iproute}/bin/ip -n gravity link set up lo"
-          "${iproute}/bin/ip -n gravity addr add 2a0c:b641:69c:99cc::1/128 dev lo"
+          "${iproute}/bin/ip -n gravity addr replace 2a0c:b641:69c:99cc::1/128 dev lo"
         ];
         ExecStart = "${iproute}/bin/ip netns exec gravity ${babeld}/bin/babeld -c /etc/rait/babeld.conf";
         ExecStartPost = "${rait}/bin/rait up";
