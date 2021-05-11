@@ -20,7 +20,7 @@
     package = pkgs.nixFlakes;
     extraOptions = ''
       flake-registry = /etc/nix/registry.json
-      experimental-features = nix-command flakes ca-references
+      experimental-features = nix-command flakes ca-references ca-derivations
       builders-use-substitutes = true
       keep-outputs = true
       keep-derivations = true
@@ -74,7 +74,7 @@
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_xanmod;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "quiet"
       "udev.log_level=3"
