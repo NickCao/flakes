@@ -1,7 +1,7 @@
 {
   description = "a nix derivation collection by nickcao";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     impermanence.url = "github:nix-community/impermanence";
     rust-overlay = {

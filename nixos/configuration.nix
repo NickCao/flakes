@@ -124,8 +124,8 @@
   services = {
     fstrim.enable = true;
     logind.lidSwitch = "ignore";
-    gnome.core-utilities.enable = false;
-    gnome.gnome-keyring.enable = pkgs.lib.mkForce false;
+    gnome3.core-utilities.enable = false;
+    gnome3.gnome-keyring.enable = pkgs.lib.mkForce false;
     pipewire = {
       enable = true;
       pulse.enable = true;
@@ -146,7 +146,7 @@
     xserver = {
       enable = true;
       displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      desktopManager.gnome3.enable = true;
       videoDrivers = [ "nvidia" ];
     };
     smartdns = {
