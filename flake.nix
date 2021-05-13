@@ -23,20 +23,25 @@
     };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
-    let this = import ./pkgs; in
+    let
+      this = import ./pkgs;
+    in
     nixpkgs.lib.recursiveUpdate
-      (flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ] (system:
-        let
-          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.rust-overlay.overlay ]; };
-        in
-        rec {
-          packages = this.packages pkgs;
-          checks = packages;
-          legacyPackages = pkgs;
-        }
-      ))
-      ({
+      (flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ]
+        (system:
+          let
+            pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.rust-overlay.overlay ]; };
+          in
+          rec {
+            packages = this.packages pkgs;
+            checks = packages;
+            legacyPackages = pkgs;
+          }))
+      {
         overlay = this.overlay;
-        nixosConfigurations.local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-      });
+        nixosConfigurations = {
+          local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+          vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        };
+      };
 }
