@@ -37,6 +37,6 @@
       ))
       ({
         overlay = this.overlay;
-        nixosConfigurations.local = import ./nixos { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        nixosConfigurations.local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       });
 }
