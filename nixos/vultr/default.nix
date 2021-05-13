@@ -19,7 +19,7 @@ nixpkgs.lib.nixosSystem {
           networking = {
             firewall.enable = false;
           };
-          boot.loader.grub.device = "/dev/vda";
+          boot.loader.grub.device = "/dev/sda";
           fileSystems."/" = {
             device = "/dev/disk/by-label/nixos";
             fsType = "ext4";
