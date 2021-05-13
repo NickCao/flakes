@@ -1,14 +1,15 @@
-{ pkgs, build }:
-with pkgs;
+{ config }:
+with config.pkgs;
 let
-  db = closureInfo { rootPaths = [ build.toplevel ]; };
+  toplevel = config.config.system.build.toplevel;
+  db = closureInfo { rootPaths = [ toplevel ]; };
 in
 runCommandNoCC "nixos.img" {} ''
   export root=$TMPDIR/root
   export NIX_STATE_DIR=$TMPDIR/state
   ${nix}/bin/nix-store --load-db < ${db}/registration
-  ${nix}/bin/nix copy --no-check-sigs --to $root ${build.toplevel}
-  ${nix}/bin/nix-env --store $root -p $root/nix/var/nix/profiles/system --set ${build.toplevel}
+  ${nix}/bin/nix copy --no-check-sigs --to $root ${toplevel}
+  ${nix}/bin/nix-env --store $root -p $root/nix/var/nix/profiles/system --set ${toplevel}
   mkdir -m 0755 -p $root/etc
   touch $root/etc/NIXOS
   ${libguestfs-with-appliance}/bin/guestfish -N $out=fs:ext4:2G -m /dev/sda1 << EOT
