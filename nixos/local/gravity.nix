@@ -4,7 +4,7 @@
     enable = true;
     config = config.sops.secrets.rait.path;
     address = "2a0c:b641:69c:99cc::1/126";
-    postStart = "ip addr add 2a0c:b641:69c:99cc::2/126 dev gravity";
+    postStart = [ "${pkgs.iproute2}/bin/ip addr add 2a0c:b641:69c:99cc::2/126 dev gravity" ];
   };
   services.bird2 = {
     enable = true;

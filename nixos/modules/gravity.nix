@@ -35,9 +35,9 @@ in
       default = "/run/babeld.ctl";
     };
     postStart = mkOption {
-      type = types.lines;
+      type = types.listOf types.str;
       description = "additional commands to run after startup";
-      default = "";
+      default = [];
     };
   };
   config = mkIf cfg.enable {
@@ -58,9 +58,9 @@ in
           interface placeholder
           redistribute local deny
         ''}";
-        ExecStartPost = ''
-          ${rait}/bin/rait up -c ${cfg.config}
-        '' + cfg.postStart;
+        ExecStartPost = [
+          "${rait}/bin/rait up -c ${cfg.config}"
+        ] ++ cfg.postStart;
         ExecReload = "${rait}/bin/rait sync -c ${cfg.config}";
         ExecStopPost = "${iproute2}/bin/ip netns del ${cfg.netns}";
       };
