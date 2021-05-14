@@ -5,6 +5,7 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./gravity.nix
     ./hardware.nix
+    ../modules/gravity.nix
     inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
