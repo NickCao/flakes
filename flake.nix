@@ -51,7 +51,7 @@
         };
         deploy.nodes.vultr = {
           sshUser = "root";
-          hostname = "foo";
+          hostname = "nixos.nichi.link";
           profiles = {
             system = {
               path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vultr;
