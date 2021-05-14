@@ -47,6 +47,7 @@
   };
   systemd.services.divi = {
     serviceConfig = {
+      Restart = "always";
       ExecStart = "${pkgs.tayga}/bin/tayga -d --config /etc/rait/tayga.conf";
     };
     after = [ "network.target" ];
@@ -55,11 +56,14 @@
   systemd.services.bird = {
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
+      Restart = "always";
+      StartLimitIntervalSec = 0;
       ExecStart = "${pkgs.bird2}/bin/bird -d -c /etc/bird.conf";
     };
   };
   systemd.services.gravity = {
     serviceConfig = with pkgs;{
+      Restart = "always";
       ExecStartPre = [
         "${iproute2}/bin/ip netns add gravity"
       ];
