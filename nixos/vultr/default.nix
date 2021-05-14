@@ -10,5 +10,6 @@ nixpkgs.lib.nixosSystem {
         self.overlay
       ];
     }
+    inputs.sops-nix.nixosModules.sops
   ];
 }

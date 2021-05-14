@@ -47,6 +47,9 @@
       }
     '';
   };
+  services.resolved.extraConfig = ''
+    DNSStubListener=no
+  '';
   systemd.network.networks = {
     ens3 = {
       name = "ens3";
