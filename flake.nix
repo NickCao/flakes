@@ -4,6 +4,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     impermanence.url = "github:nix-community/impermanence";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "flake-utils";
+    };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,26 +27,36 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, deploy-rs, ... }:
     let
       this = import ./pkgs;
     in
-    nixpkgs.lib.recursiveUpdate
-      (flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ]
-        (system:
-          let
-            pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.rust-overlay.overlay ]; };
-          in
-          rec {
-            packages = this.packages pkgs;
-            checks = packages;
-            legacyPackages = pkgs;
-          }))
-      {
+      flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ]
+        (
+          system:
+            let
+              pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.rust-overlay.overlay ]; };
+            in
+              rec {
+                packages = this.packages pkgs;
+                checks = packages;
+                legacyPackages = pkgs;
+              }
+        )
+      // {
         overlay = this.overlay;
         nixosConfigurations = {
           local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
           vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        };
+        deploy.nodes.vultr = {
+          sshUser = "root";
+          hostname = "foo";
+          profiles = {
+            system = {
+              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vultr;
+            };
+          };
         };
       };
 }
