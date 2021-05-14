@@ -76,12 +76,42 @@
         }
       ];
     };
+    divi = {
+      name = "divi";
+      addresses = [
+        {
+          addressConfig = {
+            Address = "10.208.0.1/12";
+            PreferredLifetime = 0;
+          };
+        }
+        {
+          addressConfig = {
+            Address = "2a0c:b641:69c:e0d4:0:5:0:3/128";
+            PreferredLifetime = 0;
+          };
+        }
+      ];
+      routes = [
+        {
+          routeConfig = {
+            Destination = "2a0c:b641:69c:e0d4:0:4::/96";
+          };
+        }
+      ];
+    };
   };
   systemd.network.netdevs = {
     announce = {
       netdevConfig = {
         "Name" = "announce";
         "Kind" = "dummy";
+      };
+    };
+    divi = {
+      netdevConfig = {
+        "Name" = "divi";
+        "Kind" = "tun";
       };
     };
   };
