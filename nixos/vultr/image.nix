@@ -7,6 +7,8 @@ let
 in
 {
   system.build.image = runCommandNoCC "nixos.img" { } ''
+    export TERM=dumb
+    export HOME=$TMPDIR/home
     export root=$TMPDIR/root
     export NIX_STATE_DIR=$TMPDIR/state
     ${nix}/bin/nix-store --load-db < ${db}/registration
