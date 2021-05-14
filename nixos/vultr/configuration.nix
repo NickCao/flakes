@@ -1,6 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, config, modulesPath, ... }:
 {
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
   boot.loader.grub.device = "/dev/sda";
+  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];
   fileSystems."/" = {
     label = "nixos";
     fsType = "ext4";
@@ -15,12 +17,9 @@
     '';
   };
 
+  networking.firewall.enable = false;
   services.openssh = {
     enable = true;
     authorizedKeysCommand = "/etc/ssh/keys";
-  };
-
-  networking = {
-    firewall.enable = false;
   };
 }
