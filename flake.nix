@@ -41,6 +41,9 @@
                 packages = this.packages pkgs;
                 checks = packages;
                 legacyPackages = pkgs;
+                devShell = with pkgs; mkShell {
+                  nativeBuildInputs = [ deploy-rs.packages.${system}.deploy-rs ];
+                };
               }
         )
       // {
