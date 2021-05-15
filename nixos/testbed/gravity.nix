@@ -4,9 +4,7 @@
     defaultSopsFile = ./secrets.yaml;
     secrets = {
       rait = {};
-      bird = {
-        path = "/etc/bird.conf";
-      };
+      bird = {};
       private_zsk = {
         mode = "0644";
         path = "/etc/coredns/zsk.private";
@@ -18,15 +16,16 @@
     };
     sshKeyPaths = [ "/var/lib/sops/key" ];
   };
-  environment.etc = {
-    "coredns/zones/db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa".source = pkgs.fetchurl {
-      url = "https://artifacts-nichi.s3.us-west-000.backblazeb2.com/gravity/db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa";
-      sha256 = "sha256-v2SG5+qhlfV81zk1vAOnKy3n7nwk3NQgDGK7NfDUnNk=";
-    };
-    "coredns/zones/db.gravity".source = pkgs.fetchurl {
-      url = "https://artifacts-nichi.s3.us-west-000.backblazeb2.com/gravity/db.gravity";
-      sha256 = "sha256-d1JVsiXqwybYBg4p/TEkmvniCSVOUlc+bU3jMv81RjE=";
-    };
+
+  services.gravity = {
+    enable = true;
+    config = config.sops.secrets.rait.path;
+    address = "2a0c:b641:69c:e0d0::1/126";
+    group = 54;
+    postStart = [
+      "${pkgs.iproute2}/bin/ip addr add 2a0c:b641:69c:e0d0::2/126 dev gravity"
+      "-${pkgs.iproute2}/bin/ip -6 ru add fwmark 54 suppress_ifgroup 54 pref 1024"
+    ];
   };
   services.divi = {
     enable = true;
@@ -38,18 +37,19 @@
     serviceConfig = {
       Restart = "always";
       StartLimitIntervalSec = 0;
-      ExecStart = "${pkgs.bird2}/bin/bird -d -c /etc/bird.conf";
+      ExecStart = "${pkgs.bird2}/bin/bird -d -c ${config.sops.secrets.bird.path}";
     };
   };
-  services.gravity = {
-    enable = true;
-    config = config.sops.secrets.rait.path;
-    address = "2a0c:b641:69c:e0d0::1/126";
-    group = 54;
-    postStart = [
-      "${pkgs.iproute2}/bin/ip addr add 2a0c:b641:69c:e0d0::2/126 dev gravity"
-      "-${pkgs.iproute2}/bin/ip -6 ru add fwmark 54 suppress_ifgroup 54 pref 1024"
-    ];
+
+  environment.etc = {
+    "coredns/zones/db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa".source = pkgs.fetchurl {
+      url = "https://artifacts-nichi.s3.us-west-000.backblazeb2.com/gravity/db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa";
+      sha256 = "sha256-v2SG5+qhlfV81zk1vAOnKy3n7nwk3NQgDGK7NfDUnNk=";
+    };
+    "coredns/zones/db.gravity".source = pkgs.fetchurl {
+      url = "https://artifacts-nichi.s3.us-west-000.backblazeb2.com/gravity/db.gravity";
+      sha256 = "sha256-d1JVsiXqwybYBg4p/TEkmvniCSVOUlc+bU3jMv81RjE=";
+    };
   };
   systemd.services.coredns = {
     serviceConfig.SupplementaryGroups = [ config.users.groups.keys.name ];

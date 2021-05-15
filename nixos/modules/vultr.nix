@@ -25,7 +25,10 @@ in
     useNetworkd = true;
     useDHCP = false;
     firewall.enable = false;
-    nftables.enable = true;
+    nftables = {
+      enable = true;
+      ruleset = "";
+    };
   };
 
   systemd.network.networks = {
