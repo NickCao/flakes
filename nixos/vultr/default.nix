@@ -5,6 +5,8 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./gravity.nix
     ./image.nix
+    ../modules/gravity.nix
+    ../modules/divi.nix
     {
       nixpkgs.overlays = [
         self.overlay
