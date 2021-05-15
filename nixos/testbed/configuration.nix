@@ -5,9 +5,7 @@
     secrets = {
       rait = {};
       bird = {
-        mode = "0444";
         owner = "bird2";
-        group = "bird2";
       };
       private_zsk = {
         mode = "0444";
