@@ -50,6 +50,7 @@
         overlay = this.overlay;
         nixosConfigurations = {
           local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+          vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
           testbed = import ./nixos/testbed { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         };
         deploy.nodes.testbed = {
