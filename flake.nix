@@ -50,14 +50,14 @@
         overlay = this.overlay;
         nixosConfigurations = {
           local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-          vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+          testbed = import ./nixos/testbed { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         };
-        deploy.nodes.vultr = {
+        deploy.nodes.testbed = {
           sshUser = "root";
           hostname = "nixos.nichi.link";
           profiles = {
             system = {
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.vultr;
+              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.testbed;
             };
           };
         };

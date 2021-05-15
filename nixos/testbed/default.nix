@@ -4,7 +4,7 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./gravity.nix
-    ./image.nix
+    ../modules/vultr.nix
     ../modules/gravity.nix
     ../modules/divi.nix
     {

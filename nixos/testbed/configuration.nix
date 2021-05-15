@@ -1,30 +1,10 @@
 { pkgs, config, modulesPath, ... }:
 {
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
-  boot.loader.grub.device = "/dev/sda";
-  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];
-  fileSystems."/" = {
-    label = "nixos";
-    fsType = "ext4";
-    autoResize = true;
-  };
-  environment.etc."ssh/keys" = {
-    mode = "0555";
-    text = ''
-      #!${pkgs.runtimeShell}
-      ${pkgs.curl}/bin/curl https://gitlab.com/NickCao.keys
-    '';
-  };
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
     "net.ipv6.conf.all.forwarding" = 1;
-    "net.ipv6.conf.ens3.use_tempaddr" = 0;
-    "net.core.default_qdisc" = "fq";
-    "net.ipv4.tcp_congestion_control" = "bbr";
   };
-  networking.firewall.enable = false;
-  networking.useNetworkd = true;
-  networking.useDHCP = false;
+
   networking.nftables = {
     enable = true;
     ruleset = ''
@@ -48,18 +28,8 @@
       }
     '';
   };
-  services.resolved.extraConfig = ''
-    DNSStubListener=no
-  '';
+
   systemd.network.networks = {
-    ens3 = {
-      name = "ens3";
-      DHCP = "yes";
-      extraConfig = ''
-        IPv6AcceptRA=yes
-        IPv6PrivacyExtensions=no
-      '';
-    };
     announce = {
       name = "announce";
       addresses = [
@@ -78,6 +48,7 @@
       ];
     };
   };
+
   systemd.network.netdevs = {
     announce = {
       netdevConfig = {
@@ -86,6 +57,15 @@
       };
     };
   };
+
+  environment.etc."ssh/keys" = {
+    mode = "0555";
+    text = ''
+      #!${pkgs.runtimeShell}
+      ${pkgs.curl}/bin/curl https://gitlab.com/NickCao.keys
+    '';
+  };
+
   services.openssh = {
     enable = true;
     authorizedKeysCommand = "/etc/ssh/keys";
