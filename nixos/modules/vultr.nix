@@ -25,6 +25,7 @@ in
     useNetworkd = true;
     useDHCP = false;
     firewall.enable = false;
+    nftables.enable = true;
   };
 
   systemd.network.networks = {

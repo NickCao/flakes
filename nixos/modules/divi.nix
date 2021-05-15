@@ -16,6 +16,29 @@ in
     };
   };
   config = mkIf cfg.enable {
+    networking.nftables = {
+      enable = true;
+      ruleset = ''
+        table ip filter {
+          chain forward {
+            type filter hook forward priority 0;
+            tcp flags syn tcp option maxseg size set 1300
+          }
+        }
+        table ip nat {
+          chain postrouting     {
+            type nat hook postrouting priority 100;
+            oifname "ens3" masquerade
+          }
+        }
+        table ip6 filter {
+          chain forward {
+            type filter hook forward priority 0;
+            oifname "divi" ip6 saddr != { 2a0c:b641:69c::/48, 2001:470:4c22::/48 } reject
+          }
+        }
+      '';
+    };
     systemd.services.divi = {
       serviceConfig = {
         ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
