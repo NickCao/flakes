@@ -58,7 +58,7 @@
     };
   };
 
-  powerManagement.cpuFreqGovernor = "schedutil";
+  powerManagement.cpuFreqGovernor = "powersave";
 
   boot = {
     consoleLogLevel = 0;
@@ -83,7 +83,7 @@
       "systemd.unified_cgroup_hierarchy=1"
       "intel_iommu=on"
       "iommu=pt"
-      "intel_pstate=passive"
+      # "intel_pstate=passive"
     ];
     kernelModules = [ "ec_sys" ];
     extraModprobeConfig = ''
