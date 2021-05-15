@@ -14,7 +14,7 @@
         path = "/etc/coredns/zsk.key";
       };
     };
-    sshKeyPaths = [ "/var/lib/sops/key" ];
+    sshKeyPaths = [ "/var/lib/sops.key" ];
   };
 
   services.gravity = {
