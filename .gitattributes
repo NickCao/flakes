@@ -1,1 +1,1 @@
-*.yaml diff=sops
+secrets.yaml diff=sops

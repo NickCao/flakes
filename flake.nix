@@ -51,14 +51,26 @@
         nixosConfigurations = {
           local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
           vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-          testbed = import ./nixos/testbed { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+          nrt = import ./nixos/nrt { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+          sin = import ./nixos/sin { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         };
-        deploy.nodes.testbed = {
-          sshUser = "root";
-          hostname = "nixos.nichi.link";
-          profiles = {
-            system = {
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.testbed;
+        deploy.nodes = {
+          nrt = {
+            sshUser = "root";
+            hostname = "nrt.jp.nichi.link";
+            profiles = {
+              system = {
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nrt;
+              };
+            };
+          };
+          sin = {
+            sshUser = "root";
+            hostname = "sin.sg.nichi.link";
+            profiles = {
+              system = {
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sin;
+              };
             };
           };
         };
