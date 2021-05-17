@@ -20,14 +20,14 @@ let
   qv2ray = mkDerivation
     rec {
       pname = "qv2ray";
-      version = "2021-04-20";
+      version = "2021-05-16";
 
       src = fetchFromGitHub {
         owner = "Qv2ray";
         repo = "Qv2ray";
-        rev = "1d91f9fa80951b9951666c418b1ea481deb6f858"; # heads/dev
+        rev = "8367344052fe9d4735b99200b362d4d917a7c46b"; # heads/dev
         fetchSubmodules = true;
-        sha256 = "19w5rlg7xvvvvdixah3jc4cxfyi5qd1p466bw4nqhs3fg6g01jhw";
+        sha256 = "060lrbvn9p6jjizmk00ypks0ijqidcmk1bs3hg702jklf6irl62s";
       };
 
       cmakeFlags = [
