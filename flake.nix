@@ -51,6 +51,7 @@
         nixosConfigurations = {
           local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
           vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+          rpi = import ./nixos/rpi { system = "x86_64-linux"; inherit self nixpkgs inputs; };
           nrt = import ./nixos/nrt { system = "x86_64-linux"; inherit self nixpkgs inputs; };
           sin = import ./nixos/sin { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         };
