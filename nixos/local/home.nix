@@ -137,28 +137,19 @@ in
         };
       };
     };
+    ssh = {
+      enable = true;
+      compression = true;
+      serverAliveInterval = 30;
+      extraConfig = ''
+        CheckHostIP no
+      '';
+    };
   };
   services = {
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
-    };
-  };
-  home = {
-    file = {
-      ".ssh/authorized_keys" = {
-        text = "";
-      };
-      ".ssh/config" = {
-        text = ''
-          Match User core
-            StrictHostKeyChecking no
-            UserKnownHostsFile /dev/null
-          Host *
-            CheckHostIP no
-            ServerAliveInterval 60
-        '';
-      };
     };
   };
 
