@@ -8,7 +8,7 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    secrets.rait = { };
+    secrets.rait = {};
     sshKeyPaths = [ "/var/lib/ssh/ssh_host_rsa_key" ];
   };
 
@@ -93,6 +93,7 @@
       blacklist ideapad_laptop
     '';
     enableContainers = false;
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
   virtualisation = {

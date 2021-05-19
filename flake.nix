@@ -51,11 +51,20 @@
         nixosConfigurations = {
           local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
           vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-          rpi = import ./nixos/rpi { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+          rpi = import ./nixos/rpi { system = "aarch64-linux"; inherit self nixpkgs inputs; };
           nrt = import ./nixos/nrt { system = "x86_64-linux"; inherit self nixpkgs inputs; };
           sin = import ./nixos/sin { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         };
         deploy.nodes = {
+          rpi = {
+            sshUser = "root";
+            hostname = "10.0.1.2";
+            profiles = {
+              system = {
+                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
+              };
+            };
+          };
           nrt = {
             sshUser = "root";
             hostname = "nrt.jp.nichi.link";
