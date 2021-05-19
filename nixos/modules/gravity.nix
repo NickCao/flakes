@@ -37,7 +37,7 @@ in
     postStart = mkOption {
       type = types.listOf types.str;
       description = "additional commands to run after startup";
-      default = [];
+      default = [ ];
     };
   };
   config = mkIf cfg.enable {

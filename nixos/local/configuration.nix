@@ -92,6 +92,7 @@
       options i915 fastboot=1
       blacklist ideapad_laptop
     '';
+    enableContainers = false;
   };
 
   virtualisation = {

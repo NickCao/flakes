@@ -7,7 +7,7 @@ let
 in
 {
   boot.loader.grub.device = lib.mkForce "/dev/sda";
-  system.build.image = runCommandNoCC "nixos.img" {} ''
+  system.build.image = runCommandNoCC "nixos.img" { } ''
     export TERM=dumb
     export HOME=$TMPDIR/home
     export root=$TMPDIR/root

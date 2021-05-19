@@ -27,15 +27,17 @@ in
     systemd.network.networks = {
       announce = {
         name = "announce";
-        addresses = builtins.map (
-          p:
+        addresses = builtins.map
+          (
+            p:
             {
               addressConfig = {
                 Address = p;
                 PreferredLifetime = 0;
               };
             }
-        ) cfg.prefixes;
+          )
+          cfg.prefixes;
       };
     };
     systemd.network.netdevs = {

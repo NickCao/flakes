@@ -46,7 +46,7 @@
   services.bgp = {
     enable = true;
     node = "2a0c:b641:69c:f250::/60";
-    prefixes = [ "2a0c:b641:690::/48" "2a0c:b641:69c::/48" "2a0c:b641:692::/48"];
+    prefixes = [ "2a0c:b641:690::/48" "2a0c:b641:69c::/48" "2a0c:b641:692::/48" ];
     include = config.sops.secrets.bird.path;
   };
 }
