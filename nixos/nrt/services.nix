@@ -32,6 +32,11 @@
       entryPoints = {
         http = {
           address = ":80";
+          http.redirections.entryPoint = {
+            to = "https";
+            scheme = "https";
+            permanent = false;
+          };
         };
         https = {
           address = ":443";
