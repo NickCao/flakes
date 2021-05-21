@@ -33,6 +33,16 @@
         http = {
           address = ":80";
         };
+        https = {
+          address = ":443";
+          http.tls.certResolver = "le";
+        };
+      };
+      certificatesResolvers.le.acme = {
+        email = "blackhole@nichi.co";
+        storage = config.services.traefik.dataDir + "/acme.json";
+        keyType = "EC256";
+        tlsChallenge = {};
       };
     };
     dynamicConfigOptions = {
