@@ -6,6 +6,12 @@
       rait = {
         sopsFile = ./secrets.yaml;
       };
+      meow = {
+        sopsFile = ./secrets.yaml;
+      };
+      woff = {
+        sopsFile = ./secrets.yaml;
+      };
       bird = {
         owner = "bird2";
       };

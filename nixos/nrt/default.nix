@@ -3,6 +3,7 @@ nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
     ./configuration.nix
+    ./services.nix
     ../modules/bgp.nix
     ../modules/ssh.nix
     ../modules/vultr.nix
