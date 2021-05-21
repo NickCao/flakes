@@ -93,7 +93,6 @@
       blacklist ideapad_laptop
     '';
     enableContainers = false;
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
   virtualisation = {
@@ -226,7 +225,7 @@
         packages.vim = {
           start = with pkgs.vimPlugins; [
             # solarized themes make my day
-            solarized
+            vim-colors-solarized
             # nice and lean status line
             vim-airline
             vim-airline-themes

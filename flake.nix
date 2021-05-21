@@ -56,6 +56,7 @@
           sin = import ./nixos/sin { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         };
         deploy.nodes = {
+          /*
           rpi = {
             sshUser = "root";
             hostname = "10.0.1.2";
@@ -65,6 +66,7 @@
               };
             };
           };
+          */
           nrt = {
             sshUser = "root";
             hostname = "nrt.jp.nichi.link";
