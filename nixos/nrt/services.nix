@@ -66,6 +66,9 @@
       api = {
         dashboard = true;
       };
+      pilot = {
+        dashboard = false;
+      };
     };
     dynamicConfigOptions = {
       tls.options.default = {
