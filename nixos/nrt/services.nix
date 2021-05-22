@@ -4,12 +4,13 @@
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
     blog = {
-      ports = [ "127.0.0.1::8080" ];
       image = "quay.io/nickcao/blog";
-      extraOptions = [ "--label=traefik.http.routers.blog.rule=Host(`nichi.co`)" ];
+      extraOptions = [
+        "--label=traefik.http.routers.blog.rule=Host(`nichi.co`)"
+        "--label=traefik.http.services.blog.loadbalancer.server.port=8080"
+      ];
     };
     meow = {
-      ports = [ "127.0.0.1::8080" ];
       image = "quay.io/nickcao/meow";
       environment = {
         BASE_URL = "https://pb.nichi.co";
@@ -17,20 +18,26 @@
         S3_ENDPOINT = "https://s3.us-west-000.backblazeb2.com";
       };
       environmentFiles = [ config.sops.secrets.meow.path ];
-      extraOptions = [ "--label=traefik.http.routers.meow.rule=Host(`pb.nichi.co`)" ];
+      extraOptions = [
+        "--label=traefik.http.routers.meow.rule=Host(`pb.nichi.co`)"
+        "--label=traefik.http.services.meow.loadbalancer.server.port=8080"
+      ];
     };
     woff = {
-      ports = [ "127.0.0.1::8080" ];
       image = "registry.gitlab.com/nickcao/functions/woff";
       environment = {
         RETURN_URL = "https://nichi.co";
       };
       environmentFiles = [ config.sops.secrets.woff.path ];
-      extraOptions = [ "--label=traefik.http.routers.woff.rule=Host(`pay.nichi.co`)" ];
+      extraOptions = [
+        "--label=traefik.http.routers.woff.rule=Host(`pay.nichi.co`)"
+        "--label=traefik.http.services.woff.loadbalancer.server.port=8080"
+      ];
     };
   };
   systemd.services.podman-traefik = {
     serviceConfig = {
+      Restart = "always";
       ExecStart = with config.services.traefik;"${pkgs.socat}/bin/socat UNIX-LISTEN:${dataDir}/podman.sock,group=${group},mode=0060 UNIX-CONNECT:/run/podman/podman.sock";
     };
     requires = [ "podman.socket" ];
