@@ -7,7 +7,11 @@
       image = "quay.io/nickcao/blog";
       extraOptions = [
         "--label=traefik.http.routers.blog.rule=Host(`nichi.co`)"
+        "--label=traefik.http.routers.blog.middlewares=blog"
         "--label=traefik.http.services.blog.loadbalancer.server.port=8080"
+        "--label=traefik.http.middlewares.blog.headers.stsSeconds=31536000"
+        "--label=traefik.http.middlewares.blog.headers.stsIncludeSubdomains=true"
+        "--label=traefik.http.middlewares.blog.headers.stsPreload=true"
       ];
     };
     meow = {
@@ -51,6 +55,14 @@
     enable = true;
     staticConfigOptions = {
       entryPoints = {
+        http = {
+          address = ":80";
+          http.redirections.entryPoint = {
+            to = "https";
+            scheme = "https";
+            permanent = false;
+          };
+        };
         https = {
           address = ":443";
           http.tls.certResolver = "le";
@@ -62,7 +74,9 @@
         keyType = "EC256";
         tlsChallenge = {};
       };
-      providers.docker.endpoint = "unix://${config.services.traefik.dataDir}/podman.sock";
+      providers.docker = {
+        endpoint = "unix://${config.services.traefik.dataDir}/podman.sock";
+      };
       api = {
         dashboard = true;
       };
