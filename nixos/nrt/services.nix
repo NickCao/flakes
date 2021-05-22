@@ -29,10 +29,13 @@
       extraOptions = [ "--label=traefik.http.routers.woff.rule=Host(`pay.nichi.co`)" ];
     };
   };
-  # TODO: tighten permission on control socket
-  systemd.sockets.podman.socketConfig = {
-    SocketMode = "0666";
-    DirectoryMode = "0755";
+  systemd.services.podman-traefik = {
+    serviceConfig = {
+      ExecStart = with config.services.traefik;"${pkgs.socat}/bin/socat UNIX-LISTEN:${dataDir}/podman.sock,group=${group},mode=0060 UNIX-CONNECT:/run/podman/podman.sock";
+    };
+    requires = [ "podman.socket" ];
+    after = [ "podman.socket" ];
+    wantedBy = [ "multi-user.target" ];
   };
   virtualisation.containers.containersConf.settings.engine = {
     events_logger = "file";
@@ -52,7 +55,7 @@
         keyType = "EC256";
         tlsChallenge = {};
       };
-      providers.docker.endpoint = "unix:///run/podman/podman.sock";
+      providers.docker.endpoint = "unix://${config.services.traefik.dataDir}/podman.sock";
       api = {
         dashboard = true;
       };
