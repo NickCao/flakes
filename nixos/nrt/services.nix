@@ -4,11 +4,12 @@
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
     blog = {
-      ports = [ "127.0.0.1:8080:8080" ];
+      ports = [ "127.0.0.1::8080" ];
       image = "quay.io/nickcao/blog";
+      extraOptions = [ "--label=traefik.http.routers.blog.rule=Host(`nichi.co`)" ];
     };
     meow = {
-      ports = [ "127.0.0.1:8081:8080" ];
+      ports = [ "127.0.0.1::8080" ];
       image = "quay.io/nickcao/meow";
       environment = {
         BASE_URL = "https://pb.nichi.co";
@@ -16,28 +17,30 @@
         S3_ENDPOINT = "https://s3.us-west-000.backblazeb2.com";
       };
       environmentFiles = [ config.sops.secrets.meow.path ];
+      extraOptions = [ "--label=traefik.http.routers.meow.rule=Host(`pb.nichi.co`)" ];
     };
     woff = {
-      ports = [ "127.0.0.1:8082:8080" ];
+      ports = [ "127.0.0.1::8080" ];
       image = "registry.gitlab.com/nickcao/functions/woff";
       environment = {
         RETURN_URL = "https://nichi.co";
       };
       environmentFiles = [ config.sops.secrets.woff.path ];
+      extraOptions = [ "--label=traefik.http.routers.woff.rule=Host(`pay.nichi.co`)" ];
     };
+  };
+  # TODO: tighten permission on control socket
+  systemd.sockets.podman.socketConfig = {
+    SocketMode = "0666";
+    DirectoryMode = "0755";
+  };
+  virtualisation.containers.containersConf.settings.engine = {
+    events_logger = "file";
   };
   services.traefik = {
     enable = true;
     staticConfigOptions = {
       entryPoints = {
-        http = {
-          address = ":80";
-          http.redirections.entryPoint = {
-            to = "https";
-            scheme = "https";
-            permanent = false;
-          };
-        };
         https = {
           address = ":443";
           http.tls.certResolver = "le";
@@ -48,6 +51,10 @@
         storage = config.services.traefik.dataDir + "/acme.json";
         keyType = "EC256";
         tlsChallenge = {};
+      };
+      providers.docker.endpoint = "unix:///run/podman/podman.sock";
+      api = {
+        dashboard = true;
       };
     };
     dynamicConfigOptions = {
@@ -62,17 +69,9 @@
       };
       http = {
         routers = {
-          blog = {
-            rule = "Host(`nichi.co`)";
-            service = "blog";
-          };
-          meow = {
-            rule = "Host(`pb.nichi.co`)";
-            service = "meow";
-          };
-          woff = {
-            rule = "Host(`pay.nichi.co`)";
-            service = "woff";
+          dashboard = {
+            rule = "Host(`traefik.nichi.co`)";
+            service = "api@internal";
           };
           rait = {
             rule = "Host(`api.nichi.co`) && Path(`/rait`)";
@@ -89,27 +88,6 @@
             servers = [
               {
                 url = "https://artifacts-nichi.s3.us-west-000.backblazeb2.com";
-              }
-            ];
-          };
-          blog.loadBalancer = {
-            servers = [
-              {
-                url = "http://127.0.0.1:8080";
-              }
-            ];
-          };
-          meow.loadBalancer = {
-            servers = [
-              {
-                url = "http://127.0.0.1:8081";
-              }
-            ];
-          };
-          woff.loadBalancer = {
-            servers = [
-              {
-                url = "http://127.0.0.1:8082";
               }
             ];
           };
