@@ -54,6 +54,7 @@ in
       enable = true;
       checkConfig = false;
       config = ''
+        include "${cfg.include}";
         ipv6 sadr table sadr6;
         protocol device { }
         protocol static inject {
@@ -86,7 +87,17 @@ in
           bgp_community.add((64602, 13335));
           accept;
         }
-        include "${cfg.include}";
+        protocol bgp vultr {
+          ipv6 {
+            import none;
+            export filter outbound;
+          };
+          local as 209297;
+          graceful restart on;
+          multihop 2;
+          neighbor 2001:19f0:ffff::1 as 64515;
+          password BGP_PASSWD;
+        }
       '';
     };
   };
