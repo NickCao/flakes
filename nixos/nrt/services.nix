@@ -4,7 +4,8 @@
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
     blog = {
-      image = "quay.io/nickcao/blog";
+      image = "blog";
+      imageFile = pkgs.nickcao.blog.image;
       extraOptions = [
         "--label=traefik.http.routers.blog.rule=Host(`nichi.co`)"
         "--label=traefik.http.routers.blog.middlewares=blog"
