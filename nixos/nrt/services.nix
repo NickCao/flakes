@@ -3,18 +3,19 @@
   # TODO: force podman to use nftables
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
-    blog = {
-      image = "blog";
-      imageFile = pkgs.nickcao.blog.image;
-      extraOptions = [
-        "--label=traefik.http.routers.blog.rule=Host(`nichi.co`)"
-        "--label=traefik.http.routers.blog.middlewares=blog"
-        "--label=traefik.http.services.blog.loadbalancer.server.port=8080"
-        "--label=traefik.http.middlewares.blog.headers.stsSeconds=31536000"
-        "--label=traefik.http.middlewares.blog.headers.stsIncludeSubdomains=true"
-        "--label=traefik.http.middlewares.blog.headers.stsPreload=true"
-      ];
-    };
+    blog = let image = pkgs.nickcao.blog.image; in
+      {
+        image = "${image.imageName}:${image.imageTag}";
+        imageFile = image;
+        extraOptions = [
+          "--label=traefik.http.routers.blog.rule=Host(`nichi.co`)"
+          "--label=traefik.http.routers.blog.middlewares=blog"
+          "--label=traefik.http.services.blog.loadbalancer.server.port=8080"
+          "--label=traefik.http.middlewares.blog.headers.stsSeconds=31536000"
+          "--label=traefik.http.middlewares.blog.headers.stsIncludeSubdomains=true"
+          "--label=traefik.http.middlewares.blog.headers.stsPreload=true"
+        ];
+      };
     meow = {
       image = "quay.io/nickcao/meow";
       environment = {
@@ -73,7 +74,7 @@
         email = "blackhole@nichi.co";
         storage = config.services.traefik.dataDir + "/acme.json";
         keyType = "EC256";
-        tlsChallenge = {};
+        tlsChallenge = { };
       };
       providers.docker = {
         endpoint = "unix://${config.services.traefik.dataDir}/podman.sock";

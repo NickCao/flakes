@@ -215,7 +215,6 @@
             buf_set_keymap('n', '<Space>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
             buf_set_keymap('n', '<Space>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
           end
-          nvim_lsp['rnix'].setup { on_attach = on_attach, cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' } }
           nvim_lsp['gopls'].setup { on_attach = on_attach, cmd = { '${pkgs.gopls}/bin/gopls' } }
           nvim_lsp['rust_analyzer'].setup { on_attach = on_attach, cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' } }
           nvim_lsp['yamlls'].setup { on_attach = on_attach, cmd = { '${pkgs.yaml-language-server}/bin/yaml-language-server', '--stdio'} }

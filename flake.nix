@@ -36,60 +36,60 @@
     let
       this = import ./pkgs;
     in
-      flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ]
-        (
-          system:
-            let
-              pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.rust-overlay.overlay ]; };
-            in
-              rec {
-                packages = this.packages pkgs;
-                checks = packages;
-                legacyPackages = pkgs;
-                devShell = with pkgs; mkShell {
-                  nativeBuildInputs = [ deploy-rs.packages.${system}.deploy-rs ];
-                };
-              }
-        )
-      // {
-        overlay = this.overlay;
-        nixosConfigurations = {
-          local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-          vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-          rpi = import ./nixos/rpi { system = "aarch64-linux"; inherit self nixpkgs inputs; };
-          nrt = import ./nixos/nrt { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-          sin = import ./nixos/sin { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-        };
-        deploy.nodes = {
-          /*
+    flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ]
+      (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.rust-overlay.overlay ]; };
+        in
+        rec {
+          packages = this.packages pkgs;
+          checks = packages;
+          legacyPackages = pkgs;
+          devShell = with pkgs; mkShell {
+            nativeBuildInputs = [ deploy-rs.packages.${system}.deploy-rs ];
+          };
+        }
+      )
+    // {
+      overlay = this.overlay;
+      nixosConfigurations = {
+        local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        rpi = import ./nixos/rpi { system = "aarch64-linux"; inherit self nixpkgs inputs; };
+        nrt = import ./nixos/nrt { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        sin = import ./nixos/sin { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+      };
+      deploy.nodes = {
+        /*
           rpi = {
-            sshUser = "root";
-            hostname = "10.0.1.2";
-            profiles = {
-              system = {
-                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
-              };
+          sshUser = "root";
+          hostname = "10.0.1.2";
+          profiles = {
+          system = {
+          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
+          };
+          };
+          };
+        */
+        nrt = {
+          sshUser = "root";
+          hostname = "nrt.jp.nichi.link";
+          profiles = {
+            system = {
+              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nrt;
             };
           };
-          */
-          nrt = {
-            sshUser = "root";
-            hostname = "nrt.jp.nichi.link";
-            profiles = {
-              system = {
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nrt;
-              };
-            };
-          };
-          sin = {
-            sshUser = "root";
-            hostname = "sin.sg.nichi.link";
-            profiles = {
-              system = {
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sin;
-              };
+        };
+        sin = {
+          sshUser = "root";
+          hostname = "sin.sg.nichi.link";
+          profiles = {
+            system = {
+              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sin;
             };
           };
         };
       };
+    };
 }
