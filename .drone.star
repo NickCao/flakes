@@ -1,7 +1,7 @@
 def main(ctx):
     return [
         step("linux", "amd64", "docker.io/nixos/nix"),
-        step("linux", "arm64", "docker.io/nickcao/nix-aarch64"),
+        step("linux", "arm64", "quay.io/nickcao/nix-aarch64"),
         {
             "kind": "secret",
             "name": "cachix_token",
