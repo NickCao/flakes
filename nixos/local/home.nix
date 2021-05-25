@@ -7,7 +7,6 @@ in
 {
   home.packages = with pkgs; [
     clang_12
-    (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default))
     age
     pandoc
     prime-run
@@ -41,6 +40,7 @@ in
     GOOGLE_DEFAULT_CLIENT_ID = "77185425430.apps.googleusercontent.com";
     GOOGLE_DEFAULT_CLIENT_SECRET = "OTJgUOQcT7lO7GsGZq2G4IlT";
     LIBVA_DRIVER_NAME = "iHD";
+    DIRENV_LOG_FORMAT = "";
     # cache
     XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
