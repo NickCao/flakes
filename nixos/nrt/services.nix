@@ -44,7 +44,7 @@
   systemd.services.podman-traefik = {
     serviceConfig = {
       Restart = "always";
-      ExecStart = with config.services.traefik;"${pkgs.socat}/bin/socat UNIX-LISTEN:${dataDir}/podman.sock,group=${group},mode=0060 UNIX-CONNECT:/run/podman/podman.sock";
+      ExecStart = with config.services.traefik;"${pkgs.socat}/bin/socat UNIX-LISTEN:${dataDir}/podman.sock,group=${group},mode=0060,fork UNIX-CONNECT:/run/podman/podman.sock";
     };
     requires = [ "podman.socket" ];
     after = [ "podman.socket" ];
