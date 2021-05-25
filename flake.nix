@@ -4,6 +4,14 @@
     nixpkgs.url = "github:NickCao/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     impermanence.url = "github:nix-community/impermanence";
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
+    naersk = {
+      url = "github:nmattia/naersk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     blog = {
       url = "gitlab:NickCao/blog";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -12,6 +20,8 @@
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.naersk.follows = "naersk";
+      inputs.flake-compat.follows = "flake-compat";
       inputs.utils.follows = "flake-utils";
     };
     rust-overlay = {
@@ -21,6 +31,7 @@
     };
     neovim = {
       url = "github:nix-community/neovim-nightly-overlay";
+      inputs.flake-compat.follows = "flake-compat";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
