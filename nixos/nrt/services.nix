@@ -3,7 +3,7 @@
   # TODO: force podman to use nftables
   virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers = {
-    blog = let image = pkgs.nickcao.blog.image; in
+    blog = let image = pkgs.nichi.image; in
       {
         image = "${image.imageName}:${image.imageTag}";
         imageFile = image;
@@ -16,19 +16,21 @@
           "--label=traefik.http.middlewares.blog.headers.stsPreload=true"
         ];
       };
-    meow = {
-      image = "quay.io/nickcao/meow";
-      environment = {
-        BASE_URL = "https://pb.nichi.co";
-        S3_BUCKET = "pastebin-nichi";
-        S3_ENDPOINT = "https://s3.us-west-000.backblazeb2.com";
+    meow = let image = pkgs.meow.image; in
+      {
+        image = "${image.imageName}:${image.imageTag}";
+        imageFile = image;
+        environment = {
+          BASE_URL = "https://pb.nichi.co";
+          S3_BUCKET = "pastebin-nichi";
+          S3_ENDPOINT = "https://s3.us-west-000.backblazeb2.com";
+        };
+        environmentFiles = [ config.sops.secrets.meow.path ];
+        extraOptions = [
+          "--label=traefik.http.routers.meow.rule=Host(`pb.nichi.co`)"
+          "--label=traefik.http.services.meow.loadbalancer.server.port=8080"
+        ];
       };
-      environmentFiles = [ config.sops.secrets.meow.path ];
-      extraOptions = [
-        "--label=traefik.http.routers.meow.rule=Host(`pb.nichi.co`)"
-        "--label=traefik.http.services.meow.loadbalancer.server.port=8080"
-      ];
-    };
     woff = {
       image = "registry.gitlab.com/nickcao/functions/woff";
       environment = {

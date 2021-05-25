@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1621925421,
-        "narHash": "sha256-23fo40Wdt8AiHGhbqxP5Kp8YLQZqOkJsax3d8bBjM04=",
+        "lastModified": 1621947465,
+        "narHash": "sha256-G+wkVbhpEabf1IZ1DhCg+GPdyei+anKlFvvjAZHO5ZM=",
         "owner": "NickCao",
         "repo": "blog",
-        "rev": "a9cec4882534be2cb3e785c60e8a8c2a9e8f555b",
+        "rev": "6cf3d24eb414a948f1b3ad0f56f9e40ea7e41a10",
         "type": "gitlab"
       },
       "original": {
@@ -96,6 +96,35 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "type": "github"
+      }
+    },
+    "fn": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "naersk": [
+          "naersk"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1621948244,
+        "narHash": "sha256-YQ1psWl/mTUlXTm55K+52FqNfKzCx72/o5tn6k+fi2o=",
+        "owner": "NickCao",
+        "repo": "fn",
+        "rev": "4aa472b04765e798bbd6c3baec56d5557cb650f0",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "NickCao",
+        "repo": "fn",
+        "type": "gitlab"
       }
     },
     "home-manager": {
@@ -222,6 +251,7 @@
         "deploy-rs": "deploy-rs",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
+        "fn": "fn",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "naersk": "naersk",

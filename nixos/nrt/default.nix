@@ -13,7 +13,10 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [
         self.overlay
+        inputs.fn.overlay
         inputs.blog.overlay
+        inputs.rust-overlay.overlay
+        inputs.naersk.overlay
       ];
     }
     inputs.sops-nix.nixosModules.sops

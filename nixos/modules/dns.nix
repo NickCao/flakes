@@ -20,11 +20,11 @@ in
     environment.etc = {
       "coredns/zones/db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa".source = pkgs.fetchurl {
         url = "https://artifacts-nichi.s3.us-west-000.backblazeb2.com/gravity/db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa";
-        sha256 = "sha256-v2SG5+qhlfV81zk1vAOnKy3n7nwk3NQgDGK7NfDUnNk=";
+        sha256 = "sha256-S4ev2aZhvbceE+M9mdvmSuu16O61zuT1EpgWg0nIMog=";
       };
       "coredns/zones/db.gravity".source = pkgs.fetchurl {
         url = "https://artifacts-nichi.s3.us-west-000.backblazeb2.com/gravity/db.gravity";
-        sha256 = "sha256-d1JVsiXqwybYBg4p/TEkmvniCSVOUlc+bU3jMv81RjE=";
+        sha256 = "sha256-Dm0UMjEeIcDezdeRW2kIXqSGUwOPbNaWPsBOjJ3AqlY=";
       };
     };
     systemd.services.coredns.serviceConfig.SupplementaryGroups = [ config.users.groups.keys.name ];
