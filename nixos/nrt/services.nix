@@ -31,17 +31,20 @@
           "--label=traefik.http.services.meow.loadbalancer.server.port=8080"
         ];
       };
-    woff = {
-      image = "registry.gitlab.com/nickcao/functions/woff";
-      environment = {
-        RETURN_URL = "https://nichi.co";
+    woff =
+      let image = pkgs.woff.image; in
+      {
+        image = "${image.imageName}:${image.imageTag}";
+        imageFile = image;
+        environment = {
+          RETURN_URL = "https://nichi.co";
+        };
+        environmentFiles = [ config.sops.secrets.woff.path ];
+        extraOptions = [
+          "--label=traefik.http.routers.woff.rule=Host(`pay.nichi.co`)"
+          "--label=traefik.http.services.woff.loadbalancer.server.port=8080"
+        ];
       };
-      environmentFiles = [ config.sops.secrets.woff.path ];
-      extraOptions = [
-        "--label=traefik.http.routers.woff.rule=Host(`pay.nichi.co`)"
-        "--label=traefik.http.services.woff.loadbalancer.server.port=8080"
-      ];
-    };
   };
   systemd.services.podman-traefik = {
     serviceConfig = {
