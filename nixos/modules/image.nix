@@ -15,7 +15,7 @@ in
     ${nix}/bin/nix-store --load-db < ${db}/registration
     ${nix}/bin/nix copy --no-check-sigs --to $root ${toplevel}
     ${nix}/bin/nix-env --store $root -p $root/nix/var/nix/profiles/system --set ${toplevel}
-    ${libguestfs-with-appliance}/bin/guestfish -N $out=fs:${rootfs.fsType}:2G -m /dev/sda1 << EOT
+    ${fakeroot}/bin/fakeroot ${libguestfs-with-appliance}/bin/guestfish -N $out=fs:${rootfs.fsType}:2G -m /dev/sda1 << EOT
     set-label /dev/sda1 ${rootfs.label}
     copy-in $root/nix /
     mkdir-mode /etc 0755
