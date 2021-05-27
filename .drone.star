@@ -13,11 +13,9 @@ def main(ctx):
             "steps": [
                 {
                     "name": "deploy",
-                    "image": "docker.io/nixos/nix",
+                    "image": "registry.gitlab.com/nickcao/oci-images/nix",
                     "commands": [
-                        "nix-env -iA nixpkgs.nixFlakes",
-                        "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf",
-                        "nix profile install github:NixOS/nixpkgs/nixos-unstable-small#git github:NixOS/nixpkgs/nixos-unstable-small#openssh",
+                        "nix profile install nixpkgs#git nixpkgs#openssh",
                         "mkdir ~/.ssh",
                         "echo $DEPLOY_KEY | base64 -d > ~/.ssh/id_ed25519",
                         "chmod 0600 ~/.ssh/id_ed25519",

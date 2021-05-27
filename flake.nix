@@ -62,7 +62,7 @@
         in
         rec {
           packages = this.packages pkgs;
-          checks = packages;
+          checks = packages // (deploy-rs.lib.${system}.deployChecks self.deploy);
           legacyPackages = pkgs;
           devShell = with pkgs; mkShell {
             nativeBuildInputs = [ deploy-rs.packages.${system}.deploy-rs ];
