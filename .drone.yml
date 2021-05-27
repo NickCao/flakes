@@ -57,13 +57,12 @@ steps:
 - name: deploy
   image: nixery.dev/shell/nixunstable/git/openssh
   commands:
-  - "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf"
-  - mkdir ~/.ssh
-  - echo $${DEPLOY_KEY} | base64 -d > ~/.ssh/id_ed25519
-  - chmod 0600 ~/.ssh/id_ed25519
-  - ssh-keyscan nrt.jp.nichi.link sin.sg.nichi.link > ~/.ssh/known_hosts
-  - chmod 0600 ~/.ssh/known_hosts
-  - nix run github:serokell/deploy-rs -- -s
+  - "mkdir -p /etc/nix ~/.ssh"
+  - "echo 'sandbox = false\nexperimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf"
+  - "echo $DEPLOY_KEY | base64 -d > ~/.ssh/id_ed25519"
+  - "ssh-keyscan nrt.jp.nichi.link sin.sg.nichi.link > ~/.ssh/known_hosts"
+  - "chmod 0600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts"
+  - "nix run github:serokell/deploy-rs -- -s"
   environment:
     DEPLOY_KEY:
       from_secret: deploy_key
