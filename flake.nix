@@ -61,7 +61,7 @@
           pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.rust-overlay.overlay ]; };
         in
         rec {
-          packages = this.packages pkgs;
+          packages = this.packages pkgs // { deploy-rs = deploy-rs.packages.${system}.deploy-rs; };
           checks = packages // (deploy-rs.lib.${system}.deployChecks {
             nodes = pkgs.lib.filterAttrs (name: cfg: cfg.profiles.system.path.system == system) self.deploy.nodes;
           });
