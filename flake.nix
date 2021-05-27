@@ -62,7 +62,9 @@
         in
         rec {
           packages = this.packages pkgs;
-          checks = packages // (deploy-rs.lib.${system}.deployChecks self.deploy);
+          checks = packages // (deploy-rs.lib.${system}.deployChecks {
+            nodes = pkgs.lib.filterAttrs (name: cfg: cfg.profiles.system.path.system == system) self.deploy.nodes;
+          });
           legacyPackages = pkgs;
           devShell = with pkgs; mkShell {
             nativeBuildInputs = [ deploy-rs.packages.${system}.deploy-rs ];
@@ -79,17 +81,15 @@
         sin = import ./nixos/sin { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
       deploy.nodes = {
-        /*
-          rpi = {
-          sshUser = "root";
-          hostname = "10.0.1.2";
-          profiles = {
-          system = {
-          path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
-          };
-          };
-          };
-        */
+        # rpi = {
+        #   sshUser = "root";
+        #   hostname = "10.0.1.2";
+        #   profiles = {
+        #     system = {
+        #       path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
+        #     };
+        #   };
+        # };
         nrt = {
           sshUser = "root";
           hostname = "nrt.jp.nichi.link";
