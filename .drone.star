@@ -21,6 +21,8 @@ def main(ctx):
                         "mkdir ~/.ssh",
                         "echo $DEPLOY_KEY > ~/.ssh/id_ed25519",
                         "chmod 0600 ~/.ssh/id_ed25519",
+                        "ssh-keyscan nrt.jp.nichi.link sin.sg.nichi.link > ~/.ssh/known_hosts",
+                        "chmod 0600 ~/.ssh/known_hosts",
                         "nix run github:serokell/deploy-rs -- -s",
                     ],
                     "environment": {
