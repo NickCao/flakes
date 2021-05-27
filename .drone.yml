@@ -1,0 +1,101 @@
+---
+kind: pipeline
+type: docker
+name: nix-linux-amd64
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: check
+  image: docker.io/nixos/nix
+  commands:
+  - nix-env -iA nixpkgs.nixFlakes
+  - "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf"
+  - nix profile install github:NixOS/nixpkgs/nixos-unstable-small#cachix github:NixOS/nixpkgs/nixos-unstable-small#git
+  - cachix authtoken $CACHIX_TOKEN
+  - cachix use nichi
+  - cachix watch-exec nichi -- nix flake check -vL
+  environment:
+    CACHIX_TOKEN:
+      from_secret: cachix_token
+
+---
+kind: pipeline
+type: docker
+name: nix-linux-arm64
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+- name: check
+  image: quay.io/nickcao/nix-aarch64
+  commands:
+  - nix-env -iA nixpkgs.nixFlakes
+  - "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf"
+  - nix profile install github:NixOS/nixpkgs/nixos-unstable-small#cachix github:NixOS/nixpkgs/nixos-unstable-small#git
+  - cachix authtoken $CACHIX_TOKEN
+  - cachix use nichi
+  - cachix watch-exec nichi -- nix flake check -vL
+  environment:
+    CACHIX_TOKEN:
+      from_secret: cachix_token
+
+---
+kind: pipeline
+type: docker
+name: deploy
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: deploy
+  image: docker.io/nixos/nix
+  commands:
+  - nix-env -iA nixpkgs.nixFlakes
+  - "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf"
+  - nix profile install github:NixOS/nixpkgs/nixos-unstable-small#git github:NixOS/nixpkgs/nixos-unstable-small#openssh
+  - mkdir ~/.ssh
+  - echo $DEPLOY_KEY | base64 -d > ~/.ssh/id_ed25519
+  - chmod 0600 ~/.ssh/id_ed25519
+  - ssh-keyscan nrt.jp.nichi.link sin.sg.nichi.link > ~/.ssh/known_hosts
+  - chmod 0600 ~/.ssh/known_hosts
+  - nix run github:serokell/deploy-rs -- -s
+  environment:
+    DEPLOY_KEY:
+      from_secret: deploy_key
+
+---
+kind: secret
+name: cachix_token
+data: >
+  phZuIBNAXrxnaa84cTWkm2OBR3OhdZ1Du3e3iJtEzp1CtVXCc4t52Afz6H5w
+  rJuS/b9s24udCCDF6gqw+G1E6vRH2R0Ryz5RSZJn0UPRfT8aeMFHcHSLQ1m9
+  oFe3p8bS+RErNrc1TEytop90xuP/RyIgTSHXwUN0ras+L32GSAAy4dRWhq9L
+  FZ4DWmSWwJJcWr+oVEcGsLZ4EfOCEjXKB+L/1vmRVqnKAnNAfM+tqmBEnEY/
+  q+MfDQyOuZuac2pjK/71/yU=
+
+---
+kind: secret
+name: deploy_key
+data: >
+  isSZyowiTawHN3fd4gDpjEbr3J8SE+HROLBiAAYMc664xtXP+imoCzMxwZ1H
+  m/4RXG44TsEbQ2C3SLdCUEOQbqkRBUssiIGgmhQZhlie0affB/3bceKJZyCu
+  hxVEXiDIn8rY1WCFCGvCleke2ggSaZ4/hN980TWdzRry08U49EzWx5fvzERp
+  mdSkUUob7PMsUuITQLoqyESajRzrKoxyi+Pyx37tyRCI+lYw3PGxKVB4vJ1L
+  aWadHV/eAG/OjRYTSxt62P82hOI6oNq3fcfZ31cz8WCQ233gwPDKaoqGFBqh
+  7py0FRwEta7+bXJuPyKeRHpSmtrjcvrR3ie0QD73FNgQqYFdZVgTJmURBOS1
+  NqQRHAHPYFj++aMw8f6I5AgBPrpfwEjpEjrH1qUymRy7f3VLbx4O9t31Ycjf
+  T/j5JifV2PTEfuxN/kDESRzuuZDHHgF4hS5wgEryRTzLLyQW5IMSWLdPfbFG
+  sjjnbkVUBGy12Sl+BdRrScgZOr/JbVIznxPeU3fxgQSNbo+L70VhOFYDCMwO
+  MXg4lLVN8a5vOEIIqYCHEV6m0ImNvdrWfcqGzZuWaSnm/AuAbuq+j/y0xS3/
+  pCFSYg8XslIvdOeEt5o1mZKLPEsS/pgbErBVrszDkCkSPddiFe3SAo/B0ZGe
+  5uEPwoKTVmeW4u6oC3Nd8DCQQYcdN/sooeydzNdi1jWsgBQ+xOleYuj3bRT0
+  nYCeDiiPApoiK2Q7r13l35VfyDA=
+
+...
