@@ -30,6 +30,9 @@ def main(ctx):
                             "from_secret": "deploy_key",
                         },
                     },
+                    "when": {
+                        "event": [ "promote" ],
+                    },
                 },
             ],
         },
