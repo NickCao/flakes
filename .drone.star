@@ -19,8 +19,9 @@ def main(ctx):
                         "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf",
                         "nix profile install github:NixOS/nixpkgs/nixos-unstable-small#git github:NixOS/nixpkgs/nixos-unstable-small#openssh",
                         "mkdir ~/.ssh",
-                        "echo $DEPLOY_KEY > .ssh/id_ed25519",
-                        "nix run github:serokell/deploy-rs -s",
+                        "echo $DEPLOY_KEY > ~/.ssh/id_ed25519",
+                        "chmod 0600 ~/.ssh/id_ed25519",
+                        "nix run github:serokell/deploy-rs -- -s",
                     ],
                     "environment": {
                         "DEPLOY_KEY": {
