@@ -19,7 +19,7 @@ def main(ctx):
                         "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf",
                         "nix profile install github:NixOS/nixpkgs/nixos-unstable-small#git github:NixOS/nixpkgs/nixos-unstable-small#openssh",
                         "mkdir ~/.ssh",
-                        "echo $DEPLOY_KEY > ~/.ssh/id_ed25519",
+                        "echo $DEPLOY_KEY | base64 -d > ~/.ssh/id_ed25519",
                         "chmod 0600 ~/.ssh/id_ed25519",
                         "ssh-keyscan nrt.jp.nichi.link sin.sg.nichi.link > ~/.ssh/known_hosts",
                         "chmod 0600 ~/.ssh/known_hosts",
@@ -41,7 +41,7 @@ def main(ctx):
         {
             "kind": "secret",
             "name": "deploy_key",
-            "data": "PVmJLV1S5kPYLna7deKhUfHYBqN9wUL49nDO/UuEwypmd8/EjfwXDH0AG9e9WERxkNxscNQXid4jguNC3oxG7v+5DRGST3K6qZZSun68NjbC18vE7nCVmO2ShhPrzg015C4HgSzJ+du2Gb0v2wr/isbVTpgDl++bIrtKhUgSGmcb0xWRdnMaUaE+USPp8Ib/7gLA5gL2EGR/l32USNjdLclrELl8F5RzzNOsY35YSFcCrPqVb5ByAYBLX/muesokEXnwkKu9QJpqJBzpvF5TOaAjvFyeZ1sYYetLv+qOqZADTSxwI78g2/A/WSy47+waL5GK0T/ExMM1CbyGG1MWGfds+rsJ/XiZNfywL6qQ1G+GHfeHCw49VoOLEpRP1+dRUMMWF/ftwhm1UO02aNbCdftNYehDhg/E0+i5bWIeL7ot+XZFqeIpqhBm8wDsq7Tt9FVBQQSo20G3wYnz4ydh0hvUpQX1HoT8ftwJEnZQ2mbDbSBMtLlTDyq4w8bx2Lx22bB7JLiCn2zlRusq8MAWAGUK0VyRAj6paYr6vhkp7resU7jbPGrJVRCT4A==",
+            "data": "isSZyowiTawHN3fd4gDpjEbr3J8SE+HROLBiAAYMc664xtXP+imoCzMxwZ1Hm/4RXG44TsEbQ2C3SLdCUEOQbqkRBUssiIGgmhQZhlie0affB/3bceKJZyCuhxVEXiDIn8rY1WCFCGvCleke2ggSaZ4/hN980TWdzRry08U49EzWx5fvzERpmdSkUUob7PMsUuITQLoqyESajRzrKoxyi+Pyx37tyRCI+lYw3PGxKVB4vJ1LaWadHV/eAG/OjRYTSxt62P82hOI6oNq3fcfZ31cz8WCQ233gwPDKaoqGFBqh7py0FRwEta7+bXJuPyKeRHpSmtrjcvrR3ie0QD73FNgQqYFdZVgTJmURBOS1NqQRHAHPYFj++aMw8f6I5AgBPrpfwEjpEjrH1qUymRy7f3VLbx4O9t31YcjfT/j5JifV2PTEfuxN/kDESRzuuZDHHgF4hS5wgEryRTzLLyQW5IMSWLdPfbFGsjjnbkVUBGy12Sl+BdRrScgZOr/JbVIznxPeU3fxgQSNbo+L70VhOFYDCMwOMXg4lLVN8a5vOEIIqYCHEV6m0ImNvdrWfcqGzZuWaSnm/AuAbuq+j/y0xS3/pCFSYg8XslIvdOeEt5o1mZKLPEsS/pgbErBVrszDkCkSPddiFe3SAo/B0ZGe5uEPwoKTVmeW4u6oC3Nd8DCQQYcdN/sooeydzNdi1jWsgBQ+xOleYuj3bRT0nYCeDiiPApoiK2Q7r13l35VfyDA=",
         }
     ]
 
