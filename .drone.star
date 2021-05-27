@@ -15,12 +15,14 @@ def main(ctx):
                     "name": "deploy",
                     "image": "registry.gitlab.com/nickcao/oci-images/nix",
                     "commands": [
-                        "nix profile install nixpkgs#git nixpkgs#openssh .#deploy-rs",
+                        "nix profile install nixpkgs#nixUnstable nixpkgs#cachix nixpkgs#git nixpkgs#openssh",
+                        "cachix use nichi",
                         "mkdir ~/.ssh",
                         "echo $DEPLOY_KEY | base64 -d > ~/.ssh/id_ed25519",
                         "chmod 0600 ~/.ssh/id_ed25519",
                         "ssh-keyscan nrt.jp.nichi.link sin.sg.nichi.link > ~/.ssh/known_hosts",
                         "chmod 0600 ~/.ssh/known_hosts",
+                        "nix profile install .#deploy-rs",
                         "deploy -s",
                     ],
                     "environment": {
