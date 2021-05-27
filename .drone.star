@@ -17,7 +17,7 @@ def main(ctx):
                     "commands": [
                         "nix-env -iA nixpkgs.nixFlakes",
                         "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf",
-                        "nix profile install github:NixOS/nixpkgs/nixos-unstable-small#{git,openssh}",
+                        "nix profile install .#git .#openssh",
                         "mkdir ~/.ssh",
                         "echo $DEPLOY_KEY > .ssh/id_ed25519",
                         "nix run github:serokell/deploy-rs -s",
@@ -58,7 +58,7 @@ def step(os, arch, image):
                 "commands": [
                     "nix-env -iA nixpkgs.nixFlakes",
                     "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf",
-                    "nix profile install github:NixOS/nixpkgs/nixos-unstable-small#cachix github:NixOS/nixpkgs/nixos-unstable-small#git",
+                    "nix profile install .#cachix .#git",
                     "cachix authtoken $CACHIX_TOKEN",
                     "cachix use nichi",
                     "cachix watch-exec nichi -- nix flake check -vL",
