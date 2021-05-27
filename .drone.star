@@ -62,7 +62,7 @@ def step(os, arch, image):
                 "name": "check",
                 "image": image,
                 "commands": [
-                    "nix profile install nixpkgs#nixUnstable nixpkgs#cachix",
+                    "nix profile install nixpkgs#nixUnstable nixpkgs#cachix nixpkgs#git",
                     "cachix authtoken $CACHIX_TOKEN",
                     "cachix use nichi",
                     "cachix watch-exec nichi -- nix flake check -vL",
