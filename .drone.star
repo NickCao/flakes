@@ -1,7 +1,7 @@
 def main(ctx):
     return [
-        step("linux", "amd64", "docker.io/nixos/nix"),
-        step("linux", "arm64", "quay.io/nickcao/nix-aarch64"),
+        step("linux", "amd64", "registry.gitlab.com/nickcao/oci-images/nix"),
+        step("linux", "arm64", "registry.gitlab.com/nickcao/oci-images/nix"),
         {
             "kind": "pipeline",
             "type": "docker",
@@ -62,9 +62,7 @@ def step(os, arch, image):
                 "name": "check",
                 "image": image,
                 "commands": [
-                    "nix-env -iA nixpkgs.nixFlakes",
-                    "echo 'experimental-features = nix-command flakes ca-references\nmax-jobs = auto' >> /etc/nix/nix.conf",
-                    "nix profile install github:NixOS/nixpkgs/nixos-unstable-small#cachix github:NixOS/nixpkgs/nixos-unstable-small#git",
+                    "nix profile install nixpkgs#cachix",
                     "cachix authtoken $CACHIX_TOKEN",
                     "cachix use nichi",
                     "cachix watch-exec nichi -- nix flake check -vL",
