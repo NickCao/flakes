@@ -15,7 +15,7 @@ def main(ctx):
                     "name": "deploy",
                     "image": "registry.gitlab.com/nickcao/oci-images/nix",
                     "commands": [
-                        "nix profile install nixpkgs#nixUnstable nixpkgs#cachix nixpkgs#git nixpkgs#openssh",
+                        "nix profile install nixpkgs#cachix nixpkgs#git nixpkgs#openssh",
                         "cachix use nichi",
                         "mkdir ~/.ssh",
                         "echo $DEPLOY_KEY | base64 -d > ~/.ssh/id_ed25519",
@@ -62,7 +62,7 @@ def step(os, arch, image):
                 "name": "check",
                 "image": image,
                 "commands": [
-                    "nix profile install nixpkgs#nixUnstable nixpkgs#cachix nixpkgs#git",
+                    "nix profile install nixpkgs#cachix nixpkgs#git",
                     "cachix authtoken $CACHIX_TOKEN",
                     "cachix use nichi",
                     "cachix watch-exec nichi -- nix flake check -vL",
