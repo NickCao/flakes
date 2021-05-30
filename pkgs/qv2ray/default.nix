@@ -1,4 +1,5 @@
-{ qt5
+{ source
+, qt5
 , fetchFromGitHub
 , lib
 , cmake
@@ -19,16 +20,7 @@ with qt5;
 let
   qv2ray = mkDerivation
     rec {
-      pname = "qv2ray";
-      version = "2021-05-16";
-
-      src = fetchFromGitHub {
-        owner = "Qv2ray";
-        repo = "Qv2ray";
-        rev = "8367344052fe9d4735b99200b362d4d917a7c46b"; # heads/dev
-        fetchSubmodules = true;
-        sha256 = "060lrbvn9p6jjizmk00ypks0ijqidcmk1bs3hg702jklf6irl62s";
-      };
+      inherit (source) pname version src;
 
       cmakeFlags = [
         "-DQV2RAY_DISABLE_AUTO_UPDATE=ON"

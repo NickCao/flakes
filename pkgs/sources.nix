@@ -73,4 +73,64 @@
       sha256 = "182hqn4kbh0vmnbhj7nrqx2lypkddd6appp5y4kqinnw8dmpdyqx";
     };
   };
+  qv2ray = {
+    pname = "qv2ray";
+    version = "d19ba329fcb72dd2a0a2cfc6bb7855110fda375f";
+    src = fetchgit {
+      url = "https://github.com/Qv2ray/Qv2ray";
+      rev = "d19ba329fcb72dd2a0a2cfc6bb7855110fda375f";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0jbrywwvqcn9sbk9vxwvdjn1grnyspymrzvbfx6cj87mlzaqsmj8";
+    };
+  };
+  qv2ray-plugin-ss = {
+    pname = "qv2ray-plugin-ss";
+    version = "b8a497ed610b968eab0dc0a47e87ded63a2d64a9";
+    src = fetchgit {
+      url = "https://github.com/Qv2ray/QvPlugin-SS";
+      rev = "b8a497ed610b968eab0dc0a47e87ded63a2d64a9";
+      fetchSubmodules = true;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1acnqvfwgxjn2d3gbbkd3dp1vw7j53a7flwwn4mn93l9y6y0n72r";
+    };
+  };
+  smartdns-china-list = {
+    pname = "smartdns-china-list";
+    version = "625c973f8f7050ba02676f66db9f1c4eec46ff46";
+    src = fetchgit {
+      url = "https://github.com/felixonmars/dnsmasq-china-list";
+      rev = "625c973f8f7050ba02676f66db9f1c4eec46ff46";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "08f67hdr2k2yva1w02zrlxa4cpfpgb04fhibaik1p8vpfl41ipch";
+    };
+  };
+  v2ray-domain-list-community = {
+    pname = "v2ray-domain-list-community";
+    version = "d875f4b97e8cea5cf1af7d4f7694ef585b897075";
+    src = fetchgit {
+      url = "https://github.com/v2fly/domain-list-community";
+      rev = "d875f4b97e8cea5cf1af7d4f7694ef585b897075";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1g9a21vd2rld2vybk685wjc89s89lrhkl077vpdxx3130bmak6iy";
+    };
+  };
+  v2ray-geoip = {
+    pname = "v2ray-geoip";
+    version = "e4101ba35587a56ced6ad8f9fdee76cbbf237c22";
+    src = fetchgit {
+      url = "https://github.com/v2fly/geoip";
+      rev = "e4101ba35587a56ced6ad8f9fdee76cbbf237c22";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "0bin6bj8sll024cyssikbxrgzyv4214yz6a5xmqcfwd5b43wc6z7";
+    };
+  };
 }

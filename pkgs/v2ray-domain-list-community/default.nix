@@ -1,17 +1,9 @@
-{ buildGoModule, fetchFromGitHub, lib }:
+{ source, buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule {
-  pname = "v2ray-domain-list-community";
-  version = "2021-05-08";
+  inherit (source) pname version src;
 
-  src = fetchFromGitHub {
-    owner = "v2fly";
-    repo = "domain-list-community";
-    rev = "944a3d3be86ee814fa0eaf1759f8d18bb0b94e79"; # heads/master
-    sha256 = "036ncywa2mjkhlqjwjr9g7a5m74ji9dkz0xvk9df3mp352z7qncs";
-  };
-
-  vendorSha256 = "sha256-IhIRXdiwzvvT5aIEiLbrUoTfy/OPveIjXJXck5N9iQg=";
+  vendorSha256 = "sha256-B/ZPhZ63m8QAZf4g3unxSaguk3Y8CIbPjcWMcgw0GSo=";
 
   outputs = [ "out" "data" ];
 

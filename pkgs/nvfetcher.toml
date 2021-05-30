@@ -21,3 +21,29 @@ fetch.github = "kubermatic/kubeone"
 [material-decoration]
 src.git = "https://github.com/Zren/material-decoration"
 fetch.github = "Zren/material-decoration"
+
+[qv2ray]
+src.git = "https://github.com/Qv2ray/Qv2ray"
+src.branch = "dev"
+git.fetchSubmodules = true
+fetch.github = "Qv2ray/Qv2ray"
+
+[qv2ray-plugin-ss]
+src.git = "https://github.com/Qv2ray/QvPlugin-SS"
+src.branch = "dev"
+git.fetchSubmodules = true
+fetch.github = "Qv2ray/QvPlugin-SS"
+
+[v2ray-domain-list-community]
+src.git = "https://github.com/v2fly/domain-list-community"
+fetch.github = "v2fly/domain-list-community"
+
+[v2ray-geoip]
+src.git = "https://github.com/v2fly/geoip"
+src.branch = "release"
+fetch.github = "v2fly/geoip"
+git.branch = "release"
+
+[smartdns-china-list]
+src.git = "https://github.com/felixonmars/dnsmasq-china-list"
+fetch.github = "felixonmars/dnsmasq-china-list"

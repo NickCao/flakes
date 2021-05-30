@@ -1,17 +1,8 @@
-{ qt5, fetchFromGitHub, lib, cmake, libsodium, libuv, mbedtls }:
+{ source, qt5, fetchFromGitHub, lib, cmake, libsodium, libuv, mbedtls }:
 
 with qt5;
 mkDerivation rec {
-  pname = "qv2ray-plugin-ss";
-  version = "2020-12-14";
-
-  src = fetchFromGitHub {
-    owner = "Qv2ray";
-    repo = "QvPlugin-SS";
-    rev = "b8a497ed610b968eab0dc0a47e87ded63a2d64a9"; # heads/dev
-    fetchSubmodules = true;
-    sha256 = "1acnqvfwgxjn2d3gbbkd3dp1vw7j53a7flwwn4mn93l9y6y0n72r";
-  };
+  inherit (source) pname version src;
 
   cmakeFlags = [
     "-DUSE_SYSTEM_SODIUM=ON"

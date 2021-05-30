@@ -163,7 +163,7 @@
         bind = [ "127.0.0.53:53" ];
         server = [
           "127.0.0.1 -group china -exclude-default-group"
-          "2a0c:b641:69c:f254:0:5:0:3"
+          "2a0c:b641:69c:7864:0:5:0:3"
         ];
         server-https = [
           "https://223.5.5.5/dns-query -group china -exclude-default-group"
@@ -283,7 +283,7 @@
     v2ray
     v2ray-geoip
     v2ray-domain-list-community
-    (qv2ray.override { plugins = [ qv2ray-plugin-ss qv2ray-plugin-ssr ]; })
+    (qv2ray.override { plugins = [ qv2ray-plugin-ss ]; })
     mpv
     yubikey-manager
     tdesktop

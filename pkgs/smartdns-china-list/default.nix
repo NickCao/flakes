@@ -1,15 +1,7 @@
-{ stdenv, fetchFromGitHub, lib }:
+{ source, stdenv, fetchFromGitHub, lib }:
 
 stdenv.mkDerivation rec {
-  pname = "smartdns-china-list";
-  version = "2021-05-16";
-
-  src = fetchFromGitHub {
-    owner = "felixonmars";
-    repo = "dnsmasq-china-list";
-    rev = "f3d2e1335a54c51fef481a4add1375395c30c875"; # heads/master
-    sha256 = "0fmjfk85hkpki5p49xsm7dgpzgrzfp3j0zk2a68rkqgr5vka10f6";
-  };
+  inherit (source) pname version src;
 
   buildPhase = ''
     make smartdns SERVER=china
