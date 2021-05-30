@@ -47,3 +47,7 @@ git.branch = "release"
 [smartdns-china-list]
 src.git = "https://github.com/felixonmars/dnsmasq-china-list"
 fetch.github = "felixonmars/dnsmasq-china-list"
+
+[rait]
+src.git = "https://gitlab.com/NickCao/RAIT"
+fetch.git = "https://gitlab.com/NickCao/RAIT"

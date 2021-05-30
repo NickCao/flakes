@@ -97,6 +97,18 @@
       sha256 = "1acnqvfwgxjn2d3gbbkd3dp1vw7j53a7flwwn4mn93l9y6y0n72r";
     };
   };
+  rait = {
+    pname = "rait";
+    version = "19076c4a9e52c75c5b5a259f3b47bc3ef703eeb4";
+    src = fetchgit {
+      url = "https://gitlab.com/NickCao/RAIT";
+      rev = "19076c4a9e52c75c5b5a259f3b47bc3ef703eeb4";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "020gz8z4sn60kv9jasq682s8abmdlz841fwvf7zc86ksb79z4m99";
+    };
+  };
   smartdns-china-list = {
     pname = "smartdns-china-list";
     version = "625c973f8f7050ba02676f66db9f1c4eec46ff46";
