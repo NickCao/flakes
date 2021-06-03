@@ -21,7 +21,6 @@
       url = "gitlab:NickCao/fn";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.naersk.follows = "naersk";
       inputs.rust-overlay.follows = "rust-overlay";
     };
     deploy-rs = {
