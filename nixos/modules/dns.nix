@@ -27,7 +27,7 @@ in
         sha256 = "sha256-Dm0UMjEeIcDezdeRW2kIXqSGUwOPbNaWPsBOjJ3AqlY=";
       };
     };
-    systemd.services.coredns.serviceConfig.SupplementaryGroups = [ config.users.groups.keys.name ];
+
     services.coredns.enable = true;
     services.coredns.config = ''
       . {

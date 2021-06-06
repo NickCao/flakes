@@ -48,8 +48,7 @@ in
         };
       };
     };
-    users.users.bird2.extraGroups = [ config.users.groups.keys.name ];
-    systemd.services.bird2.serviceConfig.ExecStart = lib.mkForce "${pkgs.bird2}/bin/bird -c /etc/bird/bird2.conf -u bird2 -g bird2 -g ${config.users.groups.keys.name}";
+
     services.bird2 = {
       enable = true;
       checkConfig = false;
