@@ -1,4 +1,4 @@
-{ pkgs, config, modulesPath, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 let
   ifname = "ens3";
 in
@@ -7,7 +7,8 @@ in
 
   boot = {
     loader.grub.device = "/dev/vda";
-    initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];
+    initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "virtio_blk" ];
+    kernelModules = [ "kvm-amd" ];
     kernel.sysctl = {
       "net.ipv6.conf.${ifname}.use_tempaddr" = 0;
       "net.core.default_qdisc" = "fq";
@@ -18,7 +19,6 @@ in
   fileSystems."/" = {
     label = "nixos";
     fsType = "ext4";
-    autoResize = true;
   };
 
   networking = {
@@ -35,10 +35,6 @@ in
     ${ifname} = {
       name = ifname;
       DHCP = "yes";
-      extraConfig = ''
-        IPv6AcceptRA=yes
-        IPv6PrivacyExtensions=no
-      '';
     };
   };
 

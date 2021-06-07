@@ -78,6 +78,7 @@
         rpi = import ./nixos/rpi { system = "aarch64-linux"; inherit self nixpkgs inputs; };
         nrt = import ./nixos/nrt { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         sin = import ./nixos/sin { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        las0 = import ./nixos/las0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
       deploy.nodes = {
         # rpi = {
@@ -104,6 +105,15 @@
           profiles = {
             system = {
               path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sin;
+            };
+          };
+        };
+        las0 = {
+          sshUser = "root";
+          hostname = "las0.nichi.link";
+          profiles = {
+            system = {
+              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.las0;
             };
           };
         };

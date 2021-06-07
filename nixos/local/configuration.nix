@@ -124,6 +124,7 @@
 
   services = {
     fstrim.enable = true;
+    packagekit.enable = false;
     logind.lidSwitch = "ignore";
     gnome.core-utilities.enable = false;
     gnome.gnome-keyring.enable = pkgs.lib.mkForce false;
