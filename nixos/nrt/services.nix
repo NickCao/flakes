@@ -115,14 +115,14 @@
           };
         };
         middlewares.rait.replacePath = {
-          path = "/gravity/combined.json";
+          path = "/artifacts/gravity/combined.json";
         };
         services = {
           rait.loadBalancer = {
             passHostHeader = false;
             servers = [
               {
-                url = "https://artifacts-nichi.s3.us-west-000.backblazeb2.com";
+                url = "https://s3.nichi.co";
               }
             ];
           };

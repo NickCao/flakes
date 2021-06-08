@@ -19,11 +19,11 @@ in
   config = mkIf cfg.enable {
     environment.etc = {
       "coredns/zones/db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa".source = pkgs.fetchurl {
-        url = "https://artifacts-nichi.s3.us-west-000.backblazeb2.com/gravity/db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa";
+        url = "https://s3.nichi.co/artifacts/gravity/db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa";
         sha256 = "sha256-S4ev2aZhvbceE+M9mdvmSuu16O61zuT1EpgWg0nIMog=";
       };
       "coredns/zones/db.gravity".source = pkgs.fetchurl {
-        url = "https://artifacts-nichi.s3.us-west-000.backblazeb2.com/gravity/db.gravity";
+        url = "https://s3.nichi.co/artifacts/gravity/db.gravity";
         sha256 = "sha256-Dm0UMjEeIcDezdeRW2kIXqSGUwOPbNaWPsBOjJ3AqlY=";
       };
     };
