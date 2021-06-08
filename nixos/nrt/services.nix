@@ -22,8 +22,9 @@
         imageFile = image;
         environment = {
           BASE_URL = "https://pb.nichi.co";
-          S3_BUCKET = "pastebin-nichi";
-          S3_ENDPOINT = "https://s3.us-west-000.backblazeb2.com";
+          S3_REGION = "us-east-1";
+          S3_BUCKET = "pastebin";
+          S3_ENDPOINT = "https://s3.nichi.co";
         };
         environmentFiles = [ config.sops.secrets.meow.path ];
         extraOptions = [
