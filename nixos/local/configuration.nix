@@ -280,7 +280,7 @@
     virt-manager
     quartus-prime-lite
     mode
-    chromium
+    (chromium.override { commandLineArgs = "--enable-features=VaapiVideoDecoder"; })
     v2ray
     v2ray-geoip
     v2ray-domain-list-community

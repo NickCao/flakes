@@ -9,6 +9,7 @@
     enable = true;
     browser = true;
     listenAddress = "127.0.0.1:9000";
+    dataDir = builtins.map (x: "/var/lib/minio/data/ec" + builtins.toString x) [ 0 1 2 3 ];
   };
   systemd.services.minio.serviceConfig.EnvironmentFile = config.sops.secrets.minio.path;
 
