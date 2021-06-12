@@ -12,6 +12,9 @@
       woff = {
         sopsFile = ./secrets.yaml;
       };
+      bark = {
+        sopsFile = ./secrets.yaml;
+      };
       bird = {
         owner = "bird2";
       };

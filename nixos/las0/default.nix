@@ -4,7 +4,6 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./minio.nix
-    ./n8n.nix
     ../modules/ssh.nix
     ../modules/buyvm.nix
     {

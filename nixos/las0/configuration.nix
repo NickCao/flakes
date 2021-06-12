@@ -11,9 +11,6 @@
       minio = {
         sopsFile = ./secrets.yaml;
       };
-      n8n = {
-        sopsFile = ./secrets.yaml;
-      };
     };
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };

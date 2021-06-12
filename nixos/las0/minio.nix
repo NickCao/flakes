@@ -46,22 +46,12 @@
             rule = "Host(`s3.nichi.co`)";
             service = "minio";
           };
-          n8n = {
-            rule = "Host(`n8n.nichi.co`)";
-            service = "n8n";
-          };
         };
         services = {
           minio.loadBalancer = {
             passHostHeader = true;
             servers = [{
               url = "http://${config.services.minio.listenAddress}";
-            }];
-          };
-          n8n.loadBalancer = {
-            passHostHeader = true;
-            servers = [{
-              url = "http://127.0.0.1:8080";
             }];
           };
         };
