@@ -54,7 +54,7 @@
         environmentFiles = [ config.sops.secrets.bark.path ];
         extraOptions = [
           "--label=traefik.http.routers.bark.rule=Host(`bark.nichi.co`)"
-          "--label=traefik.http.services.bark.loadbalancer.server.port=8080"
+          "--label=traefik.http.services.bark.loadbalancer.server.port=8000"
         ];
       };
   };
@@ -107,11 +107,6 @@
       tls.options.default = {
         minVersion = "VersionTLS12";
         sniStrict = true;
-        cipherSuites = [
-          "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
-          "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
-          "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
-        ];
       };
       http = {
         routers = {
