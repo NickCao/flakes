@@ -123,6 +123,7 @@
   };
 
   services = {
+    pcscd.enable = true;
     fstrim.enable = true;
     packagekit.enable = false;
     logind.lidSwitch = "ignore";
