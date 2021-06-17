@@ -6,10 +6,6 @@ fetch.github = "google/ko"
 src.github = "z4yx/GoAuthing"
 fetch.github = "z4yx/GoAuthing"
 
-[butane]
-src.github = "coreos/butane"
-fetch.github = "coreos/butane"
-
 [k0sctl]
 src.github = "k0sproject/k0sctl"
 fetch.github = "k0sproject/k0sctl"

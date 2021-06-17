@@ -14,19 +14,6 @@
     };
     
   };
-  butane = {
-    pname = "butane";
-    version = "v0.12.1";
-    src = fetchgit {
-      url = "https://github.com/coreos/butane";
-      rev = "v0.12.1";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "1bgh7h3hwrgjkw72233qzqpkshzbizhdapa0lalzj1xnclq3rqlp";
-    };
-    
-  };
   k0sctl = {
     pname = "k0sctl";
     version = "v0.8.4";
