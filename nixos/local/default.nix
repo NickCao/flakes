@@ -15,6 +15,7 @@ nixpkgs.lib.nixosSystem {
         inputs.neovim.overlay
         inputs.rust-overlay.overlay
       ];
+      nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       nix.registry.p.flake = self;
     }
   ];
