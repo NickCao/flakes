@@ -14,4 +14,6 @@
     };
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };
+
+  services.powerdns.enable = true;
 }
