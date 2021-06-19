@@ -1,4 +1,11 @@
 { pkgs, config, ... }:
+let
+  named = pkgs.writeText "named.conf" ''
+    zone "nichi.co" {
+      file "${./db.co.nichi}";
+    };
+  '';
+in
 {
   networking = {
     hostName = "las0";
@@ -15,5 +22,13 @@
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };
 
-  services.powerdns.enable = true;
+  services.powerdns = {
+    enable = true;
+    extraConfig = ''
+      launch=bind
+      bind-config=${named}
+      resolver=1.1.1.1:53
+      expand-alias=yes
+    '';
+  };
 }

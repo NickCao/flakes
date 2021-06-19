@@ -1,0 +1,13 @@
+@ 10800 IN SOA ns1.nichi.co. dns.nichi.co. 1623649571 10800 3600 604800 10800
+* 300 IN ALIAS nrt.jp.nichi.link.
+@ 300 IN ALIAS nrt.jp.nichi.link.
+s3 300 IN ALIAS las0.nichi.link.
+www 300 IN TXT "http.cat/404"
+@ 300 IN CAA 0 issue "letsencrypt.org"
+@ 300 IN CAA 0 issue "sectigo.com"
+@ 300 IN MX 10 in1-smtp.messagingengine.com.
+@ 300 IN MX 20 in2-smtp.messagingengine.com.
+@ 300 IN TXT "v=spf1 include:spf.messagingengine.com ?all"
+fm1._domainkey 300 IN CNAME fm1.nichi.co.dkim.fmhosted.com.
+fm2._domainkey 300 IN CNAME fm2.nichi.co.dkim.fmhosted.com.
+fm3._domainkey 300 IN CNAME fm3.nichi.co.dkim.fmhosted.com.
