@@ -31,7 +31,7 @@ def main(ctx):
                         },
                     },
                     "when": {
-                        "event": [ "promote" ],
+                        "event": ["promote"],
                     },
                 },
             ],
@@ -45,7 +45,7 @@ def main(ctx):
             "kind": "secret",
             "name": "deploy_key",
             "data": "isSZyowiTawHN3fd4gDpjEbr3J8SE+HROLBiAAYMc664xtXP+imoCzMxwZ1Hm/4RXG44TsEbQ2C3SLdCUEOQbqkRBUssiIGgmhQZhlie0affB/3bceKJZyCuhxVEXiDIn8rY1WCFCGvCleke2ggSaZ4/hN980TWdzRry08U49EzWx5fvzERpmdSkUUob7PMsUuITQLoqyESajRzrKoxyi+Pyx37tyRCI+lYw3PGxKVB4vJ1LaWadHV/eAG/OjRYTSxt62P82hOI6oNq3fcfZ31cz8WCQ233gwPDKaoqGFBqh7py0FRwEta7+bXJuPyKeRHpSmtrjcvrR3ie0QD73FNgQqYFdZVgTJmURBOS1NqQRHAHPYFj++aMw8f6I5AgBPrpfwEjpEjrH1qUymRy7f3VLbx4O9t31YcjfT/j5JifV2PTEfuxN/kDESRzuuZDHHgF4hS5wgEryRTzLLyQW5IMSWLdPfbFGsjjnbkVUBGy12Sl+BdRrScgZOr/JbVIznxPeU3fxgQSNbo+L70VhOFYDCMwOMXg4lLVN8a5vOEIIqYCHEV6m0ImNvdrWfcqGzZuWaSnm/AuAbuq+j/y0xS3/pCFSYg8XslIvdOeEt5o1mZKLPEsS/pgbErBVrszDkCkSPddiFe3SAo/B0ZGe5uEPwoKTVmeW4u6oC3Nd8DCQQYcdN/sooeydzNdi1jWsgBQ+xOleYuj3bRT0nYCeDiiPApoiK2Q7r13l35VfyDA=",
-        }
+        },
     ]
 
 def step(os, arch, image):
@@ -70,6 +70,11 @@ def step(os, arch, image):
                 "environment": {
                     "CACHIX_TOKEN": {
                         "from_secret": "cachix_token",
+                    },
+                },
+                "when": {
+                    "event": {
+                        "exlude": ["promote"],
                     },
                 },
             },
