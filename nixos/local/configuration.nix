@@ -30,7 +30,6 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "nvidia-x11"
     "nvidia-settings"
-    "quartus-prime-lite-unwrapped"
   ];
 
   networking = {
@@ -280,7 +279,6 @@
       ''
     )
     virt-manager
-    quartus-prime-lite
     mode
     (chromium.override { commandLineArgs = "--enable-features=VaapiVideoDecoder"; })
     v2ray

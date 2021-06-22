@@ -16,14 +16,14 @@
   };
   k0sctl = {
     pname = "k0sctl";
-    version = "v0.8.4";
+    version = "v0.9.0";
     src = fetchgit {
       url = "https://github.com/k0sproject/k0sctl";
-      rev = "v0.8.4";
+      rev = "v0.9.0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "08k0aa73kb4hs4zl8a2nmasag0czmppb2r0s1afj287c2a4ynw73";
+      sha256 = "06z9bgapb1mjmnh08z7d0ivy7ldrqz04w3swvqrls5fyfzcz2vk9";
     };
     
   };
@@ -107,27 +107,27 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "72a0845284d0cba5545b610b2c601c2426fdb6ae";
+    version = "7d769c23ce589a024e56613903ec18646080767f";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "72a0845284d0cba5545b610b2c601c2426fdb6ae";
+      rev = "7d769c23ce589a024e56613903ec18646080767f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0dx48wvmmf8wxg2f8hn2pwnvsvqwc08hihbw4722b3ngjn8nk8bv";
+      sha256 = "1h8fig19mr47h25kwa9add9m380xnvlagz9z6jbr4l2a4pl2xb13";
     };
     
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "35564d127667f5e25819699b371b5badffabb248";
+    version = "26270a550b283c75f9b74393415e279ed9ac7a82";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "35564d127667f5e25819699b371b5badffabb248";
+      rev = "26270a550b283c75f9b74393415e279ed9ac7a82";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0k2z2k0g1spv14qx2fvqvcb0v6d1n5facc3ybvr2w9qkxrgs90xx";
+      sha256 = "02abld2as6xjy9fkwcmdg9zrvhjxixi42rwab29ipkgc2gb3k206";
     };
     
   };
