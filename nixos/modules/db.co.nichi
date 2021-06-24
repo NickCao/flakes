@@ -1,11 +1,12 @@
-@ 10800 IN SOA las0.nichi.link. dns.nichi.co. 1623649572 10800 3600 604800 10800
+@ 10800 IN SOA las0.nichi.link. dns.nichi.co. 1623649573 14400 3600 604800 10800
 @ 300 IN NS las0.nichi.link.
 @ 300 IN NS nrt.jp.nichi.link.
 @ 300 IN NS sin.sg.nichi.link.
-* 300 IN ALIAS nrt.jp.nichi.link.
-@ 300 IN ALIAS nrt.jp.nichi.link.
-s3 300 IN ALIAS las0.nichi.link.
+@ 300 IN A 108.160.135.246
+@ 300 IN AAAA 2a0c:b641:691::
+s3 300 IN CNAME las0.nichi.link.
 www 300 IN TXT "http.cat/404"
+* 300 IN CNAME nichi.co.
 @ 300 IN CAA 0 issue "letsencrypt.org"
 @ 300 IN CAA 0 issue "sectigo.com"
 @ 300 IN MX 10 in1-smtp.messagingengine.com.
