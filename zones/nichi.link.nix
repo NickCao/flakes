@@ -6,13 +6,13 @@ in
 dns.lib.toString "nichi.link" {
   TTL = 30;
   SOA = {
-    nameServer = "las0.nichi.co.";
+    nameServer = "las0.nichi.link.";
     adminEmail = "noc@nichi.co";
     serial = 2021062400;
-    refresh = 10000;
-    retry = 2400;
+    refresh = 14400;
+    retry = 3600;
     expire = 604800;
-    minimum = 60;
+    minimum = 300;
   };
   NS = [
     "las0.nichi.link."

@@ -54,7 +54,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
   };
-  outputs = inputs@{ self, nixpkgs, flake-utils, deploy-rs, ... }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, deploy-rs, dns, ... }:
     let
       this = import ./pkgs;
     in
@@ -65,7 +65,10 @@
           pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.rust-overlay.overlay ]; };
         in
         rec {
-          packages = this.packages pkgs // { deploy-rs = deploy-rs.packages.${system}.deploy-rs; };
+          packages = this.packages pkgs // {
+            deploy-rs = deploy-rs.packages.${system}.deploy-rs;
+            inherit (pkgs) "db.co.nichi" "db.link.nichi";
+          };
           checks = packages // (deploy-rs.lib.${system}.deployChecks {
             nodes = pkgs.lib.filterAttrs (name: cfg: cfg.profiles.system.path.system == system) self.deploy.nodes;
           });
@@ -76,7 +79,13 @@
         }
       )
     // {
-      overlay = this.overlay;
+      overlay = final: prev: (nixpkgs.lib.composeExtensions this.overlay
+        (final: prev: {
+          "db.co.nichi" = final.writeText "db.co.nichi" (import ./zones/nichi.co.nix { inherit dns; });
+          "db.link.nichi" = final.writeText "db.link.nichi" (import ./zones/nichi.link.nix { inherit dns; });
+        })
+        final
+        prev);
       nixosConfigurations = {
         local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };

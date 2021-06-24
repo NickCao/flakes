@@ -31,7 +31,10 @@ in
     services.coredns.enable = true;
     services.coredns.config = ''
       nichi.co {
-        file ${./db.co.nichi}
+        file ${pkgs."db.co.nichi"}
+      }
+      nichi.link {
+        file ${pkgs."db.link.nichi"}
       }
       . {
         auto {
