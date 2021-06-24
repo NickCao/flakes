@@ -1,7 +1,7 @@
 @ 10800 IN SOA las0.nichi.link. dns.nichi.co. 1623649573 14400 3600 604800 10800
 @ 300 IN NS las0.nichi.link.
-@ 300 IN NS nrt.jp.nichi.link.
-@ 300 IN NS sin.sg.nichi.link.
+@ 300 IN NS nrt0.nichi.link.
+@ 300 IN NS sin0.nichi.link.
 @ 300 IN A 108.160.135.246
 @ 300 IN AAAA 2a0c:b641:691::
 s3 300 IN CNAME las0.nichi.link.
