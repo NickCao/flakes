@@ -46,17 +46,6 @@
           "--label=traefik.http.services.woff.loadbalancer.server.port=8080"
         ];
       };
-    bark =
-      let image = pkgs.bark.image; in
-      {
-        image = "${image.imageName}:${image.imageTag}";
-        imageFile = image;
-        environmentFiles = [ config.sops.secrets.bark.path ];
-        extraOptions = [
-          "--label=traefik.http.routers.bark.rule=Host(`bark.nichi.co`)"
-          "--label=traefik.http.services.bark.loadbalancer.server.port=8000"
-        ];
-      };
   };
   systemd.services.podman-traefik = {
     serviceConfig = {
