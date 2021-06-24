@@ -1,0 +1,45 @@
+{
+  "nodes": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "las0": [
+          "object",
+          {
+            "ipv4": "string",
+            "ipv6": "string"
+          }
+        ],
+        "nrt0": [
+          "object",
+          {
+            "ipv4": "string",
+            "ipv6": "string"
+          }
+        ],
+        "sin0": [
+          "object",
+          {
+            "ipv4": "string",
+            "ipv6": "string"
+          }
+        ]
+      }
+    ],
+    "value": {
+      "las0": {
+        "ipv4": "205.185.117.14",
+        "ipv6": "2605:6400:20:387::1"
+      },
+      "nrt0": {
+        "ipv4": "108.160.135.246",
+        "ipv6": "2001:19f0:7002:0e6f:5400:03ff:fe5c:5ba7"
+      },
+      "sin0": {
+        "ipv4": "45.77.45.202",
+        "ipv6": "2001:19f0:4400:4110:5400:03ff:fe5c:5ba8"
+      }
+    }
+  }
+}
