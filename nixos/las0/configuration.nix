@@ -2,7 +2,7 @@
 let
   named = pkgs.writeText "named.conf" ''
     zone "nichi.co" {
-      file "${./db.co.nichi}";
+      file "${../modules/db.co.nichi}";
     };
   '';
 in

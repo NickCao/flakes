@@ -30,6 +30,9 @@ in
 
     services.coredns.enable = true;
     services.coredns.config = ''
+      nichi.co {
+        file ${./db.co.nichi}
+      }
       . {
         auto {
           directory /etc/coredns/zones
