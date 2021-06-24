@@ -1,4 +1,5 @@
-@ 10800 IN SOA ns1.nichi.co. dns.nichi.co. 1623649571 10800 3600 604800 10800
+@ 10800 IN SOA las0.nichi.link. dns.nichi.co. 1623649572 10800 3600 604800 10800
+@ 300 IN NS las0.nichi.link.
 * 300 IN ALIAS nrt.jp.nichi.link.
 @ 300 IN ALIAS nrt.jp.nichi.link.
 s3 300 IN ALIAS las0.nichi.link.
