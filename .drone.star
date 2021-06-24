@@ -20,7 +20,7 @@ def main(ctx):
                         "mkdir ~/.ssh",
                         "echo $DEPLOY_KEY | base64 -d > ~/.ssh/id_ed25519",
                         "chmod 0600 ~/.ssh/id_ed25519",
-                        "ssh-keyscan nrt.jp.nichi.link sin.sg.nichi.link las0.nichi.link > ~/.ssh/known_hosts",
+                        "ssh-keyscan nrt0.nichi.link sin0.nichi.link las0.nichi.link > ~/.ssh/known_hosts",
                         "chmod 0600 ~/.ssh/known_hosts",
                         "nix profile install .#deploy-rs",
                         "deploy -s",
