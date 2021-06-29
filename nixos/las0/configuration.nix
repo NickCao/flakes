@@ -1,14 +1,4 @@
 { pkgs, config, ... }:
-let
-  named = pkgs.writeText "named.conf" ''
-    zone "nichi.co" {
-      file "${pkgs."db.co.nichi"}";
-    };
-    zone "nichi.link" {
-      file "${pkgs."db.link.nichi"}";
-    };
-  '';
-in
 {
   networking = {
     hostName = "las0";
@@ -25,14 +15,9 @@ in
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };
 
-  services.powerdns = {
+  services.dns = {
     enable = true;
-    extraConfig = ''
-      launch=bind
-      bind-config=${named}
-      resolver=1.1.1.1:53
-      expand-alias=yes
-    '';
+    recursive = false;
   };
 
   systemd.network.networks = {

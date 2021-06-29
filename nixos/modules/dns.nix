@@ -6,6 +6,11 @@ in
 {
   options.services.dns = {
     enable = mkEnableOption "gravity dns service";
+    recursive = mkOption {
+      type = types.bool;
+      default = true;
+      description = "recursive dns";
+    };
     nat64 = mkOption {
       type = types.str;
       description = "nat64 prefix";
@@ -36,6 +41,7 @@ in
       nichi.link {
         file ${pkgs."db.link.nichi"}
       }
+    '' + optionalString cfg.recursive ''
       . {
         auto {
           directory /etc/coredns/zones
