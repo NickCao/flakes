@@ -6,7 +6,7 @@ nixpkgs.lib.nixosSystem {
     ./minio.nix
     ../modules/ssh.nix
     ../modules/buyvm.nix
-    ../modules/dns.nix
+    ../modules/dns
     {
       nixpkgs.overlays = [
         self.overlay

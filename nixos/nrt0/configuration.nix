@@ -18,14 +18,6 @@
       bird = {
         owner = "bird2";
       };
-      private_zsk = {
-        mode = "0444";
-        path = "/etc/coredns/zsk.private";
-      };
-      public_zsk = {
-        mode = "0444";
-        path = "/etc/coredns/zsk.key";
-      };
     };
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };

@@ -17,7 +17,6 @@
 
   services.dns = {
     enable = true;
-    recursive = false;
   };
 
   systemd.network.networks = {

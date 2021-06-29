@@ -9,7 +9,7 @@ nixpkgs.lib.nixosSystem {
     ../modules/vultr.nix
     ../modules/gravity.nix
     ../modules/divi.nix
-    ../modules/dns.nix
+    ../modules/dns
     {
       nixpkgs.overlays = [
         self.overlay
