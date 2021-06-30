@@ -33,6 +33,7 @@ in
       "K9.6.0.1.4.6.b.c.0.a.2.ip6.arpa.+013+13716"
     ]));
     services.coredns.enable = true;
+    systemd.services.coredns.restartTriggers = [ (builtins.hashFile "sha256" ./secrets.yaml) ];
     services.coredns.config = ''
       nichi.co {
         file ${pkgs."db.co.nichi"}

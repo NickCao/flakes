@@ -54,7 +54,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
   };
-  outputs = inputs@{ self, nixpkgs, flake-utils, deploy-rs, dns, ... }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, dns, ... }:
     let
       this = import ./pkgs;
     in
@@ -62,19 +62,19 @@
       (
         system:
         let
-          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.rust-overlay.overlay ]; };
+          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.deploy-rs.overlay inputs.rust-overlay.overlay ]; };
         in
         rec {
           packages = this.packages pkgs // {
-            deploy-rs = deploy-rs.packages.${system}.deploy-rs;
+            deploy-rs = pkgs.deploy-rs.deploy-rs;
             inherit (pkgs) "db.co.nichi" "db.link.nichi";
           };
-          checks = packages // (deploy-rs.lib.${system}.deployChecks {
+          checks = packages // (inputs.deploy-rs.lib.${system}.deployChecks {
             nodes = pkgs.lib.filterAttrs (name: cfg: cfg.profiles.system.path.system == system) self.deploy.nodes;
           });
           legacyPackages = pkgs;
           devShell = with pkgs; mkShell {
-            nativeBuildInputs = [ deploy-rs.packages.${system}.deploy-rs ];
+            nativeBuildInputs = [ deploy-rs.deploy-rs ];
           };
         }
       )
@@ -109,7 +109,7 @@
           hostname = "nrt0.nichi.link";
           profiles = {
             system = {
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nrt0;
+              path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nrt0;
             };
           };
         };
@@ -118,7 +118,7 @@
           hostname = "sin0.nichi.link";
           profiles = {
             system = {
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sin0;
+              path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sin0;
             };
           };
         };
@@ -127,7 +127,7 @@
           hostname = "las0.nichi.link";
           profiles = {
             system = {
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.las0;
+              path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.las0;
             };
           };
         };
