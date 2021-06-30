@@ -22,7 +22,5 @@ dns.lib.toString "nichi.link" {
   subdomains = builtins.mapAttrs (name: value: host value.ipv4 value.ipv6) nodes // {
     "nrt.jp".CNAME = [ "nrt0.nichi.link." ];
     "sin.sg".CNAME = [ "sin0.nichi.link." ];
-    ns1.CNAME = [ "nrt0.nichi.link." ];
-    ns2.CNAME = [ "sin0.nichi.link." ];
   };
 }
