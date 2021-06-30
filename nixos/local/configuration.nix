@@ -100,6 +100,10 @@
   };
 
   hardware = {
+    nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      modesetting.enable = true;
+    };
     pulseaudio.enable = false;
     cpu.intel.updateMicrocode = true;
     bluetooth.enable = true;
@@ -148,7 +152,11 @@
     };
     xserver = {
       enable = true;
-      displayManager.gdm.enable = true;
+      displayManager.gdm = {
+        enable = true;
+        wayland = true;
+        nvidiaWayland = true;
+      };
       desktopManager.gnome.enable = true;
       videoDrivers = [ "nvidia" ];
     };
