@@ -15,9 +15,6 @@
       bark = {
         sopsFile = ./secrets.yaml;
       };
-      bird = {
-        owner = "bird2";
-      };
     };
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };
@@ -48,6 +45,5 @@
     enable = true;
     node = "2a0c:b641:69c:7860::/60";
     prefixes = [ "2a0c:b641:690::/48" "2a0c:b641:69c::/48" "2a0c:b641:691::/48" ];
-    include = config.sops.secrets.bird.path;
   };
 }

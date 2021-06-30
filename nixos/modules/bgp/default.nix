@@ -14,12 +14,12 @@ in
       type = types.listOf types.str;
       description = "prefixes to announce";
     };
-    include = mkOption {
-      type = types.path;
-      description = "config to include";
-    };
   };
   config = mkIf cfg.enable {
+    sops.secrets.bgp_passwd = {
+      sopsFile = ./secrets.yaml;
+      owner = "bird2";
+    };
     boot.kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
       "net.ipv6.conf.all.forwarding" = 1;
@@ -48,12 +48,12 @@ in
         };
       };
     };
-
+    systemd.services.bird2.restartTriggers = [ (builtins.hashFile "sha256" ./secrets.yaml) ];
     services.bird2 = {
       enable = true;
       checkConfig = false;
       config = ''
-        include "${cfg.include}";
+        include "${config.sops.secrets.bgp_passwd.path}";
         ipv6 sadr table sadr6;
         protocol device { }
         protocol static inject {

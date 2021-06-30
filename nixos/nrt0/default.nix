@@ -4,7 +4,7 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./services.nix
-    ../modules/bgp.nix
+    ../modules/bgp
     ../modules/ssh.nix
     ../modules/vultr.nix
     ../modules/gravity.nix
