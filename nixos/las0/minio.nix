@@ -11,8 +11,8 @@
     listenAddress = "127.0.0.1:9000";
     configDir = "/data/minio/config";
     dataDir = builtins.map (x: "/data/minio/ec" + builtins.toString x) [ 0 1 2 3 ];
+    rootCredentialsFile = config.sops.secrets.minio.path;
   };
-  systemd.services.minio.serviceConfig.EnvironmentFile = config.sops.secrets.minio.path;
 
   services.traefik = {
     enable = true;
