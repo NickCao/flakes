@@ -6,11 +6,9 @@
   };
 
   sops = {
-    defaultSopsFile = ../modules/secrets.yaml;
+    defaultSopsFile = ./secrets.yaml;
     secrets = {
-      minio = {
-        sopsFile = ./secrets.yaml;
-      };
+      minio = { };
     };
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };

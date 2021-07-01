@@ -1,11 +1,9 @@
 { pkgs, config, ... }:
 {
   sops = {
-    defaultSopsFile = ../modules/secrets.yaml;
+    defaultSopsFile = ./secrets.yaml;
     secrets = {
-      rait = {
-        sopsFile = ./secrets.yaml;
-      };
+      rait = { };
     };
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };
