@@ -107,40 +107,40 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "7d769c23ce589a024e56613903ec18646080767f";
+    version = "9fd0ea5a6c1f20f210f0266eadb42860b5255540";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "7d769c23ce589a024e56613903ec18646080767f";
+      rev = "9fd0ea5a6c1f20f210f0266eadb42860b5255540";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1h8fig19mr47h25kwa9add9m380xnvlagz9z6jbr4l2a4pl2xb13";
+      sha256 = "10msg96160gdi3wm4wdngws7m51sz3ly20xnvx9ikyqxpvff7bxg";
     };
     
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "26270a550b283c75f9b74393415e279ed9ac7a82";
+    version = "61c96766efabfa8522917e020c67aec98bebd804";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "26270a550b283c75f9b74393415e279ed9ac7a82";
+      rev = "61c96766efabfa8522917e020c67aec98bebd804";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "02abld2as6xjy9fkwcmdg9zrvhjxixi42rwab29ipkgc2gb3k206";
+      sha256 = "0x3q5wd7s56bfsvbr5a3iw14zvmnsqdivh6r3b2q2lkkyzgdn6sq";
     };
     
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "cb37e52a0224cd5bd8ca3b39e547cc9911503fc9";
+    version = "2dccbad5b22fc73f6208518007488413ecf9a33f";
     src = fetchgit {
       url = "https://github.com/v2fly/geoip";
-      rev = "cb37e52a0224cd5bd8ca3b39e547cc9911503fc9";
+      rev = "2dccbad5b22fc73f6208518007488413ecf9a33f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0c5y88j2rm5w9q6kxyk1j8fm3mkd3prkmj2lw6lx6145cn034nwl";
+      sha256 = "1pn47yd12si9x8zlkxwby884shribrnhz4syja8jb4qvafyn8jmg";
     };
     
   };

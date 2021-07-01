@@ -3,7 +3,7 @@
 buildGoModule {
   inherit (source) pname version src;
 
-  vendorSha256 = "sha256-B/ZPhZ63m8QAZf4g3unxSaguk3Y8CIbPjcWMcgw0GSo=";
+  vendorSha256 = "sha256-vNLhCI7C+Y/MqcH0MhTUICGnbmYQQCPypZmUVPZhA7Q=";
 
   outputs = [ "out" "data" ];
 
