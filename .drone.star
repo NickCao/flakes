@@ -74,7 +74,7 @@ def step(os, arch, image):
                 },
                 "when": {
                     "event": {
-                        "exlude": ["promote"],
+                        "exclude": ["promote"],
                     },
                 },
             },
