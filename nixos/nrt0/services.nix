@@ -46,6 +46,17 @@
           "--label=traefik.http.services.woff.loadbalancer.server.port=8080"
         ];
       };
+    quark =
+      let image = pkgs.quark.image; in
+      {
+        image = "${image.imageName}:${image.imageTag}";
+        imageFile = image;
+        environmentFiles = [ config.sops.secrets.quark.path ];
+        extraOptions = [
+          "--label=traefik.http.routers.quark.rule=Host(`upload.staging.nichi.co`)"
+          "--label=traefik.http.services.quark.loadbalancer.server.port=3000"
+        ];
+      };
   };
   systemd.services.podman-traefik = {
     serviceConfig = {

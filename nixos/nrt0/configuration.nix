@@ -7,6 +7,7 @@
       meow = { };
       woff = { };
       bark = { };
+      quark = { };
     };
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };
