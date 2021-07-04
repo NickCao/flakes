@@ -116,12 +116,20 @@
           };
           rait = {
             rule = "Host(`api.nichi.co`) && Path(`/rait`)";
-            middlewares = [ "rait" ];
+            middlewares = [ "rait0" "rait1" "rait2" ];
             service = "rait";
           };
         };
-        middlewares.rait.replacePath = {
-          path = "/artifacts/gravity/combined.json";
+        middlewares = {
+          rait0.replacePath = {
+            path = "/artifacts/gravity/combined.json";
+          };
+          rait1.basicAuth = {
+            users = [ "rait:$apr1$4IonQAmW$rW.9mAxjL1uGV8ZI.bFNj." ];
+          };
+          rait2.headers = {
+            customrequestheaders.authorization = "";
+          };
         };
         services = {
           rait.loadBalancer = {
