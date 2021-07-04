@@ -8,6 +8,7 @@
       woff = { };
       bark = { };
       quark = { };
+      traefik = { owner = config.systemd.services.traefik.serviceConfig.User; };
     };
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };

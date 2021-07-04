@@ -70,6 +70,7 @@
   virtualisation.containers.containersConf.settings.engine = {
     events_logger = "file";
   };
+  systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;
   services.traefik = {
     enable = true;
     staticConfigOptions = {
@@ -122,13 +123,14 @@
         };
         middlewares = {
           rait0.replacePath = {
-            path = "/artifacts/gravity/combined.json";
+            path = "/tuna/gravity/artifacts/artifacts/combined.json";
           };
           rait1.basicAuth = {
-            users = [ "rait:$apr1$4IonQAmW$rW.9mAxjL1uGV8ZI.bFNj." ];
+            users = [ "{{ env `RAIT_PASSWD` }}" ];
+            removeheader = true;
           };
           rait2.headers = {
-            customrequestheaders.authorization = "";
+            customrequestheaders.authorization = "token {{ env `GITHUB_TOKEN` }}";
           };
         };
         services = {
@@ -136,7 +138,7 @@
             passHostHeader = false;
             servers = [
               {
-                url = "https://s3.nichi.co";
+                url = "https://raw.githubusercontent.com";
               }
             ];
           };
