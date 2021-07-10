@@ -3,9 +3,6 @@ buildGoModule rec {
   inherit (source) pname version src;
   vendorSha256 = "sha256-SCLbX9NqMLBNSBHC3a921b8+3Vy7VHjUcFHbjidwQ+c=";
   subPackages = [ "cli" ];
-  prePatch = ''
-    substituteInPlace cli/main.go --replace ".auth-thu" ".config/auth-thu"
-  '';
   postInstall = ''
     mv $out/bin/cli $out/bin/auth-thu
   '';

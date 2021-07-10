@@ -3,14 +3,14 @@
 {
   auth-thu = {
     pname = "auth-thu";
-    version = "v2.0.3";
+    version = "v2.1.1";
     src = fetchgit {
       url = "https://github.com/z4yx/GoAuthing";
-      rev = "v2.0.3";
+      rev = "v2.1.1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1z1anpp16d01ncp2bg1ahnyn0707xnavhbaqhddjhzw78zsh120q";
+      sha256 = "0v1id1aqklkmph1l87zwj4wbcvbkn25b0mnk0cs2n45b6w37cld3";
     };
     
   };
@@ -107,40 +107,40 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "9fd0ea5a6c1f20f210f0266eadb42860b5255540";
+    version = "921ef6140996f3e09873ca5e97ce2a0a57c30171";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "9fd0ea5a6c1f20f210f0266eadb42860b5255540";
+      rev = "921ef6140996f3e09873ca5e97ce2a0a57c30171";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "10msg96160gdi3wm4wdngws7m51sz3ly20xnvx9ikyqxpvff7bxg";
+      sha256 = "0ykvsq82n8z8jxvfcvcg5mzazxlis9j4jfk5a03164a6m20gjajr";
     };
     
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "61c96766efabfa8522917e020c67aec98bebd804";
+    version = "9019c2562e194fea9c7af85a76dcdb746a65cdf1";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "61c96766efabfa8522917e020c67aec98bebd804";
+      rev = "9019c2562e194fea9c7af85a76dcdb746a65cdf1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0x3q5wd7s56bfsvbr5a3iw14zvmnsqdivh6r3b2q2lkkyzgdn6sq";
+      sha256 = "1xjxxdcx4lwd1l3yhpjsk3ifg6cwblmix0g1xj6xmqa1swlvdiiw";
     };
     
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "2dccbad5b22fc73f6208518007488413ecf9a33f";
+    version = "acf38fa04e4bab94fd3c6386e6e7b105e12bcd1d";
     src = fetchgit {
       url = "https://github.com/v2fly/geoip";
-      rev = "2dccbad5b22fc73f6208518007488413ecf9a33f";
+      rev = "acf38fa04e4bab94fd3c6386e6e7b105e12bcd1d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1pn47yd12si9x8zlkxwby884shribrnhz4syja8jb4qvafyn8jmg";
+      sha256 = "10bpwcviz2j0qgjbbpaix2nbxih980qmr36szjl16812i4jjb2lh";
     };
     
   };
