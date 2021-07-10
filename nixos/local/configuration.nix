@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
 {
+  system.replaceRuntimeDependencies = [
+    {
+      original = pkgs.fontconfig.lib;
+      replacement = (builtins.getFlake "github:NickCao/nixpkgs?rev=8bdf5020564bae9ecedb3930af4ea5fc6fb66955").legacyPackages.x86_64-linux.fontconfig.lib;
+    }
+  ];
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
