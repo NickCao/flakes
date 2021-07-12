@@ -97,12 +97,6 @@
       providers.docker = {
         endpoint = "unix://${config.services.traefik.dataDir}/podman.sock";
       };
-      api = {
-        dashboard = true;
-      };
-      pilot = {
-        dashboard = false;
-      };
     };
     dynamicConfigOptions = {
       tls.options.default = {
@@ -111,10 +105,6 @@
       };
       http = {
         routers = {
-          dashboard = {
-            rule = "Host(`traefik.nichi.co`)";
-            service = "api@internal";
-          };
           rait = {
             rule = "Host(`api.nichi.co`) && Path(`/rait`)";
             middlewares = [ "rait0" "rait1" "rait2" ];
