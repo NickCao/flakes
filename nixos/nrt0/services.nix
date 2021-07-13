@@ -53,7 +53,7 @@
         imageFile = image;
         environmentFiles = [ config.sops.secrets.quark.path ];
         extraOptions = [
-          "--label=traefik.http.routers.quark.rule=Host(`upload.staging.nichi.co`)"
+          "--label=traefik.http.routers.quark.rule=Host(`cache.staging.nichi.co`)"
           "--label=traefik.http.services.quark.loadbalancer.server.port=3000"
         ];
       };
