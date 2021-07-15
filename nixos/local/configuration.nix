@@ -231,7 +231,7 @@
             buf_set_keymap('n', '<Space>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
           end
           nvim_lsp['gopls'].setup { on_attach = on_attach, cmd = { '${pkgs.gopls}/bin/gopls' } }
-          nvim_lsp['rust_analyzer'].setup { on_attach = on_attach, cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' } }
+          nvim_lsp['rust_analyzer'].setup { on_attach = on_attach, cmd = { 'rust-analyzer' } }
           nvim_lsp['yamlls'].setup { on_attach = on_attach, cmd = { '${pkgs.yaml-language-server}/bin/yaml-language-server', '--stdio'} }
           nvim_lsp['terraformls'].setup { on_attach = on_attach, cmd = { '${pkgs.terraform-ls}/bin/terraform-ls', 'serve' }, filetypes = { 'tf' } }
           EOF
