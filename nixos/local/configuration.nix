@@ -101,7 +101,6 @@
   };
 
   virtualisation = {
-    libvirtd.enable = true;
     podman.enable = true;
   };
 
@@ -268,7 +267,7 @@
       nickcao = {
         isNormalUser = true;
         hashedPassword = "$6$n7lnnelApqi$ulDiRUraojX4zlMiuP4qP./qGZYbTGKVqTsN5z.5HlAGgIy23WMpxBA5fjFyY.RGOepAaZV8cK0tt3duMgVy30";
-        extraGroups = [ "wheel" "networkmanager" "libvirtd" ];
+        extraGroups = [ "wheel" "networkmanager" ];
       };
     };
   };
@@ -292,7 +291,6 @@
         exec ${alacritty}/bin/alacritty "$@"
       ''
     )
-    virt-manager
     mode
     (chromium.override { commandLineArgs = "--enable-features=VaapiVideoDecoder"; })
     v2ray
