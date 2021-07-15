@@ -79,6 +79,7 @@
         }
       )
     // {
+      nixosModules = import ./modules;
       overlay = final: prev: (nixpkgs.lib.composeExtensions this.overlay
         (final: prev: {
           "db.co.nichi" = final.writeText "db.co.nichi" (import ./zones/nichi.co.nix { inherit dns; });

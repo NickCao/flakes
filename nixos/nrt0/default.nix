@@ -4,12 +4,12 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./services.nix
-    ../modules/bgp
-    ../modules/ssh.nix
-    ../modules/vultr.nix
-    ../modules/gravity.nix
-    ../modules/divi.nix
-    ../modules/dns
+    self.nixosModules.bgp
+    self.nixosModules.ssh
+    self.nixosModules.vultr
+    self.nixosModules.gravity
+    self.nixosModules.divi
+    self.nixosModules.dns
     {
       nixpkgs.overlays = [
         self.overlay

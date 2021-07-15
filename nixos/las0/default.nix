@@ -4,9 +4,9 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./minio.nix
-    ../modules/ssh.nix
-    ../modules/buyvm.nix
-    ../modules/dns
+    self.nixosModules.ssh
+    self.nixosModules.buyvm
+    self.nixosModules.dns
     {
       nixpkgs.overlays = [
         self.overlay
