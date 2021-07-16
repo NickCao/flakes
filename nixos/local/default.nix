@@ -14,6 +14,16 @@ nixpkgs.lib.nixosSystem {
         self.overlay
         inputs.neovim.overlay
         inputs.rust-overlay.overlay
+        (final: prev: {
+          alacritty = final.symlinkJoin {
+            name = "alacritty";
+            paths = [ prev.alacritty ];
+            buildInputs = [ final.makeWrapper ];
+            postBuild = ''
+              wrapProgram $out/bin/alacritty --unset WAYLAND_DISPLAY
+            '';
+          };
+        })
       ];
       nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       nix.registry.p.flake = self;

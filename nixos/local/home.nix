@@ -111,7 +111,7 @@ in
         add_newline = false;
         gcloud = { disabled = true; };
         battery = { disabled = true; };
-        shlvl = { disabled = false; symbol = ""; };
+        # shlvl = { disabled = false; symbol = ""; };
       };
     };
     tmux = {
@@ -215,7 +215,6 @@ in
       "containers/storage.conf".source = toTOMLDrv {
         storage = {
           driver = "btrfs";
-          rootless_storage_path = "${config.home.homeDirectory}/Data/Containers/";
         };
       };
       "ibus/rime/default.custom.yaml".text = ''

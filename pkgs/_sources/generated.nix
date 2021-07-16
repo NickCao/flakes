@@ -92,6 +92,19 @@
     };
     
   };
+  qvpersonal = {
+    pname = "qvpersonal";
+    version = "a24db9b94a74d90d5b5aa70dbbdd220702954a1d";
+    src = fetchgit {
+      url = "https://github.com/moodyhunter/QvPersonal";
+      rev = "a24db9b94a74d90d5b5aa70dbbdd220702954a1d";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "023v7ai1n9gvbavaswvh2g9lg9vsw4iv7dgc0fjhi7vhnlfapchg";
+    };
+    
+  };
   rait = {
     pname = "rait";
     version = "19076c4a9e52c75c5b5a259f3b47bc3ef703eeb4";
@@ -120,27 +133,27 @@
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "fcb50a764221f1043bdc7d86aee611d44b81abd1";
+    version = "2f54584288b35891e09b6d6b3062b836cf4c3f50";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "fcb50a764221f1043bdc7d86aee611d44b81abd1";
+      rev = "2f54584288b35891e09b6d6b3062b836cf4c3f50";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "04icmb51zq602whgj0s9y73w71f18mz64qq0izwy4450x8rhy56p";
+      sha256 = "157iy3szlfvq4ii6wl7hlagydckxf5d09zkifjqf0l24897mv67v";
     };
     
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "acf38fa04e4bab94fd3c6386e6e7b105e12bcd1d";
+    version = "2ecda1c835aed03c6476107db95c4db9fb4fe6f4";
     src = fetchgit {
       url = "https://github.com/v2fly/geoip";
-      rev = "acf38fa04e4bab94fd3c6386e6e7b105e12bcd1d";
+      rev = "2ecda1c835aed03c6476107db95c4db9fb4fe6f4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "10bpwcviz2j0qgjbbpaix2nbxih980qmr36szjl16812i4jjb2lh";
+      sha256 = "101w4050nvvg5abrv5fycpc6gic7lviw01kkklsb34z7arywy0jc";
     };
     
   };
