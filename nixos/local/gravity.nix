@@ -34,6 +34,10 @@ in
         ipv6 sadr;
         route 2a0c:b641:69c:99cc::/64 from ::/0 unreachable;
       }
+      protocol static workaround {
+        ipv6 sadr;
+        route ::/0 from ::/0 via fe80::200:ff:fe00:1%gravity;
+      }
       protocol babel gravity {
         ipv6 sadr {
           import all;

@@ -45,7 +45,7 @@ in
       serviceConfig = with pkgs;{
         ExecStartPre = [
           "${iproute2}/bin/ip netns add ${cfg.netns}"
-          "${iproute2}/bin/ip link add ${cfg.link} group ${toString cfg.group} type veth peer host netns ${cfg.netns}"
+          "${iproute2}/bin/ip link add ${cfg.link} address 00:00:00:00:00:02 group ${toString cfg.group} type veth peer host address 00:00:00:00:00:01 netns ${cfg.netns}"
           "${iproute2}/bin/ip link set ${cfg.link} up"
           "${iproute2}/bin/ip -n ${cfg.netns} link set host up"
           "${iproute2}/bin/ip -n ${cfg.netns} addr add ${cfg.address} dev host"
