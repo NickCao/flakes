@@ -39,6 +39,35 @@ in
           )
           cfg.prefixes;
       };
+      gravity = {
+        name = "gravity";
+        routingPolicyRules = [
+          {
+            routingPolicyRuleConfig = {
+              FirewallMark = 54;
+              Priority = 1000;
+              Family = "ipv6";
+            };
+          }
+          /*
+          {
+            routingPolicyRuleConfig = {
+              FirewallMark = 54;
+              Priority = 1001;
+              Family = "ipv6";
+              Type = "blackhole";
+            };
+          }
+          */
+          {
+            routingPolicyRuleConfig = {
+              Table = 100;
+              Priority = 2000;
+              Family = "ipv6";
+            };
+          }
+        ];
+      };
     };
     systemd.network.netdevs = {
       announce = {
@@ -74,6 +103,7 @@ in
             import none;
             export where proto = "gravity";
           };
+          kernel table 100;
         }
         protocol direct announce {
           ipv6;

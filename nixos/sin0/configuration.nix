@@ -18,7 +18,6 @@
     group = 54;
     postStart = [
       "${pkgs.iproute2}/bin/ip addr add 2a0c:b641:69c:f250::2/126 dev gravity"
-      "-${pkgs.iproute2}/bin/ip -6 ru add fwmark 54 suppress_ifgroup 54 pref 1024"
     ];
   };
   services.divi = {
