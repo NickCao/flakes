@@ -77,7 +77,7 @@ in
         };
       };
     };
-    systemd.services.bird2.restartTriggers = [ (builtins.hashFile "sha256" ./secrets.yaml) ];
+    systemd.services.bird2.restartTriggers = [ config.sops.secrets.bgp_passwd.sopsFileHash ];
     services.bird2 = {
       enable = true;
       checkConfig = false;
