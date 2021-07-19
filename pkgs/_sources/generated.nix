@@ -94,16 +94,15 @@
   };
   qvpersonal = {
     pname = "qvpersonal";
-    version = "a24db9b94a74d90d5b5aa70dbbdd220702954a1d";
+    version = "6460ccaf92bf03e4f964ff9a10c7a2790c8a4e91";
     src = fetchgit {
       url = "https://github.com/moodyhunter/QvPersonal";
-      rev = "a24db9b94a74d90d5b5aa70dbbdd220702954a1d";
-      fetchSubmodules = false;
+      rev = "6460ccaf92bf03e4f964ff9a10c7a2790c8a4e91";
+      fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "023v7ai1n9gvbavaswvh2g9lg9vsw4iv7dgc0fjhi7vhnlfapchg";
+      sha256 = "0j2fay9qlmnsxl51mc8dv6d0bxs2p9ad303796f7mlp52j1bs162";
     };
-    
   };
   rait = {
     pname = "rait";
@@ -120,29 +119,27 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "104b0699fb224bb893d6ec393b449c756c8b1207";
+    version = "5682dfeefdb3ff45f4d67c0cb4f909a89d411360";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "104b0699fb224bb893d6ec393b449c756c8b1207";
+      rev = "5682dfeefdb3ff45f4d67c0cb4f909a89d411360";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1ckn6rr53ggas5bm1fichl4dy5arqasj75xkrkgcfhwq85kh43b3";
+      sha256 = "1l9y3g9wwvwiixjjvgx1qwsr992dazks24z3xj54n54bf8p632pp";
     };
-    
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "2f54584288b35891e09b6d6b3062b836cf4c3f50";
+    version = "183dbeaae90ad8ba4541e0cfeb40d77e93664532";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "2f54584288b35891e09b6d6b3062b836cf4c3f50";
+      rev = "183dbeaae90ad8ba4541e0cfeb40d77e93664532";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "157iy3szlfvq4ii6wl7hlagydckxf5d09zkifjqf0l24897mv67v";
+      sha256 = "0vj9rzybpza3vixz1xwfm4vms2in1avhwxb1d2ywqw3wnab7i3rp";
     };
-    
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
