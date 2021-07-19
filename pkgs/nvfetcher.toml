@@ -53,3 +53,6 @@ src.git = "https://github.com/moodyhunter/QvPersonal"
 fetch.github = "moodyhunter/QvPersonal"
 git.fetchSubmodules = true
 
+[chasquid]
+src.github_tag = "albertito/chasquid"
+fetch.github = "albertito/chasquid"

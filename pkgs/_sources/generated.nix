@@ -14,6 +14,18 @@
     };
     
   };
+  chasquid = {
+    pname = "chasquid";
+    version = "v1.7";
+    src = fetchgit {
+      url = "https://github.com/albertito/chasquid";
+      rev = "v1.7";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1i2rwsjqsk9q92nmjlna3agx782v3vhw0a9s55i14vd0794mm8vc";
+    };
+  };
   k0sctl = {
     pname = "k0sctl";
     version = "v0.9.0";
@@ -119,14 +131,14 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "5682dfeefdb3ff45f4d67c0cb4f909a89d411360";
+    version = "a98d2fb22f5177a0a2b6d767cdc794ec3adb51a0";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "5682dfeefdb3ff45f4d67c0cb4f909a89d411360";
+      rev = "a98d2fb22f5177a0a2b6d767cdc794ec3adb51a0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1l9y3g9wwvwiixjjvgx1qwsr992dazks24z3xj54n54bf8p632pp";
+      sha256 = "0a9a4jry19qfdwqnck0x22kzsryg0zpfzyik90pf6qd7x1qs5b96";
     };
   };
   v2ray-domain-list-community = {
