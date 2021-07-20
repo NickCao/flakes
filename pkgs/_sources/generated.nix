@@ -3,16 +3,15 @@
 {
   auth-thu = {
     pname = "auth-thu";
-    version = "v2.1.1";
+    version = "v2.1.2";
     src = fetchgit {
       url = "https://github.com/z4yx/GoAuthing";
-      rev = "v2.1.1";
+      rev = "v2.1.2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0v1id1aqklkmph1l87zwj4wbcvbkn25b0mnk0cs2n45b6w37cld3";
+      sha256 = "01jll7ll3k3p1cm1vcz40j17g7zhdfpljyiwrrfhi6bdhpglpw7l";
     };
-    
   };
   chasquid = {
     pname = "chasquid";
@@ -106,14 +105,14 @@
   };
   qvpersonal = {
     pname = "qvpersonal";
-    version = "6460ccaf92bf03e4f964ff9a10c7a2790c8a4e91";
+    version = "5d2bf64510736bbaa1650ebf3d5139ce3de70f4d";
     src = fetchgit {
       url = "https://github.com/moodyhunter/QvPersonal";
-      rev = "6460ccaf92bf03e4f964ff9a10c7a2790c8a4e91";
+      rev = "5d2bf64510736bbaa1650ebf3d5139ce3de70f4d";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0j2fay9qlmnsxl51mc8dv6d0bxs2p9ad303796f7mlp52j1bs162";
+      sha256 = "0ja8d2d3avs192mwlqw92y364saj6c53l8d38977pv0qgn8ydhcp";
     };
   };
   rait = {
@@ -131,14 +130,26 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "a98d2fb22f5177a0a2b6d767cdc794ec3adb51a0";
+    version = "6ff846f3585d8b0721f008d58a435a1b81e170ce";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "a98d2fb22f5177a0a2b6d767cdc794ec3adb51a0";
+      rev = "6ff846f3585d8b0721f008d58a435a1b81e170ce";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0a9a4jry19qfdwqnck0x22kzsryg0zpfzyik90pf6qd7x1qs5b96";
+      sha256 = "0pl75vlwn4wzkfhrmpdwv6rxjdhyb3c37z0r1wj6fdn6nk5mma54";
+    };
+  };
+  traefik-certs-dumper = {
+    pname = "traefik-certs-dumper";
+    version = "29d75cac576a375c61d1c5a46aff85764a62c31f";
+    src = fetchgit {
+      url = "https://github.com/ldez/traefik-certs-dumper";
+      rev = "29d75cac576a375c61d1c5a46aff85764a62c31f";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "01cn80v47pbl6fm9286k52rpya9v5k549bd5a2b54bl1252vnxxz";
     };
   };
   v2ray-domain-list-community = {

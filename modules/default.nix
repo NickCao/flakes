@@ -7,4 +7,5 @@
   image = import ./image.nix;
   ssh = import ./ssh.nix;
   vultr = import ./vultr.nix;
+  chasquid = import ./chasquid.nix;
 }

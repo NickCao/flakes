@@ -56,3 +56,7 @@ git.fetchSubmodules = true
 [chasquid]
 src.github_tag = "albertito/chasquid"
 fetch.github = "albertito/chasquid"
+
+[traefik-certs-dumper]
+src.git = "https://github.com/ldez/traefik-certs-dumper"
+fetch.github = "ldez/traefik-certs-dumper"
