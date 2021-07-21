@@ -1,6 +1,5 @@
 name: nix
 on:
-  pull_request:
   push:
 jobs:
   check:
