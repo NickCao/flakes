@@ -50,14 +50,14 @@ in
             };
           }
           /*
-          {
+            {
             routingPolicyRuleConfig = {
-              FirewallMark = 54;
-              Priority = 1001;
-              Family = "ipv6";
-              Type = "blackhole";
+            FirewallMark = 54;
+            Priority = 1001;
+            Family = "ipv6";
+            Type = "blackhole";
             };
-          }
+            }
           */
           {
             routingPolicyRuleConfig = {

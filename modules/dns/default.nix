@@ -2,16 +2,6 @@
 with lib;
 let
   cfg = config.services.dns;
-  zones = {
-    "db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa" = pkgs.fetchurl {
-      url = "https://s3.nichi.co/artifacts/gravity/db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa";
-      sha256 = "sha256-Cb27SL3Te73I02bU6tFQ/UOWt7uH8p68fvBrx7sLQVc=";
-    };
-    "db.gravity" = pkgs.fetchurl {
-      url = "https://s3.nichi.co/artifacts/gravity/db.gravity";
-      sha256 = "sha256-ryqiDBjwILGHQsmSk9cr/ypW+dJyYKJp2QN0P5GXBac=";
-    };
-  };
 in
 {
   options.services.dns = {
@@ -23,15 +13,19 @@ in
     };
   };
   config = mkIf cfg.enable {
-    sops.secrets = builtins.listToAttrs (flatten (builtins.map
-      (x: [
-        { name = "${x}.key"; value = { mode = "0444"; sopsFile = ./secrets.yaml; }; }
-        { name = "${x}.private"; value = { mode = "0444"; sopsFile = ./secrets.yaml; }; }
-      ]) [
-      "Knichi.co.+013+41694"
-      "Knichi.link.+013+43698"
-      "K9.6.0.1.4.6.b.c.0.a.2.ip6.arpa.+013+13716"
-    ]));
+    sops.secrets = builtins.listToAttrs
+      (flatten (builtins.map
+        (x: [
+          { name = "${x}.key"; value = { mode = "0444"; sopsFile = ./secrets.yaml; }; }
+          { name = "${x}.private"; value = { mode = "0444"; sopsFile = ./secrets.yaml; }; }
+        ]) [
+        "Knichi.co.+013+41694"
+        "Knichi.link.+013+43698"
+        "K9.6.0.1.4.6.b.c.0.a.2.ip6.arpa.+013+13716"
+      ])) // {
+      gravity = { mode = "0444"; sopsFile = ./secrets.yaml; };
+      gravity_reverse = { mode = "0444"; sopsFile = ./secrets.yaml; };
+    };
     services.coredns.enable = true;
     systemd.services.coredns.restartTriggers = [ (builtins.hashFile "sha256" ./secrets.yaml) ];
     services.coredns.config = ''
@@ -48,14 +42,14 @@ in
         }
       }
       9.6.0.1.4.6.b.c.0.a.2.ip6.arpa {
-        file ${zones."db.9.6.0.1.4.6.b.c.0.a.2.ip6.arpa"}
+        file ${config.sops.secrets.gravity_reverse.path}
         dnssec {
           key file /run/secrets/K9.6.0.1.4.6.b.c.0.a.2.ip6.arpa.+013+13716
         }
       }
     '' + optionalString (cfg.nat64 != "") ''
       . {
-        file ${zones."db.gravity"} gravity
+        file ${config.sops.secrets.gravity.path} gravity
         dns64 {
           prefix ${cfg.nat64}
         }
