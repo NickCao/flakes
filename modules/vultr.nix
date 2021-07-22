@@ -6,6 +6,7 @@ in
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     loader.grub.device = "/dev/vda";
     initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];
     kernel.sysctl = {
