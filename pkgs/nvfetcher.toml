@@ -10,10 +10,6 @@ fetch.github = "z4yx/GoAuthing"
 src.github = "k0sproject/k0sctl"
 fetch.github = "k0sproject/k0sctl"
 
-[kubeone]
-src.github = "kubermatic/kubeone"
-fetch.github = "kubermatic/kubeone"
-
 [material-decoration]
 src.git = "https://github.com/Zren/material-decoration"
 fetch.github = "Zren/material-decoration"
@@ -47,11 +43,6 @@ fetch.github = "felixonmars/dnsmasq-china-list"
 [rait]
 src.git = "https://gitlab.com/NickCao/RAIT"
 fetch.git = "https://gitlab.com/NickCao/RAIT"
-
-[qvpersonal]
-src.git = "https://github.com/moodyhunter/QvPersonal"
-fetch.github = "moodyhunter/QvPersonal"
-git.fetchSubmodules = true
 
 [chasquid]
 src.github_tag = "albertito/chasquid"
