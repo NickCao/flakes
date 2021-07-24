@@ -1,5 +1,5 @@
 { pkgs, config, ... }:
-let mkService = { ExecStart, EnvironmentFile }: {
+let mkService = { ExecStart, EnvironmentFile ? null }: {
   serviceConfig = {
     DynamicUser = true;
     NoNewPrivileges = true;
@@ -32,69 +32,22 @@ let mkService = { ExecStart, EnvironmentFile }: {
 };
 in
 {
-  # TODO: force podman to use nftables
-  virtualisation.oci-containers.backend = "podman";
-  virtualisation.oci-containers.containers = {
-    blog = let image = pkgs.nichi.image; in
-      {
-        image = "${image.imageName}:${image.imageTag}";
-        imageFile = image;
-        extraOptions = [
-          "--label=traefik.http.routers.blog.rule=Host(`nichi.co`)"
-          "--label=traefik.http.routers.blog.middlewares=blog"
-          "--label=traefik.http.services.blog.loadbalancer.server.port=8080"
-          "--label=traefik.http.middlewares.blog.headers.stsSeconds=31536000"
-          "--label=traefik.http.middlewares.blog.headers.stsIncludeSubdomains=true"
-          "--label=traefik.http.middlewares.blog.headers.stsPreload=true"
-        ];
-      };
-    meow = let image = pkgs.meow.image; in
-      {
-        image = "${image.imageName}:${image.imageTag}";
-        imageFile = image;
-        environment = {
-          BASE_URL = "https://pb.nichi.co";
-          S3_REGION = "us-east-1";
-          S3_BUCKET = "pastebin";
-          S3_ENDPOINT = "https://s3.nichi.co";
-        };
-        environmentFiles = [ config.sops.secrets.meow.path ];
-        extraOptions = [
-          "--label=traefik.http.routers.meow.rule=Host(`pb.nichi.co`)"
-          "--label=traefik.http.services.meow.loadbalancer.server.port=8080"
-        ];
-      };
-    woff =
-      let image = pkgs.woff.image; in
-      {
-        image = "${image.imageName}:${image.imageTag}";
-        imageFile = image;
-        environment = {
-          RETURN_URL = "https://nichi.co";
-        };
-        environmentFiles = [ config.sops.secrets.woff.path ];
-        extraOptions = [
-          "--label=traefik.http.routers.woff.rule=Host(`pay.nichi.co`)"
-          "--label=traefik.http.services.woff.loadbalancer.server.port=8080"
-        ];
-      };
-  };
   systemd.services.quark = mkService {
     ExecStart = "${pkgs.quark}/bin/quark -l 127.0.0.1:8000";
     EnvironmentFile = config.sops.secrets.quark.path;
   };
-  systemd.services.podman-traefik = {
-    serviceConfig = {
-      Restart = "always";
-      ExecStart = with config.services.traefik;"${pkgs.socat}/bin/socat UNIX-LISTEN:${dataDir}/podman.sock,group=${group},mode=0060,fork UNIX-CONNECT:/run/podman/podman.sock";
-    };
-    requires = [ "podman.socket" ];
-    after = [ "podman.socket" ];
-    wantedBy = [ "multi-user.target" ];
+  systemd.services.woff = mkService {
+    ExecStart = "${pkgs.woff}/bin/woff -l 127.0.0.1:8001";
+    EnvironmentFile = config.sops.secrets.woff.path;
   };
-  virtualisation.containers.containersConf.settings.engine = {
-    events_logger = "file";
+  systemd.services.meow = mkService {
+    ExecStart = "${pkgs.meow}/bin/meow";
+    EnvironmentFile = config.sops.secrets.meow.path;
   };
+  systemd.services.blog = mkService {
+    ExecStart = "${pkgs.caddy}/bin/caddy file-server -listen 127.0.0.1:8003 -root ${pkgs.nichi}";
+  };
+
   systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;
   services.traefik = {
     enable = true;
@@ -119,9 +72,6 @@ in
         keyType = "EC256";
         tlsChallenge = { };
       };
-      providers.docker = {
-        endpoint = "unix://${config.services.traefik.dataDir}/podman.sock";
-      };
     };
     dynamicConfigOptions = {
       tls.options.default = {
@@ -139,6 +89,19 @@ in
             rule = "Host(`cache.nichi.co`)";
             service = "quark";
           };
+          woff = {
+            rule = "Host(`pay.nichi.co`)";
+            service = "woff";
+          };
+          meow = {
+            rule = "Host(`pb.nichi.co`)";
+            service = "meow";
+          };
+          blog = {
+            rule = "Host(`nichi.co`)";
+            middlewares = [ "blog" ];
+            service = "blog";
+          };
         };
         middlewares = {
           rait0.replacePath = {
@@ -151,11 +114,31 @@ in
           rait2.headers = {
             customrequestheaders.authorization = "token {{ env `GITHUB_TOKEN` }}";
           };
+          blog.headers = {
+            stsSeconds = 31536000;
+            stsIncludeSubdomains = true;
+            stsPreload = true;
+          };
         };
         services = {
           quark.loadBalancer = {
             servers = [{
               url = "http://127.0.0.1:8000";
+            }];
+          };
+          woff.loadBalancer = {
+            servers = [{
+              url = "http://127.0.0.1:8001";
+            }];
+          };
+          meow.loadBalancer = {
+            servers = [{
+              url = "http://127.0.0.1:8002";
+            }];
+          };
+          blog.loadBalancer = {
+            servers = [{
+              url = "http://127.0.0.1:8003";
             }];
           };
           rait.loadBalancer = {

@@ -134,11 +134,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1627113798,
-        "narHash": "sha256-SaLjVOBxyzck1HO8odY3sH//avucHgkwbeXmDnJZgUQ=",
+        "lastModified": 1627115270,
+        "narHash": "sha256-JB2ntMUPrcr1w4CHyK0FxeyJbFQZFvUlE1fk/LA7qDw=",
         "owner": "NickCao",
         "repo": "fn",
-        "rev": "ddf3b5142f6fe8c70d08e0fdae17c59b64cfaadc",
+        "rev": "b9c943702891506cf6cacb1cd21fd40e6d0046d2",
         "type": "gitlab"
       },
       "original": {
