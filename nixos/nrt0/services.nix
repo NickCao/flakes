@@ -1,4 +1,36 @@
 { pkgs, config, ... }:
+let mkService = { ExecStart, EnvironmentFile }: {
+  serviceConfig = {
+    DynamicUser = true;
+    NoNewPrivileges = true;
+    ProtectSystem = "strict";
+    PrivateUsers = true;
+    PrivateDevices = true;
+    ProtectClock = true;
+    ProtectControlGroups = true;
+    ProtectHome = true;
+    ProtectKernelTunables = true;
+    ProtectKernelModules = true;
+    ProtectKernelLogs = true;
+    ProtectProc = "invisible";
+    LockPersonality = true;
+    MemoryDenyWriteExecute = true;
+    RestrictNamespaces = true;
+    RestrictRealtime = true;
+    RestrictSUIDSGID = true;
+    CapabilityBoundingSet = "";
+    ProtectHostname = true;
+    ProcSubset = "pid";
+    SystemCallArchitectures = "native";
+    UMask = "0077";
+    SystemCallFilter = "@system-service";
+    SystemCallErrorNumber = "EPERM";
+    Restart = "always";
+    inherit ExecStart EnvironmentFile;
+  };
+  wantedBy = [ "multi-user.target" ];
+};
+in
 {
   # TODO: force podman to use nftables
   virtualisation.oci-containers.backend = "podman";
@@ -46,17 +78,10 @@
           "--label=traefik.http.services.woff.loadbalancer.server.port=8080"
         ];
       };
-    quark =
-      let image = pkgs.quark.image; in
-      {
-        image = "${image.imageName}:${image.imageTag}";
-        imageFile = image;
-        environmentFiles = [ config.sops.secrets.quark.path ];
-        extraOptions = [
-          "--label=traefik.http.routers.quark.rule=Host(`cache.nichi.co`)"
-          "--label=traefik.http.services.quark.loadbalancer.server.port=3000"
-        ];
-      };
+  };
+  systemd.services.quark = mkService {
+    ExecStart = "${pkgs.quark}/bin/quark -l 127.0.0.1:8000";
+    EnvironmentFile = config.sops.secrets.quark.path;
   };
   systemd.services.podman-traefik = {
     serviceConfig = {
@@ -110,6 +135,10 @@
             middlewares = [ "rait0" "rait1" "rait2" ];
             service = "rait";
           };
+          quark = {
+            rule = "Host(`cache.nichi.co`)";
+            service = "quark";
+          };
         };
         middlewares = {
           rait0.replacePath = {
@@ -124,13 +153,16 @@
           };
         };
         services = {
+          quark.loadBalancer = {
+            servers = [{
+              url = "http://127.0.0.1:8000";
+            }];
+          };
           rait.loadBalancer = {
             passHostHeader = false;
-            servers = [
-              {
-                url = "https://raw.githubusercontent.com";
-              }
-            ];
+            servers = [{
+              url = "https://raw.githubusercontent.com";
+            }];
           };
         };
       };
