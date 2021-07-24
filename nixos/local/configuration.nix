@@ -60,6 +60,7 @@
   powerManagement.cpuFreqGovernor = "powersave";
 
   boot = {
+    tmpOnTmpfs = true;
     consoleLogLevel = 0;
     initrd.verbose = false;
     loader = {

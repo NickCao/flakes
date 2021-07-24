@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 let
-  china6 = pkgs.runCommand "china6" {
+  china6 = pkgs.runCommand "china6"
+    {
       src = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/gaoyifan/china-operator-ip/1535d66331c10102d56712d07531373d8769cf41/china6.txt";
         sha256 = "sha256-NOrG/KP0M17oE7K4bbCE8Q39w3oB8M1cbwBLzstljNY=";

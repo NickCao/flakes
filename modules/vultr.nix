@@ -52,6 +52,8 @@ in
     inputs = {
       cpu = { };
       mem = { };
+      net = { };
+      disk = { };
       systemd_units = { };
     };
     outputs = {
