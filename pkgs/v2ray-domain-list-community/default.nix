@@ -1,9 +1,7 @@
 { source, buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule {
-  inherit (source) pname version src;
-
-  vendorSha256 = "sha256-vNLhCI7C+Y/MqcH0MhTUICGnbmYQQCPypZmUVPZhA7Q=";
+  inherit (source) pname version src vendorSha256;
 
   outputs = [ "out" "data" ];
 

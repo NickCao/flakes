@@ -5,6 +5,7 @@ fetch.github = "google/ko"
 [auth-thu]
 src.github = "z4yx/GoAuthing"
 fetch.github = "z4yx/GoAuthing"
+passthru = { vendorSha256 = "sha256-SCLbX9NqMLBNSBHC3a921b8+3Vy7VHjUcFHbjidwQ+c=" }
 
 [k0sctl]
 src.github = "k0sproject/k0sctl"
@@ -29,6 +30,7 @@ fetch.github = "Qv2ray/QvPlugin-SS"
 [v2ray-domain-list-community]
 src.git = "https://github.com/v2fly/domain-list-community"
 fetch.github = "v2fly/domain-list-community"
+passthru = { vendorSha256 = "sha256-vNLhCI7C+Y/MqcH0MhTUICGnbmYQQCPypZmUVPZhA7Q=" }
 
 [v2ray-geoip]
 src.git = "https://github.com/v2fly/geoip"
@@ -43,11 +45,14 @@ fetch.github = "felixonmars/dnsmasq-china-list"
 [rait]
 src.git = "https://gitlab.com/NickCao/RAIT"
 fetch.git = "https://gitlab.com/NickCao/RAIT"
+passthru = { vendorSha256 = "sha256-55Zu1g+pwTt6dU1QloxfFkG2dbnK5gg84WvRhz2ND3M=" }
 
 [chasquid]
 src.github_tag = "albertito/chasquid"
 fetch.github = "albertito/chasquid"
+passthru = { vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=" }
 
 [traefik-certs-dumper]
 src.git = "https://github.com/ldez/traefik-certs-dumper"
 fetch.github = "ldez/traefik-certs-dumper"
+passthru = { vendorSha256 = "sha256-Z2+Eo6ZBL5z88k64B5HfQ9WT4/gOypw797M3PnYoNzQ=" }

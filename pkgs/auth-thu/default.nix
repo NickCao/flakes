@@ -1,7 +1,6 @@
 { source, buildGoModule, fetchFromGitHub, lib }:
 buildGoModule rec {
-  inherit (source) pname version src;
-  vendorSha256 = "sha256-SCLbX9NqMLBNSBHC3a921b8+3Vy7VHjUcFHbjidwQ+c=";
+  inherit (source) pname version src vendorSha256;
   subPackages = [ "cli" ];
   postInstall = ''
     mv $out/bin/cli $out/bin/auth-thu

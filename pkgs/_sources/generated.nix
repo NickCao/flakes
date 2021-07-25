@@ -12,6 +12,7 @@
       leaveDotGit = false;
       sha256 = "01jll7ll3k3p1cm1vcz40j17g7zhdfpljyiwrrfhi6bdhpglpw7l";
     };
+    vendorSha256 = "sha256-SCLbX9NqMLBNSBHC3a921b8+3Vy7VHjUcFHbjidwQ+c=";
   };
   chasquid = {
     pname = "chasquid";
@@ -24,6 +25,7 @@
       leaveDotGit = false;
       sha256 = "1i2rwsjqsk9q92nmjlna3agx782v3vhw0a9s55i14vd0794mm8vc";
     };
+    vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=";
   };
   k0sctl = {
     pname = "k0sctl";
@@ -96,17 +98,18 @@
       leaveDotGit = false;
       sha256 = "020gz8z4sn60kv9jasq682s8abmdlz841fwvf7zc86ksb79z4m99";
     };
+    vendorSha256 = "sha256-55Zu1g+pwTt6dU1QloxfFkG2dbnK5gg84WvRhz2ND3M=";
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "e382fcd9c33b7e5f6d572e6da187beb2175bcb9f";
+    version = "10b36191bc1092d2f975ffe89cfd221c0915ff4c";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "e382fcd9c33b7e5f6d572e6da187beb2175bcb9f";
+      rev = "10b36191bc1092d2f975ffe89cfd221c0915ff4c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0bx75nzlgnsqwp5wljfp75gwjdgna6ypwm8r80gshgwadh59g2ls";
+      sha256 = "0rvi6ryzdkknv3bbhimjhkpwn5akf5h5ah2h1nvwia6m7qr3i56j";
     };
   };
   traefik-certs-dumper = {
@@ -120,18 +123,20 @@
       leaveDotGit = false;
       sha256 = "01cn80v47pbl6fm9286k52rpya9v5k549bd5a2b54bl1252vnxxz";
     };
+    vendorSha256 = "sha256-Z2+Eo6ZBL5z88k64B5HfQ9WT4/gOypw797M3PnYoNzQ=";
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "01558f89072b40610766f0cbc84fc2ec33044ab3";
+    version = "26fa3e24ba8e6cafb1eb90206a1f9fe0532329a3";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "01558f89072b40610766f0cbc84fc2ec33044ab3";
+      rev = "26fa3e24ba8e6cafb1eb90206a1f9fe0532329a3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "04bwfal8f79x9s3jpkfxsqb7v3dc64ywwc81zi9f5vlxc1ar88cj";
+      sha256 = "0zyf5lj2h2ypf2bgz21jcjnvih37b750kih4dg65rpx9v8i42f6z";
     };
+    vendorSha256 = "sha256-vNLhCI7C+Y/MqcH0MhTUICGnbmYQQCPypZmUVPZhA7Q=";
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";

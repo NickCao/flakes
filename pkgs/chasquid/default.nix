@@ -1,7 +1,6 @@
 { source, buildGoModule, lib, installShellFiles }:
 buildGoModule rec {
-  inherit (source) pname version src;
-  vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=";
+  inherit (source) pname version src vendorSha256;
   postPatch = ''
     rm internal/courier/smtp_test.go
     rm internal/courier/mda_test.go

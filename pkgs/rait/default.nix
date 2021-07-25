@@ -1,9 +1,7 @@
 { source, buildGoModule, fetchFromGitLab, lib }:
 
 buildGoModule rec {
-  inherit (source) pname version src;
-
-  vendorSha256 = "sha256-55Zu1g+pwTt6dU1QloxfFkG2dbnK5gg84WvRhz2ND3M=";
+  inherit (source) pname version src vendorSha256;
 
   subPackages = [ "cmd/rait" ];
 
