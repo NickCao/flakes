@@ -8,6 +8,7 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.buyvm
     self.nixosModules.dns
     self.nixosModules.influxdb2
+    self.nixosModules.telegraf
     {
       nixpkgs.overlays = [
         self.overlay

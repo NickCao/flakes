@@ -47,18 +47,5 @@ in
     DNSStubListener=no
   '';
 
-  services.telegraf.enable = true;
-  services.telegraf.extraConfig = {
-    inputs = {
-      cpu = { };
-      mem = { };
-      net = { };
-      disk = { };
-      systemd_units = { };
-    };
-    outputs = {
-      discard = { };
-    };
-  };
   users.mutableUsers = false;
 }

@@ -10,6 +10,7 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.gravity
     self.nixosModules.divi
     self.nixosModules.dns
+    self.nixosModules.telegraf
     {
       nixpkgs.overlays = [
         self.overlay

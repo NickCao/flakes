@@ -9,4 +9,5 @@
   vultr = import ./vultr.nix;
   chasquid = import ./chasquid.nix;
   influxdb2 = import ./influxdb2.nix;
+  telegraf = import ./telegraf;
 }
