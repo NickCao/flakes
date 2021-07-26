@@ -14,6 +14,13 @@
     rootCredentialsFile = config.sops.secrets.minio.path;
   };
 
+  services.influxdb2 = {
+    enable = true;
+    config = {
+      http-bind-address = "127.0.0.1:8086";
+    };
+  };
+
   services.traefik = {
     enable = true;
     staticConfigOptions = {
@@ -46,12 +53,22 @@
             rule = "Host(`s3.nichi.co`)";
             service = "minio";
           };
+          influx = {
+            rule = "Host(`stats.nichi.co`)";
+            service = "influx";
+          };
         };
         services = {
           minio.loadBalancer = {
             passHostHeader = true;
             servers = [{
               url = "http://${config.services.minio.listenAddress}";
+            }];
+          };
+          influx.loadBalancer = {
+            passHostHeader = true;
+            servers = [{
+              url = "http://${config.services.influxdb2.config.http-bind-address}";
             }];
           };
         };

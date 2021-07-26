@@ -3,10 +3,11 @@ nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
     ./configuration.nix
-    ./minio.nix
+    ./services.nix
     self.nixosModules.ssh
     self.nixosModules.buyvm
     self.nixosModules.dns
+    self.nixosModules.influxdb2
     {
       nixpkgs.overlays = [
         self.overlay
