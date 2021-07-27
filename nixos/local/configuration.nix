@@ -242,6 +242,10 @@
       };
     };
     adb.enable = true;
+    chromium = {
+      enable = true;
+      extensions = [ "padekgcemlokbadohgkifijomclgjgif" "cjpalhdlnbpafiamejdnhcphjbkeiagm" ];
+    };
     command-not-found.enable = false;
   };
 
@@ -276,7 +280,7 @@
       ''
     )
     mode
-    firefox
+    (chromium.override { commandLineArgs = "--enable-features=VaapiVideoDecoder"; })
     v2ray
     v2ray-geoip
     v2ray-domain-list-community
