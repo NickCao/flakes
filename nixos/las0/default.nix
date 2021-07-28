@@ -9,6 +9,7 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.dns
     self.nixosModules.influxdb2
     self.nixosModules.telegraf
+    self.nixosModules.image
     {
       nixpkgs.overlays = [
         self.overlay
