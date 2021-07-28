@@ -8,8 +8,8 @@ in
 {
   boot = {
     postBootCommands = ''
-      echo "Fix" | ${parted}/bin/parted /dev/vda ---pretend-input-tty print
-      ${parted}/bin/parted --script /dev/vda resizepart 2 100%
+      ${gptfdisk}/bin/sgdisk -e -d 2 -n 2:0:0 -c 2:NIXOS -p /dev/vda
+      ${util-linux}/bin/partx -u /dev/vda
       ${btrfs-progs}/bin/btrfs fi resize max /nix
     '';
     tmpOnTmpfs = true;
@@ -48,9 +48,9 @@ in
         diskImage=$out/nixos.img
         ${vmTools.qemu}/bin/qemu-img create -f raw $diskImage 2G
       '';
-      nativeBuildInputs = [ parted btrfs-progs mount util-linux nixUnstable config.system.build.nixos-install ];
+      nativeBuildInputs = [ gptfdisk btrfs-progs mount util-linux nixUnstable config.system.build.nixos-install ];
     } ''
-    parted --script /dev/vda mklabel gpt mkpart BOOT 1MiB 2MiB set 1 bios_grub on mkpart NIXOS btrfs 2MiB 100%
+    sgdisk -Z -n 1:0:+1M -n 2:0:0 -t 1:ef02 -c 1:BOOT -c 2:NIXOS /dev/vda
     mknod /dev/btrfs-control c 10 234
     mkfs.btrfs /dev/vda2
     mkdir /fsroot && mount /dev/vda2 /fsroot
