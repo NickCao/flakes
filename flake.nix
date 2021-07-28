@@ -105,6 +105,7 @@
         #     };
         #   };
         # };
+        /*
         nrt0 = {
           sshUser = "root";
           hostname = "nrt0.nichi.link";
@@ -114,6 +115,7 @@
             };
           };
         };
+        */
         sin0 = {
           sshUser = "root";
           hostname = "sin0.nichi.link";
@@ -123,6 +125,7 @@
             };
           };
         };
+        /*
         las0 = {
           sshUser = "root";
           hostname = "las0.nichi.link";
@@ -131,7 +134,8 @@
               path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.las0;
             };
           };
-        };
+          };
+        */
       };
     };
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, modulesPath, ... }:
 with pkgs;
 let
   toplevel = config.system.build.toplevel;
@@ -6,6 +6,9 @@ let
   devPath = "/dev/disk/by-partlabel/NIXOS";
 in
 {
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+
+  users.mutableUsers = false;
   boot = {
     postBootCommands = ''
       ${gptfdisk}/bin/sgdisk -e -d 2 -n 2:0:0 -c 2:NIXOS -p /dev/vda
@@ -14,6 +17,21 @@ in
     '';
     tmpOnTmpfs = true;
     loader.grub.device = "/dev/vda";
+    kernel.sysctl = {
+      "net.core.default_qdisc" = "fq";
+      "net.ipv4.tcp_congestion_control" = "bbr";
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
+
+  services.resolved.extraConfig = ''
+    DNSStubListener=no
+  '';
+
+  networking = {
+    useNetworkd = true;
+    useDHCP = false;
+    firewall.enable = false;
   };
 
   services.getty.autologinUser = "root";
