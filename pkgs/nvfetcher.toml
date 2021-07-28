@@ -55,4 +55,4 @@ passthru = { vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=
 [traefik-certs-dumper]
 src.git = "https://github.com/ldez/traefik-certs-dumper"
 fetch.github = "ldez/traefik-certs-dumper"
-passthru = { vendorSha256 = "sha256-Z2+Eo6ZBL5z88k64B5HfQ9WT4/gOypw797M3PnYoNzQ=" }
+passthru = { vendorSha256 = "sha256-dc94ueGuBiPJZ858qOTOmP7Viv9HYx1YZZxsrBMHodE=" }

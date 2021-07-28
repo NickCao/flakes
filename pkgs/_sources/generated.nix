@@ -102,39 +102,39 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "10b36191bc1092d2f975ffe89cfd221c0915ff4c";
+    version = "e029b596f8909e831382674c99ac2bdb406f9334";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "10b36191bc1092d2f975ffe89cfd221c0915ff4c";
+      rev = "e029b596f8909e831382674c99ac2bdb406f9334";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0rvi6ryzdkknv3bbhimjhkpwn5akf5h5ah2h1nvwia6m7qr3i56j";
+      sha256 = "0gs196val1ccadway3h88xvynhzr2xj8vfyxav60hdawz644rhm1";
     };
   };
   traefik-certs-dumper = {
     pname = "traefik-certs-dumper";
-    version = "29d75cac576a375c61d1c5a46aff85764a62c31f";
+    version = "05deaa3d15795aa285a5587fa03345ca27259f2d";
     src = fetchgit {
       url = "https://github.com/ldez/traefik-certs-dumper";
-      rev = "29d75cac576a375c61d1c5a46aff85764a62c31f";
+      rev = "05deaa3d15795aa285a5587fa03345ca27259f2d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "01cn80v47pbl6fm9286k52rpya9v5k549bd5a2b54bl1252vnxxz";
+      sha256 = "1c1dif4v4yv8rh9mim5syz6brykmbn5hqj8ic86nagm1gxlwj73r";
     };
-    vendorSha256 = "sha256-Z2+Eo6ZBL5z88k64B5HfQ9WT4/gOypw797M3PnYoNzQ=";
+    vendorSha256 = "sha256-dc94ueGuBiPJZ858qOTOmP7Viv9HYx1YZZxsrBMHodE=";
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "26fa3e24ba8e6cafb1eb90206a1f9fe0532329a3";
+    version = "599f2b6968ff8241b11f0f0c19e104b71322740f";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "26fa3e24ba8e6cafb1eb90206a1f9fe0532329a3";
+      rev = "599f2b6968ff8241b11f0f0c19e104b71322740f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0zyf5lj2h2ypf2bgz21jcjnvih37b750kih4dg65rpx9v8i42f6z";
+      sha256 = "16d5sc7pl63cwzp7b2190vm2dyb5lqhg1v2bk70bs8r0w3vgbq0q";
     };
     vendorSha256 = "sha256-vNLhCI7C+Y/MqcH0MhTUICGnbmYQQCPypZmUVPZhA7Q=";
   };
