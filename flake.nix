@@ -105,17 +105,15 @@
         #     };
         #   };
         # };
-        /*
-          nrt0 = {
+        nrt0 = {
           sshUser = "root";
           hostname = "nrt0.nichi.link";
           profiles = {
-          system = {
-          path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nrt0;
+            system = {
+              path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nrt0;
+            };
           };
-          };
-          };
-        */
+        };
         sin0 = {
           sshUser = "root";
           hostname = "sin0.nichi.link";
