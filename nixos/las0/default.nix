@@ -4,17 +4,17 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./services.nix
-    self.nixosModules.ssh
     self.nixosModules.buyvm
     self.nixosModules.dns
     self.nixosModules.influxdb2
     self.nixosModules.telegraf
-    self.nixosModules.image
+    self.nixosModules.cloud.common
     {
       nixpkgs.overlays = [
         self.overlay
       ];
     }
     inputs.sops-nix.nixosModules.sops
+    inputs.impermanence.nixosModules.impermanence
   ];
 }

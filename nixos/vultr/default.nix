@@ -2,8 +2,8 @@
 nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
-    self.nixosModules.ssh
+    self.nixosModules.cloud.common
     self.nixosModules.vultr
-    self.nixosModules.image
+    inputs.impermanence.nixosModules.impermanence
   ];
 }

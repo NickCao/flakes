@@ -9,6 +9,14 @@ in
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   users.mutableUsers = false;
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJNPLArhyazrFjK4Jt/ImHSzICvwKOk4f+7OEcv2HEb7"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpzrZLU0peDu1otGtP2GcCeQIkI8kmfHjnwpbfpWBkv"
+  ];
+
+  services.openssh.enable = true;
+
   boot = {
     postBootCommands = ''
       ${gptfdisk}/bin/sgdisk -e -d 2 -n 2:0:0 -c 2:NIXOS -p /dev/vda
@@ -22,6 +30,7 @@ in
       "net.ipv4.tcp_congestion_control" = "bbr";
     };
     kernelPackages = pkgs.linuxPackages_latest;
+    blacklistedKernelModules = [ "ip_tables" ];
   };
 
   services.resolved.extraConfig = ''
@@ -34,11 +43,9 @@ in
     firewall.enable = false;
   };
 
-  services.getty.autologinUser = "root";
-
   fileSystems."/" = {
     fsType = "tmpfs";
-    options = [ "defaults" "size=2G" "mode=755" ];
+    options = [ "defaults" "mode=755" ];
   };
 
   fileSystems."/boot" = {
@@ -57,6 +64,7 @@ in
     device = devPath;
     fsType = "btrfs";
     options = [ "subvol=persist" "noatime" "compress-force=zstd" "space_cache=v2" ];
+    neededForBoot = true;
   };
 
   system.build.image = vmTools.runInLinuxVM (runCommand "image"
@@ -64,7 +72,7 @@ in
       preVM = ''
         mkdir $out
         diskImage=$out/nixos.img
-        ${vmTools.qemu}/bin/qemu-img create -f raw $diskImage 2G
+        ${vmTools.qemu}/bin/qemu-img create -f raw $diskImage $(( $(cat ${db}/total-nar-size) + 500000000 ))
       '';
       nativeBuildInputs = [ gptfdisk btrfs-progs mount util-linux nixUnstable config.system.build.nixos-install ];
     } ''
@@ -75,11 +83,23 @@ in
     btrfs subvol create /fsroot/boot
     btrfs subvol create /fsroot/nix
     btrfs subvol create /fsroot/persist
-    mkdir -p /mnt/{boot,nix}
+    mkdir -p /mnt/{boot,nix,persist}
     mount -o subvol=boot,compress-force=zstd,space_cache=v2 /dev/vda2 /mnt/boot
     mount -o subvol=nix,compress-force=zstd,space_cache=v2 /dev/vda2 /mnt/nix
+    mount -o subvol=persist,compress-force=zstd,space_cache=v2 /dev/vda2 /mnt/persist
     export NIX_STATE_DIR=$TMPDIR/state
     nix-store --load-db < ${db}/registration
     nixos-install --root /mnt --system ${toplevel} --no-channel-copy --no-root-passwd --substituters ""
   '');
+
+  environment.persistence."/persist" = {
+    directories = [
+      "/var/lib"
+    ];
+    files = [
+      "/etc/machine-id"
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_rsa_key"
+    ];
+  };
 }

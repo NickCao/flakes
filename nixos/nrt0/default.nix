@@ -5,13 +5,12 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./services.nix
     self.nixosModules.bgp
-    self.nixosModules.ssh
     self.nixosModules.vultr
     self.nixosModules.gravity
     self.nixosModules.divi
     self.nixosModules.dns
     self.nixosModules.telegraf
-    self.nixosModules.image
+    self.nixosModules.cloud.common
     {
       nixpkgs.overlays = [
         self.overlay
@@ -22,5 +21,6 @@ nixpkgs.lib.nixosSystem {
       ];
     }
     inputs.sops-nix.nixosModules.sops
+    inputs.impermanence.nixosModules.impermanence
   ];
 }
