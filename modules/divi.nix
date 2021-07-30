@@ -28,7 +28,7 @@ in
         table ip nat {
           chain postrouting     {
             type nat hook postrouting priority 100;
-            oifname "ens3" masquerade
+            oifname "enp1s0" masquerade
           }
         }
         table ip6 filter {
