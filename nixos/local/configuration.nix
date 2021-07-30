@@ -280,7 +280,7 @@
       ''
     )
     mode
-    (chromium.override { commandLineArgs = "--enable-features=VaapiVideoDecoder"; })
+    (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
     v2ray
     v2ray-geoip
     v2ray-domain-list-community
