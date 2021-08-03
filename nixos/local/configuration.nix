@@ -74,7 +74,6 @@
         "kernel.sysrq" = 1;
       };
     };
-    #kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_latest.override { stdenv = pkgs.clang12Stdenv; structuredExtraConfig = with pkgs.lib.kernel; { CONFIG_LTO_CLANG_FULL = yes; CONFIG_CFI_CLANG = yes; }; ignoreConfigErrors = true; });
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "quiet"
