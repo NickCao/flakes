@@ -30,7 +30,7 @@ fetch.github = "Qv2ray/QvPlugin-SS"
 [v2ray-domain-list-community]
 src.git = "https://github.com/v2fly/domain-list-community"
 fetch.github = "v2fly/domain-list-community"
-passthru = { vendorSha256 = "sha256-vNLhCI7C+Y/MqcH0MhTUICGnbmYQQCPypZmUVPZhA7Q=" }
+passthru = { vendorSha256 = "sha256-wMwGqVqCSJ3801sfou0je/Cp1COMPYY0GH+Sx1Jev8s=" }
 
 [v2ray-geoip]
 src.git = "https://github.com/v2fly/geoip"
@@ -55,4 +55,4 @@ passthru = { vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=
 [traefik-certs-dumper]
 src.git = "https://github.com/ldez/traefik-certs-dumper"
 fetch.github = "ldez/traefik-certs-dumper"
-passthru = { vendorSha256 = "sha256-dc94ueGuBiPJZ858qOTOmP7Viv9HYx1YZZxsrBMHodE=" }
+passthru = { vendorSha256 = "sha256-UuAKz79vzedu9lpWdDlB46R2q/8Fp82zpQhCdq5hYGo=" }

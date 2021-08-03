@@ -16,7 +16,7 @@
 
   services.influxdb2 = {
     enable = true;
-    config = {
+    settings = {
       http-bind-address = "127.0.0.1:8086";
     };
   };
@@ -68,7 +68,7 @@
           influx.loadBalancer = {
             passHostHeader = true;
             servers = [{
-              url = "http://${config.services.influxdb2.config.http-bind-address}";
+              url = "http://${config.services.influxdb2.settings.http-bind-address}";
             }];
           };
         };

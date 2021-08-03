@@ -2,19 +2,19 @@
 with lib;
 let
   cfg = config.services.influxdb2;
-  configFile = pkgs.writeText "config.json" (builtins.toJSON cfg.config);
+  configFile = pkgs.writeText "config.json" (builtins.toJSON cfg.settings);
 in
 {
   options = {
     services.influxdb2 = {
-      enable = mkEnableOption "Whether to enable the influxdb2 server";
+      enable = mkEnableOption "the influxdb2 server";
       package = mkOption {
         default = pkgs.influxdb2;
         defaultText = "pkgs.influxdb2";
         description = "influxdb2 derivation to use";
         type = types.package;
       };
-      config = mkOption {
+      settings = mkOption {
         default = { };
         description = "configuration options for influxdb2";
         type = types.attrs;
@@ -24,7 +24,7 @@ in
 
   config = mkIf cfg.enable {
     assertions = [{
-      assertion = !(builtins.hasAttr "bolt-path" cfg.config) && !(builtins.hasAttr "engine-path" cfg.config);
+      assertion = !(builtins.hasAttr "bolt-path" cfg.settings) && !(builtins.hasAttr "engine-path" cfg.settings);
       message = "services.influxdb2.config: bolt-path and engine-path should not be set as they are managed by systemd";
     }];
     systemd.services.influxdb2 = {
@@ -47,4 +47,6 @@ in
       };
     };
   };
+
+  meta.maintainers = with lib.maintainers; [ nickcao ];
 }

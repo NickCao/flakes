@@ -16,14 +16,14 @@
   };
   chasquid = {
     pname = "chasquid";
-    version = "v1.7";
+    version = "v1.8";
     src = fetchgit {
       url = "https://github.com/albertito/chasquid";
-      rev = "v1.7";
+      rev = "v1.8";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1i2rwsjqsk9q92nmjlna3agx782v3vhw0a9s55i14vd0794mm8vc";
+      sha256 = "1zg9ppjgvzywhkand8sk50d4gnxk9z52a9w24n5mlm5yjawrzsi2";
     };
     vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=";
   };
@@ -102,52 +102,52 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "e029b596f8909e831382674c99ac2bdb406f9334";
+    version = "10b3cf31ca1acde34097b8c049f427d518186701";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "e029b596f8909e831382674c99ac2bdb406f9334";
+      rev = "10b3cf31ca1acde34097b8c049f427d518186701";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0gs196val1ccadway3h88xvynhzr2xj8vfyxav60hdawz644rhm1";
+      sha256 = "05pw2bfg4k9x7ml749qb5cbp4aqsm3jxxkjxc5qra9p45343w2hx";
     };
   };
   traefik-certs-dumper = {
     pname = "traefik-certs-dumper";
-    version = "05deaa3d15795aa285a5587fa03345ca27259f2d";
+    version = "de2ae2dd93bdf8a5501a94ea4fc915b589cad7dd";
     src = fetchgit {
       url = "https://github.com/ldez/traefik-certs-dumper";
-      rev = "05deaa3d15795aa285a5587fa03345ca27259f2d";
+      rev = "de2ae2dd93bdf8a5501a94ea4fc915b589cad7dd";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1c1dif4v4yv8rh9mim5syz6brykmbn5hqj8ic86nagm1gxlwj73r";
+      sha256 = "0c09vlmw6j6vwkmrdjziilaz58fhn2dn8437d51ajmvxwv582c5g";
     };
-    vendorSha256 = "sha256-dc94ueGuBiPJZ858qOTOmP7Viv9HYx1YZZxsrBMHodE=";
+    vendorSha256 = "sha256-UuAKz79vzedu9lpWdDlB46R2q/8Fp82zpQhCdq5hYGo=";
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "599f2b6968ff8241b11f0f0c19e104b71322740f";
+    version = "cd7a88df74b676d9bce1149efa85eea8b24e575a";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "599f2b6968ff8241b11f0f0c19e104b71322740f";
+      rev = "cd7a88df74b676d9bce1149efa85eea8b24e575a";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "16d5sc7pl63cwzp7b2190vm2dyb5lqhg1v2bk70bs8r0w3vgbq0q";
+      sha256 = "0n7kkc232h65hdzpmagfgrfi8x1i90kascfcna41mvss2wb2rp45";
     };
-    vendorSha256 = "sha256-vNLhCI7C+Y/MqcH0MhTUICGnbmYQQCPypZmUVPZhA7Q=";
+    vendorSha256 = "sha256-wMwGqVqCSJ3801sfou0je/Cp1COMPYY0GH+Sx1Jev8s=";
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "8304cc2a57a68254ff805d0d0bfbba434ebb9033";
+    version = "6ee772c0c00f6e82b69158382327da6f5e60d704";
     src = fetchgit {
       url = "https://github.com/v2fly/geoip";
-      rev = "8304cc2a57a68254ff805d0d0bfbba434ebb9033";
+      rev = "6ee772c0c00f6e82b69158382327da6f5e60d704";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "03sqf1jzdmjhg138izdc7rvl5xwhkfp1yqca492pmv5wb9rp091z";
+      sha256 = "18r5fi4v67fjjf28nhvjbnp3kr029m7czmcm54xlkm22b9s7ijlb";
     };
   };
 }
