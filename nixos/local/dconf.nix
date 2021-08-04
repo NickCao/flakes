@@ -1,4 +1,8 @@
 {
+  "org/gnome/shell" = {
+    disable-user-extensions = false;
+  };
+
   "org/gnome/desktop/interface" = {
     clock-show-weekday = false;
     document-font-name = "Roboto 11";

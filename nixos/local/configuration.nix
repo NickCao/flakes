@@ -125,6 +125,8 @@
     };
   };
 
+  xdg.portal.enable = pkgs.lib.mkForce false;
+
   services = {
     pcscd.enable = true;
     fstrim.enable = true;
