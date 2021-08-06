@@ -91,6 +91,7 @@
       options i915 enable_fbc=1
       options i915 fastboot=1
       blacklist ideapad_laptop
+      options kvm_intel nested=1
     '';
     enableContainers = false;
   };
