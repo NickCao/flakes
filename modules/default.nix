@@ -6,7 +6,6 @@
   gravity = import ./gravity.nix;
   vultr = import ./vultr.nix;
   chasquid = import ./chasquid.nix;
-  influxdb2 = import ./influxdb2.nix;
   telegraf = import ./telegraf;
   ss = import ./ss;
   cloud = {

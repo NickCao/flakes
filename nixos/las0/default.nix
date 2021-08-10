@@ -6,7 +6,6 @@ nixpkgs.lib.nixosSystem {
     ./services.nix
     self.nixosModules.buyvm
     self.nixosModules.dns
-    self.nixosModules.influxdb2
     self.nixosModules.telegraf
     self.nixosModules.cloud.common
     {
