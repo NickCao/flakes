@@ -5,15 +5,6 @@
     fsType = "ext4";
   };
 
-  services.minio = {
-    enable = true;
-    browser = true;
-    listenAddress = "127.0.0.1:9000";
-    configDir = "/data/minio/config";
-    dataDir = builtins.map (x: "/data/minio/ec" + builtins.toString x) [ 0 1 2 3 ];
-    rootCredentialsFile = config.sops.secrets.minio.path;
-  };
-
   services.influxdb2 = {
     enable = true;
     settings = {
@@ -49,22 +40,12 @@
       };
       http = {
         routers = {
-          minio = {
-            rule = "Host(`s3.nichi.co`)";
-            service = "minio";
-          };
           influx = {
             rule = "Host(`stats.nichi.co`)";
             service = "influx";
           };
         };
         services = {
-          minio.loadBalancer = {
-            passHostHeader = true;
-            servers = [{
-              url = "http://${config.services.minio.listenAddress}";
-            }];
-          };
           influx.loadBalancer = {
             passHostHeader = true;
             servers = [{

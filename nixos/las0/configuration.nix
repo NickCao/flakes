@@ -7,9 +7,6 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    secrets = {
-      minio = { };
-    };
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };
 
