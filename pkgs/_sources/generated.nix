@@ -112,18 +112,6 @@
       sha256 = "048ms9v3x90w2v034557m221rzx6j4gc1zxkax3px1bzxxacyc8v";
     };
   };
-  tikv = {
-    pname = "tikv";
-    version = "v5.1.1";
-    src = fetchgit {
-      url = "https://github.com/tikv/tikv";
-      rev = "v5.1.1";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "0wghhk8zwy014vzcpkrfp4plv9s90b52g4g7sh0g9m3gqh9sj53d";
-    };
-  };
   traefik-certs-dumper = {
     pname = "traefik-certs-dumper";
     version = "de2ae2dd93bdf8a5501a94ea4fc915b589cad7dd";
