@@ -42,7 +42,7 @@ dns.lib.toString "nichi.co" {
   ];
   subdomains = {
     s3.CNAME = [ "hel0.nichi.link." ];
-    stats.CNAME = [ "las0.nichi.link." ];
+    stats.CNAME = [ "hel0.nichi.link." ];
     www.TXT = [ "http.cat/404" ];
     "*".CNAME = [ "nichi.co." ];
     "fm1._domainkey".CNAME = [ "fm1.nichi.co.dkim.fmhosted.com." ];
