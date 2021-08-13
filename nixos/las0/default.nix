@@ -3,7 +3,6 @@ nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
     ./configuration.nix
-    ./services.nix
     self.nixosModules.buyvm
     self.nixosModules.dns
     self.nixosModules.telegraf
