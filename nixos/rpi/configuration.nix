@@ -1,16 +1,62 @@
 { config, pkgs, lib, modulesPath, ... }:
-
 {
-  imports = [(modulesPath + "/installer/sd-card/sd-image-aarch64-new-kernel.nix")];
+  imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64-new-kernel.nix") ];
+
   networking = {
     hostName = "rpi";
     domain = "nichi.link";
+    useNetworkd = true;
+    useDHCP = false;
+    firewall.enable = false;
   };
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJNPLArhyazrFjK4Jt/ImHSzICvwKOk4f+7OEcv2HEb7"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
-  ];
-  services.openssh = {
+
+  systemd.network.networks = {
+    eth0 = {
+      name = "eth0";
+      DHCP = "yes";
+    };
+  };
+
+  services.traefik = {
     enable = true;
+    staticConfigOptions = {
+      entryPoints = {
+        api.address = ":40000";
+        nrt0.address = ":40001";
+        sin0.address = ":40002";
+      };
+      api = {
+        dashboard = true;
+      };
+    };
+    dynamicConfigOptions = {
+      http = {
+        routers = {
+          api = {
+            entryPoints = [ "api" ];
+            rule = "HostSNI(`*`)";
+            service = "api@internal";
+          };
+        };
+      };
+      tcp = {
+        routers = {
+          nrt0 = {
+            entryPoints = [ "nrt0" ];
+            rule = "HostSNI(`*`)";
+            service = "nrt0";
+          };
+          sin0 = {
+            entryPoints = [ "sin0" ];
+            rule = "HostSNI(`*`)";
+            service = "sin0";
+          };
+        };
+        services = {
+          nrt0.loadBalancer.servers = [{ address = "nrt0.nichi.link:41287"; }];
+          sin0.loadBalancer.servers = [{ address = "sin0.nichi.link:41287"; }];
+        };
+      };
+    };
   };
 }
