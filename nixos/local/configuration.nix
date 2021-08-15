@@ -134,6 +134,7 @@
     packagekit.enable = false;
     logind.lidSwitch = "ignore";
     gnome.core-utilities.enable = false;
+    gnome.evolution-data-server.enable = pkgs.lib.mkForce false;
     gnome.gnome-keyring.enable = pkgs.lib.mkForce false;
     pipewire = {
       enable = true;
