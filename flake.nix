@@ -99,38 +99,22 @@
         rpi = {
           sshUser = "root";
           hostname = "10.0.1.2";
-          profiles = {
-            system = {
-              path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
-            };
-          };
+          profiles.system.path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
         };
         nrt0 = {
           sshUser = "root";
           hostname = "nrt0.nichi.link";
-          profiles = {
-            system = {
-              path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nrt0;
-            };
-          };
+          profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nrt0;
         };
         sin0 = {
           sshUser = "root";
           hostname = "sin0.nichi.link";
-          profiles = {
-            system = {
-              path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sin0;
-            };
-          };
+          profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sin0;
         };
         las0 = {
           sshUser = "root";
           hostname = "las0.nichi.link";
-          profiles = {
-            system = {
-              path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.las0;
-            };
-          };
+          profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.las0;
         };
       };
     };
