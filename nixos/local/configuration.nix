@@ -60,6 +60,7 @@
   powerManagement.cpuFreqGovernor = "powersave";
 
   boot = {
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
     tmpOnTmpfs = true;
     consoleLogLevel = 0;
     initrd.verbose = false;
