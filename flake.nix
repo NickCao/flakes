@@ -96,6 +96,15 @@
         las0 = import ./nixos/las0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
       deploy.nodes = {
+        rpi = {
+          sshUser = "root";
+          hostname = "10.0.1.2";
+          profiles = {
+            system = {
+              path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
+            };
+          };
+        };
         nrt0 = {
           sshUser = "root";
           hostname = "nrt0.nichi.link";

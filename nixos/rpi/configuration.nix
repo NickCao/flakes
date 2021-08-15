@@ -27,7 +27,7 @@
       EnvironmentFile = config.sops.secrets.duckdns.path;
     };
     script = ''
-      ${pkgs.curl}/bin/curl -s -4 "https://www.duckdns.org/update?domains=rpi-nichi&ipv6=$(${pkgs.curl}/bin/curl -s -6 ip.sb)&token=''${TOKEN}"
+      ${pkgs.curl}/bin/curl -s -4 "https://www.duckdns.org/update?domains=rpi-nichi&token=''${TOKEN}"
     '';
   };
 
@@ -64,7 +64,7 @@
     };
     "eth0.10" = {
       name = "eth0.10";
-      DHCP = "yes";
+      DHCP = "ipv4"; # dhcpv6 not working due to duid
     };
   };
 
