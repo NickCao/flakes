@@ -2,6 +2,49 @@
 {
   imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64-new-kernel.nix") ];
 
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    sshKeyPaths = [ "/var/lib/sops.key" ];
+    secrets = {
+      auth = { };
+      duckdns = { };
+    };
+  };
+
+  systemd.services.auth-thu = {
+    serviceConfig = {
+      Type = "oneshot";
+      DynamicUser = true;
+      LoadCredential = "auth:${config.sops.secrets.auth.path}";
+    };
+    script = "${pkgs.auth-thu}/bin/auth-thu -D -c \${CREDENTIALS_DIRECTORY}/auth auth";
+  };
+
+  systemd.services.duckdns = {
+    serviceConfig = {
+      Type = "oneshot";
+      DynamicUser = true;
+      EnvironmentFile = config.sops.secrets.duckdns.path;
+    };
+    script = ''
+      ${pkgs.curl}/bin/curl -s -4 "https://www.duckdns.org/update?domains=rpi-nichi&ipv6=$(${pkgs.curl}/bin/curl -s -6 ip.sb)&token=''${TOKEN}"
+    '';
+  };
+
+  systemd.timers.auth-thu = {
+    timerConfig = {
+      OnCalendar = "minutely";
+    };
+    wantedBy = [ "timers.target" ];
+  };
+
+  systemd.timers.duckdns = {
+    timerConfig = {
+      OnCalendar = "*:0/15";
+    };
+    wantedBy = [ "timers.target" ];
+  };
+
   networking = {
     hostName = "rpi";
     domain = "nichi.link";
@@ -14,6 +57,26 @@
     eth0 = {
       name = "eth0";
       DHCP = "yes";
+      vlan = [ "eth0.10" ];
+      dhcpV4Config = {
+        RouteMetric = 2048;
+      };
+    };
+    "eth0.10" = {
+      name = "eth0.10";
+      DHCP = "yes";
+    };
+  };
+
+  systemd.network.netdevs = {
+    "eth0.10" = {
+      netdevConfig = {
+        Name = "eth0.10";
+        Kind = "vlan";
+      };
+      vlanConfig = {
+        Id = 10;
+      };
     };
   };
 
@@ -21,24 +84,11 @@
     enable = true;
     staticConfigOptions = {
       entryPoints = {
-        api.address = ":40000";
         nrt0.address = ":40001";
         sin0.address = ":40002";
       };
-      api = {
-        dashboard = true;
-      };
     };
     dynamicConfigOptions = {
-      http = {
-        routers = {
-          api = {
-            entryPoints = [ "api" ];
-            rule = "HostSNI(`*`)";
-            service = "api@internal";
-          };
-        };
-      };
       tcp = {
         routers = {
           nrt0 = {
@@ -59,4 +109,14 @@
       };
     };
   };
+
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJNPLArhyazrFjK4Jt/ImHSzICvwKOk4f+7OEcv2HEb7"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
+  ];
+
+  services.openssh.enable = true;
+  services.timesyncd.servers = [
+    "101.6.6.172" # ntp.tuna.tsinghua.edu.cn
+  ];
 }
