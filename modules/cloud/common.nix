@@ -17,6 +17,14 @@ in
 
   services.openssh.enable = true;
 
+  nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+      dates = "weekly";
+    };
+  };
+
   boot = {
     postBootCommands = ''
       ${gptfdisk}/bin/sgdisk -e -d 2 -n 2:0:0 -c 2:NIXOS -p /dev/vda
