@@ -1,4 +1,5 @@
 {
+  kernel = import ./kernel.nix;
   bgp = import ./bgp;
   buyvm = import ./buyvm.nix;
   divi = import ./divi.nix;
