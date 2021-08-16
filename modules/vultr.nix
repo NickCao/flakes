@@ -9,7 +9,7 @@ in
 
   system.activationScripts.bootstrap-secrets = pkgs.lib.stringAfter [ "users" ] ''
     echo bootstrap secrets...
-    ${pkgs.curl}/bin/curl -s http://169.254.169.254/latest/user-data -o /var/lib/sops.key
+    ${pkgs.curl}/bin/curl -s http://169.254.169.254/latest/user-data -o /var/lib/sops.key || true
   '';
 
   systemd.network.networks = {
