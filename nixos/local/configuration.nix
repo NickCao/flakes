@@ -30,6 +30,7 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "nvidia-x11"
     "nvidia-settings"
+    "android-studio-stable"
   ];
 
   networking = {
@@ -284,6 +285,7 @@
         exec ${alacritty}/bin/alacritty "$@"
       ''
     )
+    android-studio
     mode
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
     v2ray
