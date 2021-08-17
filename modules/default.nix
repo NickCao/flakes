@@ -6,7 +6,6 @@
   dns = import ./dns;
   gravity = import ./gravity.nix;
   vultr = import ./vultr.nix;
-  chasquid = import ./chasquid.nix;
   telegraf = import ./telegraf;
   ss = import ./ss;
   cloud = {
