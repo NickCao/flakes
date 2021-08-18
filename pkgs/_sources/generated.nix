@@ -65,14 +65,14 @@
   };
   qv2ray = {
     pname = "qv2ray";
-    version = "d19ba329fcb72dd2a0a2cfc6bb7855110fda375f";
+    version = "a35ce6fba825ae3e6b9e4f03c53e018db3efb848";
     src = fetchgit {
       url = "https://github.com/Qv2ray/Qv2ray";
-      rev = "d19ba329fcb72dd2a0a2cfc6bb7855110fda375f";
+      rev = "a35ce6fba825ae3e6b9e4f03c53e018db3efb848";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0jbrywwvqcn9sbk9vxwvdjn1grnyspymrzvbfx6cj87mlzaqsmj8";
+      sha256 = "0w4hw84ylwvf7j4ha6zqrg2r6v4ybmf7l0i263k1qsv0d65gpqn0";
     };
   };
   qv2ray-plugin-ss = {
@@ -102,39 +102,51 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "a7a8e6799d7a0c9a29949bc0994aa615876cd892";
+    version = "8b90486ff4000f333e02b9538c9beae21d8d44be";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "a7a8e6799d7a0c9a29949bc0994aa615876cd892";
+      rev = "8b90486ff4000f333e02b9538c9beae21d8d44be";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1v164k0j4106md031r0mf1psnhq06vqkh0b3rkr8qya543ck3c1i";
+      sha256 = "0fmldv68g8jnacbayb1067h5q5lhhsqqpvjccs2iswa21z9bdvzf";
     };
   };
   traefik-certs-dumper = {
     pname = "traefik-certs-dumper";
-    version = "de2ae2dd93bdf8a5501a94ea4fc915b589cad7dd";
+    version = "25b4a44d79a322dd39d654db76143e3ce5862095";
     src = fetchgit {
       url = "https://github.com/ldez/traefik-certs-dumper";
-      rev = "de2ae2dd93bdf8a5501a94ea4fc915b589cad7dd";
+      rev = "25b4a44d79a322dd39d654db76143e3ce5862095";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0c09vlmw6j6vwkmrdjziilaz58fhn2dn8437d51ajmvxwv582c5g";
+      sha256 = "1grif8ms78h089g4dvpix9ard6jaq1w46mpm27s9qj2c843r4d5n";
     };
     vendorSha256 = "sha256-UuAKz79vzedu9lpWdDlB46R2q/8Fp82zpQhCdq5hYGo=";
   };
-  v2ray-domain-list-community = {
-    pname = "v2ray-domain-list-community";
-    version = "d077dd2b0267be834396d1c49a02f002ec06a612";
+  tslib = {
+    pname = "tslib";
+    version = "1.22";
     src = fetchgit {
-      url = "https://github.com/v2fly/domain-list-community";
-      rev = "d077dd2b0267be834396d1c49a02f002ec06a612";
+      url = "https://github.com/libts/tslib";
+      rev = "1.22";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0rpwwpqc46fl20wylpanh8gi357n9ramgyjglqqbp6wgcahgff8r";
+      sha256 = "197p6vy539wvfrv23agbvmay4rjya1jnisi46llm0nx4cvqh48by";
+    };
+  };
+  v2ray-domain-list-community = {
+    pname = "v2ray-domain-list-community";
+    version = "6ccee886e3314050523ecda538018a21a9143c5b";
+    src = fetchgit {
+      url = "https://github.com/v2fly/domain-list-community";
+      rev = "6ccee886e3314050523ecda538018a21a9143c5b";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "1i85jzkj9bpvs6j1gnsh05s694jbs52phx3f3a6h9pfy5lc8z137";
     };
     vendorSha256 = "sha256-wMwGqVqCSJ3801sfou0je/Cp1COMPYY0GH+Sx1Jev8s=";
   };

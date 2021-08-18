@@ -56,3 +56,7 @@ passthru = { vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=
 src.git = "https://github.com/ldez/traefik-certs-dumper"
 fetch.github = "ldez/traefik-certs-dumper"
 passthru = { vendorSha256 = "sha256-UuAKz79vzedu9lpWdDlB46R2q/8Fp82zpQhCdq5hYGo=" }
+
+[tslib]
+src.github = "libts/tslib"
+fetch.github = "libts/tslib"
