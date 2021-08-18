@@ -123,7 +123,7 @@
       leaveDotGit = false;
       sha256 = "1grif8ms78h089g4dvpix9ard6jaq1w46mpm27s9qj2c843r4d5n";
     };
-    vendorSha256 = "sha256-UuAKz79vzedu9lpWdDlB46R2q/8Fp82zpQhCdq5hYGo=";
+    vendorSha256 = "sha256-4v8We/3FgFqXxlGaoQXQ6EQn8bbAkMrWkjfTUo2U8FU=";
   };
   tslib = {
     pname = "tslib";

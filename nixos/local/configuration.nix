@@ -291,7 +291,7 @@
     v2ray
     v2ray-geoip
     v2ray-domain-list-community
-    (qv2ray.override { plugins = [ qv2ray-plugin-ss ]; })
+    qvpersonal
     mpv
     yubikey-manager
     tdesktop
