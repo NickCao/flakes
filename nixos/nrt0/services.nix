@@ -52,6 +52,7 @@ in
   services.traefik = {
     enable = true;
     staticConfigOptions = {
+      experimental.http3 = true;
       entryPoints = {
         http = {
           address = ":80";
@@ -64,6 +65,7 @@ in
         https = {
           address = ":443";
           http.tls.certResolver = "le";
+          enableHTTP3 = true;
         };
       };
       certificatesResolvers.le.acme = {
