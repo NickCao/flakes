@@ -94,6 +94,7 @@
         nrt0 = import ./nixos/nrt0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         sin0 = import ./nixos/sin0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         las0 = import ./nixos/las0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        firecracker = import ./nixos/firecracker { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
       deploy.nodes = {
         rpi = {
