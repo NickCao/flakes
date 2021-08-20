@@ -5,6 +5,7 @@
 , mount
 , util-linux
 , nixUnstable
+, formats
 , vmTools
 , firecracker-kernel
 , firecracker
@@ -12,23 +13,14 @@
 , writeShellScript
 , tree
 , bash
-, strace
+, bashInteractive
+, iproute2
 , init ? (writeShellScript "init" ''
-    specialMount() {
-      local device="$1"
-      local mountpoint="$2"
-      local options="$3"
-      local fstype="$4"
-      ${coreutils}/bin/install -m 0755 -d "$mountpoint"
-      ${mount}/bin/mount -n -t "$fstype" -o "$options" "$device" "$mountpoint"
-    }
-    specialMount "devtmpfs" "/dev" "nosuid,strictatime,mode=755,size=5%" "devtmpfs"
-    specialMount "devpts" "/dev/pts" "nosuid,noexec,mode=620,ptmxmode=0666,gid=3" "devpts"
-    specialMount "tmpfs" "/dev/shm" "nosuid,nodev,strictatime,mode=1777,size=50%" "tmpfs"
-    specialMount "proc" "/proc" "nosuid,noexec,nodev" "proc"
-    specialMount "tmpfs" "/run" "nosuid,nodev,strictatime,mode=755,size=25%" "tmpfs"
-    specialMount "sysfs" "/sys" "nosuid,noexec,nodev" "sysfs"
-    ${nixUnstable}/bin/nix-instantiate --eval /etc/default.nix
+    ${util-linux}/bin/mount -t tmpfs -o noatime,mode=0755 tmpfs /mnt
+    ${coreutils}/bin/mkdir -p /mnt/{root,work,upper}
+    ${util-linux}/bin/mount -o noatime,lowerdir=/,upperdir=/mnt/upper,workdir=/mnt/work -t overlay overlay /mnt/root
+    export PATH=${coreutils}/bin
+    ${util-linux}/bin/switch_root /mnt/root ${bashInteractive}/bin/bash
   '')
 }:
 let
@@ -47,16 +39,29 @@ let
     export NIX_STATE_DIR=$TMPDIR/state
     nix-store --load-db < ${db}/registration
     nix --experimental-features nix-command copy --no-check-sigs --to /mnt ${init}
-    mkdir /mnt/etc
-    echo "root:x:0:0:::" > /mnt/etc/passwd
-    echo "1 + 1" > /mnt/etc/default.nix
+    mkdir -p /mnt/mnt
+    umount /dev/vda
   '');
+  config = (formats.json {}).generate "config.json" {
+    boot-source = {
+      kernel_image_path = "${firecracker-kernel.dev}/vmlinux";
+      boot_args = "init=${init} panic=-1 console=ttyS0 i8042.reset random.trust_cpu=on";
+    };
+    drives = [
+      {
+        drive_id = "rootfs";
+        path_on_host = "${image}/nixos.img";
+        is_root_device = true;
+        is_read_only = true;
+      }
+    ];
+    machine-config = {
+      vcpu_count = 2;
+      mem_size_mib = 1024;
+      ht_enabled = true;
+    };
+  };
 in
 writeShellScript "demo" ''
-  IMG=$(${coreutils}/bin/mktemp -u)
-  trap '{ ${coreutils}/bin/rm -f "$IMG"; }' EXIT
-  ${coreutils}/bin/install -m 0600 ${image}/nixos.img "$IMG"
-  ${firectl}/bin/firectl --firecracker-binary=${firecracker}/bin/firecracker \
-    --kernel=${firecracker-kernel.dev}/vmlinux --kernel-opts="init=${init} panic=-1 loglevel=0 console=ttyS0 i8042.reset random.trust_cpu=on" \
-    --root-drive="$IMG" "$@"
+  ${firecracker}/bin/firecracker --no-api --config-file ${config}
 ''
