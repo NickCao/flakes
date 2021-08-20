@@ -15,15 +15,19 @@
 , bash
 , bashInteractive
 , iproute2
-, init ? (writeShellScript "init" ''
+, socat
+}:
+let
+  init = writeShellScript "init-stage1" ''
     ${util-linux}/bin/mount -t tmpfs -o noatime,mode=0755 tmpfs /mnt
     ${coreutils}/bin/mkdir -p /mnt/{root,work,upper}
     ${util-linux}/bin/mount -o noatime,lowerdir=/,upperdir=/mnt/upper,workdir=/mnt/work -t overlay overlay /mnt/root
     export PATH=${coreutils}/bin
-    ${util-linux}/bin/switch_root /mnt/root ${bashInteractive}/bin/bash
-  '')
-}:
-let
+    ${util-linux}/bin/switch_root /mnt/root ${init-stage2}
+  '';
+  init-stage2 = writeShellScript "init-stage2" ''
+    ${socat}/bin/socat VSOCK-LISTEN:1,fork EXEC:"${bashInteractive}/bin/bash -li",stderr
+  '';
   db = closureInfo { rootPaths = [ init ]; };
   image = vmTools.runInLinuxVM (runCommand "image"
     {
@@ -42,7 +46,7 @@ let
     mkdir -p /mnt/mnt
     umount /dev/vda
   '');
-  config = (formats.json {}).generate "config.json" {
+  config = (formats.json { }).generate "config.json" {
     boot-source = {
       kernel_image_path = "${firecracker-kernel.dev}/vmlinux";
       boot_args = "init=${init} panic=-1 console=ttyS0 i8042.reset random.trust_cpu=on";
@@ -59,6 +63,11 @@ let
       vcpu_count = 2;
       mem_size_mib = 1024;
       ht_enabled = true;
+    };
+    vsock = {
+      guest_cid = 3;
+      uds_path = "vsock.sock";
+      vsock_id = "vsock";
     };
   };
 in
