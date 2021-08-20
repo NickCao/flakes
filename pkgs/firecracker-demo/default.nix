@@ -31,13 +31,12 @@ let
   db = closureInfo { rootPaths = [ init ]; };
   image = runCommand "nixos.img"
     {
+      requiredSystemFeatures = [ "recursive-nix" ];
       nativeBuildInputs = [ e2fsprogs mount util-linux nixUnstable ];
     } ''
     touch $out
     truncate -s $(( $(cat ${db}/total-nar-size) + 500000000 )) $out
     mkdir -p rootfs/mnt
-    export NIX_STATE_DIR=$TMPDIR/state
-    nix-store --load-db < ${db}/registration
     nix --experimental-features nix-command copy --no-check-sigs --to ./rootfs ${init}
     mkfs.ext4 -d rootfs $out
   '';

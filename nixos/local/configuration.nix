@@ -20,7 +20,7 @@
     package = pkgs.nixFlakes;
     extraOptions = ''
       flake-registry = /etc/nix/registry.json
-      experimental-features = nix-command flakes ca-references ca-derivations
+      experimental-features = nix-command flakes ca-references ca-derivations recursive-nix
       builders-use-substitutes = true
       keep-outputs = true
       keep-derivations = true
