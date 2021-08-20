@@ -29,23 +29,18 @@ let
     ${socat}/bin/socat VSOCK-LISTEN:1,fork EXEC:"${bashInteractive}/bin/bash -li",stderr
   '';
   db = closureInfo { rootPaths = [ init ]; };
-  image = vmTools.runInLinuxVM (runCommand "image"
+  image = runCommand "nixos.img"
     {
-      preVM = ''
-        mkdir $out
-        diskImage=$out/nixos.img
-        ${vmTools.qemu}/bin/qemu-img create -f raw $diskImage $(( $(cat ${db}/total-nar-size) + 500000000 ))
-      '';
       nativeBuildInputs = [ e2fsprogs mount util-linux nixUnstable ];
     } ''
-    mkfs.ext4 /dev/vda
-    mkdir /mnt && mount /dev/vda /mnt
+    touch $out
+    truncate -s $(( $(cat ${db}/total-nar-size) + 500000000 )) $out
+    mkdir -p rootfs/mnt
     export NIX_STATE_DIR=$TMPDIR/state
     nix-store --load-db < ${db}/registration
-    nix --experimental-features nix-command copy --no-check-sigs --to /mnt ${init}
-    mkdir -p /mnt/mnt
-    umount /dev/vda
-  '');
+    nix --experimental-features nix-command copy --no-check-sigs --to ./rootfs ${init}
+    mkfs.ext4 -d rootfs $out
+  '';
   config = (formats.json { }).generate "config.json" {
     boot-source = {
       kernel_image_path = "${firecracker-kernel.dev}/vmlinux";
@@ -54,7 +49,7 @@ let
     drives = [
       {
         drive_id = "rootfs";
-        path_on_host = "${image}/nixos.img";
+        path_on_host = "${image}";
         is_root_device = true;
         is_read_only = true;
       }
