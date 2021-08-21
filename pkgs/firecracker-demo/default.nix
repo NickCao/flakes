@@ -15,9 +15,6 @@
 }:
 let
   init = writeShellScript "init-stage1" ''
-    ${util-linux}/bin/mount -t tmpfs -o noatime,mode=0755 tmpfs /tmp
-    ${coreutils}/bin/mkdir -p /tmp/{work,upper}
-    ${util-linux}/bin/mount -o noatime,lowerdir=/nix,upperdir=/tmp/upper,workdir=/tmp/work -t overlay overlay /nix
     specialMount() {
       local device="$1"
       local mountPoint="$2"
@@ -25,6 +22,8 @@ let
       local fsType="$4"
       ${util-linux}/bin/mount -n -t "$fsType" -o "$options" "$device" "$mountPoint"
     }
+    specialMount "tmpfs" "/tmp" "noatime,mode=0755" "tmpfs"
+    specialMount "tmpfs" "/build" "noatime,mode=0755" "tmpfs"
     specialMount "devtmpfs" "/dev" "nosuid,strictatime,mode=755,size=5%" "devtmpfs"
     ${coreutils}/bin/mkdir /dev/pts
     specialMount "devpts" "/dev/pts" "nosuid,noexec,mode=620,ptmxmode=0666,gid=3" "devpts"
@@ -37,6 +36,7 @@ let
     build-users-group =
     trusted-users =
     substituters =
+    store = /build
   '';
   db = closureInfo { rootPaths = [ init ]; };
   image = runCommand "nixos.img"
@@ -46,7 +46,7 @@ let
     } ''
     touch $out
     truncate -s $(( $(cat ${db}/total-nar-size) + 500000000 )) $out
-    mkdir -p rootfs/{tmp,dev,proc,sys,etc/nix}
+    mkdir -p rootfs/{tmp,dev,proc,sys,etc/nix,build}
     echo "root:x:0:0::/:" > rootfs/etc/passwd
     cp ${nix-config} rootfs/etc/nix/nix.conf
     nix --experimental-features nix-command copy --no-check-sigs --to ./rootfs ${init}
