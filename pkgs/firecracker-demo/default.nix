@@ -2,22 +2,16 @@
 , runCommand
 , coreutils
 , e2fsprogs
-, mount
 , util-linux
 , nixUnstable
 , formats
-, vmTools
 , firecracker-kernel
 , firecracker
-, firectl
 , writeShellScript
-, tree
 , bash
 , bashInteractive
-, iproute2
-, socat
 , sirius
-, shadow
+, writeText
 }:
 let
   init = writeShellScript "init-stage1" ''
@@ -26,6 +20,11 @@ let
     ${util-linux}/bin/mount -o noatime,lowerdir=/,upperdir=/mnt/upper,workdir=/mnt/work -t overlay overlay /mnt/root
     export PATH=${coreutils}/bin
     ${util-linux}/bin/switch_root /mnt/root ${init-stage2}
+  '';
+  nix-config = writeText "nix.conf" ''
+    build-users-group =
+    trusted-users =
+    substituters =
   '';
   init-stage2 = writeShellScript "init-stage2" ''
     specialMount() {
@@ -38,31 +37,26 @@ let
     }
     specialMount "devtmpfs" "/dev" "nosuid,strictatime,mode=755,size=5%" "devtmpfs"
     specialMount "devpts" "/dev/pts" "nosuid,noexec,mode=620,ptmxmode=0666,gid=3" "devpts"
-    specialMount "tmpfs" "/dev/shm" "nosuid,nodev,strictatime,mode=1777,size=50%" "tmpfs"
     specialMount "proc" "/proc" "nosuid,noexec,nodev" "proc"
-    specialMount "tmpfs" "/run" "nosuid,nodev,strictatime,mode=755,size=25%" "tmpfs"
     specialMount "sysfs" "/sys" "nosuid,noexec,nodev" "sysfs"
     ${coreutils}/bin/mkdir -p /etc/nix
-    ${coreutils}/bin/echo "root:x:0:0:::" > /etc/passwd
-    ${shadow}/bin/groupadd -r nixbld
+    ${coreutils}/bin/echo "root:x:0:0::/root:" > /etc/passwd
+    ${coreutils}/bin/cp ${nix-config} /etc/nix/nix.conf
     ${coreutils}/bin/mkdir /tmp
-    for n in $(seq 1 10); do ${shadow}/bin/useradd -c "Nix build user $n" \
-    -d /var/empty -g nixbld -G nixbld -M -N -r -s /var/empty \
-    nixbld$n; done
-    ${sirius}/bin/sirius -p 1 -n ${nixUnstable}/bin/nix-store
+    ${nixUnstable}/bin/nix --experimental-features nix-command show-config
+    ${sirius}/bin/agent -p 1 -n ${nixUnstable}/bin/nix-daemon
   '';
   db = closureInfo { rootPaths = [ init ]; };
   image = runCommand "nixos.img"
     {
       requiredSystemFeatures = [ "recursive-nix" ];
-      nativeBuildInputs = [ e2fsprogs mount util-linux nixUnstable ];
+      nativeBuildInputs = [ e2fsprogs util-linux nixUnstable ];
     } ''
     touch $out
     truncate -s $(( $(cat ${db}/total-nar-size) + 500000000 )) $out
     mkdir -p rootfs/mnt
     nix --experimental-features nix-command copy --no-check-sigs --to ./rootfs ${init}
     mkfs.ext4 -d rootfs $out
-    resize2fs -M $out
   '';
   config = (formats.json { }).generate "config.json" {
     boot-source = {
