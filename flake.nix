@@ -62,7 +62,7 @@
       (
         system:
         let
-          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.deploy-rs.overlay inputs.rust-overlay.overlay ]; };
+          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.deploy-rs.overlay inputs.rust-overlay.overlay inputs.fn.overlay ]; };
         in
         rec {
           packages = this.packages pkgs // {
