@@ -56,31 +56,7 @@ let
     nix --experimental-features nix-command copy --no-check-sigs --to ./rootfs ${init}
     mkfs.ext4 -d rootfs $out
   '';
-  config = (formats.json { }).generate "config.json" {
-    boot-source = {
-      kernel_image_path = "${firecracker-kernel.dev}/vmlinux";
-      boot_args = "init=${init} panic=-1 console=ttyS0 i8042.reset random.trust_cpu=on";
-    };
-    drives = [
-      {
-        drive_id = "rootfs";
-        path_on_host = "${image}";
-        is_root_device = true;
-        is_read_only = true;
-      }
-    ];
-    machine-config = {
-      vcpu_count = 2;
-      mem_size_mib = 10240;
-      ht_enabled = true;
-    };
-    vsock = {
-      guest_cid = 3;
-      uds_path = "vsock.sock";
-      vsock_id = "vsock";
-    };
-  };
 in
 writeShellScript "demo" ''
-  ${firecracker}/bin/firecracker --no-api --config-file ${config}
+  ${sirius}/bin/bridge -f ${firecracker}/bin/firecracker -k ${firecracker-kernel.dev}/vmlinux -r ${image} -a "init=${init} panic=-1 console=ttyS0 i8042.reset random.trust_cpu=on"
 ''
