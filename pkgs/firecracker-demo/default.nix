@@ -11,7 +11,9 @@
 , bash
 , bashInteractive
 , sirius
+, mount
 , writeText
+, busybox
 }:
 let
   init = writeShellScript "init-stage1" ''
@@ -20,12 +22,12 @@ let
       local mountPoint="$2"
       local options="$3"
       local fsType="$4"
-      ${util-linux}/bin/mount -n -t "$fsType" -o "$options" "$device" "$mountPoint"
+      ${busybox}/bin/mount -t "$fsType" -o "$options" "$device" "$mountPoint"
     }
     specialMount "tmpfs" "/tmp" "noatime,mode=0755" "tmpfs"
     specialMount "tmpfs" "/build" "noatime,mode=0755" "tmpfs"
     specialMount "devtmpfs" "/dev" "nosuid,strictatime,mode=755,size=5%" "devtmpfs"
-    ${coreutils}/bin/mkdir /dev/pts
+    ${busybox}/bin/mkdir /dev/pts
     specialMount "devpts" "/dev/pts" "nosuid,noexec,mode=620,ptmxmode=0666,gid=3" "devpts"
     specialMount "proc" "/proc" "nosuid,noexec,nodev" "proc"
     specialMount "sysfs" "/sys" "nosuid,noexec,nodev" "sysfs"
