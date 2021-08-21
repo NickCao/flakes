@@ -17,7 +17,8 @@
     binaryCaches = pkgs.lib.mkForce [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://cache.nichi.workers.dev" "https://nichi.cachix.org" ];
     binaryCachePublicKeys = [ "nichi.cachix.org-1:ZWn4Jui6odEcNEMjcHM/WXbDSVO4Ai+jrzWHf+pqwj0=" ];
     trustedUsers = [ "root" "nickcao" ];
-    package = pkgs.nixFlakes;
+    package = pkgs.nixUnstable;
+    systemFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" "recursive-nix" ];
     extraOptions = ''
       flake-registry = /etc/nix/registry.json
       experimental-features = nix-command flakes ca-references ca-derivations recursive-nix

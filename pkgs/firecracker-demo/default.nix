@@ -39,6 +39,7 @@ let
     mkdir -p rootfs/mnt
     nix --experimental-features nix-command copy --no-check-sigs --to ./rootfs ${init}
     mkfs.ext4 -d rootfs $out
+    resize2fs -M $out
   '';
   config = (formats.json { }).generate "config.json" {
     boot-source = {
