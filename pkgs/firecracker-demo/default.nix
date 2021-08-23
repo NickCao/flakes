@@ -41,6 +41,7 @@ let
     trusted-users =
     substituters =
     store = /build
+    experimental-features = ca-derivations
   '';
   db = closureInfo { rootPaths = [ init ]; };
   image = runCommand "nixos.img"
@@ -58,5 +59,5 @@ let
   '';
 in
 writeShellScript "demo" ''
-  ${sirius}/bin/bridge -f ${firecracker}/bin/firecracker -k ${firecracker-kernel.dev}/vmlinux -r ${image} -a "init=${init} panic=-1 console=ttyS0 i8042.reset random.trust_cpu=on"
+  ${sirius}/bin/bridge -f ${firecracker}/bin/firecracker -k ${firecracker-kernel.dev}/vmlinux -r ${image} -a "init=${init} panic=-1 console=ttyS0 i8042.reset random.trust_cpu=on" -l 127.0.0.1:2022
 ''
