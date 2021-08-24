@@ -58,6 +58,9 @@ let
     mkfs.ext4 -d rootfs $out
   '';
 in
+writeShellScript "demo" ""
+/*
 writeShellScript "demo" ''
   ${sirius}/bin/bridge -f ${firecracker}/bin/firecracker -k ${firecracker-kernel.dev}/vmlinux -r ${image} -a "init=${init} panic=-1 console=ttyS0 i8042.reset random.trust_cpu=on" -l 127.0.0.1:2022
 ''
+*/
