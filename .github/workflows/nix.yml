@@ -3,6 +3,7 @@ on:
   push:
 jobs:
   check:
+    environment: prod
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.4
@@ -19,3 +20,8 @@ jobs:
         name: nichi
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: nix flake check -vL --keep-going
+    - uses: shimataro/ssh-key-action@v2
+      with:
+        key: '${{ secrets.SSH_PRIVATE_KEY }}'
+        known_hosts: '${{ secrets.SSH_KNOWN_HOSTS }}'
+    - run: nix shell .#deploy-rs -c deploy
