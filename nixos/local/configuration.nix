@@ -293,10 +293,10 @@
     tdesktop
     materia-theme
     numix-icon-theme-circle
-    gnome3.gnome-tweaks
-    gnome3.gnome-screenshot
-    gnome3.eog
-    gnomeExtensions.appindicator
+    gnome.gnome-tweaks
+    gnome.gnome-screenshot
+    gnome.eog
+    gnome40Extensions."appindicatorsupport@rgcjonas.gmail.com"
   ];
 
   fonts.fonts = with pkgs; [
