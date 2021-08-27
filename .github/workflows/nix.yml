@@ -24,4 +24,4 @@ jobs:
       with:
         key: '${{ secrets.SSH_PRIVATE_KEY }}'
         known_hosts: '${{ secrets.SSH_KNOWN_HOSTS }}'
-    - run: nix shell .#deploy-rs -c deploy
+    - run: nix shell .#deploy-rs -c deploy -s
