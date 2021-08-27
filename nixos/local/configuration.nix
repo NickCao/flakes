@@ -281,11 +281,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    (
-      writeShellScriptBin "xterm" ''
-        exec ${alacritty}/bin/alacritty "$@"
-      ''
-    )
     android-studio
     mode
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
