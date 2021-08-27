@@ -6,7 +6,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    clang_12
+    ncdu
     age
     pandoc
     prime-run
@@ -23,11 +23,8 @@ in
     mtr
     go_1_16
     sops
-    kustomize
     (mkWrap "mc" "${minio-client}/bin/mc --config-dir ${config.xdg.configHome}/mc")
-    (mkWrap "kubectl" "${kubectl}/bin/kubectl --cache-dir=${config.xdg.cacheHome}/kube --kubeconfig=${config.xdg.configHome}/kubeconfig")
     (mkWrap "terraform" "${coreutils}/bin/env TF_PLUGIN_CACHE_DIR=${config.xdg.cacheHome}/terraform CHECKPOINT_DISABLE=1 ${terraform}/bin/terraform")
-    butane
     restic
     libarchive
   ];
