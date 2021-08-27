@@ -299,9 +299,7 @@
     materia-theme
     numix-icon-theme-circle
     gnome3.gnome-tweaks
-    gnome3.nautilus
     gnome3.gnome-screenshot
-    gnome3.baobab
     gnome3.eog
     gnomeExtensions.appindicator
   ];
