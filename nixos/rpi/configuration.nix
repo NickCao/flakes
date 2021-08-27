@@ -10,7 +10,7 @@
       duckdns = { };
     };
   };
-  
+
   services.resolved.dnssec = "false";
 
   systemd.services.auth-thu = {
@@ -117,7 +117,10 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
   ];
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    ports = [ 22 8022 ];
+  };
   services.timesyncd.servers = [
     "101.6.6.172" # ntp.tuna.tsinghua.edu.cn
   ];

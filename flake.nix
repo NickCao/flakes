@@ -98,7 +98,8 @@
       deploy.nodes = {
         rpi = {
           sshUser = "root";
-          hostname = "10.0.1.2";
+          sshOpts = [ "-p" "8022" ];
+          hostname = "rpi.nichi.link";
           profiles.system.path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
         };
         nrt0 = {
