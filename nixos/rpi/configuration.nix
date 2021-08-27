@@ -10,6 +10,8 @@
       duckdns = { };
     };
   };
+  
+  services.resolved.dnssec = "false";
 
   systemd.services.auth-thu = {
     serviceConfig = {
