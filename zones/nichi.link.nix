@@ -6,7 +6,7 @@ in
 dns.lib.toString "nichi.link" {
   TTL = 30;
   SOA = {
-    nameServer = "las0.nichi.link.";
+    nameServer = "sea0.nichi.link.";
     adminEmail = "noc@nichi.co";
     serial = 2021062400;
     refresh = 14400;
@@ -15,7 +15,7 @@ dns.lib.toString "nichi.link" {
     minimum = 300;
   };
   NS = [
-    "las0.nichi.link."
+    "sea0.nichi.link."
     "nrt0.nichi.link."
     "sin0.nichi.link."
   ];

@@ -91,18 +91,18 @@
         local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         rpi = import ./nixos/rpi { system = "aarch64-linux"; inherit self nixpkgs inputs; };
-        nrt0 = import ./nixos/nrt0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-        sin0 = import ./nixos/sin0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-        las0 = import ./nixos/las0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        nrt0 = import ./nixos/vultr/nrt0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        sin0 = import ./nixos/vultr/sin0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        sea0 = import ./nixos/vultr/sea0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
       deploy.nodes = {
         /*
-        rpi = {
+          rpi = {
           sshUser = "root";
           sshOpts = [ "-p" "8122" ];
           hostname = "rpi.nichi.link";
           profiles.system.path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
-        };
+          };
         */
         nrt0 = {
           sshUser = "root";
@@ -114,10 +114,10 @@
           hostname = "sin0.nichi.link";
           profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sin0;
         };
-        las0 = {
+        sea0 = {
           sshUser = "root";
-          hostname = "las0.nichi.link";
-          profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.las0;
+          hostname = "sea0.nichi.link";
+          profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sea0;
         };
       };
     };
