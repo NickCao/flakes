@@ -32,10 +32,6 @@ let mkService = { ExecStart, EnvironmentFile ? null }: {
 };
 in
 {
-  systemd.services.quark = mkService {
-    ExecStart = "${pkgs.quark}/bin/quark -l 127.0.0.1:8000";
-    EnvironmentFile = config.sops.secrets.quark.path;
-  };
   systemd.services.woff = mkService {
     ExecStart = "${pkgs.woff}/bin/woff -l 127.0.0.1:8001";
     EnvironmentFile = config.sops.secrets.woff.path;
@@ -87,10 +83,6 @@ in
             middlewares = [ "rait0" "rait1" "rait2" ];
             service = "rait";
           };
-          quark = {
-            rule = "Host(`cache.nichi.co`)";
-            service = "quark";
-          };
           woff = {
             rule = "Host(`pay.nichi.co`)";
             service = "woff";
@@ -123,11 +115,6 @@ in
           };
         };
         services = {
-          quark.loadBalancer = {
-            servers = [{
-              url = "http://127.0.0.1:8000";
-            }];
-          };
           woff.loadBalancer = {
             servers = [{
               url = "http://127.0.0.1:8001";
