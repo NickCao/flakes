@@ -124,4 +124,6 @@
   services.timesyncd.servers = [
     "101.6.6.172" # ntp.tuna.tsinghua.edu.cn
   ];
+
+  documentation.nixos.enable = false;
 }
