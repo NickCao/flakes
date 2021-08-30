@@ -17,7 +17,13 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpzrZLU0peDu1otGtP2GcCeQIkI8kmfHjnwpbfpWBkv"
   ];
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    hostKeys = [{
+      path = "/etc/ssh/ssh_host_ed25519_key";
+      type = "ed25519";
+    }];
+  };
 
   nix = {
     gc = {
@@ -109,7 +115,6 @@ in
     files = [
       "/etc/machine-id"
       "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_rsa_key"
     ];
   };
 }
