@@ -23,4 +23,5 @@ jobs:
     - uses: shimataro/ssh-key-action@v2
       with:
         key: '${{ secrets.SSH_PRIVATE_KEY }}'
+        known_hosts: unnecessary
     - run: nix shell .#deploy-rs -c deploy -s --ssh-opts="-4 -o StrictHostKeyChecking=no"
