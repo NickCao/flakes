@@ -41,7 +41,7 @@ in
     EnvironmentFile = config.sops.secrets.meow.path;
   };
   systemd.services.blog = mkService {
-    ExecStart = "${pkgs.caddy}/bin/caddy file-server -listen 127.0.0.1:8003 -root ${pkgs.nichi}";
+    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8003 -p ${pkgs.nichi}";
   };
 
   systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;
