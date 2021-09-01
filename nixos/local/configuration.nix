@@ -30,7 +30,6 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "nvidia-x11"
-    "nvidia-settings"
     "android-studio-stable"
   ];
 
@@ -107,6 +106,7 @@
     nvidia = {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       modesetting.enable = true;
+      nvidiaSettings = false;
     };
     pulseaudio.enable = false;
     cpu.intel.updateMicrocode = true;
