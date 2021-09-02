@@ -13,7 +13,6 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [
         self.overlay
-        inputs.neovim.overlay
         inputs.rust-overlay.overlay
         (final: prev: {
           alacritty = final.symlinkJoin {
