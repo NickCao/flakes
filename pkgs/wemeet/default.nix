@@ -26,5 +26,7 @@ qt5.mkDerivation {
     mv opt/wemeet/lib/libxnn*.so $out/lib
     mv opt/wemeet/lib/libxcast.so $out/lib
     mv opt/wemeet/lib/libtquic.so $out/lib
+    mkdir $out/share
+    mv opt/wemeet/icons $out/share
   '';
 }
