@@ -5,7 +5,7 @@ fetch.github = "google/ko"
 [auth-thu]
 src.github = "z4yx/GoAuthing"
 fetch.github = "z4yx/GoAuthing"
-passthru = { vendorSha256 = "sha256-SCLbX9NqMLBNSBHC3a921b8+3Vy7VHjUcFHbjidwQ+c=" }
+passthru = { vendorSha256 = "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o=" }
 
 [k0sctl]
 src.github = "k0sproject/k0sctl"
@@ -30,7 +30,7 @@ fetch.github = "Qv2ray/QvPlugin-SS"
 [v2ray-domain-list-community]
 src.git = "https://github.com/v2fly/domain-list-community"
 fetch.github = "v2fly/domain-list-community"
-passthru = { vendorSha256 = "sha256-wMwGqVqCSJ3801sfou0je/Cp1COMPYY0GH+Sx1Jev8s=" }
+passthru = { vendorSha256 = "sha256-z7snMYshusZbnhGOIyUKjJrbhJuMYLEqBqQYEA3VO4Y=" }
 
 [v2ray-geoip]
 src.git = "https://github.com/v2fly/geoip"

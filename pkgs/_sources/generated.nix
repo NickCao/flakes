@@ -12,7 +12,7 @@
       leaveDotGit = false;
       sha256 = "10dy49afirqy94ig1pq8wjlaw1w1q9jbz7fz4xwr2y801jv2dxn6";
     };
-    vendorSha256 = "sha256-SCLbX9NqMLBNSBHC3a921b8+3Vy7VHjUcFHbjidwQ+c=";
+    vendorSha256 = "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o=";
   };
   chasquid = {
     pname = "chasquid";
@@ -148,7 +148,7 @@
       leaveDotGit = false;
       sha256 = "1ga4fz74793v0li191x9d9gfdjfl841vr14h5lmik40i1d7q5bk6";
     };
-    vendorSha256 = "sha256-wMwGqVqCSJ3801sfou0je/Cp1COMPYY0GH+Sx1Jev8s=";
+    vendorSha256 = "sha256-z7snMYshusZbnhGOIyUKjJrbhJuMYLEqBqQYEA3VO4Y=";
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
