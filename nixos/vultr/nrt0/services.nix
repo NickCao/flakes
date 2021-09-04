@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
 let mkService = { ExecStart, EnvironmentFile ? null }: {
   serviceConfig = {
+    MemoryLimit = "300M";
     DynamicUser = true;
     NoNewPrivileges = true;
     ProtectSystem = "strict";
