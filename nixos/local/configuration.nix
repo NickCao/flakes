@@ -297,7 +297,6 @@
     gnome.gnome-screenshot
     gnome.eog
     gnome40Extensions."appindicatorsupport@rgcjonas.gmail.com"
-    gnome40Extensions."material-shell@papyelgringo"
   ];
 
   fonts.fonts = with pkgs; [
