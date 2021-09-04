@@ -3,14 +3,14 @@
 {
   auth-thu = {
     pname = "auth-thu";
-    version = "v2.1.2";
+    version = "v2.2";
     src = fetchgit {
       url = "https://github.com/z4yx/GoAuthing";
-      rev = "v2.1.2";
+      rev = "v2.2";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "01jll7ll3k3p1cm1vcz40j17g7zhdfpljyiwrrfhi6bdhpglpw7l";
+      sha256 = "10dy49afirqy94ig1pq8wjlaw1w1q9jbz7fz4xwr2y801jv2dxn6";
     };
     vendorSha256 = "sha256-SCLbX9NqMLBNSBHC3a921b8+3Vy7VHjUcFHbjidwQ+c=";
   };
@@ -29,14 +29,14 @@
   };
   k0sctl = {
     pname = "k0sctl";
-    version = "v0.9.0";
+    version = "v0.10.0";
     src = fetchgit {
       url = "https://github.com/k0sproject/k0sctl";
-      rev = "v0.9.0";
+      rev = "v0.10.0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "06z9bgapb1mjmnh08z7d0ivy7ldrqz04w3swvqrls5fyfzcz2vk9";
+      sha256 = "1l7cyf8jgzqbkq3clscxl0pv29hgs5qmg3zpq83g8g9lbiyqf1g4";
     };
   };
   ko = {
@@ -102,14 +102,14 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "8547229dca4a2907e6db7727c899ee0908afc2fe";
+    version = "11dc117d967e42f31b4437c72018233c0f87dea4";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "8547229dca4a2907e6db7727c899ee0908afc2fe";
+      rev = "11dc117d967e42f31b4437c72018233c0f87dea4";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0g141q1vn20wjpbvlnb12d5zr3ylaskqwnk9iy86d3sj0hr90n4s";
+      sha256 = "18cjgi3wq74cdkrx863qgg59pccklymr0inaqvgqxchi00hq3v54";
     };
   };
   traefik-certs-dumper = {
@@ -139,27 +139,27 @@
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "6ccee886e3314050523ecda538018a21a9143c5b";
+    version = "6247b4204027d10a59087db352aba94e2f0aaf4d";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "6ccee886e3314050523ecda538018a21a9143c5b";
+      rev = "6247b4204027d10a59087db352aba94e2f0aaf4d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1i85jzkj9bpvs6j1gnsh05s694jbs52phx3f3a6h9pfy5lc8z137";
+      sha256 = "1ga4fz74793v0li191x9d9gfdjfl841vr14h5lmik40i1d7q5bk6";
     };
     vendorSha256 = "sha256-wMwGqVqCSJ3801sfou0je/Cp1COMPYY0GH+Sx1Jev8s=";
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "65d572e4249382f95e10b271b93bf353fb8ec827";
+    version = "918e247537c4f22b6e2da843d4c7de15c1f08540";
     src = fetchgit {
       url = "https://github.com/v2fly/geoip";
-      rev = "65d572e4249382f95e10b271b93bf353fb8ec827";
+      rev = "918e247537c4f22b6e2da843d4c7de15c1f08540";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1ymzr794mx78ba1kmh0kz3yb4r8rfk17gwhibba1cfa0azlr4lmp";
+      sha256 = "1civs2qf13v7bmawd183kvnxxn9skr5si96pm65xfa8hn7sckqn9";
     };
   };
 }
