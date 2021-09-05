@@ -282,17 +282,14 @@
 
   environment.systemPackages = with pkgs; [
     android-studio
-    mode
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
     qvpersonal
     mpv
-    yubikey-manager
     tdesktop
     materia-theme
     numix-icon-theme-circle
     gnome.gnome-tweaks
     gnome.gnome-screenshot
-    gnome.eog
     gnome40Extensions."appindicatorsupport@rgcjonas.gmail.com"
   ];
 

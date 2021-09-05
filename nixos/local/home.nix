@@ -7,6 +7,8 @@ in
 {
   home.packages = with pkgs; [
     ncdu
+    mode
+    yubikey-manager
     age
     pandoc
     prime-run
