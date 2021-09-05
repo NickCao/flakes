@@ -4,7 +4,6 @@
     defaultSopsFile = ./secrets.yaml;
     secrets = {
       rait = { };
-      meow = { };
       woff = { };
       bark = { };
       traefik = { owner = config.systemd.services.traefik.serviceConfig.User; };

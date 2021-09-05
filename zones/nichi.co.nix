@@ -41,6 +41,7 @@ dns.lib.toString "nichi.co" {
     (with spf; soft [ "include:spf.messagingengine.com" ])
   ];
   subdomains = {
+    pb.CNAME = [ "hel0.nichi.link." ];
     s3.CNAME = [ "hel0.nichi.link." ];
     stats.CNAME = [ "hel0.nichi.link." ];
     www.TXT = [ "http.cat/404" ];

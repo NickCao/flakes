@@ -37,10 +37,7 @@ in
     ExecStart = "${pkgs.woff}/bin/woff -l 127.0.0.1:8001";
     EnvironmentFile = config.sops.secrets.woff.path;
   };
-  systemd.services.meow = mkService {
-    ExecStart = "${pkgs.meow}/bin/meow";
-    EnvironmentFile = config.sops.secrets.meow.path;
-  };
+
   systemd.services.blog = mkService {
     ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8003 -p ${pkgs.nichi}";
   };
@@ -88,10 +85,6 @@ in
             rule = "Host(`pay.nichi.co`)";
             service = "woff";
           };
-          meow = {
-            rule = "Host(`pb.nichi.co`)";
-            service = "meow";
-          };
           blog = {
             rule = "Host(`nichi.co`)";
             middlewares = [ "blog" ];
@@ -119,11 +112,6 @@ in
           woff.loadBalancer = {
             servers = [{
               url = "http://127.0.0.1:8001";
-            }];
-          };
-          meow.loadBalancer = {
-            servers = [{
-              url = "http://127.0.0.1:8002";
             }];
           };
           blog.loadBalancer = {

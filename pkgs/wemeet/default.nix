@@ -7,7 +7,7 @@ qt5.mkDerivation {
     sha256 = "sha256-prNQawKHAZZpTxODVMzOb6qB44oZok46OzQmyLJO/L8=";
   };
   nativeBuildInputs = [ dpkg autoPatchelfHook ];
-  autoPatchelfIgnoreMissingDeps=true;
+  autoPatchelfIgnoreMissingDeps = true;
   buildInputs = [
     xorg.libXrandr
     xorg.libXinerama
