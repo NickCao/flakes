@@ -1,4 +1,5 @@
-{ gcc11Stdenv
+{ source
+, gcc11Stdenv
 , lib
 , fetchurl
 , autoPatchelfHook
@@ -23,12 +24,7 @@
 , tslib
 }:
 gcc11Stdenv.mkDerivation rec {
-  pname = "qvpersonal";
-  version = "2021-08-25";
-  src = fetchurl {
-    url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/nightly-${version}/qv2ray-static-bin-nightly-${version}-archlinux-x86_64.tar.zst";
-    sha256 = "sha256-5MTfu8TYUp6h8U0ux941qJetZMrmaWpI/NK5Kfvb8fU";
-  };
+  inherit (source) pname version src;
   dontUnpack = true;
   nativeBuildInputs = [ autoPatchelfHook zstd ];
   buildInputs = [

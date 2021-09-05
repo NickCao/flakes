@@ -27,30 +27,6 @@
     };
     vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=";
   };
-  k0sctl = {
-    pname = "k0sctl";
-    version = "v0.10.0";
-    src = fetchgit {
-      url = "https://github.com/k0sproject/k0sctl";
-      rev = "v0.10.0";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "1l7cyf8jgzqbkq3clscxl0pv29hgs5qmg3zpq83g8g9lbiyqf1g4";
-    };
-  };
-  ko = {
-    pname = "ko";
-    version = "v0.8.3";
-    src = fetchgit {
-      url = "https://github.com/google/ko";
-      rev = "v0.8.3";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "1ccw09ghpnxsv88mp6y6amyif95hrq004m8x3albbxda77whxb1q";
-    };
-  };
   material-decoration = {
     pname = "material-decoration";
     version = "e652d62451dc67a9c6bc16c00ccbc38fed3373dd";
@@ -63,28 +39,12 @@
       sha256 = "182hqn4kbh0vmnbhj7nrqx2lypkddd6appp5y4kqinnw8dmpdyqx";
     };
   };
-  qv2ray = {
-    pname = "qv2ray";
-    version = "a35ce6fba825ae3e6b9e4f03c53e018db3efb848";
-    src = fetchgit {
-      url = "https://github.com/Qv2ray/Qv2ray";
-      rev = "a35ce6fba825ae3e6b9e4f03c53e018db3efb848";
-      fetchSubmodules = true;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "0w4hw84ylwvf7j4ha6zqrg2r6v4ybmf7l0i263k1qsv0d65gpqn0";
-    };
-  };
-  qv2ray-plugin-ss = {
-    pname = "qv2ray-plugin-ss";
-    version = "b8a497ed610b968eab0dc0a47e87ded63a2d64a9";
-    src = fetchgit {
-      url = "https://github.com/Qv2ray/QvPlugin-SS";
-      rev = "b8a497ed610b968eab0dc0a47e87ded63a2d64a9";
-      fetchSubmodules = true;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "1acnqvfwgxjn2d3gbbkd3dp1vw7j53a7flwwn4mn93l9y6y0n72r";
+  qvpersonal = {
+    pname = "qvpersonal";
+    version = "nightly-2021-09-03";
+    src = fetchurl {
+      url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/nightly-2021-09-03/qv2ray-static-bin-nightly-2021-09-03-archlinux-x86_64.tar.zst";
+      sha256 = "1sh1rcvlh4jbd13nk8mgg0xjl2ba8a18kn9dhhcg8md13yr8rjgb";
     };
   };
   rait = {
@@ -111,19 +71,6 @@
       leaveDotGit = false;
       sha256 = "18cjgi3wq74cdkrx863qgg59pccklymr0inaqvgqxchi00hq3v54";
     };
-  };
-  traefik-certs-dumper = {
-    pname = "traefik-certs-dumper";
-    version = "2d83180d3e64a90c68499a1755a70cedaf9a4b93";
-    src = fetchgit {
-      url = "https://github.com/ldez/traefik-certs-dumper";
-      rev = "2d83180d3e64a90c68499a1755a70cedaf9a4b93";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "03g8y4mjsi2wlmjlb63h7ia663hyi5gzg7fzwwc9hvdjvp90laj7";
-    };
-    vendorSha256 = "sha256-4v8We/3FgFqXxlGaoQXQ6EQn8bbAkMrWkjfTUo2U8FU=";
   };
   tslib = {
     pname = "tslib";

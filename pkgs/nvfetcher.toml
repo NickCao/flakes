@@ -1,31 +1,11 @@
-[ko]
-src.github = "google/ko"
-fetch.github = "google/ko"
-
 [auth-thu]
 src.github = "z4yx/GoAuthing"
 fetch.github = "z4yx/GoAuthing"
 passthru = { vendorSha256 = "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o=" }
 
-[k0sctl]
-src.github = "k0sproject/k0sctl"
-fetch.github = "k0sproject/k0sctl"
-
 [material-decoration]
 src.git = "https://github.com/Zren/material-decoration"
 fetch.github = "Zren/material-decoration"
-
-[qv2ray]
-src.git = "https://github.com/Qv2ray/Qv2ray"
-src.branch = "dev"
-git.fetchSubmodules = true
-fetch.github = "Qv2ray/Qv2ray"
-
-[qv2ray-plugin-ss]
-src.git = "https://github.com/Qv2ray/QvPlugin-SS"
-src.branch = "dev"
-git.fetchSubmodules = true
-fetch.github = "Qv2ray/QvPlugin-SS"
 
 [v2ray-domain-list-community]
 src.git = "https://github.com/v2fly/domain-list-community"
@@ -52,11 +32,10 @@ src.github_tag = "albertito/chasquid"
 fetch.github = "albertito/chasquid"
 passthru = { vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=" }
 
-[traefik-certs-dumper]
-src.git = "https://github.com/ldez/traefik-certs-dumper"
-fetch.github = "ldez/traefik-certs-dumper"
-passthru = { vendorSha256 = "sha256-4v8We/3FgFqXxlGaoQXQ6EQn8bbAkMrWkjfTUo2U8FU=" }
-
 [tslib]
 src.github = "libts/tslib"
 fetch.github = "libts/tslib"
+
+[qvpersonal]
+src.github = "Shadowsocks-NET/QvStaticBuild"
+fetch.url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/$ver/qv2ray-static-bin-$ver-archlinux-x86_64.tar.zst"
