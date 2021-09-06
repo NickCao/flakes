@@ -88,6 +88,7 @@
       entryPoints = {
         nrt0.address = ":40001";
         sin0.address = ":40002";
+        sea0.address = ":40003";
       };
     };
     dynamicConfigOptions = {
@@ -103,10 +104,16 @@
             rule = "HostSNI(`*`)";
             service = "sin0";
           };
+          sea0 = {
+            entryPoints = [ "sea0" ];
+            rule = "HostSNI(`*`)";
+            service = "sea0";
+          };
         };
         services = {
           nrt0.loadBalancer.servers = [{ address = "nrt0.nichi.link:41287"; }];
           sin0.loadBalancer.servers = [{ address = "sin0.nichi.link:41287"; }];
+          sea0.loadBalancer.servers = [{ address = "sea0.nichi.link:41287"; }];
         };
       };
     };
