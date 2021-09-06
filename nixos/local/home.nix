@@ -174,7 +174,7 @@ in
         [Desktop Entry]
         Name=qv2ray
         GenericName=V2Ray Frontend
-        Exec=bash -c "sleep 5; qv2ray"
+        Exec=qv2ray
         Terminal=false
         Icon=qv2ray
         Categories=Network
@@ -187,7 +187,7 @@ in
         Version=1.0
         Name=Telegram Desktop
         Comment=Official desktop version of Telegram messaging app
-        Exec=telegram-desktop -workdir ${config.xdg.dataHome}/TelegramDesktop/ -autostart
+        Exec=telegram-desktop -workdir ${config.xdg.dataHome}/TelegramDesktop/ -startintray
         Icon=telegram
         Terminal=false
         StartupWMClass=TelegramDesktop
