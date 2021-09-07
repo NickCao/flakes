@@ -1,11 +1,6 @@
-{ qt5, fetchurl, dpkg, autoPatchelfHook, xorg, libbsd }:
+{ source, qt5, fetchurl, dpkg, autoPatchelfHook, xorg, libbsd }:
 qt5.mkDerivation {
-  pname = "wemeet";
-  version = "2.8.0.0";
-  src = fetchurl {
-    url = "https://updatecdn.meeting.qq.com/ad878a99-76c4-4058-ae83-22ee948cce98/TencentMeeting_0300000000_2.8.0.0_x86_64.publish.deb";
-    sha256 = "sha256-prNQawKHAZZpTxODVMzOb6qB44oZok46OzQmyLJO/L8=";
-  };
+  inherit (source) pname version src;
   nativeBuildInputs = [ dpkg autoPatchelfHook ];
   autoPatchelfIgnoreMissingDeps = true;
   buildInputs = [

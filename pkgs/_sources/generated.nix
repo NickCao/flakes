@@ -41,10 +41,10 @@
   };
   qvpersonal = {
     pname = "qvpersonal";
-    version = "nightly-2021-09-03";
+    version = "nightly-2021-09-06";
     src = fetchurl {
-      url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/nightly-2021-09-03/qv2ray-static-bin-nightly-2021-09-03-archlinux-x86_64.tar.zst";
-      sha256 = "1sh1rcvlh4jbd13nk8mgg0xjl2ba8a18kn9dhhcg8md13yr8rjgb";
+      url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/nightly-2021-09-06/qv2ray-static-bin-nightly-2021-09-06-archlinux-x86_64.tar.zst";
+      sha256 = "179j244n7yf14gyiy65ipmb2qmp85w5vwyc981dq2c8bwnz6vinv";
     };
   };
   rait = {
@@ -86,27 +86,35 @@
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "6247b4204027d10a59087db352aba94e2f0aaf4d";
+    version = "7da052be2c58d4589d7e2b7e0fdbceeb0064ab33";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "6247b4204027d10a59087db352aba94e2f0aaf4d";
+      rev = "7da052be2c58d4589d7e2b7e0fdbceeb0064ab33";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1ga4fz74793v0li191x9d9gfdjfl841vr14h5lmik40i1d7q5bk6";
+      sha256 = "118kal7b2fjlcj8485zmz1jp4d1n9nnf9grdrb0ckj1f1msgdpr3";
     };
-    vendorSha256 = "sha256-z7snMYshusZbnhGOIyUKjJrbhJuMYLEqBqQYEA3VO4Y=";
+    vendorSha256 = "sha256-E3TECmxPEmKaE8QF6mbi36J8sGnFJSwPytbedXL4evo=";
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "918e247537c4f22b6e2da843d4c7de15c1f08540";
+    version = "e4eae0e7c4498241611ebf9eefcf31170fef2a6c";
     src = fetchgit {
       url = "https://github.com/v2fly/geoip";
-      rev = "918e247537c4f22b6e2da843d4c7de15c1f08540";
+      rev = "e4eae0e7c4498241611ebf9eefcf31170fef2a6c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sha256 = "1civs2qf13v7bmawd183kvnxxn9skr5si96pm65xfa8hn7sckqn9";
+    };
+  };
+  wemeet = {
+    pname = "wemeet";
+    version = "2.8.0.0";
+    src = fetchurl {
+      url = "https://updatecdn.meeting.qq.com/ad878a99-76c4-4058-ae83-22ee948cce98/TencentMeeting_0300000000_2.8.0.0_x86_64.publish.deb";
+      sha256 = "1gzw9srch9il7cx4x8hribiq3akgrv6590qk9xlrc0c709mm1cx6";
     };
   };
 }
