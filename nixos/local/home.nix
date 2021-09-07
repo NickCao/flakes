@@ -6,6 +6,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    helix
     ncdu
     mode
     yubikey-manager
@@ -165,7 +166,18 @@ in
       publicShare = "$HOME";
     };
     configFile = {
-      "qv2ray/plugin_settings/builtin_v2ray_support.json".source = (pkgs.formats.json {}).generate "v2ray.json" {
+      "helix/config.toml".source = toTOMLDrv {
+        theme = "onedark";
+        editor = {
+          scrolloff = 5;
+          scroll-lines = 5;
+          shell = [ "/bin/sh" "-c" ];
+        };
+        lsp = {
+          display-messages = true;
+        };
+      };
+      "qv2ray/plugin_settings/builtin_v2ray_support.json".source = (pkgs.formats.json { }).generate "v2ray.json" {
         AssetsPath = "${pkgs.symlinkJoin { name = "assets"; paths = [ pkgs.v2ray-geoip pkgs.v2ray-domain-list-community.data ]; }}/share/v2ray";
         CorePath = "${pkgs.v2ray.core}/bin/v2ray";
       };
