@@ -6,7 +6,6 @@ let
 in
 {
   home.packages = with pkgs; [
-    helix
     ncdu
     mode
     yubikey-manager
@@ -101,6 +100,8 @@ in
       '';
       shellAliases = {
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
+        vim = "hx";
+        vi = "hx";
       };
     };
     starship = {

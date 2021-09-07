@@ -185,69 +185,6 @@
   };
 
   programs = {
-    neovim = {
-      enable = true;
-      vimAlias = true;
-      viAlias = true;
-      defaultEditor = true;
-      configure = {
-        customRC = ''
-          " shortcuts
-          noremap <C-x> <Esc>:x<CR>
-          noremap <C-s> <Esc>:w<CR>
-          noremap <C-q> <Esc>:q!<CR>
-          set number
-          set background=light
-          set clipboard+=unnamedplus
-          colorscheme solarized
-          let g:netrw_liststyle = 3 " tree style
-          let g:netrw_banner = 0 " no banner
-          let g:netrw_browse_split = 3 " new tab
-          let g:airline_theme = 'solarized'
-          set tabstop=2 shiftwidth=2 expandtab smarttab
-          " cycle through completions with tab
-          inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-          inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-          set completeopt=menuone,noinsert,noselect
-          set shortmess+=c
-          lua << EOF
-          local nvim_lsp = require('lspconfig')
-          local on_attach = function(client, bufnr)
-            require('completion').on_attach()
-            local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-            local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-            buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-            local opts = { noremap=true, silent=true }
-            buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-            buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-            buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
-            buf_set_keymap('n', '<Space>h', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-            buf_set_keymap('n', '<Space>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
-            buf_set_keymap('n', '<Space>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-          end
-          nvim_lsp['gopls'].setup { on_attach = on_attach, cmd = { '${pkgs.gopls}/bin/gopls' } }
-          nvim_lsp['rust_analyzer'].setup { on_attach = on_attach, cmd = { 'rust-analyzer' } }
-          nvim_lsp['yamlls'].setup { on_attach = on_attach, cmd = { '${pkgs.yaml-language-server}/bin/yaml-language-server', '--stdio'} }
-          nvim_lsp['terraformls'].setup { on_attach = on_attach, cmd = { '${pkgs.terraform-ls}/bin/terraform-ls', 'serve' }, filetypes = { 'tf' } }
-          EOF
-        '';
-        packages.vim = {
-          start = with pkgs.vimPlugins; [
-            # solarized themes make my day
-            vim-colors-solarized
-            # nice and lean status line
-            vim-airline
-            vim-airline-themes
-            # lsp client config
-            nvim-lspconfig
-            completion-nvim
-            # misc
-            vim-nix
-            vim-lastplace
-          ];
-        };
-      };
-    };
     adb.enable = true;
     chromium = {
       enable = true;
@@ -280,7 +217,9 @@
     cue = true;
   };
 
+  environment.variables.EDITOR = "hx";
   environment.systemPackages = with pkgs; [
+    helix
     android-studio
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
     qvpersonal
