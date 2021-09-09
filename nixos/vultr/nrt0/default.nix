@@ -12,6 +12,7 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.telegraf
     self.nixosModules.ss
     self.nixosModules.cloud.common
+    self.nixosModules.cloud.cluster
     {
       nixpkgs.overlays = [
         self.overlay

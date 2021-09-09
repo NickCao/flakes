@@ -37,33 +37,9 @@
     node = "2a0c:b641:69c:7860::/60";
     prefixes = [ "2a0c:b641:690::/48" "2a0c:b641:69c::/48" "2a0c:b641:691::/48" ];
   };
-  services.consul = {
+  services.cluster = {
     enable = true;
-    webUi = true;
-    interface.bind = "enp1s0";
-    interface.advertise = "enp1s0";
-    extraConfig = {
-      server = true;
-      datacenter = "global";
-      bootstrap_expect = 3;
-      retry_join = [ "nrt0.nichi.link" "sin0.nichi.link" "sea0.nichi.link" ];
-    };
-  };
-  services.nomad = {
-    enable = true;
-    enableDocker = false;
-    settings = {
-      datacenter = "nrt";
-      client = {
-        enabled = true;
-      };
-      server = {
-        enabled = true;
-        bootstrap_expect = 3;
-      };
-      consul = {
-        server_auto_join = true;
-      };
-    };
+    datacenter = "apac";
+    servers = [ "nrt0.nichi.link" "sin0.nichi.link" "sea0.nichi.link" ];
   };
 }
