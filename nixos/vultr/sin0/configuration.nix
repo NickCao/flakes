@@ -34,4 +34,15 @@
     node = "2a0c:b641:69c:f250::/60";
     prefixes = [ "2a0c:b641:690::/48" "2a0c:b641:69c::/48" "2a0c:b641:692::/48" ];
   };
+  services.consul = {
+    enable = true;
+    webUi = true;
+    interface.bind = "enp1s0";
+    interface.advertise = "enp1s0";
+    extraConfig = {
+      server = true;
+      bootstrap_expect = 3;
+      retry_join = [ "nrt0.nichi.link" "sin0.nichi.link" "sea0.nichi.link" ];
+    };
+  };
 }
