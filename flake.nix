@@ -30,6 +30,12 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.utils.follows = "flake-utils";
     };
+    nvfetcher = {
+      url = "github:berberman/nvfetcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,11 +63,21 @@
       (
         system:
         let
-          pkgs = import nixpkgs { inherit system; config.allowUnfree = true; overlays = [ self.overlay inputs.deploy-rs.overlay inputs.rust-overlay.overlay inputs.fn.overlay ]; };
+          pkgs = import nixpkgs {
+            inherit system; config.allowUnfree = true;
+            overlays = [
+              self.overlay
+              inputs.deploy-rs.overlay
+              inputs.rust-overlay.overlay
+              inputs.fn.overlay
+              inputs.nvfetcher.overlay
+            ];
+          };
         in
         rec {
           packages = this.packages pkgs // {
             deploy-rs = pkgs.deploy-rs.deploy-rs;
+            nvfetcher-bin = pkgs.nvfetcher-bin;
             inherit (pkgs) "db.co.nichi" "db.link.nichi";
           };
           checks = packages // (inputs.deploy-rs.lib.${system}.deployChecks {

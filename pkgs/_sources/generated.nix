@@ -41,10 +41,10 @@
   };
   qvpersonal = {
     pname = "qvpersonal";
-    version = "nightly-2021-09-06";
+    version = "nightly-2021-09-08";
     src = fetchurl {
-      url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/nightly-2021-09-06/qv2ray-static-bin-nightly-2021-09-06-archlinux-x86_64.tar.zst";
-      sha256 = "179j244n7yf14gyiy65ipmb2qmp85w5vwyc981dq2c8bwnz6vinv";
+      url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/nightly-2021-09-08/qv2ray-static-bin-nightly-2021-09-08-archlinux-x86_64.tar.zst";
+      sha256 = "0d40nc7fjiasz7z3lacxq7fgb1743rsscs6d9lac575qs0dmamwg";
     };
   };
   rait = {
@@ -62,14 +62,14 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "11dc117d967e42f31b4437c72018233c0f87dea4";
+    version = "172e3ea80c7cdecdfc661f36642e2268a4b51464";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "11dc117d967e42f31b4437c72018233c0f87dea4";
+      rev = "172e3ea80c7cdecdfc661f36642e2268a4b51464";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "18cjgi3wq74cdkrx863qgg59pccklymr0inaqvgqxchi00hq3v54";
+      sha256 = "0lmjgvagrgxnml81ndwwl2bcbxdhhxkw3fryyphpdl1m6hh1hs25";
     };
   };
   tslib = {
@@ -99,14 +99,14 @@
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "e4eae0e7c4498241611ebf9eefcf31170fef2a6c";
+    version = "3b41528ef823625bdd31054c1066622384964484";
     src = fetchgit {
       url = "https://github.com/v2fly/geoip";
-      rev = "e4eae0e7c4498241611ebf9eefcf31170fef2a6c";
+      rev = "3b41528ef823625bdd31054c1066622384964484";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1civs2qf13v7bmawd183kvnxxn9skr5si96pm65xfa8hn7sckqn9";
+      sha256 = "1537x1479g9rkfgqyy0y6pz3bp3nf13jzll7k3wy2h0r4rixk7li";
     };
   };
   wemeet = {
