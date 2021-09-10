@@ -34,9 +34,4 @@
     node = "2a0c:b641:69c:f250::/60";
     prefixes = [ "2a0c:b641:690::/48" "2a0c:b641:69c::/48" "2a0c:b641:692::/48" ];
   };
-  services.cluster = {
-    enable = true;
-    datacenter = "apac";
-    servers = [ "nrt0.nichi.link" "sin0.nichi.link" "sea0.nichi.link" ];
-  };
 }

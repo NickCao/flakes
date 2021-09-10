@@ -12,9 +12,4 @@
   services.dns = {
     enable = true;
   };
-  services.cluster = {
-    enable = true;
-    datacenter = "us";
-    servers = [ "nrt0.nichi.link" "sin0.nichi.link" "sea0.nichi.link" ];
-  };
 }

@@ -30,11 +30,15 @@ in
     };
     services.nomad = {
       enable = true;
+      dropPrivileges = false;
       enableDocker = false;
       settings = {
         datacenter = cfg.datacenter;
         client = {
           enabled = true;
+          chroot_env = {
+            "/" = "/";
+          };
         };
         server = {
           enabled = true;
