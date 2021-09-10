@@ -170,8 +170,6 @@ in
       "helix/config.toml".source = toTOMLDrv {
         theme = "onedark";
         editor = {
-          scrolloff = 5;
-          scroll-lines = 5;
           shell = [ "/bin/sh" "-c" ];
         };
         lsp = {
