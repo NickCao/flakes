@@ -2,7 +2,10 @@
 {
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    secrets = { };
+    secrets = {
+      vault-agent-roleid = { mode = "0444"; };
+      vault-agent-secretid = { mode = "0444"; };
+    };
     sshKeyPaths = [ "/var/lib/sops.key" ];
   };
   networking = {
@@ -12,4 +15,5 @@
   services.dns = {
     enable = true;
   };
+  services.cluster.enable = true;
 }
