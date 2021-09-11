@@ -64,12 +64,10 @@ let
     ];
   };
   consul-config = (pkgs.formats.json { }).generate "consul.json" {
-    acl = {
-      enabled = false;
-    };
     advertise_addr_ipv4 = "{{ GetPublicInterfaces | include \"type\" \"IPv4\" | limit 1 | attr \"address\" }}";
     advertise_addr_ipv6 = "{{ GetPublicInterfaces | include \"type\" \"IPv6\" | limit 1 | attr \"address\" }}";
     bind_addr = "{{ GetPublicInterfaces | include \"type\" \"IPv4\" | limit 1 | attr \"address\" }}";
+    datacenter = "global";
     auto_config = {
       enabled = true;
       intro_token_file = "/tmp/intro_token";
@@ -78,7 +76,6 @@ let
     connect = {
       enabled = true;
     };
-    datacenter = "global";
     disable_keyring_file = true;
     ports = {
       http = -1;
