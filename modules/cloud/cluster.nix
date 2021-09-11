@@ -108,7 +108,11 @@ let
     };
     client = {
       enabled = true;
+      chroot_env = {
+        "/etc/passwd" = "/etc/passwd";
+      };
     };
+    plugin = [{ raw_exec.config.enabled = true; }];
     tls = {
       ca_file = "/tmp/nomad_ca.crt";
       cert_file = "/tmp/nomad_server.crt";
