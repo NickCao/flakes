@@ -80,6 +80,7 @@ let
     ports = {
       http = -1;
       https = 8501;
+      grpc = 8502;
     };
     ca_file = "/tmp/consul_ca.crt";
     verify_incoming = true;
@@ -97,6 +98,7 @@ let
     };
     consul = {
       address = "127.0.0.1:8501";
+      grpc_address = "127.0.0.1:8502";
       ca_file = "/tmp/consul_ca.crt";
       cert_file = "/tmp/consul_server.crt";
       key_file = "/tmp/consul_server.key";
@@ -105,6 +107,7 @@ let
     };
     client = {
       enabled = true;
+      cni_path = "${pkgs.cni-plugins}/bin";
       chroot_env = {
         "/etc/passwd" = "/etc/passwd";
       };
@@ -176,7 +179,7 @@ in
       requires = [ "network-online.target" "vault-agent.service" ];
       after = [ "network-online.target" "vault-agent.service" ];
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [ coreutils iproute2 ];
+      path = with pkgs; [ coreutils iproute2 consul ];
       unitConfig = {
         JoinsNamespaceOf = "vault-agent.service";
       };
