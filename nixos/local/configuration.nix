@@ -251,7 +251,6 @@
     ];
   };
 
-  documentation.nixos.enable = false;
-
   system.stateVersion = "20.09";
+  # system.disableInstallerTools = true;
 }
