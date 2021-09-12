@@ -42,13 +42,6 @@ in
     ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8003 -p ${pkgs.nichi}";
   };
 
-  virtualisation.oci-containers.backend = "podman";
-  virtualisation.oci-containers.containers.whatever = {
-    image = "ghcr.io/fantasquex/whatever:latest";
-    extraOptions = [ "--network=slirp4netns" "--memory=700M" ];
-    ports = [ "127.0.0.1:9001:8080" ];
-  };
-
   systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;
   services.traefik = {
     enable = true;
@@ -97,10 +90,6 @@ in
             middlewares = [ "blog" ];
             service = "blog";
           };
-          whatever = {
-            rule = "Host(`whatever.nichi.co`)";
-            service = "whatever";
-          };
         };
         middlewares = {
           rait0.replacePath = {
@@ -120,11 +109,6 @@ in
           };
         };
         services = {
-          whatever.loadBalancer = {
-            servers = [{
-              url = "http://127.0.0.1:9001";
-            }];
-          };
           woff.loadBalancer = {
             servers = [{
               url = "http://127.0.0.1:8001";
