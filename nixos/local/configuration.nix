@@ -30,7 +30,6 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "nvidia-x11"
-    "android-studio-stable"
   ];
 
   networking = {
@@ -220,7 +219,6 @@
   environment.variables.EDITOR = "hx";
   environment.systemPackages = with pkgs; [
     helix
-    android-studio
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
     qvpersonal
     mpv
