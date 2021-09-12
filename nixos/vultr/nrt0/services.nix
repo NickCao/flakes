@@ -1,45 +1,12 @@
 { pkgs, config, ... }:
-let mkService = { ExecStart, EnvironmentFile ? null }: {
-  serviceConfig = {
-    MemoryLimit = "300M";
-    DynamicUser = true;
-    NoNewPrivileges = true;
-    ProtectSystem = "strict";
-    PrivateUsers = true;
-    PrivateDevices = true;
-    ProtectClock = true;
-    ProtectControlGroups = true;
-    ProtectHome = true;
-    ProtectKernelTunables = true;
-    ProtectKernelModules = true;
-    ProtectKernelLogs = true;
-    ProtectProc = "invisible";
-    LockPersonality = true;
-    MemoryDenyWriteExecute = true;
-    RestrictNamespaces = true;
-    RestrictRealtime = true;
-    RestrictSUIDSGID = true;
-    CapabilityBoundingSet = "";
-    ProtectHostname = true;
-    ProcSubset = "pid";
-    SystemCallArchitectures = "native";
-    UMask = "0077";
-    SystemCallFilter = "@system-service";
-    SystemCallErrorNumber = "EPERM";
-    Restart = "always";
-    inherit ExecStart EnvironmentFile;
-  };
-  wantedBy = [ "multi-user.target" ];
-};
-in
 {
-  systemd.services.woff = mkService {
-    ExecStart = "${pkgs.woff}/bin/woff -l 127.0.0.1:8001";
-    EnvironmentFile = config.sops.secrets.woff.path;
+  cloud.services.woff = {
+    exec = "${pkgs.woff}/bin/woff -l 127.0.0.1:8001";
+    envFile = config.sops.secrets.woff.path;
   };
 
-  systemd.services.blog = mkService {
-    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8003 -p ${pkgs.nichi}";
+  cloud.services.blog = {
+    exec = "${pkgs.serve}/bin/serve -l 127.0.0.1:8003 -p ${pkgs.nichi}";
   };
 
   systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;
