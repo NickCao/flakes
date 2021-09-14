@@ -40,8 +40,6 @@ in
     # cache
     XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
-    # config
-    REGISTRY_AUTH_FILE = "${config.xdg.configHome}/containers/auth.json";
     # data
     HISTFILE = "${config.xdg.dataHome}/bash_history";
     LESSHISTFILE = "${config.xdg.dataHome}/lesshst";
