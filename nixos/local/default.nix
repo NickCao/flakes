@@ -15,6 +15,9 @@ nixpkgs.lib.nixosSystem {
         self.overlay
         inputs.rust-overlay.overlay
         (final: prev: {
+          smartdns = prev.smartdns.overrideAttrs (attrs: {
+            postPatch = "rm systemd/smartdns.service";
+          });
           alacritty = final.symlinkJoin {
             name = "alacritty";
             paths = [ prev.alacritty ];
