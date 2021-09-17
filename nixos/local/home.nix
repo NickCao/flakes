@@ -6,6 +6,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    xilinx-env
     ncdu
     mode
     yubikey-manager
