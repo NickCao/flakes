@@ -7,6 +7,7 @@ in
 {
   home.packages = with pkgs; [
     xilinx-env
+    ranger
     ncdu
     mode
     yubikey-manager
