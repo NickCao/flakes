@@ -5,7 +5,6 @@
     secrets = {
       rait = { };
     };
-    sshKeyPaths = [ "/var/lib/sops.key" ];
   };
   networking = {
     hostName = "sin0";

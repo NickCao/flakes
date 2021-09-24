@@ -3,7 +3,6 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     secrets = { };
-    sshKeyPaths = [ "/var/lib/sops.key" ];
   };
   networking = {
     hostName = "sea0";

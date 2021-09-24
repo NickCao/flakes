@@ -8,6 +8,12 @@ in
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
+  sops = {
+    age.keyFile = "/var/lib/sops.key";
+    age.sshKeyPaths = [ ];
+    gnupg.sshKeyPaths = [ ];
+  };
+
   i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
 
   users.mutableUsers = false;
