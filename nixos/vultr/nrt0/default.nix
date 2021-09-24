@@ -19,7 +19,6 @@ nixpkgs.lib.nixosSystem {
         inputs.fn.overlay
         inputs.blog.overlay
         inputs.rust-overlay.overlay
-        inputs.naersk.overlay
       ];
     }
     inputs.sops-nix.nixosModules.sops
