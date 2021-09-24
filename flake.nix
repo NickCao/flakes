@@ -8,10 +8,6 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
-    naersk = {
-      url = "github:nmattia/naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     blog = {
       url = "gitlab:NickCao/blog";
       inputs.nixpkgs.follows = "nixpkgs";
