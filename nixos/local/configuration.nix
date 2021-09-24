@@ -9,7 +9,7 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     secrets.rait = { };
-    sshKeyPaths = [ "/var/lib/ssh/ssh_host_rsa_key" ];
+    gnupg.sshKeyPaths = [ "/var/lib/ssh/ssh_host_rsa_key" ];
   };
 
   nix = {

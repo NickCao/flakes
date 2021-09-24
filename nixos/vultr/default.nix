@@ -5,5 +5,6 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.cloud.common
     self.nixosModules.vultr
     inputs.impermanence.nixosModules.impermanence
+    inputs.sops-nix.nixosModule
   ];
 }

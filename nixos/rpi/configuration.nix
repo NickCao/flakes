@@ -4,7 +4,7 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    sshKeyPaths = [ "/var/lib/sops.key" ];
+    gnupg.sshKeyPaths = [ "/var/lib/sops.key" ];
     secrets = {
       auth = { };
       duckdns = { };

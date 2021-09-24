@@ -9,8 +9,10 @@ in
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   sops = {
-    age.keyFile = "/var/lib/sops.key";
-    age.sshKeyPaths = [ ];
+    age = {
+      keyFile = "/var/lib/sops.key";
+      sshKeyPaths = [ ];
+    };
     gnupg.sshKeyPaths = [ ];
   };
 
