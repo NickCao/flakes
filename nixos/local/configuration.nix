@@ -18,7 +18,7 @@
 
   nix = {
     autoOptimiseStore = true;
-    binaryCaches = pkgs.lib.mkForce [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://cache.nichi.workers.dev" "https://nichi.cachix.org" ];
+    binaryCaches = pkgs.lib.mkForce [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://mirror.sjtu.edu.cn/nix-channels/store" "https://nichi.cachix.org" ];
     binaryCachePublicKeys = [ "nichi.cachix.org-1:ZWn4Jui6odEcNEMjcHM/WXbDSVO4Ai+jrzWHf+pqwj0=" ];
     trustedUsers = [ "root" "nickcao" ];
     package = pkgs.nixUnstable;
@@ -256,5 +256,4 @@
   };
 
   system.stateVersion = "20.09";
-  # system.disableInstallerTools = true;
 }
