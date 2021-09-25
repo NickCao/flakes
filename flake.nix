@@ -103,26 +103,27 @@
         sea0 = import ./nixos/vultr/sea0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
       deploy.nodes = {
-        /*
         rpi = {
           sshUser = "root";
-          sshOpts = [ "-p" "8122" ];
+          sshOpts = [ "-p" "8122" "-4" "-o" "StrictHostKeyChecking=no" ];
           hostname = "rpi.nichi.link";
           profiles.system.path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
         };
-        */
         nrt0 = {
           sshUser = "root";
+          sshOpts = [ "-4" "-o" "StrictHostKeyChecking=no" ];
           hostname = "nrt0.nichi.link";
           profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nrt0;
         };
         sin0 = {
           sshUser = "root";
+          sshOpts = [ "-4" "-o" "StrictHostKeyChecking=no" ];
           hostname = "sin0.nichi.link";
           profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sin0;
         };
         sea0 = {
           sshUser = "root";
+          sshOpts = [ "-4" "-o" "StrictHostKeyChecking=no" ];
           hostname = "sea0.nichi.link";
           profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sea0;
         };

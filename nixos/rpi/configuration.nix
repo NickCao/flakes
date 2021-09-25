@@ -130,7 +130,7 @@
 
   services.openssh = {
     enable = true;
-    ports = [ 22 8122 ];
+    ports = [ 8122 ];
   };
   services.timesyncd.servers = [
     "101.6.6.172" # ntp.tuna.tsinghua.edu.cn
