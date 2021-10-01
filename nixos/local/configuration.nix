@@ -103,6 +103,7 @@
 
   virtualisation = {
     podman.enable = true;
+    virtualbox.host.enable = true;
   };
 
   hardware = {
