@@ -41,10 +41,10 @@
   };
   qvpersonal = {
     pname = "qvpersonal";
-    version = "nightly-2021-09-08";
+    version = "nightly-2021-10-01";
     src = fetchurl {
-      url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/nightly-2021-09-08/qv2ray-static-bin-nightly-2021-09-08-archlinux-x86_64.tar.zst";
-      sha256 = "0d40nc7fjiasz7z3lacxq7fgb1743rsscs6d9lac575qs0dmamwg";
+      url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/nightly-2021-10-01/qv2ray-static-bin-nightly-2021-10-01-archlinux-x86_64.tar.zst";
+      sha256 = "1l09v39ya19i39qm13zx5725ckawvn8b4bkr9i1hdwha4c9rq4vx";
     };
   };
   rait = {
@@ -62,14 +62,14 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "172e3ea80c7cdecdfc661f36642e2268a4b51464";
+    version = "6e933522d00d7a41d7a703d11b761ea47f6767ad";
     src = fetchgit {
       url = "https://github.com/felixonmars/dnsmasq-china-list";
-      rev = "172e3ea80c7cdecdfc661f36642e2268a4b51464";
+      rev = "6e933522d00d7a41d7a703d11b761ea47f6767ad";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "0lmjgvagrgxnml81ndwwl2bcbxdhhxkw3fryyphpdl1m6hh1hs25";
+      sha256 = "0wvh9xkq5ihx5wfbqvdwp42v4ddzy9g3kars5ml63d671firbdzk";
     };
   };
   tslib = {
@@ -86,27 +86,27 @@
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "7da052be2c58d4589d7e2b7e0fdbceeb0064ab33";
+    version = "e1444eb952e40099919f2c1b53ffd0b0317eb433";
     src = fetchgit {
       url = "https://github.com/v2fly/domain-list-community";
-      rev = "7da052be2c58d4589d7e2b7e0fdbceeb0064ab33";
+      rev = "e1444eb952e40099919f2c1b53ffd0b0317eb433";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "118kal7b2fjlcj8485zmz1jp4d1n9nnf9grdrb0ckj1f1msgdpr3";
+      sha256 = "0r7s0z37959iicpah7w7pyx5b2w81w44s9k1r6n2lwdkwl4ng00j";
     };
     vendorSha256 = "sha256-E3TECmxPEmKaE8QF6mbi36J8sGnFJSwPytbedXL4evo=";
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "3b41528ef823625bdd31054c1066622384964484";
+    version = "e22a8131b7e30e1ab3f0dbee8478f760b725fd63";
     src = fetchgit {
       url = "https://github.com/v2fly/geoip";
-      rev = "3b41528ef823625bdd31054c1066622384964484";
+      rev = "e22a8131b7e30e1ab3f0dbee8478f760b725fd63";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "1537x1479g9rkfgqyy0y6pz3bp3nf13jzll7k3wy2h0r4rixk7li";
+      sha256 = "1di7cn50f6k8jnqly8d8rc8rzki6j2jd3mylggrxa3nzwcpm0p5i";
     };
   };
   wemeet = {
