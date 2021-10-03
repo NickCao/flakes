@@ -1,6 +1,8 @@
 name: nix
 on:
   push:
+    branches:
+      - master
 jobs:
   check:
     environment: prod
