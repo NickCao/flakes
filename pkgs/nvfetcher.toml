@@ -10,7 +10,7 @@ fetch.github = "Zren/material-decoration"
 [v2ray-domain-list-community]
 src.git = "https://github.com/v2fly/domain-list-community"
 fetch.github = "v2fly/domain-list-community"
-passthru = { vendorSha256 = "sha256-E3TECmxPEmKaE8QF6mbi36J8sGnFJSwPytbedXL4evo=" }
+passthru = { vendorSha256 = "sha256-JuLU9v1ukVfAEtz07tGk66st1+sO4SBz83BlK3IPQwU=" }
 
 [v2ray-geoip]
 src.git = "https://github.com/v2fly/geoip"
