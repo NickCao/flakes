@@ -1,6 +1,7 @@
 { config, pkgs, lib, modulesPath, ... }:
 {
   imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64-new-kernel.nix") ];
+  sdImage.compressImage = false;
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
@@ -70,7 +71,10 @@
     };
     "eth0.10" = {
       name = "eth0.10";
-      DHCP = "ipv4"; # dhcpv6 not working due to duid
+      DHCP = "yes";
+      dhcpV6Config = {
+        DUIDType = "link-layer";
+      };
     };
   };
 
