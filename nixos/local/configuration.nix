@@ -168,7 +168,8 @@
       enable = true;
       settings = with pkgs; {
         log-level = "info";
-        speed-check-mode = "none";
+        speed-check-mode = "tcp:443";
+        serve-expired = "yes";
         conf-file = [
           "${smartdns-china-list}/accelerated-domains.china.smartdns.conf"
           "${smartdns-china-list}/apple.china.smartdns.conf"
