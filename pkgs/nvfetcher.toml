@@ -37,7 +37,8 @@ src.github = "libts/tslib"
 fetch.github = "libts/tslib"
 
 [qvpersonal]
-src.github = "Shadowsocks-NET/QvStaticBuild"
+# src.github = "Shadowsocks-NET/QvStaticBuild"
+src.manual = "nightly-2021-10-06"
 fetch.url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/$ver/qv2ray-static-bin-$ver-archlinux-x86_64.tar.zst"
 
 [wemeet]
