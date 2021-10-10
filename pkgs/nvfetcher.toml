@@ -32,15 +32,6 @@ src.github_tag = "albertito/chasquid"
 fetch.github = "albertito/chasquid"
 passthru = { vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=" }
 
-[tslib]
-src.github = "libts/tslib"
-fetch.github = "libts/tslib"
-
-[qvpersonal]
-# src.github = "Shadowsocks-NET/QvStaticBuild"
-src.manual = "nightly-2021-10-06"
-fetch.url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/$ver/qv2ray-static-bin-$ver-archlinux-x86_64.tar.zst"
-
 [wemeet]
 src.manual = "2.8.0.0"
 fetch.url = "https://updatecdn.meeting.qq.com/ad878a99-76c4-4058-ae83-22ee948cce98/TencentMeeting_0300000000_2.8.0.0_x86_64.publish.deb"

@@ -36,14 +36,6 @@
       sha256 = "sha256-Hft2a0Pc2ogn8eXeq0xrbV5PRcfZHgmXrRvANYnFUKA=";
     });
   };
-  qvpersonal = {
-    pname = "qvpersonal";
-    version = "nightly-2021-10-06";
-    src = fetchurl {
-      url = "https://github.com/Shadowsocks-NET/QvStaticBuild/releases/download/nightly-2021-10-06/qv2ray-static-bin-nightly-2021-10-06-archlinux-x86_64.tar.zst";
-      sha256 = "sha256-qx9HV837vgpzoc7IaClvp4/imAkSiwUVP0dUb2XjG18=";
-    };
-  };
   rait = {
     pname = "rait";
     version = "19076c4a9e52c75c5b5a259f3b47bc3ef703eeb4";
@@ -66,17 +58,6 @@
       rev = "ab59165e481e9f2192ab357c32778482e55b7650";
       fetchSubmodules = false;
       sha256 = "sha256-WW1VEofEfUr1hDrTqQj4+tcCmE0vfVqZEtLaGwLs3VA=";
-    });
-  };
-  tslib = {
-    pname = "tslib";
-    version = "1.22";
-    src = fetchFromGitHub ({
-      owner = "libts";
-      repo = "tslib";
-      rev = "1.22";
-      fetchSubmodules = false;
-      sha256 = "sha256-fiEC8WakW1ApNSTqaGVQXmbiVd3rqSF2dpunUfw296Q=";
     });
   };
   v2ray-domain-list-community = {
