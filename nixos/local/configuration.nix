@@ -9,6 +9,7 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     secrets.rait = { };
+    secrets.v2ray = { };
     age = {
       keyFile = "/var/lib/sops.key";
       sshKeyPaths = [ ];
@@ -226,7 +227,6 @@
   environment.systemPackages = with pkgs; [
     helix
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
-    qvpersonal
     mpv
     tdesktop
     materia-theme
