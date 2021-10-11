@@ -34,12 +34,24 @@ dns.lib.toString "nichi.co" {
     }
   ];
   MX = with mx; [
-    (mx 10 "in1-smtp.messagingengine.com.")
-    (mx 20 "in2-smtp.messagingengine.com.")
+    (mx 10 "hel0.nichi.link.")
   ];
   TXT = [
-    (with spf; soft [ "include:spf.messagingengine.com" ])
+    (with spf; soft [ "mx" ])
   ];
+  DKIM = [{
+    selector = "default";
+    k = "rsa";
+    p = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzZQePdABnCiCpmzMxfrg6Bta/bLEMzyVuaa/FH+XE6bmLUxIgr6FqhdeZhZzCMG/LZWKSnncKGd3TMobFi4/mrpqmfFpO/8FRfUh8X7spe8TVTkSOStIT2ePtDU/XNsagafej3Ot3hUKHxuVeGWUsRB8IVRoyQZ86YK27wR4z/XmV3t3xerhOEBhrL7r5volfI3dOKrwgFuIPp0OxZEpcSDVsavQeaZ+K9uKN44m8tEBzVpnh5UXxBhveliRMptBxk9WUxwqoD+Yo4epQwm+xkNeCSe/hKlD8icLbetXXmi2PD12ngIhs1WPMvH/+LrT5NkDZuETKj9tRBbIOqlhpQIDAQAB";
+    s = [ "email" ];
+  }];
+  DMARC = [{
+    p = "quarantine";
+    sp = "reject";
+    pct = 100;
+    adkim = "strict";
+    aspf = "strict";
+  }];
   subdomains = {
     pb.CNAME = [ "hel0.nichi.link." ];
     s3.CNAME = [ "hel0.nichi.link." ];
@@ -47,8 +59,5 @@ dns.lib.toString "nichi.co" {
     tagging.CNAME = [ "hel0.nichi.link." ];
     www.TXT = [ "http.cat/404" ];
     "*".CNAME = [ "nichi.co." ];
-    "fm1._domainkey".CNAME = [ "fm1.nichi.co.dkim.fmhosted.com." ];
-    "fm2._domainkey".CNAME = [ "fm2.nichi.co.dkim.fmhosted.com." ];
-    "fm3._domainkey".CNAME = [ "fm3.nichi.co.dkim.fmhosted.com." ];
   };
 }
