@@ -23,8 +23,14 @@ dns.lib.toString "nichi.link" {
     (mx 10 "hel0.nichi.link.")
   ];
   TXT = [
-    (with spf; soft [ "ip4:65.21.32.182 ip6:2a01:4f9:3a:40c9::1" ])
+    (with spf; soft [ "mx" ])
   ];
+  DKIM = [{
+    selector = "default";
+    k = "rsa";
+    p = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzZQePdABnCiCpmzMxfrg6Bta/bLEMzyVuaa/FH+XE6bmLUxIgr6FqhdeZhZzCMG/LZWKSnncKGd3TMobFi4/mrpqmfFpO/8FRfUh8X7spe8TVTkSOStIT2ePtDU/XNsagafej3Ot3hUKHxuVeGWUsRB8IVRoyQZ86YK27wR4z/XmV3t3xerhOEBhrL7r5volfI3dOKrwgFuIPp0OxZEpcSDVsavQeaZ+K9uKN44m8tEBzVpnh5UXxBhveliRMptBxk9WUxwqoD+Yo4epQwm+xkNeCSe/hKlD8icLbetXXmi2PD12ngIhs1WPMvH/+LrT5NkDZuETKj9tRBbIOqlhpQIDAQAB";
+    s = [ "email" ];
+  }];
   DMARC = [{
     p = "quarantine";
     sp = "reject";
