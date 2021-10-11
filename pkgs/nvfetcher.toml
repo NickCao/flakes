@@ -35,3 +35,8 @@ passthru = { vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=
 [wemeet]
 src.manual = "2.8.0.0"
 fetch.url = "https://updatecdn.meeting.qq.com/ad878a99-76c4-4058-ae83-22ee948cce98/TencentMeeting_0300000000_2.8.0.0_x86_64.publish.deb"
+
+[alps]
+src.git = "https://git.sr.ht/~migadu/alps"
+fetch.git = "https://git.sr.ht/~migadu/alps"
+passthru = { vendorSha256 = "sha256-/EQ9IMnjADli+OUHQIv3YUdj2XqOeKiWwEiI8Gbf9Ok=" }
