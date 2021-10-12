@@ -50,6 +50,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    nixbot = {
+      url = "github:Ninlives/nixbot-telegram";
+      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, dns, ... }:
     let
@@ -101,6 +106,7 @@
         nrt0 = import ./nixos/vultr/nrt0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         sin0 = import ./nixos/vultr/sin0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         sea0 = import ./nixos/vultr/sea0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        hel0 = import ./nixos/hel0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
       deploy.nodes = {
         rpi = {
@@ -126,6 +132,12 @@
           sshOpts = [ "-4" "-o" "StrictHostKeyChecking=no" ];
           hostname = "sea0.nichi.link";
           profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sea0;
+        };
+        hel0 = {
+          sshUser = "root";
+          sshOpts = [ "-4" "-o" "StrictHostKeyChecking=no" ];
+          hostname = "hel0.nichi.link";
+          profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.hel0;
         };
       };
     };
