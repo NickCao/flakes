@@ -26,18 +26,6 @@
     });
     vendorSha256 = "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o=";
   };
-  chasquid = {
-    pname = "chasquid";
-    version = "v1.8";
-    src = fetchFromGitHub ({
-      owner = "albertito";
-      repo = "chasquid";
-      rev = "v1.8";
-      fetchSubmodules = false;
-      sha256 = "sha256-IuqfuZK+VFqLJYInJcpPs9tHGihTo2bVhNz//eS96f0=";
-    });
-    vendorSha256 = "sha256-1H1zTRzX6a4mBSHIJvLeVC9GIKE8qUvwbgfRw297vq4=";
-  };
   material-decoration = {
     pname = "material-decoration";
     version = "e652d62451dc67a9c6bc16c00ccbc38fed3373dd";
@@ -75,13 +63,13 @@
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "ae85ff84dbe16165e88f05bf181766e164a30405";
+    version = "46fcc7a1aff6649611b0b8a6888a3f8e8f2ed439";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "domain-list-community";
-      rev = "ae85ff84dbe16165e88f05bf181766e164a30405";
+      rev = "46fcc7a1aff6649611b0b8a6888a3f8e8f2ed439";
       fetchSubmodules = false;
-      sha256 = "sha256-TrMUTiGDvL0Xj6m34yYvZV9G0YGXNK4iFMxHqRzIlx0=";
+      sha256 = "sha256-utgMuoFdUw0BBYRkp7bKdoA13LA017uBXYuhTjcqN60=";
     });
     vendorSha256 = "sha256-JuLU9v1ukVfAEtz07tGk66st1+sO4SBz83BlK3IPQwU=";
   };
@@ -98,10 +86,10 @@
   };
   wemeet = {
     pname = "wemeet";
-    version = "2.8.0.0";
+    version = "2.8.0.1";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/ad878a99-76c4-4058-ae83-22ee948cce98/TencentMeeting_0300000000_2.8.0.0_x86_64.publish.deb";
-      sha256 = "sha256-prNQawKHAZZpTxODVMzOb6qB44oZok46OzQmyLJO/L8=";
+      url = "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca56142398818545f/TencentMeeting_0300000000_2.8.0.1_x86_64.publish.deb";
+      sha256 = "sha256-LWPPLDZ7YVixN+xa+FqJo5dM+RW/AZM9nw2z9digIxc=";
     };
   };
 }
