@@ -69,6 +69,7 @@
     tmpOnTmpfs = true;
     consoleLogLevel = 0;
     initrd.verbose = false;
+    initrd.kernelModules = [ "i915" ];
     loader = {
       timeout = 0;
       systemd-boot.enable = true;
