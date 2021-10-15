@@ -17,10 +17,6 @@
       tag = "socks";
     }
   ];
-  outbounds = [
-    { protocol = "blackhole"; tag = "blackhole"; }
-    { protocol = "freedom"; tag = "direct"; }
-  ];
   routing = {
     domainMatcher = "mph";
     domainStrategy = "IPIfNonMatch";
