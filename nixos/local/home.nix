@@ -87,6 +87,13 @@ in
         key = "A1E513A77CC0D91C8806A4EB068A56CEF48FA2C1";
       };
       extraConfig = {
+        merge.tool = "meld";
+        mergetool.meld.path = "${pkgs.meld}/bin/meld";
+        mergetool = {
+          keepBackup = false;
+          keepTemporaries = false;
+          writeToTemp = true;
+        };
         pull.rebase = true;
         init.defaultBranch = "master";
         fetch.prune = true;
