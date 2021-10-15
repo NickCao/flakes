@@ -223,7 +223,20 @@ in
       "ibus/rime/double_pinyin_flypy.custom.yaml".text = ''
         patch:
           translator/preedit_format: []
+          translator/dictionary: luna_pinyin.extended
       '';
+      "ibus/rime/luna_pinyin.extended.dict.yaml".text = ''
+        ---
+        name: luna_pinyin.extended
+        version: "0.1"
+        sort: by_weight
+        use_preset_vocabulary: true
+        import_tables:
+          - luna_pinyin
+          - zhwiki
+        ...  
+      '';
+      "ibus/rime/zhwiki.dict.yaml".source = "${pkgs.rime-pinyin-zhwiki}/share/rime-data/zhwiki.dict.yaml";
     };
   };
 }
