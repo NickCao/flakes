@@ -90,6 +90,7 @@ in
         pull.rebase = true;
         init.defaultBranch = "master";
         fetch.prune = true;
+        merge.conflictStyle = "diff3";
       };
     };
     fish = {
