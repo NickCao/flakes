@@ -135,7 +135,7 @@
         };
         hel0 = {
           sshUser = "root";
-          sshOpts = [ "-4" "-o" "StrictHostKeyChecking=no" ];
+          sshOpts = [ "-o" "StrictHostKeyChecking=no" ];
           hostname = "hel0.nichi.link";
           profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.hel0;
         };
