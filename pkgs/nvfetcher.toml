@@ -35,3 +35,7 @@ fetch.url = "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca5614239881854
 src.git = "https://git.sr.ht/~migadu/alps"
 fetch.git = "https://git.sr.ht/~migadu/alps"
 passthru = { vendorSha256 = "sha256-/EQ9IMnjADli+OUHQIv3YUdj2XqOeKiWwEiI8Gbf9Ok=" }
+
+[rime-pinyin-zhwiki]
+src.manual = "20210923"
+fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20210923.dict.yaml"

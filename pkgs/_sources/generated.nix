@@ -50,6 +50,14 @@
     };
     vendorSha256 = "sha256-55Zu1g+pwTt6dU1QloxfFkG2dbnK5gg84WvRhz2ND3M=";
   };
+  rime-pinyin-zhwiki = {
+    pname = "rime-pinyin-zhwiki";
+    version = "20210923";
+    src = fetchurl {
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20210923.dict.yaml";
+      sha256 = "sha256-1bNEKG6LtG6JGAcKUSF+9uYH1vijy8uFHVt+c5zidcM=";
+    };
+  };
   smartdns-china-list = {
     pname = "smartdns-china-list";
     version = "4ae2013118a50f114b62105656b7279d22c0cdcb";
@@ -63,13 +71,13 @@
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "de3036acb159850bdb8162fbcc1316cafc19e0a0";
+    version = "f988bf27f0998882486e82ed1da980f5c8c3a49d";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "domain-list-community";
-      rev = "de3036acb159850bdb8162fbcc1316cafc19e0a0";
+      rev = "f988bf27f0998882486e82ed1da980f5c8c3a49d";
       fetchSubmodules = false;
-      sha256 = "sha256-LTnADjyncnGJ1NzNyHDcW6UAUM9mVxV/4zkl1AMMjlc=";
+      sha256 = "sha256-XLJlSBmSnnaxWt+hX9xKGxMNJLpFuqDGrpR0i05I9C4=";
     });
     vendorSha256 = "sha256-JuLU9v1ukVfAEtz07tGk66st1+sO4SBz83BlK3IPQwU=";
   };
