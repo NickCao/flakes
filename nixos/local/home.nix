@@ -179,6 +179,20 @@ in
       publicShare = "$HOME";
     };
     configFile = {
+      "meli/config.toml".source = pkgs.callPackage ./meli.nix { };
+      "msmtp/config".text = ''
+        defaults
+          
+        account nickcao
+        host hel0.nichi.link
+        auth plain
+        user nickcao@nichi.co
+        passwordeval "cat ${config.xdg.configHome}/meli/password"
+        tls on
+        tls_starttls off
+          
+        account default : nickcao
+      '';
       "helix/config.toml".source = toTOMLDrv {
         theme = "onedark";
         editor = {

@@ -191,7 +191,6 @@
   };
 
   programs = {
-    geary.enable = true;
     adb.enable = true;
     chromium = {
       enable = true;
