@@ -6,6 +6,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    (meli.overrideAttrs (_: { patches = [ ./protocol_parser.patch ]; }))
     xilinx-env
     ranger
     ncdu

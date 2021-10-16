@@ -71,13 +71,13 @@
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "f988bf27f0998882486e82ed1da980f5c8c3a49d";
+    version = "e53d0b7c1e38a22a93d654d8636a4d5cd2951726";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "domain-list-community";
-      rev = "f988bf27f0998882486e82ed1da980f5c8c3a49d";
+      rev = "e53d0b7c1e38a22a93d654d8636a4d5cd2951726";
       fetchSubmodules = false;
-      sha256 = "sha256-XLJlSBmSnnaxWt+hX9xKGxMNJLpFuqDGrpR0i05I9C4=";
+      sha256 = "sha256-T4W8rtoLK3lOrWChmcLdN8KTzSmIDpOAxUnknjnaPCk=";
     });
     vendorSha256 = "sha256-JuLU9v1ukVfAEtz07tGk66st1+sO4SBz83BlK3IPQwU=";
   };

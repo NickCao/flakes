@@ -1,0 +1,13 @@
+diff --git a/melib/src/backends/imap/protocol_parser.rs b/melib/src/backends/imap/protocol_parser.rs
+index 07e89d96..0b14cae8 100644
+--- a/melib/src/backends/imap/protocol_parser.rs
++++ b/melib/src/backends/imap/protocol_parser.rs
+@@ -1350,7 +1350,7 @@ pub fn envelope_addresses<'a>(
+         |input: &'a [u8]| -> IResult<&'a [u8], Option<SmallVec<[Address; 1]>>> {
+             let (input, _) = tag("(")(input)?;
+             let (input, envelopes) = fold_many1(
+-                delimited(tag("("), envelope_address, tag(")")),
++                delimited(tag("("), envelope_address, alt((tag(") "), tag(")")))),
+                 SmallVec::new(),
+                 |mut acc, item| {
+                     acc.push(item);
