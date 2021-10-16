@@ -23,6 +23,28 @@ in
     server_password_command = password;
     server_port = 993;
   };
+  shortcuts = {
+    general = {
+      quit = "Esc";
+    };
+    listing = {
+      prev_account = "Left";
+      next_account = "Right";
+    };
+    compact-listing = {
+      exit_thread = "h";
+      open_thread = "l";
+      select_entry = "v";
+    };
+    envelope-view = {
+      toggle_expand_headers = "H";
+    };
+    thread-view = {
+      collapse_subtree = "c";
+      scroll_up = "K";
+      scroll_down = "J";
+    };
+  };
   composing = {
     send_mail = "${msmtp}/bin/msmtp --read-recipients --read-envelope-from";
   };
