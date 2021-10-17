@@ -30,6 +30,7 @@ in
     };
     neomutt = {
       enable = true;
+      extraMailboxes = [ "Archive" "Drafts" "Junk" "Sent" "Trash" ];
     };
     passwordCommand = "cat ${config.xdg.configHome}/mail/password";
     primary = true;
@@ -95,6 +96,10 @@ in
     neomutt = {
       enable = true;
       vimKeys = true;
+      checkStatsInterval = 10;
+      sidebar = {
+        enable = true;
+      };
     };
     direnv = {
       enable = true;
