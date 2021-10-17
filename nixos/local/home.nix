@@ -89,7 +89,10 @@ in
       };
       extraConfig = {
         merge.tool = "meld";
-        mergetool.meld.path = "${pkgs.meld}/bin/meld";
+        mergetool.meld = {
+          path = "${pkgs.meld}/bin/meld";
+          useAutoMerge = true;
+        };
         mergetool = {
           keepBackup = false;
           keepTemporaries = false;
