@@ -5,8 +5,38 @@ let
   mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
 in
 {
+  accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
+  accounts.email.accounts.nickcao = rec {
+    address = "nickcao@nichi.co";
+    gpg = {
+      key = "068A56CEF48FA2C1";
+      signByDefault = true;
+    };
+    imap = {
+      host = "hel0.nichi.link";
+      tls.enable = true;
+    };
+    smtp = {
+      host = imap.host;
+      tls.enable = true;
+    };
+    mbsync = {
+      enable = true;
+      create = "both";
+      remove = "both";
+    };
+    msmtp = {
+      enable = true;
+    };
+    neomutt = {
+      enable = true;
+    };
+    passwordCommand = "cat ${config.xdg.configHome}/mail/password";
+    primary = true;
+    realName = "Nick Cao";
+    userName = address;
+  };
   home.packages = with pkgs; [
-    (meli.overrideAttrs (_: { patches = [ ./protocol_parser.patch ]; }))
     xilinx-env
     ranger
     ncdu
@@ -58,7 +88,14 @@ in
     ).outPath;
   };
 
+  services.mbsync.enable = true;
   programs = {
+    msmtp.enable = true;
+    mbsync.enable = true;
+    neomutt = {
+      enable = true;
+      vimKeys = true;
+    };
     direnv = {
       enable = true;
       nix-direnv = {
@@ -182,20 +219,6 @@ in
       publicShare = "$HOME";
     };
     configFile = {
-      "meli/config.toml".source = pkgs.callPackage ./meli.nix { };
-      "msmtp/config".text = ''
-        defaults
-          
-        account nickcao
-        host hel0.nichi.link
-        auth plain
-        user nickcao@nichi.co
-        passwordeval "cat ${config.xdg.configHome}/meli/password"
-        tls on
-        tls_starttls off
-          
-        account default : nickcao
-      '';
       "helix/config.toml".source = toTOMLDrv {
         theme = "onedark";
         editor = {
