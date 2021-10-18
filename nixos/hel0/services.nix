@@ -134,12 +134,17 @@ in
   users.groups.maddy = { };
   environment.etc."maddy/maddy.conf".source = ./maddy.conf;
   systemd.services.maddy = {
-    restartTriggers = [ ./maddy.conf ];
+    restartTriggers = [ (builtins.hashFile "sha256" ./maddy.conf) ];
     serviceConfig = {
       LoadCredential = [
         "dkim.key:${config.sops.secrets.dkim.path}"
       ];
     };
+  };
+
+  services.etcd = {
+    enable = true;
+    name = config.networking.hostName;
   };
 
   services.traefik = {

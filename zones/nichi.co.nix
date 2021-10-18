@@ -55,6 +55,7 @@ dns.lib.toString "nichi.co" {
   subdomains = {
     pb.CNAME = [ "hel0.nichi.link." ];
     s3.CNAME = [ "hel0.nichi.link." ];
+    etcd.CNAME = [ "hel0.nichi.link." ];
     stats.CNAME = [ "hel0.nichi.link." ];
     tagging.CNAME = [ "hel0.nichi.link." ];
     www.TXT = [ "http.cat/404" ];
