@@ -1,6 +1,7 @@
 { config, pkgs, lib, modulesPath, ... }:
 {
   imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64-new-kernel.nix") ];
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_5_10;
   sdImage.compressImage = false;
 
   sops = {
@@ -12,7 +13,7 @@
     gnupg.sshKeyPaths = [ ];
     secrets = {
       auth = { };
-      duckdns = { };
+      etcd = { };
     };
   };
 
@@ -27,14 +28,17 @@
     script = "${pkgs.auth-thu}/bin/auth-thu -D -c \${CREDENTIALS_DIRECTORY}/auth auth";
   };
 
-  systemd.services.duckdns = {
+  systemd.services.ddns = {
     serviceConfig = {
       Type = "oneshot";
       DynamicUser = true;
-      EnvironmentFile = config.sops.secrets.duckdns.path;
+      EnvironmentFile = config.sops.secrets.etcd.path;
     };
     script = ''
-      ${pkgs.curl}/bin/curl -s -4 "https://www.duckdns.org/update?domains=rpi-nichi&token=''${TOKEN}"
+      ${pkgs.etcd_3_4}/bin/etcdctl --endpoints https://etcd.nichi.co:443 --user $USER --password $PASSWORD \
+        put /dns/link/nichi/dyn/rpi/x1 $(${pkgs.jo}/bin/jo ttl=30 host=$(${pkgs.curl}/bin/curl -s -4 https://canhazip.com))
+      ${pkgs.etcd_3_4}/bin/etcdctl --endpoints https://etcd.nichi.co:443 --user $USER --password $PASSWORD \
+        put /dns/link/nichi/dyn/rpi/x2 $(${pkgs.jo}/bin/jo ttl=30 host=$(${pkgs.curl}/bin/curl -s -6 https://canhazip.com))
     '';
   };
 
@@ -45,9 +49,9 @@
     wantedBy = [ "timers.target" ];
   };
 
-  systemd.timers.duckdns = {
+  systemd.timers.ddns = {
     timerConfig = {
-      OnCalendar = "*:0/15";
+      OnCalendar = "*:0/5";
     };
     wantedBy = [ "timers.target" ];
   };
