@@ -35,6 +35,16 @@ in
           key file /run/secrets/Knichi.co.+013+41694
         }
       }
+      dyn.nichi.link {
+        etcd {
+            path /dns
+            endpoint https://etcd.nichi.co:443
+            credentials coredns coredns
+        }
+        dnssec {
+          key file /run/secrets/Knichi.link.+013+43698
+        }
+      }
       nichi.link {
         file ${pkgs."db.link.nichi"}
         dnssec {
