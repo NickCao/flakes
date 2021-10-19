@@ -27,6 +27,12 @@ in
       gravity_reverse = { mode = "0444"; sopsFile = ./secrets.yaml; };
     };
     services.coredns.enable = true;
+    services.coredns.package = pkgs.coredns.overrideAttrs (_: {
+      patches = [ ./coredns.patch ];
+      preBuild = ''
+        go generate -mod=vendor coredns.go
+      '';
+    });
     systemd.services.coredns.restartTriggers = [ (builtins.hashFile "sha256" ./secrets.yaml) ];
     services.coredns.config = ''
       nichi.co {
@@ -35,17 +41,13 @@ in
           key file /run/secrets/Knichi.co.+013+41694
         }
       }
-      dyn.nichi.link {
-        etcd {
+      nichi.link {
+        etcd dyn.nichi.link {
+            fallthrough
             path /dns
             endpoint https://etcd.nichi.co:443
             credentials coredns coredns
         }
-        dnssec {
-          key file /run/secrets/Knichi.link.+013+43698
-        }
-      }
-      nichi.link {
         file ${pkgs."db.link.nichi"}
         dnssec {
           key file /run/secrets/Knichi.link.+013+43698

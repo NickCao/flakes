@@ -1,0 +1,14 @@
+--- a/plugin.cfg	2021-10-19 09:49:56.242994369 +0800
++++ b/plugin.cfg	2021-10-19 09:50:21.420455410 +0800
+@@ -57,10 +57,10 @@
+ clouddns:clouddns
+ k8s_external:k8s_external
+ kubernetes:kubernetes
++etcd:etcd
+ file:file
+ auto:auto
+ secondary:secondary
+-etcd:etcd
+ loop:loop
+ forward:forward
+ grpc:grpc
