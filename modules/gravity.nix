@@ -63,6 +63,7 @@ in
         ] ++ cfg.postStart;
         ExecReload = "${rait}/bin/rait sync -c ${cfg.config}";
         ExecStopPost = "${iproute2}/bin/ip netns del ${cfg.netns}";
+        Restart = "always";
       };
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
