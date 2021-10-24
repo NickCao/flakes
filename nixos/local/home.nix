@@ -65,7 +65,7 @@ in
     libarchive
   ];
 
-  dconf.settings = import ./dconf.nix;
+  dconf.settings = import ./dconf.nix { inherit (pkgs) fetchurl; };
 
   systemd.user.sessionVariables = {
     GOOGLE_DEFAULT_CLIENT_ID = "77185425430.apps.googleusercontent.com";

@@ -1,4 +1,21 @@
+{ fetchurl }:
 {
+  "org/gnome/desktop/background" = {
+    picture-uri = "file://${fetchurl {
+      url = "https://pbs.twimg.com/media/ElphQpaU4AAt9Bv?format=jpg";
+      name = "fubuki.jpg";
+      hash = "sha256-541/iI7scwyyEOxZAYFql4X/W5xmg5hUfeDJbtJ+voE=";
+      }}";
+  };
+
+  "org/gnome/desktop/screensaver" = {
+    picture-uri = "file://${fetchurl {
+      url = "https://i.pximg.net/img-original/img/2021/09/21/22/56/43/42732108_p0.jpg";
+      curlOpts = "-H referer:https://www.pixiv.net/";
+      hash = "sha256-Tix/HzEo3h2hKye27MUpi10gVFeo7HC1ukHdqHVcVKg=";
+      }}";
+  };
+
   "org/gnome/shell" = {
     disable-user-extensions = false;
   };
