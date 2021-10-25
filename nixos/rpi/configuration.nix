@@ -1,7 +1,6 @@
 { config, pkgs, lib, modulesPath, ... }:
 {
   imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64-new-kernel.nix") ];
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_5_10;
   sdImage.compressImage = false;
 
   sops = {
