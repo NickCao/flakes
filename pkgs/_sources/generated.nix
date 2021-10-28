@@ -28,13 +28,13 @@
   };
   material-decoration = {
     pname = "material-decoration";
-    version = "e652d62451dc67a9c6bc16c00ccbc38fed3373dd";
+    version = "cc5cc399a546b66907629b28c339693423c894c8";
     src = fetchFromGitHub ({
       owner = "Zren";
       repo = "material-decoration";
-      rev = "e652d62451dc67a9c6bc16c00ccbc38fed3373dd";
+      rev = "cc5cc399a546b66907629b28c339693423c894c8";
       fetchSubmodules = false;
-      sha256 = "sha256-Hft2a0Pc2ogn8eXeq0xrbV5PRcfZHgmXrRvANYnFUKA=";
+      sha256 = "sha256-aYlnPFhf+ISVe5Ycryu5BSXY8Lb5OoueMqnWQZiv6Lc=";
     });
   };
   rait = {
@@ -71,25 +71,25 @@
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "bdd299499866c8c512aa9c9fe980fc3b9d55ba92";
+    version = "c0def43269af64a5fe509818c9af0b809bd06751";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "domain-list-community";
-      rev = "bdd299499866c8c512aa9c9fe980fc3b9d55ba92";
+      rev = "c0def43269af64a5fe509818c9af0b809bd06751";
       fetchSubmodules = false;
-      sha256 = "sha256-ThZT/C4CXRZARQv+4GKg8Sg8Vtl7Wl6aiI2upxrk5ws=";
+      sha256 = "sha256-dko2trwXSQfvdlOFUemtXaUV0Wa49nkiB9Mdhh+JI0g=";
     });
     vendorSha256 = "sha256-JuLU9v1ukVfAEtz07tGk66st1+sO4SBz83BlK3IPQwU=";
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "239f8b4ea7269c85ab806abe4dae0b9ce1d1ad25";
+    version = "a269838d2a1206f341c4970ef5f0e01a7612e934";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "geoip";
-      rev = "239f8b4ea7269c85ab806abe4dae0b9ce1d1ad25";
+      rev = "a269838d2a1206f341c4970ef5f0e01a7612e934";
       fetchSubmodules = false;
-      sha256 = "sha256-RTwQwhIgaEkwVv5hm77i0w3eVn3ws99zEAX9MJUn58Q=";
+      sha256 = "sha256-TGuI/hbK/eNppSSWRrJ7FE6I11JUy3Ri2ChgiG7OZDo=";
     });
   };
   wemeet = {
