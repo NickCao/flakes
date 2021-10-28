@@ -39,6 +39,7 @@ in
   };
   home.packages = with pkgs; [
     xilinx-env
+    ripgrep
     ranger
     ncdu
     mode
