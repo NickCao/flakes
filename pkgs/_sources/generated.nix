@@ -83,11 +83,11 @@
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "a269838d2a1206f341c4970ef5f0e01a7612e934";
+    version = "827d99523edc9382d93c0052533ca3e686c655b9";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "geoip";
-      rev = "a269838d2a1206f341c4970ef5f0e01a7612e934";
+      rev = "827d99523edc9382d93c0052533ca3e686c655b9";
       fetchSubmodules = false;
       sha256 = "sha256-TGuI/hbK/eNppSSWRrJ7FE6I11JUy3Ri2ChgiG7OZDo=";
     });
