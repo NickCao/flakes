@@ -10,7 +10,7 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [
         (final: prev: {
-          inherit (inputs.nixbot.packages.${system}) nixbot-telegram;
+          inherit (inputs.nixbot.packages."${system}") nixbot-telegram;
           etcd = final.etcd_3_4;
         })
         inputs.rust-overlay.overlay

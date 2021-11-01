@@ -13,7 +13,7 @@ in
   '';
 
   systemd.network.networks = {
-    ${ifname} = {
+    "${ifname}" = {
       name = ifname;
       DHCP = "yes";
       extraConfig = ''

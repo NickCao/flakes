@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 let
-  toTOMLDrv = v: (pkgs.formats.toml { }).generate "" v;
-  toYAMLDrv = v: (pkgs.formats.yaml { }).generate "" v;
+  toTOMLDrv = (pkgs.formats.toml { }).generate "";
+  toYAMLDrv = (pkgs.formats.yaml { }).generate "";
   mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
 in
 {
@@ -17,7 +17,7 @@ in
       tls.enable = true;
     };
     smtp = {
-      host = imap.host;
+      inherit (imap) host;
       tls.enable = true;
     };
     mbsync = {

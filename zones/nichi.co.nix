@@ -1,7 +1,7 @@
 { dns }:
 with dns.lib.combinators;
 let
-  nrt0 = (builtins.fromJSON (builtins.readFile ./nodes.json)).nodes.value.nrt0;
+  inherit ((builtins.fromJSON (builtins.readFile ./nodes.json)).nodes.value) nrt0;
 in
 dns.lib.toString "nichi.co" {
   TTL = 30;

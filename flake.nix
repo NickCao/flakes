@@ -77,11 +77,11 @@
         in
         rec {
           packages = this.packages pkgs // {
-            deploy-rs = pkgs.deploy-rs.deploy-rs;
-            nvfetcher-bin = pkgs.nvfetcher-bin;
+            inherit (pkgs.deploy-rs) deploy-rs;
+            inherit (pkgs) nvfetcher-bin;
             inherit (pkgs) "db.co.nichi" "db.link.nichi";
           };
-          checks = packages // (inputs.deploy-rs.lib.${system}.deployChecks {
+          checks = packages // (inputs.deploy-rs.lib."${system}".deployChecks {
             nodes = pkgs.lib.filterAttrs (name: cfg: cfg.profiles.system.path.system == system) self.deploy.nodes;
           });
           legacyPackages = pkgs;

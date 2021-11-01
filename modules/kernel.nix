@@ -1,12 +1,12 @@
 { config, lib, pkgs, modulesPath, ... }:
 let
-  toplevel = config.system.build.toplevel;
+  inherit (config.system.build) toplevel;
 in
 {
   system.build.unifiedKernelImage = pkgs.runCommand "linux.efi"
     {
       nativeBuildInputs = with pkgs;[ binutils ];
-      kernelParams = config.boot.kernelParams;
+      inherit (config.boot) kernelParams;
     } ''
     echo "init=${toplevel}/init $kernelParams" > cmdline
     objcopy \
