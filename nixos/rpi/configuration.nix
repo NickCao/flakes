@@ -1,7 +1,7 @@
 { config, pkgs, lib, modulesPath, ... }:
 {
-  imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64-new-kernel.nix") ];
-  sdImage.compressImage = false;
+  imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64.nix") ];
+  disabledModules = [ "profiles/base.nix" ];
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
