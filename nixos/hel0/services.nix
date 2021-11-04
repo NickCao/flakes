@@ -134,6 +134,7 @@ in
   users.groups.maddy = { };
   environment.etc."maddy/maddy.conf".source = ./maddy.conf;
   systemd.services.maddy = {
+    wantedBy = [ "multi-user.target" ];
     restartTriggers = [ (builtins.hashFile "sha256" ./maddy.conf) ];
     serviceConfig = {
       LoadCredential = [
