@@ -48,6 +48,19 @@ in
       nixbot = { };
       meow = { };
       dkim = { };
+      "hercules/cluster-join-token.key" = {
+        owner = "hercules-ci-agent";
+      };
+      "hercules/binary-caches.json" = {
+        owner = "hercules-ci-agent";
+      };
+    };
+  };
+
+  services.hercules-ci-agent = {
+    enable = true;
+    settings = {
+      staticSecretsDirectory = "/run/secrets/hercules";
     };
   };
 
