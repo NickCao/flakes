@@ -52,7 +52,6 @@
     };
     nixbot = {
       url = "github:Ninlives/nixbot-telegram";
-      # inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
   };
