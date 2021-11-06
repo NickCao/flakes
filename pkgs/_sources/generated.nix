@@ -71,25 +71,25 @@
   };
   v2ray-domain-list-community = {
     pname = "v2ray-domain-list-community";
-    version = "c0def43269af64a5fe509818c9af0b809bd06751";
+    version = "8f1aaf2f122012bf32780f17e4956c85167b8fd1";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "domain-list-community";
-      rev = "c0def43269af64a5fe509818c9af0b809bd06751";
+      rev = "8f1aaf2f122012bf32780f17e4956c85167b8fd1";
       fetchSubmodules = false;
-      sha256 = "sha256-dko2trwXSQfvdlOFUemtXaUV0Wa49nkiB9Mdhh+JI0g=";
+      sha256 = "sha256-1wbFm2fT0+njmO3ZNwhjPPk2j+azuWayPpr2PgspWnI=";
     });
     vendorSha256 = "sha256-JuLU9v1ukVfAEtz07tGk66st1+sO4SBz83BlK3IPQwU=";
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "827d99523edc9382d93c0052533ca3e686c655b9";
+    version = "6ce69213faf2ceb4eb19d78c5f0df553ff992b78";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "geoip";
-      rev = "827d99523edc9382d93c0052533ca3e686c655b9";
+      rev = "6ce69213faf2ceb4eb19d78c5f0df553ff992b78";
       fetchSubmodules = false;
-      sha256 = "sha256-TGuI/hbK/eNppSSWRrJ7FE6I11JUy3Ri2ChgiG7OZDo=";
+      sha256 = "sha256-F14x6/JHEqkBguLhm+qHx0YR9Gs6MlFbKsBNYQ/U7Bg=";
     });
   };
   wemeet = {
