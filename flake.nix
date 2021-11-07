@@ -64,7 +64,11 @@
         system:
         let
           pkgs = import nixpkgs {
-            inherit system; config.allowUnfree = true;
+            inherit system;
+            config = {
+              allowUnfree = true;
+              allowUnsupportedSystem = true;
+            };
             overlays = [
               self.overlay
               inputs.deploy-rs.overlay
