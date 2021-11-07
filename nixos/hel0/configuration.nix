@@ -1,5 +1,9 @@
 { config, pkgs, lib, ... }:
 {
+  programs.ssh.knownHosts."8.214.124.155" = {
+    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK1Zi5APlqAX7GRhNDNgYAz+BEOTk4wjbr1pNdciEOcV";
+  };
+
   nix = {
     autoOptimiseStore = true;
     trustedUsers = [ "root" ];
@@ -7,6 +11,14 @@
     extraOptions = ''
       experimental-features = nix-command flakes ca-references ca-derivations
     '';
+    buildMachines = [{
+      hostName = "8.214.124.155";
+      system = "x86_64-linux";
+      sshUser = "nickcao";
+      sshKey = config.sops.secrets.plct.path;
+      maxJobs = 64;
+      supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
+    }];
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

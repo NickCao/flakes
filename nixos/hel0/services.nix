@@ -42,6 +42,7 @@ in
     };
     gnupg.sshKeyPaths = [ ];
     secrets = {
+      plct = { };
       minio.restartUnits = [ "minio.service" ];
       telegraf.restartUnits = [ "telegraf.service" ];
       nixbot.restartUnits = [ "nixbot.service" ];
@@ -60,6 +61,15 @@ in
         restartUnits = [ "hercules-ci-agent.service" ];
       };
     };
+  };
+
+  services.hydra = {
+    enable = true;
+    listenHost = "127.0.0.1";
+    hydraURL = "https://hydra.nichi.co/";
+    useSubstitutes = true;
+    notificationSender = "hydra@nichi.co";
+    buildMachinesFiles = [ "/etc/nix/machines" ];
   };
 
   services.hercules-ci-agent = {
@@ -262,6 +272,11 @@ in
             service = "tagging";
             middlewares = [ "compress" ];
           };
+          hydra = {
+            rule = "Host(`hydra.nichi.co`)";
+            entryPoints = [ "https" ];
+            service = "hydra";
+          };
         };
         middlewares = {
           compress.compress = { };
@@ -282,6 +297,10 @@ in
           tagging.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:19000"; }];
+          };
+          hydra.loadBalancer = {
+            passHostHeader = true;
+            servers = [{ url = "http://127.0.0.1:3000"; }];
           };
         };
       };
