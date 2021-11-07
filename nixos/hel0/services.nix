@@ -57,6 +57,15 @@ in
     };
   };
 
+  services.hydra = {
+    enable = true;
+    listenHost = "127.0.0.1";
+    hydraURL = "https://hydra.nichi.co/";
+    useSubstitutes = true;
+    notificationSender = "hydra@nichi.co";
+    buildMachinesFiles = [ "/etc/nix/machines" ];
+  };
+
   services.hercules-ci-agent = {
     enable = true;
     settings = {
@@ -258,6 +267,11 @@ in
             service = "tagging";
             middlewares = [ "compress" ];
           };
+          hydra = {
+            rule = "Host(`hydra.nichi.co`)";
+            entryPoints = [ "https" ];
+            service = "hydra";
+          };
         };
         middlewares = {
           compress.compress = { };
@@ -278,6 +292,10 @@ in
           tagging.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:19000"; }];
+          };
+          hydra.loadBalancer = {
+            passHostHeader = true;
+            servers = [{ url = "http://127.0.0.1:3000"; }];
           };
         };
       };

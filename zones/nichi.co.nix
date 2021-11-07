@@ -57,6 +57,7 @@ dns.lib.toString "nichi.co" {
     s3.CNAME = [ "hel0.nichi.link." ];
     etcd.CNAME = [ "hel0.nichi.link." ];
     stats.CNAME = [ "hel0.nichi.link." ];
+    hydra.CNAME = [ "hel0.nichi.link." ];
     tagging.CNAME = [ "hel0.nichi.link." ];
     www.TXT = [ "http.cat/404" ];
     "*".CNAME = [ "nichi.co." ];
