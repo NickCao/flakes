@@ -7,20 +7,7 @@
     extraOptions = ''
       experimental-features = nix-command flakes ca-references ca-derivations
     '';
-    buildMachines = [
-      {
-        hostName = "localhost";
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-        ];
-        maxJobs = 12;
-        supportedFeatures = [ "kvm" "nixos-test" "big-parallel" "benchmark" ];
-      }
-    ];
   };
-
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   networking = {
     useNetworkd = true;
