@@ -54,6 +54,12 @@
       url = "github:Ninlives/nixbot-telegram";
       inputs.flake-utils.follows = "flake-utils";
     };
+    hercules = {
+      url = "github:hercules-ci/hercules-ci-agent/experimental-0.9";
+      inputs.nixos-unstable.follows = "nixpkgs";
+      inputs.nixos-20_09.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, dns, ... }:
     let
