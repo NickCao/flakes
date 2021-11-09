@@ -101,7 +101,7 @@
       )
     // {
       herculesCI = {
-        onPush.default.output = self.checks;
+        onPush.default.outputs = self.checks;
       };
       nixosModules = import ./modules;
       overlay = final: prev: (nixpkgs.lib.composeExtensions this.overlay
