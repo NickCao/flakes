@@ -97,6 +97,9 @@
           devShell = with pkgs; mkShell {
             nativeBuildInputs = [ deploy-rs.deploy-rs ];
           };
+          herculesCI = {
+            onPush.default.output = checks;
+          };
         }
       )
     // {
