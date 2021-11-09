@@ -97,12 +97,12 @@
           devShell = with pkgs; mkShell {
             nativeBuildInputs = [ deploy-rs.deploy-rs ];
           };
-          herculesCI = {
-            onPush.default.output = checks;
-          };
         }
       )
     // {
+      herculesCI = {
+        onPush.default.output = self.checks;
+      };
       nixosModules = import ./modules;
       overlay = final: prev: (nixpkgs.lib.composeExtensions this.overlay
         (final: prev: {
