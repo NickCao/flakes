@@ -16,15 +16,15 @@ in
     sops.secrets = builtins.listToAttrs
       (flatten (builtins.map
         (x: [
-          { name = "${x}.key"; value = { mode = "0444"; sopsFile = ./secrets.yaml; }; }
-          { name = "${x}.private"; value = { mode = "0444"; sopsFile = ./secrets.yaml; }; }
+          { name = "${x}.key"; value = { mode = "0444"; sopsFile = ./secrets.yaml; restartUnits = [ "coredns.service" ]; }; }
+          { name = "${x}.private"; value = { mode = "0444"; sopsFile = ./secrets.yaml; restartUnits = [ "coredns.service" ]; }; }
         ]) [
         "Knichi.co.+013+41694"
         "Knichi.link.+013+43698"
         "K9.6.0.1.4.6.b.c.0.a.2.ip6.arpa.+013+13716"
       ])) // {
-      gravity = { mode = "0444"; sopsFile = ./secrets.yaml; };
-      gravity_reverse = { mode = "0444"; sopsFile = ./secrets.yaml; };
+      gravity = { mode = "0444"; sopsFile = ./secrets.yaml; restartUnits = [ "coredns.service" ]; };
+      gravity_reverse = { mode = "0444"; sopsFile = ./secrets.yaml; restartUnits = [ "coredns.service" ]; };
     };
     services.coredns.enable = true;
     services.coredns.package = pkgs.coredns.overrideAttrs (_: {
@@ -39,7 +39,6 @@ in
         go generate -mod=vendor coredns.go
       '';
     });
-    systemd.services.coredns.restartTriggers = [ (builtins.hashFile "sha256" ./secrets.yaml) ];
     services.coredns.config = ''
       nichi.co {
         file ${pkgs."db.co.nichi"}

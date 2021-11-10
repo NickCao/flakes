@@ -8,8 +8,8 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    secrets.rait = { };
-    secrets.v2ray = { };
+    secrets.rait.restartUnits = [ "gravity.service" ];
+    secrets.v2ray.restartUnits = [ "v2ray.service" ];
     secrets.passwd.neededForUsers = true;
     age = {
       keyFile = "/var/lib/sops.key";

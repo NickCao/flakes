@@ -19,6 +19,7 @@ in
     sops.secrets.bgp_passwd = {
       sopsFile = ./secrets.yaml;
       owner = "bird2";
+      restartUnits = [ "bird2.service" ];
     };
     boot.kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
@@ -49,16 +50,14 @@ in
               Family = "ipv6";
             };
           }
-          /*
-            {
-            routingPolicyRuleConfig = {
-            FirewallMark = 54;
-            Priority = 1001;
-            Family = "ipv6";
-            Type = "blackhole";
-            };
-            }
-          */
+          # {
+          #   routingPolicyRuleConfig = {
+          #     FirewallMark = 54;
+          #     Priority = 1001;
+          #     Family = "ipv6";
+          #     Type = "blackhole";
+          #   };
+          # }
           {
             routingPolicyRuleConfig = {
               Table = 100;
@@ -77,7 +76,6 @@ in
         };
       };
     };
-    systemd.services.bird2.restartTriggers = [ config.sops.secrets.bgp_passwd.sopsFileHash ];
     services.bird2 = {
       enable = true;
       checkConfig = false;

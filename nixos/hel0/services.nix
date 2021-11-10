@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  mkService = { ExecStart, EnvironmentFile ? null, restartTriggers ? [ ] }: {
-    inherit restartTriggers;
+  mkService = { ExecStart, EnvironmentFile ? null }: {
     serviceConfig = {
       MemoryLimit = "300M";
       DynamicUser = true;
@@ -43,16 +42,18 @@ in
     };
     gnupg.sshKeyPaths = [ ];
     secrets = {
-      minio = { };
-      telegraf = { };
-      nixbot = { };
-      meow = { };
-      dkim = { };
+      minio.restartUnits = [ "minio.service" ];
+      telegraf.restartUnits = [ "telegraf.service" ];
+      nixbot.restartUnits = [ "nixbot.service" ];
+      meow.restartUnits = [ "meow.service" ];
+      dkim.restartUnits = [ "maddy.service" ];
       "hercules/cluster-join-token.key" = {
         owner = "hercules-ci-agent";
+        restartUnits = [ "hercules-ci-agent.service" ];
       };
       "hercules/binary-caches.json" = {
         owner = "hercules-ci-agent";
+        restartUnits = [ "hercules-ci-agent.service" ];
       };
     };
   };
@@ -74,7 +75,6 @@ in
   systemd.services.meow = mkService {
     ExecStart = "${pkgs.meow}/bin/meow";
     EnvironmentFile = config.sops.secrets.meow.path;
-    restartTriggers = [ config.sops.secrets.meow.sopsFileHash ];
   };
 
   systemd.services.nixbot = {
