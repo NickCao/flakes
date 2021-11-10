@@ -1,11 +1,17 @@
 name: deploy-rs
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        required: true
 jobs:
   check:
     environment: prod
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.4
+      with:
+        ref: '${{ inputs.ref }}'
     - uses: docker/setup-qemu-action@v1
     - uses: cachix/install-nix-action@v13
       with:
