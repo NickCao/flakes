@@ -60,6 +60,13 @@
       inputs.nixos-20_09.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
     };
+    hercules-ci-effects = {
+      url = "github:hercules-ci/hercules-ci-effects";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-nixops.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.hercules-ci-agent.follows = "hercules";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, dns, ... }:
     let

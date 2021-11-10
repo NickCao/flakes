@@ -158,6 +158,35 @@
         "type": "github"
       }
     },
+    "hercules-ci-effects": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "hercules-ci-agent": [
+          "hercules"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-nixops": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1633601811,
+        "narHash": "sha256-kBSIjWLVk3FoDAAWbSvJjU0Bku98JhoqCtF0xeeVn/U=",
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
+        "rev": "783a12787ddc09af53fd01a2e6ba40cb8d48702d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -328,6 +357,7 @@
         "flake-utils": "flake-utils",
         "fn": "fn",
         "hercules": "hercules",
+        "hercules-ci-effects": "hercules-ci-effects",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nixbot": "nixbot",

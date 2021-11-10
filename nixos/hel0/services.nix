@@ -55,6 +55,10 @@ in
         owner = "hercules-ci-agent";
         restartUnits = [ "hercules-ci-agent.service" ];
       };
+      "hercules/secrets.json" = {
+        owner = "hercules-ci-agent";
+        restartUnits = [ "hercules-ci-agent.service" ];
+      };
     };
   };
 
