@@ -88,6 +88,7 @@
               inputs.rust-overlay.overlay
               inputs.fn.overlay
               inputs.nvfetcher.overlay
+              inputs.hercules-ci-effects.overlay
             ];
           };
         in
@@ -109,7 +110,14 @@
     // {
       herculesCI = {
         onPush.default.outputs = self.checks;
-        onPush.deploy.outputs = builtins.mapAttrs (name: attr: attr.profiles.system.path) self.deploy.nodes;
+        onPush.deploy.outputs = builtins.mapAttrs (name: attr: attr.profiles.system.path) self.deploy.nodes // {
+          github = self.legacyPackages.x86_64-linux.effects.mkEffect {
+            name = "github";
+            effectScript = ''
+              echo hello effects
+            '';
+          };
+        };
       };
       nixosModules = import ./modules;
       overlay = final: prev: (nixpkgs.lib.composeExtensions this.overlay
