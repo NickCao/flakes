@@ -10,6 +10,7 @@
     defaultSopsFile = ./secrets.yaml;
     secrets.rait = { };
     secrets.v2ray = { };
+    secrets.passwd.neededForUsers = true;
     age = {
       keyFile = "/var/lib/sops.key";
       sshKeyPaths = [ ];
@@ -205,7 +206,7 @@
     users = {
       nickcao = {
         isNormalUser = true;
-        hashedPassword = "$6$n7lnnelApqi$ulDiRUraojX4zlMiuP4qP./qGZYbTGKVqTsN5z.5HlAGgIy23WMpxBA5fjFyY.RGOepAaZV8cK0tt3duMgVy30";
+        passwordFile = config.sops.secrets.passwd.path;
         extraGroups = [ "wheel" "networkmanager" ];
       };
     };
