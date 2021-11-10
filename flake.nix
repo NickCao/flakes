@@ -102,6 +102,7 @@
     // {
       herculesCI = {
         onPush.default.outputs = self.checks;
+        onPush.deploy.outputs = builtins.mapAttrs (name: attr: attr.profiles.system.path) self.deploy.nodes;
       };
       nixosModules = import ./modules;
       overlay = final: prev: (nixpkgs.lib.composeExtensions this.overlay
