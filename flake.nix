@@ -113,6 +113,7 @@
         onPush.deploy.outputs = builtins.mapAttrs (name: attr: attr.profiles.system.path) self.deploy.nodes // {
           effects.github = self.legacyPackages.x86_64-linux.effects.mkEffect {
             name = "github";
+            dontUnpack = true;
             effectScript = ''
               echo hello effects
             '';
