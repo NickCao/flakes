@@ -108,14 +108,19 @@
         }
       )
     // {
-      herculesCI = {
+      herculesCI = { rev, ... }: {
         onPush.default.outputs = self.checks;
         onPush.deploy.outputs = builtins.mapAttrs (name: attr: attr.profiles.system.path) self.deploy.nodes // {
           effects.github = self.legacyPackages.x86_64-linux.effects.mkEffect {
             name = "github";
+            secretsMap = {
+              "github" = "github";
+            };
             dontUnpack = true;
-            effectScript = ''
-              echo hello effects
+            effectScript = with self.legacyPackages.x86_64-linux; ''
+              ${curl}/bin/curl https://api.github.com/repos/NickCao/flakes/actions/workflows/nix.yml/dispatches \
+                -H "authorization: Bearer $(readSecretString github .token)" \
+                -d '{"ref":"master","inputs":{"ref":"${rev}"}}'
             '';
           };
         };
