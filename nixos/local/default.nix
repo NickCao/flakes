@@ -15,7 +15,6 @@ nixpkgs.lib.nixosSystem {
         self.overlay
         inputs.rust-overlay.overlay
         (final: prev: {
-          nix-direnv = prev.nix-direnv-flakes;
           smartdns = prev.smartdns.overrideAttrs (attrs: {
             postPatch = "rm systemd/smartdns.service";
           });

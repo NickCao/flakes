@@ -117,6 +117,7 @@
               "github" = "github";
             };
             dontUnpack = true;
+            ignoreFailure = true;
             effectScript = with self.legacyPackages.x86_64-linux; ''
               ${curl}/bin/curl https://api.github.com/repos/NickCao/flakes/actions/workflows/nix.yml/dispatches \
                 -H "authorization: Bearer $(readSecretString github .token)" \

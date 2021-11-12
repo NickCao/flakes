@@ -35,6 +35,7 @@
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "nvidia-persistenced"
     "nvidia-x11"
   ];
 
@@ -111,9 +112,9 @@
 
   hardware = {
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-      modesetting.enable = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       nvidiaSettings = false;
+      nvidiaPersistenced = true;
     };
     pulseaudio.enable = false;
     cpu.intel.updateMicrocode = true;
@@ -161,8 +162,8 @@
       enable = true;
       displayManager.gdm = {
         enable = true;
-        wayland = true;
-        nvidiaWayland = true;
+        wayland = false;
+        nvidiaWayland = false;
       };
       desktopManager.gnome.enable = true;
       videoDrivers = [ "nvidia" ];
