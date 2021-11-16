@@ -13,12 +13,9 @@ jobs:
       with:
         ref: '${{ inputs.ref }}'
     - uses: docker/setup-qemu-action@v1
-    - uses: cachix/install-nix-action@v13
+    - uses: cachix/install-nix-action@v15
       with:
-        install_url: https://nixos-nix-install-tests.cachix.org/serve/036617vxvs25sdpkfdia77a6w6zvrxp6/install
-        install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
         extra_nix_config: |
-          experimental-features = nix-command flakes ca-references recursive-nix
           extra-platforms = aarch64-linux
     - uses: cachix/cachix-action@v10
       with:
