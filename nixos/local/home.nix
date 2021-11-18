@@ -40,6 +40,7 @@ in
   home.packages = with pkgs; [
     xilinx-env
     ripgrep
+    rnix-lsp
     ranger
     ncdu
     mode
