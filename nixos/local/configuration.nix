@@ -52,6 +52,9 @@
       path = /var/lib/NetworkManager/system-connections
     '';
     nameservers = [ "127.0.0.53" ];
+    hosts = {
+      "104.21.75.85" = [ "api.nichi.workers.dev" ];
+    };
   };
 
   time.timeZone = "Asia/Shanghai";
