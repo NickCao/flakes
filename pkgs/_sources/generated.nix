@@ -60,34 +60,22 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "f7a82905d229c814362e6c19776e772d4311b34b";
+    version = "85b239c4ac717f9d66224be663ce1996c365f8ca";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "f7a82905d229c814362e6c19776e772d4311b34b";
+      rev = "85b239c4ac717f9d66224be663ce1996c365f8ca";
       fetchSubmodules = false;
-      sha256 = "sha256-0sU96UpzJx1BZS6HXA9pxrCS13wqf+oaLCZ33FX+UWY=";
+      sha256 = "sha256-O7CyzAeT10lnChs0NQQqE0EL46hGH6fDc7yMpmKgJUQ=";
     });
-  };
-  v2ray-domain-list-community = {
-    pname = "v2ray-domain-list-community";
-    version = "191f68d00c895a640780c7938708948147ed1ff7";
-    src = fetchFromGitHub ({
-      owner = "v2fly";
-      repo = "domain-list-community";
-      rev = "191f68d00c895a640780c7938708948147ed1ff7";
-      fetchSubmodules = false;
-      sha256 = "sha256-oZGN8KV09kuXqCh1qxt8IbLZZZ2WSAdEPUcP1ThyUyA=";
-    });
-    vendorSha256 = "sha256-JuLU9v1ukVfAEtz07tGk66st1+sO4SBz83BlK3IPQwU=";
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "6e809e07bd7c7175678429e757088e727a4d2705";
+    version = "0fdb6f32f42a0a334ada8b27eec66205fc454201";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "geoip";
-      rev = "6e809e07bd7c7175678429e757088e727a4d2705";
+      rev = "0fdb6f32f42a0a334ada8b27eec66205fc454201";
       fetchSubmodules = false;
       sha256 = "sha256-jD/NIvXu1txGHn0QVoYgBuuQd14SI7RoYt7exATKAhI=";
     });
