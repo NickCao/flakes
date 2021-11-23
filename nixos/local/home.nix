@@ -11,6 +11,15 @@ in
       package = pkgs.materia-theme;
       name = "Materia-dark";
     };
+    iconTheme = {
+      package = pkgs.numix-icon-theme-circle;
+      name = "Numix-Circle";
+    };
+    font = {
+      package = pkgs.roboto;
+      name = "Roboto";
+      size = 11;
+    };
   };
   wayland.windowManager.sway = {
     enable = true;
