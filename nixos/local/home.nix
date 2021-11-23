@@ -45,7 +45,7 @@ in
           names = [ "monospace" ];
           size = 16.0;
         };
-        trayOutput = "primary";
+        trayOutput = "*";
       }];
     };
   };
