@@ -28,7 +28,6 @@
     font-hinting = "slight";
     font-name = "Roboto 11";
     gtk-im-module = "ibus";
-    gtk-theme = "Materia";
     icon-theme = "Numix-Circle";
     show-battery-percentage = true;
   };

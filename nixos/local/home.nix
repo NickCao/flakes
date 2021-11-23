@@ -5,6 +5,13 @@ let
   mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
 in
 {
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.materia-theme;
+      name = "Materia-dark";
+    };
+  };
   wayland.windowManager.sway = {
     enable = true;
     package = null;
@@ -121,6 +128,21 @@ in
 
   services.mbsync.enable = true;
   programs = {
+    i3status = {
+      enable = true;
+      enableDefault = false;
+      modules = {
+        "wireless wlp0s20f3" = {
+          position = 1;
+        };
+        "battery 0" = {
+          position = 2;
+        };
+        "tztime local" = {
+          position = 3;
+        };
+      };
+    };
     msmtp.enable = true;
     mbsync.enable = true;
     neomutt = {
