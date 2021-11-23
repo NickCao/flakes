@@ -20,7 +20,7 @@
 
   nix = {
     autoOptimiseStore = true;
-    binaryCaches = pkgs.lib.mkForce [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://mirror.sjtu.edu.cn/nix-channels/store" "https://nichi.cachix.org" ];
+    binaryCaches = pkgs.lib.mkBefore [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://nichi.cachix.org" ];
     binaryCachePublicKeys = [ "nichi.cachix.org-1:ZWn4Jui6odEcNEMjcHM/WXbDSVO4Ai+jrzWHf+pqwj0=" ];
     trustedUsers = [ "root" "nickcao" ];
     package = pkgs.nixUnstable;
@@ -125,6 +125,7 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       nvidiaSettings = false;
       nvidiaPersistenced = true;
+      modesetting.enable = true;
     };
     pulseaudio.enable = false;
     cpu.intel.updateMicrocode = true;
@@ -172,8 +173,7 @@
       enable = true;
       displayManager.gdm = {
         enable = true;
-        wayland = false;
-        nvidiaWayland = false;
+        nvidiaWayland = true;
       };
       desktopManager.gnome.enable = true;
       videoDrivers = [ "nvidia" ];
@@ -204,6 +204,10 @@
   };
 
   programs = {
+    sway = {
+      enable = true;
+      extraOptions = [ "--my-next-gpu-wont-be-nvidia" ];
+    };
     adb.enable = true;
     chromium = {
       enable = true;

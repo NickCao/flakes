@@ -18,14 +18,6 @@ nixpkgs.lib.nixosSystem {
           smartdns = prev.smartdns.overrideAttrs (attrs: {
             postPatch = "rm systemd/smartdns.service";
           });
-          alacritty = final.symlinkJoin {
-            name = "alacritty";
-            paths = [ prev.alacritty ];
-            buildInputs = [ final.makeWrapper ];
-            postBuild = ''
-              wrapProgram $out/bin/alacritty --unset WAYLAND_DISPLAY
-            '';
-          };
         })
       ];
       nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];

@@ -5,6 +5,25 @@ let
   mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
 in
 {
+  wayland.windowManager.sway = {
+    enable = true;
+    package = null;
+    config = {
+      modifier = "Mod4";
+      terminal = "alacritty";
+      bars = [{
+        mode = "dock";
+        position = "top";
+        workspaceButtons = true;
+        workspaceNumbers = true;
+        fonts = {
+          names = [ "monospace" ];
+          size = 16.0;
+        };
+        trayOutput = "primary";
+      }];
+    };
+  };
   accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
   accounts.email.accounts.nickcao = rec {
     address = "nickcao@nichi.co";
