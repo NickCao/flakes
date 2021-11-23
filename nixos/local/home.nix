@@ -11,6 +11,15 @@ in
     config = {
       modifier = "Mod4";
       terminal = "alacritty";
+      output = {
+        eDP-1 = {
+          bg = "${pkgs.fetchurl {
+                    url = "https://pbs.twimg.com/media/ElphQpaU4AAt9Bv?format=jpg";
+                    name = "fubuki.jpg";
+                    hash = "sha256-541/iI7scwyyEOxZAYFql4X/W5xmg5hUfeDJbtJ+voE=";
+                    }} fill";
+        };
+      };
       bars = [{
         mode = "dock";
         position = "top";
@@ -208,7 +217,7 @@ in
       settings = {
         font = {
           normal = { family = "JetBrains Mono"; };
-          size = 13;
+          size = 14;
         };
         colors = (import ./alacritty.nix).light;
         shell = {

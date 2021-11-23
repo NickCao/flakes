@@ -207,6 +207,7 @@
     sway = {
       enable = true;
       extraOptions = [ "--my-next-gpu-wont-be-nvidia" ];
+      wrapperFeatures.gtk = true;
     };
     adb.enable = true;
     chromium = {
