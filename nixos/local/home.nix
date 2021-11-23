@@ -9,7 +9,7 @@ in
     enable = true;
     theme = {
       package = pkgs.materia-theme;
-      name = "Materia-dark";
+      name = "Materia";
     };
     iconTheme = {
       package = pkgs.numix-icon-theme-circle;
@@ -143,9 +143,11 @@ in
       modules = {
         "wireless wlp0s20f3" = {
           position = 1;
+          settings.format_up = "W: %essid";
         };
         "battery 0" = {
           position = 2;
+          settings.last_full_capacity = true;
         };
         "tztime local" = {
           position = 3;
