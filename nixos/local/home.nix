@@ -74,6 +74,10 @@ in
         };
         trayOutput = "*";
       }];
+      floating.criteria = [
+        { app_id = "pavucontrol"; }
+        { app_id = "blueberry.py"; }
+      ];
     };
   };
   accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
