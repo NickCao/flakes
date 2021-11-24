@@ -270,6 +270,30 @@ in
     };
   };
 
+  home.file = {
+    ".local/share/fcitx5/rime/default.custom.yaml".text = ''
+      patch:
+        schema_list:
+          - schema: double_pinyin_flypy
+    '';
+    ".local/share/fcitx5/rime/double_pinyin_flypy.custom.yaml".text = ''
+      patch:
+        translator/preedit_format: []
+        translator/dictionary: luna_pinyin.extended
+    '';
+    ".local/share/fcitx5/rime/luna_pinyin.extended.dict.yaml".text = ''
+      ---
+      name: luna_pinyin.extended
+      version: "0.1"
+      sort: by_weight
+      use_preset_vocabulary: true
+      import_tables:
+        - luna_pinyin
+        - zhwiki
+      ...  
+    '';
+    ".local/share/fcitx5/rime/zhwiki.dict.yaml".source = "${pkgs.rime-pinyin-zhwiki}/share/rime-data/zhwiki.dict.yaml";
+  };
   xdg = {
     enable = true;
     userDirs = {
@@ -290,22 +314,6 @@ in
           display-messages = true;
         };
       };
-      "gnome-initial-setup-done".text = "yes";
-      "autostart/telegramdesktop.desktop".text = ''
-        [Desktop Entry]
-        Version=1.0
-        Name=Telegram Desktop
-        Comment=Official desktop version of Telegram messaging app
-        Exec=telegram-desktop -workdir ${config.xdg.dataHome}/TelegramDesktop/ -startintray
-        Icon=telegram
-        Terminal=false
-        StartupWMClass=TelegramDesktop
-        Type=Application
-        Categories=Chat;Network;InstantMessaging;Qt;
-        MimeType=x-scheme-handler/tg;
-        Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;
-        X-GNOME-UsesNotifications=true
-      '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
         GOBIN=${config.xdg.dataHome}/go/bin
@@ -318,28 +326,6 @@ in
           driver = "btrfs";
         };
       };
-      "ibus/rime/default.custom.yaml".text = ''
-        patch:
-          schema_list:
-            - schema: double_pinyin_flypy
-      '';
-      "ibus/rime/double_pinyin_flypy.custom.yaml".text = ''
-        patch:
-          translator/preedit_format: []
-          translator/dictionary: luna_pinyin.extended
-      '';
-      "ibus/rime/luna_pinyin.extended.dict.yaml".text = ''
-        ---
-        name: luna_pinyin.extended
-        version: "0.1"
-        sort: by_weight
-        use_preset_vocabulary: true
-        import_tables:
-          - luna_pinyin
-          - zhwiki
-        ...  
-      '';
-      "ibus/rime/zhwiki.dict.yaml".source = "${pkgs.rime-pinyin-zhwiki}/share/rime-data/zhwiki.dict.yaml";
     };
   };
 }
