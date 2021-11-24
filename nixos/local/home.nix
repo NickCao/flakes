@@ -3,6 +3,11 @@ let
   toTOMLDrv = (pkgs.formats.toml { }).generate "";
   toYAMLDrv = (pkgs.formats.yaml { }).generate "";
   mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
+  fbk = pkgs.fetchurl {
+    url = "https://pbs.twimg.com/media/ElphQpaU4AAt9Bv?format=jpg";
+    name = "fubuki.jpg";
+    hash = "sha256-541/iI7scwyyEOxZAYFql4X/W5xmg5hUfeDJbtJ+voE=";
+  };
 in
 {
   systemd.user = {
@@ -56,15 +61,12 @@ in
         in
         pkgs.lib.mkOptionDefault {
           "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
+          "${modifier}+Shift+l" = "exec ${pkgs.swaylock-effects}/bin/swaylock";
           "${modifier}+space" = null;
         };
       output = {
         eDP-1 = {
-          bg = "${pkgs.fetchurl {
-                    url = "https://pbs.twimg.com/media/ElphQpaU4AAt9Bv?format=jpg";
-                    name = "fubuki.jpg";
-                    hash = "sha256-541/iI7scwyyEOxZAYFql4X/W5xmg5hUfeDJbtJ+voE=";
-                    }} fill";
+          bg = "${fbk} fill";
         };
       };
       bars = [{
@@ -353,6 +355,14 @@ in
           display-messages = true;
         };
       };
+      "swaylock/config".text = ''
+        show-failed-attempts
+        daemonize
+        image=${fbk}
+        scaling=fill
+        effect-blur=7x5
+        effect-vignette=0.5:0.5
+      '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
         GOBIN=${config.xdg.dataHome}/go/bin
