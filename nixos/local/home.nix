@@ -58,12 +58,22 @@ in
   wayland.windowManager.sway = {
     enable = true;
     package = null;
-    extraConfig = ''
-      for_window [app_id="pavucontrol"] floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 35
-    '';
     config = {
       modifier = "Mod4";
       terminal = "alacritty";
+      assigns = {
+        "3" = [{ app_id = "telegramdesktop"; }];
+      };
+      window.commands = [
+        {
+          criteria = { app_id = "pavucontrol"; };
+          command = "floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 35";
+        }
+        {
+          criteria = { urgent = "latest"; };
+          command = "focus";
+        }
+      ];
       gaps = {
         inner = 5;
         outer = 5;
