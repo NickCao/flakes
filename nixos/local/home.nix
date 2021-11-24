@@ -5,6 +5,20 @@ let
   mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
 in
 {
+  systemd.user = {
+    services = {
+      mako = {
+        Unit.PartOf = [ "sway-session.target" ];
+        Service = {
+          Type = "simple";
+          ExecStart = "${pkgs.mako}/bin/mako";
+          RestartSec = 3;
+          Restart = "always";
+        };
+        Install.WantedBy = [ "sway-session.target" ];
+      };
+    };
+  };
   gtk = {
     enable = true;
     theme = {
@@ -157,6 +171,7 @@ in
 
   services.mbsync.enable = true;
   programs = {
+    mako.enable = true;
     msmtp.enable = true;
     mbsync.enable = true;
     neomutt = {
