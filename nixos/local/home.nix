@@ -36,6 +36,7 @@ in
           modifier = config.wayland.windowManager.sway.config.modifier;
         in
         pkgs.lib.mkOptionDefault {
+          "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
           "${modifier}+space" = null;
         };
       output = {
