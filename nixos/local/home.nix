@@ -77,6 +77,7 @@ in
           "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
           "${modifier}+Shift+l" = "exec loginctl lock-session";
           "${modifier}+space" = null;
+          "Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
         };
       output = {
         eDP-1 = {
