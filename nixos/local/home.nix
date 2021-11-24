@@ -22,6 +22,16 @@ in
         };
         Install.WantedBy = [ "sway-session.target" ];
       };
+      swayidle = {
+        Unit.PartOf = [ "sway-session.target" ];
+        Service = {
+          Type = "simple";
+          ExecStart = "${pkgs.swayidle}/bin/swayidle -w";
+          RestartSec = 3;
+          Restart = "always";
+        };
+        Install.WantedBy = [ "sway-session.target" ];
+      };
     };
   };
   gtk = {
@@ -61,7 +71,7 @@ in
         in
         pkgs.lib.mkOptionDefault {
           "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
-          "${modifier}+Shift+l" = "exec ${pkgs.swaylock-effects}/bin/swaylock";
+          "${modifier}+Shift+l" = "exec loginctl lock-session";
           "${modifier}+space" = null;
         };
       output = {
@@ -362,6 +372,11 @@ in
         scaling=fill
         effect-blur=7x5
         effect-vignette=0.5:0.5
+      '';
+      "swayidle/config".text = ''
+        lock "${pkgs.swaylock-effects}/bin/swaylock"
+        timeout 900 "${pkgs.swaylock-effects}/bin/swaylock"
+        timeout 905 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
       '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
