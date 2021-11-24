@@ -141,8 +141,6 @@ in
     libarchive
   ];
 
-  dconf.settings = import ./dconf.nix { inherit (pkgs) fetchurl; };
-
   systemd.user.sessionVariables = {
     EDITOR = "hx";
     GTK_IM_MODULE = "fcitx";
