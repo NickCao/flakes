@@ -57,6 +57,9 @@ in
   wayland.windowManager.sway = {
     enable = true;
     package = null;
+    extraConfig = ''
+      for_window [app_id="pavucontrol"] floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 35
+    '';
     config = {
       modifier = "Mod4";
       terminal = "alacritty";
@@ -92,7 +95,6 @@ in
         trayOutput = "*";
       }];
       floating.criteria = [
-        { app_id = "pavucontrol"; }
         { app_id = "blueberry.py"; }
       ];
     };
