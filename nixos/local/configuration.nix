@@ -154,12 +154,10 @@
     };
   };
 
-  xdg.portal.enable = pkgs.lib.mkForce false;
-
   services = {
+    power-profiles-daemon.enable = true;
     pcscd.enable = true;
     fstrim.enable = true;
-    packagekit.enable = false;
     logind.lidSwitch = "ignore";
     pipewire = {
       enable = true;
