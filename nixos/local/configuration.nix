@@ -43,6 +43,7 @@
     hostName = "local";
     domain = "nichi.link";
     firewall.enable = false;
+    networkmanager.enable = true;
     networkmanager.dns = "dnsmasq";
     # networkmanager.wifi.backend = "iwd";
     networkmanager.extraConfig = ''
@@ -160,9 +161,6 @@
     fstrim.enable = true;
     packagekit.enable = false;
     logind.lidSwitch = "ignore";
-    gnome.core-utilities.enable = false;
-    gnome.gnome-keyring.enable = pkgs.lib.mkForce false;
-    gnome.evolution-data-server.enable = pkgs.lib.mkForce false;
     pipewire = {
       enable = true;
       pulse.enable = true;
@@ -180,7 +178,6 @@
         enable = true;
         nvidiaWayland = true;
       };
-      desktopManager.gnome.enable = true;
       videoDrivers = [ "nvidia" ];
     };
     smartdns = {
@@ -254,9 +251,6 @@
     tdesktop
     materia-theme
     numix-icon-theme-circle
-    gnome.gnome-tweaks
-    gnome.gnome-screenshot
-    gnome40Extensions."appindicatorsupport@rgcjonas.gmail.com"
   ];
 
   fonts.fonts = with pkgs; [

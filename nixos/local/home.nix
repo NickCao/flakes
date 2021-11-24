@@ -87,6 +87,8 @@ in
     userName = address;
   };
   home.packages = with pkgs; [
+    blueberry
+    pavucontrol
     brightnessctl
     xilinx-env
     ripgrep
