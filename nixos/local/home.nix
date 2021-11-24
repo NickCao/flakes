@@ -1,5 +1,6 @@
 { pkgs, config, ... }:
 let
+  toJSONDrv = (pkgs.formats.json { }).generate "";
   toTOMLDrv = (pkgs.formats.toml { }).generate "";
   toYAMLDrv = (pkgs.formats.yaml { }).generate "";
   mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
@@ -88,10 +89,6 @@ in
         position = "top";
         workspaceButtons = true;
         workspaceNumbers = true;
-        fonts = {
-          names = [ "monospace" ];
-          size = 16.0;
-        };
         trayOutput = "*";
       }];
       floating.criteria = [
@@ -367,6 +364,8 @@ in
           display-messages = true;
         };
       };
+      "waybar/config".source = toJSONDrv (import ./waybar.nix);
+      "waybar/style.css".source = ./waybar.css;
       "swaylock/config".text = ''
         show-failed-attempts
         daemonize
