@@ -31,6 +31,13 @@ in
     config = {
       modifier = "Mod4";
       terminal = "alacritty";
+      keybindings =
+        let
+          modifier = config.wayland.windowManager.sway.config.modifier;
+        in
+        pkgs.lib.mkOptionDefault {
+          "${modifier}+space" = null;
+        };
       output = {
         eDP-1 = {
           bg = "${pkgs.fetchurl {
@@ -122,6 +129,7 @@ in
   dconf.settings = import ./dconf.nix { inherit (pkgs) fetchurl; };
 
   systemd.user.sessionVariables = {
+    EDITOR = "hx";
     GTK_IM_MODULE = "fcitx";
     QT_IM_MODULE = "fcitx";
     XMODIFIERS = "@im=fcitx";

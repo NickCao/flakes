@@ -243,7 +243,6 @@
     cue = true;
   };
 
-  environment.variables.EDITOR = "hx";
   environment.systemPackages = with pkgs; [
     helix
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
