@@ -141,7 +141,7 @@ in
     libarchive
   ];
 
-  systemd.user.sessionVariables = {
+  home.sessionVariables = {
     EDITOR = "hx";
     GTK_IM_MODULE = "fcitx";
     QT_IM_MODULE = "fcitx";
