@@ -42,6 +42,7 @@ in
       };
       bars = [{
         mode = "dock";
+        command = "${pkgs.waybar}/bin/waybar";
         position = "top";
         workspaceButtons = true;
         workspaceNumbers = true;
@@ -145,23 +146,6 @@ in
 
   services.mbsync.enable = true;
   programs = {
-    i3status = {
-      enable = true;
-      enableDefault = false;
-      modules = {
-        "wireless wlp0s20f3" = {
-          position = 1;
-          settings.format_up = "W: %essid";
-        };
-        "battery 0" = {
-          position = 2;
-          settings.last_full_capacity = true;
-        };
-        "tztime local" = {
-          position = 3;
-        };
-      };
-    };
     msmtp.enable = true;
     mbsync.enable = true;
     neomutt = {
