@@ -173,11 +173,6 @@
     };
     udev.packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
     xserver = {
-      enable = true;
-      displayManager.gdm = {
-        enable = true;
-        nvidiaWayland = true;
-      };
       videoDrivers = [ "nvidia" ];
     };
     smartdns = {
