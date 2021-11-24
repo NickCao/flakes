@@ -21,6 +21,10 @@ in
       size = 11;
     };
   };
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+  };
   wayland.windowManager.sway = {
     enable = true;
     package = null;
@@ -82,6 +86,7 @@ in
     userName = address;
   };
   home.packages = with pkgs; [
+    brightnessctl
     xilinx-env
     ripgrep
     rnix-lsp
@@ -221,6 +226,7 @@ in
         end
       '';
       shellAliases = {
+        b = "brightnessctl";
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
         vim = "hx";
         vi = "hx";
