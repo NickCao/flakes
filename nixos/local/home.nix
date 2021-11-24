@@ -45,6 +45,11 @@ in
     config = {
       modifier = "Mod4";
       terminal = "alacritty";
+      gaps = {
+        inner = 5;
+        outer = 5;
+        smartGaps = true;
+      };
       keybindings =
         let
           modifier = config.wayland.windowManager.sway.config.modifier;
