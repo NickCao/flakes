@@ -62,6 +62,8 @@ in
       modifier = "Mod4";
       terminal = "alacritty";
       assigns = {
+        "1" = [{ app_id = "Alacritty"; }];
+        "2" = [{ class = "Chromium-browser"; }];
         "3" = [{ app_id = "telegramdesktop"; }];
       };
       window.commands = [

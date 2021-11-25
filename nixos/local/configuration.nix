@@ -245,8 +245,6 @@
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
     mpv
     tdesktop
-    materia-theme
-    numix-icon-theme-circle
   ];
 
   fonts.fonts = with pkgs; [
