@@ -99,6 +99,7 @@ in
       input = {
         "1739:32552:MSFT0001:01_06CB:7F28_Touchpad" = {
           natural_scroll = "enabled";
+          tap = "enabled";
         };
       };
       output = {
@@ -152,6 +153,7 @@ in
     userName = address;
   };
   home.packages = with pkgs; [
+    xdg-utils
     blueberry
     pavucontrol
     brightnessctl
