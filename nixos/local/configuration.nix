@@ -220,6 +220,7 @@
     };
   };
 
+  environment.pathsToLink = [ "/share/fish" ];
   environment.etc = {
     "nixos/flake.nix".source = config.users.users.nickcao.home + "/Projects/flakes/flake.nix";
   };
