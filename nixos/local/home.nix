@@ -96,6 +96,11 @@ in
           "${modifier}+space" = null;
           "Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
         };
+      input = {
+        "1739:32552:MSFT0001:01_06CB:7F28_Touchpad" = {
+          natural_scroll = "enabled";
+        };
+      };
       output = {
         eDP-1 = {
           bg = "${fbk} fill";
