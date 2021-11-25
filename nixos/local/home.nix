@@ -61,6 +61,11 @@ in
     config = {
       modifier = "Mod4";
       terminal = "alacritty";
+      startup = [
+        { command = "alacritty"; }
+        { command = "chromium"; }
+        { command = "telegram-desktop"; }
+      ];
       assigns = {
         "1" = [{ app_id = "Alacritty"; }];
         "2" = [{ class = "Chromium-browser"; }];
