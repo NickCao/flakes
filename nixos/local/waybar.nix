@@ -1,6 +1,6 @@
 {
   layer = "top";
-  height = 30;
+  height = 35;
   modules-left = [
     "sway/workspaces"
     "sway/mode"
