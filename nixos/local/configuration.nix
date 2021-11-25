@@ -204,6 +204,10 @@
       extraOptions = [ "--my-next-gpu-wont-be-nvidia" ];
       wrapperFeatures.gtk = true;
     };
+    nm-applet = {
+      enable = true;
+      indicator = true;
+    };
     adb.enable = true;
     chromium = {
       enable = true;
