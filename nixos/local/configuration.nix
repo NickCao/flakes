@@ -76,13 +76,6 @@
   powerManagement.cpuFreqGovernor = "powersave";
 
   boot = {
-    kernelPatches = [{
-      name = "acpi";
-      patch = pkgs.fetchurl {
-        url = "https://github.com/torvalds/linux/commit/3b2b49e6dfdcf423506a771bf44cee842596351a.patch";
-        sha256 = "sha256-ksMo2xumNOsDqM7L/Wsbd7GR9jN9izmqsbG4b/7X5kU=";
-      };
-    }];
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     tmpOnTmpfs = true;
     consoleLogLevel = 0;

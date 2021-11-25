@@ -210,7 +210,12 @@ in
         fi
       '';
     };
-    mako.enable = true;
+    mako = {
+      enable = true;
+      extraConfig = ''
+        on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
+      '';
+    };
     msmtp.enable = true;
     mbsync.enable = true;
     neomutt = {
