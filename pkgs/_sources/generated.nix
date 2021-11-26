@@ -58,13 +58,13 @@
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "0fdb6f32f42a0a334ada8b27eec66205fc454201";
+    version = "035e318f63a5cc2e49265f33cea5473b4a14d25a";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "geoip";
-      rev = "0fdb6f32f42a0a334ada8b27eec66205fc454201";
+      rev = "035e318f63a5cc2e49265f33cea5473b4a14d25a";
       fetchSubmodules = false;
-      sha256 = "sha256-jD/NIvXu1txGHn0QVoYgBuuQd14SI7RoYt7exATKAhI=";
+      sha256 = "sha256-SpYSHb6FsyWEHrVs8qLW7Gof2Xr0hH8etgOURDFC5iA=";
     });
   };
   wemeet = {
