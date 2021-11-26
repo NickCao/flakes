@@ -157,7 +157,6 @@ in
     blueberry
     pavucontrol
     brightnessctl
-    xilinx-env
     ripgrep
     rnix-lsp
     ranger
