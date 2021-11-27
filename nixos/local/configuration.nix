@@ -161,7 +161,12 @@
         SystemMaxUse=15M
       '';
     };
-    udev.packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
+    udev = {
+      packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
+      extraRules = ''
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
+      '';
+    };
     xserver = {
       videoDrivers = [ "nvidia" ];
     };
