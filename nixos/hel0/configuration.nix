@@ -1,8 +1,15 @@
 { config, pkgs, lib, ... }:
 {
-  programs.ssh.knownHosts."8.214.124.155" = {
-    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK1Zi5APlqAX7GRhNDNgYAz+BEOTk4wjbr1pNdciEOcV";
+  programs.ssh.knownHosts = {
+    "8.214.124.155".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK1Zi5APlqAX7GRhNDNgYAz+BEOTk4wjbr1pNdciEOcV";
+    "sin0.nichi.link".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWjbR+SBqJVjtsNmUbxaV3jo8TGlmwyYF1NDDHW9A3r";
   };
+  programs.ssh.extraConfig = ''
+    Host sin0.nichi.link
+      IdentityFile ${config.sops.secrets.plct.path}
+    Host 8.214.124.155
+      ProxyJump root@sin0.nichi.link
+  '';
 
   nix = {
     autoOptimiseStore = true;
