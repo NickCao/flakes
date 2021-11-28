@@ -42,7 +42,7 @@ in
     };
     gnupg.sshKeyPaths = [ ];
     secrets = {
-      plct = { };
+      plct = { owner = "hydra-queue-runner"; };
       minio.restartUnits = [ "minio.service" ];
       telegraf.restartUnits = [ "telegraf.service" ];
       nixbot.restartUnits = [ "nixbot.service" ];

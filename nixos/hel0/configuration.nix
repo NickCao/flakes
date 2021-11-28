@@ -14,7 +14,7 @@
     buildMachines = [{
       hostName = "8.214.124.155";
       system = "x86_64-linux";
-      sshUser = "nickcao";
+      sshUser = "root";
       sshKey = config.sops.secrets.plct.path;
       maxJobs = 64;
       supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
