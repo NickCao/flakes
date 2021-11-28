@@ -54,6 +54,7 @@
     '';
     nameservers = [ "127.0.0.53" ];
     hosts = {
+      "2a0c:b641:69c:7864:0:4:8d6:7c9b" = [ "k11-plct" ];
       "104.21.75.85" = [ "api.nichi.workers.dev" ];
     };
   };
