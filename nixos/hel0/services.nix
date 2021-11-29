@@ -42,6 +42,8 @@ in
     };
     gnupg.sshKeyPaths = [ ];
     secrets = {
+      hydra = { group = "hydra"; mode = "0440"; };
+      cache = { group = "hydra"; mode = "0440"; };
       plct = { owner = "hydra-queue-runner"; };
       minio.restartUnits = [ "minio.service" ];
       telegraf.restartUnits = [ "telegraf.service" ];
@@ -63,6 +65,7 @@ in
     };
   };
 
+  systemd.services.hydra-queue-runner.serviceConfig.EnvironmentFile = [ config.sops.secrets.hydra.path ];
   services.hydra = {
     enable = true;
     listenHost = "127.0.0.1";
@@ -70,6 +73,11 @@ in
     useSubstitutes = true;
     notificationSender = "hydra@nichi.co";
     buildMachinesFiles = [ "/etc/nix/machines" ];
+    extraConfig = ''
+      store_uri = s3://cache?secret-key=${config.sops.secrets.cache.path}&region=us-east-1&endpoint=s3.nichi.co&write-nar-listing=1&ls-compression=br&log-compression=br
+      server_store_uri = https://s3.nichi.co/cache
+      binary_cache_public_uri = https://s3.nichi.co/cache
+    '';
   };
 
   services.hercules-ci-agent = {

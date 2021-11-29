@@ -20,8 +20,8 @@
 
   nix = {
     autoOptimiseStore = true;
-    binaryCaches = pkgs.lib.mkBefore [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://nichi.cachix.org" ];
-    binaryCachePublicKeys = [ "nichi.cachix.org-1:ZWn4Jui6odEcNEMjcHM/WXbDSVO4Ai+jrzWHf+pqwj0=" ];
+    binaryCaches = pkgs.lib.mkBefore [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://s3.nichi.co/cache" ];
+    binaryCachePublicKeys = [ "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk=" ];
     trustedUsers = [ "root" "nickcao" ];
     package = pkgs.nixUnstable;
     systemFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" "recursive-nix" ];
