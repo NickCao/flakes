@@ -153,6 +153,7 @@ in
     userName = address;
   };
   home.packages = with pkgs; [
+    waypipe
     xdg-utils
     blueberry
     pavucontrol
