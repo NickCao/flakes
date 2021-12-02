@@ -12,7 +12,7 @@ nixpkgs.lib.nixosSystem {
         (final: prev: {
           inherit (inputs.nixbot.packages."${system}") nixbot-telegram;
           etcd = final.etcd_3_4;
-          hercules-ci-agent = inputs.hercules.packages.${system}.hercules-ci-agent-nixUnstable;
+          hercules-ci-agent = inputs.hercules.packages.${system}.hercules-ci-agent;
         })
         inputs.rust-overlay.overlay
         inputs.fn.overlay
