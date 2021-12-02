@@ -27,7 +27,7 @@
     systemFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" "recursive-nix" ];
     extraOptions = ''
       flake-registry = /etc/nix/registry.json
-      experimental-features = nix-command flakes ca-references ca-derivations recursive-nix
+      experimental-features = nix-command flakes ca-derivations
       builders-use-substitutes = true
       keep-outputs = true
       keep-derivations = true
