@@ -24,6 +24,17 @@
       sha256 = "sha256-aYlnPFhf+ISVe5Ycryu5BSXY8Lb5OoueMqnWQZiv6Lc=";
     });
   };
+  mokutil = {
+    pname = "mokutil";
+    version = "0.5.0";
+    src = fetchFromGitHub ({
+      owner = "lcp";
+      repo = "mokutil";
+      rev = "0.5.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-dt41TCr6RkmE9H+NN8LWv3ogGsK38JtLjVN/b2mbGJs=";
+    });
+  };
   rait = {
     pname = "rait";
     version = "19076c4a9e52c75c5b5a259f3b47bc3ef703eeb4";

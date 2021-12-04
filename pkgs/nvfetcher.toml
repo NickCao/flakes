@@ -29,3 +29,7 @@ fetch.url = "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca5614239881854
 [rime-pinyin-zhwiki]
 src.manual = "20210923"
 fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20210923.dict.yaml"
+
+[mokutil]
+src.github = "lcp/mokutil"
+fetch.github = "lcp/mokutil"
