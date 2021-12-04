@@ -42,15 +42,8 @@
     fsType = "btrfs";
     options = [ "subvol=home" "noatime" "compress-force=zstd" ];
   };
-  /*
-    fileSystems."/home/nickcao/Test" = {
-    device = "/dev/mapper/test";
-    fsType = "ext4";
-    encrypted = {
-    enable = true;
-    blkDev = "/dev/disk/by-partuuid/334ecef1-fc71-4ffa-8f27-338a99db67a6";
-    label = "test";
-    };
-    };
-  */
+
+  environment.etc.crypttab.text = ''
+    test PARTUUID=334ecef1-fc71-4ffa-8f27-338a99db67a6 - tpm2-device=auto,fido2-device=auto
+  '';
 }
