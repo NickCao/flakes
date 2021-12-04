@@ -67,6 +67,10 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.hercules-ci-agent.follows = "hercules";
     };
+    bootspec = {
+      url = "github:DeterminateSystems/bootspec/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, dns, ... }:
     let

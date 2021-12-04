@@ -10,6 +10,8 @@
     defaultSopsFile = ./secrets.yaml;
     secrets.rait.restartUnits = [ "gravity.service" ];
     secrets.v2ray.restartUnits = [ "v2ray.service" ];
+    secrets."db.key" = { };
+    secrets."db.crt" = { };
     secrets.passwd.neededForUsers = true;
     age = {
       keyFile = "/var/lib/sops.key";
@@ -84,8 +86,12 @@
     initrd.kernelModules = [ "i915" ];
     loader = {
       timeout = 0;
-      systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
+      secureboot = {
+        enable = true;
+        signingKeyPath = config.sops.secrets."db.key".path;
+        signingCertPath = config.sops.secrets."db.crt".path;
+      };
     };
     kernel = {
       sysctl = {
@@ -94,6 +100,7 @@
       };
     };
     kernelPackages = pkgs.linuxPackages_latest;
+    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     kernelParams = [
       "quiet"
       "udev.log_level=3"
