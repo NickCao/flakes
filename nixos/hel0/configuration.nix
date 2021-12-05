@@ -16,7 +16,7 @@
     trustedUsers = [ "root" ];
     package = pkgs.nixUnstable;
     extraOptions = ''
-      experimental-features = nix-command flakes ca-references ca-derivations
+      experimental-features = nix-command flakes ca-derivations
     '';
     buildMachines = [{
       hostName = "8.214.124.155";
