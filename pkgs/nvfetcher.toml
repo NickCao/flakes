@@ -3,10 +3,6 @@ src.github = "z4yx/GoAuthing"
 fetch.github = "z4yx/GoAuthing"
 passthru = { vendorSha256 = "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o=" }
 
-[material-decoration]
-src.git = "https://github.com/Zren/material-decoration"
-fetch.github = "Zren/material-decoration"
-
 [v2ray-geoip]
 src.git = "https://github.com/v2fly/geoip"
 src.branch = "release"

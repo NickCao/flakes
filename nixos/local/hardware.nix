@@ -44,6 +44,6 @@
   };
 
   environment.etc.crypttab.text = ''
-    test PARTUUID=334ecef1-fc71-4ffa-8f27-338a99db67a6 - tpm2-device=auto,fido2-device=auto
+    test PARTUUID=334ecef1-fc71-4ffa-8f27-338a99db67a6 - tpm2-device=auto
   '';
 }

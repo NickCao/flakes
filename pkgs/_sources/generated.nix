@@ -13,17 +13,6 @@
     });
     vendorSha256 = "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o=";
   };
-  material-decoration = {
-    pname = "material-decoration";
-    version = "cc5cc399a546b66907629b28c339693423c894c8";
-    src = fetchFromGitHub ({
-      owner = "Zren";
-      repo = "material-decoration";
-      rev = "cc5cc399a546b66907629b28c339693423c894c8";
-      fetchSubmodules = false;
-      sha256 = "sha256-aYlnPFhf+ISVe5Ycryu5BSXY8Lb5OoueMqnWQZiv6Lc=";
-    });
-  };
   mokutil = {
     pname = "mokutil";
     version = "0.5.0";
