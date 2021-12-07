@@ -47,22 +47,22 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "07f4776ca92ed46afd52116c00b947b9e1274d5d";
+    version = "79da37fc134af5763bb5ef18a75cd46d430e1ff7";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "07f4776ca92ed46afd52116c00b947b9e1274d5d";
+      rev = "79da37fc134af5763bb5ef18a75cd46d430e1ff7";
       fetchSubmodules = false;
-      sha256 = "sha256-J1+X0NzzulqLCITr24otO1AeL9rObkptKlTnqhrOi70=";
+      sha256 = "sha256-WzBRZdP7jsn6xpMTG4r+g/hKBcT/Qsf2UWlVWj2IUTo=";
     });
   };
   v2ray-geoip = {
     pname = "v2ray-geoip";
-    version = "573822c0fe7ae9e0ace7bf13d9e9650f992c5066";
+    version = "c003605582798887af30cb86353f3106745f19d5";
     src = fetchFromGitHub ({
       owner = "v2fly";
       repo = "geoip";
-      rev = "573822c0fe7ae9e0ace7bf13d9e9650f992c5066";
+      rev = "c003605582798887af30cb86353f3106745f19d5";
       fetchSubmodules = false;
       sha256 = "sha256-iKl4GMU4ntraaaAXB0L8cnGWQdG3qdMyrl/BgwrxZTE=";
     });
