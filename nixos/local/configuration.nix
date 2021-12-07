@@ -82,7 +82,6 @@
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     tmpOnTmpfs = true;
     consoleLogLevel = 0;
-    initrd.verbose = false;
     initrd.kernelModules = [ "i915" ];
     loader = {
       timeout = 0;
