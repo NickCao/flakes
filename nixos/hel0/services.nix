@@ -1,38 +1,4 @@
 { config, lib, pkgs, ... }:
-let
-  mkService = { ExecStart, EnvironmentFile ? null }: {
-    serviceConfig = {
-      MemoryLimit = "300M";
-      DynamicUser = true;
-      NoNewPrivileges = true;
-      ProtectSystem = "strict";
-      PrivateUsers = true;
-      PrivateDevices = true;
-      ProtectClock = true;
-      ProtectControlGroups = true;
-      ProtectHome = true;
-      ProtectKernelTunables = true;
-      ProtectKernelModules = true;
-      ProtectKernelLogs = true;
-      ProtectProc = "invisible";
-      LockPersonality = true;
-      MemoryDenyWriteExecute = true;
-      RestrictNamespaces = true;
-      RestrictRealtime = true;
-      RestrictSUIDSGID = true;
-      CapabilityBoundingSet = "";
-      ProtectHostname = true;
-      ProcSubset = "pid";
-      SystemCallArchitectures = "native";
-      UMask = "0077";
-      SystemCallFilter = "@system-service";
-      SystemCallErrorNumber = "EPERM";
-      Restart = "always";
-      inherit ExecStart EnvironmentFile;
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
-in
 {
   sops = {
     defaultSopsFile = ./secrets.yaml;
@@ -94,9 +60,9 @@ in
     ports = [ "127.0.0.1:19000:8501" ];
   };
 
-  systemd.services.meow = mkService {
-    ExecStart = "${pkgs.meow}/bin/meow";
-    EnvironmentFile = config.sops.secrets.meow.path;
+  cloud.services.meow = {
+    exec = "${pkgs.meow}/bin/meow";
+    envFile = config.sops.secrets.meow.path;
   };
 
   systemd.services.nixbot = {

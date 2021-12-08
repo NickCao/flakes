@@ -5,6 +5,7 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./hardware.nix
     ./services.nix
+    self.nixosModules.cloud.services
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
     {
