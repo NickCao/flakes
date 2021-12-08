@@ -122,9 +122,9 @@
           };
         };
         services = {
-          nrt0.loadBalancer.servers = [{ address = "nrt0.nichi.link:41287"; }];
-          sin0.loadBalancer.servers = [{ address = "sin0.nichi.link:41287"; }];
-          sea0.loadBalancer.servers = [{ address = "sea0.nichi.link:41287"; }];
+          nrt0.loadBalancer.servers = [{ address = "nrt0.nichi.link:443"; }];
+          sin0.loadBalancer.servers = [{ address = "sin0.nichi.link:443"; }];
+          sea0.loadBalancer.servers = [{ address = "sea0.nichi.link:443"; }];
         };
       };
     };
