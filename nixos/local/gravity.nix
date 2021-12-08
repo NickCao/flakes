@@ -16,14 +16,47 @@ in
     group = 1;
     config = config.sops.secrets.rait.path;
     address = "2a0c:b641:69c:99cc::1/126";
-    postStart = [
-      "${pkgs.iproute2}/bin/ip addr add 2a0c:b641:69c:99cc::2/126 dev gravity"
-      "-${pkgs.iproute2}/bin/ip -6 ru add fwmark 0x36 lookup main pref 1022"
-      "-${pkgs.iproute2}/bin/ip -6 ru add fwmark 0x36 blackhole pref 1023"
-      "-${pkgs.iproute2}/bin/ip -6 ru add lookup 101 pref 1024"
-      "-${pkgs.iproute2}/bin/ip -6 ru add lookup 100 pref 1025"
-    ];
   };
+
+  systemd.network.enable = true;
+  systemd.network.networks = {
+    gravity = {
+      name = "gravity";
+      addresses = [{ addressConfig.Address = "2a0c:b641:69c:99cc::2/126"; }];
+      routingPolicyRules = [
+        {
+          routingPolicyRuleConfig = {
+            FirewallMark = 54;
+            Priority = 1022;
+            Family = "ipv6";
+          };
+        }
+        {
+          routingPolicyRuleConfig = {
+            FirewallMark = 54;
+            Priority = 1023;
+            Family = "ipv6";
+            Type = "blackhole";
+          };
+        }
+        {
+          routingPolicyRuleConfig = {
+            Table = 101;
+            Priority = 1024;
+            Family = "ipv6";
+          };
+        }
+        {
+          routingPolicyRuleConfig = {
+            Table = 100;
+            Priority = 1025;
+            Family = "ipv6";
+          };
+        }
+      ];
+    };
+  };
+
   services.bird2 = {
     enable = true;
     config = ''

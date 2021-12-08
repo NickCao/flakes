@@ -46,7 +46,6 @@
     domain = "nichi.link";
     firewall.enable = false;
     networkmanager.enable = true;
-    networkmanager.dns = "dnsmasq";
     # networkmanager.wifi.backend = "iwd";
     networkmanager.extraConfig = ''
       [main]
@@ -54,10 +53,8 @@
       [keyfile]
       path = /var/lib/NetworkManager/system-connections
     '';
-    nameservers = [ "127.0.0.53" ];
     hosts = {
       "2a0c:b641:69c:7864:0:4:8d6:7c9b" = [ "k11-plct" ];
-      "104.21.75.85" = [ "api.nichi.workers.dev" ];
     };
   };
 
@@ -176,29 +173,6 @@
     };
     xserver = {
       videoDrivers = [ "nvidia" ];
-    };
-    smartdns = {
-      enable = true;
-      settings = with pkgs; {
-        log-level = "info";
-        speed-check-mode = "tcp:443";
-        serve-expired = "yes";
-        conf-file = [
-          "${smartdns-china-list}/accelerated-domains.china.smartdns.conf"
-          "${smartdns-china-list}/apple.china.smartdns.conf"
-          "${smartdns-china-list}/google.china.smartdns.conf"
-        ];
-        bind = [ "127.0.0.53:53" ];
-        server-https = [
-          "https://1.0.0.1/dns-query"
-          "https://1.1.1.1/dns-query"
-          "https://185.222.222.222/dns-query"
-        ];
-        server = [
-          "127.0.0.1 -group china -exclude-default-group"
-          "2a0c:b641:69c:7864:0:5:0:3"
-        ];
-      };
     };
   };
 

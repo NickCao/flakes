@@ -50,14 +50,14 @@ in
               Family = "ipv6";
             };
           }
-          # {
-          #   routingPolicyRuleConfig = {
-          #     FirewallMark = 54;
-          #     Priority = 1001;
-          #     Family = "ipv6";
-          #     Type = "blackhole";
-          #   };
-          # }
+          {
+            routingPolicyRuleConfig = {
+              FirewallMark = 54;
+              Priority = 1001;
+              Family = "ipv6";
+              Type = "blackhole";
+            };
+          }
           {
             routingPolicyRuleConfig = {
               Table = 100;
