@@ -12,7 +12,6 @@
     "idle_inhibitor"
     "pulseaudio"
     "network"
-    "cpu"
     "memory"
     "temperature"
     "backlight"
@@ -64,16 +63,6 @@
   clock = {
     format = "{:%m-%d %H:%M}";
     tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-  };
-  cpu = {
-    format = "{usage}% ";
-    tooltip = false;
-  };
-  keyboard-state = {
-    capslock = true;
-    format = "{name} {icon}";
-    format-icons = { locked = ""; unlocked = ""; };
-    numlock = true;
   };
   memory = {
     format = "{}% ";
