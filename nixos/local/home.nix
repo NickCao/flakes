@@ -154,6 +154,10 @@ in
     userName = address;
   };
   home.packages = with pkgs; [
+    helix
+    (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
+    mpv
+    tdesktop
     nixpkgs-review
     waypipe
     xdg-utils

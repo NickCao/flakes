@@ -245,13 +245,6 @@
     cue = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    helix
-    (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
-    mpv
-    tdesktop
-  ];
-
   fonts.fonts = with pkgs; [
     roboto
     jetbrains-mono
