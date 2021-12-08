@@ -11,36 +11,7 @@
 
   systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;
   services.traefik = {
-    enable = true;
-    staticConfigOptions = {
-      experimental.http3 = true;
-      entryPoints = {
-        http = {
-          address = ":80";
-          http.redirections.entryPoint = {
-            to = "https";
-            scheme = "https";
-            permanent = false;
-          };
-        };
-        https = {
-          address = ":443";
-          http.tls.certResolver = "le";
-          enableHTTP3 = true;
-        };
-      };
-      certificatesResolvers.le.acme = {
-        email = "blackhole@nichi.co";
-        storage = config.services.traefik.dataDir + "/acme.json";
-        keyType = "EC256";
-        tlsChallenge = { };
-      };
-    };
     dynamicConfigOptions = {
-      tls.options.default = {
-        minVersion = "VersionTLS12";
-        sniStrict = true;
-      };
       http = {
         routers = {
           rait = {
