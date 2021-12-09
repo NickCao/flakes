@@ -6,7 +6,7 @@
       rait = { };
       woff = { };
       bark = { };
-      traefik = { owner = config.systemd.services.traefik.serviceConfig.User; };
+      traefik = { };
     };
   };
   networking = {
