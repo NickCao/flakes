@@ -9,7 +9,6 @@
   ss = import ./ss;
   cloud = {
     common = import ./cloud/common.nix;
-    cluster = import ./cloud/cluster.nix;
     services = import ./cloud/services.nix;
   };
 }
