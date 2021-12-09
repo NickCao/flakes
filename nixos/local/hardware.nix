@@ -43,6 +43,12 @@
     options = [ "subvol=home" "noatime" "compress-force=zstd" ];
   };
 
+  fileSystems."/crypt" = {
+    device = "/dev/mapper/test";
+    fsType = "btrfs";
+    options = [ "noatime" "compress-force=zstd" ];
+  };
+
   environment.etc.crypttab.text = ''
     test PARTUUID=334ecef1-fc71-4ffa-8f27-338a99db67a6 - tpm2-device=auto
   '';
