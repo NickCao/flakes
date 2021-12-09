@@ -1,5 +1,4 @@
 {
-  kernel = import ./kernel.nix;
   bgp = import ./bgp;
   divi = import ./divi.nix;
   dns = import ./dns;
