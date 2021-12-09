@@ -6,7 +6,6 @@
   };
   networking = {
     hostName = "sea0";
-    domain = "nichi.link";
   };
   services.dns = {
     enable = true;

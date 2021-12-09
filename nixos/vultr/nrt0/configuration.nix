@@ -11,7 +11,6 @@
   };
   networking = {
     hostName = "nrt0";
-    domain = "nichi.link";
   };
   services.gravity = {
     enable = true;

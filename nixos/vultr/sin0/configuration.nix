@@ -8,7 +8,6 @@
   };
   networking = {
     hostName = "sin0";
-    domain = "nichi.link";
   };
   services.gravity = {
     enable = true;
