@@ -144,5 +144,12 @@
     "101.6.6.172" # ntp.tuna.tsinghua.edu.cn
   ];
 
+  environment.systemPackages = with pkgs;[
+    socat
+    openocd
+    picocom
+    ffmpeg
+  ];
+
   documentation.nixos.enable = false;
 }
