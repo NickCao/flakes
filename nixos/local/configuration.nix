@@ -151,6 +151,10 @@
   };
 
   services = {
+    resolved = {
+      domains = [ "nichi.link" ];
+      dnssec = "true";
+    };
     power-profiles-daemon.enable = true;
     pcscd.enable = true;
     fstrim.enable = true;
