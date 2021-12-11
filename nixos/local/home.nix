@@ -273,12 +273,9 @@ in
       userName = "Nick Cao";
       signing = {
         signByDefault = true;
-        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJNPLArhyazrFjK4Jt/ImHSzICvwKOk4f+7OEcv2HEb7";
+        key = "A1E513A77CC0D91C8806A4EB068A56CEF48FA2C1";
       };
       extraConfig = {
-      gpg = {
-        format = "ssh";
-      };
         merge.tool = "meld";
         mergetool.meld = {
           path = "${pkgs.meld}/bin/meld";
