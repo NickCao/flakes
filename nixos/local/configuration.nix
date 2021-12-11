@@ -8,11 +8,14 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    secrets.rait.restartUnits = [ "gravity.service" ];
-    secrets.v2ray.restartUnits = [ "v2ray.service" ];
-    secrets."db.key" = { };
-    secrets."db.crt" = { };
-    secrets.passwd.neededForUsers = true;
+    secrets = {
+      rait.restartUnits = [ "gravity.service" ];
+      v2ray.restartUnits = [ "v2ray.service" ];
+      "db.key" = { };
+      "db.crt" = { };
+      passwd.neededForUsers = true;
+      u2f = { };
+    };
     age = {
       keyFile = "/var/lib/sops.key";
       sshKeyPaths = [ ];
@@ -216,9 +219,7 @@
 
   security.pam.u2f = {
     enable = true;
-    authFile = pkgs.writeText "u2f-mappings" ''
-      nickcao:8KGtTGZAEfnsqPDCY3MQFv3Ef9njqy39JHgc5WDC8aiekH1mGS5hq1XmT+og8TpaxgMPzHs7G/oa58RyLw/Odw==,At2tDFQSBa+P+GPNVLPzVzHpVOfS4l+mJOFhCThAf2VEeBVf315Wocy9kFRDr05QdGPlwcOkXOao4Dja6cl7/w==,es256,+presence
-    '';
+    authFile = config.sops.secrets.u2f.path;
     control = "sufficient";
     cue = true;
   };
