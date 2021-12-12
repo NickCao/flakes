@@ -147,7 +147,8 @@
   environment.systemPackages = with pkgs;[
     socat
     openocd
-    picocom
+    ttyd
+    ustreamer
     ffmpeg
   ];
 
