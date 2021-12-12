@@ -11,7 +11,6 @@
   modules-right = [
     "idle_inhibitor"
     "pulseaudio"
-    "network"
     "memory"
     "temperature"
     "backlight"
@@ -66,13 +65,6 @@
   };
   memory = {
     format = "{}% ";
-  };
-  network = {
-    format-alt = "{ifname} {ipaddr}/{cidr}";
-    format-disconnected = "Disconnected ⚠";
-    format-ethernet = "{ifname} ";
-    format-linked = "{ifname} ";
-    format-wifi = "{essid} ({signalStrength}%) ";
   };
   temperature = {
     critical-threshold = 100;
