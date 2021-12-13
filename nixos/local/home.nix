@@ -125,39 +125,8 @@ in
       ];
     };
   };
-  accounts.email.maildirBasePath = "${config.xdg.dataHome}/maildir";
-  accounts.email.accounts.nickcao = rec {
-    address = "nickcao@nichi.co";
-    gpg = {
-      key = "068A56CEF48FA2C1";
-      signByDefault = true;
-    };
-    imap = {
-      host = "hel0.nichi.link";
-      tls.enable = true;
-    };
-    smtp = {
-      inherit (imap) host;
-      tls.enable = true;
-    };
-    mbsync = {
-      enable = true;
-      create = "both";
-      remove = "both";
-    };
-    msmtp = {
-      enable = true;
-    };
-    neomutt = {
-      enable = true;
-      extraMailboxes = [ "Archive" "Drafts" "Junk" "Sent" "Trash" ];
-    };
-    passwordCommand = "cat ${config.xdg.configHome}/mail/password";
-    primary = true;
-    realName = "Nick Cao";
-    userName = address;
-  };
   home.packages = with pkgs; [
+    thunderbird
     helix
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
     mpv
@@ -237,16 +206,6 @@ in
       extraConfig = ''
         on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
       '';
-    };
-    msmtp.enable = true;
-    mbsync.enable = true;
-    neomutt = {
-      enable = true;
-      vimKeys = true;
-      checkStatsInterval = 10;
-      sidebar = {
-        enable = true;
-      };
     };
     direnv = {
       enable = true;
