@@ -178,10 +178,10 @@ in
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     # config
     PARALLEL_HOME = "${config.xdg.configHome}/parallel";
-    # data
-    HISTFILE = "${config.xdg.dataHome}/bash_history";
-    LESSHISTFILE = "${config.xdg.dataHome}/lesshst";
-    CARGO_HOME = "${config.xdg.dataHome}/cargo";
+    # state
+    HISTFILE = "${config.xdg.stateHome}/bash_history";
+    LESSHISTFILE = "${config.xdg.stateHome}/lesshst";
+    CARGO_HOME = "${config.xdg.stateHome}/cargo";
     # shit
     PYTHONSTARTUP = (
       pkgs.writeText "start.py" ''
@@ -221,7 +221,7 @@ in
     };
     gpg = {
       enable = true;
-      homedir = "${config.xdg.dataHome}/gnupg";
+      homedir = "${config.xdg.stateHome}/gnupg";
       settings = {
         trust-model = "tofu";
       };
@@ -390,7 +390,7 @@ in
       '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
-        GOBIN=${config.xdg.dataHome}/go/bin
+        GOBIN=${config.xdg.stateHome}/go/bin
         GO111MODULE=on
         GOPROXY=https://goproxy.cn
         GOSUMDB=sum.golang.google.cn
