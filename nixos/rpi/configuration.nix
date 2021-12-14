@@ -150,6 +150,7 @@
     ttyd
     ustreamer
     ffmpeg
+    libgpiod
   ];
 
   documentation.nixos.enable = false;

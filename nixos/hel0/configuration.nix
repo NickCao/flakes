@@ -53,12 +53,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpzrZLU0peDu1otGtP2GcCeQIkI8kmfHjnwpbfpWBkv"
   ];
-  users.users.backup = {
-    isNormalUser = true;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMkWaGc/xAo5llwMD/I3TVwF9gjcZ0atK+iG60Oe0ReV"
-    ];
-  };
 
   services.openssh.enable = true;
 
