@@ -100,7 +100,7 @@
           packages = this.packages pkgs // {
             inherit (pkgs.deploy-rs) deploy-rs;
             inherit (pkgs) nvfetcher-bin;
-            inherit (pkgs) "db.co.nichi" "db.link.nichi";
+            inherit (pkgs) "db.co.nichi" "db.link.nichi" "db.link.scp";
           };
           checks = packages // (inputs.deploy-rs.lib."${system}".deployChecks {
             nodes = pkgs.lib.filterAttrs (name: cfg: cfg.profiles.system.path.system == system) self.deploy.nodes;
@@ -134,6 +134,7 @@
         (final: prev: {
           "db.co.nichi" = final.writeText "db.co.nichi" (import ./zones/nichi.co.nix { inherit dns; });
           "db.link.nichi" = final.writeText "db.link.nichi" (import ./zones/nichi.link.nix { inherit dns; });
+          "db.link.scp" = final.writeText "db.link.scp" (import ./zones/scp.link.nix { inherit dns; });
         })
         final
         prev);

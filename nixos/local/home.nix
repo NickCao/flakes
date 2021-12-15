@@ -191,7 +191,6 @@ in
     ).outPath;
   };
 
-  services.mbsync.enable = true;
   programs = {
     bash = {
       enable = true;
