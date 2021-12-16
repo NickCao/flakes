@@ -3,12 +3,6 @@ src.github = "z4yx/GoAuthing"
 fetch.github = "z4yx/GoAuthing"
 passthru = { vendorSha256 = "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o=" }
 
-[v2ray-geoip]
-src.git = "https://github.com/v2fly/geoip"
-src.branch = "release"
-fetch.github = "v2fly/geoip"
-git.branch = "release"
-
 [smartdns-china-list]
 src.git = "https://github.com/felixonmars/dnsmasq-china-list"
 fetch.github = "felixonmars/dnsmasq-china-list"
@@ -29,3 +23,8 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 [mokutil]
 src.github = "lcp/mokutil"
 fetch.github = "lcp/mokutil"
+
+[kine]
+src.github = "k3s-io/kine"
+fetch.github = "k3s-io/kine"
+passthru = { vendorSha256 = "sha256-CwbjSCtI68Tvk3bwM+t46wr0i+xDNgNkzVvL3ZoLDUA=" }

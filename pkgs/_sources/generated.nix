@@ -13,6 +13,18 @@
     });
     vendorSha256 = "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o=";
   };
+  kine = {
+    pname = "kine";
+    version = "v0.6.5";
+    src = fetchFromGitHub ({
+      owner = "k3s-io";
+      repo = "kine";
+      rev = "v0.6.5";
+      fetchSubmodules = false;
+      sha256 = "sha256-8hK+IzrCmmUC6quTb15dNuIlH4jruKJlQajttcoPqRQ=";
+    });
+    vendorSha256 = "sha256-CwbjSCtI68Tvk3bwM+t46wr0i+xDNgNkzVvL3ZoLDUA=";
+  };
   mokutil = {
     pname = "mokutil";
     version = "0.5.0";
@@ -54,17 +66,6 @@
       rev = "0b4a79d847a20e0ba7411ac74ea7485f42d9eaed";
       fetchSubmodules = false;
       sha256 = "sha256-8lDHODztSfOS8ZJ5K2xVr+ucRGm0z6KReyZeFHa0RFY=";
-    });
-  };
-  v2ray-geoip = {
-    pname = "v2ray-geoip";
-    version = "97f4acb31d926ae31bb3cdc5c8948d8dcdddca79";
-    src = fetchFromGitHub ({
-      owner = "v2fly";
-      repo = "geoip";
-      rev = "97f4acb31d926ae31bb3cdc5c8948d8dcdddca79";
-      fetchSubmodules = false;
-      sha256 = "sha256-kYMp/D7xVpBTu35YXq45bR2XebpVOW57UAc7H/6px/U=";
     });
   };
   wemeet = {
