@@ -10,6 +10,7 @@
     secrets = {
       hydra = { group = "hydra"; mode = "0440"; };
       cache = { group = "hydra"; mode = "0440"; };
+      github = { group = "hydra"; mode = "0440"; };
       plct = { owner = "hydra-queue-runner"; };
       minio.restartUnits = [ "minio.service" ];
       telegraf.restartUnits = [ "telegraf.service" ];
@@ -44,6 +45,8 @@
       server_store_uri = https://s3.nichi.co/cache
       binary_cache_public_uri = https://s3.nichi.co/cache
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
+      github_client_id = e55d265b1883eb42630e
+      github_client_secret_file = ${config.sops.secrets.github.path}
     '';
   };
 
