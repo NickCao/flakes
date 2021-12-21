@@ -52,6 +52,20 @@ dns.lib.toString "nichi.co" {
     adkim = "strict";
     aspf = "strict";
   }];
+  SRV = [
+    {
+      service = "imaps";
+      proto = "tcp";
+      port = 993;
+      target = "hel0.nichi.link";
+    }
+    {
+      service = "submission";
+      proto = "tcp";
+      port = 465;
+      target = "hel0.nichi.link";
+    }
+  ];
   subdomains = {
     pb.CNAME = [ "hel0.nichi.link." ];
     s3.CNAME = [ "hel0.nichi.link." ];
