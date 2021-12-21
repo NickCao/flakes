@@ -15,15 +15,12 @@ let
   nodePkg = callPackage "${nodeExprs}/node-packages.nix" { nodeEnv = null; };
   nodeDep = nodeEnv.buildNodeDependencies (nodePkg.args // { src = frontendSrc; });
 in
-stdenv.mkDerivation {
-  inherit (source) pname version src;
-  nativeBuildInputs = [ nodejs go-rice ];
-  buildPhase = ''
+buildGoModule {
+  inherit (source) pname version src vendorSha256;
+  nativeBuildInputs = [ nodejs nodeDep ];
+  preBuild = ''
     ln -s ${nodeDep}/lib/node_modules frontend/node_modules
-    export PATH=${nodeDep}/bin:$PATH
     (cd frontend && npm run build)
-    (cd http && rice embed-go)
-    cp -a frontend/dist $out
   '';
-  dontInstall = true;
+  subPackages = [ "." ];
 }

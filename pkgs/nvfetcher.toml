@@ -32,3 +32,4 @@ passthru = { vendorSha256 = "sha256-CwbjSCtI68Tvk3bwM+t46wr0i+xDNgNkzVvL3ZoLDUA=
 [filebrowser]
 src.github = "filebrowser/filebrowser"
 fetch.github = "filebrowser/filebrowser"
+passthru = { vendorSha256 = "sha256-9I3GkIcEtDzKUKhy0giBjAa4hWi3ulkY6g4gP2vNvKY=" }

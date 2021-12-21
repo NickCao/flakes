@@ -15,14 +15,15 @@
   };
   filebrowser = {
     pname = "filebrowser";
-    version = "v2.19.0";
+    version = "v2.20.0";
     src = fetchFromGitHub ({
       owner = "filebrowser";
       repo = "filebrowser";
-      rev = "v2.19.0";
+      rev = "v2.20.0";
       fetchSubmodules = false;
-      sha256 = "sha256-q9Qt6f9gr53vUKe0ylYaMJvYKlGKG9dUQTaQDh+6lKc=";
+      sha256 = "sha256-92eQKBeQp7RBSkPp8xkVGwrTGKWOeGjNvm3dAeTxdJs=";
     });
+    vendorSha256 = "sha256-9I3GkIcEtDzKUKhy0giBjAa4hWi3ulkY6g4gP2vNvKY=";
   };
   kine = {
     pname = "kine";
@@ -70,13 +71,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "05e559c36a9fcd91070a6cdd86f34c74c3f5a8f8";
+    version = "4b0ada7f766ebd37f7fb2bc9ee3008257d2cb027";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "05e559c36a9fcd91070a6cdd86f34c74c3f5a8f8";
+      rev = "4b0ada7f766ebd37f7fb2bc9ee3008257d2cb027";
       fetchSubmodules = false;
-      sha256 = "sha256-bIfVXfD2jjhsVA3nLA6D1MzWR6ZcH0E9xoIpoDtc7ek=";
+      sha256 = "sha256-iejgISS6g0nU/CWDaeArp5QaCYUcM90k12E0TesbNmQ=";
     });
   };
   wemeet = {
