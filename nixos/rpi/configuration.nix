@@ -105,10 +105,12 @@ in
       DHCP = "yes";
       dhcpV4Config.RouteMetric = 2048;
       dhcpV6Config.RouteMetric = 2048;
+      networkConfig.KeepConfiguration = "yes";
     };
     wlan0 = {
       name = "wlan0";
       DHCP = "yes";
+      networkConfig.KeepConfiguration = "yes";
     };
   };
 

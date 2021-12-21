@@ -16,10 +16,11 @@ in
     "${ifname}" = {
       name = ifname;
       DHCP = "yes";
-      extraConfig = ''
-        IPv6AcceptRA=yes
-        IPv6PrivacyExtensions=no
-      '';
+      networkConfig = {
+        KeepConfiguration = "yes";
+        IPv6AcceptRA = "yes";
+        IPv6PrivacyExtensions = "no";
+      };
     };
   };
 }
