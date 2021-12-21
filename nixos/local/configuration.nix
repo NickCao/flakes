@@ -15,6 +15,7 @@
       "db.crt" = { };
       passwd.neededForUsers = true;
       u2f = { };
+      wireless = { };
     };
     age = {
       keyFile = "/var/lib/sops.key";
@@ -48,16 +49,30 @@
     hostName = "local";
     domain = "nichi.link";
     firewall.enable = false;
-    networkmanager.enable = true;
-    # networkmanager.wifi.backend = "iwd";
-    networkmanager.extraConfig = ''
-      [main]
-      rc-manager = unmanaged
-      [keyfile]
-      path = /var/lib/NetworkManager/system-connections
-    '';
+    useNetworkd = true;
+    useDHCP = false;
     hosts = {
       "2a0c:b641:69c:7864:0:4:8d6:7c9b" = [ "k11-plct" ];
+    };
+    wireless = {
+      enable = true;
+      userControlled.enable = true;
+      environmentFile = config.sops.secrets.wireless.path;
+      networks."Tsinghua-Secure" = {
+        authProtocols = [ "WPA-EAP" ];
+        auth = ''
+          proto=RSN
+          pairwise=CCMP
+          eap=PEAP
+          phase2="auth=MSCHAPV2"
+          identity="@IDENTITY@"
+          password="@PASSWORD@"
+        '';
+      };
+    };
+    interfaces = {
+      enp7s0.useDHCP = true;
+      wlp0s20f3.useDHCP = true;
     };
   };
 
@@ -188,10 +203,6 @@
       enable = true;
       extraOptions = [ "--my-next-gpu-wont-be-nvidia" ];
       wrapperFeatures.gtk = true;
-    };
-    nm-applet = {
-      enable = true;
-      indicator = true;
     };
     adb.enable = true;
     chromium = {
