@@ -57,13 +57,13 @@ dns.lib.toString "nichi.co" {
       service = "imaps";
       proto = "tcp";
       port = 993;
-      target = "hel0.nichi.link";
+      target = "hel0.nichi.link.";
     }
     {
       service = "submission";
       proto = "tcp";
       port = 465;
-      target = "hel0.nichi.link";
+      target = "hel0.nichi.link.";
     }
   ];
   subdomains = {
