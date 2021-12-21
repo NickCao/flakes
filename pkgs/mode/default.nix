@@ -16,8 +16,5 @@ writeShellScriptBin "mode" ''
   echo -n "GPU Status: "
   cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status
 
-  echo "Battery:"
-  ${upower}/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0 | ${gnugrep}/bin/grep -E 'state|percentage|time to empty|energy-rate'
-
   ${systemd}/lib/systemd/systemd-boot-check-no-failures
 ''
