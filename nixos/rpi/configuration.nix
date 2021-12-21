@@ -11,21 +11,12 @@
     };
     gnupg.sshKeyPaths = [ ];
     secrets = {
-      auth = { };
+      wireless = { };
       etcd = { };
     };
   };
 
   services.resolved.dnssec = "false";
-
-  systemd.services.auth-thu = {
-    serviceConfig = {
-      Type = "oneshot";
-      DynamicUser = true;
-      LoadCredential = "auth:${config.sops.secrets.auth.path}";
-    };
-    script = "${pkgs.auth-thu}/bin/auth-thu -D -c \${CREDENTIALS_DIRECTORY}/auth auth";
-  };
 
   systemd.services.ddns = {
     serviceConfig = {
@@ -41,13 +32,6 @@
     '';
   };
 
-  systemd.timers.auth-thu = {
-    timerConfig = {
-      OnCalendar = "minutely";
-    };
-    wantedBy = [ "timers.target" ];
-  };
-
   systemd.timers.ddns = {
     timerConfig = {
       OnCalendar = "*:0/5";
@@ -61,72 +45,33 @@
     useNetworkd = true;
     useDHCP = false;
     firewall.enable = false;
+    wireless = {
+      enable = true;
+      environmentFile = config.sops.secrets.wireless.path;
+      networks."Tsinghua-Secure" = {
+        authProtocols = [ "WPA-EAP" ];
+        auth = ''
+          proto=RSN
+          pairwise=CCMP
+          eap=PEAP
+          phase2="auth=MSCHAPV2"
+          identity="@IDENTITY@"
+          password="@PASSWORD@"
+        '';
+      };
+    };
   };
 
   systemd.network.networks = {
     eth0 = {
       name = "eth0";
       DHCP = "yes";
-      vlan = [ "eth0.10" ];
-      dhcpV4Config = {
-        RouteMetric = 2048;
-      };
+      dhcpV4Config.RouteMetric = 2048;
+      dhcpV6Config.RouteMetric = 2048;
     };
-    "eth0.10" = {
-      name = "eth0.10";
+    wlan0 = {
+      name = "wlan0";
       DHCP = "yes";
-      dhcpV6Config = {
-        DUIDType = "link-layer";
-      };
-    };
-  };
-
-  systemd.network.netdevs = {
-    "eth0.10" = {
-      netdevConfig = {
-        Name = "eth0.10";
-        Kind = "vlan";
-      };
-      vlanConfig = {
-        Id = 10;
-      };
-    };
-  };
-
-  services.traefik = {
-    enable = true;
-    staticConfigOptions = {
-      entryPoints = {
-        nrt0.address = ":40001";
-        sin0.address = ":40002";
-        sea0.address = ":40003";
-      };
-    };
-    dynamicConfigOptions = {
-      tcp = {
-        routers = {
-          nrt0 = {
-            entryPoints = [ "nrt0" ];
-            rule = "HostSNI(`*`)";
-            service = "nrt0";
-          };
-          sin0 = {
-            entryPoints = [ "sin0" ];
-            rule = "HostSNI(`*`)";
-            service = "sin0";
-          };
-          sea0 = {
-            entryPoints = [ "sea0" ];
-            rule = "HostSNI(`*`)";
-            service = "sea0";
-          };
-        };
-        services = {
-          nrt0.loadBalancer.servers = [{ address = "nrt0.nichi.link:443"; }];
-          sin0.loadBalancer.servers = [{ address = "sin0.nichi.link:443"; }];
-          sea0.loadBalancer.servers = [{ address = "sea0.nichi.link:443"; }];
-        };
-      };
     };
   };
 
