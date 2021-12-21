@@ -234,6 +234,9 @@
     control = "sufficient";
     cue = true;
   };
+  security.sudo.extraConfig = ''
+    Defaults lecture="never"
+  '';
 
   fonts.fonts = with pkgs; [
     roboto
@@ -248,7 +251,6 @@
   environment.persistence."/persistent" = {
     directories = [
       "/var/log"
-      "/var/db"
       "/var/lib"
     ];
     files = [
