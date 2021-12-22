@@ -11,29 +11,6 @@ let
     };
     wantedBy = [ "multi-user.target" ];
   };
-  openocdConfig = pkgs.writeText "unmatched.conf" ''
-    bindto 0.0.0.0
-    
-    adapter speed   10000
-    adapter driver  ftdi
-    
-    ftdi_device_desc "Dual RS232-HS"
-    ftdi_vid_pid 0x0403 0x6010
-    ftdi_layout_init 0x0008 0x001b
-    ftdi_layout_signal nSRST -oe 0x0020 -data 0x0020
-    
-    set _CHIPNAME riscv
-    transport select jtag
-    jtag newtap $_CHIPNAME cpu -irlen 5
-    
-    target create $_CHIPNAME.cpu1 riscv -chain-position $_CHIPNAME.cpu -coreid 1 -rtos hwthread
-    target create $_CHIPNAME.cpu2 riscv -chain-position $_CHIPNAME.cpu -coreid 2
-    target create $_CHIPNAME.cpu3 riscv -chain-position $_CHIPNAME.cpu -coreid 3
-    target create $_CHIPNAME.cpu4 riscv -chain-position $_CHIPNAME.cpu -coreid 4
-    target smp $_CHIPNAME.cpu1 $_CHIPNAME.cpu2 $_CHIPNAME.cpu3 $_CHIPNAME.cpu4
-    
-    init
-  '';
 in
 {
   imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64.nix") ];
@@ -150,7 +127,6 @@ in
     "101.6.6.172" # ntp.tuna.tsinghua.edu.cn
   ];
   services.udev.extraRules = ''
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
     SUBSYSTEMS=="gpio", MODE="0666"
   '';
 
