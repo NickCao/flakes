@@ -1,9 +1,8 @@
 { config, pkgs, lib, modulesPath, ... }:
 let
-  mkService = { ExecStart, SupplementaryGroups ? [ ], ConditionPathExists ? null }: {
+  mkService = { ExecStart, SupplementaryGroups ? [ ] }: {
     unitConfig = {
       StartLimitIntervalSec = 0;
-      inherit ConditionPathExists;
     };
     serviceConfig = {
       DynamicUser = true;

@@ -24,4 +24,10 @@ def press():
     button(4)
     return "OK"
 
+@app.route("/reboot")
+def press():
+    button(4)
+    button(1)
+    return "OK"
+
 app.run(host="::", port=8082)
