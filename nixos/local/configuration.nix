@@ -70,9 +70,17 @@
         '';
       };
     };
-    interfaces = {
-      enp7s0.useDHCP = true;
-      wlp0s20f3.useDHCP = true;
+  };
+  systemd.network.networks = {
+    wlp0s20f3 = {
+      name = "wlp0s20f3";
+      DHCP = "yes";
+      dhcpV4Config.RouteMetric = 2048;
+      dhcpV6Config.RouteMetric = 2048;
+    };
+    enp7s0 = {
+      name = "enp7s0";
+      DHCP = "yes";
     };
   };
 
