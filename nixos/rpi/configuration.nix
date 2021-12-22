@@ -54,7 +54,30 @@ in
   };
 
   services.resolved.dnssec = "false";
-
+  systemd.services.systemd-networkd-wait-online.enable = false;
+  systemd.services.usbipd = {
+    unitConfig = {
+      StartLimitIntervalSec = 0;
+    };
+    serviceConfig = {
+      Restart = "always";
+      ExecStart = "${config.boot.kernelPackages.usbip}/bin/usbipd";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+  systemd.services.usbip-bind = {
+    unitConfig = {
+      StartLimitIntervalSec = 0;
+      Requires = "usbipd.service";
+    };
+    serviceConfig = {
+      RemainAfterExit = "yes";
+      Restart = "on-failure";
+      ExecStart = "${config.boot.kernelPackages.usbip}/bin/usbip bind -b 1-1.1";
+      ExecStop = "${config.boot.kernelPackages.usbip}/bin/usbip unbind -b 1-1.1";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
   systemd.services.ddns = {
     serviceConfig = {
       Type = "oneshot";
@@ -136,13 +159,6 @@ in
     ExecStart = "${pkgs.ustreamer}/bin/ustreamer -r 1920x1080 -s :: -p 8080";
     SupplementaryGroups = [ "video" ];
   };
-  systemd.services.serial = mkService {
-    ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:8081,reuseaddr,fork FILE:/dev/ttyUSB1,b115200,raw,nonblock,echo=0";
-    SupplementaryGroups = [ "dialout" ];
-  };
-  systemd.services.openocd = mkService {
-    ExecStart = "${pkgs.openocd}/bin/openocd -f ${openocdConfig}";
-  };
   systemd.services.powerd = mkService {
     ExecStart = "${(pkgs.python3.withPackages (ps: with ps;[ libgpiod flask ]))}/bin/python ${./powerd.py}";
   };
@@ -154,7 +170,11 @@ in
     ustreamer
     ffmpeg
     libgpiod
+    config.boot.kernelPackages.usbip
   ];
 
   documentation.nixos.enable = false;
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [ usbip ];
+  boot.kernelModules = [ "usbip_host" ];
 }

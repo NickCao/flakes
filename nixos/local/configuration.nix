@@ -83,6 +83,7 @@
       DHCP = "yes";
     };
   };
+  systemd.services.systemd-networkd-wait-online.enable = false;
 
   time.timeZone = "Asia/Shanghai";
 
@@ -143,6 +144,8 @@
     '';
     enableContainers = false;
   };
+
+  environment.systemPackages = [ config.boot.kernelPackages.usbip ];
 
   virtualisation = {
     podman.enable = true;
