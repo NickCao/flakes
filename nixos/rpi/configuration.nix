@@ -152,13 +152,4 @@ in
 
   boot.extraModulePackages = with config.boot.kernelPackages; [ usbip ];
   boot.kernelModules = [ "usbip_host" ];
-  security.wrappers.usbipd-restart = {
-    owner = "root";
-    group = "root";
-    setuid = true;
-    setgid = true;
-    source = pkgs.writeShellScript "usbipd-restart" ''
-      /run/current-system/systemd/bin/systemctl restart usbipd
-    '';
-  };
 }
