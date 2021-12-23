@@ -64,12 +64,12 @@ in
       terminal = "alacritty";
       startup = [
         { command = "alacritty"; }
-        { command = "chromium"; }
+        { command = "firefox"; }
         { command = "telegram-desktop"; }
       ];
       assigns = {
         "1" = [{ app_id = "Alacritty"; }];
-        "2" = [{ class = "Chromium-browser"; }];
+        "2" = [{ app_id = "firefox"; }];
         "3" = [{ app_id = "telegramdesktop"; }];
       };
       window.commands = [
@@ -125,11 +125,25 @@ in
       ];
     };
   };
+  programs.firefox = {
+      enable = true;
+      profiles = {
+        default = {
+          settings = {
+            "identity.fxaccounts.enabled" = false;
+            "extensions.pocket.enabled" = false;
+            "network.proxy.type" = 1;
+            "network.proxy.socks" = "127.0.0.1";
+            "network.proxy.socks_port" = 1080;
+            "network.proxy.socks_remote_dns" = true;
+          };
+        };
+      };
+  };
   home.packages = with pkgs; [
     thunderbird
     helix
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
-    firefox
     mpv
     tdesktop
     nixpkgs-review
@@ -174,6 +188,7 @@ in
     GOOGLE_DEFAULT_CLIENT_ID = "77185425430.apps.googleusercontent.com";
     GOOGLE_DEFAULT_CLIENT_SECRET = "OTJgUOQcT7lO7GsGZq2G4IlT";
     LIBVA_DRIVER_NAME = "iHD";
+    MOZ_ENABLE_WAYLAND = 1;
     # cache
     XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
