@@ -30,7 +30,7 @@ in
   };
 
   services.resolved.dnssec = "false";
-  systemd.services.systemd-networkd-wait-online.enable = false;
+  systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = [ "" "${pkgs.systemd}/lib/systemd/systemd-networkd-wait-online --any" ];
   systemd.services.usbipd = {
     unitConfig = {
       StartLimitIntervalSec = 0;
@@ -152,4 +152,13 @@ in
 
   boot.extraModulePackages = with config.boot.kernelPackages; [ usbip ];
   boot.kernelModules = [ "usbip_host" ];
+  security.wrappers.usbipd-restart = {
+    owner = "root";
+    group = "root";
+    setuid = true;
+    setgid = true;
+    source = pkgs.writeShellScript "usbipd-restart" ''
+      /run/current-system/systemd/bin/systemctl restart usbipd
+    '';
+  };
 }

@@ -83,7 +83,7 @@
       DHCP = "yes";
     };
   };
-  systemd.services.systemd-networkd-wait-online.enable = false;
+  systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = [ "" "${pkgs.systemd}/lib/systemd/systemd-networkd-wait-online --any" ];
 
   time.timeZone = "Asia/Shanghai";
 

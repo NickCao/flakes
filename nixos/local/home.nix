@@ -129,6 +129,7 @@ in
     thunderbird
     helix
     (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
+    firefox
     mpv
     tdesktop
     nixpkgs-review

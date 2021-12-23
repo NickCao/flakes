@@ -1,6 +1,7 @@
 from flask import Flask
 import gpiod
 import time
+import subprocess
 
 def button(secs):
     with gpiod.Chip("gpiochip0") as chip:
@@ -25,9 +26,14 @@ def press():
     return "OK"
 
 @app.route("/reboot")
-def press():
+def reboot():
     button(4)
     button(1)
+    return "OK"
+
+@app.route("/usbipd_restart")
+def usbipd_restart():
+    subprocess.run(["/run/wrappers/bin/usbipd-restart"])
     return "OK"
 
 app.run(host="::", port=8082)
