@@ -61,16 +61,16 @@ in
       EnvironmentFile = config.sops.secrets.etcd.path;
     };
     script = ''
-      ${pkgs.etcd_3_4}/bin/etcdctl --endpoints https://etcd.nichi.co:443 --user $USER --password $PASSWORD \
+      ${pkgs.etcd_3_4}/bin/etcdctl --command-timeout=20s --dial-timeout=20s --endpoints https://etcd.nichi.co:443 --user $USER --password $PASSWORD \
         put /dns/link/nichi/dyn/rpi/x1 $(${pkgs.jo}/bin/jo ttl=30 host=$(${pkgs.curl}/bin/curl -s -4 https://canhazip.com))
-      ${pkgs.etcd_3_4}/bin/etcdctl --endpoints https://etcd.nichi.co:443 --user $USER --password $PASSWORD \
+      ${pkgs.etcd_3_4}/bin/etcdctl --command-timeout=20s --dial-timeout=20s --endpoints https://etcd.nichi.co:443 --user $USER --password $PASSWORD \
         put /dns/link/nichi/dyn/rpi/x2 $(${pkgs.jo}/bin/jo ttl=30 host=$(${pkgs.curl}/bin/curl -s -6 https://canhazip.com))
     '';
   };
 
   systemd.timers.ddns = {
     timerConfig = {
-      OnCalendar = "*:0/5";
+      OnCalendar = "*:0/1";
     };
     wantedBy = [ "timers.target" ];
   };
