@@ -21,7 +21,7 @@
   "sway/workspaces" = {
     all-outputs = true;
     format = "{name} {icon}";
-    format-icons = { "1" = ""; "2" = ""; "3" = ""; default = ""; focused = ""; urgent = ""; };
+    format-icons = { "1" = ""; "2" = ""; "3" = ""; default = ""; focused = ""; urgent = ""; };
   };
   idle_inhibitor = {
     format = "{icon}";

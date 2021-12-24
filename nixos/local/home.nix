@@ -126,22 +126,22 @@ in
     };
   };
   programs.firefox = {
-      enable = true;
-      profiles = {
-        default = {
-          settings = {
-            "identity.fxaccounts.enabled" = false;
-            "extensions.pocket.enabled" = false;
-            "network.proxy.type" = 1;
-            "network.proxy.socks" = "127.0.0.1";
-            "network.proxy.socks_port" = 1080;
-            "network.proxy.socks_remote_dns" = true;
-            "browser.newtabpage.activity-stream.feeds.topsites" = false;
-            "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-            "fission.autostart" = true;
-          };
+    enable = true;
+    profiles = {
+      default = {
+        settings = {
+          "identity.fxaccounts.enabled" = false;
+          "extensions.pocket.enabled" = false;
+          "network.proxy.type" = 1;
+          "network.proxy.socks" = "127.0.0.1";
+          "network.proxy.socks_port" = 1080;
+          "network.proxy.socks_remote_dns" = true;
+          "browser.newtabpage.activity-stream.feeds.topsites" = false;
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          "fission.autostart" = true;
         };
       };
+    };
   };
   home.packages = with pkgs; [
     thunderbird
