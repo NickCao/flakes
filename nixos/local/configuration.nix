@@ -16,6 +16,12 @@
       passwd.neededForUsers = true;
       u2f = { };
       wireless = { };
+      auth-thu = {
+        owner = "nickcao";
+      };
+      restic = {
+        owner = "nickcao";
+      };
     };
     age = {
       keyFile = "/var/lib/sops.key";

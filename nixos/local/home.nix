@@ -160,7 +160,6 @@ in
   home.packages = with pkgs; [
     thunderbird
     helix
-    (chromium.override { commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --enable-features=VaapiVideoDecoder"; })
     mpv
     tdesktop
     nixpkgs-review
@@ -433,6 +432,15 @@ in
         };
       };
     };
+  };
+
+  home.persistence."/persistent/home" = {
+    directories = [
+      ".config/fcitx5"
+      ".config/mc"
+      ".config/VirtualBox"
+    ];
+    allowOther = false;
   };
 
   home.stateVersion = "21.11";

@@ -43,6 +43,11 @@
     options = [ "subvol=home" "noatime" "compress-force=zstd" ];
   };
 
+  fileSystems."/home/nickcao/.config" = {
+    fsType = "tmpfs";
+    options = [ "defaults" "size=1G" "mode=700" "uid=nickcao" "gid=users" ];
+  };
+
   fileSystems."/crypt" = {
     device = "/dev/mapper/test";
     fsType = "btrfs";

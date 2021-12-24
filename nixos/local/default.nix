@@ -11,6 +11,9 @@ nixpkgs.lib.nixosSystem {
     inputs.sops-nix.nixosModules.sops
     inputs.bootspec.nixosModules.bootspec
     {
+      home-manager.users.nickcao.imports = [
+        inputs.impermanence.nixosModules.home-manager.impermanence
+      ];
       nixpkgs.overlays = [
         self.overlay
         inputs.rust-overlay.overlay
