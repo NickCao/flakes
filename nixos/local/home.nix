@@ -127,17 +127,31 @@ in
   };
   programs.firefox = {
     enable = true;
+    package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
+      extraPolicies = {
+        DisableFirefoxAccounts = true;
+        DisablePocket = true;
+        EnableTrackingProtection = {
+          Value = true;
+          Locked = true;
+          Cryptomining = true;
+          Fingerprinting = true;
+        };
+        Proxy = {
+          Mode = "manual";
+          SOCKSProxy = "127.0.0.1:1080";
+          SOCKSVersion = 5;
+          UseProxyForDNS = true;
+        };
+        Preferences = {
+          "browser.newtabpage.activity-stream.feeds.topsites" = false;
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+        };
+      };
+    };
     profiles = {
       default = {
         settings = {
-          "identity.fxaccounts.enabled" = false;
-          "extensions.pocket.enabled" = false;
-          "network.proxy.type" = 1;
-          "network.proxy.socks" = "127.0.0.1";
-          "network.proxy.socks_port" = 1080;
-          "network.proxy.socks_remote_dns" = true;
-          "browser.newtabpage.activity-stream.feeds.topsites" = false;
-          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "fission.autostart" = true;
         };
       };
@@ -420,4 +434,6 @@ in
       };
     };
   };
+
+  home.stateVersion = "21.11";
 }
