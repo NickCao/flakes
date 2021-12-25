@@ -216,6 +216,7 @@
   };
 
   programs = {
+    fuse.userAllowOther = true;
     sway = {
       enable = true;
       extraOptions = [ "--unsupported-gpu" ];

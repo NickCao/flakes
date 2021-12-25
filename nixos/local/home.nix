@@ -436,11 +436,20 @@ in
 
   home.persistence."/persistent/home" = {
     directories = [
+      "Documents"
+      "Downloads"
+      "Pictures"
+      "Projects"
+      ".cache"
+      ".local"
+      ".mozilla"
+      ".ssh"
+      ".thunderbird"
       ".config/fcitx5"
       ".config/mc"
       ".config/VirtualBox"
     ];
-    allowOther = false;
+    allowOther = true;
   };
 
   home.stateVersion = "21.11";

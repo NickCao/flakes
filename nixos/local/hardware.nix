@@ -37,17 +37,6 @@
     fsType = "vfat";
   };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
-    fsType = "btrfs";
-    options = [ "subvol=home" "noatime" "compress-force=zstd" ];
-  };
-
-  fileSystems."/home/nickcao/.config" = {
-    fsType = "tmpfs";
-    options = [ "defaults" "size=1G" "mode=700" "uid=nickcao" "gid=users" ];
-  };
-
   fileSystems."/crypt" = {
     device = "/dev/mapper/test";
     fsType = "btrfs";
