@@ -26,12 +26,6 @@
     neededForBoot = true;
   };
 
-  fileSystems."/var/cache" = {
-    device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
-    fsType = "btrfs";
-    options = [ "subvol=cache" "noatime" "compress-force=zstd" ];
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/B815-6B63";
     fsType = "vfat";

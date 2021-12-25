@@ -270,6 +270,7 @@
     directories = [
       "/var/log"
       "/var/lib"
+      "/var/cache"
     ];
     files = [
       "/etc/machine-id"
