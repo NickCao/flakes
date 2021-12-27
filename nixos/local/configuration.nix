@@ -271,6 +271,19 @@
       "/var/log"
       "/var/lib"
       "/var/cache"
+    ] ++ builtins.map (x: "/home/nickcao/${x}") [
+      "Documents"
+      "Downloads"
+      "Pictures"
+      "Projects"
+      ".cache"
+      ".local"
+      ".mozilla"
+      ".ssh"
+      ".thunderbird"
+      ".config/fcitx5"
+      ".config/mc"
+      ".config/VirtualBox"
     ];
     files = [
       "/etc/machine-id"
