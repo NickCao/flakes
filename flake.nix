@@ -98,6 +98,7 @@
         }
       )
     // {
+      hydraJobs = self.packages.x86_64-linux;
       nixosModules = import ./modules;
       overlay = final: prev: (nixpkgs.lib.composeExtensions this.overlay
         (final: prev: {
