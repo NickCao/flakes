@@ -17,9 +17,6 @@ jobs:
       with:
         extra_nix_config: |
           extra-platforms = aarch64-linux
-    - uses: cachix/cachix-action@v10
-      with:
-        name: nickcao-staging
     - uses: shimataro/ssh-key-action@v2
       with:
         key: '${{ secrets.SSH_PRIVATE_KEY }}'
