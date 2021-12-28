@@ -187,7 +187,6 @@
 
   services = {
     resolved = {
-      domains = [ "nichi.link" ];
       dnssec = "true";
     };
     power-profiles-daemon.enable = true;

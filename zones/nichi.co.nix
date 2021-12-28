@@ -74,6 +74,5 @@ dns.lib.toString "nichi.co" {
     hydra.CNAME = [ "hel0.nichi.link." ];
     tagging.CNAME = [ "hel0.nichi.link." ];
     www.TXT = [ "http.cat/404" ];
-    "*".CNAME = [ "nichi.co." ];
   };
 }

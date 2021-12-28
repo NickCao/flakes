@@ -339,13 +339,8 @@ in
       compression = true;
       serverAliveInterval = 30;
       matchBlocks = {
-        "rpi" = {
-          hostname = "rpi.nichi.link";
+        "*" = {
           user = "root";
-        };
-        "unmatched" = {
-          hostname = "10.0.1.3";
-          proxyJump = "rpi";
         };
       };
       extraConfig = ''
