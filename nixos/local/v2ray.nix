@@ -1,5 +1,5 @@
 {
-  log = { loglevel = "warning"; };
+  log = { loglevel = "error"; access = "none"; };
   observatory = { probeInterval = "1m"; probeURL = "https://example.com"; subjectSelector = [ "proxy" ]; };
   inbounds = [
     {
