@@ -17,18 +17,6 @@
       nixbot.restartUnits = [ "nixbot.service" ];
       meow.restartUnits = [ "meow.service" ];
       dkim.restartUnits = [ "maddy.service" ];
-      "hercules/cluster-join-token.key" = {
-        owner = "hercules-ci-agent";
-        restartUnits = [ "hercules-ci-agent.service" ];
-      };
-      "hercules/binary-caches.json" = {
-        owner = "hercules-ci-agent";
-        restartUnits = [ "hercules-ci-agent.service" ];
-      };
-      "hercules/secrets.json" = {
-        owner = "hercules-ci-agent";
-        restartUnits = [ "hercules-ci-agent.service" ];
-      };
     };
   };
 
@@ -48,13 +36,6 @@
       github_client_id = e55d265b1883eb42630e
       github_client_secret_file = ${config.sops.secrets.github.path}
     '';
-  };
-
-  services.hercules-ci-agent = {
-    enable = true;
-    settings = {
-      staticSecretsDirectory = "/run/secrets/hercules";
-    };
   };
 
   virtualisation.oci-containers.backend = "podman";

@@ -54,19 +54,6 @@
       url = "github:Ninlives/nixbot-telegram";
       inputs.flake-utils.follows = "flake-utils";
     };
-    hercules = {
-      url = "github:hercules-ci/hercules-ci-agent/experimental-0.9";
-      inputs.nixos-unstable.follows = "nixpkgs";
-      inputs.nixos-20_09.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-    };
-    hercules-ci-effects = {
-      url = "github:hercules-ci/hercules-ci-effects";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-nixops.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.hercules-ci-agent.follows = "hercules";
-    };
     bootspec = {
       url = "github:DeterminateSystems/bootspec/main";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -92,7 +79,6 @@
               inputs.rust-overlay.overlay
               inputs.fn.overlay
               inputs.nvfetcher.overlay
-              inputs.hercules-ci-effects.overlay
             ];
           };
         in
@@ -112,23 +98,6 @@
         }
       )
     // {
-      herculesCI = { rev, ... }: {
-        onPush.default.outputs = self.checks;
-        onPush.deploy.outputs = builtins.mapAttrs (name: attr: attr.profiles.system.path) self.deploy.nodes // {
-          # effects.github = self.legacyPackages.x86_64-linux.effects.mkEffect {
-          #   name = "github";
-          #   secretsMap = {
-          #     "github" = "github";
-          #   };
-          #   dontUnpack = true;
-          #   effectScript = with self.legacyPackages.x86_64-linux; ''
-          #     ${curl}/bin/curl https://api.github.com/repos/NickCao/flakes/actions/workflows/nix.yml/dispatches \
-          #       -H "authorization: Bearer $(readSecretString github .token)" \
-          #       -d '{"ref":"master","inputs":{"ref":"${rev}"}}'
-          #   '';
-          # };
-        };
-      };
       nixosModules = import ./modules;
       overlay = final: prev: (nixpkgs.lib.composeExtensions this.overlay
         (final: prev: {
