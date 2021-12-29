@@ -129,6 +129,7 @@ in
     enable = true;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
       extraPolicies = {
+        PasswordManagerEnabled = false;
         DisableFirefoxAccounts = true;
         DisablePocket = true;
         EnableTrackingProtection = {
@@ -146,6 +147,12 @@ in
         Preferences = {
           "browser.newtabpage.activity-stream.feeds.topsites" = false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+        };
+        ExtensionSettings = {
+          "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/file/3878893/bitwarden_free_password_manager-1.55.0-an+fx.xpi";
+          };
         };
       };
     };
