@@ -181,7 +181,6 @@ in
     jq
     auth-thu
     nixpkgs-fmt
-    cachix
     smartmontools
     rait
     python3

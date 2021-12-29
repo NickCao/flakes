@@ -67,6 +67,7 @@ dns.lib.toString "nichi.co" {
     }
   ];
   subdomains = {
+    api = host nrt0.ipv4 nrt0.ipv6;
     pb.CNAME = [ "hel0.nichi.link." ];
     s3.CNAME = [ "hel0.nichi.link." ];
     etcd.CNAME = [ "hel0.nichi.link." ];
