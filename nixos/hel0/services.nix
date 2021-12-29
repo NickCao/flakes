@@ -17,6 +17,7 @@
       nixbot.restartUnits = [ "nixbot.service" ];
       meow.restartUnits = [ "meow.service" ];
       dkim.restartUnits = [ "maddy.service" ];
+      vault = { };
     };
   };
 
@@ -36,6 +37,20 @@
       github_client_id = e55d265b1883eb42630e
       github_client_secret_file = ${config.sops.secrets.github.path}
     '';
+  };
+
+  services.vaultwarden = {
+    enable = true;
+    config = {
+      signupsAllowed = false;
+      sendsAllowed = false;
+      emergencyAccessAllowed = false;
+      orgCreationUsers = "none";
+      domain = "https://vault.nichi.co";
+      rocketAddress = "127.0.0.1";
+      rocketPort = 8003;
+    };
+    environmentFile = config.sops.secrets.vault.path;
   };
 
   virtualisation.oci-containers.backend = "podman";
@@ -236,6 +251,11 @@
             entryPoints = [ "https" ];
             service = "hydra";
           };
+          vault = {
+            rule = "Host(`vault.nichi.co`)";
+            entryPoints = [ "https" ];
+            service = "vault";
+          };
         };
         middlewares = {
           compress.compress = { };
@@ -260,6 +280,10 @@
           hydra.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:3000"; }];
+          };
+          vault.loadBalancer = {
+            passHostHeader = true;
+            servers = [{ url = "http://127.0.0.1:8003"; }];
           };
         };
       };
