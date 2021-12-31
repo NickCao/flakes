@@ -49,8 +49,11 @@ in
     serviceConfig = {
       RemainAfterExit = "yes";
       Restart = "on-failure";
-      ExecStart = "${config.boot.kernelPackages.usbip}/bin/usbip bind -b 1-1.1";
-      ExecStop = "${config.boot.kernelPackages.usbip}/bin/usbip unbind -b 1-1.1";
+      Type = "oneshot";
+      ExecStart = ["${config.boot.kernelPackages.usbip}/bin/usbip bind -b 1-1.1"
+      "${config.boot.kernelPackages.usbip}/bin/usbip bind -b 1-1.3" ];
+      ExecStop = ["${config.boot.kernelPackages.usbip}/bin/usbip unbind -b 1-1.1"
+       "${config.boot.kernelPackages.usbip}/bin/usbip unbind -b 1-1.3"];
     };
     wantedBy = [ "multi-user.target" ];
   };
@@ -145,6 +148,7 @@ in
     ustreamer
     ffmpeg
     libgpiod
+    gdb
     config.boot.kernelPackages.usbip
   ];
 

@@ -348,6 +348,11 @@ in
         "*" = {
           user = "root";
         };
+        "unmatched" = {
+            proxyJump = "rpi";
+            user = "root";
+            hostname = "fe80::72b3:d5ff:fe92:f9ff%%eth0";
+          };
       };
       extraConfig = ''
         CheckHostIP no
