@@ -50,10 +50,14 @@ in
       RemainAfterExit = "yes";
       Restart = "on-failure";
       Type = "oneshot";
-      ExecStart = ["${config.boot.kernelPackages.usbip}/bin/usbip bind -b 1-1.1"
-      "${config.boot.kernelPackages.usbip}/bin/usbip bind -b 1-1.3" ];
-      ExecStop = ["${config.boot.kernelPackages.usbip}/bin/usbip unbind -b 1-1.1"
-       "${config.boot.kernelPackages.usbip}/bin/usbip unbind -b 1-1.3"];
+      ExecStart = [
+        "${config.boot.kernelPackages.usbip}/bin/usbip bind -b 1-1.1"
+        "${config.boot.kernelPackages.usbip}/bin/usbip bind -b 1-1.3"
+      ];
+      ExecStop = [
+        "${config.boot.kernelPackages.usbip}/bin/usbip unbind -b 1-1.1"
+        "${config.boot.kernelPackages.usbip}/bin/usbip unbind -b 1-1.3"
+      ];
     };
     wantedBy = [ "multi-user.target" ];
   };

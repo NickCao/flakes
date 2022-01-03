@@ -197,7 +197,9 @@ in
     go_1_17
     sops
     (mkWrap "mc" "${minio-client}/bin/mc --config-dir ${config.xdg.configHome}/mc")
-    (mkWrap "terraform" "${coreutils}/bin/env TF_PLUGIN_CACHE_DIR=${config.xdg.cacheHome}/terraform CHECKPOINT_DISABLE=1 ${terraform}/bin/terraform")
+    (mkWrap "terraform" "${coreutils}/bin/env CHECKPOINT_DISABLE=1 ${
+      terraform.withPlugins (ps: with ps; [ vultr sops minio ])
+        }/bin/terraform")
     restic
     libarchive
   ];
@@ -349,10 +351,10 @@ in
           user = "root";
         };
         "unmatched" = {
-            proxyJump = "rpi";
-            user = "root";
-            hostname = "fe80::72b3:d5ff:fe92:f9ff%%eth0";
-          };
+          proxyJump = "rpi";
+          user = "root";
+          hostname = "fe80::72b3:d5ff:fe92:f9ff%%eth0";
+        };
       };
       extraConfig = ''
         CheckHostIP no

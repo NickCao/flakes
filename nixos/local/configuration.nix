@@ -19,9 +19,8 @@
       auth-thu = {
         owner = "nickcao";
       };
-      restic = {
-        owner = "nickcao";
-      };
+      restic-passwd = { };
+      restic = { };
     };
     age = {
       keyFile = "/var/lib/sops.key";
@@ -188,6 +187,15 @@
   services = {
     resolved = {
       dnssec = "true";
+    };
+    restic.backups = {
+      s3 = {
+        repository = "s3:https://s3.nichi.co/offsite";
+        passwordFile = config.sops.secrets.restic-passwd.path;
+        environmentFile = config.sops.secrets.restic.path;
+        paths = [ "/persistent" ];
+        extraBackupArgs = [ "--exclude-caches" ];
+      };
     };
     power-profiles-daemon.enable = true;
     pcscd.enable = true;
