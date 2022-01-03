@@ -214,12 +214,12 @@ in
     # cache
     XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
+    CARGO_HOME = "${config.xdg.cacheHome}/cargo";
     # config
     PARALLEL_HOME = "${config.xdg.configHome}/parallel";
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
     LESSHISTFILE = "${config.xdg.stateHome}/lesshst";
-    CARGO_HOME = "${config.xdg.stateHome}/cargo";
     # shit
     PYTHONSTARTUP = (
       pkgs.writeText "start.py" ''

@@ -55,7 +55,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     bootspec = {
-      url = "github:DeterminateSystems/bootspec/main";
+      url = "github:NickCao/bootspec/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

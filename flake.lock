@@ -30,15 +30,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1639161063,
-        "narHash": "sha256-RK64IQkIvLceZokf2YGwx+rWyQd5/UpaAtyp/u7ZXr4=",
-        "owner": "DeterminateSystems",
+        "lastModified": 1641020520,
+        "narHash": "sha256-HHhTxCiKpJ+GnSieVeuu8YtdcZd3Rv5AChDmLTCfxwU=",
+        "owner": "NickCao",
         "repo": "bootspec",
-        "rev": "5ebf8c571d5500516fae0bb01303b1948e158cd4",
+        "rev": "281c029d4f67706cc0ae23093ecae78e12f905c7",
         "type": "github"
       },
       "original": {
-        "owner": "DeterminateSystems",
+        "owner": "NickCao",
         "ref": "main",
         "repo": "bootspec",
         "type": "github"
@@ -157,11 +157,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1640770819,
-        "narHash": "sha256-dVw74s7rT+nt4HkxYxvB50lFxpe2gNWScH9T3vrNk3s=",
+        "lastModified": 1641121012,
+        "narHash": "sha256-svaOMxNMQgFHjcxdmLojOxTxfqSENtnO+S3kb+npIwY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "cc3b979893887f729c7ab5f5d3b7c65febfe1a9d",
+        "rev": "8e7a10602d1eb1d242c9d3f9b822203d5751a8c6",
         "type": "github"
       },
       "original": {
@@ -223,11 +223,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1640943546,
-        "narHash": "sha256-51pEogSg0QxN/lcF7PbH5vCUf5f2KGQsWlruzyMIRX4=",
+        "lastModified": 1641179000,
+        "narHash": "sha256-F3+Wtv2ZD1xCsoN7LcZWRn8iwLPm1EXp4KYKPe1PD90=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "97425aa83ca2a3bf8e48002bab6281053d002848",
+        "rev": "ecfaf39bb0c5bc58524ed1f872212ab5449da491",
         "type": "github"
       },
       "original": {
@@ -250,11 +250,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1640033174,
-        "narHash": "sha256-b8w7NgobOYLlFV9j+XGbF+51LpOll0QeatxEGRv7uhg=",
+        "lastModified": 1641071623,
+        "narHash": "sha256-jxquDPaIJPub49c1UK96LHlFTzSCXCJ6Mv5fpeGtD90=",
         "owner": "berberman",
         "repo": "nvfetcher",
-        "rev": "8bbf1921a36343f9a78c68e2bbc9798ab8f3b768",
+        "rev": "8aedc71c67960945bc18fb1077e7bdcd9046f1ee",
         "type": "github"
       },
       "original": {
@@ -291,11 +291,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1640918458,
-        "narHash": "sha256-MxM7/Vse3gd32QEZAMs57F8UVLoyQv36rnWDB49AoPA=",
+        "lastModified": 1641177598,
+        "narHash": "sha256-ixQ72QmhIfb7bAzvLUn6GtjpoMA/N3V1PBwjZQQyc1k=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "6c36e6013106ec0091c6cd3ab1bfcae941c35d6e",
+        "rev": "d93e905bc0d36508590b6ec0e2e6e92d2cf8289a",
         "type": "github"
       },
       "original": {
