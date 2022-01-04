@@ -71,13 +71,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "3a6d3b20844f87f2da2009fcf4399bce50eef098";
+    version = "9a0d20a8659ce2ce5cb1529b743c143572479559";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "3a6d3b20844f87f2da2009fcf4399bce50eef098";
+      rev = "9a0d20a8659ce2ce5cb1529b743c143572479559";
       fetchSubmodules = false;
-      sha256 = "sha256-ajI07/eGMrKwx2//A3AvsBb56fMFlr8/Jr0mlBm7gdg=";
+      sha256 = "sha256-kMNr+ieya8Z7PsyWJHMv1NJKyRWT3a6+unSkzIOahQM=";
     });
   };
   wemeet = {
