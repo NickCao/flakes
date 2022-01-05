@@ -369,28 +369,7 @@ in
   };
 
   home.file = {
-    ".local/share/fcitx5/rime/default.custom.yaml".text = ''
-      patch:
-        schema_list:
-          - schema: double_pinyin_flypy
-    '';
-    ".local/share/fcitx5/rime/double_pinyin_flypy.custom.yaml".text = ''
-      patch:
-        translator/preedit_format: []
-        translator/dictionary: luna_pinyin.extended
-    '';
-    ".local/share/fcitx5/rime/luna_pinyin.extended.dict.yaml".text = ''
-      ---
-      name: luna_pinyin.extended
-      version: "0.1"
-      sort: by_weight
-      use_preset_vocabulary: true
-      import_tables:
-        - luna_pinyin
-        - zhwiki
-      ...  
-    '';
-    ".local/share/fcitx5/rime/zhwiki.dict.yaml".source = "${pkgs.rime-pinyin-zhwiki}/share/rime-data/zhwiki.dict.yaml";
+    ".local/share/fcitx5/pinyin/dictionaries/zhwiki.dict".source = "${pkgs.fcitx5-pinyin-zhwiki}/share/fcitx5/pinyin/dictionaries/zhwiki.dict";
   };
   xdg = {
     enable = true;

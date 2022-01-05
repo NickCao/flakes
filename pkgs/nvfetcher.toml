@@ -16,9 +16,9 @@ passthru = { vendorSha256 = "sha256-55Zu1g+pwTt6dU1QloxfFkG2dbnK5gg84WvRhz2ND3M=
 src.manual = "2.8.0.1"
 fetch.url = "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca56142398818545f/TencentMeeting_0300000000_2.8.0.1_x86_64.publish.deb"
 
-[rime-pinyin-zhwiki]
-src.manual = "20210923"
-fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20210923.dict.yaml"
+[fcitx5-pinyin-zhwiki]
+src.manual = "20220101"
+fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220101.dict"
 
 [mokutil]
 src.github = "lcp/mokutil"

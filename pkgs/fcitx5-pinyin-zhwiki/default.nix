@@ -3,7 +3,7 @@ stdenv.mkDerivation {
   inherit (source) pname version src;
   dontUnpack = true;
   installPhase = ''
-    install -Dm644 $src $out/share/rime-data/zhwiki.dict.yaml
+    install -Dm644 $src $out/share/fcitx5/pinyin/dictionaries/zhwiki.dict
   '';
   meta = with lib; {
     description = "zhwiki dictionary for fcitx5-pinyin and rime";
