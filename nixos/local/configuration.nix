@@ -58,6 +58,7 @@
     useDHCP = false;
     hosts = {
       "2a0c:b641:69c:7864:0:4:8d6:7c9b" = [ "k11-plct" ];
+      "104.21.75.85" = [ "api.nichi.workers.dev" ];
     };
     wireless = {
       enable = true;
@@ -74,6 +75,7 @@
           password="@PASSWORD@"
         '';
       };
+      networks."CMCC-39rG-5G".psk = "@HOME@";
     };
   };
   systemd.network.networks = {
@@ -97,7 +99,7 @@
     inputMethod = {
       enabled = "fcitx5";
       fcitx5.addons = with pkgs; [
-        fcitx5-rime
+        fcitx5-chinese-addons
         fcitx5-gtk
         libsForQt5.fcitx5-qt
         fcitx5-configtool
@@ -186,7 +188,7 @@
 
   services = {
     resolved = {
-      dnssec = "true";
+      # dnssec = "true";
     };
     restic.backups = {
       s3 = {
