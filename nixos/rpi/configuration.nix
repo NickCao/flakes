@@ -16,6 +16,7 @@ in
   imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64.nix") ];
   disabledModules = [ "profiles/base.nix" ];
 
+  nix.package = pkgs.nixUnstable;
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age = {
@@ -124,6 +125,7 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJNPLArhyazrFjK4Jt/ImHSzICvwKOk4f+7OEcv2HEb7"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpzrZLU0peDu1otGtP2GcCeQIkI8kmfHjnwpbfpWBkv"
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7GmFmf0avCqYFIjhmq6TIOdPnzkVMYJLzlE4rqXLB4Q9BKXsRgpefAmd+OzqtbRjRM51ZKuV5rlMsF/QiuGU3qnE09JV97kiBCvWH30X9VVLjohjQCwbJRZzFXeW+9olILbjNbdBgYq0pe/41ohmq4cCNQ69u4+Hgf9XpEB7oJ4bzRuQZ/rrcl92zHqxS5QJZmKWiUcUGnQiN5XqwtHUdHhJ7qTzMEwWgtwRtVxVGIzauZU9Si89+amwyWkIOJwXh7oMcrqMyU110LpVeXs78vyjmYwTXGYDGlUnFaQ5FrkD/VoBgEhME9kZhDqyDVC6FxE5hNdtu3YaXWTTn0QMx"
   ];
 
   services.openssh = {
