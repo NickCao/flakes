@@ -23,10 +23,7 @@
     rules = [
       { domains = [ "geosite:cn" ]; outboundTag = "direct"; type = "field"; }
       { ip = [ "geoip:private" "geoip:cn" ]; outboundTag = "direct"; type = "field"; }
-      { balancerTag = "balancer"; network = "tcp,udp"; type = "field"; }
-    ];
-    balancers = [
-      { selector = [ "proxy" ]; strategy = { type = "leastPing"; }; tag = "balancer"; }
+      { outboundTag = "proxy"; network = "tcp,udp"; type = "field"; }
     ];
   };
 }

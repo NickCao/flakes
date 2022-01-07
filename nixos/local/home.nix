@@ -383,7 +383,7 @@ in
     };
     configFile = {
       "helix/config.toml".source = toTOMLDrv {
-        theme = "onedark";
+        theme = "solarized_dark";
         editor = {
           shell = [ "/bin/sh" "-c" ];
         };
