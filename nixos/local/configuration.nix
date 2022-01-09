@@ -156,7 +156,6 @@
 
   virtualisation = {
     podman.enable = true;
-    virtualbox.host.enable = true;
   };
 
   hardware = {
@@ -207,6 +206,8 @@
       enable = true;
       pulse.enable = true;
       jack.enable = true;
+      wireplumber.enable = true;
+      media-session.enable = false;
     };
     journald = {
       extraConfig = ''

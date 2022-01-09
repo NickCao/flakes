@@ -165,6 +165,7 @@ in
     };
   };
   home.packages = with pkgs; [
+    nix-top
     thunderbird
     helix
     mpv
