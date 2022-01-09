@@ -196,6 +196,9 @@
         environmentFile = config.sops.secrets.restic.path;
         paths = [ "/persistent" ];
         extraBackupArgs = [ "--exclude-caches" ];
+        timerConfig = {
+          OnBootSec = "15min";
+        };
       };
     };
     power-profiles-daemon.enable = true;
