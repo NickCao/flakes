@@ -98,7 +98,8 @@
         }
       )
     // {
-      hydraJobs = self.packages.x86_64-linux;
+      hydraJobs = self.packages.x86_64-linux // nixpkgs.lib.mapAttrs (_: v: v.config.system.build.toplevel)
+        (nixpkgs.lib.filterAttrs (_: v: v.pkgs.system == "x86_64-linux") self.nixosConfigurations);
       nixosModules = import ./modules;
       overlay = final: prev: (nixpkgs.lib.composeExtensions this.overlay
         (final: prev: {

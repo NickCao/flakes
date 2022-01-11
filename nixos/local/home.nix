@@ -160,6 +160,8 @@ in
       default = {
         settings = {
           "fission.autostart" = true;
+          "media.ffmpeg.vaapi.enabled" = true;
+          "media.rdd-ffmpeg.enabled" = true;
         };
       };
     };
