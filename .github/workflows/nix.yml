@@ -13,10 +13,12 @@ jobs:
       with:
         ref: '${{ inputs.ref }}'
     - uses: docker/setup-qemu-action@v1
-    - uses: cachix/install-nix-action@v15
+    - uses: cachix/install-nix-action@v16
       with:
         extra_nix_config: |
           extra-platforms = aarch64-linux
+          trusted-public-keys = hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+          substituters = https://s3.nichi.co/cache https://cache.nixos.org/
     - uses: shimataro/ssh-key-action@v2
       with:
         key: '${{ secrets.SSH_PRIVATE_KEY }}'
