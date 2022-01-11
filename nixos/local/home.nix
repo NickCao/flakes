@@ -181,7 +181,7 @@ in
     ranger
     ncdu
     mode
-    yubikey-manager
+    # yubikey-manager
     age
     pandoc
     prime-run
@@ -326,6 +326,7 @@ in
         set -gs escape-time 10
         set -g default-terminal "tmux-256color"
         set -ga terminal-overrides ",alacritty:Tc"
+        set -g renumber-windows on
         new-session -s main
       '';
     };
