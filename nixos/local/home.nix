@@ -183,7 +183,7 @@ in
     ranger
     ncdu
     mode
-    # yubikey-manager
+    yubikey-manager
     age
     pandoc
     prime-run
