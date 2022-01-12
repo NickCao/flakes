@@ -351,8 +351,15 @@ in
       compression = true;
       serverAliveInterval = 30;
       matchBlocks = {
-        "*" = {
-          user = "root";
+        "*.sc.team" = {
+          user = "nickcao";
+          proxyJump = "scjump";
+          forwardAgent = true;
+        };
+        "scjump" = {
+          user = "nickcao";
+          hostname = "166.111.68.163";
+          port = 2222;
         };
         "unmatched" = {
           proxyJump = "rpi";
