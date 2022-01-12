@@ -76,6 +76,7 @@
         '';
       };
       networks."CMCC-39rG-5G".psk = "@HOME@";
+      networks."CMCC-EGfY".psk = "@ALT@";
     };
   };
   systemd.network.networks = {
