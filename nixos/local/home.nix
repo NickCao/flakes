@@ -128,6 +128,7 @@ in
   programs.firefox = {
     enable = true;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
+      forceWayland = true;
       extraPolicies = {
         PasswordManagerEnabled = false;
         DisableFirefoxAccounts = true;
@@ -209,19 +210,10 @@ in
 
   home.sessionVariables = {
     EDITOR = "hx";
-    GTK_IM_MODULE = "fcitx";
-    QT_IM_MODULE = "fcitx";
-    XMODIFIERS = "@im=fcitx";
-    GOOGLE_DEFAULT_CLIENT_ID = "77185425430.apps.googleusercontent.com";
-    GOOGLE_DEFAULT_CLIENT_SECRET = "OTJgUOQcT7lO7GsGZq2G4IlT";
     LIBVA_DRIVER_NAME = "iHD";
-    MOZ_ENABLE_WAYLAND = 1;
     # cache
-    XCOMPOSECACHE = "${config.xdg.cacheHome}/compose";
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CARGO_HOME = "${config.xdg.cacheHome}/cargo";
-    # config
-    PARALLEL_HOME = "${config.xdg.configHome}/parallel";
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
     LESSHISTFILE = "${config.xdg.stateHome}/lesshst";
@@ -379,9 +371,6 @@ in
     };
   };
 
-  home.file = {
-    ".local/share/fcitx5/pinyin/dictionaries/zhwiki.dict".source = "${pkgs.fcitx5-pinyin-zhwiki}/share/fcitx5/pinyin/dictionaries/zhwiki.dict";
-  };
   xdg = {
     enable = true;
     userDirs = {

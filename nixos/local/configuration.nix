@@ -104,6 +104,7 @@
         fcitx5-gtk
         libsForQt5.fcitx5-qt
         fcitx5-configtool
+        fcitx5-pinyin-zhwiki
       ];
     };
   };
