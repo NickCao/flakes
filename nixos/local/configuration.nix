@@ -295,7 +295,6 @@
       ".thunderbird"
       ".config/fcitx5"
       ".config/mc"
-      ".config/VirtualBox"
     ];
     files = [
       "/etc/machine-id"
