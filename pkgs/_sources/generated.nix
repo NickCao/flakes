@@ -58,26 +58,26 @@
   };
   rait = {
     pname = "rait";
-    version = "19076c4a9e52c75c5b5a259f3b47bc3ef703eeb4";
+    version = "b5a755c7f0fc4083fa44e7a40695e23dad155f4f";
     src = fetchgit {
       url = "https://gitlab.com/NickCao/RAIT";
-      rev = "19076c4a9e52c75c5b5a259f3b47bc3ef703eeb4";
+      rev = "b5a755c7f0fc4083fa44e7a40695e23dad155f4f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-KVXy01l6GsT+cZu7QNCnrS6FtEAGayXTnsBYTT76Dwg=";
+      sha256 = "sha256-OakWWSzO3QsX/xOErYYWNtSXerfhEAapEjdhazg9oco=";
     };
     vendorSha256 = "sha256-55Zu1g+pwTt6dU1QloxfFkG2dbnK5gg84WvRhz2ND3M=";
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "549b7ec8cbdae81422c1f8525dcdb947fec1e420";
+    version = "44b65171a4d979a305c8b8a4a0511505ec3ebb28";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "549b7ec8cbdae81422c1f8525dcdb947fec1e420";
+      rev = "44b65171a4d979a305c8b8a4a0511505ec3ebb28";
       fetchSubmodules = false;
-      sha256 = "sha256-kzroaOpyM53XikQLC/i19c4vYN+WTo29Rh5dNJfMVaQ=";
+      sha256 = "sha256-5B7Zyh2c2l5qE/eZmjvounNUwQipCRgdL9oYcG6CfL0=";
     });
   };
   wemeet = {
