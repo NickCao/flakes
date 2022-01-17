@@ -56,6 +56,18 @@
       sha256 = "sha256-dt41TCr6RkmE9H+NN8LWv3ogGsK38JtLjVN/b2mbGJs=";
     });
   };
+  ops = {
+    pname = "ops";
+    version = "96ef8a21e360a04b8c614f232bb3c9f5e4382511";
+    src = fetchFromGitHub ({
+      owner = "nanovms";
+      repo = "ops";
+      rev = "96ef8a21e360a04b8c614f232bb3c9f5e4382511";
+      fetchSubmodules = false;
+      sha256 = "sha256-8NuaikvfUT4BBg5nI4W6lVndwH9JyBm8KMQpdWfMxEw=";
+    });
+    vendorSha256 = "sha256-9Eix22l54kpExGyfTUcSynUOPZovYdumgetV0f2vpeM=";
+  };
   rait = {
     pname = "rait";
     version = "b5a755c7f0fc4083fa44e7a40695e23dad155f4f";
@@ -71,13 +83,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "18baae5eab7b00af1b9d756a54f9ce741fc39692";
+    version = "f14365bf9f743acda3fc0548bb317ee369e565a5";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "18baae5eab7b00af1b9d756a54f9ce741fc39692";
+      rev = "f14365bf9f743acda3fc0548bb317ee369e565a5";
       fetchSubmodules = false;
-      sha256 = "sha256-FBl4XLxuUjFqRz9x22jsfFee+r4yvx0EfLb8WpX1OG0=";
+      sha256 = "sha256-s8C8FMgT3gGMn/QhNgkyMFi6w6jG/X811aL792I+1f0=";
     });
   };
   wemeet = {

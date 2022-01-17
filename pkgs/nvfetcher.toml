@@ -33,3 +33,8 @@ passthru = { vendorSha256 = "sha256-CwbjSCtI68Tvk3bwM+t46wr0i+xDNgNkzVvL3ZoLDUA=
 src.github = "filebrowser/filebrowser"
 fetch.github = "filebrowser/filebrowser"
 passthru = { vendorSha256 = "sha256-9I3GkIcEtDzKUKhy0giBjAa4hWi3ulkY6g4gP2vNvKY=" }
+
+[ops]
+src.git = "https://github.com/nanovms/ops"
+fetch.github = "nanovms/ops"
+passthru = { vendorSha256 = "sha256-9Eix22l54kpExGyfTUcSynUOPZovYdumgetV0f2vpeM=" }
