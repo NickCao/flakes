@@ -23,16 +23,6 @@ in
         };
         Install.WantedBy = [ "sway-session.target" ];
       };
-      swayidle = {
-        Unit.PartOf = [ "sway-session.target" ];
-        Service = {
-          Type = "simple";
-          ExecStart = "${pkgs.swayidle}/bin/swayidle -w";
-          RestartSec = 3;
-          Restart = "always";
-        };
-        Install.WantedBy = [ "sway-session.target" ];
-      };
     };
   };
   gtk = {
@@ -369,6 +359,16 @@ in
       enable = true;
       enableSshSupport = true;
     };
+    swayidle = {
+      enable = true;
+      timeouts = [
+        { timeout = 900; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
+        { timeout = 905; command = ''swaymsg "output * dpms off"''; resumeCommand = ''swaymsg "output * dpms on"''; }
+      ];
+      events = [
+        { event = "lock"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
+      ];
+    };
   };
 
   xdg = {
@@ -400,11 +400,6 @@ in
         scaling=fill
         effect-blur=7x5
         effect-vignette=0.5:0.5
-      '';
-      "swayidle/config".text = ''
-        lock "${pkgs.swaylock-effects}/bin/swaylock"
-        timeout 900 "${pkgs.swaylock-effects}/bin/swaylock"
-        timeout 905 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
       '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
