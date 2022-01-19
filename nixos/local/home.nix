@@ -311,6 +311,7 @@ in
         set -g default-terminal "tmux-256color"
         set -ga terminal-overrides ",alacritty:Tc"
         set -g renumber-windows on
+        set -g base-index 1
         new-session -s main
       '';
     };
