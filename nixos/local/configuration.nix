@@ -273,11 +273,16 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
-    noto-fonts-extra
     noto-fonts-emoji
     jetbrains-mono
-    nerdfonts
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
+  fonts.fontconfig.defaultFonts = pkgs.lib.mkForce {
+    serif = [ "Noto Serif" "Noto Serif CJK SC" ];
+    sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
+    monospace = [ "JetBrains Mono" ];
+    emoji = [ "Noto Color Emoji" ];
+  };
 
   environment.persistence."/persistent" = {
     directories = [
