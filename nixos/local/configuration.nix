@@ -268,14 +268,15 @@
     Defaults lecture="never"
   '';
 
+  fonts.enableDefaultFonts = false;
   fonts.fonts = with pkgs; [
-    roboto
-    jetbrains-mono
-    nerdfonts
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
     noto-fonts-extra
     noto-fonts-emoji
+    jetbrains-mono
+    nerdfonts
   ];
 
   environment.persistence."/persistent" = {
