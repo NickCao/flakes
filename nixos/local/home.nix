@@ -115,6 +115,18 @@ in
       ];
     };
   };
+  programs.helix = {
+    enable = true;
+    settings = {
+      theme = "solarized_dark";
+      editor = {
+        shell = [ "/bin/sh" "-c" ];
+      };
+      lsp = {
+        display-messages = true;
+      };
+    };
+  };
   programs.firefox = {
     enable = true;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
@@ -383,15 +395,6 @@ in
       publicShare = "$HOME";
     };
     configFile = {
-      "helix/config.toml".source = toTOMLDrv {
-        theme = "solarized_dark";
-        editor = {
-          shell = [ "/bin/sh" "-c" ];
-        };
-        lsp = {
-          display-messages = true;
-        };
-      };
       "waybar/config".source = toJSONDrv (import ./waybar.nix);
       "waybar/style.css".source = ./waybar.css;
       "swaylock/config".text = ''
