@@ -5,7 +5,6 @@
     secrets = {
       rait = { };
       woff = { };
-      bark = { };
       traefik = { };
     };
   };
