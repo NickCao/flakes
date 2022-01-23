@@ -243,6 +243,11 @@ in
         on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
       '';
     };
+    waybar = {
+      enable = true;
+      settings = [ (import ./waybar.nix) ];
+      style = builtins.readFile ./waybar.css;
+    };
     direnv = {
       enable = true;
       nix-direnv = {
@@ -395,8 +400,6 @@ in
       publicShare = "$HOME";
     };
     configFile = {
-      "waybar/config".source = toJSONDrv (import ./waybar.nix);
-      "waybar/style.css".source = ./waybar.css;
       "swaylock/config".text = ''
         show-failed-attempts
         daemonize
