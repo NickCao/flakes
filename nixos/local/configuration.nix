@@ -30,19 +30,18 @@
   };
 
   nix = {
-    autoOptimiseStore = true;
-    binaryCaches = pkgs.lib.mkBefore [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://s3.nichi.co/cache" ];
-    binaryCachePublicKeys = [ "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk=" ];
-    trustedUsers = [ "root" "nickcao" ];
     package = pkgs.nixUnstable;
-    systemFeatures = [ "benchmark" "big-parallel" "kvm" "nixos-test" "recursive-nix" ];
-    extraOptions = ''
-      flake-registry = /etc/nix/registry.json
-      experimental-features = nix-command flakes ca-derivations
-      builders-use-substitutes = true
-      keep-outputs = true
-      keep-derivations = true
-    '';
+    settings = {
+      trusted-users = [ "root" "nickcao" ];
+      substituters = pkgs.lib.mkBefore [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://s3.nichi.co/cache" ];
+      trusted-public-keys = [ "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk=" ];
+      auto-optimise-store = true;
+      flake-registry = "/etc/nix/registry.json";
+      experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
+      builders-use-substitutes = true;
+      keep-outputs = true;
+      keep-derivations = true;
+    };
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [

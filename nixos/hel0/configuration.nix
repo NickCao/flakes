@@ -5,12 +5,11 @@
   };
 
   nix = {
-    autoOptimiseStore = true;
-    trustedUsers = [ "root" ];
     package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes ca-derivations
-    '';
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
+    };
     buildMachines = [{
       hostName = "8.214.124.155";
       systems = [ "x86_64-linux" ];
