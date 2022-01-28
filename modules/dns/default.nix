@@ -13,7 +13,7 @@ in
     };
   };
   config = mkIf cfg.enable {
-    sops.secrets.tsig = { sopsFile = ./../../nixos/hel0/secrets.yaml; owner = "knot"; };
+    sops.secrets.tsig = { sopsFile = ./secrets.yaml; owner = "knot"; };
     services.knot = {
       enable = true;
       keyFiles = [ config.sops.secrets.tsig.path ];
