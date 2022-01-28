@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, mkYarnPackage, buildGo117Module }:
+{ lib, fetchFromGitHub, mkYarnPackage, buildGo117Module, makeWrapper, v2ray }:
 let
   pname = "v2raya";
   version = "48cc58d54727ea4beaadea5c0fb4150356809b72";
@@ -25,8 +25,13 @@ buildGo117Module {
   src = "${src}/service";
   vendorSha256 = "sha256-ALy3Co461N1MJpiEUnjOoNswY4TkE9W8nfeNRNLRyfQ=";
   subPackages = [ "." ];
+  nativeBuildInputs = [ makeWrapper ];
   preBuild = ''
     cp -a ${web} server/router/web
+  '';
+  postInstall = ''
+    wrapProgram $out/bin/v2rayA \
+      --prefix PATH ":" "${lib.makeBinPath [ v2ray ]}"
   '';
   meta = with lib; {
     description = "A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
