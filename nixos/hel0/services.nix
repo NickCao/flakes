@@ -18,11 +18,13 @@
       meow.restartUnits = [ "meow.service" ];
       dkim.restartUnits = [ "maddy.service" ];
       vault = { };
+      tsig = { owner = "knot"; };
     };
   };
 
   services.knot = {
     enable = true;
+    keyFiles = [ config.sops.secrets.tsig.path ];
     extraConfig = builtins.readFile ./knot.conf + ''
       zone:
         - domain: nichi.co
