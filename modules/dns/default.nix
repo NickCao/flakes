@@ -13,54 +13,11 @@ in
     };
   };
   config = mkIf cfg.enable {
-    sops.secrets = builtins.listToAttrs
-      (flatten (builtins.map
-        (x: [
-          { name = "${x}.key"; value = { mode = "0444"; sopsFile = ./secrets.yaml; restartUnits = [ "coredns.service" ]; }; }
-          { name = "${x}.private"; value = { mode = "0444"; sopsFile = ./secrets.yaml; restartUnits = [ "coredns.service" ]; }; }
-        ]) [
-        "Knichi.co.+013+41694"
-        "Knichi.link.+013+43698"
-        "K9.6.0.1.4.6.b.c.0.a.2.ip6.arpa.+013+13716"
-      ])) // {
-      gravity = { mode = "0444"; sopsFile = ./secrets.yaml; restartUnits = [ "coredns.service" ]; };
-      gravity_reverse = { mode = "0444"; sopsFile = ./secrets.yaml; restartUnits = [ "coredns.service" ]; };
+    sops.secrets.tsig = { sopsFile = ./../../nixos/hel0/secrets.yaml; owner = "knot"; };
+    services.knot = {
+      enable = true;
+      keyFiles = [ config.sops.secrets.tsig.path ];
+      extraConfig = builtins.readFile ./knot.conf;
     };
-    services.coredns.enable = true;
-    services.coredns.config = ''
-      nichi.co {
-        file ${pkgs."db.co.nichi"}
-        dnssec {
-          key file /run/secrets/Knichi.co.+013+41694
-        }
-      }
-      nichi.link {
-        file ${pkgs."db.link.nichi"}
-        dnssec {
-          key file /run/secrets/Knichi.link.+013+43698
-        }
-      }
-      scp.link {
-        file ${pkgs."db.link.scp"}
-      }
-      9.6.0.1.4.6.b.c.0.a.2.ip6.arpa {
-        file ${config.sops.secrets.gravity_reverse.path}
-        dnssec {
-          key file /run/secrets/K9.6.0.1.4.6.b.c.0.a.2.ip6.arpa.+013+13716
-        }
-      }
-    '' + optionalString (cfg.nat64 != "") ''
-      . {
-        file ${config.sops.secrets.gravity.path} gravity
-        dns64 {
-          prefix ${cfg.nat64}
-        }
-        acl . {
-          allow net 2a0c:b641:69c::/48 2001:470:4c22::/48
-          block
-        }
-        forward . 1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001
-      }
-    '';
   };
 }

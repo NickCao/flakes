@@ -18,7 +18,9 @@
       meow.restartUnits = [ "meow.service" ];
       dkim.restartUnits = [ "maddy.service" ];
       vault = { };
-      tsig = { owner = "knot"; };
+      tsig = { sopsFile = ../../modules/dns/secrets.yaml; owner = "knot"; };
+      gravity =  { owner = "knot"; };
+      gravity_reverse =  { owner = "knot"; };
     };
   };
 
@@ -29,10 +31,17 @@
       zone:
         - domain: nichi.co
           file: ${pkgs."db.co.nichi"}
+          dnssec-signing: off
         - domain: nichi.link
           file: ${pkgs."db.link.nichi"}
         - domain: scp.link
           file: ${pkgs."db.link.scp"}
+        - domain: gravity
+          file: ${config.sops.secrets.gravity.path}
+          dnssec-signing: off
+        - domain: 9.6.0.1.4.6.b.c.0.a.2.ip6.arpa
+          file: ${config.sops.secrets.gravity_reverse.path}
+          dnssec-signing: off
     '';
   };
 
