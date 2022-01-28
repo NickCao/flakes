@@ -144,11 +144,6 @@
     };
   };
 
-  services.etcd = {
-    enable = true;
-    name = config.networking.hostName;
-  };
-
   services.traefik = {
     enable = true;
     staticConfigOptions = {
@@ -205,17 +200,10 @@
             service = "submission";
             tls = { };
           };
-          etcd = {
-            rule = "HostSNI(`etcd.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "etcd";
-            tls = { };
-          };
         };
         services = {
           imap.loadBalancer.servers = [{ address = "127.0.0.1:143"; }];
           submission.loadBalancer.servers = [{ address = "127.0.0.1:587"; }];
-          etcd.loadBalancer.servers = [{ address = "127.0.0.1:2379"; }];
         };
       };
       http = {

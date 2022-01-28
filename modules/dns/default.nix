@@ -27,18 +27,6 @@ in
       gravity_reverse = { mode = "0444"; sopsFile = ./secrets.yaml; restartUnits = [ "coredns.service" ]; };
     };
     services.coredns.enable = true;
-    services.coredns.package = pkgs.coredns.overrideAttrs (_: {
-      patches = [
-        ./coredns.patch
-        (pkgs.fetchurl {
-          url = "https://github.com/coredns/coredns/commit/1915767109c5ac3533326a5d595657428dd1ee85.patch";
-          sha256 = "sha256-/uTQFg41KJTedF2VtdBcFIylzWcOM/cpt7LUXZ4xvHo=";
-        })
-      ];
-      preBuild = ''
-        go generate -mod=vendor coredns.go
-      '';
-    });
     services.coredns.config = ''
       nichi.co {
         file ${pkgs."db.co.nichi"}
