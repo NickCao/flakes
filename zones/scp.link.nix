@@ -5,10 +5,10 @@ dns.lib.toString "scp.link" {
   SOA = {
     nameServer = "sea0.nichi.link.";
     adminEmail = "noc@nichi.co";
-    serial = 2021062400;
-    refresh = 14400;
-    retry = 3600;
-    expire = 604800;
+    serial = 0000000000;
+    refresh = 600;
+    retry = 600;
+    expire = 86400;
     minimum = 300;
   };
   NS = [
