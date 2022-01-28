@@ -118,13 +118,20 @@
         sea0 = import ./nixos/vultr/sea0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         hel0 = import ./nixos/hel0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
-      deploy.nodes = { } //
+      deploy.nodes = {
+        rpi = {
+          sshUser = "root";
+          sshOpts = [ "-p" "8122" "-4" "-o" "StrictHostKeyChecking=no" ];
+          hostname = "rpi.nichi.link";
+          profiles.system.path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
+        };
+      } //
       (builtins.listToAttrs (builtins.map
         (name: {
           inherit name;
           value = {
             sshUser = "root";
-            sshOpts = [ "-6" "-o" "StrictHostKeyChecking=no" ];
+            sshOpts = [ "-4" "-o" "StrictHostKeyChecking=no" ];
             hostname = "${name}.nichi.link";
             profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${name};
           };
