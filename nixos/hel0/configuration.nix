@@ -48,6 +48,10 @@
 
   services.openssh.enable = true;
 
+  services.resolved.extraConfig = ''
+    DNSStubListener=no
+  '';
+
   environment.persistence."/persist" = {
     directories = [
       "/var/lib"

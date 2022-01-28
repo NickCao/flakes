@@ -15,6 +15,7 @@ nixpkgs.lib.nixosSystem {
         })
         inputs.rust-overlay.overlay
         inputs.fn.overlay
+        self.overlay
       ];
     }
   ];

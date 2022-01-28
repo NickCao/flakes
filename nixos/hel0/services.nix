@@ -21,6 +21,19 @@
     };
   };
 
+  services.knot = {
+    enable = true;
+    extraConfig = builtins.readFile ./knot.conf + ''
+      zone:
+        - domain: nichi.co
+          file: ${pkgs."db.co.nichi"}
+        - domain: nichi.link
+          file: ${pkgs."db.link.nichi"}
+        - domain: scp.link
+          file: ${pkgs."db.link.scp"}
+    '';
+  };
+
   systemd.services.hydra-queue-runner.serviceConfig.EnvironmentFile = [ config.sops.secrets.hydra.path ];
   services.hydra = {
     enable = true;
