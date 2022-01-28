@@ -47,12 +47,6 @@ in
         }
       }
       nichi.link {
-        etcd dyn.nichi.link {
-            fallthrough
-            path /dns
-            endpoint https://etcd.nichi.co:443
-            credentials coredns coredns
-        }
         file ${pkgs."db.link.nichi"}
         dnssec {
           key file /run/secrets/Knichi.link.+013+43698
