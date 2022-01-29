@@ -27,7 +27,6 @@
   };
   services.dns = {
     enable = true;
-    nat64 = config.services.divi.prefix;
   };
   services.bgp = {
     enable = true;
