@@ -29,18 +29,30 @@
     keyFiles = [ config.sops.secrets.tsig.path ];
     extraConfig = builtins.readFile ./knot.conf + ''
       zone:
+        - domain: firstparty
+          template: catalog
         - domain: nichi.co
           file: ${pkgs."db.co.nichi"}
           dnssec-signing: off
+          catalog-role: member
+          catalog-zone: firstparty
         - domain: nichi.link
           file: ${pkgs."db.link.nichi"}
+          catalog-role: member
+          catalog-zone: firstparty
         - domain: scp.link
           file: ${pkgs."db.link.scp"}
+          catalog-role: member
+          catalog-zone: firstparty
         - domain: gravity
           file: ${config.sops.secrets.gravity.path}
           dnssec-signing: off
+          catalog-role: member
+          catalog-zone: firstparty
         - domain: 9.6.0.1.4.6.b.c.0.a.2.ip6.arpa
           file: ${config.sops.secrets.gravity_reverse.path}
+          catalog-role: member
+          catalog-zone: firstparty
     '';
   };
 
