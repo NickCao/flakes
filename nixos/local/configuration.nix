@@ -14,7 +14,7 @@
       "db.key" = { };
       "db.crt" = { };
       passwd.neededForUsers = true;
-      u2f = { };
+      u2f = { mode = "0444"; };
       wireless = { };
       auth-thu = {
         owner = "nickcao";
