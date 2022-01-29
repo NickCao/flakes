@@ -41,7 +41,6 @@
           dnssec-signing: off
         - domain: 9.6.0.1.4.6.b.c.0.a.2.ip6.arpa
           file: ${config.sops.secrets.gravity_reverse.path}
-          dnssec-signing: off
     '';
   };
 
