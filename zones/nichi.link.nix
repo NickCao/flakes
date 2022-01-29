@@ -1,8 +1,8 @@
 { dns }:
 with dns.lib.combinators;
 let
-  nodes = (builtins.fromJSON (builtins.readFile ./nodes.json)).nodes.value;
   common = import ./common.nix;
+  inherit (common) nodes;
 in
 dns.lib.toString "nichi.link" {
   inherit (common) TTL SOA NS;

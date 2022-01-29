@@ -1,4 +1,26 @@
 {
+  "nameservers": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        "string",
+        "string",
+        "string",
+        "string",
+        "string",
+        "string"
+      ]
+    ],
+    "value": [
+      "nrt0.nichi.link",
+      "sea0.nichi.link",
+      "sin0.nichi.link",
+      "hydrogen.ns.hetzner.com",
+      "oxygen.ns.hetzner.com",
+      "helium.ns.hetzner.de"
+    ]
+  },
   "nodes": {
     "sensitive": false,
     "type": [

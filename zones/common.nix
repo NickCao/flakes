@@ -1,3 +1,5 @@
+let data = builtins.fromJSON (builtins.readFile ./data.json);
+in
 {
   TTL = 30;
   SOA = {
@@ -9,12 +11,6 @@
     expire = 86400;
     minimum = 300;
   };
-  NS = [
-    "sea0.nichi.link."
-    "nrt0.nichi.link."
-    "sin0.nichi.link."
-    "hydrogen.ns.hetzner.com."
-    "oxygen.ns.hetzner.com."
-    "helium.ns.hetzner.de."
-  ];
+  NS = data.nameservers.value;
+  nodes = data.nodes.value;
 }
