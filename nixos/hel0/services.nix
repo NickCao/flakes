@@ -19,8 +19,8 @@
       dkim.restartUnits = [ "maddy.service" ];
       vault = { };
       tsig = { sopsFile = ../../modules/dns/secrets.yaml; owner = "knot"; };
-      gravity =  { owner = "knot"; };
-      gravity_reverse =  { owner = "knot"; };
+      gravity = { owner = "knot"; };
+      gravity_reverse = { owner = "knot"; };
     };
   };
 

@@ -2,23 +2,10 @@
 with dns.lib.combinators;
 let
   inherit ((builtins.fromJSON (builtins.readFile ./nodes.json)).nodes.value) nrt0;
+  common = import ./common.nix;
 in
 dns.lib.toString "nichi.co" {
-  TTL = 30;
-  SOA = {
-    nameServer = "sea0.nichi.link.";
-    adminEmail = "noc@nichi.co";
-    serial = 0000000000;
-    refresh = 600;
-    retry = 600;
-    expire = 86400;
-    minimum = 300;
-  };
-  NS = [
-    "sea0.nichi.link."
-    "nrt0.nichi.link."
-    "sin0.nichi.link."
-  ];
+  inherit (common) TTL SOA NS;
   A = [ nrt0.ipv4 ];
   AAAA = [ nrt0.ipv6 ];
   CAA = [

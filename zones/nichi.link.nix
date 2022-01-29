@@ -2,23 +2,10 @@
 with dns.lib.combinators;
 let
   nodes = (builtins.fromJSON (builtins.readFile ./nodes.json)).nodes.value;
+  common = import ./common.nix;
 in
 dns.lib.toString "nichi.link" {
-  TTL = 30;
-  SOA = {
-    nameServer = "sea0.nichi.link.";
-    adminEmail = "noc@nichi.co";
-    serial = 0000000000;
-    refresh = 600;
-    retry = 600;
-    expire = 86400;
-    minimum = 300;
-  };
-  NS = [
-    "sea0.nichi.link."
-    "nrt0.nichi.link."
-    "sin0.nichi.link."
-  ];
+  inherit (common) TTL SOA NS;
   MX = with mx; [
     (mx 10 "hel0.nichi.link.")
   ];
