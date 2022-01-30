@@ -154,10 +154,7 @@ in
         ExtensionSettings = {
           "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
             installation_mode = "force_installed";
-            install_url = "file://${pkgs.fetchurl {
-              url = "https://github.com/bitwarden/browser/releases/download/v1.55.0/dist-firefox-1.55.0.zip";
-              sha256 = "sha256-nXQmp3NeVJrCwVG8OTdSYIONCVLWQFWCHsW4/DB/R4I=";
-            }}";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
           };
         };
       };
