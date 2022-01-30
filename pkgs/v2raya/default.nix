@@ -1,12 +1,21 @@
-{ lib, fetchFromGitHub, mkYarnPackage, buildGo117Module, makeWrapper, v2ray }:
+{ lib
+, fetchFromGitHub
+, mkYarnPackage
+, buildGo117Module
+, makeWrapper
+, v2ray
+, v2ray-geoip
+, v2ray-domain-list-community
+, symlinkJoin
+}:
 let
   pname = "v2raya";
-  version = "48cc58d54727ea4beaadea5c0fb4150356809b72";
+  version = "48d7b5658beae6b76b21f1f09f9d5f2bd62af3d5";
   src = fetchFromGitHub {
     owner = "SCP-2000";
     repo = "v2rayA";
     rev = version;
-    sha256 = "sha256-lLXg4KkdbOx8Sw8CPIQBkYpFJ5cX3immP0XcXkxKu78=";
+    sha256 = "sha256-MO53mxQGbeMWrIGHTvwkl7DRfWeqP/Or+Hv0Jin22vQ=";
   };
   web = mkYarnPackage {
     inherit pname version;
@@ -23,7 +32,7 @@ in
 buildGo117Module {
   inherit pname version;
   src = "${src}/service";
-  vendorSha256 = "sha256-ALy3Co461N1MJpiEUnjOoNswY4TkE9W8nfeNRNLRyfQ=";
+  vendorSha256 = "sha256-E3UAOaUo28Bztmsy1URr6VNAT7Ice3Gqlh47rnLcHWg=";
   subPackages = [ "." ];
   nativeBuildInputs = [ makeWrapper ];
   preBuild = ''
@@ -31,7 +40,11 @@ buildGo117Module {
   '';
   postInstall = ''
     wrapProgram $out/bin/v2rayA \
-      --prefix PATH ":" "${lib.makeBinPath [ v2ray ]}"
+      --prefix PATH ":" "${lib.makeBinPath [ v2ray.core ]}" \
+      --prefix XDG_DATA_DIRS ":" ${symlinkJoin {
+        name = "assets";
+        paths = [ v2ray-geoip v2ray-domain-list-community ];
+      }}/share
   '';
   meta = with lib; {
     description = "A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
