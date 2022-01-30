@@ -17,8 +17,9 @@ src.manual = "2.8.0.1"
 fetch.url = "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca56142398818545f/TencentMeeting_0300000000_2.8.0.1_x86_64.publish.deb"
 
 [fcitx5-pinyin-zhwiki]
-src.manual = "20220101"
-fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220101.dict"
+src.archpkg = "fcitx5-pinyin-zhwiki"
+src.prefix = "0.2.3."
+fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-$ver.dict"
 
 [mokutil]
 src.github = "lcp/mokutil"
@@ -29,12 +30,7 @@ src.github = "k3s-io/kine"
 fetch.github = "k3s-io/kine"
 passthru = { vendorSha256 = "sha256-CwbjSCtI68Tvk3bwM+t46wr0i+xDNgNkzVvL3ZoLDUA=" }
 
-[filebrowser]
-src.github = "filebrowser/filebrowser"
-fetch.github = "filebrowser/filebrowser"
-passthru = { vendorSha256 = "sha256-9I3GkIcEtDzKUKhy0giBjAa4hWi3ulkY6g4gP2vNvKY=" }
-
 [ops]
 src.git = "https://github.com/nanovms/ops"
 fetch.github = "nanovms/ops"
-passthru = { vendorSha256 = "sha256-9Eix22l54kpExGyfTUcSynUOPZovYdumgetV0f2vpeM=" }
+passthru = { vendorSha256 = "sha256-Dk3bFhRojD4eFnS4agyoA/syBm8syPPhuZfJ4uDWGJ4=" }

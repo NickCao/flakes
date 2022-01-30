@@ -15,23 +15,11 @@
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20220101";
+    version = "20220127";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220101.dict";
-      sha256 = "sha256-7HidUEeLBomnl2853afVHNsGfUh61YfhYXZSZwn2h40=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220127.dict";
+      sha256 = "sha256-m51c64hW0Inr6WEelHfsJgivMEBuAVHNzpRWZVQYMEs=";
     };
-  };
-  filebrowser = {
-    pname = "filebrowser";
-    version = "v2.20.1";
-    src = fetchFromGitHub ({
-      owner = "filebrowser";
-      repo = "filebrowser";
-      rev = "v2.20.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-wYaB3tk78eaN1qWe3VJ5nzMPshdQd33mLHFBnpcu2nA=";
-    });
-    vendorSha256 = "sha256-9I3GkIcEtDzKUKhy0giBjAa4hWi3ulkY6g4gP2vNvKY=";
   };
   kine = {
     pname = "kine";
@@ -58,15 +46,15 @@
   };
   ops = {
     pname = "ops";
-    version = "9a8fa26e52e5faefe44d0af01337b56aa6a47875";
+    version = "67e3d033bfa9b8ae2e2622d9b2edde4109fa0c43";
     src = fetchFromGitHub ({
       owner = "nanovms";
       repo = "ops";
-      rev = "9a8fa26e52e5faefe44d0af01337b56aa6a47875";
+      rev = "67e3d033bfa9b8ae2e2622d9b2edde4109fa0c43";
       fetchSubmodules = false;
-      sha256 = "sha256-59QNUHTp9DCKOEqx0WoFJ1X7duFLAUVW4ce4i/zTnAA=";
+      sha256 = "sha256-vf8a0o9unY//Hgbuxxw3rWJJWeGAiV7wbmFxhu9FXkE=";
     });
-    vendorSha256 = "sha256-9Eix22l54kpExGyfTUcSynUOPZovYdumgetV0f2vpeM=";
+    vendorSha256 = "sha256-Dk3bFhRojD4eFnS4agyoA/syBm8syPPhuZfJ4uDWGJ4=";
   };
   rait = {
     pname = "rait";
@@ -83,13 +71,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "eaed5b604b893bb98e4db235915de0cee2171210";
+    version = "9c1d081a4b9a5e0b5853f92a08b903cee64bbcaf";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "eaed5b604b893bb98e4db235915de0cee2171210";
+      rev = "9c1d081a4b9a5e0b5853f92a08b903cee64bbcaf";
       fetchSubmodules = false;
-      sha256 = "sha256-cgW7hHvSj+CPbDsirwFDpCalKPh8iQYk2ZGd24nIJgw=";
+      sha256 = "sha256-8qKly1hmJ5LYMFBpgwzRwJ+kTms1vJsOiLX5amymHng=";
     });
   };
   wemeet = {
