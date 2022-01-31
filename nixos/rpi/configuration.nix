@@ -26,6 +26,7 @@ in
     gnupg.sshKeyPaths = [ ];
     secrets = {
       wireless = { };
+      tsig = { };
     };
   };
 
@@ -60,6 +61,33 @@ in
       ];
     };
     wantedBy = [ "multi-user.target" ];
+  };
+
+  systemd.services.ddns = {
+    path = with pkgs;[ curl knot-dns ];
+    serviceConfig = {
+      Type = "oneshot";
+      DynamicUser = true;
+      LoadCredential = "tsig:${config.sops.secrets.tsig.path}";
+    };
+    script = ''
+      set -e
+      knsupdate -k ''${CREDENTIALS_DIRECTORY}/tsig << EOT
+      server hel0.nichi.link
+      zone nichi.link
+      origin nichi.link
+      add rpi.dyn 30 A     `curl -s -4 https://canhazip.com`
+      add rpi.dyn 30 AAAA  `curl -s -6 https://canhazip.com`
+      send
+      EOT
+    '';
+  };
+
+  systemd.timers.ddns = {
+    timerConfig = {
+      OnCalendar = "*:0/1";
+    };
+    wantedBy = [ "timers.target" ];
   };
 
   networking = {
