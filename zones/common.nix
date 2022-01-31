@@ -11,6 +11,6 @@ in
     expire = 86400;
     minimum = 300;
   };
-  NS = data.nameservers.value;
+  NS = builtins.map (name: "${name}.") data.nameservers.value;
   nodes = data.nodes.value;
 }
