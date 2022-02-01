@@ -288,22 +288,25 @@
       "/var/log"
       "/var/lib"
       "/var/cache"
-    ] ++ builtins.map (x: "/home/nickcao/${x}") [
-      "Documents"
-      "Downloads"
-      "Pictures"
-      "Projects"
-      ".cache"
-      ".local"
-      ".mozilla"
-      ".ssh"
-      ".thunderbird"
-      ".config/fcitx5"
-      ".config/mc"
     ];
     files = [
       "/etc/machine-id"
     ];
+    users.nickcao = {
+      directories = [
+        "Documents"
+        "Downloads"
+        "Pictures"
+        "Projects"
+        ".cache"
+        ".local"
+        ".mozilla"
+        ".ssh"
+        ".thunderbird"
+        ".config/fcitx5"
+        ".config/mc"
+      ];
+    };
   };
 
   system.stateVersion = "20.09";
