@@ -6,6 +6,7 @@
   vultr = import ./vultr.nix;
   telegraf = import ./telegraf;
   ss = import ./ss;
+  sshfp = import ./sshfp;
   cloud = {
     common = import ./cloud/common.nix;
     services = import ./cloud/services.nix;

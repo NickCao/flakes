@@ -6,7 +6,10 @@ let
   devPath = "/dev/disk/by-partlabel/NIXOS";
 in
 {
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+    ./../sshfp
+  ];
 
   sops = {
     age = {
@@ -25,6 +28,7 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpzrZLU0peDu1otGtP2GcCeQIkI8kmfHjnwpbfpWBkv"
   ];
 
+  services.sshfp.enable = true;
   services.openssh = {
     enable = true;
     hostKeys = [{
@@ -121,10 +125,6 @@ in
   environment.persistence."/persist" = {
     directories = [
       "/var/lib"
-    ];
-    files = [
-      "/etc/machine-id"
-      "/etc/ssh/ssh_host_ed25519_key"
     ];
   };
 
