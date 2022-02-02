@@ -144,7 +144,7 @@ in
         https = {
           address = ":443";
           http.tls.certResolver = "le";
-          enableHTTP3 = true;
+          http3 = { };
         };
       };
       certificatesResolvers.le.acme = {
