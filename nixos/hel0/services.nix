@@ -18,7 +18,7 @@
       meow.restartUnits = [ "meow.service" ];
       dkim.restartUnits = [ "maddy.service" ];
       vault = { };
-      tsig = { sopsFile = ../../modules/dns/secrets.yaml; owner = "knot"; };
+      tsig = { sopsFile = ../../modules/dns/secondary/secrets.yaml; owner = "knot"; };
       gravity = { owner = "knot"; };
       gravity_reverse = { owner = "knot"; };
     };

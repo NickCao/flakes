@@ -23,9 +23,7 @@
     prefix = "2a0c:b641:69c:f254:0:4::/96";
     address = "2a0c:b641:69c:f254:0:5:0:3/128";
   };
-  services.dns = {
-    enable = true;
-  };
+  services.dns.secondary.enable = true;
   services.bgp = {
     enable = true;
     node = "2a0c:b641:69c:f250::/60";

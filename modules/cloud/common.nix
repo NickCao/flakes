@@ -9,6 +9,7 @@ in
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     ./../sshcert
+    ./../dns/secondary
   ];
 
   sops = {

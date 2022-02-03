@@ -7,7 +7,5 @@
   networking = {
     hostName = "sea0";
   };
-  services.dns = {
-    enable = true;
-  };
+  services.dns.secondary.enable = true;
 }

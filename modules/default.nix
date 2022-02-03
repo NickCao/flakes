@@ -1,13 +1,12 @@
 rec {
   all = ({ ... }: {
     imports = [
-      sshcert
+      (import ./sshcert)
+      (import ./dns/secondary)
     ];
   });
-  sshcert = import ./sshcert;
   bgp = import ./bgp;
   divi = import ./divi.nix;
-  dns = import ./dns;
   gravity = import ./gravity.nix;
   vultr = import ./vultr.nix;
   telegraf = import ./telegraf;

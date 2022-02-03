@@ -7,7 +7,6 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.vultr
     self.nixosModules.gravity
     self.nixosModules.divi
-    self.nixosModules.dns
     self.nixosModules.telegraf
     self.nixosModules.ss
     self.nixosModules.cloud.common
