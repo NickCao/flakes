@@ -22,5 +22,6 @@ jobs:
     - uses: shimataro/ssh-key-action@v2
       with:
         key: '${{ secrets.SSH_PRIVATE_KEY }}'
-        known_hosts: unnecessary
+        known_hosts: |
+          @cert-authority *.nichi.link ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEe0p7erHjrkNKcY/Kp6fvZtxLcl0hVMVMQPhQrPDZKp
     - run: nix shell .#deploy-rs -c deploy -s
