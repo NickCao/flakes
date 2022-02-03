@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }:
 let
-  cfg = config.services.sshfp;
+  cfg = config.services.sshcert;
 in
 with lib;
 {
-  options.services.sshfp = {
+  options.services.sshcert = {
     enable = mkEnableOption "sign ssh certificate";
   };
   config = lib.mkIf cfg.enable {

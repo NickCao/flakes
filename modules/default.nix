@@ -1,4 +1,10 @@
-{
+rec {
+  all = ({ ... }: {
+    imports = [
+      sshcert
+    ];
+  });
+  sshcert = import ./sshcert;
   bgp = import ./bgp;
   divi = import ./divi.nix;
   dns = import ./dns;
@@ -6,7 +12,6 @@
   vultr = import ./vultr.nix;
   telegraf = import ./telegraf;
   ss = import ./ss;
-  sshfp = import ./sshfp;
   cloud = {
     common = import ./cloud/common.nix;
     services = import ./cloud/services.nix;

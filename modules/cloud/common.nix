@@ -8,7 +8,7 @@ in
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-    ./../sshfp
+    ./../sshcert
   ];
 
   sops = {
@@ -28,7 +28,7 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpzrZLU0peDu1otGtP2GcCeQIkI8kmfHjnwpbfpWBkv"
   ];
 
-  services.sshfp.enable = true;
+  services.sshcert.enable = true;
   services.openssh = {
     enable = true;
     hostKeys = [{
