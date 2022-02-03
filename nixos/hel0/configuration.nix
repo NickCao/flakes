@@ -46,6 +46,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpzrZLU0peDu1otGtP2GcCeQIkI8kmfHjnwpbfpWBkv"
   ];
 
+  services.sshcert.enable = true;
   services.openssh.enable = true;
 
   services.resolved.extraConfig = ''
