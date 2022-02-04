@@ -84,6 +84,7 @@
       DHCP = "yes";
       dhcpV4Config.RouteMetric = 2048;
       dhcpV6Config.RouteMetric = 2048;
+      dns = [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844" ];
     };
     enp7s0 = {
       name = "enp7s0";
@@ -185,7 +186,8 @@
 
   services = {
     resolved = {
-      # dnssec = "true";
+      dnssec = "true";
+      llmnr = "false";
     };
     restic.backups = {
       s3 = {

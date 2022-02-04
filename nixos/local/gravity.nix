@@ -24,7 +24,7 @@ in
       name = "gravity";
       addresses = [{ addressConfig.Address = "2a0c:b641:69c:99cc::2/126"; }];
       dns = [ "2a0c:b641:69c:f254:0:5:0:3" "2a0c:b641:69c:7864:0:5:0:3" ];
-      domains = [ "nichi.link" ];
+      domains = [ "~gravity" ];
       networkConfig = {
         DNSSEC = false;
       };
