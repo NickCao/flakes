@@ -1,11 +1,11 @@
-name: deploy-rs
+name: nix
 on:
   workflow_dispatch:
     inputs:
       ref:
         required: true
 jobs:
-  check:
+  deploy:
     environment: prod
     runs-on: ubuntu-latest
     steps:
@@ -22,6 +22,5 @@ jobs:
     - uses: shimataro/ssh-key-action@v2
       with:
         key: '${{ secrets.SSH_PRIVATE_KEY }}'
-        known_hosts: |
-          @cert-authority *.nichi.link ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEe0p7erHjrkNKcY/Kp6fvZtxLcl0hVMVMQPhQrPDZKp
+        known_hosts: unnecessary
     - run: nix shell .#deploy-rs -c deploy -s

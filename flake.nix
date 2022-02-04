@@ -131,7 +131,11 @@
           inherit name;
           value = {
             sshUser = "root";
-            sshOpts = [ "-4" ];
+            sshOpts = [
+              "-o GlobalKnownHostsFile=${builtins.toFile "known_hosts" ''
+                @cert-authority *.nichi.link ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEe0p7erHjrkNKcY/Kp6fvZtxLcl0hVMVMQPhQrPDZKp
+              ''}"
+            ];
             hostname = "${name}.nichi.link";
             profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${name};
           };
