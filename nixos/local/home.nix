@@ -48,7 +48,8 @@ in
   };
   wayland.windowManager.sway = {
     enable = true;
-    package = null;
+    extraOptions = [ "--unsupported-gpu" ];
+    wrapperFeatures.gtk = true;
     config = {
       modifier = "Mod4";
       terminal = "alacritty";

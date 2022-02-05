@@ -229,17 +229,8 @@
   };
 
   programs = {
-    fuse.userAllowOther = true;
-    sway = {
-      enable = true;
-      extraOptions = [ "--unsupported-gpu" ];
-      wrapperFeatures.gtk = true;
-    };
     adb.enable = true;
-    chromium = {
-      enable = true;
-      extensions = [ "padekgcemlokbadohgkifijomclgjgif" "cjpalhdlnbpafiamejdnhcphjbkeiagm" ];
-    };
+    dconf.enable = true;
     command-not-found.enable = false;
   };
 
