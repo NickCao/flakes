@@ -27,6 +27,7 @@
       };
     };
   };
+  services.postgresql.package = pkgs.postgresql_14;
 
   nix = {
     package = pkgs.nixUnstable;
@@ -77,7 +78,9 @@
     DNSStubListener=no
   '';
 
-  environment.systemPackages = with pkgs;[ restic ];
+  environment.systemPackages = with pkgs;[
+    restic
+  ];
   environment.persistence."/persist" = {
     directories = [
       "/var/lib"
