@@ -8,6 +8,8 @@
     };
     gnupg.sshKeyPaths = [ ];
     secrets = {
+      restic = { };
+      backup = { };
       hydra = { group = "hydra"; mode = "0440"; };
       cache = { group = "hydra"; mode = "0440"; };
       github = { group = "hydra"; mode = "0440"; };
