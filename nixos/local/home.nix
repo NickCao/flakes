@@ -102,14 +102,7 @@ in
           bg = "${fbk} fill";
         };
       };
-      bars = [{
-        mode = "dock";
-        command = "${pkgs.waybar}/bin/waybar";
-        position = "top";
-        workspaceButtons = true;
-        workspaceNumbers = true;
-        trayOutput = "*";
-      }];
+      bars = [ ];
       floating.criteria = [
         { app_id = "blueberry.py"; }
       ];
@@ -247,6 +240,7 @@ in
       enable = true;
       settings = [ (import ./waybar.nix) ];
       style = builtins.readFile ./waybar.css;
+      systemd.enable = true;
     };
     direnv = {
       enable = true;
