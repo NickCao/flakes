@@ -250,6 +250,7 @@
     "nixos/flake.nix".source = config.users.users.nickcao.home + "/Projects/flakes/flake.nix";
   };
 
+  security.pam.services.swaylock = { };
   security.pam.u2f = {
     enable = true;
     authFile = config.sops.secrets.u2f.path;
