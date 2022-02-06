@@ -9,6 +9,12 @@ let
     name = "fubuki.jpg";
     hash = "sha256-541/iI7scwyyEOxZAYFql4X/W5xmg5hUfeDJbtJ+voE=";
   };
+  fbk-blurred = pkgs.runCommand "fubuki.png"
+    {
+      nativeBuildInputs = with pkgs;[ imagemagick ];
+    } ''
+    convert -blur 14x5 ${fbk} $out
+  '';
 in
 {
   systemd.user = {
@@ -375,11 +381,11 @@ in
     swayidle = {
       enable = true;
       timeouts = [
-        { timeout = 900; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
+        { timeout = 900; command = "${pkgs.swaylock}/bin/swaylock"; }
         { timeout = 905; command = ''swaymsg "output * dpms off"''; resumeCommand = ''swaymsg "output * dpms on"''; }
       ];
       events = [
-        { event = "lock"; command = "${pkgs.swaylock-effects}/bin/swaylock"; }
+        { event = "lock"; command = "${pkgs.swaylock}/bin/swaylock"; }
       ];
     };
   };
@@ -398,10 +404,8 @@ in
       "swaylock/config".text = ''
         show-failed-attempts
         daemonize
-        image=${fbk}
+        image=${fbk-blurred}
         scaling=fill
-        effect-blur=7x5
-        effect-vignette=0.5:0.5
       '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
