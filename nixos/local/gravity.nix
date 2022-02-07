@@ -124,7 +124,7 @@ in
     serviceConfig = {
       LoadCredential = "secret.json:${config.sops.secrets.v2ray.path}";
       DynamicUser = true;
-      ExecStart = "${pkgs.v2ray}/bin/v2ray -c ${(pkgs.formats.json {}).generate "config.json" (import ./v2ray.nix)} -c \${CREDENTIALS_DIRECTORY}/secret.json";
+      ExecStart = "${pkgs.v2ray}/bin/v2ray run -c ${(pkgs.formats.json {}).generate "config.json" (import ./v2ray.nix)} -c \${CREDENTIALS_DIRECTORY}/secret.json";
     };
   };
 }

@@ -6,7 +6,7 @@
   };
   systemd.services.v2ray.serviceConfig.LoadCredential = "secret.json:${config.sops.secrets.v2ray.path}";
   cloud.services.v2ray = {
-    exec = "${pkgs.v2ray}/bin/v2ray -c \${CREDENTIALS_DIRECTORY}/secret.json";
+    exec = "${pkgs.v2ray}/bin/v2ray run -c \${CREDENTIALS_DIRECTORY}/secret.json";
   };
   services.traefik = {
     dynamicConfigOptions = {
