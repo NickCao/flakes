@@ -61,6 +61,7 @@
   systemd.services.hydra-queue-runner.serviceConfig.EnvironmentFile = [ config.sops.secrets.hydra.path ];
   services.hydra = {
     enable = true;
+    package = pkgs.hydra-unstable.override { nix = pkgs.nixVersions.stable; };
     listenHost = "127.0.0.1";
     hydraURL = "https://hydra.nichi.co/";
     useSubstitutes = true;
