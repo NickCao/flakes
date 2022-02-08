@@ -74,7 +74,8 @@
       github_client_id = e55d265b1883eb42630e
       github_client_secret_file = ${config.sops.secrets.github.path}
       <githubstatus>
-        jobs = personal:flakes:local
+        jobs = personal:flakes:.*
+        useShortContext = 1
       </githubstatus>
     '';
   };
