@@ -11,9 +11,7 @@
       restic = { };
       backup = { };
       hydra = { group = "hydra"; mode = "0440"; };
-      hydra-github = { group = "hydra"; mode = "0440"; };
       cache = { group = "hydra"; mode = "0440"; };
-      github = { group = "hydra"; mode = "0440"; };
       plct = { owner = "hydra-queue-runner"; };
       minio.restartUnits = [ "minio.service" ];
       telegraf.restartUnits = [ "telegraf.service" ];
@@ -66,20 +64,17 @@
     '';
   };
 
-  systemd.services.hydra-queue-runner.serviceConfig.EnvironmentFile = [ config.sops.secrets.hydra.path ];
   services.hydra = {
     enable = true;
     listenHost = "127.0.0.1";
-    hydraURL = "https://hydra.nichi.co/";
+    hydraURL = "https://hydra.nichi.co";
     useSubstitutes = true;
     notificationSender = "hydra@nichi.co";
     buildMachinesFiles = [ "/etc/nix/machines" ];
     extraConfig = ''
-      Include ${config.sops.secrets.hydra-github.path}
+      Include ${config.sops.secrets.hydra.path}
       binary_cache_secret_key_file = ${config.sops.secrets.cache.path}
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
-      github_client_id = e55d265b1883eb42630e
-      github_client_secret_file = ${config.sops.secrets.github.path}
       <githubstatus>
         jobs = personal:flakes:.*
         excludeBuildFromContext = 1
