@@ -11,6 +11,7 @@
       restic = { };
       backup = { };
       hydra = { group = "hydra"; mode = "0440"; };
+      hydra-github = { group = "hydra"; mode = "0440"; };
       cache = { group = "hydra"; mode = "0440"; };
       plct = { owner = "hydra-queue-runner"; };
       minio.restartUnits = [ "minio.service" ];
@@ -72,7 +73,9 @@
     notificationSender = "hydra@nichi.co";
     buildMachinesFiles = [ "/etc/nix/machines" ];
     extraConfig = ''
-      Include ${config.sops.secrets.hydra.path}
+      include ${config.sops.secrets.hydra.path}
+      github_client_id = e55d265b1883eb42630e
+      github_client_secret_file = ${config.sops.secrets.hydra-github.path}
       binary_cache_secret_key_file = ${config.sops.secrets.cache.path}
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
       <githubstatus>
