@@ -27,6 +27,13 @@
     };
   };
 
+  services.nix-serve = {
+    enable = true;
+    bindAddress = "127.0.0.1";
+    port = 8004;
+    secretKeyFile = config.sops.secrets.cache.path;
+  };
+
   services.knot = {
     enable = true;
     keyFiles = [ config.sops.secrets.tsig.path ];
@@ -286,6 +293,11 @@
             entryPoints = [ "https" ];
             service = "vault";
           };
+          cache = {
+            rule = "Host(`cache.nichi.co`)";
+            entryPoints = [ "https" ];
+            service = "cache";
+          };
         };
         middlewares = {
           compress.compress = { };
@@ -314,6 +326,10 @@
           vault.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:8003"; }];
+          };
+          cache.loadBalancer = {
+            passHostHeader = true;
+            servers = [{ url = "http://127.0.0.1:${builtins.toString config.services.nix-serve.port}"; }];
           };
         };
       };
