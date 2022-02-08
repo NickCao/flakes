@@ -11,6 +11,7 @@
       restic = { };
       backup = { };
       hydra = { group = "hydra"; mode = "0440"; };
+      hydra-github = { group = "hydra"; mode = "0440"; };
       cache = { group = "hydra"; mode = "0440"; };
       github = { group = "hydra"; mode = "0440"; };
       plct = { owner = "hydra-queue-runner"; };
@@ -61,19 +62,22 @@
   systemd.services.hydra-queue-runner.serviceConfig.EnvironmentFile = [ config.sops.secrets.hydra.path ];
   services.hydra = {
     enable = true;
-    package = pkgs.hydra-unstable.override { nix = pkgs.nixVersions.stable; };
     listenHost = "127.0.0.1";
     hydraURL = "https://hydra.nichi.co/";
     useSubstitutes = true;
     notificationSender = "hydra@nichi.co";
     buildMachinesFiles = [ "/etc/nix/machines" ];
     extraConfig = ''
+      Include ${config.sops.secrets.hydra-github.path}
       store_uri = s3://cache?secret-key=${config.sops.secrets.cache.path}&region=us-east-1&endpoint=s3.nichi.co&write-nar-listing=1&ls-compression=br&log-compression=br
       server_store_uri = https://s3.nichi.co/cache
       binary_cache_public_uri = https://s3.nichi.co/cache
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
       github_client_id = e55d265b1883eb42630e
       github_client_secret_file = ${config.sops.secrets.github.path}
+      <githubstatus>
+        jobs = personal:flakes:local
+      </githubstatus>
     '';
   };
 
