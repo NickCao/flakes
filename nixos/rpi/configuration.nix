@@ -16,7 +16,7 @@ in
   imports = [ (modulesPath + "/installer/sd-card/sd-image-aarch64.nix") ];
   disabledModules = [ "profiles/base.nix" ];
 
-  nix.package = pkgs.nixUnstable;
+  nix.package = pkgs.nixVersions.stable;
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age = {
@@ -73,12 +73,11 @@ in
     script = ''
       set -e
       knsupdate -k ''${CREDENTIALS_DIRECTORY}/tsig << EOT
-      server hel0.nichi.link
+      server 65.21.32.182
       zone nichi.link
       origin nichi.link
       del rpi.dyn
       add rpi.dyn 30 A     `curl -s -4 https://canhazip.com`
-      add rpi.dyn 30 AAAA  `curl -s -6 https://canhazip.com`
       send
       EOT
     '';

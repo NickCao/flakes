@@ -119,12 +119,12 @@
         hel0 = import ./nixos/hel0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
       deploy.nodes = {
-        # rpi = {
-        #   sshUser = "root";
-        #   sshOpts = [ "-p" "8122" "-4" "-o" "StrictHostKeyChecking=no" ];
-        #   hostname = "rpi.nichi.link";
-        #   profiles.system.path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
-        # };
+        rpi = {
+          sshUser = "root";
+          sshOpts = [ "-p" "8122" "-4" "-o" "StrictHostKeyChecking=no" ];
+          hostname = "rpi.nichi.link";
+          profiles.system.path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
+        };
       } //
       (builtins.listToAttrs (builtins.map
         (name: {
