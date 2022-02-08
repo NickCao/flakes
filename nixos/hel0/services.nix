@@ -75,6 +75,7 @@
       github_client_secret_file = ${config.sops.secrets.github.path}
       <githubstatus>
         jobs = personal:flakes:.*
+        excludeBuildFromContext = 1
         useShortContext = 1
       </githubstatus>
     '';
