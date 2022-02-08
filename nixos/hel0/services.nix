@@ -69,9 +69,7 @@
     buildMachinesFiles = [ "/etc/nix/machines" ];
     extraConfig = ''
       Include ${config.sops.secrets.hydra-github.path}
-      store_uri = s3://cache?secret-key=${config.sops.secrets.cache.path}&region=us-east-1&endpoint=s3.nichi.co&write-nar-listing=1&ls-compression=br&log-compression=br
-      server_store_uri = https://s3.nichi.co/cache
-      binary_cache_public_uri = https://s3.nichi.co/cache
+      binary_cache_secret_key_file = ${config.sops.secrets.cache.path}
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
       github_client_id = e55d265b1883eb42630e
       github_client_secret_file = ${config.sops.secrets.github.path}
