@@ -17,20 +17,6 @@ let
   '';
 in
 {
-  systemd.user = {
-    services = {
-      mako = {
-        Unit.PartOf = [ "sway-session.target" ];
-        Service = {
-          Type = "simple";
-          ExecStart = "${pkgs.mako}/bin/mako";
-          RestartSec = 3;
-          Restart = "always";
-        };
-        Install.WantedBy = [ "sway-session.target" ];
-      };
-    };
-  };
   gtk = {
     enable = true;
     theme = {
@@ -197,17 +183,18 @@ in
     smartmontools
     rait
     python3
-    ldns
+    knot-dns
     tree
     mtr
     go_1_17
+    gopls
     sops
+    restic
+    libarchive
     (mkWrap "mc" "${minio-client}/bin/mc --config-dir ${config.xdg.configHome}/mc")
     (mkWrap "terraform" "${coreutils}/bin/env CHECKPOINT_DISABLE=1 ${
       terraform.withPlugins (ps: with ps; [ vultr sops minio gandi ])
         }/bin/terraform")
-    restic
-    libarchive
   ];
 
   home.sessionVariables = {
