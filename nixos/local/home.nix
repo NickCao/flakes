@@ -1,8 +1,5 @@
 { pkgs, config, ... }:
 let
-  toJSONDrv = (pkgs.formats.json { }).generate "";
-  toTOMLDrv = (pkgs.formats.toml { }).generate "";
-  toYAMLDrv = (pkgs.formats.yaml { }).generate "";
   mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
   fbk = pkgs.fetchurl {
     url = "https://pbs.twimg.com/media/ElphQpaU4AAt9Bv?format=jpg";
@@ -401,11 +398,6 @@ in
         GOPROXY=https://goproxy.cn
         GOSUMDB=sum.golang.google.cn
       '';
-      "containers/storage.conf".source = toTOMLDrv {
-        storage = {
-          driver = "btrfs";
-        };
-      };
     };
   };
 
