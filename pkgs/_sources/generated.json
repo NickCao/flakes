@@ -29,28 +29,6 @@
         "extract": null,
         "rustGitDeps": null
     },
-    "ops": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "ops",
-        "src": {
-            "deepClone": false,
-            "owner": "nanovms",
-            "name": null,
-            "repo": "ops",
-            "type": "github",
-            "sha256": "sha256-SX841UGe4UO68A5SbZvXFvf+Bq//3lt+nGzmdasWHMM=",
-            "rev": "fe16cb3e098a2c8613468264f23eb28966aaa4bb",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
-        },
-        "version": "fe16cb3e098a2c8613468264f23eb28966aaa4bb",
-        "passthru": {
-            "vendorSha256": "sha256-Dk3bFhRojD4eFnS4agyoA/syBm8syPPhuZfJ4uDWGJ4="
-        },
-        "extract": null,
-        "rustGitDeps": null
-    },
     "auth-thu": {
         "pinned": false,
         "cargoLock": null,
@@ -73,28 +51,6 @@
         "extract": null,
         "rustGitDeps": null
     },
-    "kine": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "kine",
-        "src": {
-            "deepClone": false,
-            "owner": "k3s-io",
-            "name": null,
-            "repo": "kine",
-            "type": "github",
-            "sha256": "sha256-8hK+IzrCmmUC6quTb15dNuIlH4jruKJlQajttcoPqRQ=",
-            "rev": "v0.6.5",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
-        },
-        "version": "v0.6.5",
-        "passthru": {
-            "vendorSha256": "sha256-CwbjSCtI68Tvk3bwM+t46wr0i+xDNgNkzVvL3ZoLDUA="
-        },
-        "extract": null,
-        "rustGitDeps": null
-    },
     "smartdns-china-list": {
         "pinned": false,
         "cargoLock": null,
@@ -105,12 +61,12 @@
             "name": null,
             "repo": "dnsmasq-china-list",
             "type": "github",
-            "sha256": "sha256-OcqTO7ZvKBEB92TVBbwJ4w+cI5ouOQk0kP5RBAN2HbQ=",
-            "rev": "d7fe33e042a91ab2ccf75a34d0e852c3d6829b06",
+            "sha256": "sha256-NNjKNdrDNj3rE0Z7mq5MHE1L3plcv4afv8RHNn3W+yo=",
+            "rev": "a3e6e25226db7b887635f2bff02454a1af351a8a",
             "leaveDotGit": false,
             "fetchSubmodules": false
         },
-        "version": "d7fe33e042a91ab2ccf75a34d0e852c3d6829b06",
+        "version": "a3e6e25226db7b887635f2bff02454a1af351a8a",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null

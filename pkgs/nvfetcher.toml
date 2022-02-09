@@ -24,13 +24,3 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 [mokutil]
 src.github = "lcp/mokutil"
 fetch.github = "lcp/mokutil"
-
-[kine]
-src.github = "k3s-io/kine"
-fetch.github = "k3s-io/kine"
-passthru = { vendorSha256 = "sha256-CwbjSCtI68Tvk3bwM+t46wr0i+xDNgNkzVvL3ZoLDUA=" }
-
-[ops]
-src.git = "https://github.com/nanovms/ops"
-fetch.github = "nanovms/ops"
-passthru = { vendorSha256 = "sha256-Dk3bFhRojD4eFnS4agyoA/syBm8syPPhuZfJ4uDWGJ4=" }
