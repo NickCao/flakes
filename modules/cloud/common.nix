@@ -20,8 +20,8 @@ in
     gnupg.sshKeyPaths = [ ];
   };
 
+  programs.command-not-found.enable = false;
   i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
-
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJNPLArhyazrFjK4Jt/ImHSzICvwKOk4f+7OEcv2HEb7"
