@@ -78,6 +78,7 @@ in
       origin nichi.link
       del rpi.dyn
       add rpi.dyn 30 A     `curl -s -4 https://canhazip.com`
+      add rpi.dyn 30 AAAA  `curl -s -6 https://canhazip.com`
       send
       EOT
     '';
