@@ -166,7 +166,7 @@ in
     brightnessctl
     ripgrep
     rnix-lsp
-    ranger
+    lf
     ncdu
     mode
     yubikey-manager
