@@ -41,14 +41,14 @@ in
     wrapperFeatures.gtk = true;
     config = {
       modifier = "Mod4";
-      terminal = "alacritty";
+      terminal = "foot";
       startup = [
-        { command = "alacritty"; }
+        { command = "foot"; }
         { command = "firefox"; }
         { command = "telegram-desktop"; }
       ];
       assigns = {
-        "1" = [{ app_id = "Alacritty"; }];
+        "1" = [{ app_id = "foot"; }];
         "2" = [{ app_id = "firefox"; }];
         "3" = [{ app_id = "telegramdesktop"; }];
       };
@@ -307,27 +307,45 @@ in
       shell = "${pkgs.fish}/bin/fish";
       keyMode = "vi";
       extraConfig = ''
+        set -g status-position top
         set -g mouse on
         set -g status-right ""
         set -gs escape-time 10
         set -g default-terminal "tmux-256color"
-        set -ga terminal-overrides ",alacritty:Tc"
         set -g renumber-windows on
         set -g base-index 1
         new-session -s main
       '';
     };
-    alacritty = {
+    foot = {
       enable = true;
       settings = {
-        font = {
-          normal = { family = "JetBrains Mono"; };
-          size = 14;
+        main = {
+          shell = "${pkgs.tmux}/bin/tmux new-session -t main";
+          font = "JetBrains Mono:size=10";
         };
-        colors = (import ./alacritty.nix).light;
-        shell = {
-          program = "${pkgs.tmux}/bin/tmux";
-          args = [ "new-session" "-t" "main" ];
+        cursor = {
+          color = "fdf6e3 586e75";
+        };
+        colors = {
+          background = "fdf6e3";
+          foreground = "657b83";
+          regular0 = "eee8d5";
+          regular1 = "dc322f";
+          regular2 = "859900";
+          regular3 = "b58900";
+          regular4 = "268bd2";
+          regular5 = "d33682";
+          regular6 = "2aa198";
+          regular7 = "073642";
+          bright0 = "cb4b16";
+          bright1 = "fdf6e3";
+          bright2 = "93a1a1";
+          bright3 = "839496";
+          bright4 = "657b83";
+          bright5 = "6c71c4";
+          bright6 = "586e75";
+          bright7 = "002b36";
         };
       };
     };
