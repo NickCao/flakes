@@ -24,7 +24,3 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 [mokutil]
 src.github = "lcp/mokutil"
 fetch.github = "lcp/mokutil"
-
-[nvidia-vaapi-driver]
-src.github = "elFarto/nvidia-vaapi-driver"
-fetch.github = "elFarto/nvidia-vaapi-driver"

@@ -51,26 +51,6 @@
         "extract": null,
         "rustGitDeps": null
     },
-    "nvidia-vaapi-driver": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "nvidia-vaapi-driver",
-        "src": {
-            "deepClone": false,
-            "owner": "elFarto",
-            "name": null,
-            "repo": "nvidia-vaapi-driver",
-            "type": "github",
-            "sha256": "sha256-2bycqKolVoaHK64XYcReteuaON9TjzrFhaG5kty28YY=",
-            "rev": "v0.0.5",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
-        },
-        "version": "v0.0.5",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
-    },
     "smartdns-china-list": {
         "pinned": false,
         "cargoLock": null,

@@ -32,17 +32,6 @@
       sha256 = "sha256-dt41TCr6RkmE9H+NN8LWv3ogGsK38JtLjVN/b2mbGJs=";
     });
   };
-  nvidia-vaapi-driver = {
-    pname = "nvidia-vaapi-driver";
-    version = "v0.0.5";
-    src = fetchFromGitHub ({
-      owner = "elFarto";
-      repo = "nvidia-vaapi-driver";
-      rev = "v0.0.5";
-      fetchSubmodules = false;
-      sha256 = "sha256-2bycqKolVoaHK64XYcReteuaON9TjzrFhaG5kty28YY=";
-    });
-  };
   rait = {
     pname = "rait";
     version = "d43bacb94bfdc8b52eabd0d090c020092a377e60";
