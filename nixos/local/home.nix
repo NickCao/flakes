@@ -199,6 +199,7 @@ in
     LIBVA_DRIVER_NAME = "iHD";
     # cache
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
+    CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CARGO_HOME = "${config.xdg.cacheHome}/cargo";
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
