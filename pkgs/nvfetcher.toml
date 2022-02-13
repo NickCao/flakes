@@ -10,7 +10,7 @@ fetch.github = "felixonmars/dnsmasq-china-list"
 [rait]
 src.git = "https://gitlab.com/NickCao/RAIT"
 fetch.git = "https://gitlab.com/NickCao/RAIT"
-passthru = { vendorSha256 = "sha256-55Zu1g+pwTt6dU1QloxfFkG2dbnK5gg84WvRhz2ND3M=" }
+passthru = { vendorSha256 = "sha256-pMltPbi1tOfxIBjLHtSxqSQUy7sMTDa8YJ9PeQp3b3k=" }
 
 [wemeet]
 src.manual = "2.8.0.1"
@@ -24,3 +24,7 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 [mokutil]
 src.github = "lcp/mokutil"
 fetch.github = "lcp/mokutil"
+
+[nvidia-vaapi-driver]
+src.github = "elFarto/nvidia-vaapi-driver"
+fetch.github = "elFarto/nvidia-vaapi-driver"

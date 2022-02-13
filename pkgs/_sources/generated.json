@@ -51,6 +51,26 @@
         "extract": null,
         "rustGitDeps": null
     },
+    "nvidia-vaapi-driver": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "nvidia-vaapi-driver",
+        "src": {
+            "deepClone": false,
+            "owner": "elFarto",
+            "name": null,
+            "repo": "nvidia-vaapi-driver",
+            "type": "github",
+            "sha256": "sha256-2bycqKolVoaHK64XYcReteuaON9TjzrFhaG5kty28YY=",
+            "rev": "v0.0.5",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "v0.0.5",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
     "smartdns-china-list": {
         "pinned": false,
         "cargoLock": null,
@@ -61,12 +81,12 @@
             "name": null,
             "repo": "dnsmasq-china-list",
             "type": "github",
-            "sha256": "sha256-NNjKNdrDNj3rE0Z7mq5MHE1L3plcv4afv8RHNn3W+yo=",
-            "rev": "a3e6e25226db7b887635f2bff02454a1af351a8a",
+            "sha256": "sha256-6okyLX3yz3dYA8fPIPwPoWNGaikySBkbXQ2vZzMtqgI=",
+            "rev": "e88ff3cbef6d949b0c60166026ccf3c477db082c",
             "leaveDotGit": false,
             "fetchSubmodules": false
         },
-        "version": "a3e6e25226db7b887635f2bff02454a1af351a8a",
+        "version": "e88ff3cbef6d949b0c60166026ccf3c477db082c",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
@@ -100,14 +120,14 @@
             "url": "https://gitlab.com/NickCao/RAIT",
             "name": null,
             "type": "git",
-            "sha256": "sha256-OakWWSzO3QsX/xOErYYWNtSXerfhEAapEjdhazg9oco=",
-            "rev": "b5a755c7f0fc4083fa44e7a40695e23dad155f4f",
+            "sha256": "sha256-g4a6ZUgQKFlsZC/xcNOv53uXnpmZaRdytBCX4TVJSkQ=",
+            "rev": "d43bacb94bfdc8b52eabd0d090c020092a377e60",
             "leaveDotGit": false,
             "fetchSubmodules": false
         },
-        "version": "b5a755c7f0fc4083fa44e7a40695e23dad155f4f",
+        "version": "d43bacb94bfdc8b52eabd0d090c020092a377e60",
         "passthru": {
-            "vendorSha256": "sha256-55Zu1g+pwTt6dU1QloxfFkG2dbnK5gg84WvRhz2ND3M="
+            "vendorSha256": "sha256-pMltPbi1tOfxIBjLHtSxqSQUy7sMTDa8YJ9PeQp3b3k="
         },
         "extract": null,
         "rustGitDeps": null
