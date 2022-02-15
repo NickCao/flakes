@@ -17,7 +17,6 @@
       paths = [
         "/persist/var/lib/bitwarden_rs"
         "/persist/var/lib/hydra"
-        "/persist/var/lib/influxdb2"
         "/persist/var/lib/knot"
         "/persist/var/lib/maddy"
         "/persist/var/lib/postgresql"

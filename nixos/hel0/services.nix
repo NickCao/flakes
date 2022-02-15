@@ -135,13 +135,6 @@
     rootCredentialsFile = config.sops.secrets.minio.path;
   };
 
-  services.influxdb2 = {
-    enable = true;
-    settings = {
-      http-bind-address = "127.0.0.1:8086";
-    };
-  };
-
   systemd.packages = [ pkgs.maddy ];
   environment.systemPackages = [ pkgs.maddy ];
   users.users.maddy.isSystemUser = true;
@@ -237,11 +230,6 @@
             entryPoints = [ "https" ];
             service = "meow";
           };
-          influx = {
-            rule = "Host(`stats.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "influx";
-          };
           tagging = {
             rule = "Host(`tagging.nichi.co`)";
             entryPoints = [ "https" ];
@@ -275,10 +263,6 @@
           meow.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:8002"; }];
-          };
-          influx.loadBalancer = {
-            passHostHeader = true;
-            servers = [{ url = "http://${config.services.influxdb2.settings.http-bind-address}"; }];
           };
           tagging.loadBalancer = {
             passHostHeader = true;
