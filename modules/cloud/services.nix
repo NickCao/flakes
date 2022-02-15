@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.cloud;
-  mkService = { ExecStart, environment ? null, EnvironmentFile ? null }: {
+  mkService = { ExecStart, environment ? null, EnvironmentFile ? null, LoadCredential ? null }: {
     inherit environment;
     serviceConfig = {
       MemoryLimit = "300M";
@@ -31,7 +31,7 @@ let
       SystemCallFilter = "@system-service";
       SystemCallErrorNumber = "EPERM";
       Restart = "always";
-      inherit ExecStart EnvironmentFile;
+      inherit ExecStart EnvironmentFile LoadCredential;
     };
     wantedBy = [ "multi-user.target" ];
   };
@@ -50,6 +50,10 @@ let
           type = types.nullOr types.path;
           default = null;
         };
+        creds = mkOption {
+          type = types.nullOr (types.listOf types.str);
+          default = null;
+        };
       };
     };
 in
@@ -61,6 +65,13 @@ in
     };
   };
   config = {
-    systemd.services = builtins.mapAttrs (name: v: mkService { ExecStart = v.exec; environment = v.env; EnvironmentFile = v.envFile; }) cfg.services;
+    systemd.services = builtins.mapAttrs
+      (name: v: mkService {
+        ExecStart = v.exec;
+        environment = v.env;
+        EnvironmentFile = v.envFile;
+        LoadCredential = v.creds;
+      })
+      cfg.services;
   };
 }

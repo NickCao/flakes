@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let cfg = config.services.prometheus; in
 {
+  sops.secrets.telegram = { };
   services.prometheus = {
     enable = true;
     webExternalUrl = "https://${config.networking.fqdn}/prom";
@@ -40,6 +41,7 @@ let cfg = config.services.prometheus; in
       })
     ];
     alertmanagers = [{
+      path_prefix = "/alert";
       static_configs = [{
         targets = [ "${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}" ];
       }];
@@ -54,8 +56,7 @@ let cfg = config.services.prometheus; in
         receivers = [{
           name = "telegram";
           webhook_configs = [{
-            # TODO: send alert to telegram bot
-            url = "https://example.com";
+            url = "http://127.0.0.1:9087/alert/893182727";
           }];
         }];
         route = {
@@ -94,5 +95,12 @@ let cfg = config.services.prometheus; in
         };
       };
     };
+  };
+
+  cloud.services.prometheus-bot = {
+    exec = "${pkgs.prometheus_bot}/bin/prometheus_bot -c ${(pkgs.formats.yaml {}).generate "config.yaml" {
+      send_only = true;
+    }} -token-from \${CREDENTIALS_DIRECTORY}/token -l 127.0.0.1:9087";
+    creds = [ "token:${config.sops.secrets.telegram.path}" ];
   };
 }

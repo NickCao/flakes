@@ -1,4 +1,26 @@
 {
+    "prometheus_bot": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "prometheus_bot",
+        "src": {
+            "deepClone": false,
+            "owner": "inCaller",
+            "name": null,
+            "repo": "prometheus_bot",
+            "type": "github",
+            "sha256": "sha256-8nXLoFgTe5OpUzHUYlw6aoFjrf8NgT9oxUW7xqaVEoE=",
+            "rev": "602430a59fc7e3887739fc021a222e732803008c",
+            "leaveDotGit": false,
+            "fetchSubmodules": false
+        },
+        "version": "602430a59fc7e3887739fc021a222e732803008c",
+        "passthru": {
+            "vendorSha256": "sha256-Y8cUYjhJxndvV8Ib4XIblZ9Z0SvnkPzNTDMjEd3R4II="
+        },
+        "extract": null,
+        "rustGitDeps": null
+    },
     "fcitx5-pinyin-zhwiki": {
         "pinned": false,
         "cargoLock": null,

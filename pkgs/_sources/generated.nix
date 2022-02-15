@@ -32,6 +32,18 @@
       sha256 = "sha256-dt41TCr6RkmE9H+NN8LWv3ogGsK38JtLjVN/b2mbGJs=";
     });
   };
+  prometheus_bot = {
+    pname = "prometheus_bot";
+    version = "602430a59fc7e3887739fc021a222e732803008c";
+    src = fetchFromGitHub ({
+      owner = "inCaller";
+      repo = "prometheus_bot";
+      rev = "602430a59fc7e3887739fc021a222e732803008c";
+      fetchSubmodules = false;
+      sha256 = "sha256-8nXLoFgTe5OpUzHUYlw6aoFjrf8NgT9oxUW7xqaVEoE=";
+    });
+    vendorSha256 = "sha256-Y8cUYjhJxndvV8Ib4XIblZ9Z0SvnkPzNTDMjEd3R4II=";
+  };
   rait = {
     pname = "rait";
     version = "d43bacb94bfdc8b52eabd0d090c020092a377e60";
