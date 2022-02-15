@@ -8,8 +8,7 @@ in
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-    ./../sshcert
-    ./../dns/secondary
+    (import ../.).all
   ];
 
   sops = {
@@ -29,6 +28,7 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIpzrZLU0peDu1otGtP2GcCeQIkI8kmfHjnwpbfpWBkv"
   ];
 
+  services.metrics.enable = true;
   services.sshcert.enable = true;
   services.openssh = {
     enable = true;

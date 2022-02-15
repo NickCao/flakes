@@ -3,7 +3,6 @@ nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
     self.nixosModules.vultr
-    self.nixosModules.telegraf
     self.nixosModules.ss
     self.nixosModules.cloud.common
     self.nixosModules.cloud.services
