@@ -5,6 +5,7 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./hardware.nix
     ./services.nix
+    ./prometheus.nix
     self.nixosModules.all
     self.nixosModules.cloud.services
     inputs.impermanence.nixosModules.impermanence
