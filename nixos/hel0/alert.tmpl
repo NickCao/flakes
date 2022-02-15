@@ -1,0 +1,13 @@
+{{if eq .Status "firing"}}
+<b>alert firing 🔥</b>
+{{end -}}
+
+{{if eq .Status "resolved"}}
+<b>alert resolved ✅</b>
+{{end }}
+
+{{- range $val := .Alerts}}
+alert: <a href="{{ $val.GeneratorURL }}">{{ index $val.Labels.alertname }}</a>
+active: {{ $val.StartsAt | str_FormatDate }}
+summary: {{ $val.Annotations.summary }}
+{{end -}}

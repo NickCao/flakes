@@ -28,15 +28,24 @@ let cfg = config.services.prometheus; in
       (builtins.toJSON {
         groups = [{
           name = "metrics";
-          rules = [{
-            alert = "NodeDown";
-            expr = "up == 0";
-            for = "5m";
-            annotations = {
-              summary = "node {{ $labels.instance }} down";
-              description = "{{ $labels.instance }} has been down for more than 5 minutes";
-            };
-          }];
+          rules = [
+            {
+              alert = "NodeDown";
+              expr = "up == 0";
+              for = "3m";
+              annotations = {
+                summary = "node {{ $labels.host }} down";
+              };
+            }
+            {
+              alert = "UnitFailed";
+              expr = "systemd_units_active_code == 3";
+              for = "2m";
+              annotations = {
+                summary = "unit {{ $labels.name }} on {{ $labels.host }} failed";
+              };
+            }
+          ];
         }];
       })
     ];
@@ -100,6 +109,9 @@ let cfg = config.services.prometheus; in
   cloud.services.prometheus-bot = {
     exec = "${pkgs.prometheus_bot}/bin/prometheus_bot -c ${(pkgs.formats.yaml {}).generate "config.yaml" {
       send_only = true;
+      time_zone = "Asia/Shanghai";
+      time_outdata = "01/02 15:04:05";
+      template_path = ./alert.tmpl;
     }} -token-from \${CREDENTIALS_DIRECTORY}/token -l 127.0.0.1:9087";
     creds = [ "token:${config.sops.secrets.telegram.path}" ];
   };
