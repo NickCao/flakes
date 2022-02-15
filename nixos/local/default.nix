@@ -14,11 +14,6 @@ nixpkgs.lib.nixosSystem {
       nixpkgs.overlays = [
         self.overlay
         inputs.rust-overlay.overlay
-        (final: prev: {
-          smartdns = prev.smartdns.overrideAttrs (attrs: {
-            postPatch = "rm systemd/smartdns.service";
-          });
-        })
       ];
       nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       nix.registry.p.flake = self;

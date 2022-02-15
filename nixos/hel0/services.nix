@@ -15,7 +15,6 @@
       cache = { group = "hydra"; mode = "0440"; };
       plct = { owner = "hydra-queue-runner"; };
       minio.restartUnits = [ "minio.service" ];
-      telegraf.restartUnits = [ "telegraf.service" ];
       nixbot.restartUnits = [ "nixbot.service" ];
       meow.restartUnits = [ "meow.service" ];
       dkim.restartUnits = [ "maddy.service" ];
@@ -25,6 +24,9 @@
       gravity_reverse = { owner = "knot"; };
     };
   };
+
+  services.sshcert.enable = true;
+  services.metrics.enable = true;
 
   services.nix-serve = {
     enable = true;
@@ -124,41 +126,6 @@
       exec ${pkgs.nixbot-telegram}/bin/nixbot-telegram ''${CREDENTIALS_DIRECTORY}/nixbot
     '';
     wantedBy = [ "multi-user.target" ];
-  };
-
-  security.wrappers.smartctl = {
-    owner = "root";
-    group = "root";
-    setuid = true;
-    setgid = true;
-    source = "${pkgs.smartmontools}/bin/smartctl";
-  };
-  services.telegraf = {
-    enable = true;
-    environmentFiles = [ config.sops.secrets.telegraf.path ];
-    extraConfig = {
-      outputs = {
-        influxdb_v2 = {
-          urls = [ "https://stats.nichi.co" ];
-          token = "$INFLUX_TOKEN";
-          organization = "nichi";
-          bucket = "stats";
-        };
-      };
-      inputs = {
-        cpu = { };
-        disk = { };
-        diskio = { };
-        mem = { };
-        net = { };
-        system = { };
-        smart = {
-          path_smartctl = "${config.security.wrapperDir}/smartctl";
-          path_nvme = "${pkgs.nvme-cli}/bin/nvme";
-          devices = [ "/dev/disk/by-id/wwn-0x50000397fc5003aa -d ata" "/dev/disk/by-id/wwn-0x500003981ba001ae -d ata" ];
-        };
-      };
-    };
   };
 
   services.minio = {
