@@ -53,6 +53,13 @@ let cfg = config.services.prometheus; in
                 summary = "dns query for {{ $labels.domain }} IN {{ $labels.record_type }} on {{ $labels.host }} via {{ $labels.server }} failed with rcode {{ $labels.rcode }}";
               };
             }
+            {
+              alert = "OOM";
+              expr = "mem_available_percent < 20";
+              annotations = {
+                summary = ''node {{ $labels.host }} low in memory, {{ $value | printf "%.2f" }} percent available'';
+              };
+            }
           ];
         }];
       })
