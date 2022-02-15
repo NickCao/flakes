@@ -45,6 +45,14 @@ let cfg = config.services.prometheus; in
                 summary = "unit {{ $labels.name }} on {{ $labels.host }} failed";
               };
             }
+            {
+              alert = "DNSError";
+              expr = "dns_query_result_code != 0";
+              for = "2m";
+              annotations = {
+                summary = "dns query for {{ $labels.domain }} IN {{ $labels.record_type }} on {{ $labels.host }} via {{ $labels.server }} failed with rcode {{ $labels.rcode }}";
+              };
+            }
           ];
         }];
       })
@@ -60,7 +68,7 @@ let cfg = config.services.prometheus; in
       webExternalUrl = "https://${config.networking.fqdn}/alert";
       listenAddress = "127.0.0.1";
       port = 9093;
-      extraFlags = [ "--cluster.advertise-address=${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}" ];
+      extraFlags = [ ''--cluster.listen-address=""'' ];
       configuration = {
         receivers = [{
           name = "telegram";

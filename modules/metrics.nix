@@ -23,6 +23,14 @@ in
           processes = { };
           system = { };
           systemd_units = { };
+          dns_query = {
+            servers = [
+              "1.1.1.1"
+              "8.8.8.8"
+            ];
+            domains = [ "nichi.co" ];
+            record_type = "A";
+          };
         };
         outputs = {
           prometheus_client = {
