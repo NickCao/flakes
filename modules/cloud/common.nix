@@ -63,9 +63,12 @@ in
     blacklistedKernelModules = [ "ip_tables" ];
   };
 
-  services.resolved.extraConfig = ''
-    DNSStubListener=no
-  '';
+  services.resolved = {
+    llmnr = "false";
+    extraConfig = ''
+      DNSStubListener=no
+    '';
+  };
 
   networking = {
     useNetworkd = true;
