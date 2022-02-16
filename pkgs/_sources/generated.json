@@ -1,4 +1,19 @@
 {
+    "karma-bin": {
+        "pinned": false,
+        "cargoLock": null,
+        "name": "karma-bin",
+        "src": {
+            "url": "https://github.com/prymitive/karma/releases/download/v0.98/karma-linux-amd64.tar.gz",
+            "name": null,
+            "type": "url",
+            "sha256": "sha256-yb7TzqUKQthzHolZg69XkNqQffS62MirXYogrOYh+XE="
+        },
+        "version": "v0.98",
+        "passthru": null,
+        "extract": null,
+        "rustGitDeps": null
+    },
     "prometheus_bot": {
         "pinned": false,
         "cargoLock": null,

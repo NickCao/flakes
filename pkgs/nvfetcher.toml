@@ -29,3 +29,7 @@ fetch.github = "lcp/mokutil"
 src.git = "https://github.com/inCaller/prometheus_bot"
 fetch.github = "inCaller/prometheus_bot"
 passthru = { vendorSha256 = "sha256-Y8cUYjhJxndvV8Ib4XIblZ9Z0SvnkPzNTDMjEd3R4II=" }
+
+[karma-bin]
+src.github = "prymitive/karma"
+fetch.url = "https://github.com/prymitive/karma/releases/download/$ver/karma-linux-amd64.tar.gz"

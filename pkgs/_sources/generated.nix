@@ -21,6 +21,14 @@
       sha256 = "sha256-m51c64hW0Inr6WEelHfsJgivMEBuAVHNzpRWZVQYMEs=";
     };
   };
+  karma-bin = {
+    pname = "karma-bin";
+    version = "v0.98";
+    src = fetchurl {
+      url = "https://github.com/prymitive/karma/releases/download/v0.98/karma-linux-amd64.tar.gz";
+      sha256 = "sha256-yb7TzqUKQthzHolZg69XkNqQffS62MirXYogrOYh+XE=";
+    };
+  };
   mokutil = {
     pname = "mokutil";
     version = "0.5.0";
