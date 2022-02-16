@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1640186331,
-        "narHash": "sha256-qwp0zKq18fp5DWBm2sOSZsy9yeSvcMzVjDekZJW7I7c=",
+        "lastModified": 1644992165,
+        "narHash": "sha256-Q8C5tUVDqNSZ2xOFmzaxJ54NgTe7Hr2gZn0kGsa1XMU=",
         "owner": "NickCao",
         "repo": "blog",
-        "rev": "951d59a7deb6538fe495572f94a4d54acb1031ff",
+        "rev": "b5ae09788414f7ed1afdfdec5d599b8bd2bfa8df",
         "type": "gitlab"
       },
       "original": {
@@ -137,11 +137,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1642749384,
-        "narHash": "sha256-e/pwByiYPUgqZ/E3lyoko76g5CteYKXHC/CDgirJXeM=",
+        "lastModified": 1644993221,
+        "narHash": "sha256-fFJcnD2HQRh/Af1eQO4q/hg48oNFXkzInOUBpG96hH4=",
         "owner": "NickCao",
         "repo": "fn",
-        "rev": "b90b1954b02736eb966ed1fdfc5e05492559966b",
+        "rev": "e4d891584b53e0d83778bf5f1b357d2ca467112f",
         "type": "gitlab"
       },
       "original": {
@@ -291,11 +291,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1644892557,
-        "narHash": "sha256-z4iE8n2d846imTaOissT78wEEa3GvnhAmTJzpJgUduM=",
+        "lastModified": 1644978925,
+        "narHash": "sha256-135oqknTCNLe62WpHdv18umHXxJVhzaA1SVBxxYHp/E=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "6d50a4f52d517a53cf740a9746f4e226ac17cf6a",
+        "rev": "e55ef9daac4ed57d7b30c649fdbc380c9c0f8e04",
         "type": "github"
       },
       "original": {
