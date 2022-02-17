@@ -95,10 +95,12 @@ let cfg = config.services.prometheus; in
         routers = {
           prometheus = {
             rule = "Host(`${config.networking.fqdn}`) && PathPrefix(`/prom`)";
+            entryPoints = [ "https" ];
             service = "prometheus";
           };
           alertmanager = {
             rule = "Host(`${config.networking.fqdn}`) && PathPrefix(`/alert`)";
+            entryPoints = [ "https" ];
             service = "alertmanager";
             middlewares = [ "alertmanager" ];
           };

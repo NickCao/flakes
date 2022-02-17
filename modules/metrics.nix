@@ -46,6 +46,7 @@ in
         http = {
           routers.telegraf = {
             rule = "Host(`${config.networking.fqdn}`) && Path(`${telegrafConfig.outputs.prometheus_client.path}`)";
+            entryPoints = [ "https" ];
             service = "telegraf";
           };
           services.telegraf.loadBalancer.servers = [{
