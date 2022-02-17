@@ -1,6 +1,7 @@
 rec {
   all = ({ ... }: {
     imports = [
+      (import ./gateway.nix)
       (import ./metrics.nix)
       (import ./sshcert)
       (import ./dns/secondary)

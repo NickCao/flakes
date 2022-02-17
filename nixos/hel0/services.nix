@@ -25,6 +25,7 @@
     };
   };
 
+  services.gateway.enable = true;
   services.sshcert.enable = true;
   services.metrics.enable = true;
 
@@ -152,23 +153,8 @@
   };
 
   services.traefik = {
-    enable = true;
     staticConfigOptions = {
-      experimental.http3 = true;
       entryPoints = {
-        http = {
-          address = ":80";
-          http.redirections.entryPoint = {
-            to = "https";
-            scheme = "https";
-            permanent = false;
-          };
-        };
-        https = {
-          address = ":443";
-          http.tls.certResolver = "le";
-          http3 = { };
-        };
         imap = {
           address = ":993";
           http.tls.certResolver = "le";
@@ -178,21 +164,8 @@
           http.tls.certResolver = "le";
         };
       };
-      certificatesResolvers.le.acme = {
-        email = "blackhole@nichi.co";
-        storage = config.services.traefik.dataDir + "/acme.json";
-        keyType = "EC256";
-        tlsChallenge = { };
-      };
-      ping = {
-        manualRouting = true;
-      };
     };
     dynamicConfigOptions = {
-      tls.options.default = {
-        minVersion = "VersionTLS12";
-        sniStrict = true;
-      };
       tcp = {
         routers = {
           imap = {
@@ -215,11 +188,6 @@
       };
       http = {
         routers = {
-          ping = {
-            rule = "Host(`hel0.nichi.link`)";
-            entryPoints = [ "https" ];
-            service = "ping@internal";
-          };
           minio = {
             rule = "Host(`s3.nichi.co`)";
             entryPoints = [ "https" ];
