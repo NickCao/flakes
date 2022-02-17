@@ -110,8 +110,6 @@ in
         filter outbound
         {
           if proto != "announce" then reject;
-          bgp_community.add((64603, 6939));
-          bgp_community.add((64602, 13335));
           accept;
         }
         protocol bgp vultr {
