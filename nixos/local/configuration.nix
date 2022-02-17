@@ -39,7 +39,6 @@
       flake-registry = "/etc/nix/registry.json";
       experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
       builders-use-substitutes = true;
-      keep-outputs = true;
       keep-derivations = true;
     };
   };
