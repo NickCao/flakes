@@ -12,18 +12,33 @@ let cfg = config.services.prometheus; in
       scrape_interval = "1m";
       evaluation_interval = "1m";
     };
-    scrapeConfigs = [{
-      job_name = "metrics";
-      scheme = "https";
-      static_configs = [{
-        targets = [
-          "nrt0.nichi.link"
-          "sin0.nichi.link"
-          "sea0.nichi.link"
-          "hel0.nichi.link"
-        ];
-      }];
-    }];
+    scrapeConfigs = [
+      {
+        job_name = "metrics";
+        scheme = "https";
+        static_configs = [{
+          targets = [
+            "nrt0.nichi.link"
+            "sin0.nichi.link"
+            "sea0.nichi.link"
+            "hel0.nichi.link"
+          ];
+        }];
+      }
+      {
+        job_name = "traefik";
+        scheme = "https";
+        metrics_path = "/traefik";
+        static_configs = [{
+          targets = [
+            "nrt0.nichi.link"
+            "sin0.nichi.link"
+            "sea0.nichi.link"
+            "hel0.nichi.link"
+          ];
+        }];
+      }
+    ];
     rules = [
       (builtins.toJSON {
         groups = [{
@@ -34,7 +49,7 @@ let cfg = config.services.prometheus; in
               expr = "up == 0";
               for = "3m";
               annotations = {
-                summary = "node {{ $labels.host }} down";
+                summary = "node {{ $labels.host }} down for job {{ $labels.job }}";
               };
             }
             {
@@ -58,6 +73,13 @@ let cfg = config.services.prometheus; in
               expr = "mem_available_percent < 20";
               annotations = {
                 summary = ''node {{ $labels.host }} low in memory, {{ $value | printf "%.2f" }} percent available'';
+              };
+            }
+            {
+              alert = "TraefikError";
+              expr = "traefik_config_reloads_failure_total > 0";
+              annotations = {
+                summary = "traefik on node {{ $labels.host }} failed to reload config";
               };
             }
           ];
