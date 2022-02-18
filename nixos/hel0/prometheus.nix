@@ -63,7 +63,7 @@ let cfg = config.services.prometheus; in
             {
               alert = "DNSError";
               expr = "dns_query_result_code != 0";
-              for = "2m";
+              for = "5m";
               annotations = {
                 summary = "dns query for {{ $labels.domain }} IN {{ $labels.record_type }} on {{ $labels.host }} via {{ $labels.server }} failed with rcode {{ $labels.rcode }}";
               };
