@@ -33,7 +33,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     rust-overlay = {
-      url = "github:oxalica/rust-overlay/6d50a4f52d517a53cf740a9746f4e226ac17cf6a";
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
