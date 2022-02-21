@@ -21,5 +21,8 @@ qt5.mkDerivation {
     mkdir $out/share
     mv opt/wemeet/icons $out/share
   '';
-  meta.platforms = [ "x86_64-linux" ];
+  meta = {
+    mainProgram = "wemeetapp";
+    platforms = [ "x86_64-linux" ];
+  };
 }
