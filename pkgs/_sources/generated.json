@@ -4,12 +4,12 @@
         "cargoLock": null,
         "name": "karma-bin",
         "src": {
-            "url": "https://github.com/prymitive/karma/releases/download/v0.98/karma-linux-amd64.tar.gz",
+            "url": "https://github.com/prymitive/karma/releases/download/v0.99/karma-linux-amd64.tar.gz",
             "name": null,
             "type": "url",
-            "sha256": "sha256-yb7TzqUKQthzHolZg69XkNqQffS62MirXYogrOYh+XE="
+            "sha256": "sha256-art9uEhZC8U1yRd8hwnZTeubW5viigsAJ+MaJoDzaNE="
         },
-        "version": "v0.98",
+        "version": "v0.99",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
@@ -24,12 +24,12 @@
             "name": null,
             "repo": "prometheus_bot",
             "type": "github",
-            "sha256": "sha256-8nXLoFgTe5OpUzHUYlw6aoFjrf8NgT9oxUW7xqaVEoE=",
-            "rev": "602430a59fc7e3887739fc021a222e732803008c",
+            "sha256": "sha256-v3nLD1chE25GwIJ6+bWTwCuHvsnlNtijdKKMS4UsIz4=",
+            "rev": "b0f68d04ba9e145f07c2b5e7454cbd415085a099",
             "leaveDotGit": false,
             "fetchSubmodules": false
         },
-        "version": "602430a59fc7e3887739fc021a222e732803008c",
+        "version": "b0f68d04ba9e145f07c2b5e7454cbd415085a099",
         "passthru": {
             "vendorSha256": "sha256-Y8cUYjhJxndvV8Ib4XIblZ9Z0SvnkPzNTDMjEd3R4II="
         },
@@ -98,12 +98,12 @@
             "name": null,
             "repo": "dnsmasq-china-list",
             "type": "github",
-            "sha256": "sha256-6okyLX3yz3dYA8fPIPwPoWNGaikySBkbXQ2vZzMtqgI=",
-            "rev": "e88ff3cbef6d949b0c60166026ccf3c477db082c",
+            "sha256": "sha256-v9ed2vkftfB5TEnRUjJ1LDdiT7G92CzFg3LLYlgTR1M=",
+            "rev": "db82099a14fea2b8108f79b63ae4fd31d28840a0",
             "leaveDotGit": false,
             "fetchSubmodules": false
         },
-        "version": "e88ff3cbef6d949b0c60166026ccf3c477db082c",
+        "version": "db82099a14fea2b8108f79b63ae4fd31d28840a0",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null

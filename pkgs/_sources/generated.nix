@@ -23,10 +23,10 @@
   };
   karma-bin = {
     pname = "karma-bin";
-    version = "v0.98";
+    version = "v0.99";
     src = fetchurl {
-      url = "https://github.com/prymitive/karma/releases/download/v0.98/karma-linux-amd64.tar.gz";
-      sha256 = "sha256-yb7TzqUKQthzHolZg69XkNqQffS62MirXYogrOYh+XE=";
+      url = "https://github.com/prymitive/karma/releases/download/v0.99/karma-linux-amd64.tar.gz";
+      sha256 = "sha256-art9uEhZC8U1yRd8hwnZTeubW5viigsAJ+MaJoDzaNE=";
     };
   };
   mokutil = {
@@ -42,13 +42,13 @@
   };
   prometheus_bot = {
     pname = "prometheus_bot";
-    version = "602430a59fc7e3887739fc021a222e732803008c";
+    version = "b0f68d04ba9e145f07c2b5e7454cbd415085a099";
     src = fetchFromGitHub ({
       owner = "inCaller";
       repo = "prometheus_bot";
-      rev = "602430a59fc7e3887739fc021a222e732803008c";
+      rev = "b0f68d04ba9e145f07c2b5e7454cbd415085a099";
       fetchSubmodules = false;
-      sha256 = "sha256-8nXLoFgTe5OpUzHUYlw6aoFjrf8NgT9oxUW7xqaVEoE=";
+      sha256 = "sha256-v3nLD1chE25GwIJ6+bWTwCuHvsnlNtijdKKMS4UsIz4=";
     });
     vendorSha256 = "sha256-Y8cUYjhJxndvV8Ib4XIblZ9Z0SvnkPzNTDMjEd3R4II=";
   };
@@ -67,13 +67,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "e88ff3cbef6d949b0c60166026ccf3c477db082c";
+    version = "db82099a14fea2b8108f79b63ae4fd31d28840a0";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "e88ff3cbef6d949b0c60166026ccf3c477db082c";
+      rev = "db82099a14fea2b8108f79b63ae4fd31d28840a0";
       fetchSubmodules = false;
-      sha256 = "sha256-6okyLX3yz3dYA8fPIPwPoWNGaikySBkbXQ2vZzMtqgI=";
+      sha256 = "sha256-v9ed2vkftfB5TEnRUjJ1LDdiT7G92CzFg3LLYlgTR1M=";
     });
   };
   wemeet = {
