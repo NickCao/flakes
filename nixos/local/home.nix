@@ -86,6 +86,9 @@ in
           natural_scroll = "enabled";
           tap = "enabled";
         };
+        "1165:49408:ITE_Tech._Inc._ITE_Device(8910)_Keyboard" = {
+          xkb_options = "ctrl:nocaps";
+        };
       };
       output = {
         eDP-1 = {
