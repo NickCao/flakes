@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let cfg = config.services.prometheus; in
 {
-  sops.secrets.telegram = { };
+  sops.secrets.alertmanager = { };
   services.prometheus = {
     enable = true;
     webExternalUrl = "https://${config.networking.fqdn}/prom";
@@ -97,12 +97,17 @@ let cfg = config.services.prometheus; in
       webExternalUrl = "https://${config.networking.fqdn}/alert";
       listenAddress = "127.0.0.1";
       port = 9093;
+      environmentFile = [ config.sops.secrets.alertmanager.path ];
       extraFlags = [ ''--cluster.listen-address=""'' ];
       configuration = {
         receivers = [{
           name = "telegram";
-          webhook_configs = [{
-            url = "http://127.0.0.1:9087/alert/893182727";
+          telegram_configs = [{
+            api_url = "https://api.telegram.org";
+            bot_token = "$TELEGRAM";
+            chat_id = 893182727;
+            # message = "";
+            parse_mode = "HTML";
           }];
         }];
         route = {
@@ -143,15 +148,5 @@ let cfg = config.services.prometheus; in
         };
       };
     };
-  };
-
-  cloud.services.prometheus-bot = {
-    exec = "${pkgs.prometheus_bot}/bin/prometheus_bot -c ${(pkgs.formats.yaml {}).generate "config.yaml" {
-      send_only = true;
-      time_zone = "Asia/Shanghai";
-      time_outdata = "01/02 15:04:05";
-      template_path = ./alert.tmpl;
-    }} -token-from \${CREDENTIALS_DIRECTORY}/token -l 127.0.0.1:9087";
-    creds = [ "token:${config.sops.secrets.telegram.path}" ];
   };
 }
