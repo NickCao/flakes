@@ -152,6 +152,24 @@
     };
   };
 
+  services.rtsp-simple-server = {
+    enable = true;
+    settings = {
+      protocols = [ "tcp" ];
+      rtspAddress = "127.0.0.1:8554";
+      rtmpDisable = true;
+      hlsDisable = true;
+      paths = {
+        all = {
+          source = "publisher";
+          sourceProtocol = "tcp";
+          publishUser = "push";
+          publishPass = "sha256:gugzUGZV3BHLO+Kes1GvCeD32CmYV19qHuj9Em7dk6I=";
+        };
+      };
+    };
+  };
+
   services.traefik = {
     staticConfigOptions = {
       entryPoints = {
@@ -161,6 +179,10 @@
         };
         submission = {
           address = ":465";
+          http.tls.certResolver = "le";
+        };
+        rtsp = {
+          address = ":322";
           http.tls.certResolver = "le";
         };
       };
@@ -180,10 +202,17 @@
             service = "submission";
             tls = { };
           };
+          rtsp = {
+            rule = "HostSNI(`live.nichi.co`)";
+            entryPoints = [ "rtsp" ];
+            service = "rtsp";
+            tls.certResolver = "le";
+          };
         };
         services = {
           imap.loadBalancer.servers = [{ address = "127.0.0.1:143"; }];
           submission.loadBalancer.servers = [{ address = "127.0.0.1:587"; }];
+          rtsp.loadBalancer.servers = [{ address = "${config.services.rtsp-simple-server.settings.rtspAddress}"; }];
         };
       };
       http = {
