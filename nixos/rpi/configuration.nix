@@ -30,6 +30,7 @@ in
     };
   };
 
+  services.tftpd.enable = true;
   services.resolved.dnssec = "false";
   systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = [ "" "${pkgs.systemd}/lib/systemd/systemd-networkd-wait-online --any" ];
   systemd.services.usbipd = {
@@ -117,10 +118,12 @@ in
   systemd.network.networks = {
     eth0 = {
       name = "eth0";
-      DHCP = "yes";
-      dhcpV4Config.RouteMetric = 2048;
-      dhcpV6Config.RouteMetric = 2048;
-      networkConfig.KeepConfiguration = "yes";
+      address = [ "10.0.1.1/24" ];
+      networkConfig = {
+        DHCPServer = true;
+        IPMasquerade = true;
+        KeepConfiguration = "yes";
+      };
     };
     wlan0 = {
       name = "wlan0";

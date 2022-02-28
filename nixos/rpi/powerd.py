@@ -28,6 +28,7 @@ def press():
 @app.route("/reboot")
 def reboot():
     button(4, 14)
+    time.sleep(1)
     button(1, 14)
     return "OK"
 
@@ -44,6 +45,7 @@ def press2():
 @app.route("/reboot2")
 def reboot2():
     button(4, 15)
+    time.sleep(1)
     button(1, 15)
     return "OK"
 

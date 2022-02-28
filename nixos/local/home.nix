@@ -395,10 +395,16 @@ in
           hostname = "166.111.68.163";
           port = 2222;
         };
+        "rpi" = {
+          user = "root";
+          hostname = "rpi.nichi.link";
+          port = 8122;
+        };
         "unmatched" = {
           proxyJump = "rpi";
           user = "root";
           hostname = "fe80::72b3:d5ff:fe92:f9ff%%eth0";
+          extraOptions.StrictHostKeyChecking = "no";
         };
       };
       extraConfig = ''
