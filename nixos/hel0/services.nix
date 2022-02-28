@@ -8,6 +8,7 @@
     };
     gnupg.sshKeyPaths = [ ];
     secrets = {
+      matrix = { };
       restic = { };
       backup = { };
       hydra = { group = "hydra"; mode = "0440"; };
@@ -28,6 +29,47 @@
   services.gateway.enable = true;
   services.sshcert.enable = true;
   services.metrics.enable = true;
+
+  systemd.services.dendrite.serviceConfig.LoadCredential = "matrix:${config.sops.secrets.matrix.path}";
+  services.dendrite = {
+    enable = true;
+    httpAddress = "127.0.0.1:8008";
+    settings = {
+      global = {
+        server_name = "nichi.co";
+        private_key = "/$CREDENTIALS_DIRECTORY/matrix";
+        metrics.enable = true;
+      };
+      client_api = {
+        registration_disabled = true;
+      };
+      media_api = {
+        max_file_size_bytes = 0;
+        dynamic_thumbnails = true;
+      };
+      mscs = {
+        mscs = [ "msc2836" "msc2946" ];
+      };
+      sync_api = {
+        real_ip_header = "X-Real-IP";
+      };
+      federation_api = {
+        key_perspectives = [{
+          server_name = "matrix.org";
+          keys = [
+            {
+              key_id = "ed25519:auto";
+              public_key = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
+            }
+            {
+              key_id = "ed25519:a_RXGa";
+              public_key = "l8Hft5qXKn1vfHrg3p4+W8gELQVo8N13JkluMfmn2sQ";
+            }
+          ];
+        }];
+      };
+    };
+  };
 
   services.nix-serve = {
     enable = true;
@@ -258,6 +300,11 @@
             entryPoints = [ "https" ];
             service = "cache";
           };
+          matrix = {
+            rule = "Host(`matrix.nichi.co`)";
+            entryPoints = [ "https" ];
+            service = "dendrite";
+          };
         };
         middlewares = {
           compress.compress = { };
@@ -287,8 +334,13 @@
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:${builtins.toString config.services.nix-serve.port}"; }];
           };
+          dendrite.loadBalancer = {
+            passHostHeader = true;
+            servers = [{ url = "http://${config.services.dendrite.httpAddress}"; }];
+          };
         };
       };
     };
   };
+  documentation.nixos.enable = false;
 }

@@ -20,6 +20,7 @@
         "/persist/var/lib/knot"
         "/persist/var/lib/maddy"
         "/persist/var/lib/postgresql"
+        "/persist/var/lib/dendrite"
       ];
       timerConfig = {
         OnCalendar = "daily";
