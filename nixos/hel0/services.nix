@@ -44,7 +44,7 @@
         registration_disabled = true;
       };
       media_api = {
-        max_file_size_bytes = 0;
+        max_file_size_bytes = 10485760;
         dynamic_thumbnails = true;
       };
       mscs = {
