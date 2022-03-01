@@ -30,6 +30,9 @@
   services.sshcert.enable = true;
   services.metrics.enable = true;
 
+  services.postgresql.authentication = ''
+    local dendrite dendrite peer
+  '';
   systemd.services.dendrite.serviceConfig.LoadCredential = "matrix:${config.sops.secrets.matrix.path}";
   services.dendrite = {
     enable = true;
@@ -40,20 +43,33 @@
         private_key = "/$CREDENTIALS_DIRECTORY/matrix";
         metrics.enable = true;
       };
+      app_service_api = {
+        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
+      };
       client_api = {
         registration_disabled = true;
       };
       media_api = {
+        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
         max_file_size_bytes = 10485760;
         dynamic_thumbnails = true;
       };
+      room_server = {
+        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
+      };
       mscs = {
+        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
         mscs = [ "msc2836" "msc2946" ];
       };
       sync_api = {
+        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
         real_ip_header = "X-Real-IP";
       };
+      key_server = {
+        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
+      };
       federation_api = {
+        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
         key_perspectives = [{
           server_name = "matrix.org";
           keys = [
@@ -67,6 +83,10 @@
             }
           ];
         }];
+      };
+      user_api = {
+        account_database.connection_string = "postgres:///dendrite?host=/run/postgresql";
+        device_database.connection_string = "postgres:///dendrite?host=/run/postgresql";
       };
     };
   };
