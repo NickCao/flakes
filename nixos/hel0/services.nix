@@ -119,7 +119,9 @@
         };
         delivery_error_reports = true;
         sync_direct_chats = true;
-        sync_with_custom_puppets = false;
+        inline_images = true;
+        federate_rooms = false;
+        tag_only_on_create = false;
       };
     };
   };
