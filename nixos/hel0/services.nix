@@ -8,6 +8,7 @@
     };
     gnupg.sshKeyPaths = [ ];
     secrets = {
+      mautrix-telegram = { };
       matrix = { };
       restic = { };
       backup = { };
@@ -32,8 +33,12 @@
 
   services.postgresql.authentication = ''
     local dendrite dendrite peer
+    local mautrix-telegram mautrix-telegram peer
   '';
-  systemd.services.dendrite.serviceConfig.LoadCredential = "matrix:${config.sops.secrets.matrix.path}";
+  systemd.services.dendrite.serviceConfig.LoadCredential = [
+    "matrix:${config.sops.secrets.matrix.path}"
+    "mautrix-telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
+  ];
   services.dendrite = {
     enable = true;
     httpAddress = "127.0.0.1:8008";
@@ -45,6 +50,7 @@
       };
       app_service_api = {
         database.connection_string = "postgres:///dendrite?host=/run/postgresql";
+        config_files = [ "/$CREDENTIALS_DIRECTORY/mautrix-telegram" ];
       };
       client_api = {
         registration_disabled = true;
@@ -87,6 +93,33 @@
       user_api = {
         account_database.connection_string = "postgres:///dendrite?host=/run/postgresql";
         device_database.connection_string = "postgres:///dendrite?host=/run/postgresql";
+      };
+    };
+  };
+
+  services.mautrix-telegram = {
+    enable = true;
+    environmentFile = config.sops.secrets.mautrix-telegram.path;
+    serviceDependencies = [ "dendrite.service" ];
+    settings = {
+      homeserver = {
+        address = "https://matrix.nichi.co";
+        domain = "nichi.co";
+      };
+      appservice = {
+        address = "http://127.0.0.1:29317";
+        database = "postgres:///mautrix-telegram?host=/run/postgresql";
+        hostname = "127.0.0.1";
+        port = 29317;
+        provisioning.enabled = false;
+      };
+      bridge = {
+        permissions = {
+          "@nickcao:nichi.co" = "admin";
+        };
+        delivery_error_reports = true;
+        sync_direct_chats = true;
+        sync_with_custom_puppets = false;
       };
     };
   };
