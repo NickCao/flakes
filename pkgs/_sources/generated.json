@@ -41,12 +41,12 @@
         "cargoLock": null,
         "name": "fcitx5-pinyin-zhwiki",
         "src": {
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220127.dict",
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220226.dict",
             "name": null,
             "type": "url",
-            "sha256": "sha256-m51c64hW0Inr6WEelHfsJgivMEBuAVHNzpRWZVQYMEs="
+            "sha256": "sha256-jt0zxrIyO9sd8HFztK8QNOTrj72X2YzSxo/ddQAteVM="
         },
-        "version": "20220127",
+        "version": "20220226",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
@@ -56,12 +56,12 @@
         "cargoLock": null,
         "name": "wemeet",
         "src": {
-            "url": "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca56142398818545f/TencentMeeting_0300000000_2.8.0.1_x86_64.publish.deb",
+            "url": "https://updatecdn.meeting.qq.com/cos/3cdd365cd90f221fb345ab73c4746e1f/TencentMeeting_0300000000_2.8.0.3_x86_64_default.publish.deb",
             "name": null,
             "type": "url",
-            "sha256": "sha256-LWPPLDZ7YVixN+xa+FqJo5dM+RW/AZM9nw2z9digIxc="
+            "sha256": "sha256-76Bm4PaIo7APwYBKWXp14up+PXS+Eo7NLcWM6Q2nhZ8="
         },
-        "version": "2.8.0.1",
+        "version": "2.8.0.3",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
@@ -98,12 +98,12 @@
             "name": null,
             "repo": "dnsmasq-china-list",
             "type": "github",
-            "sha256": "sha256-w77TuqiQTkeOt7BB+j0XLysWYfYG6PZmSNe03U9LMuY=",
-            "rev": "7411cb2c5a1e8180c8bad5802b4bc59bf60db0d3",
+            "sha256": "sha256-v2We+gD8JX60lrvtQJjl7DNBaHzOVav5IKJ80ytL8fE=",
+            "rev": "3c2b229751d8e8b47b8dc45b646095b73686e936",
             "leaveDotGit": false,
             "fetchSubmodules": false
         },
-        "version": "7411cb2c5a1e8180c8bad5802b4bc59bf60db0d3",
+        "version": "3c2b229751d8e8b47b8dc45b646095b73686e936",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null

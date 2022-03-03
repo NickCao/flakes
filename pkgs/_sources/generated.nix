@@ -15,10 +15,10 @@
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20220127";
+    version = "20220226";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220127.dict";
-      sha256 = "sha256-m51c64hW0Inr6WEelHfsJgivMEBuAVHNzpRWZVQYMEs=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220226.dict";
+      sha256 = "sha256-jt0zxrIyO9sd8HFztK8QNOTrj72X2YzSxo/ddQAteVM=";
     };
   };
   karma-bin = {
@@ -67,21 +67,21 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "7411cb2c5a1e8180c8bad5802b4bc59bf60db0d3";
+    version = "3c2b229751d8e8b47b8dc45b646095b73686e936";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "7411cb2c5a1e8180c8bad5802b4bc59bf60db0d3";
+      rev = "3c2b229751d8e8b47b8dc45b646095b73686e936";
       fetchSubmodules = false;
-      sha256 = "sha256-w77TuqiQTkeOt7BB+j0XLysWYfYG6PZmSNe03U9LMuY=";
+      sha256 = "sha256-v2We+gD8JX60lrvtQJjl7DNBaHzOVav5IKJ80ytL8fE=";
     });
   };
   wemeet = {
     pname = "wemeet";
-    version = "2.8.0.1";
+    version = "2.8.0.3";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca56142398818545f/TencentMeeting_0300000000_2.8.0.1_x86_64.publish.deb";
-      sha256 = "sha256-LWPPLDZ7YVixN+xa+FqJo5dM+RW/AZM9nw2z9digIxc=";
+      url = "https://updatecdn.meeting.qq.com/cos/3cdd365cd90f221fb345ab73c4746e1f/TencentMeeting_0300000000_2.8.0.3_x86_64_default.publish.deb";
+      sha256 = "sha256-76Bm4PaIo7APwYBKWXp14up+PXS+Eo7NLcWM6Q2nhZ8=";
     };
   };
 }
