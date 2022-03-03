@@ -121,7 +121,6 @@
         delivery_error_reports = true;
         sync_direct_chats = true;
         inline_images = true;
-        federate_rooms = false;
         tag_only_on_create = false;
         bridge_matrix_leave = false;
       };
