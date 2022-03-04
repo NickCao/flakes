@@ -50,8 +50,11 @@
       global = {
         server_name = "nichi.co";
         private_key = "/$CREDENTIALS_DIRECTORY/matrix";
-        metrics.enable = true;
       };
+      logging = [{
+        type = "std";
+        level = "warn";
+      }];
       app_service_api = {
         database.connection_string = "postgres:///dendrite?host=/run/postgresql";
         config_files = [
@@ -131,6 +134,13 @@
         inline_images = true;
         tag_only_on_create = false;
         bridge_matrix_leave = false;
+        relay_user_distinguishers = [ ];
+      };
+      logging = {
+        loggers = {
+          mau.level = "WARNING";
+          telethon.level = "WARNING";
+        };
       };
     };
   };
@@ -145,6 +155,7 @@
         url = "https://matrix.nichi.co";
         domain = "nichi.co";
         bindHostname = "127.0.0.1";
+        enablePresence = false;
       };
       ircService = {
         servers = {
