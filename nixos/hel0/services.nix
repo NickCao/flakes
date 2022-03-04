@@ -189,7 +189,7 @@
             };
           };
         };
-        logging.level = "info";
+        logging.level = "warn";
         ircHandler.permissions = {
           "@nickcao:nichi.co" = "admin";
         };
