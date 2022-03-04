@@ -34,10 +34,12 @@
   services.postgresql.authentication = ''
     local dendrite dendrite peer
     local mautrix-telegram mautrix-telegram peer
+    local matrix-appservice-irc matrix-appservice-irc peer
   '';
   systemd.services.dendrite.serviceConfig.LoadCredential = [
     "matrix:${config.sops.secrets.matrix.path}"
     "mautrix-telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
+    "matrix-appservice-irc:/var/lib/matrix-appservice-irc/registration.yml"
   ];
   services.dendrite = {
     enable = true;
@@ -50,7 +52,10 @@
       };
       app_service_api = {
         database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-        config_files = [ "/$CREDENTIALS_DIRECTORY/mautrix-telegram" ];
+        config_files = [
+          "/$CREDENTIALS_DIRECTORY/mautrix-telegram"
+          "/$CREDENTIALS_DIRECTORY/matrix-appservice-irc"
+        ];
       };
       client_api = {
         registration_disabled = true;
@@ -105,6 +110,7 @@
       homeserver = {
         address = "https://matrix.nichi.co";
         domain = "nichi.co";
+        enablePresence = false;
       };
       appservice = {
         address = "http://127.0.0.1:29317";
@@ -123,6 +129,53 @@
         inline_images = true;
         tag_only_on_create = false;
         bridge_matrix_leave = false;
+      };
+    };
+  };
+
+  services.matrix-appservice-irc = {
+    enable = true;
+    localpart = "irc";
+    port = 29318;
+    registrationUrl = "http://127.0.0.1:29318";
+    settings = {
+      homeserver = {
+        url = "https://matrix.nichi.co";
+        domain = "nichi.co";
+        bindHostname = "127.0.0.1";
+      };
+      ircService = {
+        servers = {
+          "irc.libera.chat" = {
+            name = "Libera Chat";
+            additionalAddresses = [ "irc.eu.libera.chat" ];
+            onlyAdditionalAddresses = true;
+            ssl = true;
+            port = 6697;
+            quitDebounce.enabled = true;
+            privateMessages.enabled = false;
+            dynamicChannels.enabled = false;
+            mappings = {
+              "#archlinux-cn-offtopic".roomIds = [ "!10jWf5woGknAxUIo:nichi.co" ];
+            };
+            botConfig = {
+              nick = "nichi_matrix_bot";
+              username = "nichi matrix bot";
+            };
+            ircClients = {
+              ipv6.only = true;
+              nickTemplate = "$DISPLAY[m]";
+            };
+          };
+        };
+        logging.level = "info";
+        ircHandler.permissions = {
+          "@nickcao:nichi.co" = "admin";
+        };
+      };
+      database = {
+        engine = "postgres";
+        connectionString = "postgres:///matrix-appservice-irc?host=/run/postgresql";
       };
     };
   };

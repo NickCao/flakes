@@ -21,6 +21,8 @@
         "/persist/var/lib/maddy"
         "/persist/var/lib/postgresql"
         "/persist/var/lib/dendrite"
+        "/persist/var/lib/mautrix-telegram"
+        "/persist/var/lib/matrix-appservice-irc"
       ];
       timerConfig = {
         OnCalendar = "daily";
