@@ -67,7 +67,7 @@
       };
       media_api = {
         database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-        max_file_size_bytes = 10485760;
+        max_file_size_bytes = 104857600;
         dynamic_thumbnails = true;
       };
       room_server = {
