@@ -64,6 +64,15 @@
       address = [ "2a01:4f9:3a:40c9::1/64" ];
       gateway = [ "fe80::1" ];
     };
+    lo = {
+      name = "lo";
+      routes = [{
+        routeConfig = {
+          Destination = "2a01:4f9:3a:40c9::/64";
+          Type = "local";
+        };
+      }];
+    };
   };
 
   users.mutableUsers = false;
