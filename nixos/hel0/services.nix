@@ -27,6 +27,8 @@
     };
   };
 
+  boot.kernel.sysctl."net.ipv6.ip_nonlocal_bind" = 1;
+
   services.gateway.enable = true;
   services.sshcert.enable = true;
   services.metrics.enable = true;
@@ -163,7 +165,10 @@
               username = "nichi matrix bot";
             };
             ircClients = {
-              ipv6.only = true;
+              ipv6 = {
+                only = true;
+                prefix = "2a01:4f9:3a:40c9::";
+              };
               nickTemplate = "$DISPLAY[m]";
             };
           };
