@@ -132,7 +132,7 @@
         sync_create_limit = 0;
         delivery_error_reports = true;
         sync_direct_chats = true;
-        inline_images = true;
+        inline_images = false;
         tag_only_on_create = false;
         bridge_matrix_leave = false;
         relay_user_distinguishers = [ ];
