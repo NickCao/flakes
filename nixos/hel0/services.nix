@@ -185,12 +185,12 @@
               maxClients = 200;
             };
             matrixClients = {
+              userTemplate = "@irc_$NICK";
               displayName = "$NICK[i]";
             };
           };
         };
-        logging.level = "warn";
-        ircHandler.permissions = {
+        permissions = {
           "@nickcao:nichi.co" = "admin";
         };
       };
