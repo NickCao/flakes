@@ -75,7 +75,7 @@
       };
       mscs = {
         database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-        mscs = [ "msc2836" "msc2946" ];
+        mscs = [ "msc2444" "msc2753" "msc2836" "msc2946" ];
       };
       sync_api = {
         database.connection_string = "postgres:///dendrite?host=/run/postgresql";
