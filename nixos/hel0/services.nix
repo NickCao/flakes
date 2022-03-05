@@ -181,6 +181,7 @@
                 only = true;
                 prefix = "2a01:4f9:3a:40c9::";
               };
+              allowNickChanges = true;
               nickTemplate = "$DISPLAY[m]";
               maxClients = 200;
             };
@@ -190,6 +191,7 @@
             };
           };
         };
+        logging.level = "warn";
         permissions = {
           "@nickcao:nichi.co" = "admin";
         };
