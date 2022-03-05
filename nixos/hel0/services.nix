@@ -197,6 +197,7 @@
             ];
           };
         };
+        ircHandler.mapIrcMentionsToMatrix = "off";
         logging.level = "warn";
         permissions = {
           "@nickcao:nichi.co" = "admin";
