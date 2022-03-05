@@ -189,6 +189,12 @@
               userTemplate = "@irc_$NICK";
               displayName = "$NICK[i]";
             };
+            excludedUsers = [
+              {
+                regex = "@telegram_259128871:nichi\.co";
+                kickReason = "too many horo!";
+              }
+            ];
           };
         };
         logging.level = "warn";
