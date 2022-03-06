@@ -24,6 +24,7 @@
         "matrix-appservice-irc"
         "private/dendrite"
         "private/mautrix-telegram"
+        "backup/postgresql"
       ];
       timerConfig = {
         OnCalendar = "daily";
@@ -36,6 +37,13 @@
     settings = {
       max_connections = 1000;
     };
+  };
+
+  services.postgresqlBackup = {
+    enable = true;
+    location = "/var/lib/backup/postgresql";
+    compression = "zstd";
+    startAt = "weekly";
   };
 
   nix = {
