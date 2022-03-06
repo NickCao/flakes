@@ -25,7 +25,7 @@
     let
       database = {
         connection_string = "postgres:///dendrite?host=/run/postgresql";
-        max_open_conns = -1;
+        max_open_conns = 20;
       };
     in
     {
