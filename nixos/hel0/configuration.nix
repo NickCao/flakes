@@ -75,6 +75,11 @@
       maxJobs = 64;
       supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
     }];
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
