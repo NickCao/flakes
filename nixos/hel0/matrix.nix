@@ -101,7 +101,7 @@
     serviceDependencies = [ "dendrite.service" ];
     settings = {
       homeserver = {
-        address = "https://matrix.nichi.co";
+        address = "http://${config.services.dendrite.httpAddress}";
         domain = "nichi.co";
         enablePresence = false;
       };
