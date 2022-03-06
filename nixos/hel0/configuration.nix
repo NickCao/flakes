@@ -1,15 +1,17 @@
 { config, pkgs, lib, ... }:
 {
-  programs.ssh.knownHosts = {
-    "8.214.124.155".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK1Zi5APlqAX7GRhNDNgYAz+BEOTk4wjbr1pNdciEOcV";
-    "u273007.your-storagebox.de".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+  programs.ssh = {
+    knownHosts = {
+      "8.214.124.155".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK1Zi5APlqAX7GRhNDNgYAz+BEOTk4wjbr1pNdciEOcV";
+      "u273007.your-storagebox.de".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+    };
+    extraConfig = ''
+      Host u273007.your-storagebox.de
+        User u273007
+        Port 23
+        IdentityFile ${config.sops.secrets.backup.path}
+    '';
   };
-  programs.ssh.extraConfig = ''
-    Host u273007.your-storagebox.de
-      User u273007
-      Port 23
-      IdentityFile ${config.sops.secrets.backup.path}
-  '';
 
   services.restic.backups = {
     files = {
@@ -29,9 +31,11 @@
     };
   };
 
-  services.postgresql.package = pkgs.postgresql_14;
-  services.postgresql.settings = {
-    max_connections = 1000;
+  services.postgresql = {
+    package = pkgs.postgresql_14;
+    settings = {
+      max_connections = 1000;
+    };
   };
 
   nix = {
@@ -95,6 +99,7 @@
   environment.systemPackages = with pkgs;[
     restic
   ];
+
   environment.persistence."/persist" = {
     directories = [
       "/var/lib"
