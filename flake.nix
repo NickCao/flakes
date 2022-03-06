@@ -58,6 +58,11 @@
       url = "github:DeterminateSystems/bootspec/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    matlab = {
+      url = "gitlab:doronbehar/nix-matlab";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, dns, ... }:
     let

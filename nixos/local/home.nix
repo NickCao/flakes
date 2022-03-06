@@ -156,6 +156,7 @@ in
     };
   };
   home.packages = with pkgs; [
+    matlab
     nix-top
     thunderbird
     helix

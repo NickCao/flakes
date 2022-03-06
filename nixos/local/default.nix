@@ -14,6 +14,7 @@ nixpkgs.lib.nixosSystem {
       nixpkgs.overlays = [
         self.overlay
         inputs.rust-overlay.overlay
+        inputs.matlab.overlay
       ];
       nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       nix.registry.p.flake = self;
