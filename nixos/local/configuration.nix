@@ -298,6 +298,7 @@
         ".thunderbird"
         ".config/fcitx5"
         ".config/mc"
+        ".matlab"
       ];
     };
   };

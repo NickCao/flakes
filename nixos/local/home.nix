@@ -201,6 +201,7 @@ in
   home.sessionVariables = {
     EDITOR = "hx";
     LIBVA_DRIVER_NAME = "iHD";
+    _JAVA_AWT_WM_NONREPARENTING = 1;
     # cache
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
@@ -453,6 +454,9 @@ in
         GO111MODULE=on
         GOPROXY=https://goproxy.cn
         GOSUMDB=sum.golang.google.cn
+      '';
+      "matlab/nix.sh".text = ''
+        INSTALL_DIR=$HOME/Documents/matlab
       '';
     };
   };
