@@ -105,6 +105,7 @@
   '';
 
   environment.systemPackages = with pkgs;[
+    tmux
     restic
   ];
 
