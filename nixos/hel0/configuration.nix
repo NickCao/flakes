@@ -30,6 +30,9 @@
     };
   };
   services.postgresql.package = pkgs.postgresql_14;
+  services.postgresql.settings = {
+    max_connections = 1000;
+  };
 
   nix = {
     package = pkgs.nixUnstable;

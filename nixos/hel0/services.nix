@@ -43,69 +43,79 @@
     "mautrix-telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
     "matrix-appservice-irc:/var/lib/matrix-appservice-irc/registration.yml"
   ];
-  services.dendrite = {
-    enable = true;
-    httpAddress = "127.0.0.1:8008";
-    settings = {
-      global = {
-        server_name = "nichi.co";
-        private_key = "/$CREDENTIALS_DIRECTORY/matrix";
+  services.dendrite =
+    let
+      database = {
+        connection_string = "postgres:///dendrite?host=/run/postgresql";
+        max_open_conns = -1;
       };
-      logging = [{
-        type = "std";
-        level = "warn";
-      }];
-      app_service_api = {
-        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-        config_files = [
-          "/$CREDENTIALS_DIRECTORY/mautrix-telegram"
-          "/$CREDENTIALS_DIRECTORY/matrix-appservice-irc"
-        ];
-      };
-      client_api = {
-        registration_disabled = true;
-      };
-      media_api = {
-        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-        max_file_size_bytes = 104857600;
-        dynamic_thumbnails = true;
-      };
-      room_server = {
-        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-      };
-      mscs = {
-        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-        mscs = [ "msc2444" "msc2753" "msc2836" "msc2946" ];
-      };
-      sync_api = {
-        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-        real_ip_header = "X-Real-IP";
-      };
-      key_server = {
-        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-      };
-      federation_api = {
-        database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-        key_perspectives = [{
-          server_name = "matrix.org";
-          keys = [
-            {
-              key_id = "ed25519:auto";
-              public_key = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
-            }
-            {
-              key_id = "ed25519:a_RXGa";
-              public_key = "l8Hft5qXKn1vfHrg3p4+W8gELQVo8N13JkluMfmn2sQ";
-            }
-          ];
+    in
+    {
+      enable = true;
+      httpAddress = "127.0.0.1:8008";
+      settings = {
+        global = {
+          server_name = "nichi.co";
+          private_key = "/$CREDENTIALS_DIRECTORY/matrix";
+        };
+        logging = [{
+          type = "std";
+          level = "warn";
         }];
-      };
-      user_api = {
-        account_database.connection_string = "postgres:///dendrite?host=/run/postgresql";
-        device_database.connection_string = "postgres:///dendrite?host=/run/postgresql";
+        app_service_api = {
+          inherit database;
+          config_files = [
+            "/$CREDENTIALS_DIRECTORY/mautrix-telegram"
+            "/$CREDENTIALS_DIRECTORY/matrix-appservice-irc"
+          ];
+        };
+        client_api = {
+          registration_disabled = true;
+        };
+        media_api = {
+          inherit database;
+          max_file_size_bytes = 104857600;
+          dynamic_thumbnails = true;
+        };
+        room_server = {
+          inherit database;
+        };
+        push_server = {
+          inherit database;
+        };
+        mscs = {
+          inherit database;
+          mscs = [ "msc2444" "msc2753" "msc2836" "msc2946" ];
+        };
+        sync_api = {
+          inherit database;
+          real_ip_header = "X-Real-IP";
+        };
+        key_server = {
+          inherit database;
+        };
+        federation_api = {
+          inherit database;
+          key_perspectives = [{
+            server_name = "matrix.org";
+            keys = [
+              {
+                key_id = "ed25519:auto";
+                public_key = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
+              }
+              {
+                key_id = "ed25519:a_RXGa";
+                public_key = "l8Hft5qXKn1vfHrg3p4+W8gELQVo8N13JkluMfmn2sQ";
+              }
+            ];
+          }];
+        };
+        user_api = {
+          account_database = database;
+          device_database = database;
+        };
       };
     };
-  };
 
   services.mautrix-telegram = {
     enable = true;
