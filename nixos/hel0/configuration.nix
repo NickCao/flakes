@@ -10,25 +10,25 @@
       Port 23
       IdentityFile ${config.sops.secrets.backup.path}
   '';
+
   services.restic.backups = {
-    backup = {
+    files = {
       repository = "sftp:u273007.your-storagebox.de:backup";
       passwordFile = config.sops.secrets.restic.path;
-      paths = [
-        "/persist/var/lib/bitwarden_rs"
-        "/persist/var/lib/hydra"
-        "/persist/var/lib/knot"
-        "/persist/var/lib/maddy"
-        "/persist/var/lib/postgresql"
-        "/persist/var/lib/dendrite"
-        "/persist/var/lib/mautrix-telegram"
-        "/persist/var/lib/matrix-appservice-irc"
+      paths = builtins.map (x: "/persist/var/lib/" + x) [
+        "bitwarden_rs"
+        "knot"
+        "maddy"
+        "matrix-appservice-irc"
+        "private/dendrite"
+        "private/mautrix-telegram"
       ];
       timerConfig = {
         OnCalendar = "daily";
       };
     };
   };
+
   services.postgresql.package = pkgs.postgresql_14;
   services.postgresql.settings = {
     max_connections = 1000;
