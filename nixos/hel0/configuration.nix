@@ -51,6 +51,7 @@
       max_parallel_workers_per_gather = 4;
       max_parallel_workers = 12;
       max_parallel_maintenance_workers = 4;
+      synchronous_commit = "off";
     };
   };
 
