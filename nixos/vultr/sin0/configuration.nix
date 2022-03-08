@@ -9,7 +9,39 @@
   networking.hostName = "sin0";
   services.gravity = {
     enable = true;
-    config = config.sops.secrets.rait.path;
+    envfile = config.sops.secrets.rait.path;
+    config = pkgs.writeText "rait.conf" ''
+      registry     = env("REGISTRY")
+      operator_key = env("OPERATOR_KEY")
+      private_key  = env("PRIVATE_KEY")
+      namespace    = "gravity"
+      remarks = {
+        prefix     = "2a0c:b641:69c:f250::/60"
+        maintainer = "nickcao"
+        name       = "nick_sin"
+      }
+      transport {
+        address_family = "ip4"
+        address        = "sin0.nichi.link"
+        send_port      = 50385
+        mtu            = 1400
+        ifprefix       = "grv4x"
+        ifgroup        = 54
+        fwmark         = 54
+      }
+      transport {
+        address_family = "ip6"
+        address        = "sin0.nichi.link"
+        send_port      = 50387
+        mtu            = 1400
+        ifprefix       = "grv6x"
+        ifgroup        = 56
+        fwmark         = 54
+      }
+      babeld {
+        enabled = true
+      }
+    '';
     address = "2a0c:b641:69c:f250::1/126";
     group = 54;
     postStart = [
