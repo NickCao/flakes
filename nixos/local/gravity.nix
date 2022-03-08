@@ -14,7 +14,42 @@ in
   services.gravity = {
     enable = true;
     group = 1;
-    config = config.sops.secrets.rait.path;
+    envfile = config.sops.secrets.rait.path;
+    config = pkgs.writeText "rait.conf" ''
+      registry     = env("REGISTRY")
+      operator_key = env("OPERATOR_KEY")
+      private_key  = env("PRIVATE_KEY")
+      namespace    = "gravity"
+
+      transport {
+        address_family = "ip4"
+        send_port      = 50153
+        mtu            = 1400
+        ifprefix       = "grv4x"
+        ifgroup        = 1
+        fwmark         = 54
+        random_port    = false
+      }
+
+      transport {
+        address_family = "ip6"
+        send_port      = 50154
+        mtu            = 1400
+        ifprefix       = "grv6x"
+        ifgroup        = 2
+        fwmark         = 54
+        random_port    = false
+      }
+
+      babeld {
+        enabled = true
+      }
+
+      remarks = {
+        location = "thu"
+        operator = "nickcao"
+      }
+    '';
     address = "2a0c:b641:69c:99cc::1/126";
   };
 

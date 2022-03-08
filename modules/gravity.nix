@@ -10,6 +10,11 @@ in
       type = types.path;
       description = "path to rait config";
     };
+    envfile = mkOption {
+      type = types.nullOr types.path;
+      description = "path to envfile";
+      default = null;
+    };
     address = mkOption {
       type = types.str;
       description = "address to add into netns (as icmp source address)";
@@ -43,6 +48,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.gravity = {
       serviceConfig = with pkgs;{
+        EnvironmentFile = cfg.envfile;
         ExecStartPre = [
           "${iproute2}/bin/ip netns add ${cfg.netns}"
           "${iproute2}/bin/ip link add ${cfg.link} address 00:00:00:00:00:02 group ${toString cfg.group} type veth peer host address 00:00:00:00:00:01 netns ${cfg.netns}"
