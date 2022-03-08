@@ -21,14 +21,6 @@
       sha256 = "sha256-jt0zxrIyO9sd8HFztK8QNOTrj72X2YzSxo/ddQAteVM=";
     };
   };
-  karma-bin = {
-    pname = "karma-bin";
-    version = "v0.99";
-    src = fetchurl {
-      url = "https://github.com/prymitive/karma/releases/download/v0.99/karma-linux-amd64.tar.gz";
-      sha256 = "sha256-art9uEhZC8U1yRd8hwnZTeubW5viigsAJ+MaJoDzaNE=";
-    };
-  };
   mokutil = {
     pname = "mokutil";
     version = "0.5.0";
@@ -39,18 +31,6 @@
       fetchSubmodules = false;
       sha256 = "sha256-dt41TCr6RkmE9H+NN8LWv3ogGsK38JtLjVN/b2mbGJs=";
     });
-  };
-  prometheus_bot = {
-    pname = "prometheus_bot";
-    version = "b0f68d04ba9e145f07c2b5e7454cbd415085a099";
-    src = fetchFromGitHub ({
-      owner = "inCaller";
-      repo = "prometheus_bot";
-      rev = "b0f68d04ba9e145f07c2b5e7454cbd415085a099";
-      fetchSubmodules = false;
-      sha256 = "sha256-v3nLD1chE25GwIJ6+bWTwCuHvsnlNtijdKKMS4UsIz4=";
-    });
-    vendorSha256 = "sha256-Y8cUYjhJxndvV8Ib4XIblZ9Z0SvnkPzNTDMjEd3R4II=";
   };
   rait = {
     pname = "rait";

@@ -1,41 +1,4 @@
 {
-    "karma-bin": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "karma-bin",
-        "src": {
-            "url": "https://github.com/prymitive/karma/releases/download/v0.99/karma-linux-amd64.tar.gz",
-            "name": null,
-            "type": "url",
-            "sha256": "sha256-art9uEhZC8U1yRd8hwnZTeubW5viigsAJ+MaJoDzaNE="
-        },
-        "version": "v0.99",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
-    },
-    "prometheus_bot": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "prometheus_bot",
-        "src": {
-            "deepClone": false,
-            "owner": "inCaller",
-            "name": null,
-            "repo": "prometheus_bot",
-            "type": "github",
-            "sha256": "sha256-v3nLD1chE25GwIJ6+bWTwCuHvsnlNtijdKKMS4UsIz4=",
-            "rev": "b0f68d04ba9e145f07c2b5e7454cbd415085a099",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
-        },
-        "version": "b0f68d04ba9e145f07c2b5e7454cbd415085a099",
-        "passthru": {
-            "vendorSha256": "sha256-Y8cUYjhJxndvV8Ib4XIblZ9Z0SvnkPzNTDMjEd3R4II="
-        },
-        "extract": null,
-        "rustGitDeps": null
-    },
     "fcitx5-pinyin-zhwiki": {
         "pinned": false,
         "cargoLock": null,
