@@ -21,17 +21,6 @@
       sha256 = "sha256-jt0zxrIyO9sd8HFztK8QNOTrj72X2YzSxo/ddQAteVM=";
     };
   };
-  mokutil = {
-    pname = "mokutil";
-    version = "0.5.0";
-    src = fetchFromGitHub ({
-      owner = "lcp";
-      repo = "mokutil";
-      rev = "0.5.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-dt41TCr6RkmE9H+NN8LWv3ogGsK38JtLjVN/b2mbGJs=";
-    });
-  };
   rait = {
     pname = "rait";
     version = "e84e803641ec3a2dce5670275ea8d5497608f483";
@@ -47,13 +36,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "74df74cf84a26510bde774128112bb3c3ce0aea2";
+    version = "b4c13fc628002d3f6e0e206fb01653e1126b8a6d";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "74df74cf84a26510bde774128112bb3c3ce0aea2";
+      rev = "b4c13fc628002d3f6e0e206fb01653e1126b8a6d";
       fetchSubmodules = false;
-      sha256 = "sha256-nwmOBTbMhScViVU7s9UBJKP28Kjtj9sm769oS0HGNBc=";
+      sha256 = "sha256-q6GsRnu28yml0cJfICFQNotCIcBQzWCtZWD+1iBiuM8=";
     });
   };
   wemeet = {
