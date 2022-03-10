@@ -128,6 +128,9 @@
       telegram = {
         api_id = 611335;
         api_hash = "d524b414d21f4d37f08684c1df41ac9c";
+        device_info = {
+          app_version = "3.5.2";
+        };
       };
       logging = {
         loggers = {
