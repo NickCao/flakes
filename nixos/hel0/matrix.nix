@@ -115,6 +115,7 @@
       bridge = {
         permissions = {
           "@nickcao:nichi.co" = "admin";
+          "@lilydjwg:mozilla.org" = "admin";
         };
         displayname_template = "{displayname}";
         sync_create_limit = 0;
@@ -179,7 +180,7 @@
               };
               allowNickChanges = true;
               nickTemplate = "$DISPLAY[m]";
-              maxClients = 200;
+              maxClients = 100;
             };
             matrixClients = {
               userTemplate = "@irc_$NICK";
