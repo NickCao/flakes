@@ -159,6 +159,7 @@
             dynamicChannels.enabled = false;
             mappings = {
               "#archlinux-cn-offtopic".roomIds = [ "!10jWf5woGknAxUIo:nichi.co" ];
+              "#archlinux-cn".roomIds = [ "!UHHHnH1yQPMB8Hc3:nichi.co" ];
             };
             botConfig = {
               nick = "nichi_matrix_bot";
