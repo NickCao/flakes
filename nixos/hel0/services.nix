@@ -71,7 +71,7 @@
   services.hydra = {
     enable = true;
     package = pkgs.hydra-unstable.override {
-      nix = pkgs.nixVersions.unstable.overrideAttrs (_: {
+      nix = pkgs.nixVersions.stable.overrideAttrs (_: {
         patches = [
           (pkgs.fetchurl {
             url = "https://github.com/NixOS/nix/commit/33603df68144e124edc4f147d1a67884d131f5a4.patch";
