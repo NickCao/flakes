@@ -49,6 +49,7 @@
         };
         client_api = {
           registration_disabled = true;
+          rate_limiting.enabled = false;
         };
         media_api = {
           inherit database;
