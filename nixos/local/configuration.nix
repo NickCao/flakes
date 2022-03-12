@@ -30,7 +30,7 @@
   };
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.stable;
     settings = {
       trusted-users = [ "root" "nickcao" ];
       substituters = pkgs.lib.mkBefore [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://cache.nichi.co" ];

@@ -12,7 +12,7 @@ nixpkgs.lib.nixosSystem {
     inputs.bootspec.nixosModules.bootspec
     {
       nixpkgs.overlays = [
-        self.overlay
+        self.overlays.default
         inputs.rust-overlay.overlay
         inputs.matlab.overlay
       ];

@@ -12,7 +12,7 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.cloud.services
     {
       nixpkgs.overlays = [
-        self.overlay
+        self.overlays.default
       ];
     }
     inputs.sops-nix.nixosModules.sops

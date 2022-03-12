@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1646125561,
-        "narHash": "sha256-zgz33BBRmv45kMVVKJDstjZUhUCiMDawuLbr/8bVCmo=",
+        "lastModified": 1647098272,
+        "narHash": "sha256-ifLkxwT61aMHLcxeu2+FuLZOGT0GSseyJ/4DJQHNdYg=",
         "owner": "NickCao",
         "repo": "blog",
-        "rev": "08b0d5ed4355b8d571e14efe25fb397346bc833e",
+        "rev": "f741c659b50c922038677e57e74289c4d34b65d8",
         "type": "gitlab"
       },
       "original": {
@@ -195,11 +195,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1646838260,
-        "narHash": "sha256-6l/mqQvxxBR2KwR27zmuWYGC7B0Ki18D01BpbGYL+Z0=",
+        "lastModified": 1647097364,
+        "narHash": "sha256-NoMjAvBJ8bfz79f9Uc3+PX++KG7tfOz5HtyEg72QLZU=",
         "owner": "doronbehar",
         "repo": "nix-matlab",
-        "rev": "b210a8454d09b608155df153591cde15db7d20c8",
+        "rev": "26fe60af4b198d2026b32495337dd7552736505b",
         "type": "gitlab"
       },
       "original": {

@@ -13,9 +13,9 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.cloud.services
     {
       nixpkgs.overlays = [
-        self.overlay
+        self.overlays.default
         inputs.fn.overlay
-        inputs.blog.overlay
+        inputs.blog.overlays.default
         inputs.rust-overlay.overlay
       ];
     }

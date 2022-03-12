@@ -79,7 +79,7 @@
               allowUnsupportedSystem = true;
             };
             overlays = [
-              self.overlay
+              self.overlays.default
               inputs.deploy-rs.overlay
               inputs.rust-overlay.overlay
               inputs.fn.overlay
@@ -97,7 +97,7 @@
             nodes = pkgs.lib.filterAttrs (name: cfg: cfg.profiles.system.path.system == system) self.deploy.nodes;
           });
           legacyPackages = pkgs;
-          devShell = with pkgs; mkShell {
+          devShells.default = with pkgs; mkShell {
             nativeBuildInputs = [ deploy-rs.deploy-rs ];
           };
         }
@@ -106,7 +106,7 @@
       hydraJobs = self.packages.x86_64-linux // nixpkgs.lib.mapAttrs (_: v: v.config.system.build.toplevel)
         (nixpkgs.lib.filterAttrs (_: v: v.pkgs.system == "x86_64-linux") self.nixosConfigurations);
       nixosModules = import ./modules;
-      overlay = final: prev: (nixpkgs.lib.composeExtensions this.overlay
+      overlays.default = final: prev: (nixpkgs.lib.composeExtensions this.overlay
         (final: prev: {
           "db.co.nichi" = final.writeText "db.co.nichi" (import ./zones/nichi.co.nix { inherit dns; });
           "db.link.nichi" = final.writeText "db.link.nichi" (import ./zones/nichi.link.nix { inherit dns; });

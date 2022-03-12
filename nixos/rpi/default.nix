@@ -4,6 +4,6 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     inputs.sops-nix.nixosModules.sops
-    { nixpkgs.overlays = [ self.overlay ]; }
+    { nixpkgs.overlays = [ self.overlays.default ]; }
   ];
 }
