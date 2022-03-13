@@ -22,6 +22,7 @@
       tsig = { sopsFile = ../../modules/dns/secondary/secrets.yaml; owner = "knot"; };
       gravity = { owner = "knot"; };
       gravity_reverse = { owner = "knot"; };
+      srt = { };
     };
   };
 
@@ -125,25 +126,12 @@
     envFile = config.sops.secrets.meow.path;
   };
 
-  cloud.services.srtrelay = let config = (pkgs.formats.toml { }).generate "config.toml" {
-    api.enabled = false;
-    app = {
-      addresses = [ "[::]:1337" ];
-      buffersize = 384000;
-      latency = 600;
-      publicAddress = "live.nichi.co:1337";
-      syncClients = true;
-    };
-    auth = {
-      type = "static";
-      static = {
-        allow = [
-          # "publish/*"
-          "play/*"
-        ];
-      };
-    };
-  }; in { exec = "${pkgs.srtrelay}/bin/srtrelay -config ${config}"; };
+  cloud.services.srt-live-transmit = {
+    exec = ''${pkgs.srt}/bin/srt-live-transmit \
+              srt://[::]:5001?mode=listener&latency=2000&passphrase=''${PASSPHRASE} \
+              srt://[::]:5002?mode=listener&latency=2000'';
+    envFile = config.sops.secrets.srt.path;
+  };
 
   systemd.services.nixbot = {
     serviceConfig = {
