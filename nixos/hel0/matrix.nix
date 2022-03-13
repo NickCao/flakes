@@ -21,6 +21,7 @@
     "matrix-appservice-irc:/var/lib/matrix-appservice-irc/registration.yml"
   ];
 
+  systemd.services.dendrite.after = [ "postgresql.service" ];
   services.dendrite =
     let
       database = {
