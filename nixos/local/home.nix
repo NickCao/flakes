@@ -96,9 +96,6 @@ in
         };
       };
       bars = [ ];
-      floating.criteria = [
-        { app_id = "blueberry.py"; }
-      ];
     };
   };
   programs.helix = {
@@ -165,7 +162,6 @@ in
     nixpkgs-review
     waypipe
     xdg-utils
-    blueberry
     pavucontrol
     brightnessctl
     ripgrep
