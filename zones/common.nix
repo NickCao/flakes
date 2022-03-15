@@ -3,7 +3,7 @@ in
 {
   TTL = 30;
   SOA = {
-    nameServer = "sea0.nichi.link.";
+    nameServer = "hel0.nichi.link.";
     adminEmail = "noc@nichi.co";
     serial = 0000000000;
     refresh = 600;

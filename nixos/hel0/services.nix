@@ -187,13 +187,13 @@
       tcp = {
         routers = {
           imap = {
-            rule = "HostSNI(`hel0.nichi.link`)";
+            rule = "HostSNI(`${config.networking.fqdn}`)";
             entryPoints = [ "imap" ];
             service = "imap";
             tls = { };
           };
           submission = {
-            rule = "HostSNI(`hel0.nichi.link`)";
+            rule = "HostSNI(`${config.networking.fqdn}`)";
             entryPoints = [ "submission" ];
             service = "submission";
             tls = { };

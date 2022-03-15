@@ -22,7 +22,7 @@
       }
       transport {
         address_family = "ip4"
-        address        = "sin0.nichi.link"
+        address        = "${config.networking.fqdn}"
         send_port      = 50385
         mtu            = 1400
         ifprefix       = "grv4x"
@@ -31,7 +31,7 @@
       }
       transport {
         address_family = "ip6"
-        address        = "sin0.nichi.link"
+        address        = "${config.networking.fqdn}"
         send_port      = 50387
         mtu            = 1400
         ifprefix       = "grv6x"
