@@ -116,6 +116,7 @@
       };
       bridge = {
         permissions = {
+          "*" = "relaybot";
           "@nickcao:nichi.co" = "admin";
           "@lilydjwg:mozilla.org" = "admin";
         };
