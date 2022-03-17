@@ -239,7 +239,7 @@
       nickcao = {
         isNormalUser = true;
         passwordFile = config.sops.secrets.passwd.path;
-        extraGroups = [ "wheel" "networkmanager" ];
+        extraGroups = [ "wheel" "video" ];
       };
     };
   };

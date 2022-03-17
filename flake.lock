@@ -195,11 +195,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1647270296,
-        "narHash": "sha256-U0VXjPlk5QdrCmPwW6I/60vtXLrhuLdV6p//r2Q48Nc=",
+        "lastModified": 1647356725,
+        "narHash": "sha256-xUm0Akts/ZbDdiywclzKv+dANDvYmsQp9669CA6DBjA=",
         "owner": "doronbehar",
         "repo": "nix-matlab",
-        "rev": "f90a6d5d91c5d4c72b48e7228cd2a940482c6a03",
+        "rev": "5dc3a263e9038d41abe58e610e714f922fbf0bb7",
         "type": "gitlab"
       },
       "original": {
@@ -246,11 +246,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1647316676,
-        "narHash": "sha256-4jeinjldAm64mWwtUlk66tX7n8eYzctNaughWu0ajUk=",
+        "lastModified": 1647425192,
+        "narHash": "sha256-uoOxB/P8mXrAeEnZgfu/H6DzO/XqTpDxaBQDyAD8gyE=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "5bce8b519b0829763433a94e85f24436e5a0cedc",
+        "rev": "bcf5b41096d77302bf3f23fc0751f4aa3942ace6",
         "type": "github"
       },
       "original": {
@@ -315,11 +315,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1647311412,
-        "narHash": "sha256-QS/7FRv48jCp/5t9jAgJL+Psx+wuUdwu5g35XHLmpDw=",
+        "lastModified": 1647397753,
+        "narHash": "sha256-Q8HjnWFj+Gdx4ElvBiF99xhhZpeGdn1OZsGzyOrg7+Y=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "e005f7e14ce46b4309ac723ba2c8acbc6c6cee61",
+        "rev": "dcc7af39185159fb2b8356bacca0473804a5b90e",
         "type": "github"
       },
       "original": {
