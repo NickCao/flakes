@@ -57,11 +57,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1647587908,
-        "narHash": "sha256-AgJyUH1SUUhK3XMlpX+HgH7qOuadwGSY4zQzB+bDM6w=",
+        "lastModified": 1647593214,
+        "narHash": "sha256-BUr5L4yQ0TulVTA5a6LXXw8jy6BcyvY3C/5wkngFRcg=",
         "owner": "NickCao",
         "repo": "carinae",
-        "rev": "9ff409bb44b7918aa73d224ac8307d27659027af",
+        "rev": "cabdc80d410ecabbb80355efda5e5db87c34f13c",
         "type": "github"
       },
       "original": {
