@@ -12,7 +12,7 @@
       backup = { };
       hydra = { group = "hydra"; mode = "0440"; };
       hydra-github = { group = "hydra"; mode = "0440"; };
-      cache = { group = "hydra"; mode = "0440"; };
+      carinae = { };
       plct = { owner = "hydra-queue-runner"; };
       minio.restartUnits = [ "minio.service" ];
       nixbot.restartUnits = [ "nixbot.service" ];
@@ -29,13 +29,6 @@
   services.gateway.enable = true;
   services.sshcert.enable = true;
   services.metrics.enable = true;
-
-  services.nix-serve = {
-    enable = true;
-    bindAddress = "127.0.0.1";
-    port = 8004;
-    secretKeyFile = config.sops.secrets.cache.path;
-  };
 
   services.knot = {
     enable = true;
@@ -90,7 +83,6 @@
       include ${config.sops.secrets.hydra.path}
       github_client_id = e55d265b1883eb42630e
       github_client_secret_file = ${config.sops.secrets.hydra-github.path}
-      binary_cache_secret_key_file = ${config.sops.secrets.cache.path}
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
       <githubstatus>
         jobs = personal:flakes:.*
@@ -119,6 +111,11 @@
     image = "quay.io/numendacil/test:latest";
     extraOptions = [ "--network=slirp4netns" "--memory=4G" ];
     ports = [ "127.0.0.1:19000:8501" ];
+  };
+
+  cloud.services.carinae = {
+    exec = "${pkgs.carinae}/bin/carinae -l 127.0.0.1:8004";
+    envFile = config.sops.secrets.carinae.path;
   };
 
   cloud.services.meow = {
@@ -264,7 +261,7 @@
           };
           cache.loadBalancer = {
             passHostHeader = true;
-            servers = [{ url = "http://127.0.0.1:${builtins.toString config.services.nix-serve.port}"; }];
+            servers = [{ url = "http://127.0.0.1:8004"; }];
           };
         };
       };

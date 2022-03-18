@@ -44,6 +44,32 @@
         "type": "github"
       }
     },
+    "carinae": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1647574868,
+        "narHash": "sha256-b6w+QXCSrRJ7tvOGykLOt8zvumpn+4I5RSLYiAin+nE=",
+        "owner": "NickCao",
+        "repo": "carinae",
+        "rev": "a57d811318eda3d0160e440a42da405c26f808af",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NickCao",
+        "repo": "carinae",
+        "type": "github"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": [
@@ -290,6 +316,7 @@
       "inputs": {
         "blog": "blog",
         "bootspec": "bootspec",
+        "carinae": "carinae",
         "deploy-rs": "deploy-rs",
         "dns": "dns",
         "flake-compat": "flake-compat",
