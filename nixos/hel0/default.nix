@@ -15,6 +15,8 @@ nixpkgs.lib.nixosSystem {
       nixpkgs.overlays = [
         (final: prev: {
           carinae = inputs.carinae.packages."${system}".default;
+          canopus = inputs.canopus.packages."${system}".default;
+          nixpkgs = inputs.nixpkgs;
         })
         inputs.rust-overlay.overlay
         inputs.fn.overlay

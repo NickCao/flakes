@@ -13,6 +13,7 @@
       hydra = { group = "hydra"; mode = "0440"; };
       hydra-github = { group = "hydra"; mode = "0440"; };
       carinae = { };
+      canopus = { };
       plct = { owner = "hydra-queue-runner"; };
       minio.restartUnits = [ "minio.service" ];
       meow.restartUnits = [ "meow.service" ];
@@ -120,6 +121,33 @@
   cloud.services.meow = {
     exec = "${pkgs.meow}/bin/meow";
     envFile = config.sops.secrets.meow.path;
+  };
+
+  systemd.services.canopus.serviceConfig = {
+    MemoryLimit = lib.mkForce "5G";
+    SystemCallFilter = lib.mkForce null;
+  };
+  cloud.services.canopus = {
+    exec = "${pkgs.python3.withPackages (ps: with ps;[ python-telegram-bot ])}/bin/python ${pkgs.writeText "canopus.py" ''
+      from telegram.ext import Updater
+      from telegram import Update
+      from telegram.ext import CallbackContext
+      from telegram.ext import CommandHandler
+      import subprocess
+      import os
+      updater = Updater(token=os.environ['BOT_TOKEN'])
+      dispatcher = updater.dispatcher
+      def eval(update: Update, context: CallbackContext):
+          expr = "with import <nixpkgs> {};" + update.message.text.lstrip('/eval ')
+          try:
+              res = subprocess.run(["${pkgs.canopus}/bin/canopus", "${pkgs.nixpkgs}", expr], capture_output=True, timeout=5)
+              context.bot.send_message(chat_id=update.effective_chat.id, text=res.stdout.decode("utf-8"))
+          except Exception as e:
+              context.bot.send_message(chat_id=update.effective_chat.id, text="evaluation timed out")
+      dispatcher.add_handler(CommandHandler('eval', eval))
+      updater.start_polling()
+    ''}";
+    envFile = config.sops.secrets.canopus.path;
   };
 
   cloud.services.srt-live-transmit = {

@@ -44,6 +44,29 @@
         "type": "github"
       }
     },
+    "canopus": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1647680033,
+        "narHash": "sha256-BYBEwgHQ0dvswizXTDmMwDUOPhG0plM1RsDUEACNhLQ=",
+        "owner": "NickCao",
+        "repo": "canopus",
+        "rev": "6cd496907f5e08ebfd7d1c09b7fdf81868fbf3e2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NickCao",
+        "repo": "canopus",
+        "type": "github"
+      }
+    },
     "carinae": {
       "inputs": {
         "flake-utils": [
@@ -280,6 +303,7 @@
       "inputs": {
         "blog": "blog",
         "bootspec": "bootspec",
+        "canopus": "canopus",
         "carinae": "carinae",
         "deploy-rs": "deploy-rs",
         "dns": "dns",

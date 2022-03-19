@@ -65,6 +65,11 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.rust-overlay.follows = "rust-overlay";
     };
+    canopus = {
+      url = "github:NickCao/canopus";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, dns, ... }:
     let
