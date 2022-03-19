@@ -50,10 +50,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    nixbot = {
-      url = "github:Ninlives/nixbot-telegram";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     bootspec = {
       url = "github:DeterminateSystems/bootspec/main";
       inputs.nixpkgs.follows = "nixpkgs";

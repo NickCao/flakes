@@ -14,7 +14,6 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [
         (final: prev: {
-          inherit (inputs.nixbot.packages."${system}") nixbot-telegram;
           carinae = inputs.carinae.packages."${system}".default;
         })
         inputs.rust-overlay.overlay

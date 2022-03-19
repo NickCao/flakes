@@ -234,43 +234,7 @@
         "type": "gitlab"
       }
     },
-    "nixbot": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1622908748,
-        "narHash": "sha256-IaRrYREmHLxxtu8rz3MQV2yJQZ7e6QqW2L4tWurx0QQ=",
-        "owner": "Ninlives",
-        "repo": "nixbot-telegram",
-        "rev": "c463a41ad7ce8bbb976d7e2a4d970569ea22f5e6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Ninlives",
-        "repo": "nixbot-telegram",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
-      "locked": {
-        "lastModified": 1596045977,
-        "narHash": "sha256-0h5ylQcPZDeKJfUaXKo2vgsqYAbBpH1F2RA1H7r/Aro=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "1526f4534d360eb654e012fe2225235ad42b804e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
       "locked": {
         "lastModified": 1647425192,
         "narHash": "sha256-uoOxB/P8mXrAeEnZgfu/H6DzO/XqTpDxaBQDyAD8gyE=",
@@ -325,8 +289,7 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "matlab": "matlab",
-        "nixbot": "nixbot",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nvfetcher": "nvfetcher",
         "rust-overlay": "rust-overlay",
         "sops-nix": "sops-nix"

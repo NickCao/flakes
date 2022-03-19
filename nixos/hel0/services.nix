@@ -15,7 +15,6 @@
       carinae = { };
       plct = { owner = "hydra-queue-runner"; };
       minio.restartUnits = [ "minio.service" ];
-      nixbot.restartUnits = [ "nixbot.service" ];
       meow.restartUnits = [ "meow.service" ];
       dkim.restartUnits = [ "maddy.service" ];
       vault = { };
@@ -128,20 +127,6 @@
               srt://[::]:5001?mode=listener&latency=2000&passphrase=''${PASSPHRASE} \
               srt://[::]:5002?mode=listener&latency=2000'';
     envFile = config.sops.secrets.srt.path;
-  };
-
-  systemd.services.nixbot = {
-    serviceConfig = {
-      DynamicUser = true;
-      WorkingDirectory = "/tmp";
-      PrivateTmp = true;
-      Restart = "always";
-      LoadCredential = "nixbot:${config.sops.secrets.nixbot.path}";
-    };
-    script = ''
-      exec ${pkgs.nixbot-telegram}/bin/nixbot-telegram ''${CREDENTIALS_DIRECTORY}/nixbot
-    '';
-    wantedBy = [ "multi-user.target" ];
   };
 
   services.minio = {
