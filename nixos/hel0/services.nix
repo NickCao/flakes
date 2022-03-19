@@ -138,7 +138,7 @@
       updater = Updater(token=os.environ['BOT_TOKEN'])
       dispatcher = updater.dispatcher
       def eval(update: Update, context: CallbackContext):
-          expr = "with import <nixpkgs> {};" + update.message.text.lstrip('/eval ')
+          expr = "with import <nixpkgs> {};" + update.message.text.lstrip('/eval').lstrip('@nix_eval_bot')
           try:
               res = subprocess.run(["${pkgs.canopus}/bin/canopus", "${pkgs.nixpkgs}", expr], capture_output=True, timeout=5)
               context.bot.send_message(chat_id=update.effective_chat.id, text=res.stdout.decode("utf-8"))
