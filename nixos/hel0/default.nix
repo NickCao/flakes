@@ -7,6 +7,7 @@ nixpkgs.lib.nixosSystem {
     ./services.nix
     ./prometheus.nix
     ./matrix.nix
+    ./maddy.nix
     self.nixosModules.default
     self.nixosModules.cloud.services
     inputs.impermanence.nixosModules.impermanence
