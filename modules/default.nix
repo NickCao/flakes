@@ -1,10 +1,11 @@
 rec {
-  all = ({ ... }: {
+  default = ({ ... }: {
     imports = [
       (import ./gateway.nix)
       (import ./metrics.nix)
       (import ./sshcert)
       (import ./dns/secondary)
+      gravity
     ];
   });
   bgp = import ./bgp;

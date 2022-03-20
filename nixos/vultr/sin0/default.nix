@@ -5,7 +5,6 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     self.nixosModules.bgp
     self.nixosModules.vultr
-    self.nixosModules.gravity
     self.nixosModules.divi
     self.nixosModules.ss
     self.nixosModules.cloud.common

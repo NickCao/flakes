@@ -8,7 +8,7 @@ in
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-    (import ../.).all
+    (import ../.).default
   ];
 
   sops = {
