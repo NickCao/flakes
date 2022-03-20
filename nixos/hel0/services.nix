@@ -19,8 +19,8 @@
       meow.restartUnits = [ "meow.service" ];
       vault = { };
       tsig = { sopsFile = ../../modules/dns/secondary/secrets.yaml; owner = "knot"; };
-      gravity = { owner = "knot"; };
-      gravity_reverse = { owner = "knot"; };
+      gravity = { owner = "knot"; sopsFile = ./zones.yaml; };
+      gravity_reverse = { owner = "knot"; sopsFile = ./zones.yaml; };
       srt = { };
     };
   };
