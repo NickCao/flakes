@@ -5,7 +5,8 @@ let
 in
 {
   sops.secrets = {
-    dkim.reloadUnits = [ "maddy.service" ];
+    maddy.restartUnits = [ "maddy.service" ];
+    dkim.restartUnits = [ "maddy.service" ];
   };
   systemd.packages = [ pkgs.maddy ];
   environment.systemPackages = [ pkgs.maddy ];
@@ -20,11 +21,7 @@ in
     tls off
 
     auth.pass_table local_authdb {
-        table sql_table {
-            driver sqlite3
-            dsn credentials.db
-            table_name passwords
-        }
+        table file {env:CREDENTIALS_DIRECTORY}/passwd
     }
 
     storage.imapsql local_mailboxes {
@@ -110,9 +107,10 @@ in
   '';
   systemd.services.maddy = {
     wantedBy = [ "multi-user.target" ];
-    reloadTriggers = [ config.environment.etc."maddy/maddy.conf".source ];
+    restartTriggers = [ config.environment.etc."maddy/maddy.conf".source ];
     serviceConfig = {
       LoadCredential = [
+        "passwd:${config.sops.secrets.maddy.path}"
         "dkim.key:${config.sops.secrets.dkim.path}"
       ];
     };
