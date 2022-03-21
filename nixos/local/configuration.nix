@@ -115,11 +115,7 @@
     loader = {
       timeout = 0;
       efi.canTouchEfiVariables = true;
-      secureboot = {
-        enable = true;
-        signingKeyPath = config.sops.secrets."db.key".path;
-        signingCertPath = config.sops.secrets."db.crt".path;
-      };
+      systemd-boot.enable = true;
     };
     kernel = {
       sysctl = {
@@ -304,4 +300,5 @@
   };
 
   system.stateVersion = "20.09";
+  documentation.nixos.enable = false;
 }
