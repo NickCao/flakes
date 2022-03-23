@@ -36,6 +36,9 @@
         global = {
           server_name = "nichi.co";
           private_key = "/$CREDENTIALS_DIRECTORY/matrix";
+          jetstream = {
+            storage_path = "$STATE_DIRECTORY/nats";
+          };
         };
         logging = [{
           type = "std";
@@ -169,7 +172,7 @@
             privateMessages.enabled = false;
             dynamicChannels.enabled = false;
             mappings = {
-              "#archlinux-cn-offtopic".roomIds = [ "!10jWf5woGknAxUIo:nichi.co" ];
+              "#archlinux-cn-offtopic".roomIds = [ "!XJBVvKkaVlDkUvqiwd:matrix.org" ];
               "#archlinux-cn".roomIds = [ "!UHHHnH1yQPMB8Hc3:nichi.co" ];
             };
             botConfig = {
