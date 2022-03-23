@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1646932222,
-        "narHash": "sha256-HQjxaRWHcSRHxYM4pH51kwVDDduZSVUl2qG2gN4fXwM=",
+        "lastModified": 1647897889,
+        "narHash": "sha256-c/ThLGJ7UfLpLyoO5OwoKG3Qp/9tn69Mtfe/x+tJvgM=",
         "owner": "DeterminateSystems",
         "repo": "bootspec",
-        "rev": "62eaa41993efe3788ea48d9b63fb84a294b67a3a",
+        "rev": "bfe4aa6a561a05fa8f6eb62e0db3cc387f9b6634",
         "type": "github"
       },
       "original": {
@@ -206,11 +206,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1647821523,
-        "narHash": "sha256-NAIY357pAOcxK6bAt83kKEJ2LxZhLCiPIlmQ2iTQbk4=",
+        "lastModified": 1647979468,
+        "narHash": "sha256-mavkG6rOyM5NPcb/hEmZQwRZaJeaa7XFfWTWf0TNCo0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "835797f3a4a59459a316ae8d4ab91fa59faf61a4",
+        "rev": "48a1584d8ba427dd9d74e2b2b842c70a6dd9c4fa",
         "type": "github"
       },
       "original": {
@@ -259,11 +259,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1647878600,
-        "narHash": "sha256-aAUi+UtManQD9KT9ERoDk3snAHnERFcr/FVXya90k2I=",
+        "lastModified": 1647999213,
+        "narHash": "sha256-ADTz1K7B400xJOCPohhbKDQwPQamJ7d5dqyh9oMzrWM=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "dd6d75bd164430e6f0409792c3c38977c3d0fa9e",
+        "rev": "96c55af21f0ba41b0afca5fdd4d2969730f70237",
         "type": "github"
       },
       "original": {
@@ -329,11 +329,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1647829973,
-        "narHash": "sha256-z3gJX54DX6v4nQS1OgggtnZ4qRcqknoS3/WpX5ksceA=",
+        "lastModified": 1647916392,
+        "narHash": "sha256-xiZ4Bzj2KLzphnBh6zMBKm/Icc7grN8CcaFepXhx8y4=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "458f4fcd4450b8bfd2e2c8ca4f7673809bfe344c",
+        "rev": "a4ba09b440c10a45124aa75667c36549ddadac4d",
         "type": "github"
       },
       "original": {
