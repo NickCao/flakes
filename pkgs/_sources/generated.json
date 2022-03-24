@@ -61,12 +61,12 @@
             "name": null,
             "repo": "dnsmasq-china-list",
             "type": "github",
-            "sha256": "sha256-snEQOpnSbj61WJnPFbPuyuIWLCRyw2R59GkNNdOs47E=",
-            "rev": "1d0bd1a74a117dd2b883a21d2338e561435123ad",
+            "sha256": "sha256-U/PcY34k1T/Yx4rlyfkAx4SsS/mZLXeImOInehC1yPQ=",
+            "rev": "f78dc46717760ac74412b99cead5af15f2bde604",
             "leaveDotGit": false,
             "fetchSubmodules": false
         },
-        "version": "1d0bd1a74a117dd2b883a21d2338e561435123ad",
+        "version": "f78dc46717760ac74412b99cead5af15f2bde604",
         "passthru": null,
         "extract": null,
         "rustGitDeps": null
