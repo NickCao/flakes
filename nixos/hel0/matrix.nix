@@ -21,6 +21,10 @@
     "matrix-appservice-irc:/var/lib/matrix-appservice-irc/registration.yml"
   ];
 
+  cloud.services.element-web = {
+    exec = "${pkgs.serve}/bin/serve -l 127.0.0.1:8005 -p ${pkgs.element-web}";
+  };
+
   systemd.services.dendrite.after = [ "postgresql.service" ];
   services.dendrite =
     let
@@ -214,14 +218,26 @@
   };
 
   services.traefik.dynamicConfigOptions.http = {
-    routers.matrix = {
-      rule = "Host(`matrix.nichi.co`)";
-      entryPoints = [ "https" ];
-      service = "dendrite";
+    routers = {
+      matrix = {
+        rule = "Host(`matrix.nichi.co`) && PathPrefix(`/_matrix`)";
+        entryPoints = [ "https" ];
+        service = "dendrite";
+      };
+      element = {
+        rule = "Host(`matrix.nichi.co`)";
+        entryPoints = [ "https" ];
+        service = "element";
+      };
     };
-    services.dendrite.loadBalancer = {
-      passHostHeader = true;
-      servers = [{ url = "http://${config.services.dendrite.httpAddress}"; }];
+    services = {
+      element.loadBalancer = {
+        servers = [{ url = "http://127.0.0.1:8005"; }];
+      };
+      dendrite.loadBalancer = {
+        passHostHeader = true;
+        servers = [{ url = "http://${config.services.dendrite.httpAddress}"; }];
+      };
     };
   };
 }
