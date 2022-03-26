@@ -44,6 +44,9 @@
             stsSeconds = 31536000;
             stsIncludeSubdomains = true;
             stsPreload = true;
+            accessControlAllowMethods = [ "GET" ];
+            accessControlAllowOriginList = [ "https://matrix.nichi.co" ];
+            accessControlMaxAge = 3600;
           };
         };
         services = {
