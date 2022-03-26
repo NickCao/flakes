@@ -194,6 +194,7 @@
         };
       };
     };
+    udisks2.enable = false;
     pcscd.enable = true;
     fstrim.enable = true;
     logind.lidSwitch = "ignore";
