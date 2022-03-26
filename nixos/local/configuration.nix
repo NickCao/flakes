@@ -105,8 +105,6 @@
     };
   };
 
-  powerManagement.cpuFreqGovernor = "powersave";
-
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     tmpOnTmpfs = true;
@@ -196,7 +194,6 @@
         };
       };
     };
-    power-profiles-daemon.enable = true;
     pcscd.enable = true;
     fstrim.enable = true;
     logind.lidSwitch = "ignore";
@@ -214,9 +211,15 @@
     };
     udev = {
       packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
-      extraRules = ''
-        SUBSYSTEMS=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
-      '';
+      extraRules =
+        let power = pkgs.writeShellScript "power" ''
+          ${config.boot.kernelPackages.cpupower}/bin/cpupower frequency-set --governor $1
+        ''; in
+        ''
+          SUBSYSTEMS=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
+          SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${power} powersave"
+          SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${power} performance"
+        '';
     };
     xserver = {
       videoDrivers = [ "nvidia" ];
