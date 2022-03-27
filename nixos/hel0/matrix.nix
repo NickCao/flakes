@@ -190,7 +190,6 @@
       ];
       irc = {
         libera = {
-          ColorNicks = true;
           MessageDelay = 100;
           MessageLength = 400;
           MessageSplit = true;
