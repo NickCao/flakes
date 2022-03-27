@@ -21,7 +21,6 @@
         "bitwarden_rs"
         "knot"
         "maddy"
-        "matrix-appservice-irc"
         "private/dendrite"
         "private/mautrix-telegram"
         "backup/postgresql"

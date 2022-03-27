@@ -4,6 +4,7 @@
     secrets = {
       mautrix-telegram = { };
       matrix = { };
+      matterbridge = { };
     };
   };
 
@@ -12,13 +13,11 @@
   services.postgresql.authentication = ''
     local dendrite dendrite peer
     local mautrix-telegram mautrix-telegram peer
-    local matrix-appservice-irc matrix-appservice-irc peer
   '';
 
   systemd.services.dendrite.serviceConfig.LoadCredential = [
     "matrix:${config.sops.secrets.matrix.path}"
     "mautrix-telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
-    "matrix-appservice-irc:/var/lib/matrix-appservice-irc/registration.yml"
   ];
 
   cloud.services.element-web = {
@@ -52,7 +51,6 @@
           inherit database;
           config_files = [
             "/$CREDENTIALS_DIRECTORY/mautrix-telegram"
-            "/$CREDENTIALS_DIRECTORY/matrix-appservice-irc"
           ];
         };
         client_api = {
@@ -156,67 +154,65 @@
     };
   };
 
-  services.matrix-appservice-irc = {
+  services.matterbridge = {
     enable = true;
-    localpart = "irc";
-    port = 29318;
-    registrationUrl = "http://127.0.0.1:29318";
+    envFile = config.sops.secrets.matterbridge.path;
     settings = {
-      homeserver = {
-        url = "https://matrix.nichi.co";
-        domain = "nichi.co";
-        bindHostname = "127.0.0.1";
-        enablePresence = false;
-      };
-      ircService = {
-        servers = {
-          "irc.libera.chat" = {
-            name = "Libera Chat";
-            additionalAddresses = [ "irc.eu.libera.chat" ];
-            onlyAdditionalAddresses = true;
-            ssl = true;
-            port = 6697;
-            quitDebounce.enabled = true;
-            privateMessages.enabled = false;
-            dynamicChannels.enabled = false;
-            mappings = {
-              "#archlinux-cn-offtopic".roomIds = [ "!XJBVvKkaVlDkUvqiwd:matrix.org" ];
-              "#archlinux-cn".roomIds = [ "!bQxNztSYgjxkPrtYBv:matrix.org" ];
-            };
-            botConfig = {
-              nick = "nichi_matrix_bot";
-              username = "nichi matrix bot";
-            };
-            ircClients = {
-              ipv6 = {
-                only = true;
-                prefix = "2a01:4f9:3a:40c9::";
-              };
-              allowNickChanges = true;
-              nickTemplate = "$DISPLAY[m]";
-              maxClients = 100;
-            };
-            matrixClients = {
-              userTemplate = "@irc_$NICK";
-              displayName = "$NICK[i]";
-            };
-            excludedUsers = [
-              {
-                regex = "@telegram_259128871:nichi\.co";
-                kickReason = "too many horo!";
-              }
-            ];
-          };
-        };
-        ircHandler.mapIrcMentionsToMatrix = "off";
-        logging.level = "warn";
-        permissions = {
-          "@nickcao:nichi.co" = "admin";
+      gateway = [
+        {
+          enable = true;
+          name = "archlinux-cn-offtopic";
+          inout = [
+            {
+              account = "irc.libera";
+              channel = "#archlinux-cn-offtopic";
+            }
+            {
+              account = "matrix.nichi";
+              channel = "#telegram-archlinux-cn-offtopic:matrix.org";
+            }
+          ];
+        }
+        {
+          enable = true;
+          name = "archlinux-cn";
+          inout = [
+            {
+              account = "irc.libera";
+              channel = "#archlinux-cn";
+            }
+            {
+              account = "matrix.nichi";
+              channel = "#telegram-archlinux-cn:matrix.org";
+            }
+          ];
+        }
+      ];
+      irc = {
+        libera = {
+          ColorNicks = true;
+          MessageDelay = 100;
+          MessageLength = 400;
+          MessageSplit = true;
+          Nick = "nichi_bot";
+          RealName = "bridge bot by nichi.co";
+          RemoteNickFormat = "[{NICK}] ";
+          Server = "irc.libera.chat:6697";
+          UseSASL = true;
+          NickServNick = "nichi_bot";
+          NickServPassword = "$IRC_PASSWORD";
+          UseTLS = true;
+          IgnoreNicks = "HoroBot";
         };
       };
-      database = {
-        engine = "postgres";
-        connectionString = "postgres:///matrix-appservice-irc?host=/run/postgresql";
+      matrix = {
+        nichi = {
+          Login = "matterbridge";
+          Password = "$MATRIX_PASSWORD";
+          RemoteNickFormat = "[{NICK}] ";
+          Server = "https://matrix.nichi.co";
+          IgnoreNicks = "寂しい賢狼ホロ";
+        };
       };
     };
   };
