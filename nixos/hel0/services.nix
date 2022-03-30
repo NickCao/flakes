@@ -63,16 +63,6 @@
 
   services.hydra = {
     enable = true;
-    package = pkgs.hydra-unstable.override {
-      nix = pkgs.nixVersions.stable.overrideAttrs (_: {
-        patches = [
-          (pkgs.fetchurl {
-            url = "https://github.com/NixOS/nix/commit/33603df68144e124edc4f147d1a67884d131f5a4.patch";
-            sha256 = "sha256-KJgMcjCjtgTRHxyhfLtKBej5Q9X5RVOEb2dTejJJEYk=";
-          })
-        ];
-      });
-    };
     listenHost = "127.0.0.1";
     hydraURL = "https://hydra.nichi.co";
     useSubstitutes = true;
