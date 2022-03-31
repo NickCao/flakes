@@ -50,10 +50,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    bootspec = {
-      url = "github:DeterminateSystems/bootspec/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     matlab = {
       url = "gitlab:doronbehar/nix-matlab";
       inputs.nixpkgs.follows = "nixpkgs";

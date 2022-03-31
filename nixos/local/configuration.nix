@@ -179,7 +179,7 @@
 
   services = {
     resolved = {
-      dnssec = "true";
+      dnssec = "allow-downgrade";
       llmnr = "false";
     };
     restic.backups = {
