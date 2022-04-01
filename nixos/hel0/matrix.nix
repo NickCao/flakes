@@ -212,6 +212,7 @@
           RemoteNickFormat = "[{NICK}] ";
           Server = "https://matrix.nichi.co";
           IgnoreNicks = "寂しい賢狼ホロ";
+          HTMLDisable = true;
         };
       };
     };
