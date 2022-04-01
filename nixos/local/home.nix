@@ -383,12 +383,17 @@ in
       compression = true;
       serverAliveInterval = 30;
       matchBlocks = {
-        "*.sc.team" = {
+        "*.lab.pacman-thu.org" = {
           user = "nickcao";
-          proxyJump = "scjump";
+          proxyJump = "pacman";
           forwardAgent = true;
         };
-        "scjump" = {
+        "*.sc.team" = {
+          user = "nickcao";
+          proxyJump = "pacman";
+          forwardAgent = true;
+        };
+        "pacman" = {
           user = "nickcao";
           hostname = "166.111.68.163";
           port = 2222;
