@@ -112,6 +112,7 @@ in
       editorconfig-nvim
       lualine-nvim
       which-key-nvim
+      lualine-lsp-progress
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix
@@ -124,6 +125,7 @@ in
     extraConfig = ''
       set viminfo+=n${config.xdg.stateHome}/viminfo
       set tabstop=2 shiftwidth=2 expandtab smarttab
+      set timeoutlen=500
       set scrolloff=5
       set number
       set termguicolors

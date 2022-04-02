@@ -72,6 +72,9 @@ cmp.setup {
 }
 
 require('lualine').setup {
+  sections = {
+    lualine_x = {'lsp_progress', 'encoding', 'filetype'},
+  },
 }
 
 require('which-key').setup {
