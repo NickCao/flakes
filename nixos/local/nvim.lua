@@ -70,3 +70,6 @@ cmp.setup {
     { name = 'nvim_lsp' },
   },
 }
+
+require('lualine').setup {
+}

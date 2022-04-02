@@ -107,10 +107,10 @@ in
       nvim-cmp
       cmp-nvim-lsp
       everforest
-      vim-airline
       luasnip
       vim-lastplace
       editorconfig-nvim
+      lualine-nvim
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix
@@ -128,7 +128,6 @@ in
       set background=dark
       let g:everforest_background = 'soft'
       colorscheme everforest
-      let g:airline_powerline_fonts = 1
       lua << EOT
       ${builtins.readFile ./nvim.lua}
       EOT
