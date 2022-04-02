@@ -110,6 +110,7 @@ in
       vim-airline
       luasnip
       vim-lastplace
+      editorconfig-nvim
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix
