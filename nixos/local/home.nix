@@ -121,6 +121,7 @@ in
     ];
     extraConfig = ''
       set viminfo+=n${config.xdg.stateHome}/viminfo
+      set tabstop=2 shiftwidth=2 expandtab smarttab
       set number
       set termguicolors
       set background=dark
