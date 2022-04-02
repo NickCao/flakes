@@ -108,6 +108,7 @@ in
       cmp-nvim-lsp
       everforest
       vim-airline
+      luasnip
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix
@@ -175,7 +176,6 @@ in
     matlab
     nix-top
     thunderbird
-    helix
     mpv
     tdesktop
     nixpkgs-review
