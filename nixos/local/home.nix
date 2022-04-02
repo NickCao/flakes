@@ -98,6 +98,27 @@ in
       bars = [ ];
     };
   };
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      nvim-lspconfig
+      nvim-cmp
+      cmp-nvim-lsp
+      (nvim-treesitter.withPlugins (
+        plugins: with plugins; [
+          tree-sitter-nix
+          tree-sitter-lua
+          tree-sitter-rust
+          tree-sitter-go
+        ]
+      ))
+    ];
+    extraConfig = ''
+      lua << EOT
+      ${builtins.readFile ./nvim.lua}
+      EOT
+    '';
+  };
   programs.helix = {
     enable = true;
     settings = {
