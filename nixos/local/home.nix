@@ -100,10 +100,14 @@ in
   };
   programs.neovim = {
     enable = true;
+    vimAlias = true;
+    vimdiffAlias = true;
     plugins = with pkgs.vimPlugins; [
       nvim-lspconfig
       nvim-cmp
       cmp-nvim-lsp
+      everforest
+      vim-airline
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix
@@ -114,22 +118,16 @@ in
       ))
     ];
     extraConfig = ''
+      set number
+      set termguicolors
+      set background=dark
+      let g:everforest_background = 'soft'
+      colorscheme everforest
+      let g:airline_powerline_fonts = 1
       lua << EOT
       ${builtins.readFile ./nvim.lua}
       EOT
     '';
-  };
-  programs.helix = {
-    enable = true;
-    settings = {
-      theme = "solarized_dark";
-      editor = {
-        shell = [ "/bin/sh" "-c" ];
-      };
-      lsp = {
-        display-messages = true;
-      };
-    };
   };
   programs.firefox = {
     enable = true;
@@ -337,8 +335,6 @@ in
       shellAliases = {
         b = "brightnessctl";
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
-        vim = "hx";
-        vi = "hx";
       };
     };
     starship = {
