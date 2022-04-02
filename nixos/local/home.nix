@@ -109,6 +109,7 @@ in
       everforest
       vim-airline
       luasnip
+      vim-lastplace
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix
@@ -119,6 +120,7 @@ in
       ))
     ];
     extraConfig = ''
+      set viminfo+=n${config.xdg.stateHome}/viminfo
       set number
       set termguicolors
       set background=dark
