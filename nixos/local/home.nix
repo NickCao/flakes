@@ -214,7 +214,7 @@ in
   ];
 
   home.sessionVariables = {
-    EDITOR = "hx";
+    EDITOR = "nvim";
     LIBVA_DRIVER_NAME = "iHD";
     _JAVA_AWT_WM_NONREPARENTING = 1;
     # cache
@@ -282,11 +282,8 @@ in
         key = "A1E513A77CC0D91C8806A4EB068A56CEF48FA2C1";
       };
       extraConfig = {
-        merge.tool = "meld";
-        mergetool.meld = {
-          path = "${pkgs.meld}/bin/meld";
-          useAutoMerge = true;
-        };
+        merge.conflictStyle = "diff3";
+        merge.tool = "vimdiff";
         mergetool = {
           keepBackup = false;
           keepTemporaries = false;
@@ -295,7 +292,6 @@ in
         pull.rebase = true;
         init.defaultBranch = "master";
         fetch.prune = true;
-        merge.conflictStyle = "diff3";
       };
     };
     fish = {
