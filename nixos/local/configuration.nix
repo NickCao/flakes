@@ -77,6 +77,9 @@
       networks."CMCC-EGfY".psk = "@ALT@";
     };
   };
+  systemd.network.wait-online = {
+    anyInterface = true;
+  };
   systemd.network.networks = {
     wlp0s20f3 = {
       name = "wlp0s20f3";
@@ -90,7 +93,6 @@
       DHCP = "yes";
     };
   };
-  systemd.services.systemd-networkd-wait-online.serviceConfig.ExecStart = [ "" "${pkgs.systemd}/lib/systemd/systemd-networkd-wait-online --any" ];
 
   time.timeZone = "Asia/Shanghai";
 
