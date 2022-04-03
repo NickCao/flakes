@@ -17,7 +17,6 @@
       url = "gitlab:NickCao/fn";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     deploy-rs = {
       url = "github:serokell/deploy-rs";
@@ -30,11 +29,6 @@
       url = "github:berberman/nvfetcher";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
     home-manager = {
@@ -59,7 +53,6 @@
       url = "github:NickCao/carinae";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     canopus = {
       url = "github:NickCao/canopus";
@@ -83,9 +76,8 @@
             };
             overlays = [
               self.overlays.default
+              inputs.fn.overlays.default
               inputs.deploy-rs.overlay
-              inputs.rust-overlay.overlay
-              inputs.fn.overlay
               inputs.nvfetcher.overlay
             ];
           };

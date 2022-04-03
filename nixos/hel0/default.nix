@@ -19,8 +19,7 @@ nixpkgs.lib.nixosSystem {
           canopus = inputs.canopus.packages."${system}".default;
           nixpkgs = inputs.nixpkgs;
         })
-        inputs.rust-overlay.overlay
-        inputs.fn.overlay
+        inputs.fn.overlays.default
         self.overlays.default
       ];
     }
