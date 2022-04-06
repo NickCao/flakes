@@ -42,6 +42,10 @@
           jetstream = {
             storage_path = "$STATE_DIRECTORY/nats";
           };
+          presence = {
+            enable_inbound = true;
+            enable_outbound = true;
+          };
         };
         logging = [{
           type = "std";
