@@ -32,7 +32,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     home-manager = {
-      url = "github:NickCao/home-manager";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
