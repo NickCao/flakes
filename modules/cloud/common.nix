@@ -60,7 +60,6 @@ in
       "net.core.rmem_max" = 2500000;
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    blacklistedKernelModules = [ "ip_tables" ];
   };
 
   services.resolved = {
