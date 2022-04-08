@@ -51,7 +51,6 @@ in
     postBootCommands = ''
       ${gptfdisk}/bin/sgdisk -e -d 2 -n 2:0:0 -c 2:NIXOS -p /dev/vda
       ${util-linux}/bin/partx -u /dev/vda
-      ${btrfs-progs}/bin/btrfs fi resize max /nix
     '';
     tmpOnTmpfs = true;
     loader.grub.device = "/dev/vda";
@@ -92,7 +91,7 @@ in
   fileSystems."/nix" = {
     device = devPath;
     fsType = "btrfs";
-    options = [ "subvol=nix" "noatime" "compress-force=zstd" "space_cache=v2" ];
+    options = [ "subvol=nix" "noatime" "compress-force=zstd" "space_cache=v2" "x-systemd.growfs" ];
   };
 
   fileSystems."/persist" = {
