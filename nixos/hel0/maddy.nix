@@ -46,6 +46,8 @@ in
             destination ${domains} {
                 modify {
                     replace_rcpt static {
+                        entry postmaster@nichi.co nickcao@nichi.co
+                        entry hostmaster@nichi.co nickcao@nichi.co
                         entry noc@nichi.co nickcao@nichi.co
                     }
                 }
