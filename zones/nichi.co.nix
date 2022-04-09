@@ -59,7 +59,6 @@ dns.lib.toString "nichi.co" {
     live.CNAME = [ "hel0.nichi.link." ];
     matrix.CNAME = [ "hel0.nichi.link." ];
     pb.CNAME = [ "hel0.nichi.link." ];
-    s3.CNAME = [ "hel0.nichi.link." ];
     stats.CNAME = [ "hel0.nichi.link." ];
     hydra.CNAME = [ "hel0.nichi.link." ];
     vault.CNAME = [ "hel0.nichi.link." ];

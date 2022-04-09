@@ -14,7 +14,6 @@
       passwd.neededForUsers = true;
       u2f = { mode = "0444"; };
       wireless = { };
-      restic-passwd = { };
       restic = { };
     };
     age = {
@@ -174,16 +173,20 @@
     };
   };
 
+  programs.ssh.extraConfig = ''
+    Host hel0.nichi.link
+      IdentityFile ${config.users.users.nickcao.home}/.ssh/id_ed25519
+  '';
+
   services = {
     resolved = {
       dnssec = "allow-downgrade";
       llmnr = "false";
     };
     restic.backups = {
-      s3 = {
-        repository = "s3:https://s3.nichi.co/offsite";
-        passwordFile = config.sops.secrets.restic-passwd.path;
-        environmentFile = config.sops.secrets.restic.path;
+      hel0 = {
+        repository = "sftp:nickcao@hel0.nichi.link:backup";
+        passwordFile = config.sops.secrets.restic.path;
         paths = [ "/persistent" ];
         extraBackupArgs = [ "--exclude-caches" ];
         timerConfig = {
