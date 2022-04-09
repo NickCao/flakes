@@ -12,7 +12,7 @@ rec {
   divi = import ./divi.nix;
   gravity = import ./gravity.nix;
   vultr = import ./vultr.nix;
-  ss = import ./ss;
+  v2ray = import ./v2ray;
   cloud = {
     common = import ./cloud/common.nix;
     services = import ./cloud/services.nix;

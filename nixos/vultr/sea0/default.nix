@@ -3,7 +3,7 @@ nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
     self.nixosModules.vultr
-    self.nixosModules.ss
+    self.nixosModules.v2ray
     self.nixosModules.cloud.common
     self.nixosModules.cloud.services
     inputs.sops-nix.nixosModules.sops

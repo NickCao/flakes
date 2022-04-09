@@ -6,7 +6,7 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.bgp
     self.nixosModules.vultr
     self.nixosModules.divi
-    self.nixosModules.ss
+    self.nixosModules.v2ray
     self.nixosModules.cloud.common
     self.nixosModules.cloud.services
     {
