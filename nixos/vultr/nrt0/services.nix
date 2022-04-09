@@ -1,12 +1,12 @@
 { pkgs, config, ... }:
 {
-  cloud.services.woff = {
-    exec = "${pkgs.woff}/bin/woff -l 127.0.0.1:8001";
-    envFile = config.sops.secrets.woff.path;
+  cloud.services.woff.config = {
+    ExecStart = "${pkgs.woff}/bin/woff -l 127.0.0.1:8001";
+    EnvironmentFile = config.sops.secrets.woff.path;
   };
 
-  cloud.services.blog = {
-    exec = "${pkgs.serve}/bin/serve -l 127.0.0.1:8003 -p ${pkgs.nichi}";
+  cloud.services.blog.config = {
+    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8003 -p ${pkgs.nichi}";
   };
 
   systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;

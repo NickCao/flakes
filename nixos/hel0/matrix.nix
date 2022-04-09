@@ -20,8 +20,8 @@
     "mautrix-telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
   ];
 
-  cloud.services.element-web = {
-    exec = "${pkgs.serve}/bin/serve -l 127.0.0.1:8005 -p ${pkgs.element-web}";
+  cloud.services.element-web.config = {
+    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8005 -p ${pkgs.element-web}";
   };
 
   systemd.services.dendrite.after = [ "postgresql.service" ];

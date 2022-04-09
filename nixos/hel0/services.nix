@@ -102,22 +102,21 @@
     ports = [ "127.0.0.1:19000:8501" ];
   };
 
-  cloud.services.carinae = {
-    exec = "${pkgs.carinae}/bin/carinae -l 127.0.0.1:8004";
-    envFile = config.sops.secrets.carinae.path;
+  cloud.services.carinae.config = {
+    ExecStart = "${pkgs.carinae}/bin/carinae -l 127.0.0.1:8004";
+    EnvironmentFile = config.sops.secrets.carinae.path;
   };
 
-  cloud.services.meow = {
-    exec = "${pkgs.meow}/bin/meow";
-    envFile = config.sops.secrets.meow.path;
+  cloud.services.meow.config = {
+    ExecStart = "${pkgs.meow}/bin/meow --listen 127.0.0.1:8002 --base-url https://pb.nichi.co --data-dir \${STATE_DIRECTORY}";
+    StateDirectory = "meow";
+    SystemCallFilter = null;
   };
 
-  systemd.services.canopus.serviceConfig = {
-    MemoryLimit = lib.mkForce "5G";
-    SystemCallFilter = lib.mkForce null;
-  };
-  cloud.services.canopus = {
-    exec = "${pkgs.python3.withPackages (ps: with ps;[ python-telegram-bot ])}/bin/python ${pkgs.writeText "canopus.py" ''
+  cloud.services.canopus.config = {
+    MemoryLimit = "5G";
+    SystemCallFilter = null;
+    ExecStart = "${pkgs.python3.withPackages (ps: with ps;[ python-telegram-bot ])}/bin/python ${pkgs.writeText "canopus.py" ''
       from telegram.ext import Updater
       from telegram import Update
       from telegram.ext import CallbackContext
@@ -136,14 +135,14 @@
       dispatcher.add_handler(CommandHandler('eval', eval))
       updater.start_polling()
     ''}";
-    envFile = config.sops.secrets.canopus.path;
+    EnvironmentFile = config.sops.secrets.canopus.path;
   };
 
-  cloud.services.srt-live-transmit = {
-    exec = ''${pkgs.srt}/bin/srt-live-transmit \
+  cloud.services.srt-live-transmit.config = {
+    ExecStart = ''${pkgs.srt}/bin/srt-live-transmit \
               srt://[::]:5001?mode=listener&latency=2000&passphrase=''${PASSPHRASE} \
               srt://[::]:5002?mode=listener&latency=2000'';
-    envFile = config.sops.secrets.srt.path;
+    EnvironmentFile = config.sops.secrets.srt.path;
   };
 
   services.minio = {
