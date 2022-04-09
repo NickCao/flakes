@@ -4,13 +4,13 @@ rec {
       (import ./gateway.nix)
       (import ./metrics.nix)
       (import ./sshcert)
+      (import ./divi.nix)
       (import ./dns/secondary)
       (import ./cloud/services.nix)
       gravity
     ];
   });
   bgp = import ./bgp;
-  divi = import ./divi.nix;
   gravity = import ./gravity.nix;
   vultr = import ./vultr.nix;
   v2ray = import ./v2ray;
