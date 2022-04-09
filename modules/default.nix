@@ -5,6 +5,7 @@ rec {
       (import ./metrics.nix)
       (import ./sshcert)
       (import ./dns/secondary)
+      (import ./cloud/services.nix)
       gravity
     ];
   });
@@ -15,6 +16,5 @@ rec {
   v2ray = import ./v2ray;
   cloud = {
     common = import ./cloud/common.nix;
-    services = import ./cloud/services.nix;
   };
 }

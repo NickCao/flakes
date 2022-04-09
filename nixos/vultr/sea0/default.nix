@@ -5,7 +5,6 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.vultr
     self.nixosModules.v2ray
     self.nixosModules.cloud.common
-    self.nixosModules.cloud.services
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
     ({ pkgs, config, ... }: {

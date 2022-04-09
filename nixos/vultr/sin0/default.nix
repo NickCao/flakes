@@ -8,7 +8,6 @@ nixpkgs.lib.nixosSystem {
     self.nixosModules.divi
     self.nixosModules.v2ray
     self.nixosModules.cloud.common
-    self.nixosModules.cloud.services
     {
       nixpkgs.overlays = [
         self.overlays.default
