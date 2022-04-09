@@ -9,9 +9,6 @@ terraform {
     sops = {
       source = "carlpett/sops"
     }
-    minio = {
-      source = "aminueza/minio"
-    }
     gandi = {
       source = "go-gandi/gandi"
     }

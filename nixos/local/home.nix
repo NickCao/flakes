@@ -214,9 +214,8 @@ in
     sops
     restic
     libarchive
-    (mkWrap "mc" "${minio-client}/bin/mc --config-dir ${config.xdg.configHome}/mc")
     (mkWrap "terraform" "${coreutils}/bin/env CHECKPOINT_DISABLE=1 ${
-      terraform.withPlugins (ps: with ps; [ vultr sops minio gandi ])
+      terraform.withPlugins (ps: with ps; [ vultr sops gandi ])
         }/bin/terraform")
   ];
 

@@ -15,8 +15,6 @@
       carinae = { };
       canopus = { };
       plct = { owner = "hydra-queue-runner"; };
-      minio.restartUnits = [ "minio.service" ];
-      meow.restartUnits = [ "meow.service" ];
       vault = { };
       tsig = { sopsFile = ../../modules/dns/secondary/secrets.yaml; owner = "knot"; };
       gravity = { owner = "knot"; sopsFile = ./zones.yaml; };
@@ -145,22 +143,10 @@
     EnvironmentFile = config.sops.secrets.srt.path;
   };
 
-  services.minio = {
-    enable = true;
-    browser = false;
-    listenAddress = "127.0.0.1:9000";
-    rootCredentialsFile = config.sops.secrets.minio.path;
-  };
-
   services.traefik = {
     dynamicConfigOptions = {
       http = {
         routers = {
-          minio = {
-            rule = "Host(`s3.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "minio";
-          };
           meow = {
             rule = "Host(`pb.nichi.co`)";
             entryPoints = [ "https" ];
@@ -192,10 +178,6 @@
           compress.compress = { };
         };
         services = {
-          minio.loadBalancer = {
-            passHostHeader = true;
-            servers = [{ url = "http://${config.services.minio.listenAddress}"; }];
-          };
           meow.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:8002"; }];
