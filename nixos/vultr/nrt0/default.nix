@@ -4,7 +4,6 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./services.nix
-    self.nixosModules.bgp
     self.nixosModules.vultr
     self.nixosModules.v2ray
     self.nixosModules.cloud.common
