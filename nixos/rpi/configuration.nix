@@ -170,6 +170,7 @@ in
     libgpiod
     gdb
     config.boot.kernelPackages.usbip
+    jtag-remote-server
   ];
 
   documentation.nixos.enable = false;

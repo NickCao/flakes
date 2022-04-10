@@ -1,0 +1,23 @@
+diff --git a/main.cpp b/main.cpp
+index c99c3b0..b59b70e 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -11,9 +11,9 @@ int listen_fd = -1;
+ JtagState state = TestLogicReset;
+ bool debug = false;
+ 
+-// default: FD4232H
++// default: FT2232C/D/H
+ int ftdi_vid = 0x0403;
+-int ftdi_pid = 0x6011;
++int ftdi_pid = 0x6010;
+ enum ftdi_interface ftdi_channel = INTERFACE_A;
+ 
+ bool ftdi_init() {
+@@ -104,4 +104,4 @@ int main(int argc, char *argv[]) {
+     }
+   }
+   return 0;
+-}
+\ No newline at end of file
++}

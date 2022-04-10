@@ -10,6 +10,7 @@ stdenv.mkDerivation rec {
     rev = version;
     sha256 = "sha256-abHHMlhRyYwCKVQsZNIwbvC3oKdIIOAda3wuZ/ecl4c=";
   };
+  patches = [ ./unmatched.patch ];
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [ libftdi1 ];
