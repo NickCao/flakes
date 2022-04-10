@@ -33,11 +33,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1647680033,
-        "narHash": "sha256-BYBEwgHQ0dvswizXTDmMwDUOPhG0plM1RsDUEACNhLQ=",
+        "lastModified": 1649603933,
+        "narHash": "sha256-DazMAGZRot0/TCXpuFK8YxhMPpR1Ry7aGXIX0Poxnzg=",
         "owner": "NickCao",
         "repo": "canopus",
-        "rev": "6cd496907f5e08ebfd7d1c09b7fdf81868fbf3e2",
+        "rev": "14ec4c3d19ff1e7ce58522ee4f1315492033d898",
         "type": "github"
       },
       "original": {
