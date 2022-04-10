@@ -16,9 +16,9 @@
       "nrt0.nichi.link",
       "sea0.nichi.link",
       "sin0.nichi.link",
-      "ns1.first-ns.de",
-      "robotns2.second-ns.de",
-      "robotns3.second-ns.com"
+      "hydrogen.ns.hetzner.com",
+      "oxygen.ns.hetzner.com",
+      "helium.ns.hetzner.de"
     ]
   },
   "nodes": {
@@ -29,6 +29,7 @@
         "nrt0": [
           "object",
           {
+            "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string"
           }
@@ -36,6 +37,7 @@
         "sea0": [
           "object",
           {
+            "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string"
           }
@@ -43,6 +45,7 @@
         "sin0": [
           "object",
           {
+            "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string"
           }
@@ -51,14 +54,17 @@
     ],
     "value": {
       "nrt0": {
+        "fqdn": "nrt0.nichi.link",
         "ipv4": "66.42.45.112",
         "ipv6": "2001:19f0:7001:554d:5400:03ff:fe7d:9346"
       },
       "sea0": {
+        "fqdn": "sea0.nichi.link",
         "ipv4": "104.238.157.223",
         "ipv6": "2001:19f0:8001:13bf:5400:03ff:fe8b:2455"
       },
       "sin0": {
+        "fqdn": "sin0.nichi.link",
         "ipv4": "149.28.156.93",
         "ipv6": "2001:19f0:4401:057a:5400:03ff:fe7d:8d80"
       }
