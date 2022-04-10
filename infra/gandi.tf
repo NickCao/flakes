@@ -1,9 +1,9 @@
 locals {
   dnssec_key = "LBbl0S/D5U9yKQOy+r0+lZEJP3kpPklCBagsT13p64U="
   nameservers = concat(values(module.nodes)[*].fqdn, [
-    "ns1.first-ns.de",
-    "robotns2.second-ns.de",
-    "robotns3.second-ns.com"
+    "hydrogen.ns.hetzner.com",
+    "oxygen.ns.hetzner.com",
+    "helium.ns.hetzner.de"
   ])
 }
 
