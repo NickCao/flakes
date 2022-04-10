@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "jtag-remote-server";
-  version = "56080ee9e5a3d55eb7cf3382cc42f713d69e1f75";
+  version = "9d0bbcd758c7078ae143716544d9bd184e3d7423";
 
   src = fetchFromGitHub {
     owner = "jiegec";
     repo = pname;
     rev = version;
-    sha256 = "sha256-AYiFd92qpB+9SOZAwAswQYbOndDTiAGZReHwZxJgvF0=";
+    sha256 = "sha256-DX4/v0jrDfthBv6LuvGWMXAZLkENOgC85L1Qx2yWdrE=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];

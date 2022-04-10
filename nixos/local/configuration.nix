@@ -173,10 +173,15 @@
     };
   };
 
-  programs.ssh.extraConfig = ''
-    Host hel0.nichi.link
-      IdentityFile ${config.users.users.nickcao.home}/.ssh/id_ed25519
-  '';
+  programs.ssh = {
+    knownHosts = {
+      "@cert-authority *.nichi.link".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEe0p7erHjrkNKcY/Kp6fvZtxLcl0hVMVMQPhQrPDZKp";
+    };
+    extraConfig = ''
+      Host hel0.nichi.link
+        IdentityFile ${config.users.users.nickcao.home}/.ssh/id_ed25519
+    '';
+  };
 
   services = {
     resolved = {
