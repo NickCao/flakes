@@ -2,15 +2,14 @@
 
 stdenv.mkDerivation rec {
   pname = "jtag-remote-server";
-  version = "c27836164d6d3a5728666c6ebff3395cc7b194cc";
+  version = "56080ee9e5a3d55eb7cf3382cc42f713d69e1f75";
 
   src = fetchFromGitHub {
     owner = "jiegec";
     repo = pname;
     rev = version;
-    sha256 = "sha256-abHHMlhRyYwCKVQsZNIwbvC3oKdIIOAda3wuZ/ecl4c=";
+    sha256 = "sha256-AYiFd92qpB+9SOZAwAswQYbOndDTiAGZReHwZxJgvF0=";
   };
-  patches = [ ./unmatched.patch ];
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [ libftdi1 ];
