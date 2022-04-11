@@ -354,7 +354,7 @@ in
       shell = "${pkgs.fish}/bin/fish";
       keyMode = "vi";
       extraConfig = ''
-        set-option -g default-terminal "tmux-256color"
+        set-option -g default-terminal "screen-256color"
         set -g status-position top
         set -g set-clipboard on
         set -g mouse on
