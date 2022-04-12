@@ -132,6 +132,7 @@
           value = {
             sshUser = "root";
             sshOpts = [
+              "-4"
               "-o GlobalKnownHostsFile=${builtins.toFile "known_hosts" ''
                 @cert-authority *.nichi.link ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEe0p7erHjrkNKcY/Kp6fvZtxLcl0hVMVMQPhQrPDZKp
               ''}"
