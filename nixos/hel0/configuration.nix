@@ -2,7 +2,7 @@
 {
   programs.ssh = {
     knownHosts = {
-      "8.214.124.155".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK1Zi5APlqAX7GRhNDNgYAz+BEOTk4wjbr1pNdciEOcV";
+      "k11-plct.nichi.link".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7Gb+JDMj+P2Wumrvwbr7lCqyl93gy06b8Af9si7Rye";
       "u273007.your-storagebox.de".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
     };
     extraConfig = ''
@@ -10,6 +10,9 @@
         User u273007
         Port 23
         IdentityFile ${config.sops.secrets.backup.path}
+      Host k11-plct.nichi.link
+        User root
+        IdentityFile ${config.sops.secrets.plct.path}
     '';
   };
 
@@ -68,11 +71,9 @@
       experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
     };
     buildMachines = [{
-      hostName = "8.214.124.155";
-      systems = [ "x86_64-linux" "riscv64-linux" ];
-      sshUser = "root";
-      sshKey = config.sops.secrets.plct.path;
-      maxJobs = 64;
+      hostName = "k11-plct.nichi.link";
+      systems = [ "x86_64-linux" ];
+      maxJobs = 32;
       supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
     }];
     gc = {

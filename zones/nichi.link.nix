@@ -30,5 +30,6 @@ dns.lib.toString "nichi.link" {
     "nrt.jp".CNAME = [ "nrt0.nichi.link." ];
     "sin.sg".CNAME = [ "sin0.nichi.link." ];
     "rpi".CNAME = [ "rpi.dyn.nichi.link." ];
+    "k11-plct".A = [ "8.214.124.155" ];
   };
 }
