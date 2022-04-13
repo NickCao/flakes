@@ -69,7 +69,7 @@
     };
     buildMachines = [{
       hostName = "8.214.124.155";
-      systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" "riscv64-linux" ];
       sshUser = "root";
       sshKey = config.sops.secrets.plct.path;
       maxJobs = 64;
