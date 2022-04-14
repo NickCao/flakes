@@ -4,6 +4,7 @@
     knownHosts = {
       "k11-plct.nichi.link".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7Gb+JDMj+P2Wumrvwbr7lCqyl93gy06b8Af9si7Rye";
       "u273007.your-storagebox.de".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
+      "builder1".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFMvmknd54n4SccHK9hI6yBn8brHsHESUmUln/jhnU6E";
     };
     extraConfig = ''
       Host u273007.your-storagebox.de
@@ -12,6 +13,10 @@
         IdentityFile ${config.sops.secrets.backup.path}
       Host k11-plct.nichi.link
         User root
+        IdentityFile ${config.sops.secrets.plct.path}
+      Host builder1
+        User ubuntu
+        ProxyJump k11-plct.nichi.link
         IdentityFile ${config.sops.secrets.plct.path}
     '';
   };
@@ -70,12 +75,20 @@
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
     };
-    buildMachines = [{
-      hostName = "k11-plct.nichi.link";
-      systems = [ "x86_64-linux" ];
-      maxJobs = 32;
-      supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
-    }];
+    buildMachines = [
+      {
+        hostName = "k11-plct.nichi.link";
+        systems = [ "x86_64-linux" ];
+        maxJobs = 32;
+        supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
+      }
+      {
+        hostName = "builder1";
+        systems = [ "riscv64-linux" ];
+        maxJobs = 8;
+        supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
+      }
+    ];
     gc = {
       automatic = true;
       dates = "weekly";
