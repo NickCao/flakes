@@ -193,15 +193,12 @@ in
     brightnessctl
     ripgrep
     rnix-lsp
-    lf
     ncdu
     mode
     yubikey-manager
     age
-    pandoc
     prime-run
     wireguard-tools
-    jq
     auth-thu
     nixpkgs-fmt
     smartmontools
@@ -241,6 +238,9 @@ in
   };
 
   programs = {
+    pandoc.enable = true;
+    jq.enable = true;
+    lf.enable = true;
     bash = {
       enable = true;
       profileExtra = ''
