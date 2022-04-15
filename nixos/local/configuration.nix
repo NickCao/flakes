@@ -24,14 +24,14 @@
   };
 
   nix = {
-    package = pkgs.nixVersions.stable;
+    package = pkgs.nixVersions.unstable;
     settings = {
       trusted-users = [ "root" "nickcao" ];
       substituters = pkgs.lib.mkBefore [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://cache.nichi.co" ];
       trusted-public-keys = [ "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk=" ];
       auto-optimise-store = true;
       flake-registry = "/etc/nix/registry.json";
-      experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
+      experimental-features = [ "nix-command" "flakes" "ca-derivations" "impure-derivations" ];
       builders-use-substitutes = true;
       keep-derivations = true;
     };
@@ -49,7 +49,6 @@
     useNetworkd = true;
     useDHCP = false;
     hosts = {
-      "2a0c:b641:69c:7864:0:4:8d6:7c9b" = [ "k11-plct" ];
       "104.21.75.85" = [ "api.nichi.workers.dev" ];
     };
     wireless = {
