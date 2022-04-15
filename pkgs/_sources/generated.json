@@ -1,95 +1,90 @@
 {
-    "fcitx5-pinyin-zhwiki": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "fcitx5-pinyin-zhwiki",
-        "src": {
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220312.dict",
-            "name": null,
-            "type": "url",
-            "sha256": "sha256-gzBm0OuHRo+d5AkVXP+/EGvXmq0N/3EXVSWcqN73J8Y="
-        },
-        "version": "20220312",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
-    },
-    "wemeet": {
-        "pinned": false,
-        "cargoLock": null,
-        "name": "wemeet",
-        "src": {
-            "url": "https://updatecdn.meeting.qq.com/cos/3cdd365cd90f221fb345ab73c4746e1f/TencentMeeting_0300000000_2.8.0.3_x86_64_default.publish.deb",
-            "name": null,
-            "type": "url",
-            "sha256": "sha256-76Bm4PaIo7APwYBKWXp14up+PXS+Eo7NLcWM6Q2nhZ8="
-        },
-        "version": "2.8.0.3",
-        "passthru": null,
-        "extract": null,
-        "rustGitDeps": null
-    },
     "auth-thu": {
-        "pinned": false,
-        "cargoLock": null,
+        "cargoLocks": null,
+        "extract": null,
         "name": "auth-thu",
-        "src": {
-            "deepClone": false,
-            "owner": "z4yx",
-            "name": null,
-            "repo": "GoAuthing",
-            "type": "github",
-            "sha256": "sha256-xvYmtgwAeZF5J9+dv2TCgQeuqOQI3/AiSR7n6FQivoE=",
-            "rev": "v2.2",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
-        },
-        "version": "v2.2",
         "passthru": {
             "vendorSha256": "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o="
         },
-        "extract": null,
-        "rustGitDeps": null
-    },
-    "smartdns-china-list": {
         "pinned": false,
-        "cargoLock": null,
-        "name": "smartdns-china-list",
         "src": {
             "deepClone": false,
-            "owner": "felixonmars",
-            "name": null,
-            "repo": "dnsmasq-china-list",
-            "type": "github",
-            "sha256": "sha256-U/PcY34k1T/Yx4rlyfkAx4SsS/mZLXeImOInehC1yPQ=",
-            "rev": "f78dc46717760ac74412b99cead5af15f2bde604",
+            "fetchSubmodules": false,
             "leaveDotGit": false,
-            "fetchSubmodules": false
+            "name": null,
+            "owner": "z4yx",
+            "repo": "GoAuthing",
+            "rev": "v2.2",
+            "sha256": "sha256-xvYmtgwAeZF5J9+dv2TCgQeuqOQI3/AiSR7n6FQivoE=",
+            "type": "github"
         },
-        "version": "f78dc46717760ac74412b99cead5af15f2bde604",
-        "passthru": null,
+        "version": "v2.2"
+    },
+    "fcitx5-pinyin-zhwiki": {
+        "cargoLocks": null,
         "extract": null,
-        "rustGitDeps": null
+        "name": "fcitx5-pinyin-zhwiki",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-gzBm0OuHRo+d5AkVXP+/EGvXmq0N/3EXVSWcqN73J8Y=",
+            "type": "url",
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220312.dict"
+        },
+        "version": "20220312"
     },
     "rait": {
-        "pinned": false,
-        "cargoLock": null,
+        "cargoLocks": null,
+        "extract": null,
         "name": "rait",
-        "src": {
-            "deepClone": false,
-            "url": "https://gitlab.com/NickCao/RAIT",
-            "name": null,
-            "type": "git",
-            "sha256": "sha256-vaRPmHrom4GEOuAdILzFpttc4vwcRVQWhLNalCco2qE=",
-            "rev": "e84e803641ec3a2dce5670275ea8d5497608f483",
-            "leaveDotGit": false,
-            "fetchSubmodules": false
-        },
-        "version": "e84e803641ec3a2dce5670275ea8d5497608f483",
         "passthru": {
             "vendorSha256": "sha256-pMltPbi1tOfxIBjLHtSxqSQUy7sMTDa8YJ9PeQp3b3k="
         },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "e84e803641ec3a2dce5670275ea8d5497608f483",
+            "sha256": "sha256-vaRPmHrom4GEOuAdILzFpttc4vwcRVQWhLNalCco2qE=",
+            "type": "git",
+            "url": "https://gitlab.com/NickCao/RAIT"
+        },
+        "version": "e84e803641ec3a2dce5670275ea8d5497608f483"
+    },
+    "smartdns-china-list": {
+        "cargoLocks": null,
         "extract": null,
-        "rustGitDeps": null
+        "name": "smartdns-china-list",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "felixonmars",
+            "repo": "dnsmasq-china-list",
+            "rev": "2ea0c75ebde964ece769ddc630a3503f36356fd4",
+            "sha256": "sha256-LtPaFk0Mpu4sBUrsICNTuZ/VklMJvGRc1joYSS+Ne7s=",
+            "type": "github"
+        },
+        "version": "2ea0c75ebde964ece769ddc630a3503f36356fd4"
+    },
+    "wemeet": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "wemeet",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-76Bm4PaIo7APwYBKWXp14up+PXS+Eo7NLcWM6Q2nhZ8=",
+            "type": "url",
+            "url": "https://updatecdn.meeting.qq.com/cos/3cdd365cd90f221fb345ab73c4746e1f/TencentMeeting_0300000000_2.8.0.3_x86_64_default.publish.deb"
+        },
+        "version": "2.8.0.3"
     }
 }
