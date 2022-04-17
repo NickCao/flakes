@@ -16,7 +16,7 @@ let
   lighttpdConfig = pkgs.writeText "lighttpd.conf" ''
     server.bind = "127.0.0.1"
     server.port = 8006
-    server.document-root = "${pkgs.cgit-pink}/cgit"
+    server.document-root = "/var/empty"
     server.modules += ( "mod_cgi", "mod_alias", "mod_setenv" )
 
     include "${pkgs.lighttpd}/share/lighttpd/doc/config/conf.d/mime.conf"
