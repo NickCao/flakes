@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 let
   cgitFilters = "${pkgs.cgit-pink}/lib/cgit/filters";
-  cgitrc = pkgs.writeText "cgitrc" (lib.generators.toKeyValue { } {
-    about-filter = "${cgitFilters}/about-formatting.sh";
-    source-filter = "${cgitFilters}/syntax-highlighting.py";
-    enable-http-clone = 0;
-    css = "/custom.css";
-    scan-path = config.users.users.git.home;
-  });
+  cgitrc = pkgs.writeText "cgitrc" ''
+    source-filter=${cgitFilters}/syntax-highlighting.py
+    about-filter=${cgitFilters}/about-formatting.sh
+    enable-http-clone=0
+    css=/custom.css
+    scan-path=${config.users.users.git.home}
+  '';
   cgitWebroot = "${pkgs.cgit-pink}/cgit";
   lighttpdConfig = pkgs.writeText "lighttpd.conf" ''
     server.bind = "127.0.0.1"
