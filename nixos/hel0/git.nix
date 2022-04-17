@@ -31,6 +31,7 @@ in
 {
   cloud.services.cgit.config = {
     ExecStart = "${pkgs.lighttpd}/bin/lighttpd -D -f ${lighttpdConfig}";
+    PrivateUsers = false;
     ProtectHome = "tmpfs";
     BindReadOnlyPaths = config.users.users.git.home;
   };
@@ -39,6 +40,7 @@ in
   users.users.git = {
     isSystemUser = true;
     group = "git";
+    description = "git";
     home = "/home/git";
     shell = "${pkgs.git}/bin/git-shell";
     openssh.authorizedKeys.keys = [
