@@ -7,6 +7,7 @@ let
     logo=
     source-filter=${cgitFilters}/syntax-highlighting.py
     about-filter=${cgitFilters}/about-formatting.sh
+    snapshots=tar.zst
     css=/custom.css
     clone-prefix=https://git.nichi.co
     scan-path=${config.users.users.git.home}
