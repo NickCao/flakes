@@ -152,6 +152,7 @@
   environment.systemPackages = with pkgs;[
     tmux
     restic
+    git
   ];
 
   environment.persistence."/persist" = {

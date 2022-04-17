@@ -28,11 +28,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gzBm0OuHRo+d5AkVXP+/EGvXmq0N/3EXVSWcqN73J8Y=",
+            "sha256": "sha256-vyvsychfpRMSQWgxQfCxD3QllmKBjDdcbIvJiEDfz+8=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.3/zhwiki-20220312.dict"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220416.dict"
         },
-        "version": "20220312"
+        "version": "20220416"
     },
     "rait": {
         "cargoLocks": null,
@@ -67,11 +67,11 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "2ea0c75ebde964ece769ddc630a3503f36356fd4",
-            "sha256": "sha256-LtPaFk0Mpu4sBUrsICNTuZ/VklMJvGRc1joYSS+Ne7s=",
+            "rev": "031320b3b0a15496ae03e5427094c11b92cb3c40",
+            "sha256": "sha256-WwT61CRypr24aBBc5p/PAJ8aWCADX1IJK9OK3zlM1s4=",
             "type": "github"
         },
-        "version": "2ea0c75ebde964ece769ddc630a3503f36356fd4"
+        "version": "031320b3b0a15496ae03e5427094c11b92cb3c40"
     },
     "wemeet": {
         "cargoLocks": null,
