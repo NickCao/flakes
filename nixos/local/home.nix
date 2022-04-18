@@ -174,7 +174,7 @@ in
     };
   };
   home.packages = with pkgs; [
-    virt-manager
+    # virt-manager
     matlab
     nix-top
     thunderbird
