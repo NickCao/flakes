@@ -334,6 +334,9 @@ in
         b = "brightnessctl";
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
       };
+      shellAbbrs = {
+        rebuild = "sudo nixos-rebuild -v -L --flake /home/nickcao/Projects/flakes";
+      };
     };
     starship = {
       enable = true;

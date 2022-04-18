@@ -248,9 +248,6 @@
   };
 
   environment.pathsToLink = [ "/share/fish" ];
-  environment.etc = {
-    "nixos/flake.nix".source = config.users.users.nickcao.home + "/Projects/flakes/flake.nix";
-  };
 
   security.pam.services.swaylock = { };
   security.pam.u2f = {
