@@ -226,6 +226,7 @@
         '';
     };
     xserver = {
+      desktopManager.runXdgAutostartIfNone = true;
       videoDrivers = [ "nvidia" ];
     };
   };
@@ -248,6 +249,7 @@
   };
 
   environment.pathsToLink = [ "/share/fish" ];
+  environment.profileRelativeSessionVariables.QT_PLUGIN_PATH = [ "/lib/qt-6.3.0/plugins" ];
 
   security.pam.services.swaylock = { };
   security.pam.u2f = {
