@@ -249,7 +249,7 @@
   };
 
   environment.pathsToLink = [ "/share/fish" ];
-  environment.profileRelativeSessionVariables.QT_PLUGIN_PATH = [ "/lib/qt-6.3.0/plugins" ];
+  environment.profileRelativeSessionVariables.QT_PLUGIN_PATH = [ "/${pkgs.qt6.qtbase.qtPluginPrefix}" ];
 
   security.pam.services.swaylock = { };
   security.pam.u2f = {
