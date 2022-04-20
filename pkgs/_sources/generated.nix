@@ -34,15 +34,26 @@
     };
     vendorSha256 = "sha256-pMltPbi1tOfxIBjLHtSxqSQUy7sMTDa8YJ9PeQp3b3k=";
   };
+  riscv-openocd = {
+    pname = "riscv-openocd";
+    version = "31812cd13f35ab28011615cce1aac7298dfe35c7";
+    src = fetchFromGitHub ({
+      owner = "riscv";
+      repo = "riscv-openocd";
+      rev = "31812cd13f35ab28011615cce1aac7298dfe35c7";
+      fetchSubmodules = true;
+      sha256 = "sha256-/Zx2a488Fn2xLjojZNPqPs6swyShOpss/rdU1w6oV9Y=";
+    });
+  };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "031320b3b0a15496ae03e5427094c11b92cb3c40";
+    version = "d88306f02dcf49315273a18474ebaa284a2af91b";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "031320b3b0a15496ae03e5427094c11b92cb3c40";
+      rev = "d88306f02dcf49315273a18474ebaa284a2af91b";
       fetchSubmodules = false;
-      sha256 = "sha256-WwT61CRypr24aBBc5p/PAJ8aWCADX1IJK9OK3zlM1s4=";
+      sha256 = "sha256-YVkliXo2z6JZneGVbawYCunSLDhH1Z1jE+JUZXEtZXE=";
     });
   };
   wemeet = {

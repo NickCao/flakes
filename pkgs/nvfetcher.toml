@@ -20,3 +20,8 @@ fetch.url = "https://updatecdn.meeting.qq.com/cos/3cdd365cd90f221fb345ab73c4746e
 src.archpkg = "fcitx5-pinyin-zhwiki"
 src.prefix = "0.2.4."
 fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-$ver.dict"
+
+[riscv-openocd]
+src.git = "https://github.com/riscv/riscv-openocd"
+fetch.github = "riscv/riscv-openocd"
+git.fetchSubmodules = true
