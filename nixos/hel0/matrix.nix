@@ -197,11 +197,12 @@
           Nick = "nichi_bot";
           RealName = "bridge bot by nichi.co";
           RemoteNickFormat = "[{NICK}] ";
-          Server = "irc.libera.chat:6697";
+          Server = "irc.ipv4.libera.chat:6665";
           UseSASL = true;
           NickServNick = "nichi_bot";
           NickServPassword = "$IRC_PASSWORD";
-          UseTLS = true;
+          # temporary workaround for connectivity issue
+          UseTLS = false;
           IgnoreNicks = "HoroBot";
         };
       };
