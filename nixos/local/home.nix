@@ -43,6 +43,7 @@ in
       modifier = "Mod4";
       terminal = "foot";
       startup = [
+        { command = "systemctl --user start xdg-autostart-if-no-desktop-manager.target"; }
         { command = "foot"; }
         { command = "firefox"; }
         { command = "telegram-desktop"; }
