@@ -46,11 +46,13 @@ in
         { command = "foot"; }
         { command = "firefox"; }
         { command = "telegram-desktop"; }
+        { command = "thunderbird"; }
       ];
       assigns = {
         "1" = [{ app_id = "foot"; }];
         "2" = [{ app_id = "firefox"; }];
         "3" = [{ app_id = "telegramdesktop"; }];
+        "4" = [{ class = "Thunderbird"; }];
       };
       window.commands = [
         {
