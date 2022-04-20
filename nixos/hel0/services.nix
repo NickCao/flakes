@@ -71,6 +71,9 @@
       github_client_id = e55d265b1883eb42630e
       github_client_secret_file = ${config.sops.secrets.hydra-github.path}
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
+      <dynamicruncommand>
+        enable = 1
+      </dynamicruncommand>
       <githubstatus>
         jobs = personal:flakes:.*
         excludeBuildFromContext = 1
