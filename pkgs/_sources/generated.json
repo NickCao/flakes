@@ -34,6 +34,25 @@
         },
         "version": "20220416"
     },
+    "jtag-remote-server": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "jtag-remote-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jiegec",
+            "repo": "jtag-remote-server",
+            "rev": "16211b59c7314a635558b5ee1c30274b12cc8d7b",
+            "sha256": "sha256-fJ2kuTSZCadyFUDoN35X1Z2N3g68vF7CtdlPMk6R2Ps=",
+            "type": "github"
+        },
+        "version": "16211b59c7314a635558b5ee1c30274b12cc8d7b"
+    },
     "rait": {
         "cargoLocks": null,
         "extract": null,
@@ -67,11 +86,11 @@
             "name": null,
             "owner": "riscv",
             "repo": "riscv-openocd",
-            "rev": "31812cd13f35ab28011615cce1aac7298dfe35c7",
-            "sha256": "sha256-/Zx2a488Fn2xLjojZNPqPs6swyShOpss/rdU1w6oV9Y=",
+            "rev": "9d737af35126c3a857e1c6a3356ab3879e92b6eb",
+            "sha256": "sha256-B7lFvBete5C3bGiYmuRaWdpEaDe2vk1nFcF827QBJ6s=",
             "type": "github"
         },
-        "version": "31812cd13f35ab28011615cce1aac7298dfe35c7"
+        "version": "9d737af35126c3a857e1c6a3356ab3879e92b6eb"
     },
     "smartdns-china-list": {
         "cargoLocks": null,

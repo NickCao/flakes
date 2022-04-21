@@ -21,6 +21,17 @@
       sha256 = "sha256-vyvsychfpRMSQWgxQfCxD3QllmKBjDdcbIvJiEDfz+8=";
     };
   };
+  jtag-remote-server = {
+    pname = "jtag-remote-server";
+    version = "16211b59c7314a635558b5ee1c30274b12cc8d7b";
+    src = fetchFromGitHub ({
+      owner = "jiegec";
+      repo = "jtag-remote-server";
+      rev = "16211b59c7314a635558b5ee1c30274b12cc8d7b";
+      fetchSubmodules = false;
+      sha256 = "sha256-fJ2kuTSZCadyFUDoN35X1Z2N3g68vF7CtdlPMk6R2Ps=";
+    });
+  };
   rait = {
     pname = "rait";
     version = "e84e803641ec3a2dce5670275ea8d5497608f483";
@@ -36,13 +47,13 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "31812cd13f35ab28011615cce1aac7298dfe35c7";
+    version = "9d737af35126c3a857e1c6a3356ab3879e92b6eb";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "31812cd13f35ab28011615cce1aac7298dfe35c7";
+      rev = "9d737af35126c3a857e1c6a3356ab3879e92b6eb";
       fetchSubmodules = true;
-      sha256 = "sha256-/Zx2a488Fn2xLjojZNPqPs6swyShOpss/rdU1w6oV9Y=";
+      sha256 = "sha256-B7lFvBete5C3bGiYmuRaWdpEaDe2vk1nFcF827QBJ6s=";
     });
   };
   smartdns-china-list = {
