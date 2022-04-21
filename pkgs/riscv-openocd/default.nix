@@ -47,6 +47,7 @@ stdenv.mkDerivation rec {
     fi
     ln -s "$rules" "$out/etc/udev/rules.d/"
   '';
+  enableParallelBuilding = true;
   meta = with lib; {
     description = "Free and Open On-Chip Debugging, In-System Programming and Boundary-Scan Testing";
     longDescription = ''
