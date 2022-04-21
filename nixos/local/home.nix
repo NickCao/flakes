@@ -233,6 +233,8 @@ in
     ).outPath;
   };
 
+  systemd.user.targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
+
   programs = {
     pandoc.enable = true;
     jq.enable = true;

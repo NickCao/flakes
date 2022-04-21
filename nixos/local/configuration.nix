@@ -226,7 +226,6 @@
         '';
     };
     xserver = {
-      desktopManager.runXdgAutostartIfNone = true;
       videoDrivers = [ "nvidia" ];
     };
   };
@@ -276,12 +275,6 @@
     sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
     monospace = [ "JetBrains Mono" ];
     emoji = [ "Noto Color Emoji" ];
-  };
-
-  systemd.user.services.xdg-autostart = {
-    script = "/run/current-system/systemd/bin/systemctl --user start xdg-autostart-if-no-desktop-manager.target";
-    after = [ "graphical-session.target" ];
-    wantedBy = [ "graphical-session.target" ];
   };
 
   environment.persistence."/persistent" = {
