@@ -173,7 +173,10 @@ in
       protocol kernel gravity_kernel {
         ipv6 sadr {
           import none;
-          export all;
+          export filter {
+            krt_prefsrc = 2a0c:b641:69c:99cc::2;
+            accept;
+          };
         };
         kernel table 100;
       }
