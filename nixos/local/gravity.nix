@@ -79,11 +79,11 @@ in
           interface "host" {
             type wired;
           };
-          interface "grv4x*" {
+          interface "grv*" {
             type tunnel;
-          };
-          interface "grv6x*" {
-            type tunnel;
+            rxcost 32;
+            hello interval 20 s;
+            rtt max 1024 ms;
           };
         }
       ''}";
