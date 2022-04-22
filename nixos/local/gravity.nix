@@ -51,6 +51,8 @@ in
       EnvironmentFile = config.sops.secrets.rait.path;
       ExecStartPre = [
         "${iproute2}/bin/ip netns add gravity"
+        "${iproute2}/bin/ip netns exec gravity ${procps}/bin/sysctl -w net.ipv6.conf.all.forwarding=1"
+        "${iproute2}/bin/ip netns exec gravity ${procps}/bin/sysctl -w net.ipv6.conf.default.forwarding=1"
         "${iproute2}/bin/ip link add gravity address 00:00:00:00:00:02 group 1 type veth peer host address 00:00:00:00:00:01 netns gravity"
         "${iproute2}/bin/ip link set gravity up"
         "${iproute2}/bin/ip -n gravity link set host up"
@@ -59,17 +61,18 @@ in
       ];
       ExecStart = "${iproute2}/bin/ip netns exec gravity ${bird-babel-rtt}/bin/bird -f -s /run/gravity.ctl -c ${writeText "bird.conf" ''
         router id 10.0.0.1;
+        ipv6 sadr table sadr6;
         protocol device {
           scan time 5;
         }
         protocol kernel {
-          ipv6 {
+          ipv6 sadr {
             export all;
             import none;
           };
         }
         protocol babel {
-          ipv6 {
+          ipv6 sadr {
             export all;
             import all;
           };
