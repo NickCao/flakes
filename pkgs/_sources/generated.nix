@@ -13,6 +13,17 @@
     });
     vendorSha256 = "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o=";
   };
+  bird-babel-rtt = {
+    pname = "bird-babel-rtt";
+    version = "27fa61fe7925f1110c4acec25c38389f704944b7";
+    src = fetchFromGitHub ({
+      owner = "tohojo";
+      repo = "bird";
+      rev = "27fa61fe7925f1110c4acec25c38389f704944b7";
+      fetchSubmodules = false;
+      sha256 = "sha256-KPf/z+iEJuLEvw+ineB9I/DqmtNRkuflhvsyRXjnWTQ=";
+    });
+  };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
     version = "20220416";
@@ -58,13 +69,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "d88306f02dcf49315273a18474ebaa284a2af91b";
+    version = "469873ae3692018b0695c2a94fde2c875a62fbce";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "d88306f02dcf49315273a18474ebaa284a2af91b";
+      rev = "469873ae3692018b0695c2a94fde2c875a62fbce";
       fetchSubmodules = false;
-      sha256 = "sha256-YVkliXo2z6JZneGVbawYCunSLDhH1Z1jE+JUZXEtZXE=";
+      sha256 = "sha256-dyBjCyFVuW5pRbtoTveHtj/ZMR+jDcf6/1cU9UDBzaE=";
     });
   };
   wemeet = {

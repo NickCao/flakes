@@ -20,6 +20,25 @@
         },
         "version": "v2.2"
     },
+    "bird-babel-rtt": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "bird-babel-rtt",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tohojo",
+            "repo": "bird",
+            "rev": "27fa61fe7925f1110c4acec25c38389f704944b7",
+            "sha256": "sha256-KPf/z+iEJuLEvw+ineB9I/DqmtNRkuflhvsyRXjnWTQ=",
+            "type": "github"
+        },
+        "version": "27fa61fe7925f1110c4acec25c38389f704944b7"
+    },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
         "extract": null,
@@ -105,11 +124,11 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "d88306f02dcf49315273a18474ebaa284a2af91b",
-            "sha256": "sha256-YVkliXo2z6JZneGVbawYCunSLDhH1Z1jE+JUZXEtZXE=",
+            "rev": "469873ae3692018b0695c2a94fde2c875a62fbce",
+            "sha256": "sha256-dyBjCyFVuW5pRbtoTveHtj/ZMR+jDcf6/1cU9UDBzaE=",
             "type": "github"
         },
-        "version": "d88306f02dcf49315273a18474ebaa284a2af91b"
+        "version": "469873ae3692018b0695c2a94fde2c875a62fbce"
     },
     "wemeet": {
         "cargoLocks": null,
