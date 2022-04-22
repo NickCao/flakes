@@ -9,7 +9,7 @@ stdenv.mkDerivation {
     ./dont-create-sysconfdir-2.patch
   ];
 
-  CPP="${stdenv.cc.targetPrefix}cpp -E";
+  CPP = "${stdenv.cc.targetPrefix}cpp -E";
 
   configureFlags = [
     "--localstatedir=/var"

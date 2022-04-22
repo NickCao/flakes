@@ -9,48 +9,88 @@ let
     } ''
     sed 's/^/route /;s/$/ recursive 2001:db8::1;/' $src >> $out
   '';
+  raitConfig = pkgs.writeText "rait.conf" ''
+    registry     = env("REGISTRY")
+    operator_key = env("OPERATOR_KEY")
+    private_key  = env("PRIVATE_KEY")
+    namespace    = "gravity"
+
+    transport {
+      address_family = "ip4"
+      send_port      = 50153
+      mtu            = 1400
+      ifprefix       = "grv4x"
+      ifgroup        = 1
+      fwmark         = 54
+      random_port    = false
+    }
+
+    transport {
+      address_family = "ip6"
+      send_port      = 50154
+      mtu            = 1400
+      ifprefix       = "grv6x"
+      ifgroup        = 2
+      fwmark         = 54
+      random_port    = false
+    }
+
+    babeld {
+      enabled = false
+    }
+
+    remarks = {
+      location = "thu"
+      operator = "nickcao"
+    }
+  '';
 in
 {
-  services.gravity = {
-    enable = true;
-    group = 1;
-    envfile = config.sops.secrets.rait.path;
-    config = pkgs.writeText "rait.conf" ''
-      registry     = env("REGISTRY")
-      operator_key = env("OPERATOR_KEY")
-      private_key  = env("PRIVATE_KEY")
-      namespace    = "gravity"
-
-      transport {
-        address_family = "ip4"
-        send_port      = 50153
-        mtu            = 1400
-        ifprefix       = "grv4x"
-        ifgroup        = 1
-        fwmark         = 54
-        random_port    = false
-      }
-
-      transport {
-        address_family = "ip6"
-        send_port      = 50154
-        mtu            = 1400
-        ifprefix       = "grv6x"
-        ifgroup        = 2
-        fwmark         = 54
-        random_port    = false
-      }
-
-      babeld {
-        enabled = true
-      }
-
-      remarks = {
-        location = "thu"
-        operator = "nickcao"
-      }
-    '';
-    address = "2a0c:b641:69c:99cc::1/126";
+  systemd.services.gravity = {
+    serviceConfig = with pkgs;{
+      EnvironmentFile = config.sops.secrets.rait.path;
+      ExecStartPre = [
+        "${iproute2}/bin/ip netns add gravity"
+        "${iproute2}/bin/ip link add gravity address 00:00:00:00:00:02 group 1 type veth peer host address 00:00:00:00:00:01 netns gravity"
+        "${iproute2}/bin/ip link set gravity up"
+        "${iproute2}/bin/ip -n gravity link set host up"
+        "${iproute2}/bin/ip -n gravity addr add 2a0c:b641:69c:99cc::1/126 dev host"
+        "${rait}/bin/rait up -c ${raitConfig}"
+      ];
+      ExecStart = "${iproute2}/bin/ip netns exec gravity ${bird-babel-rtt}/bin/bird -f -s /run/gravity.ctl -c ${writeText "bird.conf" ''
+        router id 10.0.0.1;
+        protocol device {
+          scan time 5;
+        }
+        protocol kernel {
+          ipv6 {
+            export all;
+            import none;
+          };
+        }
+        protocol babel {
+          ipv6 {
+            export all;
+            import all;
+          };
+          interface "host" {
+            type wired;
+          };
+          interface "grv4x*" {
+            type tunnel;
+          };
+          interface "grv6x*" {
+            type tunnel;
+          };
+        }
+      ''}";
+      ExecReload = "${rait}/bin/rait sync -c ${raitConfig}";
+      ExecStopPost = "${iproute2}/bin/ip netns del gravity";
+      Restart = "always";
+    };
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
   };
 
   systemd.network.enable = true;
