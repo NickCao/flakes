@@ -115,6 +115,7 @@ in
       lualine-nvim
       which-key-nvim
       lualine-lsp-progress
+      vim-fugitive
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix
