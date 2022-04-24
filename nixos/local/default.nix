@@ -13,6 +13,10 @@ nixpkgs.lib.nixosSystem {
       nixpkgs.overlays = [
         self.overlays.default
         inputs.matlab.overlay
+        (final: prev: {
+          ranet = inputs.ranet.packages.${system}.default;
+          bird = prev.bird-babel-rtt;
+        })
       ];
       nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       nix.registry.p.flake = self;

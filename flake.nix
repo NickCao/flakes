@@ -59,6 +59,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    ranet = {
+      url = "github:SCP-2000/ranet";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, dns, ... }:
     let

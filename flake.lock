@@ -272,6 +272,29 @@
         "type": "github"
       }
     },
+    "ranet": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1650779437,
+        "narHash": "sha256-ZEci2+1SgPo9FMetQLH4ZmKA5OEXUOHzucfuHps4emY=",
+        "owner": "SCP-2000",
+        "repo": "ranet",
+        "rev": "5c693fd3ea1114d8b3421a81773c4c8404aeb481",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SCP-2000",
+        "repo": "ranet",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "blog": "blog",
@@ -287,6 +310,7 @@
         "matlab": "matlab",
         "nixpkgs": "nixpkgs",
         "nvfetcher": "nvfetcher",
+        "ranet": "ranet",
         "sops-nix": "sops-nix"
       }
     },
