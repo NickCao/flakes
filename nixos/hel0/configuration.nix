@@ -32,7 +32,7 @@
         "private/dendrite"
         "private/mautrix-telegram"
         "backup/postgresql"
-      ];
+      ] ++ [ "/persist/home/git" ];
       timerConfig = {
         OnCalendar = "daily";
       };
