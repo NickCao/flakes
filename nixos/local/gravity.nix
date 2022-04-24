@@ -25,9 +25,13 @@
       Table = 200;
     };
   };
-  systemd.services.remove-local-rule = {
+  systemd.services.fix-ip-rules = {
+    path = with pkgs;[ iproute2 coreutils ];
     script = ''
-      ${pkgs.iproute2}/bin/ip -6 ru del pref 0
+      ip -4 ru del pref 0
+      ip -6 ru del pref 0
+      ip -4 ru add pref 2000 l3mdev unreachable proto kernel
+      ip -6 ru add pref 2000 l3mdev unreachable proto kernel
     '';
     after = [ "network-pre.target" ];
     before = [ "network.target" ];
@@ -39,9 +43,9 @@
     routingPolicyRules = [
       {
         routingPolicyRuleConfig = {
-          Priority = 2000;
+          Priority = 3000;
           Table = "local";
-          Family = "ipv6";
+          Family = "both";
         };
       }
     ];
