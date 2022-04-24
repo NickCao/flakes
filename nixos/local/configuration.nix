@@ -9,7 +9,6 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     secrets = {
-      rait.restartUnits = [ "gravity.service" ];
       v2ray.restartUnits = [ "v2ray.service" ];
       passwd.neededForUsers = true;
       u2f = { mode = "0444"; };
