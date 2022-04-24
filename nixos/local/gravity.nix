@@ -25,20 +25,9 @@
       Table = 200;
     };
   };
-  systemd.network.networks.lo = {
-    name = "lo";
-    addresses = [{ addressConfig.Address = "2a0c:b641:69c:99cc::2/64"; }];
-  };
   systemd.network.networks.gravity = {
     name = "gravity";
     addresses = [{ addressConfig.Address = "2a0c:b641:69c:99cc::1/64"; }];
-    routes = [
-      {
-        routeConfig = {
-          Source = "2a0c:b641:69c:99cc::/64";
-        };
-      }
-    ];
     routingPolicyRules = [
       {
         routingPolicyRuleConfig = {
