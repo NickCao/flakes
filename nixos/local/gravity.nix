@@ -28,6 +28,23 @@
   systemd.network.networks.gravity = {
     name = "gravity";
     addresses = [{ addressConfig.Address = "2a0c:b641:69c:99cc::1/64"; }];
+    routingPolicyRules = [
+      {
+        routingPolicyRuleConfig = {
+          FirewallMark = 54;
+          Priority = 900;
+          Family = "ipv6";
+        };
+      }
+      {
+        routingPolicyRuleConfig = {
+          FirewallMark = 54;
+          Priority = 901;
+          Family = "ipv6";
+          Type = "blackhole";
+        };
+      }
+    ];
   };
 
   services.bird2 = {
