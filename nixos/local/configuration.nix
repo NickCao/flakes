@@ -115,8 +115,9 @@
         "kernel.sysrq" = 1;
         "net.ipv6.conf.default.forwarding" = 1;
         "net.ipv6.conf.all.forwarding" = 1;
-        "net.ipv4.tcp_l3mdev_accept" = 1;
-        "net.ipv4.udp_l3mdev_accept" = 1;
+        "net.ipv4.tcp_l3mdev_accept" = 0;
+        "net.ipv4.udp_l3mdev_accept" = 0;
+        "net.ipv4.raw_l3mdev_accept" = 0;
       };
     };
     kernelPackages = pkgs.linuxPackages_latest;
