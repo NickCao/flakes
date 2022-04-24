@@ -25,23 +25,23 @@
       Table = 200;
     };
   };
+  systemd.services.remove-local-rule = {
+    script = ''
+      ${pkgs.iproute2}/bin/ip -6 ru del pref 0
+    '';
+    after = [ "network-pre.target" ];
+    before = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+  };
   systemd.network.networks.gravity = {
     name = "gravity";
     addresses = [{ addressConfig.Address = "2a0c:b641:69c:99cc::1/64"; }];
     routingPolicyRules = [
       {
         routingPolicyRuleConfig = {
-          FirewallMark = 54;
-          Priority = 900;
+          Priority = 2000;
+          Table = "local";
           Family = "ipv6";
-        };
-      }
-      {
-        routingPolicyRuleConfig = {
-          FirewallMark = 54;
-          Priority = 901;
-          Family = "ipv6";
-          Type = "blackhole";
         };
       }
     ];
