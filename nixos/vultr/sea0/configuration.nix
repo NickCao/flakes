@@ -53,13 +53,6 @@ in
     gravity = {
       name = "gravity";
       addresses = [{ addressConfig.Address = "2a0c:b641:69c:4ed0::1/128"; }];
-      routes = [
-        {
-          routeConfig = {
-            Destination = "2a0c:b641:69c::/48";
-          };
-        }
-      ];
     };
     divi = {
       name = "divi";
@@ -114,7 +107,7 @@ in
       }
       protocol kernel {
         ipv6 {
-          export none;
+          export all;
           import all;
         };
         learn;
@@ -145,7 +138,7 @@ in
       }
       protocol static announce {
         ipv6;
-        route 2a0c:b641:69c::/48 unreachable;
+        route 2a0c:b641:69c::/48 via "gravity";
       }
       protocol bgp vultr {
         ipv6 {
