@@ -140,10 +140,14 @@ in
           rtt max 1024 ms;
         };
       }
+      protocol static announce {
+        ipv6;
+        route 2a0c:b641:69c::/48 unreachable;
+      }
       protocol bgp vultr {
         ipv6 {
           import none;
-          export none;
+          export where (proto = "announce");
         };
         local as 209297;
         graceful restart on;
