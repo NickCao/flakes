@@ -76,6 +76,15 @@ in
             };
           }
         ];
+        routingPolicyRules = [
+          {
+            routingPolicyRuleConfig = {
+              Priority = 900;
+              To = cfg.prefix;
+              Family = "ipv6";
+            };
+          }
+        ];
       };
     };
   };
