@@ -133,17 +133,18 @@ in
           table gravity_table;
         };
         route 2a0c:b641:69c:4ed0::/60 from ::/0 unreachable;
+        route 2a0c:b641:69c::/48 from ::/0 unreachable;
         route ::/0 from 2a0c:b641:69c:99cc::/64 recursive 2606:4700:4700::1111;
         igp table master6;
       }
-      protocol static announce {
+      protocol static global_announce {
         ipv6;
         route 2a0c:b641:69c::/48 via "gravity";
       }
       protocol bgp vultr {
         ipv6 {
           import none;
-          export where (proto = "announce");
+          export where (proto = "global_announce");
         };
         local as 209297;
         graceful restart on;
