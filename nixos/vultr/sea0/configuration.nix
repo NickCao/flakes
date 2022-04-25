@@ -14,78 +14,10 @@ in
     };
   };
 
-  boot.kernel.sysctl = {
-    "net.ipv6.conf.default.forwarding" = 1;
-    "net.ipv4.conf.default.forwarding" = 1;
-    "net.ipv6.conf.all.forwarding" = 1;
-    "net.ipv4.conf.all.forwarding" = 1;
-    "net.ipv4.tcp_l3mdev_accept" = 0;
-    "net.ipv4.udp_l3mdev_accept" = 0;
-    "net.ipv4.raw_l3mdev_accept" = 0;
-  };
-
-  systemd.services.gravity = {
-    serviceConfig = with pkgs;{
-      ExecStart = "${ranet}/bin/ranet -c ${config.sops.secrets.ranet.path} up";
-      ExecReload = "${ranet}/bin/ranet -c ${config.sops.secrets.ranet.path} up";
-      ExecStop = "${ranet}/bin/ranet -c ${config.sops.secrets.ranet.path} down";
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    wants = [ "network-online.target" ];
-    after = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
-  };
-
-  systemd.network.enable = true;
-  systemd.network.netdevs = {
-    gravity = {
-      netdevConfig = {
-        Name = "gravity";
-        Kind = "vrf";
-      };
-      vrfConfig = {
-        Table = 200;
-      };
-    };
-  };
-  systemd.network.networks = {
-    gravity = {
-      name = "gravity";
-      addresses = [{ addressConfig.Address = "2a0c:b641:69c:4ed0::1/128"; }];
-    };
-    divi = {
-      name = "divi";
-      routes = [
-        { routeConfig = { Destination = nat64-prefix; Table = 200; }; }
-        { routeConfig.Destination = nat64-prefix; }
-        { routeConfig.Destination = dynamic-pool; }
-      ];
-    };
-  };
-
-  systemd.services.fix-ip-rules = {
-    path = with pkgs;[ iproute2 coreutils ];
-    script = ''
-      ip -4 ru del pref 0 || true
-      ip -6 ru del pref 0 || true
-      if [ -z "$(ip -4 ru list pref 2000)" ]; then
-        ip -4 ru add pref 2000 l3mdev unreachable proto kernel
-      fi
-      if [ -z "$(ip -6 ru list pref 2000)" ]; then
-        ip -6 ru add pref 2000 l3mdev unreachable proto kernel
-      fi
-      if [ -z "$(ip -4 ru list pref 3000)" ]; then
-        ip -4 ru add pref 3000 lookup local proto kernel
-      fi
-      if [ -z "$(ip -6 ru list pref 3000)" ]; then
-        ip -6 ru add pref 3000 lookup local proto kernel
-      fi
-    '';
-    serviceConfig.RemainAfterExit = true;
-    after = [ "network-pre.target" ];
-    before = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+  services.gravity-ng = {
+    enable = true;
+    config = config.sops.secrets.ranet.path;
+    address = [ "2a0c:b641:69c:4ed0::1/128" ];
   };
 
   services.bird2 = {
@@ -154,6 +86,16 @@ in
       }
     '';
   };
+
+  systemd.network.networks.divi = {
+    name = "divi";
+    routes = [
+      { routeConfig = { Destination = nat64-prefix; Table = config.services.gravity-ng.table; }; }
+      { routeConfig.Destination = nat64-prefix; }
+      { routeConfig.Destination = dynamic-pool; }
+    ];
+  };
+
   networking.nftables = {
     enable = true;
     ruleset = ''
@@ -177,6 +119,7 @@ in
       }
     '';
   };
+
   systemd.services.divi = {
     serviceConfig = {
       ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
