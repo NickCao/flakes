@@ -7,7 +7,9 @@
 
   boot.kernel.sysctl = {
     "net.ipv6.conf.default.forwarding" = 1;
+    "net.ipv4.conf.default.forwarding" = 1;
     "net.ipv6.conf.all.forwarding" = 1;
+    "net.ipv4.conf.all.forwarding" = 1;
     "net.ipv4.tcp_l3mdev_accept" = 0;
     "net.ipv4.udp_l3mdev_accept" = 0;
     "net.ipv4.raw_l3mdev_accept" = 0;
@@ -43,19 +45,17 @@
         Kind = "dummy";
       };
     };
-    divi = {
-      netdevConfig = {
-        Name = "divi";
-        Kind = "vrf";
-      };
-      vrfConfig = {
-        Table = 300;
-      };
-    };
   };
   systemd.network.networks = {
     gravity = {
       name = "gravity";
+      routes = [
+        {
+          routeConfig = {
+            Destination = "2a0c:b641:69c::/48";
+          };
+        }
+      ];
     };
     gravity-dummy = {
       name = "gravity-dummy";
@@ -64,10 +64,24 @@
     };
     divi = {
       name = "divi";
-    };
-    divi-tun = {
-      name = "divi-tun";
-      vrf = [ "divi" ];
+      routes = [
+        {
+          routeConfig = {
+            Destination = "2a0c:b641:69c:4ed4:0:4::/96";
+            Table = 200;
+          };
+        }
+        {
+          routeConfig = {
+            Destination = "2a0c:b641:69c:4ed4:0:4::/96";
+          };
+        }
+        {
+          routeConfig = {
+            Destination = "10.208.0.0/12";
+          };
+        }
+      ];
     };
   };
 
@@ -149,7 +163,7 @@
   systemd.services.divi = {
     serviceConfig = {
       ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
-          tun-device divi-tun
+          tun-device divi
           ipv4-addr 10.208.0.1
           prefix 2a0c:b641:69c:4ed4:0:4::/96
           dynamic-pool 10.208.0.0/12
