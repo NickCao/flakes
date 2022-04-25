@@ -48,17 +48,11 @@ in
         Table = 200;
       };
     };
-    gravity-dummy = {
-      netdevConfig = {
-        Name = "gravity-dummy";
-        Kind = "dummy";
-      };
-    };
   };
   systemd.network.networks = {
     gravity = {
       name = "gravity";
-      addresses = [{ addressConfig.Address = "2a0c:b641:69c:4ed0::2/128"; }];
+      addresses = [{ addressConfig.Address = "2a0c:b641:69c:4ed0::1/128"; }];
       routes = [
         {
           routeConfig = {
@@ -66,11 +60,6 @@ in
           };
         }
       ];
-    };
-    gravity-dummy = {
-      name = "gravity-dummy";
-      vrf = [ "gravity" ];
-      addresses = [{ addressConfig.Address = "2a0c:b641:69c:4ed0::1/60"; }];
     };
     divi = {
       name = "divi";
@@ -115,12 +104,6 @@ in
       protocol device {
         scan time 5;
       }
-      protocol direct {
-        ipv6 sadr {
-          table gravity_table;
-        };
-        interface "gravity-dummy";
-      }
       protocol kernel {
         kernel table 200;
         ipv6 sadr {
@@ -156,6 +139,7 @@ in
         ipv6 sadr {
           table gravity_table;
         };
+        route 2a0c:b641:69c:4ed0::/60 from ::/0 unreachable;
         route ::/0 from 2a0c:b641:69c:99cc::/64 recursive 2606:4700:4700::1111;
         igp table master6;
       }
