@@ -27,15 +27,34 @@
   };
 
   systemd.network.enable = true;
-  systemd.network.netdevs.gravity = {
-    netdevConfig = {
-      Name = "gravity";
-      Kind = "vrf";
+  systemd.network.netdevs = {
+    gravity = {
+      netdevConfig = {
+        Name = "gravity";
+        Kind = "vrf";
+      };
+      vrfConfig = {
+        Table = 200;
+      };
     };
-    vrfConfig = {
-      Table = 200;
+    gravity-dummy = {
+      netdevConfig = {
+        Name = "gravity-dummy";
+        Kind = "dummy";
+      };
     };
   };
+  systemd.network.networks = {
+    gravity = {
+      name = "gravity";
+    };
+    gravity-dummy = {
+      name = "gravity-dummy";
+      vrf = [ "gravity" ];
+      addresses = [{ addressConfig.Address = "2a0c:b641:69c:4ed0::1/60"; }];
+    };
+  };
+
   systemd.services.fix-ip-rules = {
     path = with pkgs;[ iproute2 coreutils ];
     script = ''
@@ -47,23 +66,16 @@
       if [ -z "$(ip -6 ru list pref 2000)" ]; then
         ip -6 ru add pref 2000 l3mdev unreachable proto kernel
       fi
+      if [ -z "$(ip -4 ru list pref 3000)" ]; then
+        ip -4 ru add pref 3000 lookup local proto kernel
+      fi
+      if [ -z "$(ip -6 ru list pref 3000)" ]; then
+        ip -6 ru add pref 3000 lookup local proto kernel
+      fi
     '';
     after = [ "network-pre.target" ];
     before = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-  };
-  systemd.network.networks.gravity = {
-    name = "gravity";
-    addresses = [{ addressConfig.Address = "2a0c:b641:69c:4ed0::1/60"; }];
-    routingPolicyRules = [
-      {
-        routingPolicyRuleConfig = {
-          Priority = 3000;
-          Table = "local";
-          Family = "both";
-        };
-      }
-    ];
   };
 
   services.bird2 = {
@@ -75,7 +87,7 @@
       }
       protocol direct {
         ipv6 sadr;
-        interface "gravity";
+        interface "gravity-dummy";
       }
       protocol kernel {
         kernel table 200;
