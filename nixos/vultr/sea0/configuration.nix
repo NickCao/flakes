@@ -1,4 +1,8 @@
 { config, pkgs, ... }:
+let
+  dynamic-pool = "10.208.0.0/12";
+  nat64-prefix = "2a0c:b641:69c:4ed4:0:4::/96";
+in
 {
   sops = {
     defaultSopsFile = ./secrets.yaml;
@@ -65,22 +69,9 @@
     divi = {
       name = "divi";
       routes = [
-        {
-          routeConfig = {
-            Destination = "2a0c:b641:69c:4ed4:0:4::/96";
-            Table = 200;
-          };
-        }
-        {
-          routeConfig = {
-            Destination = "2a0c:b641:69c:4ed4:0:4::/96";
-          };
-        }
-        {
-          routeConfig = {
-            Destination = "10.208.0.0/12";
-          };
-        }
+        { routeConfig = { Destination = nat64-prefix; Table = 200; }; }
+        { routeConfig.Destination = nat64-prefix; }
+        { routeConfig.Destination = dynamic-pool; }
       ];
     };
   };
@@ -158,6 +149,12 @@
           oifname "enp1s0" masquerade
         }
       }
+      table ip6 filter {
+        chain forward {
+          type filter hook forward priority 0;
+          oifname "divi" ip6 saddr != { 2a0c:b641:69c::/48, 2001:470:4c22::/48 } reject
+        }
+      }
     '';
   };
   systemd.services.divi = {
@@ -165,8 +162,8 @@
       ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
           tun-device divi
           ipv4-addr 10.208.0.1
-          prefix 2a0c:b641:69c:4ed4:0:4::/96
-          dynamic-pool 10.208.0.0/12
+          prefix ${nat64-prefix}
+          dynamic-pool ${dynamic-pool}
         ''}";
     };
     after = [ "network.target" ];
