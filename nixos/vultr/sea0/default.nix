@@ -8,9 +8,16 @@ nixpkgs.lib.nixosSystem {
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
     ({ pkgs, config, ... }: {
-      nixpkgs.overlays = [ self.overlays.default ];
+      nixpkgs.overlays = [
+        self.overlays.default
+        (final: prev: {
+          ranet = inputs.ranet.packages.${system}.default;
+          bird = prev.bird-babel-rtt;
+        })
+      ];
       networking.hostName = "sea0";
       services.dns.secondary.enable = true;
     })
+    ./configuration.nix
   ];
 }
