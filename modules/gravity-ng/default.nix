@@ -29,6 +29,7 @@ in
       };
       pattern = mkOption {
         type = types.str;
+        default = "grv*";
         description = "pattern for wireguard interfaces";
       };
     };
@@ -45,10 +46,11 @@ in
       };
       oif = mkOption {
         type = types.str;
+        default = "enp1s0";
         description = "name of ipv4 outbound interface";
       };
       allow = mkOption {
-        default = [ ];
+        default = [ "2a0c:b641:69c::/48" ];
         type = types.listOf types.str;
         description = "list of addresses allowed to use divi";
       };
