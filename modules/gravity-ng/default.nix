@@ -112,18 +112,34 @@ in
       };
 
       systemd.network.enable = true;
-      systemd.network.netdevs.gravity = {
-        netdevConfig = {
-          Name = "gravity";
-          Kind = "vrf";
+      systemd.network.netdevs = {
+        gravity = {
+          netdevConfig = {
+            Name = "gravity";
+            Kind = "vrf";
+          };
+          vrfConfig = {
+            Table = cfg.table;
+          };
         };
-        vrfConfig = {
-          Table = cfg.table;
+        gravity-bind = {
+          netdevConfig = {
+            Name = "gravity-bind";
+            Kind = "dummy";
+          };
         };
       };
-      systemd.network.networks.gravity = {
-        name = "gravity";
-        address = cfg.address;
+
+      systemd.network.networks = {
+        gravity = {
+          name = "gravity";
+          address = cfg.address;
+        };
+        gravity-bind = {
+          name = "gravity-bind";
+          address = cfg.address;
+          vrf = [ "gravity" ];
+        };
       };
     })
     (mkIf cfg.bird.enable {
