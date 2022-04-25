@@ -39,10 +39,14 @@
   systemd.services.fix-ip-rules = {
     path = with pkgs;[ iproute2 coreutils ];
     script = ''
-      ip -4 ru del pref 0
-      ip -6 ru del pref 0
-      ip -4 ru add pref 2000 l3mdev unreachable proto kernel
-      ip -6 ru add pref 2000 l3mdev unreachable proto kernel
+      ip -4 ru del pref 0 || true
+      ip -6 ru del pref 0 || true
+      if [ -z "$(ip -4 ru list pref 2000)" ]; then
+        ip -4 ru add pref 2000 l3mdev unreachable proto kernel
+      fi
+      if [ -z "$(ip -6 ru list pref 2000)" ]; then
+        ip -6 ru add pref 2000 l3mdev unreachable proto kernel
+      fi
     '';
     after = [ "network-pre.target" ];
     before = [ "network.target" ];
