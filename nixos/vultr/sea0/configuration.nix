@@ -7,6 +7,11 @@ in
   sops = {
     defaultSopsFile = ./secrets.yaml;
     secrets.ranet.reloadUnits = [ "gravity.service" ];
+    secrets.bgp_passwd = {
+      sopsFile = ../../../modules/bgp/secrets.yaml;
+      owner = "bird2";
+      reloadUnits = [ "bird2.service" ];
+    };
   };
 
   boot.kernel.sysctl = {
@@ -101,7 +106,9 @@ in
 
   services.bird2 = {
     enable = true;
+    checkConfig = false;
     config = ''
+      include "${config.sops.secrets.bgp_passwd.path}";
       ipv6 sadr table sadr6;
       protocol device {
         scan time 5;
@@ -131,6 +138,17 @@ in
           rtt cost 1024;
           rtt max 1024 ms;
         };
+      }
+      protocol bgp vultr {
+        ipv6 {
+          import none;
+          export none;
+        };
+        local as 209297;
+        graceful restart on;
+        multihop 2;
+        neighbor 2001:19f0:ffff::1 as 64515;
+        password BGP_PASSWD;
       }
     '';
   };
