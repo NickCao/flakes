@@ -43,6 +43,15 @@
         Kind = "dummy";
       };
     };
+    divi = {
+      netdevConfig = {
+        Name = "divi";
+        Kind = "vrf";
+      };
+      vrfConfig = {
+        Table = 300;
+      };
+    };
   };
   systemd.network.networks = {
     gravity = {
@@ -52,6 +61,13 @@
       name = "gravity-dummy";
       vrf = [ "gravity" ];
       addresses = [{ addressConfig.Address = "2a0c:b641:69c:4ed0::1/60"; }];
+    };
+    divi = {
+      name = "divi";
+    };
+    divi-tun = {
+      name = "divi-tun";
+      vrf = [ "divi" ];
     };
   };
 
@@ -133,7 +149,7 @@
   systemd.services.divi = {
     serviceConfig = {
       ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
-          tun-device divi
+          tun-device divi-tun
           ipv4-addr 10.208.0.1
           prefix 2a0c:b641:69c:4ed4:0:4::/96
           dynamic-pool 10.208.0.0/12
