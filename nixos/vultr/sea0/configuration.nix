@@ -113,4 +113,33 @@
       }
     '';
   };
+  networking.nftables = {
+    enable = true;
+    ruleset = ''
+      table ip filter {
+        chain forward {
+          type filter hook forward priority 0;
+          tcp flags syn tcp option maxseg size set 1300
+        }
+      }
+      table ip nat {
+        chain postrouting {
+          type nat hook postrouting priority 100;
+          oifname "enp1s0" masquerade
+        }
+      }
+    '';
+  };
+  systemd.services.divi = {
+    serviceConfig = {
+      ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
+          tun-device divi
+          ipv4-addr 10.208.0.1
+          prefix 2a0c:b641:69c:4ed4:0:4::/96
+          dynamic-pool 10.208.0.0/12
+        ''}";
+    };
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+  };
 }
