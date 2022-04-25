@@ -58,6 +58,7 @@ in
   systemd.network.networks = {
     gravity = {
       name = "gravity";
+      addresses = [{ addressConfig.Address = "2a0c:b641:69c:4ed0::2/128"; }];
       routes = [
         {
           routeConfig = {
@@ -110,24 +111,35 @@ in
     checkConfig = false;
     config = ''
       include "${config.sops.secrets.bgp_passwd.path}";
-      ipv6 sadr table sadr6;
+      ipv6 sadr table gravity_table;
       protocol device {
         scan time 5;
       }
       protocol direct {
-        ipv6 sadr;
+        ipv6 sadr {
+          table gravity_table;
+        };
         interface "gravity-dummy";
       }
       protocol kernel {
         kernel table 200;
         ipv6 sadr {
+          table gravity_table;
           export all;
           import none;
         };
       }
+      protocol kernel {
+        ipv6 {
+          export none;
+          import all;
+        };
+        learn;
+      }
       protocol babel gravity {
         vrf "gravity";
         ipv6 sadr {
+          table gravity_table;
           export all;
           import all;
         };
@@ -139,6 +151,13 @@ in
           rtt cost 1024;
           rtt max 1024 ms;
         };
+      }
+      protocol static gravity_announce {
+        ipv6 sadr {
+          table gravity_table;
+        };
+        route ::/0 from 2a0c:b641:69c:99cc::/64 recursive 2606:4700:4700::1111;
+        igp table master6;
       }
       protocol static announce {
         ipv6;
