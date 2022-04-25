@@ -21,7 +21,7 @@ in
       description = "list of addresses to be added to the vrf interface";
     };
     bird = {
-      enable = mkEnableOption "sample bird configuration";
+      leaf.enable = mkEnableOption "leaf node bird configuration";
       prefix = mkOption {
         type = types.str;
         description = "prefix to be announced for local node";
@@ -123,7 +123,7 @@ in
         address = cfg.address;
       };
     })
-    (mkIf cfg.bird.enable {
+    (mkIf cfg.bird.leaf.enable {
       services.bird2 = {
         enable = true;
         config = ''
