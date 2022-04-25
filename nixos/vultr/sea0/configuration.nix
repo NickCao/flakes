@@ -18,6 +18,12 @@ in
     enable = true;
     config = config.sops.secrets.ranet.path;
     address = [ "2a0c:b641:69c:4ed0::1/128" ];
+    divi = {
+      enable = true;
+      prefix = "2a0c:b641:69c:4ed4:0:4::/96";
+      oif = "enp1s0";
+      allow = [ "2a0c:b641:69c::/48" ];
+    };
   };
 
   services.bird2 = {
@@ -30,7 +36,7 @@ in
         scan time 5;
       }
       protocol kernel {
-        kernel table 200;
+        kernel table ${toString config.services.gravity-ng.table};
         ipv6 sadr {
           table gravity_table;
           export all;
@@ -85,51 +91,5 @@ in
         password BGP_PASSWD;
       }
     '';
-  };
-
-  systemd.network.networks.divi = {
-    name = "divi";
-    routes = [
-      { routeConfig = { Destination = nat64-prefix; Table = config.services.gravity-ng.table; }; }
-      { routeConfig.Destination = nat64-prefix; }
-      { routeConfig.Destination = dynamic-pool; }
-    ];
-  };
-
-  networking.nftables = {
-    enable = true;
-    ruleset = ''
-      table ip filter {
-        chain forward {
-          type filter hook forward priority 0;
-          tcp flags syn tcp option maxseg size set 1300
-        }
-      }
-      table ip nat {
-        chain postrouting {
-          type nat hook postrouting priority 100;
-          oifname "enp1s0" masquerade
-        }
-      }
-      table ip6 filter {
-        chain forward {
-          type filter hook forward priority 0;
-          oifname "divi" ip6 saddr != { 2a0c:b641:69c::/48, 2001:470:4c22::/48 } reject
-        }
-      }
-    '';
-  };
-
-  systemd.services.divi = {
-    serviceConfig = {
-      ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
-          tun-device divi
-          ipv4-addr 10.208.0.1
-          prefix ${nat64-prefix}
-          dynamic-pool ${dynamic-pool}
-        ''}";
-    };
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
   };
 }
