@@ -8,6 +8,7 @@ rec {
       (import ./divi.nix)
       (import ./dns/secondary)
       (import ./cloud/services.nix)
+      (import ./gravity-ng)
       gravity
     ];
   });
