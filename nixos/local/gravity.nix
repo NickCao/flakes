@@ -6,7 +6,7 @@
     config = config.sops.secrets.ranet.path;
     address = [ "2a0c:b641:69c:99cc::1/128" ];
     bird = {
-      leaf.enable = true;
+      enable = true;
       prefix = "2a0c:b641:69c:99cc::/64";
       pattern = "grv*";
     };

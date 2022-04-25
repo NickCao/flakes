@@ -19,7 +19,8 @@ in
     config = config.sops.secrets.ranet.path;
     address = [ "2a0c:b641:69c:4ed0::1/128" ];
     bird = {
-      spine.enable = true;
+      enable = true;
+      exit.enable = true;
       prefix = "2a0c:b641:69c:4ed0::/60";
       pattern = "grv*";
     };

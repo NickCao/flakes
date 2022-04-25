@@ -21,8 +21,8 @@ in
       description = "list of addresses to be added to the vrf interface";
     };
     bird = {
-      leaf.enable = mkEnableOption "leaf node bird configuration";
-      spine.enable = mkEnableOption "spine node bird configuration";
+      enable = mkEnableOption "bird integration";
+      exit.enable = mkEnableOption "exit node";
       prefix = mkOption {
         type = types.str;
         description = "prefix to be announced for local node";
@@ -124,73 +124,15 @@ in
         address = cfg.address;
       };
     })
-    (mkIf cfg.bird.leaf.enable {
+    (mkIf cfg.bird.enable {
       services.bird2 = {
         enable = true;
         config = ''
           ipv6 sadr table sadr6;
-
           protocol device {
             scan time 5;
           }
-
-          protocol kernel {
-            kernel table ${toString cfg.table};
-            ipv6 sadr {
-              export all;
-              import none;
-            };
-          }
-
-          protocol static {
-            ipv6 sadr;
-            route ${cfg.bird.prefix} from ::/0 unreachable;
-          }
-
-          protocol babel {
-            vrf "gravity";
-            ipv6 sadr {
-              export all;
-              import all;
-            };
-            randomize router id;
-            interface "${cfg.bird.pattern}" {
-              type tunnel;
-              rxcost 32;
-              hello interval 20 s;
-              rtt cost 1024;
-              rtt max 1024 ms;
-            };
-          }
-        '';
-      };
-    })
-    (mkIf cfg.bird.spine.enable {
-      sops.secrets.bgp_passwd = {
-        sopsFile = ../bgp/secrets.yaml;
-        owner = "bird2";
-        reloadUnits = [ "bird2.service" ];
-      };
-
-      services.bird2 = {
-        enable = true;
-        checkConfig = false;
-        config = ''
-          include "${config.sops.secrets.bgp_passwd.path}";
-          ipv6 sadr table sadr6;
-
-          protocol device {
-            scan time 5;
-          }
-
-          protocol kernel {
-            kernel table ${toString cfg.table};
-            ipv6 sadr {
-              export all;
-              import none;
-            };
-          }
-
+          ${optionalString cfg.bird.exit.enable ''
           protocol kernel {
             ipv6 {
               export all;
@@ -198,15 +140,23 @@ in
             };
             learn;
           }
-
+          ''}
+          protocol kernel {
+            kernel table ${toString cfg.table};
+            ipv6 sadr {
+              export all;
+              import none;
+            };
+          }
           protocol static {
             ipv6 sadr;
             route ${cfg.bird.prefix} from ::/0 unreachable;
+            ${optionalString cfg.bird.exit.enable ''
             route 2a0c:b641:69c::/48 from ::/0 unreachable;
             route ::/0 from 2a0c:b641:69c::/48 recursive 2606:4700:4700::1111;
             igp table master6;
+            ''}
           }
-
           protocol babel {
             vrf "gravity";
             ipv6 sadr {
@@ -223,11 +173,12 @@ in
             };
           }
 
+          ${optionalString cfg.bird.exit.enable ''
           protocol static announce {
             ipv6;
             route 2a0c:b641:69c::/48 via "gravity";
           }
-
+          include "${config.sops.secrets.bgp_passwd.path}";
           protocol bgp vultr {
             ipv6 {
               import none;
@@ -239,8 +190,17 @@ in
             neighbor 2001:19f0:ffff::1 as 64515;
             password BGP_PASSWD;
           }
+          ''}
         '';
       };
+    })
+    (mkIf cfg.bird.exit.enable {
+      sops.secrets.bgp_passwd = {
+        sopsFile = ../bgp/secrets.yaml;
+        owner = "bird2";
+        reloadUnits = [ "bird2.service" ];
+      };
+      services.bird2.checkConfig = false;
     })
     (mkIf cfg.divi.enable {
       systemd.network.networks.divi = {
