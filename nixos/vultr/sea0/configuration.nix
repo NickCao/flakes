@@ -99,6 +99,7 @@ in
         ip -6 ru add pref 3000 lookup local proto kernel
       fi
     '';
+    serviceConfig.RemainAfterExit = true;
     after = [ "network-pre.target" ];
     before = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
