@@ -1,12 +1,11 @@
 { config, pkgs, ... }:
-let
-in
 {
   sops = {
     defaultSopsFile = ./secrets.yaml;
     secrets.ranet.reloadUnits = [ "gravity.service" ];
   };
-
+  networking.hostName = "sea0";
+  services.dns.secondary.enable = true;
   services.gravity-ng = {
     enable = true;
     config = config.sops.secrets.ranet.path;

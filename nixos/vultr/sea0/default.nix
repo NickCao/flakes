@@ -15,8 +15,6 @@ nixpkgs.lib.nixosSystem {
           bird = prev.bird-babel-rtt;
         })
       ];
-      networking.hostName = "sea0";
-      services.dns.secondary.enable = true;
     })
     ./configuration.nix
   ];
