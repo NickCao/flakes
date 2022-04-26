@@ -217,11 +217,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1650900228,
-        "narHash": "sha256-G5yMYECO5YBE76W1cleh8/XAhgswwAO5tl2mRsm25hw=",
+        "lastModified": 1650985698,
+        "narHash": "sha256-/vHlDLj4LxH03qN+vpmC63ERIO/weqtj9YeyAm+hI6s=",
         "owner": "doronbehar",
         "repo": "nix-matlab",
-        "rev": "1d5c304a3155c1d5db1345bc6aafea163d1cb432",
+        "rev": "a545eb29e1e16f8dcb8262102c42fe2b79ed03ae",
         "type": "gitlab"
       },
       "original": {
@@ -232,11 +232,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1650936815,
-        "narHash": "sha256-hvIPm1JruJemBj+lApPFuJSqLvLT66B7HsYcGZrwxp8=",
+        "lastModified": 1650987993,
+        "narHash": "sha256-btKoIj8VMk2mDBl7Y6gNz0yx2eKh4SEhydOfxqhjqgk=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "13adcd8f06f7e5b8a443b2803ff066a8a47f8428",
+        "rev": "ce69114c6617ddc20e2abe3b3716140a5db4aaaf",
         "type": "github"
       },
       "original": {
@@ -282,11 +282,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1650936427,
-        "narHash": "sha256-TcPPaKelSrx10npdJkbdzpG7ybnpVZ9s8WHI6Ls2OCw=",
+        "lastModified": 1650970227,
+        "narHash": "sha256-zQ9MXrAF1IM80RUqXPpta2Sd+EEskGBq5HSPRXgBon0=",
         "owner": "SCP-2000",
         "repo": "ranet",
-        "rev": "2bf3e7f57c734a85dfbe983c23d467f54a3e3316",
+        "rev": "b93ac55cc7eddcf4aebeb9b7e71d59027a112065",
         "type": "github"
       },
       "original": {
