@@ -4,15 +4,11 @@ rec {
       (import ./gateway.nix)
       (import ./metrics.nix)
       (import ./sshcert)
-      (import ./bgp)
-      (import ./divi.nix)
       (import ./dns/secondary)
       (import ./cloud/services.nix)
       (import ./gravity-ng)
-      gravity
     ];
   });
-  gravity = import ./gravity.nix;
   vultr = import ./vultr.nix;
   v2ray = import ./v2ray;
   cloud = {
