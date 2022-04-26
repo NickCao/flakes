@@ -6,6 +6,7 @@ in
 {
   options.services.gravity-ng = {
     enable = mkEnableOption "gravity overlay network, next generation";
+    reload.enable = mkEnableOption "auto reload registry";
     config = mkOption {
       type = types.path;
       description = "path to ranet config";
@@ -214,7 +215,7 @@ in
     })
     (mkIf cfg.bird.exit.enable {
       sops.secrets.bgp_passwd = {
-        sopsFile = ../bgp/secrets.yaml;
+        sopsFile = ./secrets.yaml;
         owner = "bird2";
         reloadUnits = [ "bird2.service" ];
       };
@@ -264,6 +265,27 @@ in
             }
           }
         '';
+      };
+    })
+    (mkIf cfg.reload.enable {
+      sops.secrets.gravity_registry.sopsFile = ./secrets.yaml;
+      systemd.services.gravity-registry = {
+        path = with pkgs; [ curl ];
+        script = ''
+          curl -s "$URL" -o /var/lib/registry.json.new
+          mv /var/lib/registry.json.new /var/lib/registry.json
+          /run/current-system/systemd/bin/systemctl reload gravity
+        '';
+        serviceConfig = {
+          Type = "oneshot";
+          EnvironmentFile = config.sops.secrets.gravity_registry.path;
+        };
+      };
+      systemd.timers.gravity-registry = {
+        timerConfig = {
+          OnCalendar = "hourly";
+        };
+        wantedBy = [ "timers.target" ];
       };
     })
   ]);

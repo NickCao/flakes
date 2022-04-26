@@ -8,6 +8,7 @@
   services.dns.secondary.enable = true;
   services.gravity-ng = {
     enable = true;
+    reload.enable = true;
     config = config.sops.secrets.ranet.path;
     address = [ "2a0c:b641:69c:4ed0::1/128" ];
     bird = {
