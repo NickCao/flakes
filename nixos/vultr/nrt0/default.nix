@@ -12,6 +12,10 @@ nixpkgs.lib.nixosSystem {
         self.overlays.default
         inputs.fn.overlays.default
         inputs.blog.overlays.default
+        (final: prev: {
+          ranet = inputs.ranet.packages.${system}.default;
+          bird = prev.bird-babel-rtt;
+        })
       ];
     }
     inputs.sops-nix.nixosModules.sops
