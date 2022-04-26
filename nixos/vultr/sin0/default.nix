@@ -9,6 +9,10 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [
         self.overlays.default
+        (final: prev: {
+          ranet = inputs.ranet.packages.${system}.default;
+          bird = prev.bird-babel-rtt;
+        })
       ];
     }
     inputs.sops-nix.nixosModules.sops
