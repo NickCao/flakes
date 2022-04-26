@@ -12,6 +12,7 @@
       pattern = "grv*";
     };
   };
+  systemd.services.bird2.after = [ "network-online.target" ];
 
   cloud.services.gravity-proxy.config = {
     ExecStart = "${pkgs.ranet}/bin/ranet-proxy --listen 127.0.0.1:9999 --bind 2a0c:b641:69c:99cc::1 --interface gravity --prefix 2a0c:b641:69c:7864:0:4::";

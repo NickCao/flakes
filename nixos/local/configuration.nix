@@ -9,7 +9,6 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     secrets = {
-      v2ray.restartUnits = [ "v2ray.service" ];
       passwd.neededForUsers = true;
       u2f = { mode = "0444"; };
       wireless = { };
@@ -71,6 +70,7 @@
   };
   systemd.network.wait-online = {
     anyInterface = true;
+    ignoredInterfaces = [ "gravity" "gravity-bind" ];
   };
   systemd.network.networks = {
     wlp0s20f3 = {
