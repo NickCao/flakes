@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   sops.secrets.ranet.reloadUnits = [ "gravity.service" ];
+
   services.gravity-ng = {
     enable = true;
     config = config.sops.secrets.ranet.path;
@@ -12,14 +13,77 @@
     };
   };
 
-  systemd.services.v2ray = {
-    description = "a platform for building proxies to bypass network restrictions";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
-    serviceConfig = {
-      LoadCredential = "secret.json:${config.sops.secrets.v2ray.path}";
-      DynamicUser = true;
-      ExecStart = "${pkgs.v2ray}/bin/v2ray run -c ${(pkgs.formats.json {}).generate "config.json" (import ./v2ray.nix)} -c \${CREDENTIALS_DIRECTORY}/secret.json";
+  cloud.services.gravity-proxy.config = {
+    ExecStart = "${pkgs.ranet}/bin/ranet-proxy --listen 127.0.0.1:9999 --bind 2a0c:b641:69c:99cc::1 --interface gravity --prefix 2a0c:b641:69c:7864:0:4::";
+  };
+
+  services.v2ray = {
+    enable = true;
+    config = {
+      log = { loglevel = "error"; access = "none"; };
+      dns = {
+        servers = [
+          { address = "https://1.0.0.1/dns-query"; }
+          { address = "https://1.1.1.1/dns-query"; }
+        ];
+      };
+      inbounds = [
+        {
+          listen = "127.0.0.1";
+          port = 8888;
+          protocol = "http";
+          sniffing = { destOverride = [ "http" "tls" ]; enabled = true; metadataOnly = false; };
+          tag = "http";
+        }
+        {
+          listen = "127.0.0.1";
+          port = 1080;
+          protocol = "socks";
+          sniffing = { destOverride = [ "http" "tls" ]; enabled = true; metadataOnly = false; };
+          tag = "socks";
+        }
+      ];
+      outbounds = [
+        {
+          protocol = "blackhole";
+          tag = "blackhole";
+        }
+        {
+          protocol = "freedom";
+          tag = "direct";
+        }
+        {
+          protocol = "freedom";
+          settings = {
+            domainStrategy = "UseIP";
+          };
+          proxySettings = {
+            tag = "gravity";
+          };
+          tag = "proxy";
+        }
+        {
+          protocol = "socks";
+          settings = {
+            servers = [{
+              address = "127.0.0.1";
+              port = 9999;
+            }];
+            version = "5";
+          };
+          tag = "gravity";
+        }
+      ];
+      routing = {
+        domainMatcher = "mph";
+        domainStrategy = "IPIfNonMatch";
+        rules = [
+          { domains = [ "geosite:cn" ]; outboundTag = "direct"; type = "field"; }
+          { ip = [ "geoip:private" "geoip:cn" ]; outboundTag = "direct"; type = "field"; }
+          { network = "tcp"; outboundTag = "proxy"; type = "field"; }
+          { network = "udp"; outboundTag = "direct"; type = "field"; }
+        ];
+      };
     };
   };
 }
