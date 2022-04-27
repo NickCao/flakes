@@ -2,7 +2,6 @@
 qt5.mkDerivation {
   inherit (source) pname version src;
   nativeBuildInputs = [ dpkg autoPatchelfHook ];
-  autoPatchelfIgnoreMissingDeps = true;
   buildInputs = [
     xorg.libXrandr
     xorg.libXinerama
@@ -10,6 +9,12 @@ qt5.mkDerivation {
     qt5.qtwebkit
     qt5.qtx11extras
     libbsd
+  ];
+  autoPatchelfIgnoreMissingDeps = [
+    "libcudart.so.9.0"
+    "libcudnn.so.7"
+    "libnvinfer.so.5"
+    "libnvinfer_plugin.so.5"
   ];
   dontUnpack = true;
   installPhase = ''
