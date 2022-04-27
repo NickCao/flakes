@@ -282,11 +282,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1650970227,
-        "narHash": "sha256-zQ9MXrAF1IM80RUqXPpta2Sd+EEskGBq5HSPRXgBon0=",
+        "lastModified": 1651058841,
+        "narHash": "sha256-0Tp2NDs0zitfFfrcE6AwScw7iwlHNqNQc0809h9yA8s=",
         "owner": "SCP-2000",
         "repo": "ranet",
-        "rev": "b93ac55cc7eddcf4aebeb9b7e71d59027a112065",
+        "rev": "b3a7161995d007dec35e764ca623812091f6a9d8",
         "type": "github"
       },
       "original": {
