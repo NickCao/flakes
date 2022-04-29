@@ -82,7 +82,10 @@
     };
     enp7s0 = {
       name = "enp7s0";
-      DHCP = "yes";
+      address = [ "10.0.1.1/24" ];
+      networkConfig = {
+        DHCPServer = true;
+      };
     };
   };
 
