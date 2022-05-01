@@ -182,7 +182,6 @@ in
   };
   home.packages = with pkgs; [
     picocom
-    # virt-manager
     matlab
     nix-top
     thunderbird
