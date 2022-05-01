@@ -74,6 +74,10 @@ in
           modifier = config.wayland.windowManager.sway.config.modifier;
         in
         pkgs.lib.mkOptionDefault {
+          "${modifier}+s" = "split toggle";
+          "${modifier}+b" = null;
+          "${modifier}+v" = null;
+          "${modifier}+w" = null;
           "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
           "${modifier}+Shift+l" = "exec loginctl lock-session";
           "${modifier}+space" = null;
@@ -177,6 +181,7 @@ in
     };
   };
   home.packages = with pkgs; [
+    picocom
     # virt-manager
     matlab
     nix-top
@@ -354,17 +359,17 @@ in
     };
     tmux = {
       enable = true;
+      baseIndex = 1;
+      escapeTime = 10;
       shell = "${pkgs.fish}/bin/fish";
       keyMode = "vi";
+      terminal = "screen-256color";
       extraConfig = ''
-        set-option -g default-terminal "screen-256color"
         set -g status-position top
         set -g set-clipboard on
         set -g mouse on
         set -g status-right ""
-        set -gs escape-time 10
         set -g renumber-windows on
-        set -g base-index 1
         new-session -s main
       '';
     };
