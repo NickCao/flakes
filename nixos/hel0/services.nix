@@ -75,7 +75,7 @@
         enable = 1
       </dynamicruncommand>
       <githubstatus>
-        jobs = personal:flakes:.*
+        jobs = misc:flakes:.*
         excludeBuildFromContext = 1
         useShortContext = 1
       </githubstatus>

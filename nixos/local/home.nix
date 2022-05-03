@@ -203,7 +203,6 @@ in
     auth-thu
     nixpkgs-fmt
     smartmontools
-    rait
     python3
     knot-dns
     tree
