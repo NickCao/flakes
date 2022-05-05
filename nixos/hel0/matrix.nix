@@ -132,7 +132,7 @@
         displayname_template = "{displayname}";
         sync_create_limit = 0;
         delivery_error_reports = true;
-        sync_direct_chats = true;
+        sync_direct_chats = false;
         inline_images = false;
         tag_only_on_create = false;
         bridge_matrix_leave = false;
