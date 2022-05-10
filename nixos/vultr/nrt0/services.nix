@@ -1,8 +1,10 @@
 { pkgs, config, ... }:
 {
   cloud.services.woff.config = {
-    ExecStart = "${pkgs.woff}/bin/woff -l 127.0.0.1:8001";
+    ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --no-check ${../../../fn/woff.ts}";
     EnvironmentFile = config.sops.secrets.woff.path;
+    MemoryDenyWriteExecute = false;
+    Environment = [ "PORT=8001" "DENO_DIR=/tmp" ];
   };
 
   cloud.services.blog.config = {
