@@ -53,6 +53,7 @@
         }];
         app_service_api = {
           inherit database;
+          disable_tls_validation = true;
           config_files = [
             "/$CREDENTIALS_DIRECTORY/mautrix-telegram"
           ];
