@@ -146,6 +146,8 @@
     EnvironmentFile = config.sops.secrets.srt.path;
   };
 
+  systemd.services.postgresql.serviceConfig.TimeoutSec = pkgs.lib.mkForce 1200;
+
   services.traefik = {
     dynamicConfigOptions = {
       http = {
