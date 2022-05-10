@@ -55,6 +55,7 @@ dns.lib.toString "nichi.co" {
   ];
   subdomains = {
     api = host nrt0.ipv4 nrt0.ipv6;
+    fn.CNAME = [ "nrt0.nichi.link." ];
     pay.CNAME = [ "nrt0.nichi.link." ];
     git.CNAME = [ "hel0.nichi.link." ];
     live.CNAME = [ "hel0.nichi.link." ];

@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 {
-  cloud.services.woff.config = {
-    ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --no-check ${../../../fn/woff.ts}";
+  cloud.services.fn.config = {
+    ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --no-check ${../../../fn}/index.ts";
     EnvironmentFile = config.sops.secrets.woff.path;
     MemoryDenyWriteExecute = false;
     Environment = [ "PORT=8001" "DENO_DIR=/tmp" ];
@@ -21,9 +21,9 @@
             middlewares = [ "rait0" "rait1" "rait2" ];
             service = "rait";
           };
-          woff = {
-            rule = "Host(`pay.nichi.co`)";
-            service = "woff";
+          fn = {
+            rule = "Host(`fn.nichi.co`)";
+            service = "fn";
           };
           blog = {
             rule = "Host(`nichi.co`)";
@@ -52,7 +52,7 @@
           };
         };
         services = {
-          woff.loadBalancer = {
+          fn.loadBalancer = {
             servers = [{
               url = "http://127.0.0.1:8001";
             }];
