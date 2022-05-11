@@ -177,4 +177,5 @@ in
 
   boot.extraModulePackages = with config.boot.kernelPackages; [ usbip ];
   boot.kernelModules = [ "usbip_host" ];
+  system.stateVersion = "22.05";
 }

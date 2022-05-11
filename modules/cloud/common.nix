@@ -131,5 +131,6 @@ in
     ];
   };
 
+  system.stateVersion = "22.05";
   documentation.nixos.enable = false;
 }
