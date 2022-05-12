@@ -137,7 +137,6 @@
       options i915 fastboot=1
       blacklist ideapad_laptop
       options kvm_intel nested=1
-      options nvidia NVreg_OpenRmEnableUnsupportedGpus=1
     '';
     enableContainers = false;
   };
@@ -149,9 +148,8 @@
   };
 
   hardware = {
-    firmware = [ config.hardware.nvidia.package.bin ];
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       nvidiaSettings = false;
       nvidiaPersistenced = true;
       modesetting.enable = true;
