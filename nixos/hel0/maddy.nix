@@ -18,7 +18,7 @@ in
     tls off
 
     target.lmtp local_mailboxes {
-        targets unix:///var/run/dovecot/lmtp-maddy
+        targets unix:///run/dovecot2/lmtp-maddy
     }
 
     smtp tcp://[::]:25 {
