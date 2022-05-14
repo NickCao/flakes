@@ -19,7 +19,7 @@ in
       haproxy_trusted_networks = 127.0.0.1/8
       protocols = imap submission lmtp
       ssl = no
-      base_dir = $ENV:RUNTIME_DIRECTORY
+      base_dir = /run/dovecot2
 
       default_internal_user  = ${cfg.user}
       default_internal_group = ${cfg.group}
