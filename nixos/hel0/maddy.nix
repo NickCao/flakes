@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 let
-  submission = "127.0.0.1:587";
   domains = lib.concatStringsSep " " [ "nichi.co" "nichi.link" ];
 in
 {
@@ -52,7 +51,7 @@ in
         }
     }
 
-    smtp tcp://${submission} {
+    smtp tcp://127.0.0.1:587 {
         source ${domains} {
             destination ${domains} {
                 deliver_to &local_mailboxes
