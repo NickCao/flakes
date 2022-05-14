@@ -66,6 +66,30 @@ in
           user = maddy
         }
       }
+
+      namespace inbox {
+        inbox = yes
+        mailbox Drafts {
+          auto = subscribe
+          special_use = \Drafts
+        }
+        mailbox Sent {
+          auto = subscribe
+          special_use = \Sent
+        }
+        mailbox Trash {
+          auto = subscribe
+          special_use = \Trash
+        }
+        mailbox Junk {
+          auto = subscribe
+          special_use = \Junk
+        }
+        mailbox Archive {
+          auto = subscribe
+          special_use = \Archive
+        }
+      }
     '';
   };
   services.traefik = {
