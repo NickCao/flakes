@@ -27,7 +27,7 @@
         "private/dendrite"
         "private/mautrix-telegram"
         "backup/postgresql"
-      ] ++ [ "/persist/home/git" ];
+      ] ++ [ "/persist/home/git" "/persist/var/spool" ];
       timerConfig = {
         OnCalendar = "daily";
       };
@@ -147,6 +147,7 @@
   environment.persistence."/persist" = {
     directories = [
       "/var/lib"
+      "/var/spool"
       "/home"
     ];
   };
