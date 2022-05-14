@@ -68,4 +68,46 @@ in
       }
     '';
   };
+  services.traefik = {
+    staticConfigOptions = {
+      entryPoints = {
+        imap = {
+          address = ":993";
+          http.tls.certResolver = "le";
+        };
+        submission = {
+          address = ":465";
+          http.tls.certResolver = "le";
+        };
+      };
+    };
+    dynamicConfigOptions = {
+      tcp = {
+        routers = {
+          imap = {
+            rule = "HostSNI(`${config.networking.fqdn}`)";
+            entryPoints = [ "imap" ];
+            service = "imap";
+            tls = { };
+          };
+          submission = {
+            rule = "HostSNI(`${config.networking.fqdn}`)";
+            entryPoints = [ "submission" ];
+            service = "submission";
+            tls = { };
+          };
+        };
+        services = {
+          imap.loadBalancer = {
+            proxyProtocol = { };
+            servers = [{ address = "127.0.0.1:8143"; }];
+          };
+          submission.loadBalancer = {
+            proxyProtocol = { };
+            servers = [{ address = "127.0.0.1:8587"; }];
+          };
+        };
+      };
+    };
+  };
 }

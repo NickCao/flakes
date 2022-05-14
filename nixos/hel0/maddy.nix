@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 let
-  imap = "127.0.0.1:143";
   submission = "127.0.0.1:587";
   domains = lib.concatStringsSep " " [ "nichi.co" "nichi.link" ];
 in
@@ -96,49 +95,6 @@ in
       LoadCredential = [
         "dkim.key:${config.sops.secrets.dkim.path}"
       ];
-    };
-  };
-
-  services.traefik = {
-    staticConfigOptions = {
-      entryPoints = {
-        imap = {
-          address = ":993";
-          http.tls.certResolver = "le";
-        };
-        submission = {
-          address = ":465";
-          http.tls.certResolver = "le";
-        };
-      };
-    };
-    dynamicConfigOptions = {
-      tcp = {
-        routers = {
-          imap = {
-            rule = "HostSNI(`${config.networking.fqdn}`)";
-            entryPoints = [ "imap" ];
-            service = "imap";
-            tls = { };
-          };
-          submission = {
-            rule = "HostSNI(`${config.networking.fqdn}`)";
-            entryPoints = [ "submission" ];
-            service = "submission";
-            tls = { };
-          };
-        };
-        services = {
-          imap.loadBalancer = {
-            proxyProtocol = { };
-            servers = [{ address = "127.0.0.1:8143"; }];
-          };
-          submission.loadBalancer = {
-            proxyProtocol = { };
-            servers = [{ address = "127.0.0.1:8587"; }];
-          };
-        };
-      };
     };
   };
 }
