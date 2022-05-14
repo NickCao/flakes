@@ -9,6 +9,7 @@ nixpkgs.lib.nixosSystem {
     ./matrix.nix
     ./maddy.nix
     ./git.nix
+    ./dovecot.nix
     self.nixosModules.default
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
