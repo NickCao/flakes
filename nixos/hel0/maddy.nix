@@ -6,7 +6,6 @@ let
 in
 {
   sops.secrets = {
-    maddy.restartUnits = [ "maddy.service" ];
     dkim.restartUnits = [ "maddy.service" ];
   };
   systemd.packages = [ pkgs.maddy ];
@@ -95,7 +94,6 @@ in
     restartTriggers = [ config.environment.etc."maddy/maddy.conf".source ];
     serviceConfig = {
       LoadCredential = [
-        "passwd:${config.sops.secrets.maddy.path}"
         "dkim.key:${config.sops.secrets.dkim.path}"
       ];
     };

@@ -18,6 +18,7 @@ in
       listen = 127.0.0.1
       haproxy_trusted_networks = 127.0.0.1/8
       protocols = imap submission lmtp
+      ssl = no
 
       default_internal_user  = ${cfg.user}
       default_internal_group = ${cfg.group}
