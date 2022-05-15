@@ -72,6 +72,14 @@ in
         }
       }
 
+      service auth {
+        unix_listener auth-postfix {
+          mode = 0660
+          user = postfix
+          group = postfix
+        }
+      }
+
       protocol lmtp {
         mail_plugins = $mail_plugins sieve
       }

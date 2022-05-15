@@ -21,6 +21,9 @@
       virtual_transport = "lmtp:unix:/run/dovecot2/lmtp";
       virtual_mailbox_domains = [ "nichi.co" "nichi.link" ];
       lmtp_destination_recipient_limit = "1";
+      smtpd_sasl_type = "dovecot";
+      smtpd_sasl_path = "/run/dovecot2/auth-postfix";
+      smtpd_sasl_auth_enable = true;
       smtpd_relay_restrictions = [
         "permit_mynetworks"
         "permit_sasl_authenticated"
