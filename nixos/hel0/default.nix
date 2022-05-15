@@ -8,7 +8,7 @@ nixpkgs.lib.nixosSystem {
     ./prometheus.nix
     ./matrix.nix
     ./git.nix
-    ./opensmtpd.nix
+    ./postfix.nix
     ./dovecot.nix
     self.nixosModules.default
     inputs.impermanence.nixosModules.impermanence
