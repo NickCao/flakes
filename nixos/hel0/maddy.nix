@@ -110,6 +110,7 @@ in
       '';
     };
   };
+  boot.kernel.sysctl."vm.overcommit_memory" = 1;
   services.redis.servers.rspamd = {
     enable = true;
     port = 16380;
