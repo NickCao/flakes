@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
 let
-  domains = lib.concatStringsSep " " [ "nichi.co" "nichi.link" ];
   aliases = builtins.toFile "aliases" ''
     postmaster nickcao
     hostmaster nickcao
@@ -15,13 +14,18 @@ in
   services.opensmtpd = {
     enable = true;
     serverConfiguration = ''
+      table domains { "nichi.co", "nichi.link" }
+      table aliases file:${aliases}
+
       filter "rspamd" proc-exec "${pkgs.opensmtpd-filter-rspamd}/bin/filter-rspamd"
+
       listen on enp41s0 filter "rspamd"
       listen on lo port 587 filter "rspamd"
-      table aliases file:${aliases}
+
       action "delivery" lmtp "/run/dovecot2/lmtp" alias <aliases>
       action "outbound" relay helo hel0.nichi.link
-      match from any for domain "nichi.co" action "delivery"
+
+      match from any for domain <domains> action "delivery"
       match from local for any action "outbound"
     '';
   };
