@@ -1,11 +1,4 @@
 { config, lib, pkgs, ... }:
-let
-  aliases = builtins.toFile "aliases" ''
-    postmaster nickcao
-    hostmaster nickcao
-    noc nickcao
-  '';
-in
 {
   sops.secrets = {
     controller = {
@@ -16,35 +9,31 @@ in
       path = "/var/lib/rspamd/dkim.key";
     };
   };
-  systemd.services.opensmtpd = {
-    serviceConfig = {
-      PrivateTmp = true;
-      ExecStartPre = ''
-        ${pkgs.openssl}/bin/openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout /tmp/selfsigned.key -out /tmp/selfsigned.crt -batch
-      '';
+  services.postfix = {
+    enable = true;
+    hostname = config.networking.fqdn;
+    networksStyle = "host";
+    enableSubmission = false;
+    enableSubmissions = false;
+    config = {
+      mydestination = "";
+      disable_vrfy_command = true;
+      virtual_transport = "lmtp:unix:/run/dovecot2/lmtp";
+      virtual_mailbox_domains = [ "nichi.co" "nichi.link" ];
+      lmtp_destination_recipient_limit = "1";
+      smtpd_relay_restrictions = [
+        "permit_mynetworks"
+        "permit_sasl_authenticated"
+        "reject_unauth_destination"
+      ];
+    };
+    masterConfig = {
+      "lmtp" = {
+        args = [ "flags=O" ];
+      };
     };
   };
-  services.opensmtpd = {
-    enable = true;
-    serverConfiguration = ''
-      table domains { "nichi.co", "nichi.link" }
-      table aliases file:${aliases}
 
-      pki selfsigned cert "/tmp/selfsigned.crt"
-      pki selfsigned key "/tmp/selfsigned.key"
-
-      filter "rspamd" proc-exec "${pkgs.opensmtpd-filter-rspamd}/bin/filter-rspamd"
-
-      listen on enp41s0 tls pki "selfsigned" filter "rspamd"
-      listen on lo port 587 filter "rspamd"
-
-      action "delivery" lmtp "/run/dovecot2/lmtp" alias <aliases>
-      action "outbound" relay helo hel0.nichi.link
-
-      match from any for domain <domains> action "delivery"
-      match from local for any action "outbound"
-    '';
-  };
   services.rspamd = {
     enable = true;
     workers = {
