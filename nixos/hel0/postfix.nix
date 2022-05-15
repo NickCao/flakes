@@ -69,13 +69,13 @@ in
     enable = true;
     workers = {
       controller = {
-        bindSockets = [ "127.0.0.1:11334" ];
+        bindSockets = [ "localhost:11334" ];
       };
       normal = {
-        bindSockets = [ "127.0.0.1:11333" ];
+        bindSockets = [ "localhost:11333" ];
       };
       rspamd_proxy = {
-        bindSockets = [ "127.0.0.1:11332" ];
+        bindSockets = [ "localhost:11332" ];
       };
     };
     locals = {
@@ -94,6 +94,7 @@ in
       "dkim_signing.conf".text = ''
         path = "${config.sops.secrets.dkim.path}";
         selector = "default";
+        allow_username_mismatch = true;
       '';
     };
   };
