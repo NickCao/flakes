@@ -24,6 +24,9 @@
       virtual_transport = "lmtp:unix:/run/dovecot2/lmtp";
       virtual_mailbox_domains = [ "nichi.co" "nichi.link" ];
       lmtp_destination_recipient_limit = "1";
+      milter_default_action = "accept";
+      smtpd_milters = [ "inet:127.0.0.1:11332" ];
+      non_smtpd_milters = [ "inet:127.0.0.1:11332" ];
     };
     submissionOptions = {
       smtpd_tls_security_level = "none";
@@ -50,6 +53,9 @@
       };
       normal = {
         bindSockets = [ "127.0.0.1:11333" ];
+      };
+      rspamd_proxy = {
+        bindSockets = [ "127.0.0.1:11332" ];
       };
     };
     locals = {
