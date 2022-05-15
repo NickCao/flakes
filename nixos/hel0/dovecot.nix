@@ -72,13 +72,6 @@ in
         }
       }
 
-      service lmtp {
-        unix_listener lmtp-maddy {
-          mode = 0600
-          user = maddy
-        }
-      }
-
       protocol lmtp {
         mail_plugins = $mail_plugins sieve
       }
