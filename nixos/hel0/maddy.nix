@@ -113,6 +113,9 @@ in
         add_header = 4;
         greylist = 3;
       '';
+      "statistic.conf".text = ''
+        autolearn = true;
+      '';
     };
   };
   boot.kernel.sysctl."vm.overcommit_memory" = 1;
