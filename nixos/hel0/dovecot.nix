@@ -12,8 +12,18 @@ in
   ];
   services.dovecot2 = {
     enable = true;
+    modules = [ pkgs.dovecot_pigeonhole ];
     mailUser = "dovemail";
     mailGroup = "dovemail";
+    sieveScripts = {
+      after = builtins.toFile "spam.sieve" ''
+        require "fileinto";
+        if header :is "X-Spam-Flag" "Yes" {
+            fileinto "Junk";
+            stop;
+        }
+      '';
+    };
     configFile = pkgs.writeText "dovecot.conf" ''
       listen = 127.0.0.1
       haproxy_trusted_networks = 127.0.0.1/8
@@ -30,7 +40,8 @@ in
       submission_relay_port    = 587
       submission_relay_trusted = yes
 
-      mail_location = maildir:${maildir}/%u
+      mail_home = ${maildir}/%u
+      mail_location = maildir:~
       mail_uid=${cfg.mailUser}
       mail_gid=${cfg.mailGroup}
 
@@ -68,6 +79,10 @@ in
         }
       }
 
+      protocol lmtp {
+        mail_plugins = $mail_plugins sieve
+      }
+
       namespace inbox {
         inbox = yes
         mailbox Drafts {
@@ -90,6 +105,10 @@ in
           auto = subscribe
           special_use = \Archive
         }
+      }
+
+      plugin {
+        sieve_after = /var/lib/dovecot/sieve/after
       }
     '';
   };
