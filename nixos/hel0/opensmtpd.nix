@@ -13,16 +13,26 @@ in
       path = "/var/lib/rspamd/dkim.key";
     };
   };
+
+  systemd.services.postfix.serviceConfig = {
+    PrivateTmp = true;
+    ExecStartPre = ''
+      ${pkgs.openssl}/bin/openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout /tmp/selfsigned.key -out /tmp/selfsigned.crt -batch
+    '';
+  };
+
   services.postfix = {
     enable = true;
     hostname = config.networking.fqdn;
-    networksStyle = "host";
     mapFiles.senders = builtins.toFile "senders" ''
       nickcao@nichi.co nickcao
     '';
     config = {
-      mydestination = "";
+      smtpd_tls_chain_files = [ "/tmp/selfsigned.key" "/tmp/selfsigned.crt" ];
+      smtpd_tls_security_level = "may";
+      recipient_delimiter = "+";
       disable_vrfy_command = true;
+      smtpd_relay_restrictions = [ "permit_sasl_authenticated" "defer_unauth_destination" ];
       virtual_transport = "lmtp:unix:/run/dovecot2/lmtp";
       virtual_mailbox_domains = [ "nichi.co" "nichi.link" ];
       lmtp_destination_recipient_limit = "1";
