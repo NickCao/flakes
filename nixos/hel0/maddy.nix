@@ -27,6 +27,7 @@ in
         }
         dmarc yes
         check {
+            rspamd
             require_mx_record
             dkim
             spf {
@@ -91,9 +92,16 @@ in
     wantedBy = [ "multi-user.target" ];
     restartTriggers = [ config.environment.etc."maddy/maddy.conf".source ];
     serviceConfig = {
+      SupplementaryGroups = [ "rspamd" ];
       LoadCredential = [
         "dkim.key:${config.sops.secrets.dkim.path}"
       ];
+    };
+  };
+  services.rspamd = {
+    enable = true;
+    workers = {
+      normal.bindSockets = [ "127.0.0.1:11333" ];
     };
   };
 }
