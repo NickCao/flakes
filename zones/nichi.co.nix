@@ -29,7 +29,7 @@ dns.lib.toString "nichi.co" {
   DKIM = [{
     selector = "default";
     k = "rsa";
-    p = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzZQePdABnCiCpmzMxfrg6Bta/bLEMzyVuaa/FH+XE6bmLUxIgr6FqhdeZhZzCMG/LZWKSnncKGd3TMobFi4/mrpqmfFpO/8FRfUh8X7spe8TVTkSOStIT2ePtDU/XNsagafej3Ot3hUKHxuVeGWUsRB8IVRoyQZ86YK27wR4z/XmV3t3xerhOEBhrL7r5volfI3dOKrwgFuIPp0OxZEpcSDVsavQeaZ+K9uKN44m8tEBzVpnh5UXxBhveliRMptBxk9WUxwqoD+Yo4epQwm+xkNeCSe/hKlD8icLbetXXmi2PD12ngIhs1WPMvH/+LrT5NkDZuETKj9tRBbIOqlhpQIDAQAB";
+    p = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+6z/8WkmYxW0mT88OLyre9HP5YPF0iaEaGF33loWzzA6gwnW0PVGaL/TObcEUg7w0ocmuzt/fBqwtvUIo5W8aA78dZy9o07PxDiibtqQrvooJdgzJAH4ISJe8W/slacX+z6SfqajIR/MQh8v1SjHzPiGsN+TAbEtrXLxij6TvVwIDAQAB";
     s = [ "email" ];
   }];
   DMARC = [{
