@@ -113,7 +113,7 @@ in
         add_header = 4;
         greylist = 3;
       '';
-      "statistic.conf".text = ''
+      "classifier-bayes.conf".text = ''
         autolearn = true;
       '';
     };
