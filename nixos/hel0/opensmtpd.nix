@@ -7,9 +7,13 @@ let
   '';
 in
 {
-  sops.secrets.dkim = {
-    owner = "rspamd";
-    path = "/var/lib/rspamd/dkim.key";
+  sops.secrets = {
+    key = { };
+    cert = { };
+    dkim = {
+      owner = "rspamd";
+      path = "/var/lib/rspamd/dkim.key";
+    };
   };
   services.opensmtpd = {
     enable = true;
@@ -17,9 +21,12 @@ in
       table domains { "nichi.co", "nichi.link" }
       table aliases file:${aliases}
 
+      pki selfsigned cert "${config.sops.secrets.cert.path}"
+      pki selfsigned key "${config.sops.secrets.key.path}"
+
       filter "rspamd" proc-exec "${pkgs.opensmtpd-filter-rspamd}/bin/filter-rspamd"
 
-      listen on enp41s0 filter "rspamd"
+      listen on enp41s0 tls pki "selfsigned" filter "rspamd"
       listen on lo port 587 filter "rspamd"
 
       action "delivery" lmtp "/run/dovecot2/lmtp" alias <aliases>
