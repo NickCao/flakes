@@ -27,7 +27,7 @@ in
     configFile = pkgs.writeText "dovecot.conf" ''
       listen = 127.0.0.1
       haproxy_trusted_networks = 127.0.0.1/8
-      protocols = imap submission lmtp
+      protocols = imap lmtp
       ssl = no
       base_dir = /run/dovecot2
 
@@ -35,10 +35,6 @@ in
       default_internal_group = ${cfg.group}
       disable_plaintext_auth = no
       auth_username_format   = %Ln
-
-      submission_relay_host    = 127.0.0.1
-      submission_relay_port    = 587
-      submission_relay_trusted = yes
 
       mail_home = ${maildir}/%u
       mail_location = maildir:~
@@ -62,13 +58,6 @@ in
         }
         inet_listener imaps {
           port = 0
-        }
-      }
-
-      service submission-login {
-        inet_listener submission {
-          port    = 8587
-          haproxy = yes
         }
       }
 
