@@ -1,4 +1,8 @@
 { config, lib, pkgs, ... }:
+let
+  mkKeyVal = opt: val: [ "-o" (opt + "=" + val) ];
+  mkOpts = opts: lib.concatLists (lib.mapAttrsToList mkKeyVal opts);
+in
 {
   sops.secrets = {
     controller = {
@@ -13,8 +17,6 @@
     enable = true;
     hostname = config.networking.fqdn;
     networksStyle = "host";
-    enableSubmission = true;
-    enableSubmissions = false;
     mapFiles.senders = builtins.toFile "senders" ''
       nickcao@nichi.co nickcao
     '';
@@ -28,17 +30,22 @@
       smtpd_milters = [ "inet:127.0.0.1:11332" ];
       non_smtpd_milters = [ "inet:127.0.0.1:11332" ];
     };
-    submissionOptions = {
-      smtpd_tls_security_level = "none";
-      smtpd_sasl_auth_enable = "yes";
-      smtpd_sasl_type = "dovecot";
-      smtpd_sasl_path = "/run/dovecot2/auth-postfix";
-      smtpd_sender_login_maps = "hash:/etc/postfix/senders";
-      smtpd_client_restrictions = "permit_sasl_authenticated,reject";
-      smtpd_sender_restrictions = "reject_sender_login_mismatch";
-      smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject";
-    };
     masterConfig = {
+      "127.0.0.1:submission" = {
+        type = "inet";
+        private = false;
+        command = "smtpd";
+        args = mkOpts {
+          smtpd_tls_security_level = "none";
+          smtpd_sasl_auth_enable = "yes";
+          smtpd_sasl_type = "dovecot";
+          smtpd_sasl_path = "/run/dovecot2/auth-postfix";
+          smtpd_sender_login_maps = "hash:/etc/postfix/senders";
+          smtpd_client_restrictions = "permit_sasl_authenticated,reject";
+          smtpd_sender_restrictions = "reject_sender_login_mismatch";
+          smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject";
+        };
+      };
       "lmtp" = {
         args = [ "flags=O" ];
       };
