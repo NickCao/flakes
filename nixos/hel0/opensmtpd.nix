@@ -30,17 +30,23 @@ in
     config = {
       smtpd_tls_chain_files = [ "/tmp/selfsigned.key" "/tmp/selfsigned.crt" ];
       smtpd_tls_security_level = "may";
-      recipient_delimiter = "+";
-      disable_vrfy_command = true;
       smtpd_relay_restrictions = [ "permit_sasl_authenticated" "defer_unauth_destination" ];
+
       virtual_transport = "lmtp:unix:/run/dovecot2/lmtp";
       virtual_mailbox_domains = [ "nichi.co" "nichi.link" ];
+
       lmtp_destination_recipient_limit = "1";
+      recipient_delimiter = "+";
+      disable_vrfy_command = true;
+
       milter_default_action = "accept";
       smtpd_milters = [ "inet:127.0.0.1:11332" ];
       non_smtpd_milters = [ "inet:127.0.0.1:11332" ];
     };
     masterConfig = {
+      lmtp = {
+        args = [ "flags=O" ];
+      };
       "127.0.0.1:submission" = {
         type = "inet";
         private = false;
@@ -55,9 +61,6 @@ in
           smtpd_sender_restrictions = "reject_sender_login_mismatch";
           smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject";
         };
-      };
-      "lmtp" = {
-        args = [ "flags=O" ];
       };
     };
   };
