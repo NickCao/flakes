@@ -8,11 +8,17 @@ let
 in
 {
   sops.secrets = {
-    key = { };
-    cert = { };
     dkim = {
       owner = "rspamd";
       path = "/var/lib/rspamd/dkim.key";
+    };
+  };
+  systemd.services.opensmtpd = {
+    serviceConfig = {
+      PrivateTmp = true;
+      ExecStartPre = ''
+        ${pkgs.openssl}/bin/openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout /tmp/selfsigned.key -out /tmp/selfsigned.crt -batch
+      '';
     };
   };
   services.opensmtpd = {
@@ -21,8 +27,8 @@ in
       table domains { "nichi.co", "nichi.link" }
       table aliases file:${aliases}
 
-      pki selfsigned cert "${config.sops.secrets.cert.path}"
-      pki selfsigned key "${config.sops.secrets.key.path}"
+      pki selfsigned cert "/tmp/selfsigned.crt"
+      pki selfsigned key "/tmp/selfsigned.key"
 
       filter "rspamd" proc-exec "${pkgs.opensmtpd-filter-rspamd}/bin/filter-rspamd"
 
