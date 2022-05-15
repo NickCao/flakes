@@ -13,22 +13,27 @@
     enable = true;
     hostname = config.networking.fqdn;
     networksStyle = "host";
-    enableSubmission = false;
+    enableSubmission = true;
     enableSubmissions = false;
+    mapFiles.senders = builtins.toFile "senders" ''
+      nickcao@nichi.co nickcao
+    '';
     config = {
       mydestination = "";
       disable_vrfy_command = true;
       virtual_transport = "lmtp:unix:/run/dovecot2/lmtp";
       virtual_mailbox_domains = [ "nichi.co" "nichi.link" ];
       lmtp_destination_recipient_limit = "1";
+    };
+    submissionOptions = {
+      smtpd_tls_security_level = "none";
+      smtpd_sasl_auth_enable = "yes";
       smtpd_sasl_type = "dovecot";
       smtpd_sasl_path = "/run/dovecot2/auth-postfix";
-      smtpd_sasl_auth_enable = true;
-      smtpd_relay_restrictions = [
-        "permit_mynetworks"
-        "permit_sasl_authenticated"
-        "reject_unauth_destination"
-      ];
+      smtpd_sender_login_maps = "hash:/etc/postfix/senders";
+      smtpd_client_restrictions = "permit_sasl_authenticated,reject";
+      smtpd_sender_restrictions = "reject_sender_login_mismatch";
+      smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject";
     };
     masterConfig = {
       "lmtp" = {
