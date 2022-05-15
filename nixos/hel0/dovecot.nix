@@ -18,7 +18,7 @@ in
     sieveScripts = {
       after = builtins.toFile "spam.sieve" ''
         require "fileinto";
-        if header :is "X-Spam-Flag" "Yes" {
+        if header :is "X-Spam" "Yes" {
             fileinto "Junk";
             stop;
         }
