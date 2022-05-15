@@ -8,6 +8,9 @@ let
 in
 {
   sops.secrets = {
+    controller = {
+      owner = "rspamd";
+    };
     dkim = {
       owner = "rspamd";
       path = "/var/lib/rspamd/dkim.key";
@@ -53,9 +56,7 @@ in
       };
     };
     locals = {
-      "worker-controller.inc".text = ''
-        password = "$2$cyoydx77osxpwumynxmcdwxscasbamoa$eaamf4p9qi11u5hsjscbiw893d1fm51o91t3km9eotws5g7pggjy"
-      '';
+      "worker-controller.inc".source = config.sops.secrets.controller.path;
       "redis.conf".text = ''
         servers = "127.0.0.1:${toString config.services.redis.servers.rspamd.port}";
       '';
