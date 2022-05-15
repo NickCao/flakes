@@ -105,7 +105,14 @@ in
       "worker-controller.inc".text = ''
         password = "$2$cyoydx77osxpwumynxmcdwxscasbamoa$eaamf4p9qi11u5hsjscbiw893d1fm51o91t3km9eotws5g7pggjy"
       '';
+      "redis.conf".text = ''
+        servers = "127.0.0.1:${toString config.services.redis.servers.rspamd.port}";
+      '';
     };
+  };
+  services.redis.servers.rspamd = {
+    enable = true;
+    port = 16380;
   };
   services.traefik = {
     dynamicConfigOptions = {
