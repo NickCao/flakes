@@ -25,15 +25,8 @@ in
         source ${domains} {
             reject 501 5.1.8 "Use Submission for outgoing SMTP"
         }
-        dmarc yes
         check {
             rspamd
-            require_mx_record
-            dkim
-            spf {
-                softfail_action quarantine
-            }
-            dnsbl zen.spamhaus.org
         }
         default_source {
             destination ${domains} {
