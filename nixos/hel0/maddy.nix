@@ -94,7 +94,41 @@ in
   services.rspamd = {
     enable = true;
     workers = {
-      normal.bindSockets = [ "127.0.0.1:11333" ];
+      controller = {
+        bindSockets = [ "127.0.0.1:11334" ];
+      };
+      normal = {
+        bindSockets = [ "127.0.0.1:11333" ];
+      };
+    };
+    locals = {
+      "worker-controller.inc".text = ''
+        password = "$2$cyoydx77osxpwumynxmcdwxscasbamoa$eaamf4p9qi11u5hsjscbiw893d1fm51o91t3km9eotws5g7pggjy"
+      '';
+    };
+  };
+  services.traefik = {
+    dynamicConfigOptions = {
+      http = {
+        routers = {
+          rspamd = {
+            rule = "Host(`${config.networking.fqdn}`) && PathPrefix(`/rspamd`)";
+            entryPoints = [ "https" ];
+            service = "rspamd";
+            middlewares = [ "rspamd" ];
+          };
+        };
+        middlewares = {
+          rspamd.stripPrefix = {
+            prefixes = [ "/rspamd" ];
+          };
+        };
+        services = {
+          rspamd.loadBalancer.servers = [{
+            url = "http://127.0.0.1:11334";
+          }];
+        };
+      };
     };
   };
 }
