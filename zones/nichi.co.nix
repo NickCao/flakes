@@ -5,7 +5,7 @@ let
   inherit (common.nodes) nrt0;
 in
 dns.lib.toString "nichi.co" {
-  inherit (common) TTL SOA NS;
+  inherit (common) TTL SOA NS DKIM DMARC;
   A = [ nrt0.ipv4 ];
   AAAA = [ nrt0.ipv6 ];
   CAA = [
@@ -26,19 +26,6 @@ dns.lib.toString "nichi.co" {
   TXT = [
     (with spf; soft [ "mx" ])
   ];
-  DKIM = [{
-    selector = "default";
-    k = "rsa";
-    p = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+6z/8WkmYxW0mT88OLyre9HP5YPF0iaEaGF33loWzzA6gwnW0PVGaL/TObcEUg7w0ocmuzt/fBqwtvUIo5W8aA78dZy9o07PxDiibtqQrvooJdgzJAH4ISJe8W/slacX+z6SfqajIR/MQh8v1SjHzPiGsN+TAbEtrXLxij6TvVwIDAQAB";
-    s = [ "email" ];
-  }];
-  DMARC = [{
-    p = "quarantine";
-    sp = "reject";
-    pct = 100;
-    adkim = "strict";
-    aspf = "strict";
-  }];
   SRV = [
     {
       service = "imaps";
