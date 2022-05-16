@@ -46,8 +46,8 @@ in
       disable_vrfy_command = true;
 
       milter_default_action = "accept";
-      smtpd_milters = [ "inet:127.0.0.1:11332" ];
-      non_smtpd_milters = [ "inet:127.0.0.1:11332" ];
+      smtpd_milters = [ "unix:/run/rspamd/postfix.sock" ];
+      non_smtpd_milters = [ "unix:/run/rspamd/postfix.sock" ];
     };
     masterConfig = {
       lmtp = {
@@ -77,15 +77,21 @@ in
       controller = {
         bindSockets = [ "localhost:11334" ];
       };
-      normal = {
-        bindSockets = [ "localhost:11333" ];
-      };
+      normal = { };
       rspamd_proxy = {
-        bindSockets = [ "localhost:11332" ];
+        bindSockets = [{
+          mode = "0666";
+          socket = "/run/rspamd/postfix.sock";
+        }];
       };
     };
     locals = {
       "worker-controller.inc".source = config.sops.secrets.controller.path;
+      "worker-proxy.inc".text = ''
+        upstream "local" {
+          hosts = "/run/rspamd/rspamd.sock";
+        }
+      '';
       "redis.conf".text = ''
         servers = "127.0.0.1:${toString config.services.redis.servers.rspamd.port}";
       '';
