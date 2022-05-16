@@ -27,6 +27,11 @@ in
     mapFiles.senders = builtins.toFile "senders" ''
       nickcao@nichi.co nickcao
     '';
+    mapFiles.aliases = builtins.toFile "aliases" ''
+      postmaster@nichi.co nickcao@nichi.co
+      hostmaster@nichi.co nickcao@nichi.co
+      noc@nichi.co nickcao@nichi.co
+    '';
     config = {
       smtpd_tls_chain_files = [ "/tmp/selfsigned.key" "/tmp/selfsigned.crt" ];
       smtpd_tls_security_level = "may";
@@ -34,6 +39,7 @@ in
 
       virtual_transport = "lmtp:unix:/run/dovecot2/lmtp";
       virtual_mailbox_domains = [ "nichi.co" "nichi.link" ];
+      virtual_alias_maps = "hash:/etc/postfix/aliases";
 
       lmtp_destination_recipient_limit = "1";
       recipient_delimiter = "+";
