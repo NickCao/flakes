@@ -136,11 +136,11 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1652557277,
-        "narHash": "sha256-jSes9DaIVMdmwBB78KkFUVrlDzawmD62vrUg0GS2500=",
+        "lastModified": 1652733177,
+        "narHash": "sha256-mRpdBbVk8tbYVgEE6oTBbFT1vkVdF7EzaP7bMQ26wWA=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "12806d31a381e7cd169a6bac35590e7b36dc5fe5",
+        "rev": "04b4d989fda8f14e6fcd1fee631eab9c54d15b97",
         "type": "github"
       },
       "original": {
@@ -217,11 +217,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1652627254,
-        "narHash": "sha256-uah6bqMba0Ee/htXClYaX0L9EAaa1bqoDEfmxBASIiI=",
+        "lastModified": 1652713447,
+        "narHash": "sha256-hsPI5/og3Vsj4qQ/A0Wq+Ytp5zao7xNnubfOvN7/a78=",
         "owner": "doronbehar",
         "repo": "nix-matlab",
-        "rev": "2aeb230d8c80f0578a30e5b79949a3d287dbc334",
+        "rev": "b24cfd981830ae26b0e295aeab25610d526190e5",
         "type": "gitlab"
       },
       "original": {
@@ -232,11 +232,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1652688300,
-        "narHash": "sha256-xsqagAvCE8WVqj/lPL3qLAiYi2dU1QFkivZ+RxT5NoQ=",
+        "lastModified": 1652756222,
+        "narHash": "sha256-3D8S4cyCIlzi+SSzjDzXJM60XQZl+peBpMrRn4zFSkM=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "fa4264b534a93e22c05f95cc0f36d9be382ec535",
+        "rev": "9d1f02b18d66f8abf47d855d96bda5d41a1805e6",
         "type": "github"
       },
       "original": {
