@@ -66,6 +66,7 @@ in
           smtpd_client_restrictions = "permit_sasl_authenticated,reject";
           smtpd_sender_restrictions = "reject_sender_login_mismatch";
           smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject";
+          smtpd_upstream_proxy_protocol = "haproxy";
         };
       };
     };

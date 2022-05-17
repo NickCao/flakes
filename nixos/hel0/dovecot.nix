@@ -137,6 +137,7 @@ in
             servers = [{ address = "127.0.0.1:8143"; }];
           };
           submission.loadBalancer = {
+            proxyProtocol = { };
             servers = [{ address = "127.0.0.1:587"; }];
           };
         };
