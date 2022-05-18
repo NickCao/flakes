@@ -96,13 +96,6 @@
     environmentFile = config.sops.secrets.vault.path;
   };
 
-  virtualisation.oci-containers.backend = "podman";
-  virtualisation.oci-containers.containers.tagging = {
-    image = "quay.io/numendacil/test:latest";
-    extraOptions = [ "--network=slirp4netns" "--memory=4G" ];
-    ports = [ "127.0.0.1:19000:8501" ];
-  };
-
   cloud.services.carinae.config = {
     ExecStart = "${pkgs.carinae}/bin/carinae -l 127.0.0.1:8004";
     EnvironmentFile = config.sops.secrets.carinae.path;
@@ -157,12 +150,6 @@
             entryPoints = [ "https" ];
             service = "meow";
           };
-          tagging = {
-            rule = "Host(`tagging.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "tagging";
-            middlewares = [ "compress" ];
-          };
           hydra = {
             rule = "Host(`hydra.nichi.co`)";
             entryPoints = [ "https" ];
@@ -186,10 +173,6 @@
           meow.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:8002"; }];
-          };
-          tagging.loadBalancer = {
-            passHostHeader = true;
-            servers = [{ url = "http://127.0.0.1:19000"; }];
           };
           hydra.loadBalancer = {
             passHostHeader = true;

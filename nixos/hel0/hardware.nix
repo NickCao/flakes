@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 let
-  mountDevice = "/dev/disk/by-id/wwn-0x500003981ba001ae-part2";
-  mountOptions = [
+  sata = "/dev/disk/by-id/wwn-0x500003981ba001ae-part2";
+  nvme = "/dev/disk/by-id/nvme-eui.002538b321b3dde9-part2";
+  opts = [
     "relatime"
     "compress-force=zstd"
     "space_cache=v2"
@@ -9,12 +10,12 @@ let
 in
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.availableKernelModules = [ "ahci" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "ahci" "nvme" "sd_mod" ];
   boot.kernelModules = [ "kvm-amd" ];
 
   boot.loader.grub = {
     enable = true;
-    devices = [ "/dev/disk/by-id/wwn-0x50000397fc5003aa" "/dev/disk/by-id/wwn-0x500003981ba001ae" ];
+    device = "/dev/disk/by-id/nvme-eui.002538b321b3dde9";
   };
 
   fileSystems."/" = {
@@ -24,20 +25,20 @@ in
 
   fileSystems."/boot" = {
     fsType = "btrfs";
-    device = mountDevice;
-    options = [ "subvol=boot" ] ++ mountOptions;
+    device = sata;
+    options = [ "subvol=boot" ] ++ opts;
   };
 
   fileSystems."/nix" = {
     fsType = "btrfs";
-    device = mountDevice;
-    options = [ "subvol=nix" ] ++ mountOptions;
+    device = sata;
+    options = [ "subvol=nix" ] ++ opts;
   };
 
   fileSystems."/persist" = {
     fsType = "btrfs";
-    device = mountDevice;
-    options = [ "subvol=persist" ] ++ mountOptions;
+    device = nvme;
+    options = [ "subvol=persist" ] ++ opts;
     neededForBoot = true;
   };
 }
