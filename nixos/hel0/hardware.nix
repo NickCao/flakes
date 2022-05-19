@@ -10,7 +10,7 @@ let
 in
 {
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.availableKernelModules = [ "ahci" "nvme" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "sd_mod" ];
   boot.kernelModules = [ "kvm-amd" ];
 
   boot.loader.grub = {
