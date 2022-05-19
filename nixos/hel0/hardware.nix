@@ -25,7 +25,7 @@ in
 
   fileSystems."/boot" = {
     fsType = "btrfs";
-    device = sata;
+    device = nvme;
     options = [ "subvol=boot" ] ++ opts;
   };
 
