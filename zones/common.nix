@@ -19,11 +19,14 @@ in
     s = [ "email" ];
   }];
   DMARC = [{
-    p = "quarantine";
+    p = "reject";
     sp = "reject";
     pct = 100;
     adkim = "strict";
     aspf = "strict";
+    fo = [ "1" ];
+    ruf = [ "mailto:postmaster@nichi.co" ];
+    rua = [ "mailto:postmaster@nichi.co" ];
   }];
   nodes = data.nodes.value;
 }
