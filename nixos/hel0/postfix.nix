@@ -98,11 +98,6 @@ in
       "redis.conf".text = ''
         servers = "127.0.0.1:${toString config.services.redis.servers.rspamd.port}";
       '';
-      "actions.conf".text = ''
-        reject = 15;
-        add_header = 4;
-        greylist = 3;
-      '';
       "classifier-bayes.conf".text = ''
         autolearn = true;
       '';
