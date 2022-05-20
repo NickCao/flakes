@@ -4,9 +4,9 @@ const stripe = Stripe(Deno.env.get("STRIPE_SECRET_KEY"), {
   httpClient: Stripe.createFetchHttpClient(),
 });
 
-export async function woff(req) {
+export async function woff(req: Request) {
   const url = new URL(req.url);
-  const amount = parseFloat(url.searchParams.get("amount"));
+  const amount = parseFloat(url.searchParams.get("amount") as string);
   if (Number.isNaN(amount)) {
     throw Error("query parameter amount not specified or invalid");
   }

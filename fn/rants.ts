@@ -1,7 +1,10 @@
 import { serveListener } from "https://deno.land/std@0.138.0/http/server.ts";
-import { HTMLRewriter } from "https://deno.land/x/html_rewriter@v0.1.0-pre.12/index.ts";
+import {
+  Element,
+  HTMLRewriter,
+} from "https://deno.land/x/html_rewriter@v0.1.0-pre.12/index.ts";
 
-async function handler(req) {
+async function handler(req: Request) {
   const url = new URL(req.url);
   const path = url.pathname;
   if (path == "/") {
@@ -18,7 +21,7 @@ async function handler(req) {
 }
 
 class ElementHandler {
-  element(element) {
+  element(element: Element) {
     switch (element.tagName) {
       case "header":
       case "script":
@@ -47,6 +50,6 @@ class ElementHandler {
 
 const server = Deno.listen({
   hostname: "127.0.0.1",
-  port: parseInt(Deno.env.get("PORT")),
+  port: parseInt(Deno.env.get("PORT") as string),
 });
 await serveListener(server, handler);
