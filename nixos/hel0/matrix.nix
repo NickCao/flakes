@@ -23,6 +23,7 @@
   ];
   services.matrix-synapse = {
     enable = true;
+    withJemalloc = true;
     settings = {
       app_service_config_files = [ "/run/credentials/matrix-synapse.service/telegram" ];
       listeners = [{
