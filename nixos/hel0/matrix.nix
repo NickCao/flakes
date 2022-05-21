@@ -80,6 +80,10 @@
         bridge_matrix_leave = false;
         relay_user_distinguishers = [ ];
         bridge_notices.default = true;
+        state_event_formats = {
+          join = "";
+          leave = "";
+        };
       };
       telegram = {
         api_id = 611335;
