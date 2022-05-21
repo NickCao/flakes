@@ -25,28 +25,25 @@
     enable = true;
     withJemalloc = true;
     settings = {
+      server_name = "nichi.co";
+      public_baseurl = "https://matrix.nichi.co";
+      signing_key_path = config.sops.secrets.matrix-synapse.path;
+
+      enable_search = true;
+      dynamic_thumbnails = true;
       app_service_config_files = [ "/run/credentials/matrix-synapse.service/telegram" ];
+
       listeners = [{
         bind_addresses = [ "127.0.0.1" ];
         port = 8196;
-        resources = [
-          {
-            compress = true;
-            names = [ "client" ];
-          }
-          {
-            compress = false;
-            names = [ "federation" ];
-          }
-        ];
         tls = false;
         type = "http";
         x_forwarded = true;
+        resources = [{
+          compress = true;
+          names = [ "client" "federation" ];
+        }];
       }];
-      server_name = "nichi.co";
-      public_baseurl = "https://matrix.nichi.co";
-      dynamic_thumbnails = true;
-      signing_key_path = config.sops.secrets.matrix-synapse.path;
     };
   };
 
