@@ -31,6 +31,7 @@
 
       enable_search = true;
       dynamic_thumbnails = true;
+      allow_public_rooms_over_federation = true;
       app_service_config_files = [ "/run/credentials/matrix-synapse.service/telegram" ];
 
       listeners = [{
