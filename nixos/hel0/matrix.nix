@@ -138,6 +138,7 @@
         tag_only_on_create = false;
         bridge_matrix_leave = false;
         relay_user_distinguishers = [ ];
+        bridge_notices.default = true;
       };
       telegram = {
         api_id = 611335;
