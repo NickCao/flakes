@@ -4,15 +4,12 @@
     secrets = {
       mautrix-telegram = { };
       matrix-synapse = { owner = "matrix-synapse"; };
-      matrix = { };
-      matterbridge = { };
     };
   };
 
   boot.kernel.sysctl."net.ipv6.ip_nonlocal_bind" = 1;
 
   services.postgresql.authentication = ''
-    local dendrite dendrite peer
     local mautrix-telegram mautrix-telegram peer
     local matrix-synapse matrix-synapse peer
   '';
