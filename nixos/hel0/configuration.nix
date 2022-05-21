@@ -24,6 +24,7 @@
         "bitwarden_rs"
         "knot"
         "maddy"
+        "matrix-synapse"
         "private/dendrite"
         "private/mautrix-telegram"
         "backup/postgresql"
