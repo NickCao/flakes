@@ -23,7 +23,6 @@
       paths = builtins.map (x: "/persist/var/lib/" + x) [
         "bitwarden_rs"
         "knot"
-        "maddy"
         "matrix-synapse"
         "private/mautrix-telegram"
         "backup/postgresql"
