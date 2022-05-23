@@ -80,7 +80,6 @@ in
       controller = {
         bindSockets = [ "localhost:11334" ];
       };
-      normal = { };
       rspamd_proxy = {
         bindSockets = [{
           mode = "0666";
@@ -92,7 +91,7 @@ in
       "worker-controller.inc".source = config.sops.secrets.controller.path;
       "worker-proxy.inc".text = ''
         upstream "local" {
-          hosts = "/run/rspamd/rspamd.sock";
+          self_scan = yes;
         }
       '';
       "redis.conf".text = ''
