@@ -25,6 +25,7 @@ in
     adkim = "strict";
     aspf = "strict";
     fo = [ "1" ];
+    ri = 604800;
     ruf = [ "mailto:postmaster@nichi.co" ];
     rua = [ "mailto:postmaster@nichi.co" ];
   }];
