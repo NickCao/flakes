@@ -43,16 +43,15 @@
       checkpoint_completion_target = 0.9;
       wal_buffers = "16MB";
       default_statistics_target = 100;
-      random_page_cost = 4;
-      effective_io_concurrency = 2;
-      work_mem = "6990kB";
+      random_page_cost = 1.1;
+      effective_io_concurrency = 200;
+      work_mem = "20971kB";
       min_wal_size = "1GB";
       max_wal_size = "4GB";
       max_worker_processes = 12;
       max_parallel_workers_per_gather = 4;
       max_parallel_workers = 12;
       max_parallel_maintenance_workers = 4;
-      synchronous_commit = "off";
     };
   };
 
