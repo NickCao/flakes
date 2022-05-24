@@ -122,7 +122,7 @@ in
       vim-fugitive
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
-          # tree-sitter-nix
+          tree-sitter-nix
           tree-sitter-lua
           tree-sitter-rust
           tree-sitter-go
