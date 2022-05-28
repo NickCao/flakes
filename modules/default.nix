@@ -6,7 +6,7 @@ rec {
       (import ./sshcert)
       (import ./dns/secondary)
       (import ./cloud/services.nix)
-      (import ./gravity-ng)
+      (import ./gravity)
     ];
   });
   vultr = import ./vultr.nix;

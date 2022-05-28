@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-  cfg = config.services.gravity-ng;
+  cfg = config.services.gravity;
 in
 {
-  options.services.gravity-ng = {
+  options.services.gravity = {
     enable = mkEnableOption "gravity overlay network, next generation";
     reload.enable = mkEnableOption "auto reload registry";
     config = mkOption {

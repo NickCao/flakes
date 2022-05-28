@@ -6,7 +6,7 @@
   };
   networking.hostName = "sin0";
   services.dns.secondary.enable = true;
-  services.gravity-ng = {
+  services.gravity = {
     enable = true;
     reload.enable = true;
     config = config.sops.secrets.ranet.path;

@@ -2,7 +2,7 @@
 {
   sops.secrets.ranet.reloadUnits = [ "gravity.service" ];
 
-  services.gravity-ng = {
+  services.gravity = {
     enable = true;
     reload.enable = true;
     config = config.sops.secrets.ranet.path;
