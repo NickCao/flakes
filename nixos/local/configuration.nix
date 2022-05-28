@@ -251,7 +251,6 @@
   };
 
   environment.pathsToLink = [ "/share/fish" ];
-  environment.profileRelativeSessionVariables.QT_PLUGIN_PATH = [ "/${pkgs.qt6.qtbase.qtPluginPrefix}" ];
 
   security.pam.services.swaylock = { };
   security.pam.u2f = {
