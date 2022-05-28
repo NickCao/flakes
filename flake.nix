@@ -8,11 +8,6 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
-    blog = {
-      url = "gitlab:NickCao/blog";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     fn = {
       url = "gitlab:NickCao/fn";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -98,7 +93,7 @@
           });
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ deploy-rs.deploy-rs ];
+            nativeBuildInputs = [ deploy-rs.deploy-rs mdbook ];
           };
         }
       )

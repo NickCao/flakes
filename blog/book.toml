@@ -1,0 +1,15 @@
+[book]
+authors = ["Nick Cao"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Nichi Yorozuya"
+
+[build]
+create-missing = false
+
+[output.html.print]
+enable = false
+
+[output.html.search]
+enable = false

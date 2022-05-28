@@ -8,7 +8,7 @@
   };
 
   cloud.services.blog.config = {
-    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8003 -p ${pkgs.nichi}";
+    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8003 -p ${pkgs.blog}";
   };
 
   systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;

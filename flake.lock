@@ -1,28 +1,5 @@
 {
   "nodes": {
-    "blog": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1650504535,
-        "narHash": "sha256-E6sW4+5nIb8Q+4h91ImYk/EhJw7454nRD/1rpDi/dao=",
-        "owner": "NickCao",
-        "repo": "blog",
-        "rev": "742cc2814ef6c31f328e931c50ffd865320e00bd",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "NickCao",
-        "repo": "blog",
-        "type": "gitlab"
-      }
-    },
     "canopus": {
       "inputs": {
         "flake-utils": [
@@ -329,7 +306,6 @@
     },
     "root": {
       "inputs": {
-        "blog": "blog",
         "canopus": "canopus",
         "carinae": "carinae",
         "deploy-rs": "deploy-rs",
