@@ -14,6 +14,13 @@ let cfg = config.services.prometheus; in
     };
     scrapeConfigs = [
       {
+        job_name = "rspamd";
+        scheme = "http";
+        static_configs = [{
+          targets = [ "localhost:11334" ];
+        }];
+      }
+      {
         job_name = "metrics";
         scheme = "https";
         static_configs = [{
