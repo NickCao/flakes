@@ -47,11 +47,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vyvsychfpRMSQWgxQfCxD3QllmKBjDdcbIvJiEDfz+8=",
+            "sha256": "sha256-h1eWQIf1QX+6NAWw+9oA/0+7HBKm0FjjQLqjWqr7OGY=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220416.dict"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220529.dict"
         },
-        "version": "20220416"
+        "version": "20220529"
     },
     "jtag-remote-server": {
         "cargoLocks": null,
@@ -66,11 +66,11 @@
             "name": null,
             "owner": "jiegec",
             "repo": "jtag-remote-server",
-            "rev": "c359ed983187a6b450152c29fefd2e013894d79b",
-            "sha256": "sha256-geYXrAcknbfyIZ/3XkYjnHR2MhG13FDxqwO8eywxpSM=",
+            "rev": "b441d0f3e9c81b6ca37407a4672c1853974b1d26",
+            "sha256": "sha256-Kjh61jKPm4GY7CYzxy+ZNHd9XULbwWH3jXBvasrFkvw=",
             "type": "github"
         },
-        "version": "c359ed983187a6b450152c29fefd2e013894d79b"
+        "version": "b441d0f3e9c81b6ca37407a4672c1853974b1d26"
     },
     "rait": {
         "cargoLocks": null,
@@ -105,11 +105,11 @@
             "name": null,
             "owner": "riscv",
             "repo": "riscv-openocd",
-            "rev": "0fada024948f55da74b0b6828a8c1cdf51e36762",
-            "sha256": "sha256-6y/HyybqYNiyW3MiI9kAX83gxvJSSRSIpCnPPlMNhNU=",
+            "rev": "5c34da1415719ac62108fec1bcec5f61e7d6059e",
+            "sha256": "sha256-nVTtPnbweHzTNY00iGVJYVttUHeA15ZGh+cMOx7ueW4=",
             "type": "github"
         },
-        "version": "0fada024948f55da74b0b6828a8c1cdf51e36762"
+        "version": "5c34da1415719ac62108fec1bcec5f61e7d6059e"
     },
     "smartdns-china-list": {
         "cargoLocks": null,
@@ -124,11 +124,11 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "cbf9cd2edc464a38f8f51762340709a8173768b1",
-            "sha256": "sha256-SMj+xVRecntle42of2GQj05lan/rPlmniPnqWMwLoX8=",
+            "rev": "3477488231f51f6a2b31f7063a8f12c7ecb30ee6",
+            "sha256": "sha256-hm97KekstTATwe+zjRmO91jewoR1TyXb9UAXqq0l2E0=",
             "type": "github"
         },
-        "version": "cbf9cd2edc464a38f8f51762340709a8173768b1"
+        "version": "3477488231f51f6a2b31f7063a8f12c7ecb30ee6"
     },
     "wemeet": {
         "cargoLocks": null,

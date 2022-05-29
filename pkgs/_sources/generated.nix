@@ -26,21 +26,21 @@
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20220416";
+    version = "20220529";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220416.dict";
-      sha256 = "sha256-vyvsychfpRMSQWgxQfCxD3QllmKBjDdcbIvJiEDfz+8=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220529.dict";
+      sha256 = "sha256-h1eWQIf1QX+6NAWw+9oA/0+7HBKm0FjjQLqjWqr7OGY=";
     };
   };
   jtag-remote-server = {
     pname = "jtag-remote-server";
-    version = "c359ed983187a6b450152c29fefd2e013894d79b";
+    version = "b441d0f3e9c81b6ca37407a4672c1853974b1d26";
     src = fetchFromGitHub ({
       owner = "jiegec";
       repo = "jtag-remote-server";
-      rev = "c359ed983187a6b450152c29fefd2e013894d79b";
+      rev = "b441d0f3e9c81b6ca37407a4672c1853974b1d26";
       fetchSubmodules = false;
-      sha256 = "sha256-geYXrAcknbfyIZ/3XkYjnHR2MhG13FDxqwO8eywxpSM=";
+      sha256 = "sha256-Kjh61jKPm4GY7CYzxy+ZNHd9XULbwWH3jXBvasrFkvw=";
     });
   };
   rait = {
@@ -58,24 +58,24 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "0fada024948f55da74b0b6828a8c1cdf51e36762";
+    version = "5c34da1415719ac62108fec1bcec5f61e7d6059e";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "0fada024948f55da74b0b6828a8c1cdf51e36762";
+      rev = "5c34da1415719ac62108fec1bcec5f61e7d6059e";
       fetchSubmodules = true;
-      sha256 = "sha256-6y/HyybqYNiyW3MiI9kAX83gxvJSSRSIpCnPPlMNhNU=";
+      sha256 = "sha256-nVTtPnbweHzTNY00iGVJYVttUHeA15ZGh+cMOx7ueW4=";
     });
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "cbf9cd2edc464a38f8f51762340709a8173768b1";
+    version = "3477488231f51f6a2b31f7063a8f12c7ecb30ee6";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "cbf9cd2edc464a38f8f51762340709a8173768b1";
+      rev = "3477488231f51f6a2b31f7063a8f12c7ecb30ee6";
       fetchSubmodules = false;
-      sha256 = "sha256-SMj+xVRecntle42of2GQj05lan/rPlmniPnqWMwLoX8=";
+      sha256 = "sha256-hm97KekstTATwe+zjRmO91jewoR1TyXb9UAXqq0l2E0=";
     });
   };
   wemeet = {
