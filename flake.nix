@@ -83,6 +83,7 @@
           };
         in
         rec {
+          formatter = pkgs.nixpkgs-fmt;
           packages = this.packages pkgs // {
             inherit (pkgs.deploy-rs) deploy-rs;
             inherit (pkgs) nvfetcher-bin;
