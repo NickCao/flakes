@@ -184,29 +184,6 @@
         "type": "github"
       }
     },
-    "matlab": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1654009508,
-        "narHash": "sha256-I5Vo3HSn5n/Inxv6bCmvgzmMIdh+w2LQj/I5yvoJTUY=",
-        "owner": "doronbehar",
-        "repo": "nix-matlab",
-        "rev": "b3bb8bda6a5f9d8b9e0897256eb95eb53561fe94",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "doronbehar",
-        "repo": "nix-matlab",
-        "type": "gitlab"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1654049018,
@@ -315,7 +292,6 @@
         "fn": "fn",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "matlab": "matlab",
         "nixpkgs": "nixpkgs",
         "nvfetcher": "nvfetcher",
         "ranet": "ranet",

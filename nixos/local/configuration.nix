@@ -300,7 +300,6 @@
         ".ssh"
         ".thunderbird"
         ".config/fcitx5"
-        ".matlab"
       ];
     };
   };
