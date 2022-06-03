@@ -27,6 +27,12 @@
   services.sshcert.enable = true;
   services.metrics.enable = true;
 
+  services.libreddit = {
+    enable = true;
+    address = "127.0.0.1";
+    port = 34123;
+  };
+
   services.knot = {
     enable = true;
     keyFiles = [ config.sops.secrets.tsig.path ];
@@ -145,6 +151,11 @@
     dynamicConfigOptions = {
       http = {
         routers = {
+          libreddit = {
+            rule = "Host(`red.nichi.co`)";
+            entryPoints = [ "https" ];
+            service = "libreddit";
+          };
           meow = {
             rule = "Host(`pb.nichi.co`)";
             entryPoints = [ "https" ];
@@ -170,6 +181,10 @@
           compress.compress = { };
         };
         services = {
+          libreddit.loadBalancer = {
+            passHostHeader = true;
+            servers = [{ url = "http://${config.services.libreddit.address}:${toString config.services.libreddit.port}"; }];
+          };
           meow.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:8002"; }];
