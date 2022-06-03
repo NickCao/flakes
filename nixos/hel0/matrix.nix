@@ -7,8 +7,6 @@
     };
   };
 
-  boot.kernel.sysctl."net.ipv6.ip_nonlocal_bind" = 1;
-
   cloud.services.element-web.config = {
     ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8005 -p ${pkgs.element-web}";
   };
