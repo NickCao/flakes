@@ -1,5 +1,9 @@
-##### Pastebin
+##### pastebin
 ```
 https://pb.nichi.co
-# no abuse
+```
+
+##### libreddit
+```
+https://red.nichi.co
 ```
