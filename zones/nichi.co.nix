@@ -41,15 +41,16 @@ dns.lib.toString "nichi.co" {
     }
   ];
   subdomains = {
-    api = host nrt0.ipv4 nrt0.ipv6;
+    www.TXT = [ "http.cat/404" ];
     fn.CNAME = [ "nrt0.nichi.link." ];
-    git.CNAME = [ "hel0.nichi.link." ];
-    live.CNAME = [ "hel0.nichi.link." ];
-    matrix.CNAME = [ "hel0.nichi.link." ];
     pb.CNAME = [ "hel0.nichi.link." ];
+    api.CNAME = [ "nrt0.nichi.link." ];
+    git.CNAME = [ "hel0.nichi.link." ];
+    red.CNAME = [ "hel0.nichi.link." ];
+    live.CNAME = [ "hel0.nichi.link." ];
     hydra.CNAME = [ "hel0.nichi.link." ];
     vault.CNAME = [ "hel0.nichi.link." ];
     cache.CNAME = [ "hel0.nichi.link." ];
-    www.TXT = [ "http.cat/404" ];
+    matrix.CNAME = [ "hel0.nichi.link." ];
   };
 }
