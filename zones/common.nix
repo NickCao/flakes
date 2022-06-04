@@ -29,5 +29,10 @@ in
     ruf = [ "mailto:postmaster@nichi.co" ];
     rua = [ "mailto:postmaster@nichi.co" ];
   }];
+  CAA = [{
+    issuerCritical = false;
+    tag = "issue";
+    value = "letsencrypt.org";
+  }];
   nodes = data.nodes.value;
 }

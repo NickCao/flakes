@@ -5,21 +5,9 @@ let
   inherit (common.nodes) nrt0;
 in
 dns.lib.toString "nichi.co" {
-  inherit (common) TTL SOA NS DKIM DMARC;
+  inherit (common) TTL SOA NS DKIM DMARC CAA;
   A = [ nrt0.ipv4 ];
   AAAA = [ nrt0.ipv6 ];
-  CAA = [
-    {
-      issuerCritical = false;
-      tag = "issue";
-      value = "letsencrypt.org";
-    }
-    {
-      issuerCritical = false;
-      tag = "issue";
-      value = "sectigo.com";
-    }
-  ];
   MX = with mx; [
     (mx 10 "hel0.nichi.link.")
   ];
