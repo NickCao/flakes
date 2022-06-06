@@ -10,6 +10,8 @@ vim.opt.smarttab = true
 vim.opt.timeoutlen = 500
 vim.opt.scrolloff = 5
 
+vim.g.maplocalleader = " "
+
 require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,

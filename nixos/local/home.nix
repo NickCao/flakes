@@ -120,6 +120,7 @@ in
       which-key-nvim
       lualine-lsp-progress
       vim-fugitive
+      vimtex
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix
