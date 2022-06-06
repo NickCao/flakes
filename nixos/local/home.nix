@@ -182,6 +182,7 @@ in
     };
   };
   home.packages = with pkgs; [
+    evince
     picocom
     nix-top
     thunderbird
