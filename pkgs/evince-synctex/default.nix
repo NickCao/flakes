@@ -1,4 +1,4 @@
-{ source, python3Packages }: 
+{ source, python3Packages }:
 
 python3Packages.buildPythonApplication {
   inherit (source) pname version src;

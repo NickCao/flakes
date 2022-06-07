@@ -20,12 +20,6 @@
       inputs.flake-compat.follows = "flake-compat";
       inputs.utils.follows = "flake-utils";
     };
-    nvfetcher = {
-      url = "github:berberman/nvfetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -73,7 +67,6 @@
               self.overlays.default
               inputs.fn.overlays.default
               inputs.deploy-rs.overlay
-              inputs.nvfetcher.overlay
             ];
           };
         in
@@ -81,7 +74,6 @@
           formatter = pkgs.nixpkgs-fmt;
           packages = this.packages pkgs // {
             inherit (pkgs.deploy-rs) deploy-rs;
-            inherit (pkgs) nvfetcher-bin;
             inherit (pkgs) "db.co.nichi" "db.link.nichi" "db.link.scp";
           };
           checks = packages // (inputs.deploy-rs.lib."${system}".deployChecks {
