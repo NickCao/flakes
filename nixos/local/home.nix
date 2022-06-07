@@ -74,6 +74,10 @@ in
           modifier = config.wayland.windowManager.sway.config.modifier;
         in
         pkgs.lib.mkOptionDefault {
+          "${modifier}+h" = "focus left";
+          "${modifier}+j" = "focus down";
+          "${modifier}+k" = "focus up";
+          "${modifier}+l" = "focus right";
           "${modifier}+s" = "split toggle";
           "${modifier}+b" = null;
           "${modifier}+v" = null;
