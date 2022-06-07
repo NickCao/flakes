@@ -121,6 +121,7 @@ in
       lualine-lsp-progress
       vim-fugitive
       vimtex
+      sved
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix

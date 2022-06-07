@@ -34,3 +34,7 @@ fetch.github = "jiegec/jtag-remote-server"
 src.git = "https://github.com/tohojo/bird"
 src.branch = "babel-rtt-01"
 fetch.github = "tohojo/bird"
+
+[evince-synctex]
+src.git = "https://github.com/latex-lsp/evince-synctex"
+fetch.github = "latex-lsp/evince-synctex"

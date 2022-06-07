@@ -24,6 +24,17 @@
       sha256 = "sha256-YeEf86oT9gY+BiQBqX2jtJkSfTbX+KfgUc2geEMat6E=";
     });
   };
+  evince-synctex = {
+    pname = "evince-synctex";
+    version = "593b00c938d82786b8bbaf584ebe68744f9c8407";
+    src = fetchFromGitHub ({
+      owner = "latex-lsp";
+      repo = "evince-synctex";
+      rev = "593b00c938d82786b8bbaf584ebe68744f9c8407";
+      fetchSubmodules = false;
+      sha256 = "sha256-Q9kZ/XmXEsoZpflF5n16I5bsyS2S8gS9OYkOPM47ryg=";
+    });
+  };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
     version = "20220529";
@@ -34,13 +45,13 @@
   };
   jtag-remote-server = {
     pname = "jtag-remote-server";
-    version = "b441d0f3e9c81b6ca37407a4672c1853974b1d26";
+    version = "dc6c91e2d2eab2f90879a9d8b44c9c1c4c139a31";
     src = fetchFromGitHub ({
       owner = "jiegec";
       repo = "jtag-remote-server";
-      rev = "b441d0f3e9c81b6ca37407a4672c1853974b1d26";
+      rev = "dc6c91e2d2eab2f90879a9d8b44c9c1c4c139a31";
       fetchSubmodules = false;
-      sha256 = "sha256-Kjh61jKPm4GY7CYzxy+ZNHd9XULbwWH3jXBvasrFkvw=";
+      sha256 = "sha256-F8fc7WTt29Ng1KpSz1s5fcE6a4sOLupH6/mv7Bf7k1A=";
     });
   };
   rait = {
@@ -58,24 +69,24 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "5c34da1415719ac62108fec1bcec5f61e7d6059e";
+    version = "40458f6b251c943b76792d6a2bf8c7633636a935";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "5c34da1415719ac62108fec1bcec5f61e7d6059e";
+      rev = "40458f6b251c943b76792d6a2bf8c7633636a935";
       fetchSubmodules = true;
-      sha256 = "sha256-nVTtPnbweHzTNY00iGVJYVttUHeA15ZGh+cMOx7ueW4=";
+      sha256 = "sha256-+D3vlqLVM6cYu+xrUqGQuvSlSB1VfhQ2YHJRWvf9h0Q=";
     });
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "3477488231f51f6a2b31f7063a8f12c7ecb30ee6";
+    version = "b0584cccff7f15acfe928428b6ed6851f4dfe0bd";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "3477488231f51f6a2b31f7063a8f12c7ecb30ee6";
+      rev = "b0584cccff7f15acfe928428b6ed6851f4dfe0bd";
       fetchSubmodules = false;
-      sha256 = "sha256-hm97KekstTATwe+zjRmO91jewoR1TyXb9UAXqq0l2E0=";
+      sha256 = "sha256-eGFiQEl+VWsjJJyA1+0HWs74lT7Vf+CA2XBnz6oac/U=";
     });
   };
   wemeet = {
