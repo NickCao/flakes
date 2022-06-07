@@ -121,7 +121,6 @@ in
       lualine-lsp-progress
       vim-fugitive
       vimtex
-      sved
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix
@@ -184,6 +183,7 @@ in
   };
   home.packages = with pkgs; [
     evince
+    evince-synctex
     picocom
     nix-top
     thunderbird
