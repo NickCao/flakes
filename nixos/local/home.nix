@@ -219,7 +219,7 @@ in
     knot-dns
     tree
     mtr
-    go_1_17
+    go
     gopls
     sops
     restic
@@ -278,12 +278,6 @@ in
       enable = true;
       nix-direnv = {
         enable = true;
-      };
-    };
-    bat = {
-      enable = true;
-      config = {
-        theme = "Solarized (light)";
       };
     };
     gpg = {
