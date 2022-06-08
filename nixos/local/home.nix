@@ -108,6 +108,12 @@ in
       bars = [ ];
     };
   };
+  programs.swaylock.settings = {
+    show-failed-attempts = true;
+    daemonize = true;
+    image = "${fbk-blurred}";
+    scaling = "fill";
+  };
   programs.neovim = {
     enable = true;
     vimAlias = true;
@@ -475,12 +481,6 @@ in
       publicShare = "$HOME";
     };
     configFile = {
-      "swaylock/config".text = ''
-        show-failed-attempts
-        daemonize
-        image=${fbk-blurred}
-        scaling=fill
-      '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
         GOBIN=${config.xdg.stateHome}/go/bin

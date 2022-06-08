@@ -151,16 +151,24 @@
     },
     "home-manager": {
       "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
         "nixpkgs": [
           "nixpkgs"
+        ],
+        "nmd": "nmd",
+        "nmt": "nmt",
+        "utils": [
+          "flake-utils"
         ]
       },
       "locked": {
-        "lastModified": 1654422613,
-        "narHash": "sha256-ZxkMM13AnrMwYOV99ohzcqeTkAOqD9Q2SBdZ9WoFE9Y=",
+        "lastModified": 1654628474,
+        "narHash": "sha256-Llm9X8Af15uC9IMStxqjCfO15WgYTqTnsQq8wMcpp5Q=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "20703892473d01c70fb10248442231fe94f4ceb4",
+        "rev": "70824bb5c790b820b189f62f643f795b1d2ade2e",
         "type": "github"
       },
       "original": {
@@ -186,11 +194,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1654486138,
-        "narHash": "sha256-OSLcWMAQzpKxdCwNOisvDLnSTwudlLGyNtGrygknKuY=",
+        "lastModified": 1654653229,
+        "narHash": "sha256-2c3hePiny5LulPf1D5xXsXoHQJ4hRvGCBT3mNrTD6Tg=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "8d63f9136bbf2fa38fbc771341b599b122d62b74",
+        "rev": "aec4ad4c2f0ae86c7c176fed41fdc892e6e40d0b",
         "type": "github"
       },
       "original": {
@@ -232,6 +240,38 @@
         "type": "github"
       }
     },
+    "nmd": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1653339422,
+        "narHash": "sha256-8nc7lcYOgih3YEmRMlBwZaLLJYpLPYKBlewqHqx8ieg=",
+        "owner": "rycee",
+        "repo": "nmd",
+        "rev": "9e7a20e6ee3f6751f699f79c0b299390f81f7bcd",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "rycee",
+        "repo": "nmd",
+        "type": "gitlab"
+      }
+    },
+    "nmt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1648075362,
+        "narHash": "sha256-u36WgzoA84dMVsGXzml4wZ5ckGgfnvS0ryzo/3zn/Pc=",
+        "owner": "rycee",
+        "repo": "nmt",
+        "rev": "d83601002c99b78c89ea80e5e6ba21addcfe12ae",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "rycee",
+        "repo": "nmt",
+        "type": "gitlab"
+      }
+    },
     "ranet": {
       "inputs": {
         "flake-utils": [
@@ -242,11 +282,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1651058841,
-        "narHash": "sha256-0Tp2NDs0zitfFfrcE6AwScw7iwlHNqNQc0809h9yA8s=",
+        "lastModified": 1654523255,
+        "narHash": "sha256-1kwFAkwidTPRoauYGrM8hd2833j1TOQUYyj3Hce9mqI=",
         "owner": "SCP-2000",
         "repo": "ranet",
-        "rev": "b3a7161995d007dec35e764ca623812091f6a9d8",
+        "rev": "e4d215027d41f8440c6b8ff9da6e48ad6ded11ab",
         "type": "github"
       },
       "original": {
