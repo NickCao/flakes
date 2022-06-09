@@ -308,7 +308,8 @@
         "impermanence": "impermanence",
         "nixpkgs": "nixpkgs",
         "ranet": "ranet",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "terrasops": "terrasops"
       }
     },
     "sops-nix": {
@@ -330,6 +331,29 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "terrasops": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1654773049,
+        "narHash": "sha256-d2Yq8u74kY19Bi4Inj44QDfQzUIMYlB8j4jbyUZJtlM=",
+        "owner": "NickCao",
+        "repo": "terrasops",
+        "rev": "9821826fbd755c899b0b06785aed0954c6c576d1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NickCao",
+        "repo": "terrasops",
         "type": "github"
       }
     }

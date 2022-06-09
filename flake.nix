@@ -50,6 +50,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    terrasops = {
+      url = "github:NickCao/terrasops";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, dns, ... }:
     let
@@ -69,6 +74,7 @@
               self.overlays.default
               inputs.fn.overlays.default
               inputs.deploy-rs.overlay
+              inputs.terrasops.overlay
             ];
           };
         in
@@ -83,7 +89,7 @@
           });
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ deploy-rs.deploy-rs mdbook ];
+            nativeBuildInputs = [ deploy-rs.deploy-rs mdbook terrasops ];
           };
         }
       )
