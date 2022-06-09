@@ -1,2 +1,1 @@
 secrets.yaml diff=sops
-terraform.tfstate filter=sops
