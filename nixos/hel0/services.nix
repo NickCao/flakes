@@ -19,7 +19,6 @@
       tsig = { sopsFile = ../../modules/dns/secondary/secrets.yaml; owner = "knot"; };
       gravity = { owner = "knot"; sopsFile = ./zones.yaml; };
       gravity_reverse = { owner = "knot"; sopsFile = ./zones.yaml; };
-      srt = { };
     };
   };
 
@@ -136,13 +135,6 @@
       updater.start_polling()
     ''}";
     EnvironmentFile = config.sops.secrets.canopus.path;
-  };
-
-  cloud.services.srt-live-transmit.config = {
-    ExecStart = ''${pkgs.srt}/bin/srt-live-transmit \
-              srt://[::]:5001?mode=listener&latency=2000&passphrase=''${PASSPHRASE} \
-              srt://[::]:5002?mode=listener&latency=2000'';
-    EnvironmentFile = config.sops.secrets.srt.path;
   };
 
   systemd.services.postgresql.serviceConfig.TimeoutSec = pkgs.lib.mkForce 1200;
