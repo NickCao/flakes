@@ -82,6 +82,7 @@
           formatter = pkgs.nixpkgs-fmt;
           packages = this.packages pkgs // {
             inherit (pkgs.deploy-rs) deploy-rs;
+            inherit (pkgs) terrasops;
             inherit (pkgs) "db.co.nichi" "db.link.nichi" "db.link.scp";
           };
           checks = packages // (inputs.deploy-rs.lib."${system}".deployChecks {
