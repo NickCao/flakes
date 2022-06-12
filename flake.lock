@@ -194,11 +194,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1654859548,
-        "narHash": "sha256-UFRhCnS691LTMvhvVTnC5idbp+0ZK6bYVfvbcVQBSu0=",
+        "lastModified": 1655015325,
+        "narHash": "sha256-ipdPKqAyy47eUVOlGMS5DpJ2TQmNOMUDcU5MywzzWUI=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "422cf3bb5d13646be203e7fdd85a645be16b5862",
+        "rev": "48ad3659379d8253761b57ba1540f84593bdad9e",
         "type": "github"
       },
       "original": {
@@ -282,11 +282,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1654523255,
-        "narHash": "sha256-1kwFAkwidTPRoauYGrM8hd2833j1TOQUYyj3Hce9mqI=",
+        "lastModified": 1654963272,
+        "narHash": "sha256-j+fATcDiUT5fYDX1eNwNWbXg+JDaUfA84N9jLOw57Zw=",
         "owner": "SCP-2000",
         "repo": "ranet",
-        "rev": "e4d215027d41f8440c6b8ff9da6e48ad6ded11ab",
+        "rev": "e0fe701ed796ff161b4e83177cae5e7921e7d6d3",
         "type": "github"
       },
       "original": {
