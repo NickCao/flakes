@@ -4,6 +4,7 @@
 [friends](friends.md)
 
 # articles
+- [bandaid](articles/bandaid.md)
 - [rpi bmc](articles/rpi-bmc.md)
 - [why not the hashistack](articles/why-not-the-hashistack.md)
 - [go module in nix](articles/go-module-in-nix.md)
