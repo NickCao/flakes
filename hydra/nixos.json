@@ -1,0 +1,11 @@
+{
+  "riscv": {
+    "enabled": 1,
+    "hidden": false,
+    "flake": "github:NickCao/nixos-riscv",
+    "checkinterval": 120,
+    "schedulingshares": 50,
+    "enableemail": false,
+    "keepnr": 10
+  }
+}
