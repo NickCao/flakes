@@ -8,6 +8,7 @@
     "schedulingshares": 100,
     "enableemail": false,
     "emailoverride": "",
+    "enable_dynamic_run_command": false,
     "keepnr": 3
   }
 }
