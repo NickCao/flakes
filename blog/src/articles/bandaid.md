@@ -16,7 +16,7 @@ Let's recap how far we have gone:
 - our wrapper loops through the list of file descriptors passed by systemd to find a matching one.
 - then what?
 
-Our wrapper and the target program are two separate processes, we still have to inject the file descriptor into the target process in one way or another. The authors of seccomp appearently had been on the same page as me, there's another subtle feature within seccomp unitify: addfd, which as the name suggests, does exactly the job of inserting a file descriptor without cooperation.
+Our wrapper and the target program are two separate processes, we still have to inject the file descriptor into the target process in one way or another. The authors of seccomp appearently had been on the same page as me, there's another subtle feature within seccomp unotify: addfd, which as the name suggests, does exactly the job of inserting a file descriptor without cooperation.
 
 - call addfd to inject the matching file desctiptor into the target process.
 - set the return value of the hijacked `socket` call to the file desctiptor number.
