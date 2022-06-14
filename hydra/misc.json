@@ -1,0 +1,13 @@
+{
+  "flakes": {
+    "enabled": 1,
+    "hidden": false,
+    "type": 1,
+    "flake": "github:NickCao/flakes",
+    "checkinterval": 120,
+    "schedulingshares": 100,
+    "enableemail": false,
+    "emailoverride": "",
+    "keepnr": 3
+  }
+}
