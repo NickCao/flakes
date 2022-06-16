@@ -7,9 +7,20 @@
     };
   };
 
-  cloud.services.element-web.config = {
-    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8005 -p ${pkgs.element-web}";
-  };
+  cloud.services.element-web.config =
+    let conf = {
+      default_server_config = {
+        "m.homeserver" = {
+          base_url = "https://matrix.nichi.co";
+          server_name = "nichi.co";
+        };
+      };
+      brand = "Nichi Yorozuya";
+    }; in
+    {
+      ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8005 -p ${pkgs.element-web.override { inherit conf; }}";
+    };
+
 
   systemd.services.matrix-synapse.serviceConfig.LoadCredential = [
     "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
