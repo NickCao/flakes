@@ -3,7 +3,7 @@ let
   sata = "/dev/disk/by-id/wwn-0x500003981ba001ae-part2";
   nvme = "/dev/disk/by-id/nvme-eui.002538b321b3dde9-part2";
   opts = [
-    "relatime"
+    "noatime"
     "compress-force=zstd"
     "space_cache=v2"
   ];
