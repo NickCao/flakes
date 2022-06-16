@@ -3,7 +3,6 @@
     "enabled": 1,
     "hidden": false,
     "type": 1,
-    "project": "misc",
     "flake": "github:NickCao/flakes",
     "checkinterval": 120,
     "schedulingshares": 100,
