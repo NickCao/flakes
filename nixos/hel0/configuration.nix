@@ -83,8 +83,6 @@
     };
   };
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
   networking = {
     useNetworkd = true;
     useDHCP = false;
