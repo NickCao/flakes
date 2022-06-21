@@ -219,9 +219,11 @@
     udev = {
       packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
       extraRules =
-        let power = pkgs.writeShellScript "power" ''
-          ${config.boot.kernelPackages.cpupower}/bin/cpupower frequency-set --governor $1
-        ''; in
+        let
+          power = pkgs.writeShellScript "power" ''
+            ${config.boot.kernelPackages.cpupower}/bin/cpupower frequency-set --governor $1
+          '';
+        in
         ''
           SUBSYSTEMS=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
           SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${power} powersave"
@@ -300,6 +302,7 @@
         ".ssh"
         ".thunderbird"
         ".config/fcitx5"
+        ".config/nheko"
       ];
     };
   };

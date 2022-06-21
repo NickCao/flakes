@@ -137,8 +137,6 @@
     EnvironmentFile = config.sops.secrets.canopus.path;
   };
 
-  systemd.services.postgresql.serviceConfig.TimeoutSec = pkgs.lib.mkForce 1200;
-
   services.traefik = {
     dynamicConfigOptions = {
       http = {

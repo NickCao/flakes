@@ -8,15 +8,17 @@
   };
 
   cloud.services.element-web.config =
-    let conf = {
-      default_server_config = {
-        "m.homeserver" = {
-          base_url = "https://matrix.nichi.co";
-          server_name = "nichi.co";
+    let
+      conf = {
+        default_server_config = {
+          "m.homeserver" = {
+            base_url = "https://matrix.nichi.co";
+            server_name = "nichi.co";
+          };
         };
+        brand = "Nichi Yorozuya";
       };
-      brand = "Nichi Yorozuya";
-    }; in
+    in
     {
       ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8005 -p ${pkgs.element-web.override { inherit conf; }}";
     };

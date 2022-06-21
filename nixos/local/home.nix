@@ -192,6 +192,7 @@ in
     };
   };
   home.packages = with pkgs; [
+    nheko
     evince
     evince-synctex
     picocom

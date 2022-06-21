@@ -35,6 +35,7 @@
 
   services.postgresql = {
     package = pkgs.postgresql_14;
+    extraPlugins = with pkgs.postgresql_14.pkgs; [ timescaledb ];
     settings = {
       max_connections = 300;
       shared_buffers = "16GB";
