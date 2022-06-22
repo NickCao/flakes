@@ -105,7 +105,6 @@
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
     tmpOnTmpfs = true;
-    consoleLogLevel = 0;
     initrd.kernelModules = [ "i915" ];
     loader = {
       timeout = 0;
@@ -121,8 +120,6 @@
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     kernelParams = [
-      "quiet"
-      "udev.log_level=3"
       "mitigations=off"
       "nowatchdog"
       "systemd.unified_cgroup_hierarchy=1"
