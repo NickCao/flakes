@@ -210,7 +210,7 @@
     };
     journald = {
       extraConfig = ''
-        SystemMaxUse=15M
+        SystemMaxUse=1G
       '';
     };
     udev = {
