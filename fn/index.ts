@@ -18,5 +18,6 @@ const router = new WorkerRouter()
   );
 
 await serve(router.serveCallback, {
+  hostname: "127.0.0.1",
   port: parseInt(Deno.env.get("PORT") as string),
 });
