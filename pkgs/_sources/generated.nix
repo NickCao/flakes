@@ -45,13 +45,13 @@
   };
   jtag-remote-server = {
     pname = "jtag-remote-server";
-    version = "dc6c91e2d2eab2f90879a9d8b44c9c1c4c139a31";
+    version = "917d8d298423ba1aa6e75aa92e009b7f27f74a57";
     src = fetchFromGitHub ({
       owner = "jiegec";
       repo = "jtag-remote-server";
-      rev = "dc6c91e2d2eab2f90879a9d8b44c9c1c4c139a31";
+      rev = "917d8d298423ba1aa6e75aa92e009b7f27f74a57";
       fetchSubmodules = false;
-      sha256 = "sha256-F8fc7WTt29Ng1KpSz1s5fcE6a4sOLupH6/mv7Bf7k1A=";
+      sha256 = "sha256-Jy0OyRgn9SYpjP3HYWPvRirfxXk4/vMYvZuI3XpPtBw=";
     });
   };
   rait = {
@@ -69,24 +69,24 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "40458f6b251c943b76792d6a2bf8c7633636a935";
+    version = "8488e4e863f6a465189d7dd3e6d94ccc4c493eb4";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "40458f6b251c943b76792d6a2bf8c7633636a935";
+      rev = "8488e4e863f6a465189d7dd3e6d94ccc4c493eb4";
       fetchSubmodules = true;
-      sha256 = "sha256-+D3vlqLVM6cYu+xrUqGQuvSlSB1VfhQ2YHJRWvf9h0Q=";
+      sha256 = "sha256-N5LsGqY4YJg9fW+XVflzshq69JD8YENvZjmmyzVXKzI=";
     });
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "b0584cccff7f15acfe928428b6ed6851f4dfe0bd";
+    version = "d5784780f8d30ae2f05dc240fd09c19d3c8b5b1a";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "b0584cccff7f15acfe928428b6ed6851f4dfe0bd";
+      rev = "d5784780f8d30ae2f05dc240fd09c19d3c8b5b1a";
       fetchSubmodules = false;
-      sha256 = "sha256-eGFiQEl+VWsjJJyA1+0HWs74lT7Vf+CA2XBnz6oac/U=";
+      sha256 = "sha256-XpU7FtVgh7wRyEvuVDQLzWi5O3at+UKptd587OtYZPw=";
     });
   };
   wemeet = {
