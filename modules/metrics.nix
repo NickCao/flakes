@@ -25,8 +25,8 @@ in
           systemd_units = { };
           dns_query = {
             servers = [
-              "1.1.1.1"
               "8.8.8.8"
+              "8.8.4.4"
             ];
             domains = [ "nichi.co" ];
             record_type = "A";
