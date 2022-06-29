@@ -8,5 +8,6 @@ dns.lib.toString "scp.link" {
   subdomains = {
     "o".NS = builtins.map (x: "ns${builtins.toString x}.he.net.") (builtins.genList (x: x + 1) 5);
     vanilla.A = [ "20.24.195.187" ];
+    "com".NS = builtins.map (x: "ns${builtins.toString x}.he.net.") (builtins.genList (x: x + 1) 5);
   };
 }
