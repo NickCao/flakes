@@ -143,11 +143,11 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "d5784780f8d30ae2f05dc240fd09c19d3c8b5b1a",
-            "sha256": "sha256-XpU7FtVgh7wRyEvuVDQLzWi5O3at+UKptd587OtYZPw=",
+            "rev": "f2f69096cd5d1da0ca4cedc61354cdd224d7efc5",
+            "sha256": "sha256-iW9UIeYRQrddopiEgNCJWw+rpBe+0QU8MI+ODiET9pg=",
             "type": "github"
         },
-        "version": "d5784780f8d30ae2f05dc240fd09c19d3c8b5b1a"
+        "version": "f2f69096cd5d1da0ca4cedc61354cdd224d7efc5"
     },
     "wemeet": {
         "cargoLocks": null,
