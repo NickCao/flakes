@@ -11,7 +11,7 @@ resource "gandi_glue_record" "nichi_link" {
   for_each = local.nodes
   zone     = "nichi.link"
   name     = each.key
-  ips      = [module.nodes[each.key].ipv4, cidrhost("${module.nodes[each.key].ipv6}/128", 0)]
+  ips      = sort([module.nodes[each.key].ipv4, cidrhost("${module.nodes[each.key].ipv6}/128", 0)])
 }
 
 resource "gandi_dnssec_key" "nichi_link" {
