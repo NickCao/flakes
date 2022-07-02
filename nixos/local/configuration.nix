@@ -92,7 +92,7 @@
   time.timeZone = "Asia/Shanghai";
 
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "C.UTF-8";
     inputMethod = {
       enabled = "fcitx5";
       fcitx5.addons = with pkgs; [
