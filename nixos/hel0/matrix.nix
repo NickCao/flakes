@@ -114,6 +114,11 @@
         entryPoints = [ "https" ];
         service = "synapse";
       };
+      synapse = {
+        rule = "Host(`matrix.nichi.co`) && PathPrefix(`/_synapse`)";
+        entryPoints = [ "https" ];
+        service = "synapse";
+      };
       element = {
         rule = "Host(`matrix.nichi.co`)";
         entryPoints = [ "https" ];
