@@ -1,7 +1,7 @@
-{ source, qt5, fetchurl, dpkg, autoPatchelfHook, xorg, libbsd }:
+{ source, qt5, fetchurl, dpkg, autoPatchelfHook, xorg, libbsd, makeWrapper }:
 qt5.mkDerivation {
   inherit (source) pname version src;
-  nativeBuildInputs = [ dpkg autoPatchelfHook ];
+  nativeBuildInputs = [ dpkg autoPatchelfHook makeWrapper ];
   buildInputs = [
     xorg.libXrandr
     xorg.libXinerama
@@ -25,6 +25,9 @@ qt5.mkDerivation {
     mv opt/wemeet/lib/{libwemeet*,libxcast.so,libxnn*,libtquic.so} $out/lib
     mkdir $out/share
     mv opt/wemeet/icons $out/share
+    wrapProgram $out/bin/wemeetapp \
+      --set XDG_SESSION_TYPE x11 \
+      --unset WAYLAND_DISPLAY
   '';
   meta = {
     mainProgram = "wemeetapp";
