@@ -27,6 +27,7 @@ qt5.mkDerivation {
     mv opt/wemeet/icons $out/share
     wrapProgram $out/bin/wemeetapp \
       --set XDG_SESSION_TYPE x11 \
+      --set PULSE_LATENCY_MSEC 20 \
       --unset WAYLAND_DISPLAY
   '';
   meta = {
