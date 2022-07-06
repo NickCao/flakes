@@ -4,6 +4,7 @@
     secrets = {
       mautrix-telegram = { };
       matrix-synapse = { owner = "matrix-synapse"; };
+      mjolnir = { owner = "mjolnir"; };
     };
   };
 
@@ -55,6 +56,17 @@
         }];
       }];
     };
+  };
+
+  services.mjolnir = {
+    enable = true;
+    settings = {
+      protectAllJoinedRooms = true;
+    };
+    managementRoom = "#moderators:nichi.co";
+    homeserverUrl = "https://matrix.nichi.co";
+    accessTokenFile = config.sops.secrets.mjolnir.path;
+    pantalaimon.username = "mjolnir";
   };
 
   services.mautrix-telegram = {

@@ -24,6 +24,7 @@
         "bitwarden_rs"
         "knot"
         "matrix-synapse"
+        "mjolnir"
         "private/mautrix-telegram"
         "backup/postgresql"
       ] ++ [ "/persist/home/git" "/persist/var/spool" ];
