@@ -40,6 +40,9 @@
       allow_public_rooms_over_federation = true;
       app_service_config_files = [ "/run/credentials/matrix-synapse.service/telegram" ];
 
+      enable_registration = true;
+      registration_requires_token = true;
+
       listeners = [{
         bind_addresses = [ "127.0.0.1" ];
         port = 8196;
