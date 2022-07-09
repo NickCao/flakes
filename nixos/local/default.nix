@@ -17,7 +17,7 @@ nixpkgs.lib.nixosSystem {
           bird = prev.bird-babel-rtt;
         })
       ];
-      nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+      nix.settings.nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
       nix.registry.p.flake = self;
     }
   ];
