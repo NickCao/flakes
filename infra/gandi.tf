@@ -1,10 +1,6 @@
 locals {
   dnssec_key = "LBbl0S/D5U9yKQOy+r0+lZEJP3kpPklCBagsT13p64U="
-  nameservers = concat(values(module.nodes)[*].fqdn, [
-    "hydrogen.ns.hetzner.com",
-    "oxygen.ns.hetzner.com",
-    "helium.ns.hetzner.de"
-  ])
+  nameservers = values(module.nodes)[*].fqdn
 }
 
 resource "gandi_glue_record" "nichi_link" {
