@@ -271,7 +271,7 @@ in
     };
     waybar = {
       enable = true;
-      settings = [ (import ./waybar.nix) ];
+      settings = [ (import ./waybar.nix { inherit pkgs; }) ];
       style = builtins.readFile ./waybar.css;
       systemd.enable = true;
     };

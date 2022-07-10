@@ -1,3 +1,4 @@
+{ pkgs }:
 {
   layer = "top";
   height = 35;
@@ -43,13 +44,13 @@
     format-muted = " {format_source}";
     format-source = "{volume}% ";
     format-source-muted = "";
-    on-click = "pavucontrol";
+    on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
   };
   backlight = {
     format = "{percent}% {icon}";
     format-icons = [ "" "" ];
-    on-scroll-down = "brightnessctl set 3%-";
-    on-scroll-up = "brightnessctl set +3%";
+    on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl set 3%-";
+    on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set +3%";
   };
   battery = {
     format = "{capacity}% {icon}";
