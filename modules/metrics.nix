@@ -30,6 +30,7 @@ in
             ];
             domains = [ "nichi.co" ];
             record_type = "A";
+            timeout = 5;
           };
         };
         outputs = {
