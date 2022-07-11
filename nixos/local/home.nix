@@ -250,6 +250,7 @@ in
   };
 
   systemd.user.targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
+  systemd.user.services.gpg-agent.Service.Environment = [ "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}" ];
 
   programs = {
     pandoc.enable = true;

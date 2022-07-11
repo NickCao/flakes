@@ -21,7 +21,7 @@
       inputs.utils.follows = "flake-utils";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:NickCao/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
       inputs.utils.follows = "flake-utils";
