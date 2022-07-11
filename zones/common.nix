@@ -8,7 +8,7 @@ in
     serial = 0000000000;
     refresh = 600;
     retry = 600;
-    expire = 86400;
+    expire = 604800;
     minimum = 300;
   };
   NS = builtins.map (name: "${name}.") data.nameservers.value;
