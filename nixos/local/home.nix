@@ -186,6 +186,7 @@ in
         settings = {
           "fission.autostart" = true;
           "browser.urlbar.autoFill.adaptiveHistory.enabled" = true;
+          "media.peerconnection.enabled" = false;
         };
       };
     };
