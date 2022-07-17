@@ -233,6 +233,7 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     LIBVA_DRIVER_NAME = "iHD";
+    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.sock";
     # cache
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
@@ -249,8 +250,24 @@ in
     ).outPath;
   };
 
-  systemd.user.targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
-  systemd.user.services.gpg-agent.Service.Environment = [ "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}" ];
+  systemd.user = {
+    targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
+    services.gpg-agent.Service.Environment = [ "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}" ];
+    sockets.resign = {
+      Install.WantedBy = [ "sockets.target" ];
+      Socket = {
+        ListenStream = "%t/resign.sock";
+        SocketMode = "0600";
+      };
+    };
+    services.resign.Service = {
+      Environment = [
+        "PATH=${pkgs.lib.makeBinPath [ pkgs.pinentry-gtk2 ]}"
+        "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}"
+      ];
+      ExecStart = "${pkgs.resign}/bin/resign_ssh";
+    };
+  };
 
   programs = {
     pandoc.enable = true;
@@ -452,7 +469,6 @@ in
   services = {
     gpg-agent = {
       enable = true;
-      enableSshSupport = true;
     };
     swayidle = {
       enable = true;

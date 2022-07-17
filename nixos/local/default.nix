@@ -15,6 +15,7 @@ nixpkgs.lib.nixosSystem {
         (final: prev: {
           ranet = inputs.ranet.packages.${system}.default;
           bird = prev.bird-babel-rtt;
+          resign = inputs.resign.packages.${system}.default;
         })
       ];
       nix.settings.nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
