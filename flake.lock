@@ -311,11 +311,11 @@
         "registry-crates-io": "registry-crates-io"
       },
       "locked": {
-        "lastModified": 1658110036,
-        "narHash": "sha256-fu4WpmV/J8xEZCQs8clAPU36v1uBRgnLcD0A8vVQZAI=",
+        "lastModified": 1658111542,
+        "narHash": "sha256-X3qZUiHcgtsC637n4IVhPH/onDkLbyojPSkshBYHy5s=",
         "owner": "NickCao",
         "repo": "resign",
-        "rev": "0c458fcdc88972b8462ed312ed4da7044725d259",
+        "rev": "de6a680e54624a8997f6f937604307faed6f5c26",
         "type": "github"
       },
       "original": {

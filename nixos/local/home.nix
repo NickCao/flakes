@@ -313,7 +313,7 @@ in
       signing = {
         gpgPath = "${pkgs.resign}/bin/resign";
         signByDefault = true;
-        key = "1605068128";
+        key = "dummy";
       };
       extraConfig = {
         merge.conflictStyle = "diff3";
