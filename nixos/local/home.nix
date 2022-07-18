@@ -192,6 +192,7 @@ in
     };
   };
   home.packages = with pkgs; [
+    pinentry-gtk2
     nheko
     evince
     evince-synctex
@@ -252,7 +253,6 @@ in
 
   systemd.user = {
     targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
-    services.gpg-agent.Service.Environment = [ "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}" ];
     sockets.resign = {
       Install.WantedBy = [ "sockets.target" ];
       Socket = {
@@ -311,8 +311,9 @@ in
       userEmail = "nickcao@nichi.co";
       userName = "Nick Cao";
       signing = {
+        gpgPath = "${pkgs.resign}/bin/resign";
         signByDefault = true;
-        key = "A1E513A77CC0D91C8806A4EB068A56CEF48FA2C1";
+        key = "1605068128";
       };
       extraConfig = {
         merge.conflictStyle = "diff3";
@@ -467,9 +468,6 @@ in
     };
   };
   services = {
-    gpg-agent = {
-      enable = true;
-    };
     swayidle = {
       enable = true;
       timeouts = [
