@@ -192,7 +192,6 @@ in
     };
   };
   home.packages = with pkgs; [
-    pinentry-gtk2
     nheko
     evince
     evince-synctex
@@ -234,7 +233,6 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     LIBVA_DRIVER_NAME = "iHD";
-    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.sock";
     # cache
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
@@ -251,23 +249,8 @@ in
     ).outPath;
   };
 
-  systemd.user = {
-    targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
-    sockets.resign = {
-      Install.WantedBy = [ "sockets.target" ];
-      Socket = {
-        ListenStream = "%t/resign.sock";
-        SocketMode = "0600";
-      };
-    };
-    services.resign.Service = {
-      Environment = [
-        "PATH=${pkgs.lib.makeBinPath [ pkgs.pinentry-gtk2 ]}"
-        "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}"
-      ];
-      ExecStart = "${pkgs.resign}/bin/resign_ssh";
-    };
-  };
+  systemd.user.targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
+  systemd.user.services.gpg-agent.Service.Environment = [ "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}" ];
 
   programs = {
     pandoc.enable = true;
@@ -311,9 +294,8 @@ in
       userEmail = "nickcao@nichi.co";
       userName = "Nick Cao";
       signing = {
-        gpgPath = "${pkgs.resign}/bin/resign";
         signByDefault = true;
-        key = "dummy";
+        key = "A1E513A77CC0D91C8806A4EB068A56CEF48FA2C1";
       };
       extraConfig = {
         merge.conflictStyle = "diff3";
@@ -468,6 +450,10 @@ in
     };
   };
   services = {
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+    };
     swayidle = {
       enable = true;
       timeouts = [
