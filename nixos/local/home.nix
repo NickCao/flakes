@@ -256,8 +256,10 @@ in
 
   systemd.user = {
     targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
-    services.resign= {
-      Install.WantedBy = [ "default.target" ];
+    services.resign = {
+      Install.WantedBy = [ "graphical-session.target" ];
+      Unit.PartOf = [ "graphical-session.target" ];
+      Unit.After = [ "graphical-session.target" ];
       Service = {
         Environment = [
           "PATH=${pkgs.lib.makeBinPath [ pkgs.pinentry-gtk2 ]}"
