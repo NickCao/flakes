@@ -237,6 +237,7 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     LIBVA_DRIVER_NAME = "iHD";
+    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
     # cache
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
@@ -253,8 +254,19 @@ in
     ).outPath;
   };
 
-  systemd.user.targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
-  systemd.user.services.gpg-agent.Service.Environment = [ "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}" ];
+  systemd.user = {
+    targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
+    services.resign= {
+      Install.WantedBy = [ "default.target" ];
+      Service = {
+        Environment = [
+          "PATH=${pkgs.lib.makeBinPath [ pkgs.pinentry-gtk2 ]}"
+          "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}"
+        ];
+        ExecStart = "${pkgs.resign}/bin/resign-agent --grpc %t/resign.grpc --ssh %t/resign.ssh";
+      };
+    };
+  };
 
   programs = {
     pandoc.enable = true;
@@ -298,8 +310,9 @@ in
       userEmail = "nickcao@nichi.co";
       userName = "Nick Cao";
       signing = {
+        gpgPath = "${pkgs.resign}/bin/resign";
         signByDefault = true;
-        key = "A1E513A77CC0D91C8806A4EB068A56CEF48FA2C1";
+        key = "/run/user/1000/resign.grpc";
       };
       extraConfig = {
         merge.conflictStyle = "diff3";
@@ -454,10 +467,6 @@ in
     };
   };
   services = {
-    gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-    };
     swayidle = {
       enable = true;
       timeouts = [
