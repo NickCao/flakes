@@ -38,6 +38,7 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "nvidia-persistenced"
     "nvidia-x11"
+    "Oracle_VM_VirtualBox_Extension_Pack"
   ];
 
   networking = {
@@ -142,6 +143,8 @@
 
   virtualisation = {
     podman.enable = true;
+    virtualbox.host.enable = true;
+    virtualbox.host.enableExtensionPack = true;
   };
 
   hardware = {
@@ -244,7 +247,7 @@
       nickcao = {
         isNormalUser = true;
         passwordFile = config.sops.secrets.passwd.path;
-        extraGroups = [ "wheel" "video" ];
+        extraGroups = [ "wheel" "video" "vboxusers" ];
       };
     };
   };
@@ -300,6 +303,7 @@
         ".thunderbird"
         ".config/fcitx5"
         ".config/nheko"
+        ".config/VirtualBox"
       ];
     };
   };
