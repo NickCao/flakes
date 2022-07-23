@@ -12,6 +12,7 @@ let
     } ''
     convert -blur 14x5 ${fbk} $out
   '';
+  resign-socket = "/run/user/1000/resign.grpc";
 in
 {
   gtk = {
@@ -238,6 +239,12 @@ in
     EDITOR = "nvim";
     LIBVA_DRIVER_NAME = "iHD";
     SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
+    SOPS_GPG_EXEC = "${pkgs.writeShellApplication {
+      name = "gpg";
+      text = ''
+        ${pkgs.resign}/bin/resign -u ${resign-socket} "$@"
+      '';
+    }}/bin/gpg";
     # cache
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
@@ -314,7 +321,7 @@ in
       signing = {
         gpgPath = "${pkgs.resign}/bin/resign";
         signByDefault = true;
-        key = "/run/user/1000/resign.grpc";
+        key = resign-socket;
       };
       extraConfig = {
         merge.conflictStyle = "diff3";
