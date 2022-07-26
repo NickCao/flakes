@@ -47,7 +47,7 @@ gpioset -m time -s <sec> gpiochip0 <port>=1; gpioset gpiochip0 <port>=0
 ```
 
 #### boot
-It's not uncommon to render your system unbootable when playing around, being able to boot from the network or other media is a necessity to recover access. Normally the unmatched boot from the sdcard, where the target system also resides, making the creation of bootable system images somewhat hard. But with patches from [riscv: Support booting SiFive Unmatched from SPI](https://github.com/u-boot/u-boot/commit/6a863894ad53b2d0e6c6d47ad105850053757fec), it can also boot into u-boot from SPI flash, from which you can boot further into your target system. For the lazy, a prebuilt image can be downloaded from [bootrom.bin](https://hydra.nichi.co/job/nixpkgs/nixos-riscv/bootrom-unmatched/latest/download-by-type/file/bin).
+It's not uncommon to render your system unbootable when playing around, being able to boot from the network or other media is a necessity to recover access. Normally the unmatched boot from the sdcard, where the target system also resides, making the creation of bootable system images somewhat hard. But with patches from [riscv: Support booting SiFive Unmatched from SPI](https://github.com/u-boot/u-boot/commit/6a863894ad53b2d0e6c6d47ad105850053757fec), it can also boot into u-boot from SPI flash, from which you can boot further into your target system. For the lazy, a prebuilt image can be downloaded from [bootrom.bin](https://hydra.nichi.co/job/nixos/riscv/bootrom-unmatched/latest/download-by-type/file/bin).
 
 With the riscv-openocd fork, you can write uboot directly into the flash with JTAG
 ```tcl
@@ -115,7 +115,7 @@ proc load_uboot {} {
 
 load_uboot
 ```
-Prebuilt patched uboot can be downloaded from [here](https://hydra.nichi.co/job/nixpkgs/nixos-riscv/uboot-unmatched-ram/latest).
+Prebuilt patched uboot can be downloaded from [here](https://hydra.nichi.co/job/nixos/riscv/uboot-unmatched-ram/latest).
 
 #### flashing
 JTAG is painfully slow and thus should only serve as a mean for rescuing a bricked system. Now that you have booted into uboot, the next step is to *flash* a disk image into the onboard nvme drive. Luckily, uboot has native support for writing nvme devices, thus we do not need another level of indirection.
