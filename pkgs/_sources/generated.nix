@@ -37,10 +37,10 @@
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20220529";
+    version = "20220722";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220529.dict";
-      sha256 = "sha256-h1eWQIf1QX+6NAWw+9oA/0+7HBKm0FjjQLqjWqr7OGY=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220722.dict";
+      sha256 = "sha256-/wypD33L6tMSadtYAaN2pbj3DKBok0FZZgGKPtvw5sQ=";
     };
   };
   jtag-remote-server = {
@@ -69,24 +69,24 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "8488e4e863f6a465189d7dd3e6d94ccc4c493eb4";
+    version = "793def24c50d361695bc35f6fac3f9839ec3ac0f";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "8488e4e863f6a465189d7dd3e6d94ccc4c493eb4";
+      rev = "793def24c50d361695bc35f6fac3f9839ec3ac0f";
       fetchSubmodules = true;
-      sha256 = "sha256-N5LsGqY4YJg9fW+XVflzshq69JD8YENvZjmmyzVXKzI=";
+      sha256 = "sha256-rzHGJtWpA0ztDlNzi9mdLRO18xkGJEQhkm+wBrWODtk=";
     });
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "dcbdb21f0034564bdc78f9032550a0e5b1c41d62";
+    version = "582b84356294c686a60356616fefd293d5726c5a";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "dcbdb21f0034564bdc78f9032550a0e5b1c41d62";
+      rev = "582b84356294c686a60356616fefd293d5726c5a";
       fetchSubmodules = false;
-      sha256 = "sha256-DD1ohifZu5VAu/pe/qXoQzOW0jp/BNm/WeIbb9DZAvQ=";
+      sha256 = "sha256-ow72WL5xk1zecPxGRC/9xGPJzAd+19C93aMKquX8gwI=";
     });
   };
   wemeet = {
