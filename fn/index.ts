@@ -1,5 +1,5 @@
-import { serve } from "https://deno.land/std@0.138.0/http/server.ts";
-import { WorkerRouter } from "https://deno.land/x/workers_router@v0.2.0-pre.7/index.ts";
+import { serve } from "https://deno.land/std@0.149.0/http/server.ts";
+import { WorkerRouter } from "https://deno.land/x/workers_router@v0.3.0-pre.6/index.ts";
 import { woff } from "./woff.ts";
 
 async function index(req: Request) {

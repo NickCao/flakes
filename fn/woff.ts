@@ -1,4 +1,4 @@
-import Stripe from "https://esm.sh/stripe@8.219.0";
+import Stripe from "https://esm.sh/stripe@9.16.0";
 
 const stripe = Stripe(Deno.env.get("STRIPE_SECRET_KEY"), {
   httpClient: Stripe.createFetchHttpClient(),
