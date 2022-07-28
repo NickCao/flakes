@@ -78,7 +78,6 @@
             overlays = [
               self.overlays.default
               inputs.fn.overlays.default
-              inputs.deploy-rs.overlay
               inputs.terrasops.overlay
             ];
           };
@@ -86,7 +85,6 @@
         rec {
           formatter = pkgs.nixpkgs-fmt;
           packages = this.packages pkgs // {
-            inherit (pkgs.deploy-rs) deploy-rs;
             inherit (pkgs) terrasops;
             inherit (pkgs) "db.co.nichi" "db.link.nichi" "db.link.scp";
           };
@@ -95,7 +93,7 @@
           });
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ deploy-rs.deploy-rs mdbook terrasops ];
+            nativeBuildInputs = [ deploy-rs mdbook terrasops ];
           };
         }
       )
