@@ -24,7 +24,7 @@
       ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8005 -p ${pkgs.element-web.override { inherit conf; }}";
     };
 
-
+  systemd.services.mjolnir.after = [ "matrix-synapse.service" ];
   systemd.services.matrix-synapse.serviceConfig.LoadCredential = [
     "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
   ];
