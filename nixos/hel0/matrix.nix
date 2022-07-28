@@ -77,7 +77,6 @@
       homeserver = {
         address = "http://127.0.0.1:8196";
         domain = "nichi.co";
-        enablePresence = false;
       };
       appservice = {
         address = "http://127.0.0.1:29317";
@@ -85,25 +84,23 @@
         hostname = "127.0.0.1";
         port = 29317;
         provisioning.enabled = false;
+        ephemeral_events = true;
       };
       bridge = {
+        displayname_template = "{displayname}";
+        public_portals = true;
+        sync_with_custom_puppets = false;
+        delivery_error_reports = true;
+        bridge_matrix_leave = false;
+        relay_user_distinguishers = [ ];
+        state_event_formats = {
+          join = "";
+          leave = "";
+        };
         permissions = {
           "*" = "relaybot";
           "@nickcao:nichi.co" = "admin";
           "@lilydjwg:mozilla.org" = "admin";
-        };
-        displayname_template = "{displayname}";
-        sync_create_limit = 0;
-        delivery_error_reports = true;
-        sync_direct_chats = false;
-        inline_images = false;
-        tag_only_on_create = false;
-        bridge_matrix_leave = false;
-        relay_user_distinguishers = [ ];
-        bridge_notices.default = true;
-        state_event_formats = {
-          join = "";
-          leave = "";
         };
       };
       telegram = {
