@@ -13,13 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.naersk.follows = "naersk";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.utils.follows = "flake-utils";
-    };
     home-manager = {
       url = "github:NickCao/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -90,7 +83,7 @@
           };
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ deploy-rs mdbook terrasops ];
+            nativeBuildInputs = [ colmena mdbook terrasops ];
           };
         }
       )
@@ -115,33 +108,40 @@
       nixosConfigurations = {
         local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-        rpi = import ./nixos/rpi { system = "aarch64-linux"; inherit self nixpkgs inputs; };
-        nrt0 = import ./nixos/vultr/nrt0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-        sin0 = import ./nixos/vultr/sin0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-        sea0 = import ./nixos/vultr/sea0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-        hel0 = import ./nixos/hel0 { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
-      deploy.nodes = {
-        rpi = {
-          sshUser = "root";
-          sshOpts = [ "-p" "8122" "-4" "-o" "StrictHostKeyChecking=no" ];
-          hostname = "rpi.nichi.link";
-          profiles.system.path = inputs.deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi;
-        };
-      } //
-      (builtins.listToAttrs (builtins.map
-        (name: {
-          inherit name;
-          value = {
-            sshUser = "root";
-            sshOpts = [
-              "-o GlobalKnownHostsFile=${builtins.toFile "known_hosts" ''
-                @cert-authority *.nichi.link ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEe0p7erHjrkNKcY/Kp6fvZtxLcl0hVMVMQPhQrPDZKp
-              ''}"
-            ];
-            hostname = "${name}.nichi.link";
-            profiles.system.path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.${name};
+      colmena = {
+        meta = {
+          specialArgs = {
+            inherit self inputs;
           };
-        }) [ "nrt0" "sin0" "sea0" "hel0" ]));
+          nixpkgs = import inputs.nixpkgs {
+            system = "x86_64-linux";
+          };
+        };
+        rpi = { ... }: {
+          nixpkgs.system = "aarch64-linux";
+          deployment = {
+            targetHost = "rpi.nichi.link";
+            targetPort = 8122;
+          };
+          imports = [ ./nixos/rpi ];
+        };
+        nrt = { ... }: {
+          deployment.targetHost = "nrt0.nichi.link";
+          imports = [ ./nixos/vultr/nrt0 ];
+        };
+        sin = { ... }: {
+          deployment.targetHost = "sin0.nichi.link";
+          imports = [ ./nixos/vultr/sin0 ];
+        };
+        sea = { ... }: {
+          deployment.targetHost = "sea0.nichi.link";
+          imports = [ ./nixos/vultr/sea0 ];
+        };
+        hel = { ... }: {
+          deployment.targetHost = "hel0.nichi.link";
+          imports = [ ./nixos/hel0 ];
+        };
+      };
     };
 }

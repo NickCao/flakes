@@ -1,7 +1,6 @@
-{ system, self, nixpkgs, inputs }:
-nixpkgs.lib.nixosSystem {
-  inherit system;
-  modules = [
+{ config, pkgs, lib, specialArgs, ... }:
+{
+  imports = with specialArgs;[
     ./configuration.nix
     ./hardware.nix
     ./services.nix
@@ -16,8 +15,8 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [
         (final: prev: {
-          carinae = inputs.carinae.packages."${system}".default;
-          canopus = inputs.canopus.packages."${system}".default;
+          carinae = inputs.carinae.packages."${pkgs.system}".default;
+          canopus = inputs.canopus.packages."${pkgs.system}".default;
           nixpkgs = inputs.nixpkgs;
         })
         inputs.fn.overlays.default

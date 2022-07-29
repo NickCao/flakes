@@ -1,7 +1,6 @@
-{ system, self, nixpkgs, inputs }:
-nixpkgs.lib.nixosSystem {
-  inherit system;
-  modules = [
+{ config, pkgs, lib, specialArgs, ... }:
+{
+  imports = with specialArgs;[
     ./configuration.nix
     ./services.nix
     self.nixosModules.vultr
@@ -12,7 +11,7 @@ nixpkgs.lib.nixosSystem {
         self.overlays.default
         inputs.fn.overlays.default
         (final: prev: {
-          ranet = inputs.ranet.packages.${system}.default;
+          ranet = inputs.ranet.packages.${pkgs.system}.default;
           bird = prev.bird-babel-rtt;
         })
       ];
