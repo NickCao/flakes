@@ -197,6 +197,8 @@ in
     };
   };
   home.packages = with pkgs; [
+    sequoia
+    openpgp-card-tools
     nheko
     evince
     evince-synctex
@@ -252,6 +254,7 @@ in
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
     LESSHISTFILE = "${config.xdg.stateHome}/lesshst";
+    GNUPGHOME = "${config.xdg.stateHome}/gnupg";
     # shit
     PYTHONSTARTUP = (
       pkgs.writeText "start.py" ''
@@ -305,13 +308,6 @@ in
       enable = true;
       nix-direnv = {
         enable = true;
-      };
-    };
-    gpg = {
-      enable = true;
-      homedir = "${config.xdg.stateHome}/gnupg";
-      settings = {
-        trust-model = "tofu";
       };
     };
     git = {
