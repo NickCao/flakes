@@ -130,22 +130,16 @@
           };
           imports = [ ./nixos/rpi ];
         };
-        nrt = { ... }: {
-          deployment.targetHost = "nrt0.nichi.link";
-          imports = [ ./nixos/vultr/nrt0 ];
-        };
-        sin = { ... }: {
-          deployment.targetHost = "sin0.nichi.link";
-          imports = [ ./nixos/vultr/sin0 ];
-        };
-        sea = { ... }: {
-          deployment.targetHost = "sea0.nichi.link";
-          imports = [ ./nixos/vultr/sea0 ];
-        };
         hel = { ... }: {
           deployment.targetHost = "hel0.nichi.link";
           imports = [ ./nixos/hel0 ];
         };
-      };
+      } // inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" ] (name: { ... }: {
+        deployment = {
+          targetHost = "${name}.nichi.link";
+          tags = [ "vultr" ];
+        };
+        imports = [ ./nixos/vultr/${name} ];
+      });
     };
 }
