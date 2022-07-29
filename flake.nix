@@ -88,9 +88,6 @@
             inherit (pkgs) terrasops;
             inherit (pkgs) "db.co.nichi" "db.link.nichi" "db.link.scp";
           };
-          checks = packages // (inputs.deploy-rs.lib."${system}".deployChecks {
-            nodes = pkgs.lib.filterAttrs (name: cfg: cfg.profiles.system.path.system == system) self.deploy.nodes;
-          });
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
             nativeBuildInputs = [ deploy-rs mdbook terrasops ];
