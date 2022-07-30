@@ -265,6 +265,8 @@
     Defaults lecture="never"
   '';
 
+  systemd.services."user@".serviceConfig.Delegate = [ "cpu" ];
+
   fonts.enableDefaultFonts = false;
   fonts.fonts = with pkgs; [
     noto-fonts
