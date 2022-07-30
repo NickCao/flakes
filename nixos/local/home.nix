@@ -42,12 +42,12 @@ in
     wrapperFeatures.gtk = true;
     config = {
       modifier = "Mod4";
-      terminal = "foot";
+      terminal = "systemd-run-app foot";
       startup = [
-        { command = "foot"; }
-        { command = "firefox"; }
-        { command = "telegram-desktop"; }
-        { command = "thunderbird"; }
+        { command = "systemd-run-app foot"; }
+        { command = "systemd-run-app firefox"; }
+        { command = "systemd-run-app telegram-desktop"; }
+        { command = "systemd-run-app thunderbird"; }
       ];
       assigns = {
         "1" = [{ app_id = "foot"; }];
@@ -87,7 +87,7 @@ in
           "${modifier}+b" = null;
           "${modifier}+v" = null;
           "${modifier}+w" = null;
-          "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
+          "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run -run-command 'systemd-run-app {cmd}'";
           "${modifier}+Shift+l" = "exec loginctl lock-session";
           "${modifier}+space" = null;
           "Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
@@ -197,6 +197,7 @@ in
     };
   };
   home.packages = with pkgs; [
+    systemd-run-app
     sequoia
     openpgp-card-tools
     nheko
