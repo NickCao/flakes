@@ -2,11 +2,11 @@
 writeShellApplication {
   name = "qemu-run";
   text = ''
-    ${qemu}/bin/qemu-system-x86_64 \
+    ${qemu.override { smbdSupport = true; hostCpuOnly = true; }}/bin/qemu-system-x86_64 \
       -machine q35,accel=kvm \
       -cpu host \
       -bios ${OVMF.fd}/FV/OVMF.fd \
-      -netdev user,id=net0 \
+      -netdev user,id=net0,smb="$HOME/Downloads" \
       -device virtio-net-pci,netdev=net0,disable-legacy=on \
       -audiodev pa,id=snd0 \
       -device ich9-intel-hda \

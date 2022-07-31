@@ -237,9 +237,9 @@ in
       terraform.withPlugins (ps: with ps; [ vultr sops gandi ])
         }/bin/terraform")
     (mkWrap "windows-run" ''
-      ${pkgs.qemu-run}/bin/qemu-run -smp 6 -m 8G \
+      ${pkgs.qemu-run}/bin/qemu-run -smp sockets=1,cores=6 -m 8G \
         -drive if=none,id=root,file=$HOME/Documents/vm/windows.img,format=raw \
-        -device virtio-blk-pci,drive=root,disable-legacy=on
+        -device virtio-blk-pci,drive=root,disable-legacy=on \
     '')
   ];
 
