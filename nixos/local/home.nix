@@ -487,6 +487,14 @@ in
 
   xdg = {
     enable = true;
+    desktopEntries = {
+      spicy = {
+        name = "spicy";
+        exec = "spicy --uri %u";
+        terminal = false;
+        mimeType = [ "x-scheme-handler/spice+unix" ];
+      };
+    };
     userDirs = {
       enable = true;
       desktop = "$HOME";
