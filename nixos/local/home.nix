@@ -236,6 +236,11 @@ in
     (mkWrap "terraform" "${coreutils}/bin/env CHECKPOINT_DISABLE=1 ${
       terraform.withPlugins (ps: with ps; [ vultr sops gandi ])
         }/bin/terraform")
+    (mkWrap "windows-run" ''
+      ${pkgs.qemu-run}/bin/qemu-run -smp 6 -m 8G \
+        -drive if=none,id=root,file=$HOME/Documents/vm/windows.img,format=raw \
+        -device virtio-blk-pci,drive=root,disable-legacy=on
+    '')
   ];
 
   home.sessionVariables = {
