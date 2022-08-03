@@ -31,13 +31,16 @@
     fsType = "vfat";
   };
 
-  # fileSystems."/crypt" = {
-  #   device = "/dev/mapper/test";
-  #   fsType = "btrfs";
-  #   options = [ "noatime" "compress-force=zstd" ];
-  # };
-
-  # environment.etc.crypttab.text = ''
-  #   test PARTUUID=334ecef1-fc71-4ffa-8f27-338a99db67a6 - tpm2-device=auto
-  # '';
+/*
+  fileSystems."/test" = {
+    device = "/dev/stratis/test/test";
+    fsType = "xfs";
+    options = [
+      "defaults"
+      "x-systemd.requires=stratis-fstab-setup@ae3747b0-aa80-4a97-9374-49775ca63a86.service"
+      "x-systemd.after=stratis-fstab-setup@ae3747b0-aa80-4a97-9374-49775ca63a86.service"
+      "nofail"
+    ];
+  };
+*/
 }
