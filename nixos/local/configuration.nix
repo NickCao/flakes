@@ -36,7 +36,6 @@
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "nvidia-persistenced"
     "nvidia-x11"
   ];
 
@@ -150,8 +149,6 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       open = false;
       nvidiaSettings = false;
-      nvidiaPersistenced = true;
-      modesetting.enable = true;
     };
     pulseaudio.enable = false;
     cpu.intel.updateMicrocode = true;
