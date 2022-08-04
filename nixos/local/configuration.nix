@@ -105,6 +105,7 @@
     binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
     tmpOnTmpfs = true;
     initrd.kernelModules = [ "i915" ];
+    initrd.systemd.enable = true;
     loader = {
       timeout = 0;
       efi.canTouchEfiVariables = true;
