@@ -127,7 +127,7 @@
       "iommu=pt"
       # "intel_pstate=passive"
     ];
-    kernelModules = [ "ec_sys" ];
+    kernelModules = [ "ec_sys" "uhid" ];
     extraModprobeConfig = ''
       options i915 enable_guc=2
       options i915 enable_fbc=1
