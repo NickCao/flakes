@@ -260,7 +260,7 @@ in
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
     LESSHISTFILE = "${config.xdg.stateHome}/lesshst";
-    GNUPGHOME = "${config.xdg.stateHome}/gnupg";
+    GNUPGHOME = pkgs.writeTextDir "pubring.gpg" (builtins.readFile ./pubring.gpg);
     # shit
     PYTHONSTARTUP = (
       pkgs.writeText "start.py" ''
