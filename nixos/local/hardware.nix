@@ -30,17 +30,4 @@
     device = "/dev/disk/by-uuid/B815-6B63";
     fsType = "vfat";
   };
-
-/*
-  fileSystems."/test" = {
-    device = "/dev/stratis/test/test";
-    fsType = "xfs";
-    options = [
-      "defaults"
-      "x-systemd.requires=stratis-fstab-setup@ae3747b0-aa80-4a97-9374-49775ca63a86.service"
-      "x-systemd.after=stratis-fstab-setup@ae3747b0-aa80-4a97-9374-49775ca63a86.service"
-      "nofail"
-    ];
-  };
-*/
 }

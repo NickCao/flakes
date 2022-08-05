@@ -69,32 +69,32 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "793def24c50d361695bc35f6fac3f9839ec3ac0f";
+    version = "52177592f9d3afc6a008f8e1b321cf74e823018f";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "793def24c50d361695bc35f6fac3f9839ec3ac0f";
+      rev = "52177592f9d3afc6a008f8e1b321cf74e823018f";
       fetchSubmodules = true;
-      sha256 = "sha256-rzHGJtWpA0ztDlNzi9mdLRO18xkGJEQhkm+wBrWODtk=";
+      sha256 = "sha256-w3R7uRQI66ohNOYQy2w2lMYjbLS3QNFctmDglHeOzw8=";
     });
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "582b84356294c686a60356616fefd293d5726c5a";
+    version = "92915790d937c6a5b34231169b7126308c9299d4";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "582b84356294c686a60356616fefd293d5726c5a";
+      rev = "92915790d937c6a5b34231169b7126308c9299d4";
       fetchSubmodules = false;
-      sha256 = "sha256-ow72WL5xk1zecPxGRC/9xGPJzAd+19C93aMKquX8gwI=";
+      sha256 = "sha256-tMSKLPnYnrAhzvbiw1qNRuesV/XZI5zJrReBbQF1NbA=";
     });
   };
   wemeet = {
     pname = "wemeet";
-    version = "2.8.0.3";
+    version = "3.9.0.1";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/3cdd365cd90f221fb345ab73c4746e1f/TencentMeeting_0300000000_2.8.0.3_x86_64_default.publish.deb";
-      sha256 = "sha256-76Bm4PaIo7APwYBKWXp14up+PXS+Eo7NLcWM6Q2nhZ8=";
+      url = "https://updatecdn.meeting.qq.com/OTRhY2YwZTUtMzE5Ni00NDQyLTg0MTMtOTBjYzQzNzcxYTQz/TencentMeeting_0300000000_3.9.0.1_x86_64_default.publish.deb";
+      sha256 = "sha256-g1sYuTP0RU6gUbztP+rKR1i4WTkvjdSPUEIKPEqtmCc=";
     };
   };
 }
