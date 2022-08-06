@@ -11,6 +11,8 @@ writeShellApplication {
       --slice=app \
       --same-dir \
       --collect \
+      --property PartOf=graphical-session.target \
+      --property After=graphical-session.target \
       -- "$@"
   '';
 }
