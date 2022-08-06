@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 let
   mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
   fbk = pkgs.fetchurl {
@@ -79,7 +79,7 @@ in
         let
           modifier = config.wayland.windowManager.sway.config.modifier;
         in
-        pkgs.lib.mkOptionDefault {
+        lib.mkOptionDefault {
           "${modifier}+h" = "focus left";
           "${modifier}+j" = "focus down";
           "${modifier}+k" = "focus up";
@@ -275,7 +275,7 @@ in
       Unit.After = [ "graphical-session.target" ];
       Service = {
         Environment = [
-          "PATH=${pkgs.lib.makeBinPath [ pkgs.pinentry-gtk2 ]}"
+          "PATH=${lib.makeBinPath [ pkgs.pinentry-gtk2 ]}"
           "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}"
         ];
         ExecStart = "${pkgs.resign}/bin/resign-agent --grpc %t/resign.grpc --ssh %t/resign.ssh";
@@ -498,6 +498,12 @@ in
         GOSUMDB=sum.golang.google.cn
       '';
     };
+  };
+
+  home.activation.installPackages = {
+    data = lib.mkForce "";
+    before = lib.mkForce [ ];
+    after = lib.mkForce [ ];
   };
 
   home.stateVersion = "21.11";
