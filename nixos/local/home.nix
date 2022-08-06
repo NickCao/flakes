@@ -54,6 +54,7 @@ in
         "2" = [{ app_id = "firefox"; }];
         "3" = [{ app_id = "telegramdesktop"; }];
         "4" = [{ class = "thunderbird"; }];
+        "5" = [{ app_id = "remote-viewer"; }];
       };
       window.commands = [
         {
@@ -493,9 +494,9 @@ in
   xdg = {
     enable = true;
     desktopEntries = {
-      spicy = {
-        name = "spicy";
-        exec = "spicy --uri %u";
+      virt-viewer = {
+        name = "virt-viewer";
+        exec = "${pkgs.virt-viewer}/bin/remote-viewer %u";
         terminal = false;
         mimeType = [ "x-scheme-handler/spice+unix" ];
       };
