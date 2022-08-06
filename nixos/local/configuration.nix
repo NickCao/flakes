@@ -148,6 +148,23 @@
         i915-GVTg_V5_4.uuid = [ "d577a7cf-2595-44d8-9c08-c67358dcf7ac" ];
       };
     };
+    vmVariant = {
+      virtualisation = {
+        useDefaultFilesystems = false;
+        fileSystems."/" = {
+          fsType = "tmpfs";
+          options = [ "defaults" "mode=755" ];
+        };
+      };
+      boot.initrd.systemd.enable = pkgs.lib.mkForce false;
+      users.users.nickcao = {
+        password = "passwd";
+        passwordFile = pkgs.lib.mkForce null;
+      };
+      services.gravity.enable = pkgs.lib.mkForce false;
+      systemd.services.gravity-proxy.enable = false;
+      environment.persistence."/persistent" = pkgs.lib.mkForce { };
+    };
   };
 
   hardware = {
