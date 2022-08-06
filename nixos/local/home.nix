@@ -54,7 +54,7 @@ in
         "2" = [{ app_id = "firefox"; }];
         "3" = [{ app_id = "telegramdesktop"; }];
         "4" = [{ class = "thunderbird"; }];
-        "5" = [{ app_id = "remote-viewer"; }];
+        "5" = [{ app_id = "qemu"; }];
       };
       window.commands = [
         {
@@ -237,11 +237,7 @@ in
     (mkWrap "terraform" "${coreutils}/bin/env CHECKPOINT_DISABLE=1 ${
       terraform.withPlugins (ps: with ps; [ vultr sops gandi ])
         }/bin/terraform")
-    (mkWrap "windows-run" ''
-      ${pkgs.qemu-run}/bin/qemu-run -smp sockets=1,cores=6 -m 8G \
-        -drive if=none,id=root,file=$HOME/Documents/vm/windows.img,format=raw \
-        -device virtio-blk-pci,drive=root,disable-legacy=on \
-    '')
+    windows-run
   ];
 
   home.sessionVariables = {
@@ -493,14 +489,6 @@ in
 
   xdg = {
     enable = true;
-    desktopEntries = {
-      virt-viewer = {
-        name = "virt-viewer";
-        exec = "${pkgs.virt-viewer}/bin/remote-viewer %u";
-        terminal = false;
-        mimeType = [ "x-scheme-handler/spice+unix" ];
-      };
-    };
     userDirs = {
       enable = true;
       desktop = "$HOME";
