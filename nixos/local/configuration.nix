@@ -203,6 +203,18 @@
     '';
   };
 
+  systemd.services.greetd.serviceConfig = {
+    ExecStartPre = "${pkgs.util-linux}/bin/kill -SIGRTMIN+21 1";
+    ExecStopPost = "${pkgs.util-linux}/bin/kill -SIGRTMIN+20 1";
+  };
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd sway";
+    };
+  };
+
   services = {
     resolved = {
       dnssec = "false";
