@@ -122,7 +122,6 @@
     kernelParams = [
       "mitigations=off"
       "nowatchdog"
-      "systemd.unified_cgroup_hierarchy=1"
       "intel_iommu=on"
       "iommu=pt"
       # "intel_pstate=passive"

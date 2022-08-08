@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-let package = pkgs.stratisd.override { clevisSupport = true; }; in
+let package = pkgs.stratisd.override { }; in
 {
   systemd.packages = [ package ];
   services.dbus.packages = [ package ];
