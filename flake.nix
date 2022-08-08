@@ -130,7 +130,7 @@
           };
           imports = [ ./nixos/rpi ];
         };
-        hel = { ... }: {
+        hel0 = { ... }: {
           deployment.targetHost = "hel0.nichi.link";
           imports = [ ./nixos/hel0 ];
         };

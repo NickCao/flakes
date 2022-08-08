@@ -16,6 +16,12 @@
     '';
   };
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "monthly";
+    fileSystems = [ "/persist" "/nix" ];
+  };
+
   services.restic.backups = {
     files = {
       repository = "sftp:u273007.your-storagebox.de:backup";
