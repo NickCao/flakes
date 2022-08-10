@@ -102,7 +102,7 @@ in
       EOT
 
       NIXOS=/dev/disk/by-partlabel/NIXOS
-      mkfs.btrfs $NIXOS
+      mkfs.btrfs --force $NIXOS
       mkdir -p /fsroot
       mount $NIXOS /fsroot
 
