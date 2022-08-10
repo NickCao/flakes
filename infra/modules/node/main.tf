@@ -27,6 +27,17 @@ terraform {
   }
 }
 
+resource "vultr_startup_script" "script" {
+  name = var.hostname
+  type = "pxe"
+  script = base64encode(<<EOT
+  #!ipxe
+  set cmdline script=https://hydra.nichi.co/job/misc/flakes/${var.hostname}/latest/download-by-type/file/install
+  chain https://github.com/NickCao/netboot/releases/download/latest/ipxe
+  EOT
+  )
+}
+
 resource "vultr_instance" "server" {
   region           = var.region
   plan             = "vc2-1c-1gb"
