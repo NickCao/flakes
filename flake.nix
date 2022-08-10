@@ -89,7 +89,11 @@
         }
       )
     // {
-      hydraJobs = self.packages.x86_64-linux;
+      hydraJobs = self.packages.x86_64-linux // inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" ] (name: (nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit self inputs; };
+        modules = [ ./nixos/vultr/${name} ];
+      }).config.system.build.install);
       nixosModules = import ./modules;
       overlays.default = final: prev: (nixpkgs.lib.composeExtensions this.overlay
         (final: prev: {
