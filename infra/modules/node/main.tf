@@ -10,10 +10,6 @@ variable "region" {
   type = string
 }
 
-variable "snapshot" {
-  type = string
-}
-
 variable "userdata" {
   type      = string
   sensitive = true
@@ -41,16 +37,14 @@ resource "vultr_startup_script" "script" {
 resource "vultr_instance" "server" {
   region           = var.region
   plan             = "vc2-1c-1gb"
-  snapshot_id      = var.snapshot
+  os_id            = 159
+  script_id        = var.hostname == "sea0" ? vultr_startup_script.script.id : null
   user_data        = var.userdata
   enable_ipv6      = true
   activation_email = false
   ddos_protection  = false
   hostname         = var.fqdn
   label            = var.hostname
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "vultr_reverse_ipv4" "reverse_ipv4" {
