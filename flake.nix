@@ -111,7 +111,6 @@
         prev);
       nixosConfigurations = {
         local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-        vultr = import ./nixos/vultr { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       };
       colmena = {
         meta = {
