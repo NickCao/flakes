@@ -38,7 +38,7 @@ resource "vultr_instance" "server" {
   region           = var.region
   plan             = "vc2-1c-1gb"
   os_id            = 159
-  script_id        = var.hostname == "sea0" ? vultr_startup_script.script.id : null
+  script_id        = var.hostname != "nrt0" ? vultr_startup_script.script.id : null
   user_data        = var.userdata
   enable_ipv6      = true
   activation_email = false
