@@ -1,7 +1,4 @@
 { pkgs, config, modulesPath, ... }:
-let
-  ifname = "enp1s0";
-in
 {
   boot = {
     initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];
