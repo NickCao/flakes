@@ -101,6 +101,8 @@ in
       type="Linux filesystem", name="NIXOS", size=+
       EOT
 
+      sleep 2
+
       NIXOS=/dev/disk/by-partlabel/NIXOS
       mkfs.btrfs --force $NIXOS
       mkdir -p /fsroot
@@ -120,6 +122,8 @@ in
         --no-channel-copy --no-root-passwd \
         --option extra-substituters "https://cache.nichi.co" \
         --option trusted-public-keys "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk="
+
+      curl -s http://169.254.169.254/latest/user-data -o /mnt/persist/var/lib/sops.key
     '';
     checkPhase = ''
       mkdir -p $out/nix-support
