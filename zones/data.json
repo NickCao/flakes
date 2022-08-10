@@ -49,8 +49,8 @@
     "value": {
       "nrt0": {
         "fqdn": "nrt0.nichi.link",
-        "ipv4": "66.42.45.112",
-        "ipv6": "2001:19f0:7001:554d:5400:03ff:fe7d:9346"
+        "ipv4": "45.32.61.43",
+        "ipv6": "2001:19f0:7001:53db:5400:04ff:fe19:b7a0"
       },
       "sea0": {
         "fqdn": "sea0.nichi.link",

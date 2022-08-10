@@ -47,7 +47,7 @@ in
       };
       oif = mkOption {
         type = types.str;
-        default = "enp1s0";
+        default = "ens3";
         description = "name of ipv4 outbound interface";
       };
       allow = mkOption {
