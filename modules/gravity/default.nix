@@ -75,6 +75,7 @@ in
         path = with pkgs; [ ranet ];
         script = "ranet -c ${cfg.config} up";
         reload = "ranet -c ${cfg.config} up";
+        preStart = mkIf cfg.reload.enable "/run/current-system/systemd/bin/systemctl start gravity-registry";
         preStop = "ranet -c ${cfg.config} down";
         serviceConfig = {
           Type = "oneshot";
@@ -274,7 +275,7 @@ in
         script = ''
           curl -s "$URL" -o /var/lib/registry.json.new
           mv /var/lib/registry.json.new /var/lib/registry.json
-          /run/current-system/systemd/bin/systemctl reload gravity || true
+          /run/current-system/systemd/bin/systemctl reload --no-block gravity || true
         '';
         serviceConfig = {
           Type = "oneshot";
