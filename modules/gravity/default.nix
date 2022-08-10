@@ -274,7 +274,7 @@ in
         script = ''
           curl -s "$URL" -o /var/lib/registry.json.new
           mv /var/lib/registry.json.new /var/lib/registry.json
-          /run/current-system/systemd/bin/systemctl reload gravity
+          /run/current-system/systemd/bin/systemctl reload gravity || true
         '';
         serviceConfig = {
           Type = "oneshot";
