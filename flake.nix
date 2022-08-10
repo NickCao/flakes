@@ -72,13 +72,14 @@
               self.overlays.default
               inputs.fn.overlays.default
               inputs.terrasops.overlay
+              inputs.sops-nix.overlay
             ];
           };
         in
         rec {
           formatter = pkgs.nixpkgs-fmt;
           packages = this.packages pkgs // {
-            inherit (pkgs) terrasops;
+            inherit (pkgs) terrasops sops-install-secrets;
             inherit (pkgs) "db.co.nichi" "db.link.nichi" "db.link.scp";
           };
           legacyPackages = pkgs;
