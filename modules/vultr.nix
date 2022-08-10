@@ -8,8 +8,8 @@ in
   };
 
   systemd.network.networks = {
-    "${ifname}" = {
-      name = ifname;
+    ethernet = {
+      matchConfig.Name = [ "en*" "eth*" ];
       DHCP = "yes";
       networkConfig = {
         KeepConfiguration = "yes";
