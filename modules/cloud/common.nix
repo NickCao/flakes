@@ -119,12 +119,15 @@ in
       mount -o subvol=nix,$OPTS     $NIXOS /mnt/nix
       mount -o subvol=persist,$OPTS $NIXOS /mnt/persist
 
+      mkdir -p /mnt/persist/var/lib/
+      curl -s http://169.254.169.254/latest/user-data -o /mnt/persist/var/lib/sops.key
+
       nixos-install --root /mnt --system ${config.system.build.toplevel} \
         --no-channel-copy --no-root-passwd \
         --option extra-substituters "https://cache.nichi.co" \
         --option trusted-public-keys "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk="
 
-      curl -s http://169.254.169.254/latest/user-data -o /mnt/persist/var/lib/sops.key
+      reboot
     '';
     checkPhase = ''
       mkdir -p $out/nix-support
