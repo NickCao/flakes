@@ -1,5 +1,5 @@
 locals {
-  dnssec_key = "LBbl0S/D5U9yKQOy+r0+lZEJP3kpPklCBagsT13p64U="
+  dnssec_key  = "LBbl0S/D5U9yKQOy+r0+lZEJP3kpPklCBagsT13p64U="
   nameservers = values(module.nodes)[*].fqdn
 }
 

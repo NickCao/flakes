@@ -2,6 +2,10 @@ variable "hostname" {
   type = string
 }
 
+variable "fqdn" {
+  type = string
+}
+
 variable "region" {
   type = string
 }
@@ -31,7 +35,7 @@ resource "vultr_instance" "server" {
   enable_ipv6      = true
   activation_email = false
   ddos_protection  = false
-  hostname         = var.hostname
+  hostname         = var.fqdn
   label            = var.hostname
   lifecycle {
     create_before_destroy = true
@@ -41,13 +45,13 @@ resource "vultr_instance" "server" {
 resource "vultr_reverse_ipv4" "reverse_ipv4" {
   instance_id = vultr_instance.server.id
   ip          = vultr_instance.server.main_ip
-  reverse     = var.hostname
+  reverse     = var.fqdn
 }
 
 resource "vultr_reverse_ipv6" "reverse_ipv6" {
   instance_id = vultr_instance.server.id
   ip          = vultr_instance.server.v6_main_ip
-  reverse     = var.hostname
+  reverse     = var.fqdn
 }
 
 output "ipv4" {
@@ -59,5 +63,5 @@ output "ipv6" {
 }
 
 output "fqdn" {
-  value = var.hostname
+  value = var.fqdn
 }
