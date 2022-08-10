@@ -94,20 +94,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit self inputs; };
         modules = [ ./nixos/vultr/${name} ];
-      }).config.system.build.install) //
-      {
-        seed = with nixpkgs.legacyPackages.x86_64-linux;runCommand "seed"
-          {
-            nativeBuildInputs = [ nix ];
-            closureInfo = closureInfo {
-              rootPaths = builtins.map (name: self.hydraJobs.${name}) [ "nrt0" "sin0" "sea0" ];
-            };
-          } ''
-          export NIX_STATE_DIR=$TMPDIR/state
-          nix-store --load-db < $closureInfo/registration
-          nix --extra-experimental-features nix-command copy --to "file:///$out/store?compression=zstd" --all
-        '';
-      };
+      }).config.system.build.install);
       nixosModules = import ./modules;
       overlays.default = final: prev: (nixpkgs.lib.composeExtensions this.overlay
         (final: prev: {
