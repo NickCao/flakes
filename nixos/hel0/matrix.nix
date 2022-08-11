@@ -121,6 +121,7 @@
 
   services.traefik.dynamicConfigOptions.http = {
     routers = {
+      # TODO: add Host rule
       matrix = {
         rule = "PathPrefix(`/_matrix`)";
         entryPoints = [ "https" ];
