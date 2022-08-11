@@ -13,7 +13,7 @@
       conf = {
         default_server_config = {
           "m.homeserver" = {
-            base_url = "https://matrix.nichi.co";
+            base_url = "https://nichi.co";
             server_name = "nichi.co";
           };
         };
@@ -33,7 +33,7 @@
     withJemalloc = true;
     settings = {
       server_name = "nichi.co";
-      public_baseurl = "https://matrix.nichi.co";
+      public_baseurl = "https://nichi.co";
       signing_key_path = config.sops.secrets.matrix-synapse.path;
 
       enable_search = true;
@@ -64,7 +64,7 @@
       protectAllJoinedRooms = true;
     };
     managementRoom = "#moderators:nichi.co";
-    homeserverUrl = "https://matrix.nichi.co";
+    homeserverUrl = "https://nichi.co";
     accessTokenFile = config.sops.secrets.mjolnir.path;
     pantalaimon.username = "mjolnir";
   };
@@ -121,14 +121,13 @@
 
   services.traefik.dynamicConfigOptions.http = {
     routers = {
-      # TODO: add Host rule
       matrix = {
-        rule = "PathPrefix(`/_matrix`)";
+        rule = "Host(`nichi.co`) && PathPrefix(`/_matrix`)";
         entryPoints = [ "https" ];
         service = "synapse";
       };
       synapse = {
-        rule = "PathPrefix(`/_synapse`)";
+        rule = "Host(`nichi.co`) && PathPrefix(`/_synapse`)";
         entryPoints = [ "https" ];
         service = "synapse";
       };
