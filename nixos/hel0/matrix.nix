@@ -122,12 +122,12 @@
   services.traefik.dynamicConfigOptions.http = {
     routers = {
       matrix = {
-        rule = "Host(`matrix.nichi.co`) && PathPrefix(`/_matrix`)";
+        rule = "PathPrefix(`/_matrix`)";
         entryPoints = [ "https" ];
         service = "synapse";
       };
       synapse = {
-        rule = "Host(`matrix.nichi.co`) && PathPrefix(`/_synapse`)";
+        rule = "PathPrefix(`/_synapse`)";
         entryPoints = [ "https" ];
         service = "synapse";
       };

@@ -113,7 +113,7 @@
   };
 
   cloud.services.blog.config = {
-    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8005 -p ${pkgs.blog}";
+    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8007 -p ${pkgs.blog}";
   };
 
   cloud.services.canopus.config = {
@@ -209,7 +209,7 @@
             servers = [{ url = "http://127.0.0.1:8004"; }];
           };
           blog.loadBalancer = {
-            servers = [{ url = "http://127.0.0.1:8005"; }];
+            servers = [{ url = "http://127.0.0.1:8007"; }];
           };
         };
       };
