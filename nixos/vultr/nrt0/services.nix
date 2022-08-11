@@ -7,10 +7,6 @@
     Environment = [ "PORT=8001" "DENO_DIR=/tmp" ];
   };
 
-  cloud.services.blog.config = {
-    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8003 -p ${pkgs.blog}";
-  };
-
   systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;
   services.traefik = {
     dynamicConfigOptions = {
@@ -25,11 +21,6 @@
             rule = "Host(`fn.nichi.co`)";
             service = "fn";
           };
-          blog = {
-            rule = "Host(`nichi.co`)";
-            middlewares = [ "blog" ];
-            service = "blog";
-          };
         };
         middlewares = {
           rait0.replacePath = {
@@ -42,24 +33,11 @@
           rait2.headers = {
             customrequestheaders.authorization = "token {{ env `GITHUB_TOKEN` }}";
           };
-          blog.headers = {
-            stsSeconds = 31536000;
-            stsIncludeSubdomains = true;
-            stsPreload = true;
-            accessControlAllowMethods = [ "GET" ];
-            accessControlAllowOriginList = [ "https://matrix.nichi.co" ];
-            accessControlMaxAge = 3600;
-          };
         };
         services = {
           fn.loadBalancer = {
             servers = [{
               url = "http://127.0.0.1:8001";
-            }];
-          };
-          blog.loadBalancer = {
-            servers = [{
-              url = "http://127.0.0.1:8003";
             }];
           };
           rait.loadBalancer = {

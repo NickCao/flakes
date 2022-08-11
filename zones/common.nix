@@ -34,5 +34,10 @@ in
     tag = "issue";
     value = "letsencrypt.org";
   }];
-  nodes = data.nodes.value;
+  nodes = data.nodes.value // {
+    hel0 = {
+      ipv4 = "65.21.32.182";
+      ipv6 = "2a01:4f9:3a:40c9::1";
+    };
+  };
 }

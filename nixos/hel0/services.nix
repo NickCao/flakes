@@ -112,6 +112,10 @@
     SystemCallFilter = null;
   };
 
+  cloud.services.blog.config = {
+    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8005 -p ${pkgs.blog}";
+  };
+
   cloud.services.canopus.config = {
     MemoryLimit = "5G";
     SystemCallFilter = null;
@@ -166,9 +170,22 @@
             entryPoints = [ "https" ];
             service = "cache";
           };
+          blog = {
+            rule = "Host(`nichi.co`)";
+            entryPoints = [ "https" ];
+            middlewares = [ "blog" ];
+            service = "blog";
+          };
         };
         middlewares = {
-          compress.compress = { };
+          blog.headers = {
+            stsSeconds = 31536000;
+            stsIncludeSubdomains = true;
+            stsPreload = true;
+            accessControlAllowMethods = [ "GET" ];
+            accessControlAllowOriginList = [ "https://matrix.nichi.co" ];
+            accessControlMaxAge = 3600;
+          };
         };
         services = {
           libreddit.loadBalancer = {
@@ -190,6 +207,9 @@
           cache.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:8004"; }];
+          };
+          blog.loadBalancer = {
+            servers = [{ url = "http://127.0.0.1:8005"; }];
           };
         };
       };

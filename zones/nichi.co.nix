@@ -2,12 +2,12 @@
 with dns.lib.combinators;
 let
   common = import ./common.nix;
-  inherit (common.nodes) nrt0;
+  inherit (common.nodes) hel0;
 in
 dns.lib.toString "nichi.co" {
   inherit (common) TTL SOA NS DKIM DMARC CAA;
-  A = [ nrt0.ipv4 ];
-  AAAA = [ nrt0.ipv6 ];
+  A = [ hel0.ipv4 ];
+  AAAA = [ hel0.ipv6 ];
   MX = with mx; [
     (mx 10 "hel0.nichi.link.")
   ];
@@ -25,6 +25,12 @@ dns.lib.toString "nichi.co" {
       service = "submission";
       proto = "tcp";
       port = 465;
+      target = "hel0.nichi.link.";
+    }
+    {
+      service = "matrix";
+      proto = "tcp";
+      port = 443;
       target = "hel0.nichi.link.";
     }
   ];
