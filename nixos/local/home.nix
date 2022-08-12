@@ -135,8 +135,6 @@ in
       lualine-nvim
       which-key-nvim
       lualine-lsp-progress
-      vim-fugitive
-      vimtex
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-nix
@@ -198,12 +196,13 @@ in
     };
   };
   home.packages = with pkgs; [
+    sioyek
+    texlab
+    tectonic
     systemd-run-app
     sequoia
     openpgp-card-tools
     nheko
-    evince
-    evince-synctex
     picocom
     nix-top
     thunderbird
@@ -490,6 +489,8 @@ in
       publicShare = "$HOME";
     };
     configFile = {
+      "sioyek/prefs_user.config".text = ''
+      '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
         GOBIN=${config.xdg.stateHome}/go/bin
