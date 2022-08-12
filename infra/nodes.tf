@@ -20,7 +20,3 @@ module "nodes" {
   region   = each.value.region
   userdata = local.secrets.nixos.key
 }
-
-output "nodes" {
-  value = module.nodes
-}

@@ -70,3 +70,7 @@ output "ipv6" {
 output "fqdn" {
   value = var.fqdn
 }
+
+output "nameserver" {
+  value = true
+}

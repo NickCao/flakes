@@ -6,10 +6,12 @@
       [
         "string",
         "string",
+        "string",
         "string"
       ]
     ],
     "value": [
+      "iad0.nichi.link",
       "nrt0.nichi.link",
       "sea0.nichi.link",
       "sin0.nichi.link"
@@ -20,12 +22,31 @@
     "type": [
       "object",
       {
+        "hel0": [
+          "object",
+          {
+            "fqdn": "string",
+            "ipv4": "string",
+            "ipv6": "string",
+            "nameserver": "bool"
+          }
+        ],
+        "iad0": [
+          "object",
+          {
+            "fqdn": "string",
+            "ipv4": "string",
+            "ipv6": "string",
+            "nameserver": "bool"
+          }
+        ],
         "nrt0": [
           "object",
           {
             "fqdn": "string",
             "ipv4": "string",
-            "ipv6": "string"
+            "ipv6": "string",
+            "nameserver": "bool"
           }
         ],
         "sea0": [
@@ -33,7 +54,8 @@
           {
             "fqdn": "string",
             "ipv4": "string",
-            "ipv6": "string"
+            "ipv6": "string",
+            "nameserver": "bool"
           }
         ],
         "sin0": [
@@ -41,26 +63,42 @@
           {
             "fqdn": "string",
             "ipv4": "string",
-            "ipv6": "string"
+            "ipv6": "string",
+            "nameserver": "bool"
           }
         ]
       }
     ],
     "value": {
+      "hel0": {
+        "fqdn": "hel0.nichi.link",
+        "ipv4": "65.21.32.182",
+        "ipv6": "2a01:4f9:3a:40c9::1",
+        "nameserver": false
+      },
+      "iad0": {
+        "fqdn": "iad0.nichi.link",
+        "ipv4": "5.161.83.9",
+        "ipv6": "2a01:4ff:f0:db00::1",
+        "nameserver": true
+      },
       "nrt0": {
         "fqdn": "nrt0.nichi.link",
         "ipv4": "45.32.61.43",
-        "ipv6": "2001:19f0:7001:53db:5400:04ff:fe19:b7a0"
+        "ipv6": "2001:19f0:7001:53db:5400:04ff:fe19:b7a0",
+        "nameserver": true
       },
       "sea0": {
         "fqdn": "sea0.nichi.link",
         "ipv4": "104.207.158.228",
-        "ipv6": "2001:19f0:8001:1bbd:5400:04ff:fe19:a6c6"
+        "ipv6": "2001:19f0:8001:1bbd:5400:04ff:fe19:a6c6",
+        "nameserver": true
       },
       "sin0": {
         "fqdn": "sin0.nichi.link",
         "ipv4": "45.32.119.153",
-        "ipv6": "2001:19f0:4400:6a40:5400:04ff:fe19:b6d8"
+        "ipv6": "2001:19f0:4400:6a40:5400:04ff:fe19:b6d8",
+        "nameserver": true
       }
     }
   }
