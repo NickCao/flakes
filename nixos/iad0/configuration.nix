@@ -52,5 +52,7 @@ in
     users.root.openssh.authorizedKeys.keys = pkgs.keys;
   };
 
+  documentation.nixos.enable = false;
+
   system.stateVersion = "22.05";
 }
