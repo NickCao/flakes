@@ -39,9 +39,14 @@ in
   };
 
   networking = {
-    useDHCP = true;
+    useDHCP = false;
     useNetworkd = true;
     firewall.enable = false;
+    interfaces.enp1s0 = {
+      useDHCP = true;
+      ipv6.addresses = [{ address = "2a01:4ff:f0:db00::1"; prefixLength = 64; }];
+      ipv6.routes = [{ prefixLength = 0; via = "fe80::1"; }];
+    };
   };
 
   services.openssh.enable = true;
