@@ -6,6 +6,7 @@ in
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
+    self.nixosModules.default
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
     ./knot.nix
@@ -59,12 +60,11 @@ in
   };
 
   environment.persistence."/persist" = {
-    directories = [
-      "/var/lib"
-    ];
     files = [
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_rsa_key"
+      "/var/lib/sops.key"
+    ];
+    directories = [
+      "/var/lib/knot"
     ];
   };
 
@@ -88,6 +88,7 @@ in
 
   services.openssh.enable = true;
   services.getty.autologinUser = "root";
+  services.sshcert.enable = true;
 
   users = {
     mutableUsers = false;
