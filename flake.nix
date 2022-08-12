@@ -110,6 +110,11 @@
         prev);
       nixosConfigurations = {
         local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
+        iad0 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./nixos/iad0/configuration.nix ];
+          specialArgs = { inherit self inputs; };
+        };
       };
       colmena = {
         meta = {
