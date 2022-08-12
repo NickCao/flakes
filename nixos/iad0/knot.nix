@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }: {
 
   sops.secrets = {
-    tsig = { sopsFile = ../../modules/dns/secondary/secrets.yaml; owner = "knot"; };
+    tsig = { owner = "knot"; sopsFile = ../zones/secrets.yaml; };
     gravity = { owner = "knot"; sopsFile = ../../zones/secrets.yaml; };
     gravity_reverse = { owner = "knot"; sopsFile = ../../zones/secrets.yaml; };
   };

@@ -9,7 +9,7 @@ in
     enable = mkEnableOption "secondary dns service";
   };
   config = mkIf cfg.enable {
-    sops.secrets.tsig = { sopsFile = ./secrets.yaml; owner = "knot"; };
+    sops.secrets.tsig = { sopsFile = ../../../zones/secrets.yaml; owner = "knot"; };
     services.knot = {
       enable = true;
       keyFiles = [ config.sops.secrets.tsig.path ];
