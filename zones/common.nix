@@ -6,8 +6,8 @@ in
     nameServer = "iad0.nichi.link.";
     adminEmail = "noc@nichi.co";
     serial = 0000000000;
-    refresh = 600;
-    retry = 600;
+    refresh = 14400;
+    retry = 3600;
     expire = 604800;
     minimum = 300;
   };
