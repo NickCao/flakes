@@ -16,9 +16,6 @@
       canopus = { };
       plct = { owner = "hydra-queue-runner"; };
       vault = { };
-      tsig = { sopsFile = ../../modules/dns/secondary/secrets.yaml; owner = "knot"; };
-      gravity = { owner = "knot"; sopsFile = ./zones.yaml; };
-      gravity_reverse = { owner = "knot"; sopsFile = ./zones.yaml; };
     };
   };
 
@@ -30,38 +27,6 @@
     enable = true;
     address = "127.0.0.1";
     port = 34123;
-  };
-
-  services.knot = {
-    enable = true;
-    keyFiles = [ config.sops.secrets.tsig.path ];
-    extraConfig = builtins.readFile ./knot.conf + ''
-      zone:
-        - domain: firstparty
-          template: catalog
-        - domain: nichi.co
-          file: ${pkgs."db.co.nichi"}
-          dnssec-signing: off
-          catalog-role: member
-          catalog-zone: firstparty
-        - domain: nichi.link
-          file: ${pkgs."db.link.nichi"}
-          catalog-role: member
-          catalog-zone: firstparty
-        - domain: scp.link
-          file: ${pkgs."db.link.scp"}
-          catalog-role: member
-          catalog-zone: firstparty
-        - domain: gravity
-          file: ${config.sops.secrets.gravity.path}
-          dnssec-signing: off
-          catalog-role: member
-          catalog-zone: firstparty
-        - domain: 9.6.0.1.4.6.b.c.0.a.2.ip6.arpa
-          file: ${config.sops.secrets.gravity_reverse.path}
-          catalog-role: member
-          catalog-zone: firstparty
-    '';
   };
 
   services.hydra = {
@@ -212,5 +177,6 @@
       };
     };
   };
+
   documentation.nixos.enable = false;
 }
