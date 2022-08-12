@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, self, ... }:
+{ config, lib, pkgs, modulesPath, self, inputs, ... }:
 let
   device = "/dev/disk/by-partlabel/NIXOS";
   opts = [ "noatime" "compress-force=zstd" "space_cache=v2" ];
@@ -6,6 +6,7 @@ in
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
+    inputs.impermanence.nixosModules.impermanence
   ];
 
   nixpkgs.overlays = [ self.overlays.default ];
@@ -35,7 +36,18 @@ in
       inherit device;
       fsType = "btrfs";
       options = [ "subvol=persist" ] ++ opts;
+      neededForBoot = true;
     };
+  };
+
+  environment.persistence."/persist" = {
+    directories = [
+      "/var/lib"
+    ];
+    files = [
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_rsa_key"
+    ];
   };
 
   networking = {
