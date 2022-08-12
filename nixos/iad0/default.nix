@@ -7,7 +7,17 @@ in
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     inputs.impermanence.nixosModules.impermanence
+    inputs.sops-nix.nixosModules.sops
+    ./knot.nix
   ];
+
+  sops = {
+    age = {
+      keyFile = "/var/lib/sops.key";
+      sshKeyPaths = [ ];
+    };
+    gnupg.sshKeyPaths = [ ];
+  };
 
   nixpkgs.overlays = [ self.overlays.default ];
 
@@ -67,6 +77,13 @@ in
       ipv6.addresses = [{ address = ((import ../../zones/common.nix).nodes.iad0.ipv6); prefixLength = 64; }];
       ipv6.routes = [{ prefixLength = 0; via = "fe80::1"; }];
     };
+  };
+
+  services.resolved = {
+    llmnr = "false";
+    extraConfig = ''
+      DNSStubListener=no
+    '';
   };
 
   services.openssh.enable = true;
