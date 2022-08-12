@@ -2,8 +2,8 @@
 
   sops.secrets = {
     tsig = { sopsFile = ../../modules/dns/secondary/secrets.yaml; owner = "knot"; };
-    gravity = { owner = "knot"; sopsFile = ../hel0/zones.yaml; };
-    gravity_reverse = { owner = "knot"; sopsFile = ../hel0/zones.yaml; };
+    gravity = { owner = "knot"; sopsFile = ../../zones/secrets.yaml; };
+    gravity_reverse = { owner = "knot"; sopsFile = ../../zones/secrets.yaml; };
   };
 
   services.knot = {
