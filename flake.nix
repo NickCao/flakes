@@ -112,7 +112,7 @@
         local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
         iad0 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          modules = [ ./nixos/iad0/configuration.nix ];
+          modules = [ ./nixos/iad0 ];
           specialArgs = { inherit self inputs; };
         };
       };
@@ -139,7 +139,7 @@
         };
         iad0 = { ... }: {
           deployment.targetHost = (import ./zones/common.nix).nodes.iad0.ipv4;
-          imports = [ ./nixos/iad0/configuration.nix ];
+          imports = [ ./nixos/iad0 ];
         };
       } // inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" ] (name: { ... }: {
         deployment = {
