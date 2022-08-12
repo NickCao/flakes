@@ -13,7 +13,6 @@ dns.lib.toString "nichi.link" {
     (with spf; soft [ "mx" ])
   ];
   subdomains = builtins.mapAttrs (name: value: host value.ipv4 value.ipv6) nodes // {
-    "hel0" = host nodes.hel0.ipv4 nodes.hel0.ipv6;
     "rpi".CNAME = [ "rpi.dyn.nichi.link." ];
     "k11-plct".A = [ "8.214.124.155" ];
   };

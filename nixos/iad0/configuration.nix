@@ -44,7 +44,7 @@ in
     firewall.enable = false;
     interfaces.enp1s0 = {
       useDHCP = true;
-      ipv6.addresses = [{ address = "2a01:4ff:f0:db00::1"; prefixLength = 64; }];
+      ipv6.addresses = [{ address = ((import ../../zones/common.nix).nodes.iad0.ipv6); prefixLength = 64; }];
       ipv6.routes = [{ prefixLength = 0; via = "fe80::1"; }];
     };
   };

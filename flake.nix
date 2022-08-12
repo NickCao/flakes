@@ -138,7 +138,7 @@
           imports = [ ./nixos/hel0 ];
         };
         iad0 = { ... }: {
-          deployment.targetHost = "5.161.83.9";
+          deployment.targetHost = (import ./zones/common.nix).nodes.iad0.ipv4;
           imports = [ ./nixos/iad0/configuration.nix ];
         };
       } // inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" ] (name: { ... }: {
