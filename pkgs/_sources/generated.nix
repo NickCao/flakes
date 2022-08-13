@@ -24,17 +24,6 @@
       sha256 = "sha256-YeEf86oT9gY+BiQBqX2jtJkSfTbX+KfgUc2geEMat6E=";
     });
   };
-  evince-synctex = {
-    pname = "evince-synctex";
-    version = "593b00c938d82786b8bbaf584ebe68744f9c8407";
-    src = fetchFromGitHub ({
-      owner = "latex-lsp";
-      repo = "evince-synctex";
-      rev = "593b00c938d82786b8bbaf584ebe68744f9c8407";
-      fetchSubmodules = false;
-      sha256 = "sha256-Q9kZ/XmXEsoZpflF5n16I5bsyS2S8gS9OYkOPM47ryg=";
-    });
-  };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
     version = "20220722";
@@ -80,13 +69,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "92915790d937c6a5b34231169b7126308c9299d4";
+    version = "94303f30556880c639715516cd21c133d038e8fb";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "92915790d937c6a5b34231169b7126308c9299d4";
+      rev = "94303f30556880c639715516cd21c133d038e8fb";
       fetchSubmodules = false;
-      sha256 = "sha256-tMSKLPnYnrAhzvbiw1qNRuesV/XZI5zJrReBbQF1NbA=";
+      sha256 = "sha256-3pdTcsfqYRLVDcoEexcBC2JY4/b2X4gRJ7drD0BozmM=";
     });
   };
   wemeet = {

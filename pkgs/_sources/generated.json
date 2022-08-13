@@ -39,25 +39,6 @@
         },
         "version": "4c582913ec44c4fd53ffef208f8c65046ee004a2"
     },
-    "evince-synctex": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "evince-synctex",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "latex-lsp",
-            "repo": "evince-synctex",
-            "rev": "593b00c938d82786b8bbaf584ebe68744f9c8407",
-            "sha256": "sha256-Q9kZ/XmXEsoZpflF5n16I5bsyS2S8gS9OYkOPM47ryg=",
-            "type": "github"
-        },
-        "version": "593b00c938d82786b8bbaf584ebe68744f9c8407"
-    },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
         "extract": null,
@@ -143,11 +124,11 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "92915790d937c6a5b34231169b7126308c9299d4",
-            "sha256": "sha256-tMSKLPnYnrAhzvbiw1qNRuesV/XZI5zJrReBbQF1NbA=",
+            "rev": "94303f30556880c639715516cd21c133d038e8fb",
+            "sha256": "sha256-3pdTcsfqYRLVDcoEexcBC2JY4/b2X4gRJ7drD0BozmM=",
             "type": "github"
         },
-        "version": "92915790d937c6a5b34231169b7126308c9299d4"
+        "version": "94303f30556880c639715516cd21c133d038e8fb"
     },
     "wemeet": {
         "cargoLocks": null,
