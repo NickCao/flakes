@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, inputs, ... }: {
 
   sops.secrets = {
     tsig = { owner = "knot"; reloadUnits = [ "knot.service" ]; sopsFile = ../../zones/secrets.yaml; };
@@ -14,12 +14,12 @@
         - domain: firstparty
           template: catalog
         - domain: nichi.co
-          file: ${pkgs."db.co.nichi"}
+          file: ${pkgs.writeText "db.co.nichi" (import ../../zones/nichi.co.nix { inherit (inputs) dns; })}
           dnssec-signing: off
         - domain: nichi.link
-          file: ${pkgs."db.link.nichi"}
+          file: ${pkgs.writeText "db.link.nichi" (import ../../zones/nichi.link.nix { inherit (inputs) dns; })}
         - domain: scp.link
-          file: ${pkgs."db.link.scp"}
+          file: ${pkgs.writeText "db.link.scp" (import ../../zones/scp.link.nix { inherit (inputs) dns; })}
         - domain: gravity
           file: ${config.sops.secrets.gravity.path}
           dnssec-signing: off
