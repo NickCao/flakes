@@ -302,6 +302,7 @@
   security.sudo.extraConfig = ''
     Defaults lecture="never"
   '';
+  security.polkit.enable = true;
 
   systemd.services."user@".serviceConfig.Delegate = [ "cpu" ];
 

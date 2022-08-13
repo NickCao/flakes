@@ -242,7 +242,7 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     LIBVA_DRIVER_NAME = "iHD";
-    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
+    # SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
     SOPS_GPG_EXEC = "${pkgs.writeShellApplication {
       name = "gpg";
       text = ''
