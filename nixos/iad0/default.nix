@@ -72,7 +72,6 @@ in
   };
 
   services.openssh.enable = true;
-  services.getty.autologinUser = "root";
   services.sshcert.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = pkgs.keys;

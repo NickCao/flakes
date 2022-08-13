@@ -19,7 +19,6 @@ in
 
   users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
 
-  services.getty.autologinUser = "root";
   services.gateway.enable = true;
   services.metrics.enable = true;
   services.sshcert.enable = true;

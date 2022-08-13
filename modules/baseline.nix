@@ -26,6 +26,7 @@ with lib;
 
     networking.firewall.enable = false;
 
+    services.getty.autologinUser = "root";
     services.resolved.extraConfig = ''
       DNSStubListener=no
     '';
