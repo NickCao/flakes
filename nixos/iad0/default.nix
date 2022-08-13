@@ -62,7 +62,6 @@ in
   networking = {
     useDHCP = false;
     useNetworkd = true;
-    firewall.enable = false;
     interfaces.enp1s0 = {
       useDHCP = true;
       ipv6.addresses = [{ address = ((import ../../zones/common.nix).nodes.iad0.ipv6); prefixLength = 64; }];

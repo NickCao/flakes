@@ -45,7 +45,6 @@ in
   networking = {
     useNetworkd = true;
     useDHCP = false;
-    firewall.enable = false;
     domain = "nichi.link";
   };
 
