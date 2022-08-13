@@ -27,9 +27,12 @@ with lib;
     networking.firewall.enable = false;
 
     services.getty.autologinUser = "root";
-    services.resolved.extraConfig = ''
-      DNSStubListener=no
-    '';
+    services.resolved = {
+      llmnr = "false";
+      extraConfig = ''
+        DNSStubListener=no
+      '';
+    };
 
     users.mutableUsers = false;
 
