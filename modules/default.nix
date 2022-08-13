@@ -1,6 +1,7 @@
 rec {
   default = ({ ... }: {
     imports = [
+      (import ./baseline.nix)
       (import ./gateway.nix)
       (import ./metrics.nix)
       (import ./sshcert)
