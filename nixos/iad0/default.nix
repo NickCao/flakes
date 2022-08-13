@@ -1,12 +1,8 @@
-{ config, lib, pkgs, modulesPath, self, inputs, ... }:
-let
-  device = "/dev/disk/by-partlabel/NIXOS";
-  opts = [ "noatime" "compress-force=zstd" "space_cache=v2" ];
-in
-{
+{ config, lib, pkgs, modulesPath, self, inputs, ... }: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     self.nixosModules.default
+    self.nixosModules.cloud.filesystems
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
     ./knot.nix
@@ -25,29 +21,6 @@ in
   boot = {
     loader.grub.device = "/dev/sda";
     initrd.availableKernelModules = [ "ahci" "xhci_pci" "sd_mod" "sr_mod" ];
-  };
-
-  fileSystems = {
-    "/" = {
-      fsType = "tmpfs";
-      options = [ "defaults" "mode=755" ];
-    };
-    "/boot" = {
-      inherit device;
-      fsType = "btrfs";
-      options = [ "subvol=boot" ] ++ opts;
-    };
-    "/nix" = {
-      inherit device;
-      fsType = "btrfs";
-      options = [ "subvol=nix" ] ++ opts;
-    };
-    "/persist" = {
-      inherit device;
-      fsType = "btrfs";
-      options = [ "subvol=persist" ] ++ opts;
-      neededForBoot = true;
-    };
   };
 
   environment.persistence."/persist" = {
