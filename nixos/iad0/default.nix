@@ -24,7 +24,6 @@ in
 
   boot = {
     loader.grub.device = "/dev/sda";
-    kernelPackages = pkgs.linuxPackages_latest;
     initrd.availableKernelModules = [ "ahci" "xhci_pci" "sd_mod" "sr_mod" ];
   };
 

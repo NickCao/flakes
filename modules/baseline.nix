@@ -8,6 +8,14 @@ with lib;
     enable = mkEnableOption "baseline configurations";
   };
   config = lib.mkIf cfg.enable {
+    boot = {
+      kernelPackages = pkgs.linuxPackages_latest;
+      kernel.sysctl = {
+        "net.core.default_qdisc" = "fq";
+        "net.ipv4.tcp_congestion_control" = "bbr";
+      };
+    };
+
     nix = {
       gc = {
         automatic = true;

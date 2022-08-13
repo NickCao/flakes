@@ -39,11 +39,8 @@ in
     tmpOnTmpfs = true;
     loader.grub.device = "/dev/vda";
     kernel.sysctl = {
-      "net.core.default_qdisc" = "fq";
-      "net.ipv4.tcp_congestion_control" = "bbr";
       "net.core.rmem_max" = 2500000;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   networking = {
