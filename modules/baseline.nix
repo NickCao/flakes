@@ -15,6 +15,11 @@ with lib;
         dates = "weekly";
       };
     };
+
+    services.resolved.extraConfig = ''
+      DNSStubListener=no
+    '';
+
     programs.command-not-found.enable = false;
     documentation.nixos.enable = false;
   };

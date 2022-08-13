@@ -71,13 +71,6 @@ in
     };
   };
 
-  services.resolved = {
-    llmnr = "false";
-    extraConfig = ''
-      DNSStubListener=no
-    '';
-  };
-
   services.openssh.enable = true;
   services.getty.autologinUser = "root";
   services.sshcert.enable = true;

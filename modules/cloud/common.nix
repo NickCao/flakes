@@ -46,13 +46,6 @@ in
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  services.resolved = {
-    llmnr = "false";
-    extraConfig = ''
-      DNSStubListener=no
-    '';
-  };
-
   networking = {
     useNetworkd = true;
     useDHCP = false;
