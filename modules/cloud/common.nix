@@ -19,7 +19,6 @@ in
     gnupg.sshKeyPaths = [ ];
   };
 
-  i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
 
