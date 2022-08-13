@@ -14,5 +14,6 @@ rec {
   v2ray = import ./v2ray;
   cloud = {
     common = import ./cloud/common.nix;
+    filesystems = import ./cloud/filesystems.nix;
   };
 }
