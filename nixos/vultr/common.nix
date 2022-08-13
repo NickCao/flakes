@@ -2,7 +2,7 @@
 
   imports = [
     self.nixosModules.vultr
-    self.nixosModules.v2ray
+    self.nixosModules.shadowsocks
     self.nixosModules.cloud.common
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence

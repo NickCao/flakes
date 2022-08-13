@@ -11,7 +11,7 @@ rec {
     ];
   });
   vultr = import ./vultr.nix;
-  v2ray = import ./v2ray;
+  shadowsocks = import ./shadowsocks;
   cloud = {
     common = import ./cloud/common.nix;
     filesystems = import ./cloud/filesystems.nix;
