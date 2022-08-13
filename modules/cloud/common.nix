@@ -7,6 +7,7 @@ in
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     (import ../.).default
+    (import ../.).cloud.filesystems
   ];
 
   sops = {
@@ -36,30 +37,6 @@ in
     useNetworkd = true;
     useDHCP = false;
     domain = "nichi.link";
-  };
-
-  fileSystems."/" = {
-    fsType = "tmpfs";
-    options = [ "defaults" "mode=755" ];
-  };
-
-  fileSystems."/boot" = {
-    device = devPath;
-    fsType = "btrfs";
-    options = [ "subvol=boot" "noatime" "compress-force=zstd" "space_cache=v2" ];
-  };
-
-  fileSystems."/nix" = {
-    device = devPath;
-    fsType = "btrfs";
-    options = [ "subvol=nix" "noatime" "compress-force=zstd" "space_cache=v2" "x-systemd.growfs" ];
-  };
-
-  fileSystems."/persist" = {
-    device = devPath;
-    fsType = "btrfs";
-    options = [ "subvol=persist" "noatime" "compress-force=zstd" "space_cache=v2" ];
-    neededForBoot = true;
   };
 
   system.build.install = pkgs.writeShellApplication {
