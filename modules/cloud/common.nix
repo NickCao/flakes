@@ -19,7 +19,6 @@ in
     gnupg.sshKeyPaths = [ ];
   };
 
-  programs.command-not-found.enable = false;
   i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
   users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
@@ -34,14 +33,6 @@ in
       path = "/etc/ssh/ssh_host_ed25519_key";
       type = "ed25519";
     }];
-  };
-
-  nix = {
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 14d";
-      dates = "weekly";
-    };
   };
 
   boot = {
@@ -141,6 +132,7 @@ in
     ];
   };
 
+  environment.baseline.enable = true;
+
   system.stateVersion = "22.05";
-  documentation.nixos.enable = false;
 }

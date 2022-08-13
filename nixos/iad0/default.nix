@@ -22,14 +22,6 @@ in
 
   nixpkgs.overlays = [ self.overlays.default ];
 
-  nix = {
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 14d";
-      dates = "weekly";
-    };
-  };
-
   boot = {
     loader.grub.device = "/dev/sda";
     kernelPackages = pkgs.linuxPackages_latest;
@@ -95,7 +87,7 @@ in
     users.root.openssh.authorizedKeys.keys = pkgs.keys;
   };
 
-  documentation.nixos.enable = false;
+  environment.baseline.enable = true;
 
   system.stateVersion = "22.05";
 }
