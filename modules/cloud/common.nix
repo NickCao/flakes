@@ -19,7 +19,6 @@ in
     gnupg.sshKeyPaths = [ ];
   };
 
-  users.mutableUsers = false;
   users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
 
   services.getty.autologinUser = "root";

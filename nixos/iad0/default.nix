@@ -73,10 +73,7 @@ in
   services.getty.autologinUser = "root";
   services.sshcert.enable = true;
 
-  users = {
-    mutableUsers = false;
-    users.root.openssh.authorizedKeys.keys = pkgs.keys;
-  };
+  users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
 
   environment.baseline.enable = true;
 

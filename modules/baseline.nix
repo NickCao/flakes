@@ -30,6 +30,8 @@ with lib;
       DNSStubListener=no
     '';
 
+    users.mutableUsers = false;
+
     programs.command-not-found.enable = false;
     documentation.nixos.enable = false;
   };
