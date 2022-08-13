@@ -1,9 +1,9 @@
 { config, pkgs, lib, ... }: {
 
   sops.secrets = {
-    tsig = { owner = "knot"; sopsFile = ../../zones/secrets.yaml; };
-    gravity = { owner = "knot"; sopsFile = ../../zones/secrets.yaml; };
-    gravity_reverse = { owner = "knot"; sopsFile = ../../zones/secrets.yaml; };
+    tsig = { owner = "knot"; reloadUnits = [ "knot.service" ]; sopsFile = ../../zones/secrets.yaml; };
+    gravity = { owner = "knot"; reloadUnits = [ "knot.service" ]; sopsFile = ../../zones/secrets.yaml; };
+    gravity_reverse = { owner = "knot"; reloadUnits = [ "knot.service" ]; sopsFile = ../../zones/secrets.yaml; };
   };
 
   services.knot = {
