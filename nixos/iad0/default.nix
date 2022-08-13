@@ -60,6 +60,8 @@ in
   };
 
   networking = {
+    hostName = "iad0";
+    domain = "nichi.link";
     useDHCP = false;
     useNetworkd = true;
     interfaces.enp1s0 = {
