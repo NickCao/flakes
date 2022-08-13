@@ -1,8 +1,6 @@
 { config, pkgs, lib, modulesPath, ... }:
 with pkgs;
 let
-  inherit (config.system.build) toplevel;
-  db = closureInfo { rootPaths = [ toplevel ]; };
   devPath = "/dev/disk/by-partlabel/NIXOS";
 in
 {
