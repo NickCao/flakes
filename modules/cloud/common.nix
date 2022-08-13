@@ -25,13 +25,7 @@ in
   services.gateway.enable = true;
   services.metrics.enable = true;
   services.sshcert.enable = true;
-  services.openssh = {
-    enable = true;
-    hostKeys = [{
-      path = "/etc/ssh/ssh_host_ed25519_key";
-      type = "ed25519";
-    }];
-  };
+  services.openssh.enable = true;
 
   boot = {
     tmpOnTmpfs = true;
