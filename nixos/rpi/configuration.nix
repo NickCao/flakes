@@ -72,7 +72,7 @@ in
     script = ''
       set -e
       knsupdate -k ''${CREDENTIALS_DIRECTORY}/tsig << EOT
-      server 65.21.32.182
+      server ${(import ../../zones/common.nix).nodes.iad0.ipv4}
       zone nichi.link
       origin nichi.link
       del rpi.dyn
