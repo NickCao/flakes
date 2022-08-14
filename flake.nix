@@ -54,7 +54,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
   };
-  outputs = inputs@{ self, nixpkgs, flake-utils, dns, ... }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     let
       this = import ./pkgs;
     in
@@ -80,7 +80,6 @@
           formatter = pkgs.nixpkgs-fmt;
           packages = this.packages pkgs // {
             inherit (pkgs) terrasops sops-install-secrets;
-            inherit (pkgs) "db.co.nichi" "db.link.nichi" "db.link.scp";
           };
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
