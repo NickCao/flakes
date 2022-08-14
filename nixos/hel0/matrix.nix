@@ -94,6 +94,7 @@
         bridge_matrix_leave = false;
         relay_user_distinguishers = [ ];
         animated_sticker = {
+          target = "webp";
           convert_from_webm = true;
         };
         state_event_formats = {
