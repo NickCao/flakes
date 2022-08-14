@@ -26,10 +26,6 @@ src.git = "https://github.com/riscv/riscv-openocd"
 fetch.github = "riscv/riscv-openocd"
 git.fetchSubmodules = true
 
-[jtag-remote-server]
-src.git = "https://github.com/jiegec/jtag-remote-server"
-fetch.github = "jiegec/jtag-remote-server"
-
 [bird-babel-rtt]
 src.git = "https://github.com/tohojo/bird"
 src.branch = "babel-rtt-01"

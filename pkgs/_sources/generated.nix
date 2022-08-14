@@ -32,17 +32,6 @@
       sha256 = "sha256-/wypD33L6tMSadtYAaN2pbj3DKBok0FZZgGKPtvw5sQ=";
     };
   };
-  jtag-remote-server = {
-    pname = "jtag-remote-server";
-    version = "917d8d298423ba1aa6e75aa92e009b7f27f74a57";
-    src = fetchFromGitHub ({
-      owner = "jiegec";
-      repo = "jtag-remote-server";
-      rev = "917d8d298423ba1aa6e75aa92e009b7f27f74a57";
-      fetchSubmodules = false;
-      sha256 = "sha256-Jy0OyRgn9SYpjP3HYWPvRirfxXk4/vMYvZuI3XpPtBw=";
-    });
-  };
   rait = {
     pname = "rait";
     version = "e84e803641ec3a2dce5670275ea8d5497608f483";
@@ -69,13 +58,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "94303f30556880c639715516cd21c133d038e8fb";
+    version = "48a990e460020f358ae5b3610c70e7682ef56944";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "94303f30556880c639715516cd21c133d038e8fb";
+      rev = "48a990e460020f358ae5b3610c70e7682ef56944";
       fetchSubmodules = false;
-      sha256 = "sha256-3pdTcsfqYRLVDcoEexcBC2JY4/b2X4gRJ7drD0BozmM=";
+      sha256 = "sha256-dELfnatMDhFKPcTrpYtAV92yQmjGqaG9myK0bN4GaKE=";
     });
   };
   wemeet = {
