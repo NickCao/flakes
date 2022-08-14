@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 let
   cgitFilters = "${pkgs.cgit-pink}/lib/cgit/filters";
   cgitrc = pkgs.writeText "cgitrc" ''

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 let cfg = config.services.prometheus; in
 {
   sops.secrets.alertmanager = { };

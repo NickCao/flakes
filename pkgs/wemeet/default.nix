@@ -1,4 +1,4 @@
-{ source, qt5, fetchurl, dpkg, autoPatchelfHook, xorg, libbsd, makeWrapper }:
+{ source, qt5, dpkg, autoPatchelfHook, libbsd, makeWrapper }:
 qt5.mkDerivation {
   inherit (source) pname version src;
   nativeBuildInputs = [

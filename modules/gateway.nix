@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 let cfg = config.services.gateway; in
 with lib;{
   options = {

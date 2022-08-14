@@ -1,4 +1,4 @@
-{ source, stdenv, fetchFromGitHub, cmake, pkg-config, libftdi1 }:
+{ source, stdenv, cmake, pkg-config, libftdi1 }:
 
 stdenv.mkDerivation rec {
   inherit (source) pname version src;

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, self, inputs, ... }: {
+{ pkgs, modulesPath, self, inputs, ... }: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     self.nixosModules.default

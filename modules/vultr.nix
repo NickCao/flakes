@@ -1,4 +1,4 @@
-{ pkgs, config, modulesPath, ... }:
+{ ... }:
 {
   boot = {
     initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];

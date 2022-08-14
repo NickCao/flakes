@@ -1,4 +1,4 @@
-{ config, pkgs, lib, modulesPath, ... }:
+{ config, pkgs, modulesPath, ... }:
 let
   mkService = { ExecStart, SupplementaryGroups ? [ ] }: {
     unitConfig = {

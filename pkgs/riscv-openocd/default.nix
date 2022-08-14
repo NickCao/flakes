@@ -1,7 +1,6 @@
 { source
 , stdenv
 , lib
-, autoreconfHook
 , pkg-config
 , hidapi
 , libftdi1

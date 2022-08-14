@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let package = pkgs.stratisd.override { }; in
 {
   systemd.packages = [ package ];

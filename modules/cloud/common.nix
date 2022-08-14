@@ -1,8 +1,5 @@
-{ config, pkgs, lib, modulesPath, ... }:
+{ config, pkgs, modulesPath, ... }:
 with pkgs;
-let
-  devPath = "/dev/disk/by-partlabel/NIXOS";
-in
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")

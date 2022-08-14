@@ -1,4 +1,4 @@
-{ config, pkgs, lib, self, inputs, ... }: {
+{ pkgs, self, inputs, ... }: {
 
   imports = [
     self.nixosModules.vultr

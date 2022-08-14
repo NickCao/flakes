@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 with lib;
 let
   cfg = config.cloud;
@@ -34,7 +34,7 @@ let
     wantedBy = [ "multi-user.target" ];
   };
   serviceOptions =
-    { name, config, ... }:
+    { config, ... }:
     {
       options = {
         config = mkOption { };

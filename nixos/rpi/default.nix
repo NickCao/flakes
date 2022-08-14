@@ -1,4 +1,4 @@
-{ config, pkgs, lib, specialArgs, ... }:
+{ specialArgs, ... }:
 {
   imports = with specialArgs; [
     ./configuration.nix

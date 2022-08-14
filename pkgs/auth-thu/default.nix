@@ -1,4 +1,4 @@
-{ source, buildGoModule, fetchFromGitHub, lib }:
+{ source, buildGoModule, lib }:
 buildGoModule rec {
   inherit (source) pname version src vendorSha256;
   subPackages = [ "cli" ];

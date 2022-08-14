@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 {
   imports = [ ../common.nix ./services.nix ];
   sops = {

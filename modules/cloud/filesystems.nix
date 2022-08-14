@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ ... }:
 let
   device = "/dev/disk/by-partlabel/NIXOS";
   fsType = "btrfs";

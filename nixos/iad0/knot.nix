@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }: {
+{ config, pkgs, inputs, ... }: {
 
   sops.secrets = {
     tsig = { owner = "knot"; reloadUnits = [ "knot.service" ]; sopsFile = ../../zones/secrets.yaml; };

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 {
   sops.secrets.shadowsocks = {
     sopsFile = ./secrets.yaml;
