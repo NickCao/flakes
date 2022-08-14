@@ -93,6 +93,9 @@
         delivery_error_reports = true;
         bridge_matrix_leave = false;
         relay_user_distinguishers = [ ];
+        animated_sticker = {
+          convert_from_webm = true;
+        };
         state_event_formats = {
           join = "";
           leave = "";
