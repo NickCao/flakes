@@ -288,6 +288,12 @@
       item = "memlock";
       value = "unlimited";
     }
+    {
+      domain = "*";
+      type = "-";
+      item = "nofile";
+      value = "unlimited";
+    }
   ];
 
   environment.pathsToLink = [ "/share/fish" ];

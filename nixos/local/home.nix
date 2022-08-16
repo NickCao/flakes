@@ -198,7 +198,7 @@ in
   home.packages = with pkgs; [
     sioyek
     texlab
-    tectonic
+    # tectonic
     systemd-run-app
     sequoia
     openpgp-card-tools
@@ -375,7 +375,6 @@ in
         add_newline = false;
         gcloud = { disabled = true; };
         battery = { disabled = true; };
-        # shlvl = { disabled = false; symbol = ""; };
       };
     };
     tmux = {
