@@ -12,6 +12,12 @@ let
     } ''
     convert -blur 14x5 ${fbk} $out
   '';
+  tide = pkgs.fetchFromGitHub {
+    owner = "IlanCosman";
+    repo = "tide";
+    rev = "v5.4.0";
+    sha256 = "sha256-jswV+M3cNC3QnJxvugk8VRd3cOFmhg5ejLpdo36Lw1g=";
+  };
   resign-socket = "/run/user/1000/resign.grpc";
 in
 {
@@ -198,7 +204,7 @@ in
   home.packages = with pkgs; [
     sioyek
     texlab
-    # tectonic
+    tectonic
     systemd-run-app
     sequoia
     openpgp-card-tools
@@ -328,12 +334,22 @@ in
     };
     fish = {
       enable = true;
+      plugins = [{
+        name = "tide";
+        src = tide;
+      }];
       shellInit = ''
         set fish_greeting
+
         function fish_user_key_bindings
           fish_vi_key_bindings
           bind f accept-autosuggestion
         end
+
+        string replace -r '^' 'set -g ' < ${tide}/functions/tide/configure/configs/lean.fish         | source
+        string replace -r '^' 'set -g ' < ${tide}/functions/tide/configure/configs/lean_16color.fish | source
+        set -g tide_prompt_add_newline_before false
+
         set fish_color_normal normal
         set fish_color_command blue
         set fish_color_quote yellow
@@ -367,14 +383,6 @@ in
       };
       shellAbbrs = {
         rebuild = "nixos-rebuild --use-remote-sudo -v -L --flake /home/nickcao/Projects/flakes";
-      };
-    };
-    starship = {
-      enable = true;
-      settings = {
-        add_newline = false;
-        gcloud = { disabled = true; };
-        battery = { disabled = true; };
       };
     };
     tmux = {
