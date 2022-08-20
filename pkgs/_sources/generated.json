@@ -31,13 +31,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "tohojo",
+            "owner": "NickCao",
             "repo": "bird",
-            "rev": "4c582913ec44c4fd53ffef208f8c65046ee004a2",
-            "sha256": "sha256-YeEf86oT9gY+BiQBqX2jtJkSfTbX+KfgUc2geEMat6E=",
+            "rev": "6a7ff0bd1f02aa1c13dd32586075a444e69b426a",
+            "sha256": "sha256-pf7zyzJGaBfoqF/W+hNNUzmN39yINLD4DIe5Q/9iab4=",
             "type": "github"
         },
-        "version": "4c582913ec44c4fd53ffef208f8c65046ee004a2"
+        "version": "6a7ff0bd1f02aa1c13dd32586075a444e69b426a"
     },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
@@ -86,11 +86,11 @@
             "name": null,
             "owner": "riscv",
             "repo": "riscv-openocd",
-            "rev": "52177592f9d3afc6a008f8e1b321cf74e823018f",
-            "sha256": "sha256-w3R7uRQI66ohNOYQy2w2lMYjbLS3QNFctmDglHeOzw8=",
+            "rev": "fb523552d2244e948c4a87599cb13171c1bf631a",
+            "sha256": "sha256-0fxOo6NfKHk0+AqKshnHWnOFfi4+GXTvLxwxhhy7jfI=",
             "type": "github"
         },
-        "version": "52177592f9d3afc6a008f8e1b321cf74e823018f"
+        "version": "fb523552d2244e948c4a87599cb13171c1bf631a"
     },
     "smartdns-china-list": {
         "cargoLocks": null,
@@ -105,11 +105,11 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "48a990e460020f358ae5b3610c70e7682ef56944",
-            "sha256": "sha256-dELfnatMDhFKPcTrpYtAV92yQmjGqaG9myK0bN4GaKE=",
+            "rev": "dadf0e7d2a35b770b91f29e1c1fb2d2cf1d4c3c0",
+            "sha256": "sha256-lQkO9BcP9xlpB5ZUEJ2y7Ehpyb3mQY7HiWswBjZWnGc=",
             "type": "github"
         },
-        "version": "48a990e460020f358ae5b3610c70e7682ef56944"
+        "version": "dadf0e7d2a35b770b91f29e1c1fb2d2cf1d4c3c0"
     },
     "wemeet": {
         "cargoLocks": null,
