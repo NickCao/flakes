@@ -1,4 +1,4 @@
-{ pkgs, modulesPath, self, inputs, ... }: {
+{ pkgs, config, modulesPath, self, inputs, ... }: {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     self.nixosModules.default
@@ -25,7 +25,7 @@
 
   environment.persistence."/persist" = {
     files = [
-      "/var/lib/sops.key"
+      config.sops.age.keyFile
     ];
     directories = [
       "/var/log"
