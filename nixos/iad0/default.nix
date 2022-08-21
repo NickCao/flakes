@@ -28,6 +28,8 @@
       "/var/lib/sops.key"
     ];
     directories = [
+      "/var/log"
+      "/var/lib/systemd"
       "/var/lib/knot"
     ];
   };
