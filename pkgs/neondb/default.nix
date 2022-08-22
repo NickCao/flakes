@@ -14,7 +14,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "neon";
+  pname = "neondb";
   version = "unstable-2022-08-20";
 
   outputs = [ "out" "dev" "postgres" ];
