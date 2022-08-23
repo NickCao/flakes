@@ -161,13 +161,36 @@
         "type": "github"
       }
     },
+    "knot-sys": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1661256153,
+        "narHash": "sha256-DrDRRycjqTLgvLvYCwoL78dUzreGI4Csp2jRg2QaNxw=",
+        "owner": "NickCao",
+        "repo": "knot-sys",
+        "rev": "a5f84c6c4404841be31fd026ea712f7c783db5d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NickCao",
+        "repo": "knot-sys",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1661170376,
-        "narHash": "sha256-bvckZZlfsYAToy1+Vy32MbVqG7euhgkCMFgEq4RJvUQ=",
+        "lastModified": 1661253667,
+        "narHash": "sha256-WCZsWIImVrul0K6GDBEp8eQ4Tu1kG6lwFYSi/+IA15k=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "211b282916f2a034503c1c2f922c8ce41fd1f0e8",
+        "rev": "f687b730701021b9cb14d7fbd63fee68a8c4fdad",
         "type": "github"
       },
       "original": {
@@ -249,6 +272,7 @@
         "fn": "fn",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "knot-sys": "knot-sys",
         "nixpkgs": "nixpkgs",
         "ranet": "ranet",
         "resign": "resign",

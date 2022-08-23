@@ -53,6 +53,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    knot-sys = {
+      url = "github:NickCao/knot-sys";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     let
