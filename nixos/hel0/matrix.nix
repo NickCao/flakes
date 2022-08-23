@@ -100,6 +100,7 @@
         state_event_formats = {
           join = "";
           leave = "";
+          name_change = "";
         };
         permissions = {
           "*" = "relaybot";
