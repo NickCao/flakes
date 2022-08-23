@@ -84,12 +84,10 @@
         hostname = "127.0.0.1";
         port = 29317;
         provisioning.enabled = false;
-        ephemeral_events = true;
       };
       bridge = {
         displayname_template = "{displayname}";
         public_portals = true;
-        sync_with_custom_puppets = false;
         delivery_error_reports = true;
         bridge_matrix_leave = false;
         relay_user_distinguishers = [ ];
