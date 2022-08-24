@@ -248,7 +248,7 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     LIBVA_DRIVER_NAME = "iHD";
-    # SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
+    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
     SOPS_GPG_EXEC = "${pkgs.writeShellApplication {
       name = "gpg";
       text = ''
@@ -314,12 +314,12 @@ in
       enable = true;
       userEmail = "nickcao@nichi.co";
       userName = "Nick Cao";
-      signing = {
-        gpgPath = "${pkgs.resign}/bin/resign";
-        signByDefault = true;
-        key = resign-socket;
-      };
       extraConfig = {
+        commit.gpgSign = true;
+        gpg = {
+          format = "ssh";
+          ssh.defaultKeyCommand = "ssh-add -L";
+        };
         merge.conflictStyle = "diff3";
         merge.tool = "vimdiff";
         mergetool = {
