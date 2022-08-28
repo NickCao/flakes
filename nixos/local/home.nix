@@ -18,7 +18,6 @@ let
     rev = "v5.4.0";
     sha256 = "sha256-jswV+M3cNC3QnJxvugk8VRd3cOFmhg5ejLpdo36Lw1g=";
   };
-  resign-socket = "/run/user/1000/resign.grpc";
 in
 {
   gtk = {
@@ -202,6 +201,9 @@ in
     };
   };
   home.packages = with pkgs; [
+    rage
+    resign
+    pinentry-gtk2
     sioyek
     texlab
     tectonic
@@ -224,7 +226,6 @@ in
     ncdu
     mode
     yubikey-manager
-    age
     prime-run
     wireguard-tools
     auth-thu
@@ -249,12 +250,6 @@ in
     EDITOR = "nvim";
     LIBVA_DRIVER_NAME = "iHD";
     SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
-    SOPS_GPG_EXEC = "${pkgs.writeShellApplication {
-      name = "gpg";
-      text = ''
-        ${pkgs.resign}/bin/resign -u ${resign-socket} "$@"
-      '';
-    }}/bin/gpg";
     # cache
     __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
@@ -283,7 +278,7 @@ in
           "PATH=${lib.makeBinPath [ pkgs.pinentry-gtk2 ]}"
           "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}"
         ];
-        ExecStart = "${pkgs.resign}/bin/resign-agent --grpc %t/resign.grpc --ssh %t/resign.ssh";
+        ExecStart = "${pkgs.resign}/bin/resign --listen %t/resign.ssh";
       };
     };
   };
