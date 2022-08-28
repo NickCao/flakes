@@ -249,11 +249,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1661660196,
-        "narHash": "sha256-AuNUFAYKKYkkJ6QQbVQiw2QQITS73i39Eyo2xAWXSzQ=",
+        "lastModified": 1661665260,
+        "narHash": "sha256-wETgwUNGgeuWKmSV8zvjODm8GEffEavQi7As2NutcJY=",
         "owner": "NickCao",
         "repo": "resign",
-        "rev": "2723e9f6d15814a9b809b7d929cba0b7921b025d",
+        "rev": "c30c62453dc283be33131e76601e71208f13b5ae",
         "type": "github"
       },
       "original": {
