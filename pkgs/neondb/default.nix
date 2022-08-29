@@ -11,6 +11,8 @@
 , libseccomp
 , rustPlatform
 , buildType ? "release"
+, nixosTest
+, neondb
 }:
 
 stdenv.mkDerivation rec {
@@ -61,4 +63,22 @@ stdenv.mkDerivation rec {
     )
     runHook postBuild
   '';
+
+  passthru.tests = {
+    basic = nixosTest {
+      nodes.machine = { config, pkgs, ... }: {
+        environment.systemPackages = with pkgs;[ neondb openssl etcd ];
+        users.users.neondb.isSystemUser = true;
+        users.users.neondb.group = "nogroup";
+      };
+      testScript = ''
+        machine.wait_for_unit("default.target")
+        machine.succeed("ln -s ${neondb.postgres} /tmp/tmp_install") # hack to make neon_local happy
+        machine.succeed("sudo -u neondb neon_local init")
+        machine.succeed("sudo -u neondb neon_local start")
+        machine.succeed("sudo -u neondb neon_local pg start main")
+        assert "running" in machine.succeed("sudo -u neondb neon_local pg list")
+      '';
+    };
+  };
 }
