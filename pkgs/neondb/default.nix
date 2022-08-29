@@ -12,7 +12,6 @@
 , rustPlatform
 , buildType ? "release"
 , nixosTest
-, neondb
 }:
 
 stdenv.mkDerivation rec {
@@ -68,12 +67,12 @@ stdenv.mkDerivation rec {
     basic = nixosTest {
       nodes.machine = { config, pkgs, ... }: {
         environment.systemPackages = with pkgs;[ neondb openssl etcd ];
+        environment.sessionVariables.POSTGRES_DISTRIB_DIR = pkgs.neondb.postgres.outPath;
         users.users.neondb.isSystemUser = true;
         users.users.neondb.group = "nogroup";
       };
       testScript = ''
         machine.wait_for_unit("default.target")
-        machine.succeed("ln -s ${neondb.postgres} /tmp/tmp_install") # hack to make neon_local happy
         machine.succeed("sudo -u neondb neon_local init")
         machine.succeed("sudo -u neondb neon_local start")
         machine.succeed("sudo -u neondb neon_local pg start main")
