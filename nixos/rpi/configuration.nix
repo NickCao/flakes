@@ -136,6 +136,11 @@ in
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCw9mmG3he9C9dLjOtjms9cn9vzijtowzno/5XQgomyReWiUItgL6AoyQF46DbJMkM2cNZQ/cQyqNS8zs5FDdWKTiHsVSEYYeCTeppHB9qqgjGx2slLrs7sQTgsF+D5ork98Wk4KUr8dmR4Q3rbBU9uQjSuda2H7Ye0sd8fnanT2ZKbK/SGgfQlU0KRoo2RC5p9VB7Siw1xnIM+oaCNw9UuBYBzKcF5/lbZXbJoIz953U6KJZ/A5wZR9VaV9y/xhvnNeiVz497yN5s0s+em4tjNnCCaeNlp6Tk9Y3d8OFKfaLxvKV7HbtWiQLN2eA/LmWLR5A5Q8jHH9xWX2dHGUuB9"
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDI0OEpAkO3qXwF8eDMy1XtUYRQhoJ21ZdoqAeUBbKkYH0GmjkpA4hIUm+drqFf7tjzXAA2/kGJpvQ84aFzaMOqY+DaFnilu5dadR/faZ1SvYQyo+XJpV3yqtAiI4GJBzX1/ryB2uCclUgb89pMoXT1GkCitL0hLZPq2Qv/BSfcQXBl31vqYOrPwt9MoNu+1zZ/67/WaeQnLo+UQiLjMQXk37ANVkZGtOt8LaQOQ0xtiiY7QTfJWQ91VnokriHG1oxLlkvQtOw/x6kiuKR8crupG38pxdYjsKUu4i5Tx0GT4ejcQtIfvPPMLHN1q6eUUkGXn6j1ASiaSb1GZ7Zugpmt"
   ];
+  users.users.tony.isNormalUser = true;
+  users.users.tony.group = "nogroup";
+  users.users.tony.openssh.authorizedKeys.keys = [
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChrGIIFf0wXFNcdMeG/+Yxl0NF/7pQ9y7Mp7PqEjhKLNm1qOGJHrwWItmKCdR7lIIutSJNVYt9j7SoJGYlIa39icVl+picZd6wPYfLze41JJmKrVZNf8CZDlUr4j/F/UjbGKINncrNKf9BCf9322fTgq/oVypvANVMsbCCHurqQZeF/UF74Vrdw/tMI0/D/HGu/UwjeWghKYkzeBfb+N892cxhcADNgLk3jKGJy1+XFt5EpIp7cy/zhUobghFRIH3qqgK4iydFw37UL3ZJ65KHBg+0f97aRadCfcmmo3PQ792HtUw4TYDNJd5Z9+Cm5EF5mBjGTswaNgbtxCUQ1jj1"
+  ];
 
   services.openssh = {
     enable = true;
@@ -166,6 +171,7 @@ in
     gdb
     config.boot.kernelPackages.usbip
     jtag-remote-server
+    mtr
   ];
 
   documentation.nixos.enable = false;
