@@ -74,6 +74,7 @@
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
+      allowed-uris = [ "https://github.com" "https://gitlab.com" ];
     };
     buildMachines = [
       {
