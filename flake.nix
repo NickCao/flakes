@@ -16,7 +16,6 @@
     home-manager = {
       url = "github:NickCao/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
       inputs.utils.follows = "flake-utils";
     };
     sops-nix = {
