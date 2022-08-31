@@ -97,7 +97,9 @@
         system = "x86_64-linux";
         specialArgs = { inherit self inputs; };
         modules = [ ./nixos/vultr/${name} ];
-      }).config.system.build.install);
+      }).config.system.build.install) // {
+        local = self.nixosConfigurations.local.config.system.build.toplevel;
+      };
       nixosModules = import ./modules;
       overlays.default = final: prev: (nixpkgs.lib.composeExtensions this.overlay
         (final: prev: {
