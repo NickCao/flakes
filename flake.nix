@@ -4,17 +4,13 @@
     nixpkgs.url = "github:NickCao/nixpkgs/nixos-unstable-small";
     flake-utils.url = "github:numtide/flake-utils";
     impermanence.url = "github:nix-community/impermanence";
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
     fn = {
       url = "gitlab:NickCao/fn";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
     home-manager = {
-      url = "github:NickCao/home-manager";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
