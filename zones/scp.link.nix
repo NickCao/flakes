@@ -8,7 +8,6 @@ dns.lib.toString "scp.link" {
   inherit (common) TTL SOA NS;
   subdomains = {
     dname.DNAME = [ "example.com." ];
-    vanilla.A = [ "20.24.195.187" ];
     "o".NS = he;
     "com".NS = he;
   };
