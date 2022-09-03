@@ -83,7 +83,7 @@
           };
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ colmena mdbook terrasops ];
+            nativeBuildInputs = [ colmena mdbook terrasops nvfetcher ];
           };
         }
       )
