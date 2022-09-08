@@ -16,9 +16,8 @@ qt5.mkDerivation {
     dpkg-deb -x $src .
     mkdir -p $out/{bin,lib}
     mv opt/wemeet/bin/{wemeetapp,raw,modules,wemeet.res,manifest.json,qt_zh_CN.qm} $out/bin
-    mv opt/wemeet/lib/{libwemeet*,libxnn*,libxcast*,libImSDK.so,libdesktop_common.so,libnxui_uikit.so,libui_framework.so} $out/lib
+    mv opt/wemeet/lib/lib{ImSDK,desktop_common,nxui*,qt_*,ui*,wemeet*,xcast,xcast_codec,xnn*}.so $out/lib
     wrapQtApp "$out/bin/wemeetapp" \
-      --set XDG_SESSION_TYPE  x11  \
       --set PULSE_LATENCY_MSEC 20
   '';
   meta = {

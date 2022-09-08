@@ -58,21 +58,21 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "0e1d5a0b23cdd7bd92a9021c9d0c94baaa4cea86";
+    version = "b429a44f16dbe104958d27491c0784153dc17194";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "0e1d5a0b23cdd7bd92a9021c9d0c94baaa4cea86";
+      rev = "b429a44f16dbe104958d27491c0784153dc17194";
       fetchSubmodules = false;
-      sha256 = "sha256-VeW4qHgUK8DGGlZJWjJCnQt8gM82UR8Z4FQF4Wwjm8M=";
+      sha256 = "sha256-cnYNl6n7hmtaH+9vYCre//JJ4PVKN0v3TfMtkI16mnw=";
     });
   };
   wemeet = {
     pname = "wemeet";
-    version = "3.9.0.1";
+    version = "3.10.0.400";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/OTRhY2YwZTUtMzE5Ni00NDQyLTg0MTMtOTBjYzQzNzcxYTQz/TencentMeeting_0300000000_3.9.0.1_x86_64_default.publish.deb";
-      sha256 = "sha256-g1sYuTP0RU6gUbztP+rKR1i4WTkvjdSPUEIKPEqtmCc=";
+      url = "https://updatecdn.meeting.qq.com/cos/60bbaecfb3bf32615331b07d46001353/TencentMeeting_0300000000_3.10.0.400_x86_64_default.publish.deb";
+      sha256 = "sha256-Ekc0QDZmMXAJKd0nMZ0016VcGQpkmtL5q3o786G1KNg=";
     };
   };
 }
