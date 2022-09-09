@@ -16,25 +16,25 @@
 
 stdenv.mkDerivation rec {
   pname = "neondb";
-  version = "unstable-2022-08-29";
+  version = "unstable-2022-09-09";
 
   outputs = [ "out" "dev" "postgres" ];
 
   src = fetchFromGitHub {
     owner = "neondatabase";
     repo = "neon";
-    rev = "1324dd89ed612e709fc8c84206d0a32936382789";
-    sha256 = "sha256-KuXWZxryd7+2SW3eYG91vvKg/Che0CIEk8WKh/Ffe/8=";
+    rev = "d3f83eda52a1f4e372f9149ffc8b824ef3478a25";
+    sha256 = "sha256-Erm5MAFW8QK7Xq3n+GJl6S+VemT7hDuQdxQYWyaiCfw=";
     fetchSubmodules = true;
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
-    sha256 = "sha256-f9u8Rmj1CF8EWGMu9KGBGZHTm9qWWL4M5GRurKwG7YU=";
+    sha256 = "sha256-24mpuPui5t/ZYENPiYN0kHfeE6+b7m+eF+mZY/o0jjg=";
   };
 
   postPatch = ''
-    substituteInPlace vendor/postgres/configure --replace  "/bin/pwd" "pwd"
+    substituteInPlace vendor/postgres-*/configure --replace  "/bin/pwd" "pwd"
     substituteInPlace libs/postgres_ffi/build.rs --replace '.join("postgresql")' ""
   '';
 
