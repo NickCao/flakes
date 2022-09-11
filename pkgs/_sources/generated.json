@@ -47,11 +47,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/wypD33L6tMSadtYAaN2pbj3DKBok0FZZgGKPtvw5sQ=",
+            "sha256": "sha256-IqhY9cqh1T1reDlVSQLqQ4ThO0KgEjOy04e2Jt+iGNc=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220722.dict"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220909.dict"
         },
-        "version": "20220722"
+        "version": "20220909"
     },
     "rait": {
         "cargoLocks": null,
@@ -86,11 +86,11 @@
             "name": null,
             "owner": "riscv",
             "repo": "riscv-openocd",
-            "rev": "04020c19d0a63039f446cd45106f38431aa6d7bd",
-            "sha256": "sha256-gXNPW/5Iez34Y8Gk1vZZOFqBvVwHdeh1kQ2Tq4y6EXs=",
+            "rev": "911d68ef25ab6996110cc618279b600fe82591e5",
+            "sha256": "sha256-8BVnab4Npgfrg6M+VhQ2sO0MaBC8OwMnm6B9OfD6QpI=",
             "type": "github"
         },
-        "version": "04020c19d0a63039f446cd45106f38431aa6d7bd"
+        "version": "911d68ef25ab6996110cc618279b600fe82591e5"
     },
     "smartdns-china-list": {
         "cargoLocks": null,
@@ -105,11 +105,11 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "b429a44f16dbe104958d27491c0784153dc17194",
-            "sha256": "sha256-cnYNl6n7hmtaH+9vYCre//JJ4PVKN0v3TfMtkI16mnw=",
+            "rev": "e880dde91e5677ad1db600224127a50fdbff77da",
+            "sha256": "sha256-6iFkTbWgnSxKNnth7Lv988zCOpHKhyKbnLh4dQJk8H8=",
             "type": "github"
         },
-        "version": "b429a44f16dbe104958d27491c0784153dc17194"
+        "version": "e880dde91e5677ad1db600224127a50fdbff77da"
     },
     "wemeet": {
         "cargoLocks": null,
