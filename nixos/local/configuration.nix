@@ -25,7 +25,11 @@
     package = pkgs.nixVersions.stable;
     settings = {
       trusted-users = [ "root" "nickcao" ];
-      substituters = pkgs.lib.mkBefore [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://cache.nichi.co" ];
+      substituters = pkgs.lib.mkForce [
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        "https://cache.nixos.org"
+        "https://cache.nichi.co"
+      ];
       trusted-public-keys = [ "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk=" ];
       auto-optimise-store = true;
       flake-registry = "/etc/nix/registry.json";
