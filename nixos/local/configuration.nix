@@ -58,6 +58,7 @@
           proto=RSN
           pairwise=CCMP
           eap=PEAP
+          phase1="tls_disable_tlsv1_0=0"
           phase2="auth=MSCHAPV2"
           identity="@IDENTITY@"
           password="@PASSWORD@"
