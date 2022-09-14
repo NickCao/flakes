@@ -79,7 +79,7 @@
         rec {
           formatter = pkgs.nixpkgs-fmt;
           packages = this.packages pkgs // {
-            inherit (pkgs) terrasops sops-install-secrets;
+            inherit (pkgs) terrasops;
           };
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
