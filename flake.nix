@@ -132,17 +132,23 @@
           imports = [ ./nixos/rpi ];
         };
         hel0 = { ... }: {
-          deployment.targetHost = "hel0.nichi.link";
+          deployment = {
+            targetHost = "hel0.nichi.link";
+            tags = [ "normal" ];
+          };
           imports = [ ./nixos/hel0 ];
         };
         iad0 = { ... }: {
-          deployment.targetHost = "iad0.nichi.link";
+          deployment = {
+            targetHost = "iad0.nichi.link";
+            tags = [ "normal" ];
+          };
           imports = [ ./nixos/iad0 ];
         };
       } // inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" ] (name: { ... }: {
         deployment = {
           targetHost = "${name}.nichi.link";
-          tags = [ "vultr" ];
+          tags = [ "normal" "vultr" ];
         };
         imports = [ ./nixos/vultr/${name} ];
       });
