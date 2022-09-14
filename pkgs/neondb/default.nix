@@ -14,6 +14,12 @@
 , nixosTest
 }:
 
+let query = builtins.toFile "query" ''
+  CREATE TABLE t(key int primary key, value text);
+  INSERT INTO t values(1,1);
+  SELECT * FROM t;
+'';
+in
 stdenv.mkDerivation rec {
   pname = "neondb";
   version = "unstable-2022-09-14";
@@ -66,8 +72,8 @@ stdenv.mkDerivation rec {
   passthru.tests = {
     basic = nixosTest {
       nodes.machine = { config, pkgs, ... }: {
-        environment.systemPackages = with pkgs;[ neondb openssl etcd ];
-        environment.sessionVariables.POSTGRES_DISTRIB_DIR = pkgs.neondb.postgres.outPath;
+        environment.systemPackages = with pkgs;[ neondb openssl etcd postgresql_14 ];
+        environment.sessionVariables.POSTGRES_DISTRIB_DIR = "${pkgs.neondb.postgres}/v14";
         users.users.neondb.isSystemUser = true;
         users.users.neondb.group = "nogroup";
       };
@@ -77,6 +83,7 @@ stdenv.mkDerivation rec {
         machine.succeed("sudo -u neondb neon_local start")
         machine.succeed("sudo -u neondb neon_local pg start main")
         assert "running" in machine.succeed("sudo -u neondb neon_local pg list")
+        machine.succeed("sudo -u neondb psql -p 55432 -h 127.0.0.1 -U cloud_admin postgres -f ${query}")
       '';
     };
   };
