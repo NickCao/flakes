@@ -16,21 +16,21 @@
 
 stdenv.mkDerivation rec {
   pname = "neondb";
-  version = "unstable-2022-09-09";
+  version = "unstable-2022-09-14";
 
   outputs = [ "out" "dev" "postgres" ];
 
   src = fetchFromGitHub {
     owner = "neondatabase";
     repo = "neon";
-    rev = "d3f83eda52a1f4e372f9149ffc8b824ef3478a25";
-    sha256 = "sha256-Erm5MAFW8QK7Xq3n+GJl6S+VemT7hDuQdxQYWyaiCfw=";
+    rev = "c3096532f9ceee8fad82b4c741b0108bd143cc06";
+    sha256 = "sha256-ZTRkys5Q9c98fQBiUyG61lXV5k/nFqm/IjAkvHKC/6w=";
     fetchSubmodules = true;
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
-    sha256 = "sha256-24mpuPui5t/ZYENPiYN0kHfeE6+b7m+eF+mZY/o0jjg=";
+    sha256 = "sha256-mTJj5IkPR62AlxACA/zOS68+yfUwDx9Xty7Z1Xh6w2c=";
   };
 
   postPatch = ''
