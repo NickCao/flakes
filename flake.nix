@@ -64,15 +64,9 @@
         let
           pkgs = import nixpkgs {
             inherit system;
-            config = {
-              allowUnfree = true;
-              allowUnsupportedSystem = true;
-            };
             overlays = [
               self.overlays.default
-              inputs.fn.overlays.default
               inputs.terrasops.overlay
-              inputs.sops-nix.overlay
             ];
           };
         in
