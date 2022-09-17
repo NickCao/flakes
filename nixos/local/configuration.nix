@@ -263,6 +263,7 @@
     xserver = {
       videoDrivers = [ "nvidia" ];
     };
+    stratis.enable = true;
   };
 
   programs = {
