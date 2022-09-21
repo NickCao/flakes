@@ -49,9 +49,6 @@
     firewall.enable = false;
     useNetworkd = true;
     useDHCP = false;
-    hosts = {
-      "104.21.75.85" = [ "api.nichi.workers.dev" ];
-    };
     wireless = {
       enable = true;
       userControlled.enable = true;
