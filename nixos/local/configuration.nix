@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 {
+  specialisation.nouveau.configuration = {
+    services.xserver.videoDrivers = pkgs.lib.mkForce [ ];
+  };
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
