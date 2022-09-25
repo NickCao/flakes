@@ -88,4 +88,28 @@
       };
     };
   };
+
+  systemd.network.networks.clat = {
+    name = "clat";
+    vrf = [ "gravity" ];
+    addresses = [
+      { addressConfig.Address = "192.0.0.2/32"; }
+    ];
+    routes = [
+      { routeConfig.Destination = "0.0.0.0/0"; }
+      { routeConfig.Destination = "2a0c:b641:69c:99cc::2/128"; }
+    ];
+  };
+
+  systemd.services.clatd = {
+    path = with pkgs; [ tayga ];
+    script = "tayga -d --config ${pkgs.writeText "tayga.conf" ''
+      tun-device clat
+      prefix 2a0c:b641:69c:7864:0:4::/96
+      ipv4-addr 192.0.0.1
+      map 192.0.0.2 2a0c:b641:69c:99cc::2
+    ''}";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+  };
 }
