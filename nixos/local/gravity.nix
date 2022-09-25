@@ -16,7 +16,7 @@
   systemd.services.bird2.after = [ "network-online.target" ];
 
   cloud.services.gravity-proxy.config = {
-    ExecStart = "${pkgs.ranet}/bin/ranet-proxy --listen 127.0.0.1:9999 --bind 2a0c:b641:69c:99cc::1 --interface gravity --prefix 2a0c:b641:69c:7864:0:4::";
+    ExecStart = "${pkgs.ranet}/bin/ranet-proxy --listen 127.0.0.1:9999 --bind6 2a0c:b641:69c:99cc::1 --interface gravity";
   };
 
   services.v2ray = {
@@ -92,6 +92,9 @@
   systemd.network.networks.clat = {
     name = "clat";
     vrf = [ "gravity" ];
+    linkConfig = {
+      MTUBytes = "1400";
+    };
     addresses = [
       { addressConfig.Address = "192.0.0.2/32"; }
     ];
