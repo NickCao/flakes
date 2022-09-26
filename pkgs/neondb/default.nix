@@ -14,11 +14,12 @@
 , nixosTest
 }:
 
-let query = builtins.toFile "query" ''
-  CREATE TABLE t(key int primary key, value text);
-  INSERT INTO t values(1,1);
-  SELECT * FROM t;
-'';
+let
+  query = builtins.toFile "query" ''
+    CREATE TABLE t(key int primary key, value text);
+    INSERT INTO t values(1,1);
+    SELECT * FROM t;
+  '';
 in
 stdenv.mkDerivation rec {
   pname = "neondb";

@@ -222,7 +222,7 @@ in
     pavucontrol
     brightnessctl
     ripgrep
-    rnix-lsp
+    nil
     ncdu
     mode
     yubikey-manager
