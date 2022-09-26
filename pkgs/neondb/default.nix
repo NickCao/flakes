@@ -23,24 +23,25 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "neondb";
-  version = "unstable-2022-09-14";
+  version = "unstable-2022-09-26";
 
   outputs = [ "out" "dev" "postgres" ];
 
   src = fetchFromGitHub {
     owner = "neondatabase";
     repo = "neon";
-    rev = "c3096532f9ceee8fad82b4c741b0108bd143cc06";
-    sha256 = "sha256-ZTRkys5Q9c98fQBiUyG61lXV5k/nFqm/IjAkvHKC/6w=";
+    rev = "df45c0d0e57477768097c13c2c3299e634f963b8";
+    sha256 = "sha256-W3mP+BJkKq2wOGYsQS2DyNHLVytLuGGMfgquWek0vK4=";
     fetchSubmodules = true;
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
-    sha256 = "sha256-mTJj5IkPR62AlxACA/zOS68+yfUwDx9Xty7Z1Xh6w2c=";
+    sha256 = "sha256-TrWgr27EIykYiDGYUho9Y9nN/5ShrRTQumQttHbpjH8=";
   };
 
   postPatch = ''
+    patchShebangs scripts/ninstall.sh
     substituteInPlace vendor/postgres-*/configure --replace  "/bin/pwd" "pwd"
     substituteInPlace libs/postgres_ffi/build.rs --replace '.join("postgresql")' ""
   '';
@@ -59,6 +60,8 @@ stdenv.mkDerivation rec {
   GIT_VERSION = version;
   BUILD_TYPE = buildType;
   POSTGRES_INSTALL_DIR = placeholder "postgres";
+
+  enableParallelBuilding = true;
 
   installPhase = ''
     runHook preBuild
