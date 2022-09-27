@@ -60,6 +60,11 @@ for _, lsp in pairs(servers) do
       debounce_text_changes = 150,
     },
     settings = {
+      ['nil'] = {
+        formatting = {
+          command = { 'nixpkgs-fmt' }
+        }
+      },
       texlab = {
         build = {
           executable = 'tectonic',
