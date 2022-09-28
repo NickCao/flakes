@@ -13,8 +13,8 @@ fetch.git = "https://gitlab.com/NickCao/RAIT"
 passthru = { vendorSha256 = "sha256-pMltPbi1tOfxIBjLHtSxqSQUy7sMTDa8YJ9PeQp3b3k=" }
 
 [wemeet]
-src.manual = "3.10.0.400"
-fetch.url = "https://updatecdn.meeting.qq.com/cos/60bbaecfb3bf32615331b07d46001353/TencentMeeting_0300000000_$ver_x86_64_default.publish.deb"
+src.manual = "3.10.0.401"
+fetch.url = "https://updatecdn.meeting.qq.com/cos/249fc9a44733d846162296934bbf52fa/TencentMeeting_0300000000_$ver_x86_64_default.publish.deb"
 
 [fcitx5-pinyin-zhwiki]
 src.archpkg = "fcitx5-pinyin-zhwiki"
