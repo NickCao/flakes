@@ -37,12 +37,14 @@ buildClangBazelPackage rec {
   bazelFlags = [ "-c" "opt" ];
 
   NIX_CFLAGS_COMPILE = [
+    "-Wl,-rpath,${llvmPackages_14.libcxxabi}/lib"
+    "-Wno-unused-command-line-argument"
     "-isystem ${llvmPackages_14.libcxx.dev}/include/c++/v1"
     "-isystem ${llvmPackages_14.libcxxStdenv.cc}/resource-root/include"
     "-isystem ${glibc.dev}/include"
   ];
 
-  LD_LIBRARY_PATH = lib.makeLibraryPath [ llvmPackages_14.libcxxabi zlib ];
+  LD_LIBRARY_PATH = lib.makeLibraryPath [ zlib ];
 
   postPatch = ''
     rm .bazelversion
