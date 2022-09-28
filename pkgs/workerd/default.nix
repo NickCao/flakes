@@ -10,9 +10,8 @@
 }:
 
 let
-  buildClangBazelPackage = buildBazelPackage.override {
-    stdenv = llvmPackages_14.libcxxStdenv;
-  };
+  stdenv = llvmPackages_14.libcxxStdenv;
+  buildClangBazelPackage = buildBazelPackage.override { inherit stdenv; };
 in
 buildClangBazelPackage rec {
   pname = "workerd";
@@ -28,17 +27,8 @@ buildClangBazelPackage rec {
   };
 
   removeRulesCC = false;
-  dontAddBazelOpts = true;
   bazelTarget = "//src/workerd/server:workerd";
   bazelFlags = [ "-c" "opt" ];
-
-  NIX_CFLAGS_COMPILE = [
-    "-Wl,-rpath,${llvmPackages_14.libcxxabi}/lib"
-    "-Wno-unused-command-line-argument"
-    "-isystem ${llvmPackages_14.libcxx.dev}/include/c++/v1"
-    "-isystem ${llvmPackages_14.libcxxStdenv.cc}/resource-root/include"
-    "-isystem ${glibc.dev}/include"
-  ];
 
   postPatch = ''
     rm .bazelversion
@@ -50,10 +40,17 @@ buildClangBazelPackage rec {
   };
 
   buildAttrs = {
+    NIX_CFLAGS_COMPILE = [
+      "-Wno-unused-command-line-argument"
+      "-Wl,-rpath,${llvmPackages_14.libcxxabi}/lib"
+      "-isystem ${llvmPackages_14.libcxx.dev}/include/c++/v1"
+      "-isystem ${stdenv.cc}/resource-root/include"
+      "-isystem ${glibc.dev}/include"
+    ];
+    LD_LIBRARY_PATH = lib.makeLibraryPath [ zlib ];
     postConfigure = ''
       find $bazelOut/external/rust_linux_* -executable -type f -exec patchelf \
-        --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
-        --set-rpath '$ORIGIN/../lib:${zlib}/lib' {} \;
+        --set-interpreter ${stdenv.cc.bintools.dynamicLinker} {} \;
     '';
     installPhase = ''
       runHook preInstall
