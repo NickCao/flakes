@@ -20,10 +20,6 @@ buildClangBazelPackage rec {
 
   bazel = bazel_5;
 
-  nativeBuildInputs = [
-    git
-  ];
-
   src = fetchFromGitHub {
     owner = "cloudflare";
     repo = pname;
@@ -44,20 +40,21 @@ buildClangBazelPackage rec {
     "-isystem ${glibc.dev}/include"
   ];
 
-  LD_LIBRARY_PATH = lib.makeLibraryPath [ zlib ];
-
   postPatch = ''
     rm .bazelversion
   '';
 
   fetchAttrs = {
-    preInstall = ''
-      find $bazelOut/external/rust_linux_* -executable -type f -exec patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} {} \;
-    '';
-    sha256 = "sha256-hlG/8DA8wcfVgmJKGWOela9HuV+IUsAE8zKcvHgeTZQ=";
+    nativeBuildInputs = [ git ];
+    sha256 = "sha256-0x4OZ6BLXNhCT21xqfAGvsEjUUgXiYpf64wGIvzl9bc=";
   };
 
   buildAttrs = {
+    postConfigure = ''
+      find $bazelOut/external/rust_linux_* -executable -type f -exec patchelf \
+        --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
+        --set-rpath '$ORIGIN/../lib:${zlib}/lib' {} \;
+    '';
     installPhase = ''
       runHook preInstall
       install -Dm755 bazel-bin/src/workerd/server/workerd $out/bin/workerd
