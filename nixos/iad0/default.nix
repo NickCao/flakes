@@ -24,13 +24,8 @@
   };
 
   environment.persistence."/persist" = {
-    files = [
-      config.sops.age.keyFile
-    ];
     directories = [
-      "/var/log"
-      "/var/lib/systemd"
-      "/var/lib/knot"
+      "/var"
     ];
   };
 

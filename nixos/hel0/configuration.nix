@@ -143,8 +143,7 @@
 
   environment.persistence."/persist" = {
     directories = [
-      "/var/lib"
-      "/var/spool"
+      "/var"
       "/home"
     ];
   };

@@ -327,9 +327,7 @@
 
   environment.persistence."/persistent" = {
     directories = [
-      "/var/log"
-      "/var/lib"
-      "/var/cache"
+      "/var"
     ];
     files = [
       "/etc/machine-id"
