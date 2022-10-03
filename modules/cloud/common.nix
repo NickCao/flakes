@@ -1,5 +1,4 @@
 { config, pkgs, modulesPath, ... }:
-with pkgs;
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -25,9 +24,6 @@ with pkgs;
   boot = {
     tmpOnTmpfs = true;
     loader.grub.device = "/dev/vda";
-    kernel.sysctl = {
-      "net.core.rmem_max" = 2500000;
-    };
   };
 
   networking = {

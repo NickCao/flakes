@@ -13,6 +13,8 @@ with lib;
       kernel.sysctl = {
         "net.core.default_qdisc" = "fq";
         "net.ipv4.tcp_congestion_control" = "bbr";
+        # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
+        "net.core.rmem_max" = 2500000;
       };
     };
 
