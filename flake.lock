@@ -170,11 +170,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1664847997,
-        "narHash": "sha256-MkWd/kiQorAatLx7+q07zZ6O1Ur+OY+1tj5mqGlAUKE=",
+        "lastModified": 1664898353,
+        "narHash": "sha256-QvZ1S/W8qrGtY9Xm2bl+rzNhqLxxahQ4f2FYHp1eNYw=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "01891ad3ace9e76270b5b68a3c33366bd3819b04",
+        "rev": "6f7203f0824ffecd8f38a6d900e1b071fc526329",
         "type": "github"
       },
       "original": {
@@ -233,11 +233,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1661950590,
-        "narHash": "sha256-3hP1k+7EWTuybrvBQSOT2Z4+pW7c4xnBMtdYC/S9LDM=",
+        "lastModified": 1664951541,
+        "narHash": "sha256-zI5QN53QjrSfvrivkKhglWxrWvNC1sQ10+NuIqc4d4w=",
         "owner": "NickCao",
         "repo": "resign",
-        "rev": "b9cf6b6e83bcf31c7abec73380070d318897c010",
+        "rev": "8fa560d8ecbdc4cdf2dd4609551a9d0b01b00c40",
         "type": "github"
       },
       "original": {
