@@ -9,5 +9,6 @@ dns.lib.toString "scp.link" {
   subdomains = {
     "o".NS = he;
     "com".NS = he;
+    "vanilla".A = [ "139.162.105.188" ];
   };
 }
