@@ -162,6 +162,8 @@ in
     ExecStart = "${(pkgs.python3.withPackages (ps: with ps;[ libgpiod flask ]))}/bin/python ${./powerd.py}";
   };
 
+  services.uptimed.enable = true;
+
   environment.systemPackages = with pkgs;[
     socat
     riscv-openocd
