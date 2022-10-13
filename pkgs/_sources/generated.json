@@ -66,12 +66,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e84e803641ec3a2dce5670275ea8d5497608f483",
-            "sha256": "sha256-vaRPmHrom4GEOuAdILzFpttc4vwcRVQWhLNalCco2qE=",
+            "rev": "278188c8bae13165aa70b6a2fbbb99101fd6f4cd",
+            "sha256": "sha256-6Y0s5/HUmWrZA6QmV5wYjB1M0Ab/jHM3TSruRpMRwtA=",
             "type": "git",
             "url": "https://gitlab.com/NickCao/RAIT"
         },
-        "version": "e84e803641ec3a2dce5670275ea8d5497608f483"
+        "version": "278188c8bae13165aa70b6a2fbbb99101fd6f4cd"
     },
     "riscv-openocd": {
         "cargoLocks": null,
@@ -86,11 +86,11 @@
             "name": null,
             "owner": "riscv",
             "repo": "riscv-openocd",
-            "rev": "23df83e830f355fbe7aebd3a06a75bd4421746ff",
-            "sha256": "sha256-o9DTNeCN+T+IuCJJSt6hbWIMWbP8WSfF11dQ9grbX1o=",
+            "rev": "a50b280558cc2908f43dba600461aca256bfbf10",
+            "sha256": "sha256-RS8iHTC0qrDgSBPozbqr5wSCiIxbIRsbnVyBzfJg1Mg=",
             "type": "github"
         },
-        "version": "23df83e830f355fbe7aebd3a06a75bd4421746ff"
+        "version": "a50b280558cc2908f43dba600461aca256bfbf10"
     },
     "smartdns-china-list": {
         "cargoLocks": null,
@@ -105,11 +105,11 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "429861d0fb3154d3cb000a94813c47bd39057bef",
-            "sha256": "sha256-4Tm6UmigH3Cu9xNFqYWYlpYvcnfbJL3lml4mngFM3bA=",
+            "rev": "9474acfea6b228c138f14089093db6ea1561d01a",
+            "sha256": "sha256-lLLvZh33eGAKIRpHqQCkMeGwSMTCnaZ+RTS+JcOMQfo=",
             "type": "github"
         },
-        "version": "429861d0fb3154d3cb000a94813c47bd39057bef"
+        "version": "9474acfea6b228c138f14089093db6ea1561d01a"
     },
     "wemeet": {
         "cargoLocks": null,
