@@ -208,7 +208,7 @@ in
     texlab
     tectonic
     systemd-run-app
-    sequoia
+    # sequoia
     openpgp-card-tools
     nheko
     picocom
