@@ -23,21 +23,21 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "neondb";
-  version = "unstable-2022-09-26";
+  version = "unstable-2022-10-14";
 
   outputs = [ "out" "dev" "postgres" ];
 
   src = fetchFromGitHub {
     owner = "neondatabase";
     repo = "neon";
-    rev = "df45c0d0e57477768097c13c2c3299e634f963b8";
-    sha256 = "sha256-W3mP+BJkKq2wOGYsQS2DyNHLVytLuGGMfgquWek0vK4=";
+    rev = "9fe4548e13774d7f1e5f9b5d23e57da971419442";
+    sha256 = "sha256-bIUNkkHlD89F9ieewGLKVF8yst+0P3EjROEex4eYSMo=";
     fetchSubmodules = true;
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
-    sha256 = "sha256-TrWgr27EIykYiDGYUho9Y9nN/5ShrRTQumQttHbpjH8=";
+    sha256 = "sha256-wDd4TYMPkfnORuxmuySEBZZ7d/wVqHslhvBwEWs1fAQ=";
   };
 
   postPatch = ''
@@ -75,9 +75,10 @@ stdenv.mkDerivation rec {
 
   passthru.tests = {
     basic = nixosTest {
+      name = "neondb";
       nodes.machine = { config, pkgs, ... }: {
         environment.systemPackages = with pkgs;[ neondb openssl etcd postgresql_14 ];
-        environment.sessionVariables.POSTGRES_DISTRIB_DIR = "${pkgs.neondb.postgres}/v14";
+        environment.sessionVariables.POSTGRES_DISTRIB_DIR = "${pkgs.neondb.postgres}";
         users.users.neondb.isSystemUser = true;
         users.users.neondb.group = "nogroup";
       };
