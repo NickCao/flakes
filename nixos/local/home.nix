@@ -210,7 +210,6 @@ in
     systemd-run-app
     # sequoia
     openpgp-card-tools
-    nheko
     picocom
     nix-top
     thunderbird

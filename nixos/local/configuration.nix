@@ -314,7 +314,6 @@
         ".ssh"
         ".thunderbird"
         ".config/fcitx5"
-        ".config/nheko"
       ];
     };
   };
