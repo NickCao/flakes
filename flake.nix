@@ -5,7 +5,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     impermanence.url = "github:nix-community/impermanence";
     fn = {
-      url = "gitlab:NickCao/fn";
+      url = "github:NickCao/fn";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };

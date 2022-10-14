@@ -99,12 +99,12 @@
         "owner": "NickCao",
         "repo": "fn",
         "rev": "2b4b27779cea4ae9c48ac5bed8c965bfdb96229e",
-        "type": "gitlab"
+        "type": "github"
       },
       "original": {
         "owner": "NickCao",
         "repo": "fn",
-        "type": "gitlab"
+        "type": "github"
       }
     },
     "home-manager": {
