@@ -43,7 +43,7 @@
       leaveDotGit = false;
       sha256 = "sha256-6Y0s5/HUmWrZA6QmV5wYjB1M0Ab/jHM3TSruRpMRwtA=";
     };
-    vendorSha256 = "sha256-pMltPbi1tOfxIBjLHtSxqSQUy7sMTDa8YJ9PeQp3b3k=";
+    vendorSha256 = "sha256-T/ufC4mEXRBKgsmIk8jSCQva5Td0rnFHx3UIVV+t08k=";
   };
   riscv-openocd = {
     pname = "riscv-openocd";
@@ -58,13 +58,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "9474acfea6b228c138f14089093db6ea1561d01a";
+    version = "00ab481ba7b699ba0df716c012a2c917c6ebca9a";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "9474acfea6b228c138f14089093db6ea1561d01a";
+      rev = "00ab481ba7b699ba0df716c012a2c917c6ebca9a";
       fetchSubmodules = false;
-      sha256 = "sha256-lLLvZh33eGAKIRpHqQCkMeGwSMTCnaZ+RTS+JcOMQfo=";
+      sha256 = "sha256-2x9Em4rR5niHwX/cmebZwsCYpbDsu8OMQTa/LRLwuEw=";
     });
   };
   wemeet = {

@@ -58,7 +58,7 @@
         "extract": null,
         "name": "rait",
         "passthru": {
-            "vendorSha256": "sha256-pMltPbi1tOfxIBjLHtSxqSQUy7sMTDa8YJ9PeQp3b3k="
+            "vendorSha256": "sha256-T/ufC4mEXRBKgsmIk8jSCQva5Td0rnFHx3UIVV+t08k="
         },
         "pinned": false,
         "src": {
@@ -105,11 +105,11 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "9474acfea6b228c138f14089093db6ea1561d01a",
-            "sha256": "sha256-lLLvZh33eGAKIRpHqQCkMeGwSMTCnaZ+RTS+JcOMQfo=",
+            "rev": "00ab481ba7b699ba0df716c012a2c917c6ebca9a",
+            "sha256": "sha256-2x9Em4rR5niHwX/cmebZwsCYpbDsu8OMQTa/LRLwuEw=",
             "type": "github"
         },
-        "version": "9474acfea6b228c138f14089093db6ea1561d01a"
+        "version": "00ab481ba7b699ba0df716c012a2c917c6ebca9a"
     },
     "wemeet": {
         "cargoLocks": null,
