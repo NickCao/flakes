@@ -91,11 +91,10 @@
       )
     // {
       hydraJobs = self.packages.x86_64-linux //
-      inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" ] (name: (nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit self inputs; };
-        modules = [ ./nixos/vultr/${name} ];
-      }).config.system.build.install) // {
+      inputs.nixpkgs.lib.genAttrs
+        [ "nrt0" "sin0" "sea0" ]
+        (name: self.colmenaHive.nodes.${name}.config.system.build.install)
+      // {
         local = self.nixosConfigurations.local.config.system.build.toplevel;
       };
       nixosModules = import ./modules;
@@ -110,11 +109,6 @@
         prev);
       nixosConfigurations = {
         local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-        iad0 = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./nixos/iad0 ];
-          specialArgs = { inherit self inputs; };
-        };
       };
       colmenaHive = inputs.colmena.lib.makeHive ({
         meta = {
