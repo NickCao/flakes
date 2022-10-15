@@ -5,6 +5,7 @@
       mautrix-telegram = { };
       matrix-synapse = { owner = "matrix-synapse"; };
       mjolnir = { owner = "mjolnir"; };
+      matterbridge = { };
     };
   };
 
@@ -120,6 +121,53 @@
         };
       };
     };
+  };
+
+  systemd.services.matterbridge.serviceConfig.EnvironmentFile = config.sops.secrets.matterbridge.path;
+  services.matterbridge = {
+    enable = true;
+    configPath = toString ((pkgs.formats.toml { }).generate "config.toml" {
+      gateway = [
+        {
+          enable = true;
+          name = "archlinux-cn-offtopic";
+          inout = [
+            {
+              account = "irc.libera";
+              channel = "#archlinux-cn-offtopic";
+            }
+            {
+              account = "matrix.nichi";
+              channel = "#archlinux-cn-offtopic:nichi.co";
+            }
+          ];
+        }
+      ];
+      irc = {
+        libera = {
+          ColorNicks = true;
+          MessageDelay = 100;
+          MessageLength = 400;
+          MessageSplit = true;
+          Nick = "nichi_bot";
+          RealName = "bridge bot by nichi.co";
+          RemoteNickFormat = "[{NICK}] ";
+          Server = "irc.libera.chat:6665";
+          UseSASL = true;
+          NickServNick = "nichi_bot";
+          UseTLS = false;
+        };
+      };
+      matrix = {
+        nichi = {
+          Login = "matterbridge";
+          RemoteNickFormat = "[{NICK}] ";
+          Server = "https://nichi.co";
+          HTMLDisable = true;
+          KeepQuotedReply = true;
+        };
+      };
+    });
   };
 
   services.traefik.dynamicConfigOptions.http = {
