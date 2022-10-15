@@ -17,6 +17,7 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-22_05.follows = "nixpkgs";
     };
     dns = {
       url = "github:NickCao/dns.nix";
@@ -53,6 +54,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.stable.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     let
@@ -66,11 +73,12 @@
             inherit system;
             overlays = [
               self.overlays.default
+              inputs.colmena.overlay
               inputs.terrasops.overlay
             ];
           };
         in
-        rec {
+        {
           formatter = pkgs.nixpkgs-fmt;
           packages = this.packages pkgs // {
             inherit (pkgs) terrasops;
@@ -108,7 +116,7 @@
           specialArgs = { inherit self inputs; };
         };
       };
-      colmena = {
+      colmenaHive = inputs.colmena.lib.makeHive ({
         meta = {
           specialArgs = {
             inherit self inputs;
@@ -145,6 +153,6 @@
           tags = [ "normal" "vultr" ];
         };
         imports = [ ./nixos/vultr/${name} ];
-      });
+      }));
     };
 }
