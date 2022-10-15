@@ -152,10 +152,10 @@
           Nick = "nichi_bot";
           RealName = "bridge bot by nichi.co";
           RemoteNickFormat = "[{NICK}] ";
-          Server = "irc.libera.chat:6665";
-          UseSASL = true;
+          Server = "irc.libera.chat:6697";
           NickServNick = "nichi_bot";
-          UseTLS = false;
+          UseTLS = true;
+          UseSASL = true;
         };
       };
       matrix = {
