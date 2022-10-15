@@ -1,5 +1,11 @@
 { lib, ... }:
-
+let
+  mkMount = subvol: {
+    device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
+    fsType = "btrfs";
+    options = [ "subvol=${subvol}" "noatime" "compress-force=zstd" ];
+  };
+in
 {
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
@@ -13,20 +19,11 @@
     options = [ "defaults" "size=2G" "mode=755" ];
   };
 
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
-    fsType = "btrfs";
-    options = [ "subvol=nix" "noatime" "compress-force=zstd" ];
-  };
+  fileSystems."/nix" = mkMount "nix";
 
-  fileSystems."/persistent" = {
-    device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
-    fsType = "btrfs";
-    options = [ "subvol=persistent" "noatime" "compress-force=zstd" ];
-    neededForBoot = true;
-  };
+  fileSystems."/persistent" = mkMount "persistent" // { neededForBoot = true; };
 
-  fileSystems."/boot" = {
+  fileSystems."/efi" = {
     device = "/dev/disk/by-uuid/B815-6B63";
     fsType = "vfat";
   };
