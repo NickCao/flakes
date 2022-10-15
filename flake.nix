@@ -109,7 +109,7 @@
         prev);
       nixosConfigurations = {
         local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
-      };
+      } // self.colmenaHive.nodes;
       colmenaHive = inputs.colmena.lib.makeHive ({
         meta = {
           specialArgs = {
