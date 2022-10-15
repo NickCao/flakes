@@ -41,7 +41,7 @@
   };
 
   services.postgresql = {
-    package = pkgs.postgresql_14;
+    package = pkgs.postgresql_15;
     settings = {
       max_connections = 300;
       shared_buffers = "16GB";
