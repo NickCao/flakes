@@ -98,8 +98,11 @@
   boot = {
     binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
     tmpOnTmpfs = true;
-    initrd.kernelModules = [ "i915" ];
-    initrd.systemd.enable = true;
+    initrd = {
+      kernelModules = [ "i915" ];
+      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" ];
+      systemd.enable = true;
+    };
     loader = {
       timeout = 0;
       efi.canTouchEfiVariables = true;
@@ -121,7 +124,7 @@
       "iommu=pt"
       # "intel_pstate=passive"
     ];
-    kernelModules = [ "ec_sys" "uhid" ];
+    kernelModules = [ "ec_sys" "uhid" "kvm-intel" ];
     extraModprobeConfig = ''
       options i915 enable_guc=2
       options i915 enable_fbc=1
