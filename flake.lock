@@ -74,6 +74,26 @@
         "type": "github"
       }
     },
+    "dhack": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1665932610,
+        "narHash": "sha256-9aO/82oqqOsCUYl53ljrtg5AG4t+FukqeIaz8xv0MWg=",
+        "owner": "NickCao",
+        "repo": "dhack",
+        "rev": "7c1e5e2158b06e7f4142e19c71c532d49ea69cef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NickCao",
+        "repo": "dhack",
+        "type": "github"
+      }
+    },
     "dns": {
       "inputs": {
         "flake-utils": [
@@ -305,6 +325,7 @@
         "canopus": "canopus",
         "carinae": "carinae",
         "colmena": "colmena",
+        "dhack": "dhack",
         "dns": "dns",
         "flake-utils": "flake-utils",
         "fn": "fn",

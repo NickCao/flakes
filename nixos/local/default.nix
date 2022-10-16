@@ -22,4 +22,7 @@ nixpkgs.lib.nixosSystem {
       nix.registry.p.flake = self;
     }
   ];
+  specialArgs = {
+    inherit inputs;
+  };
 }

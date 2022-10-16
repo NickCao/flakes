@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 {
   home-manager = {
     useGlobalPkgs = true;
@@ -101,7 +101,10 @@
       };
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      v4l2loopback
+      (callPackage "${inputs.dhack}/dhack.nix" { })
+    ];
     kernelParams = [
       "mitigations=off"
       "nowatchdog"
@@ -109,7 +112,7 @@
       "iommu=pt"
       # "intel_pstate=passive"
     ];
-    kernelModules = [ "ec_sys" "uhid" "kvm-intel" ];
+    kernelModules = [ "ec_sys" "uhid" "kvm-intel" "dhack" ];
     extraModprobeConfig = ''
       options i915 enable_guc=2
       options i915 enable_fbc=1
