@@ -45,24 +45,9 @@
     firewall.enable = false;
     useNetworkd = true;
     useDHCP = false;
-    wireless = {
+    wireless.iwd = {
       enable = true;
-      userControlled.enable = true;
-      environmentFile = config.sops.secrets.wireless.path;
-      networks."Tsinghua-Secure" = {
-        authProtocols = [ "WPA-EAP" ];
-        auth = ''
-          proto=RSN
-          pairwise=CCMP
-          eap=PEAP
-          phase1="tls_disable_tlsv1_0=0"
-          phase2="auth=MSCHAPV2"
-          identity="@IDENTITY@"
-          password="@PASSWORD@"
-        '';
-      };
-      networks."CMCC-39rG-5G".psk = "@HOME@";
-      networks."CMCC-EGfY".psk = "@ALT@";
+      package = pkgs.iwd-thu;
     };
   };
   systemd.network.wait-online = {
@@ -70,8 +55,8 @@
     ignoredInterfaces = [ "gravity" "gravity-bind" ];
   };
   systemd.network.networks = {
-    wlp0s20f3 = {
-      name = "wlp0s20f3";
+    wlan0 = {
+      name = "wlan0";
       DHCP = "yes";
       dhcpV4Config.RouteMetric = 2048;
       dhcpV6Config.RouteMetric = 2048;
