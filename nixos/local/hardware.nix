@@ -21,7 +21,7 @@ in
 
   fileSystems."/nix" = mkMount "nix";
 
-  fileSystems."/persistent" = mkMount "persistent" // { neededForBoot = true; };
+  fileSystems."/persist" = mkMount "persist" // { neededForBoot = true; };
 
   fileSystems."/efi" = {
     device = "/dev/disk/by-uuid/B815-6B63";

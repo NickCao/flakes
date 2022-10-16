@@ -157,7 +157,7 @@
       };
       services.gravity.enable = pkgs.lib.mkForce false;
       systemd.services.gravity-proxy.enable = false;
-      environment.persistence."/persistent" = pkgs.lib.mkForce { };
+      environment.persistence."/persist" = pkgs.lib.mkForce { };
     };
   };
 
@@ -202,7 +202,7 @@
       hel0 = {
         repository = "sftp:nickcao@hel0.nichi.link:backup";
         passwordFile = config.sops.secrets.restic.path;
-        paths = [ "/persistent" ];
+        paths = [ "/persist" ];
         extraBackupArgs = [ "--exclude-caches" ];
         timerConfig = {
           OnBootSec = "15min";
@@ -296,7 +296,7 @@
     emoji = [ "Noto Color Emoji" ];
   };
 
-  environment.persistence."/persistent" = {
+  environment.persistence."/persist" = {
     directories = [
       "/var"
     ];
