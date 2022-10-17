@@ -13,6 +13,7 @@
       u2f = { mode = "0444"; };
       wireless = { };
       restic = { };
+      tsinghua-secure = { path = "/var/lib/iwd/Tsinghua-Secure.8021x"; };
     };
     age = {
       keyFile = "/var/lib/sops.key";
