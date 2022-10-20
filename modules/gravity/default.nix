@@ -201,6 +201,8 @@ in
           protocol static announce {
             ipv6;
             route 2a0c:b641:69c::/48 via "gravity";
+            route 2a0c:b641:690::/44 unreachable;
+            route 2602:feda:bc0::/44 unreachable;
           }
           include "${config.sops.secrets.bgp_passwd.path}";
           protocol bgp vultr {
