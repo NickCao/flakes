@@ -156,6 +156,7 @@
           NickServNick = "nichi_bot";
           UseTLS = true;
           UseSASL = true;
+          Charset = "utf-8";
         };
       };
       matrix = {
