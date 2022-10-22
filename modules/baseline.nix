@@ -29,6 +29,7 @@ with lib;
     networking.firewall.enable = false;
 
     services.getty.autologinUser = "root";
+    services.nscd.enableNsncd = true;
     services.resolved = {
       llmnr = "false";
       extraConfig = ''
