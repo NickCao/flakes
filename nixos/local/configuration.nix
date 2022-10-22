@@ -186,6 +186,7 @@
   };
 
   services = {
+    nscd.enableNsncd = true;
     resolved = {
       dnssec = "false";
       llmnr = "false";
