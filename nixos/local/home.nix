@@ -54,6 +54,7 @@ in
         { command = "systemd-run-app telegram-desktop"; }
         { command = "systemd-run-app thunderbird"; }
       ];
+      focus.newWindow = "focus";
       assigns = {
         "1" = [{ app_id = "foot"; }];
         "2" = [{ app_id = "firefox"; }];
@@ -69,10 +70,6 @@ in
         {
           criteria = { app_id = "pavucontrol"; };
           command = "floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 35";
-        }
-        {
-          criteria = { urgent = "latest"; };
-          command = "focus";
         }
       ];
       gaps = {

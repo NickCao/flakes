@@ -232,7 +232,7 @@
   };
 
   programs = {
-    adb.enable = true;
+    # adb.enable = true;
     dconf.enable = true;
     command-not-found.enable = false;
   };
