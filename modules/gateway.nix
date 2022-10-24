@@ -44,7 +44,7 @@ with lib;{
       };
       dynamicConfigOptions = {
         tls.options.default = {
-          minVersion = "VersionTLS13";
+          minVersion = "VersionTLS12";
           sniStrict = true;
         };
         http = {
