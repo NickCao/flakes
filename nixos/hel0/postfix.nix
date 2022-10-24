@@ -28,9 +28,7 @@ in
       nickcao@nichi.co nickcao
     '';
     mapFiles.aliases = builtins.toFile "aliases" ''
-      postmaster@nichi.link nickcao@nichi.co
       hostmaster@nichi.link nickcao@nichi.co
-      postmaster@nichi.co nickcao@nichi.co
       hostmaster@nichi.co nickcao@nichi.co
       noc@nichi.co nickcao@nichi.co
     '';
