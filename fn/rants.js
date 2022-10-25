@@ -1,18 +1,16 @@
-import { serveListener } from "https://deno.land/std@0.138.0/http/server.ts";
-import {
-  Element,
-  HTMLRewriter,
-} from "https://deno.land/x/html_rewriter@v0.1.0-pre.12/index.ts";
+addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request));
+});
 
-async function handler(req: Request) {
-  const url = new URL(req.url);
-  const path = url.pathname;
+async function handleRequest(request) {
+  let path = (new URL(request.url)).pathname;
   if (path == "/") {
-    const origin = url.origin;
+    let origin = (new URL(request.url)).origin;
     return new Response(`bad request, usage ${origin}/<channel id>`, {
       status: 400,
     });
   }
+
   let resp = await fetch("https://t.me/s".concat(path));
   resp = new Response(resp.body, resp);
   resp.headers.delete("X-Frame-Options");
@@ -21,10 +19,9 @@ async function handler(req: Request) {
 }
 
 class ElementHandler {
-  element(element: Element) {
+  element(element) {
     switch (element.tagName) {
       case "header":
-      case "script":
       case "title":
         element.remove();
         break;
@@ -47,9 +44,3 @@ class ElementHandler {
     }
   }
 }
-
-const server = Deno.listen({
-  hostname: "127.0.0.1",
-  port: parseInt(Deno.env.get("PORT") as string),
-});
-await serveListener(server, handler);

@@ -7,6 +7,12 @@
     Environment = [ "PORT=8001" "DENO_DIR=/tmp" ];
   };
 
+  cloud.services.workerd.config = {
+    ExecStart = "${pkgs.workerd}/bin/workerd serve ${../../../fn}/config.capnp";
+    Environment = [ "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
+    MemoryDenyWriteExecute = false;
+  };
+
   systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;
   services.traefik = {
     dynamicConfigOptions = {
