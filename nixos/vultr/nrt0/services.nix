@@ -27,6 +27,11 @@
             rule = "Host(`fn.nichi.co`)";
             service = "fn";
           };
+          rants = {
+            rule = "Host(`fn.nichi.co`) && PathPrefix(`/rants`)";
+            middlewares = [ "rants" ];
+            service = "rants";
+          };
         };
         middlewares = {
           rait0.replacePath = {
@@ -39,13 +44,11 @@
           rait2.headers = {
             customrequestheaders.authorization = "token {{ env `GITHUB_TOKEN` }}";
           };
+          rants.stripPrefix.prefixes = [ "/rants" ];
         };
         services = {
-          fn.loadBalancer = {
-            servers = [{
-              url = "http://127.0.0.1:8001";
-            }];
-          };
+          rants.loadBalancer.servers = [{ url = "http://127.0.0.1:8002"; }];
+          fn.loadBalancer.servers = [{ url = "http://127.0.0.1:8001"; }];
           rait.loadBalancer = {
             passHostHeader = false;
             servers = [{
