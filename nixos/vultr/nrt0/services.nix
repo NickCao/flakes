@@ -14,6 +14,7 @@
       const config :Workerd.Config = (
         services = [
           (name = "rants", worker = .rants),
+          (name = "rait" , worker = .rait ),
         ],
 
         sockets = [
@@ -22,11 +23,21 @@
             http = (),
             service = "rants"
           ),
+          ( name = "http",
+            address = "127.0.0.1:8003",
+            http = (),
+            service = "rait"
+          ),
         ]
       );
 
       const rants :Workerd.Worker = (
         serviceWorkerScript = embed "${../../../fn/rants.js}",
+        compatibilityDate = "2022-09-16",
+      );
+
+      const rait :Workerd.Worker = (
+        serviceWorkerScript = embed "${../../../fn/rait.js}",
         compatibilityDate = "2022-09-16",
       );
     ''}";
