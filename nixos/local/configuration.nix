@@ -181,7 +181,10 @@
   services.greetd = {
     enable = true;
     settings = {
-      default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd sway";
+      default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd ${pkgs.writeShellScript "sway" ''
+        export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+        exec sway
+      ''}";
     };
   };
 

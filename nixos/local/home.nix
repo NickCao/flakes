@@ -242,7 +242,7 @@ in
     windows-run
   ];
 
-  home.sessionVariables = {
+  systemd.user.sessionVariables = {
     EDITOR = "nvim";
     LIBVA_DRIVER_NAME = "iHD";
     SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
@@ -254,7 +254,7 @@ in
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
     LESSHISTFILE = "${config.xdg.stateHome}/lesshst";
-    GNUPGHOME = pkgs.writeTextDir "pubring.gpg" (builtins.readFile ./pubring.gpg);
+    GNUPGHOME = (pkgs.writeTextDir "pubring.gpg" (builtins.readFile ./pubring.gpg)).outPath;
     # shit
     PYTHONSTARTUP = (
       pkgs.writeText "start.py" ''
