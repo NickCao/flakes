@@ -130,6 +130,20 @@
       gateway = [
         {
           enable = true;
+          name = "archlinux-cn";
+          inout = [
+            {
+              account = "irc.libera";
+              channel = "#archlinux-cn";
+            }
+            {
+              account = "matrix.nichi";
+              channel = "#archlinux-cn:nichi.co";
+            }
+          ];
+        }
+        {
+          enable = true;
           name = "archlinux-cn-offtopic";
           inout = [
             {
