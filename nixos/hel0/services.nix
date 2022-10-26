@@ -23,9 +23,14 @@
   services.sshcert.enable = true;
   services.metrics.enable = true;
 
-  services.transmission = {
-    enable = true;
-    home = "/data/transmission";
+  systemd.tmpfiles.rules = [ "d /data/download 0770 download download - -" ];
+  users.groups.download = { };
+  users.users.download = { isSystemUser = true; group = "download"; };
+  cloud.services.qbittorrent-nox.config = {
+    ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=1999 --profile=/data/download";
+    User = "download";
+    Group = "download";
+    BindPaths = [ "/data/download" ];
   };
 
   services.libreddit = {
