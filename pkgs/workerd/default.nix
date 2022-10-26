@@ -15,15 +15,15 @@ let
 in
 buildClangBazelPackage rec {
   pname = "workerd";
-  version = "unstable-2022-10-13";
+  version = "unstable-2022-10-25";
 
   bazel = bazel_5;
 
   src = fetchFromGitHub {
     owner = "cloudflare";
     repo = pname;
-    rev = "022bcf5c54823622cd7ddea7d74c4c0e42ff1a8d";
-    hash = "sha256-YIce5PgMu+nhIc8ODmMeOD7bfglUt4OuWymSbyYEFAs=";
+    rev = "2305361fe47f7ba27c8992003a2a01f6fc8572ef";
+    hash = "sha256-oBl5fQBWJ7tCl9Sml1RWVsXQ4PQ0I4RggXL6KT2hveY=";
   };
 
   removeRulesCC = false;
