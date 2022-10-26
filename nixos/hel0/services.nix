@@ -23,6 +23,11 @@
   services.sshcert.enable = true;
   services.metrics.enable = true;
 
+  services.transmission = {
+    enable = true;
+    home = "/data/transmission";
+  };
+
   services.libreddit = {
     enable = true;
     address = "127.0.0.1";
