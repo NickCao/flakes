@@ -135,14 +135,6 @@
       };
     };
     vmVariant = {
-      virtualisation = {
-        useDefaultFilesystems = false;
-        fileSystems."/" = {
-          fsType = "tmpfs";
-          options = [ "defaults" "mode=755" ];
-        };
-      };
-      boot.initrd.systemd.enable = pkgs.lib.mkForce false;
       users.users.nickcao = {
         password = "passwd";
         passwordFile = pkgs.lib.mkForce null;
