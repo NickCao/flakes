@@ -1,7 +1,7 @@
 { lib, ... }:
 let
   mkMount = subvol: {
-    device = "/dev/disk/by-uuid/91f775b5-f17e-41cd-98d7-fd24cc7a5c41";
+    device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
     options = [ "subvol=${subvol}" "noatime" "compress-force=zstd" ];
   };
@@ -19,7 +19,12 @@ in
   fileSystems."/persist" = mkMount "persist" // { neededForBoot = true; };
 
   fileSystems."/efi" = {
-    device = "/dev/disk/by-uuid/B815-6B63";
+    device = "/dev/disk/by-path/pci-0000:06:00.0-nvme-1-part1";
     fsType = "vfat";
+  };
+
+  boot.initrd.luks.devices.cryptroot = {
+    device = "/dev/disk/by-path/pci-0000:06:00.0-nvme-1-part2";
+    crypttabExtraOpts = [ "fido2-device=auto" ];
   };
 }
