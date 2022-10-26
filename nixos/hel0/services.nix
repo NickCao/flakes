@@ -31,6 +31,7 @@
     User = "download";
     Group = "download";
     BindPaths = [ "/data/download" ];
+    MemoryLimit = "10G";
   };
 
   services.libreddit = {
