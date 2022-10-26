@@ -25,6 +25,6 @@ in
 
   boot.initrd.luks.devices.cryptroot = {
     device = "/dev/disk/by-path/pci-0000:06:00.0-nvme-1-part2";
-    crypttabExtraOpts = [ "fido2-device=auto" ];
+    crypttabExtraOpts = [ "fido2-device=auto" "discard" ];
   };
 }
