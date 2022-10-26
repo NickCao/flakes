@@ -130,6 +130,7 @@
 
   services.sshcert.enable = true;
   services.openssh.enable = true;
+  services.fstrim.enable = true;
 
   services.resolved.extraConfig = ''
     DNSStubListener=no
