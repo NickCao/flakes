@@ -398,6 +398,7 @@ in
     alacritty = {
       enable = true;
       settings = {
+        import = [ ./alacritty.yml ];
         font = { size = 15.0; };
         shell = {
           program = "${pkgs.tmux}/bin/tmux";
