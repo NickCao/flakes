@@ -47,16 +47,16 @@ in
     wrapperFeatures.gtk = true;
     config = {
       modifier = "Mod4";
-      terminal = "systemd-run-app foot";
+      terminal = "systemd-run-app alacritty";
       startup = [
-        { command = "systemd-run-app foot"; }
+        { command = "systemd-run-app alacritty"; }
         { command = "systemd-run-app firefox"; }
         { command = "systemd-run-app telegram-desktop"; }
         { command = "systemd-run-app thunderbird"; }
       ];
       focus.newWindow = "focus";
       assigns = {
-        "1" = [{ app_id = "foot"; }];
+        "1" = [{ app_id = "Alacritty"; }];
         "2" = [{ app_id = "firefox"; }];
         "3" = [{ app_id = "telegramdesktop"; }];
         "4" = [{ class = "thunderbird"; }];
@@ -394,6 +394,16 @@ in
         set -g renumber-windows on
         new-session -s main
       '';
+    };
+    alacritty = {
+      enable = true;
+      settings = {
+        font = { size = 15.0; };
+        shell = {
+          program = "${pkgs.tmux}/bin/tmux";
+          args = [ "new-session" "-t" "main" ];
+        };
+      };
     };
     foot = {
       enable = true;
