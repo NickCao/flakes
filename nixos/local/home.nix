@@ -407,40 +407,6 @@ in
         };
       };
     };
-    foot = {
-      enable = true;
-      settings = {
-        main = {
-          shell = "${pkgs.tmux}/bin/tmux new-session -t main";
-          font = "JetBrains Mono:size=10";
-        };
-        cursor = {
-          color = "323d43 7fbbb3";
-        };
-        colors = {
-          background = "323d43";
-          foreground = "d8cacc";
-          regular0 = "4a555b";
-          regular1 = "e68183";
-          regular2 = "a7c080";
-          regular3 = "dbbc7f";
-          regular4 = "7fbbb3";
-          regular5 = "d699b6";
-          regular6 = "83c092";
-          regular7 = "d8caac";
-          bright0 = "525c62";
-          bright1 = "e68183";
-          bright2 = "a7c080";
-          bright3 = "dbbc7f";
-          bright4 = "7fbbb3";
-          bright5 = "d699b6";
-          bright6 = "83c092";
-          bright7 = "d8caac";
-          selection-foreground = "3c474d";
-          selection-background = "525c62";
-        };
-      };
-    };
     ssh = {
       enable = true;
       compression = true;
