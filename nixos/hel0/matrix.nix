@@ -156,6 +156,20 @@
             }
           ];
         }
+        {
+          enable = true;
+          name = "archlinux-cn-game";
+          inout = [
+            {
+              account = "irc.libera";
+              channel = "#archlinux-cn-game";
+            }
+            {
+              account = "matrix.nichi";
+              channel = "#archlinux-cn-game:nichi.co";
+            }
+          ];
+        }
       ];
       irc = {
         libera = {
