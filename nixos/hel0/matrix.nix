@@ -127,50 +127,28 @@
   services.matterbridge = {
     enable = true;
     configPath = toString ((pkgs.formats.toml { }).generate "config.toml" {
-      gateway = [
-        {
-          enable = true;
-          name = "archlinux-cn";
-          inout = [
-            {
-              account = "irc.libera";
-              channel = "#archlinux-cn";
-            }
-            {
-              account = "matrix.nichi";
-              channel = "#archlinux-cn:nichi.co";
-            }
-          ];
-        }
-        {
-          enable = true;
-          name = "archlinux-cn-offtopic";
-          inout = [
-            {
-              account = "irc.libera";
-              channel = "#archlinux-cn-offtopic";
-            }
-            {
-              account = "matrix.nichi";
-              channel = "#archlinux-cn-offtopic:nichi.co";
-            }
-          ];
-        }
-        {
-          enable = true;
-          name = "archlinux-cn-game";
-          inout = [
-            {
-              account = "irc.libera";
-              channel = "#archlinux-cn-game";
-            }
-            {
-              account = "matrix.nichi";
-              channel = "#archlinux-cn-game:nichi.co";
-            }
-          ];
-        }
-      ];
+      gateway =
+        let
+          mkGateway = channel: {
+            enable = true;
+            name = channel;
+            inout = [
+              {
+                account = "irc.libera";
+                channel = "#${channel}";
+              }
+              {
+                account = "matrix.nichi";
+                channel = "#${channel}:nichi.co";
+              }
+            ];
+          };
+        in
+        [
+          (mkGateway "archlinux-cn")
+          (mkGateway "archlinux-cn-offtopic")
+          (mkGateway "archlinux-cn-game")
+        ];
       irc = {
         libera = {
           ColorNicks = true;
