@@ -6,7 +6,7 @@ async function handleRequest(request) {
   let path = (new URL(request.url)).pathname;
   if (path == "/") {
     let origin = (new URL(request.url)).origin;
-    return new Response(`bad request, usage ${origin}/<channel id>`, {
+    return new Response(`bad request, usage ${origin}/rants/<channel id>`, {
       status: 400,
     });
   }
