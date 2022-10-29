@@ -11,7 +11,6 @@ router
         method: "POST",
         headers: {
           "X-Title": alert.annotations.summary,
-          "X-Click": alert.generatorURL,
         },
         body: Array
           .from(Object.entries(alert.labels), ([k, v]) => `${k}: ${v}`)
