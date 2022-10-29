@@ -6,9 +6,7 @@ router
   .post("/api/v2/alerts", async (ctx) => {
     let body = await ctx.request.body({ type: "json" });
     let alerts = await body.value;
-    console.log(alerts);
     for (const alert of alerts) {
-      console.log(alert);
       await fetch(Deno.env.get("TOPIC"), {
         method: "POST",
         headers: {
