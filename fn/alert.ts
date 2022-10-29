@@ -7,6 +7,9 @@ router
     let body = await ctx.request.body({ type: "json" });
     let alerts = await body.value;
     for (const alert of alerts) {
+      if ((new Date() - new Date(alert.startsAt)) / 1000 > 300) {
+        continue;
+      }
       await fetch(Deno.env.get("TOPIC"), {
         method: "POST",
         headers: {
