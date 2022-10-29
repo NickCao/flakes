@@ -10,7 +10,7 @@ let cfg = config.services.prometheus; in
     retentionTime = "7d";
     globalConfig = {
       scrape_interval = "1m";
-      evaluation_interval = "10m";
+      evaluation_interval = "1m";
     };
     scrapeConfigs = [
       {
@@ -62,7 +62,7 @@ let cfg = config.services.prometheus; in
             {
               alert = "UnitFailed";
               expr = "systemd_units_active_code == 3";
-              for = "2m";
+              for = "1m";
               annotations = {
                 summary = "unit {{ $labels.name }} on {{ $labels.host }} failed";
               };
