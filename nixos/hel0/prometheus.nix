@@ -1,7 +1,7 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let cfg = config.services.prometheus; in
 {
-  sops.secrets.alertmanager = { };
+  sops.secrets.alert = { };
   services.prometheus = {
     enable = true;
     webExternalUrl = "https://${config.networking.fqdn}/prom";
@@ -10,7 +10,7 @@ let cfg = config.services.prometheus; in
     retentionTime = "7d";
     globalConfig = {
       scrape_interval = "1m";
-      evaluation_interval = "1m";
+      evaluation_interval = "10m";
     };
     scrapeConfigs = [
       {
@@ -94,35 +94,19 @@ let cfg = config.services.prometheus; in
       })
     ];
     alertmanagers = [{
-      path_prefix = "/alert";
       static_configs = [{
-        targets = [ "${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}" ];
+        targets = [ "127.0.0.1:8009" ];
       }];
     }];
-    alertmanager = {
-      enable = true;
-      webExternalUrl = "https://${config.networking.fqdn}/alert";
-      listenAddress = "127.0.0.1";
-      port = 9093;
-      environmentFile = [ config.sops.secrets.alertmanager.path ];
-      extraFlags = [ ''--cluster.listen-address=""'' ];
-      configuration = {
-        receivers = [{
-          name = "telegram";
-          telegram_configs = [{
-            api_url = "https://api.telegram.org";
-            bot_token = "$TELEGRAM";
-            chat_id = 893182727;
-            # message = "";
-            parse_mode = "HTML";
-          }];
-        }];
-        route = {
-          receiver = "telegram";
-        };
-      };
-    };
   };
+
+  cloud.services.prometheus-ntfy-bridge.config = {
+    ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --no-check ${../../fn/alert.ts}";
+    MemoryDenyWriteExecute = false;
+    EnvironmentFile = [ config.sops.secrets.alert.path ];
+    Environment = [ "PORT=8009" "DENO_DIR=/tmp" ];
+  };
+
   services.traefik = {
     dynamicConfigOptions = {
       http = {
@@ -132,25 +116,10 @@ let cfg = config.services.prometheus; in
             entryPoints = [ "https" ];
             service = "prometheus";
           };
-          alertmanager = {
-            rule = "Host(`${config.networking.fqdn}`) && PathPrefix(`/alert`)";
-            entryPoints = [ "https" ];
-            service = "alertmanager";
-            middlewares = [ "alertmanager" ];
-          };
-        };
-        middlewares = {
-          alertmanager.basicAuth = {
-            users = [ "admin:$apr1$uOuAXH9e$7wtqGxJArzJFknM0BXfT91" ];
-            removeheader = true;
-          };
         };
         services = {
           prometheus.loadBalancer.servers = [{
             url = "http://${cfg.listenAddress}:${builtins.toString cfg.port}";
-          }];
-          alertmanager.loadBalancer.servers = [{
-            url = "http://${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}";
           }];
         };
       };
