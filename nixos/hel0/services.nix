@@ -34,6 +34,15 @@
     MemoryLimit = "10G";
   };
 
+  services.ntfy-sh = {
+    enable = true;
+    settings = {
+      base-url = "https://ntfy.nichi.co";
+      listen-http = "127.0.0.1:8008";
+      behind-proxy = true;
+    };
+  };
+
   services.libreddit = {
     enable = true;
     address = "127.0.0.1";
@@ -152,6 +161,11 @@
             middlewares = [ "blog" ];
             service = "blog";
           };
+          ntfy = {
+            rule = "Host(`ntfy.nichi.co`)";
+            entryPoints = [ "https" ];
+            service = "ntfy";
+          };
         };
         middlewares = {
           blog.headers = {
@@ -183,6 +197,9 @@
           };
           blog.loadBalancer = {
             servers = [{ url = "http://127.0.0.1:8007"; }];
+          };
+          ntfy.loadBalancer = {
+            servers = [{ url = "http://127.0.0.1:8008"; }];
           };
         };
       };
