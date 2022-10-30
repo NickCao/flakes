@@ -276,11 +276,12 @@ in
     })
     (mkIf cfg.reload.enable {
       sops.secrets.gravity_registry.sopsFile = ./secrets.yaml;
+      systemd.tmpfiles.rules = [ "d /var/lib/gravity 0755 root root - -" ];
       systemd.services.gravity-registry = {
         path = with pkgs; [ curl ];
         script = ''
-          curl -s "$URL" -o /var/lib/registry.json.new
-          mv /var/lib/registry.json.new /var/lib/registry.json
+          curl -s "$URL" -o /var/lib/gravity/registry.json.new
+          mv /var/lib/gravity/registry.json.new /var/lib/gravity/registry.json
           /run/current-system/systemd/bin/systemctl reload --no-block gravity || true
         '';
         serviceConfig = {
