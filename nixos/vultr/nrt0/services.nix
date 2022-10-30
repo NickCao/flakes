@@ -14,7 +14,7 @@
       const config :Workerd.Config = (
         services = [
           (name = "rants", worker = .rants),
-          (name = "rait" , worker = .rait ),
+          (name = "gravity", disk = "/var/lib/gravity"),
         ],
 
         sockets = [
@@ -26,18 +26,13 @@
           ( name = "http",
             address = "127.0.0.1:8003",
             http = (),
-            service = "rait"
+            service = "gravity"
           ),
         ]
       );
 
       const rants :Workerd.Worker = (
         serviceWorkerScript = embed "${../../../fn/rants.js}",
-        compatibilityDate = "2022-09-16",
-      );
-
-      const rait :Workerd.Worker = (
-        serviceWorkerScript = embed "${../../../fn/rait.js}",
         compatibilityDate = "2022-09-16",
       );
     ''}";
@@ -52,7 +47,7 @@
         routers = {
           rait = {
             rule = "Host(`api.nichi.co`) && Path(`/rait`)";
-            middlewares = [ "rait0" "rait1" "rait2" ];
+            middlewares = [ "rait0" "rait1" ];
             service = "rait";
           };
           fn = {
@@ -67,26 +62,18 @@
         };
         middlewares = {
           rait0.replacePath = {
-            path = "/tuna/gravity/artifacts/artifacts/combined.json";
+            path = "/registry.json";
           };
           rait1.basicAuth = {
             users = [ "{{ env `RAIT_PASSWD` }}" ];
             removeheader = true;
-          };
-          rait2.headers = {
-            customrequestheaders.authorization = "token {{ env `GITHUB_TOKEN` }}";
           };
           rants.stripPrefix.prefixes = [ "/rants" ];
         };
         services = {
           rants.loadBalancer.servers = [{ url = "http://127.0.0.1:8002"; }];
           fn.loadBalancer.servers = [{ url = "http://127.0.0.1:8001"; }];
-          rait.loadBalancer = {
-            passHostHeader = false;
-            servers = [{
-              url = "https://raw.githubusercontent.com";
-            }];
-          };
+          rait.loadBalancer.servers = [{ url = "http://127.0.0.1:8003";  }];
         };
       };
     };
