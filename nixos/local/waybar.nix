@@ -1,7 +1,6 @@
 { pkgs }:
 {
   layer = "top";
-  height = 35;
   modules-left = [
     "sway/workspaces"
     "sway/mode"
