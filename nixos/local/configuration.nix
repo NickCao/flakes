@@ -128,12 +128,7 @@
 
   virtualisation = {
     podman.enable = true;
-    kvmgt = {
-      enable = true;
-      vgpus = {
-        i915-GVTg_V5_4.uuid = [ "d577a7cf-2595-44d8-9c08-c67358dcf7ac" ];
-      };
-    };
+    spiceUSBRedirection.enable = true;
     vmVariant = {
       users.users.nickcao = {
         password = "passwd";
