@@ -4,7 +4,8 @@ writeShellApplication {
   text = ''
     ${qemu.override { smbdSupport = true; hostCpuOnly = true; }}/bin/qemu-system-x86_64 \
       -nodefaults \
-      -machine q35,accel=kvm \
+      -machine q35 -accel kvm -cpu host,hv_relaxed,hv_spinlocks=0x1fff,hv_vapic,hv_time \
+      -smp sockets=1,cores=6 -m 8G \
       -bios ${OVMF.fd}/FV/OVMF.fd \
       -vga qxl -device virtio-serial-pci \
       -spice unix=on,addr=/tmp/windows.socket,disable-ticketing=on \
@@ -17,14 +18,12 @@ writeShellApplication {
       -chardev spicevmc,name=usbredir,id=usbredirchardev1 -device usb-redir,chardev=usbredirchardev1,id=usbredirdev1 \
       -chardev spicevmc,name=usbredir,id=usbredirchardev2 -device usb-redir,chardev=usbredirchardev2,id=usbredirdev2 \
       -chardev spicevmc,name=usbredir,id=usbredirchardev3 -device usb-redir,chardev=usbredirchardev3,id=usbredirdev3 \
-      -smp sockets=1,cores=6 -m 8G \
-      -cpu host \
       -nic user,model=virtio-net-pci,smb="$HOME/Downloads" \
       -audiodev pa,id=snd0 \
       -device ich9-intel-hda \
       -device hda-duplex,audiodev=snd0 \
       -usb -device usb-tablet \
-      -drive if=virtio,file="$HOME"/Documents/vm/windows.img,format=raw \
+      -drive if=virtio,file="$HOME"/Documents/vm/windows.img,format=raw,aio=io_uring \
       "$@"
   '';
 }
