@@ -26,10 +26,10 @@
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20220909";
+    version = "20221029";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20220909.dict";
-      sha256 = "sha256-IqhY9cqh1T1reDlVSQLqQ4ThO0KgEjOy04e2Jt+iGNc=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20221029.dict";
+      sha256 = "sha256-GWbYTudS74iaw+7+mvcjt+QXkC4tFm+v4dDXWTx7aG8=";
     };
   };
   rait = {
@@ -47,32 +47,32 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "a50b280558cc2908f43dba600461aca256bfbf10";
+    version = "70980e7f570b8c98653e4c0ac4b5a92f348ee8b1";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "a50b280558cc2908f43dba600461aca256bfbf10";
+      rev = "70980e7f570b8c98653e4c0ac4b5a92f348ee8b1";
       fetchSubmodules = true;
-      sha256 = "sha256-RS8iHTC0qrDgSBPozbqr5wSCiIxbIRsbnVyBzfJg1Mg=";
+      sha256 = "sha256-gUhk+3Ug/JikhAv+28I2Oy+7c0on8/haZ8N5vFBPfgA=";
     });
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "00ab481ba7b699ba0df716c012a2c917c6ebca9a";
+    version = "da114135048754f5c503453119368e8b00970183";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "00ab481ba7b699ba0df716c012a2c917c6ebca9a";
+      rev = "da114135048754f5c503453119368e8b00970183";
       fetchSubmodules = false;
-      sha256 = "sha256-2x9Em4rR5niHwX/cmebZwsCYpbDsu8OMQTa/LRLwuEw=";
+      sha256 = "sha256-Ql6djaCHM+NJrQJfNploMKH3MWC/PPrHy8em58AFWQs=";
     });
   };
   wemeet = {
     pname = "wemeet";
-    version = "3.10.0.401";
+    version = "3.11.0.402";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/249fc9a44733d846162296934bbf52fa/TencentMeeting_0300000000_3.10.0.401_x86_64_default.publish.deb";
-      sha256 = "sha256-ifWQKGR9y9udUTY0ceNM1mZ4BF2OdhVZO/zmYFy5hvI=";
+      url = "https://updatecdn.meeting.qq.com/cos/9b74d4127a16a011db8cb6300fa5fbc9/TencentMeeting_0300000000_3.11.0.402_x86_64_default.publish.deb";
+      sha256 = "sha256-iO9W5dwgVDI9bg8wNHzjDZx426x1Q7uYsM05SBVRM74=";
     };
   };
 }
