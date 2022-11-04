@@ -205,7 +205,7 @@ in
     texlab
     tectonic
     systemd-run-app
-    # sequoia
+    sequoia
     openpgp-card-tools
     picocom
     nix-top
@@ -240,6 +240,7 @@ in
       terraform.withPlugins (ps: with ps; [ vultr sops gandi ])
         }/bin/terraform")
     windows-run
+    virt-viewer
   ];
 
   systemd.user.sessionVariables = {

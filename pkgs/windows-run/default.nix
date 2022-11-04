@@ -19,7 +19,7 @@ writeShellApplication {
       -chardev spicevmc,name=usbredir,id=usbredirchardev2 -device usb-redir,chardev=usbredirchardev2,id=usbredirdev2 \
       -chardev spicevmc,name=usbredir,id=usbredirchardev3 -device usb-redir,chardev=usbredirchardev3,id=usbredirdev3 \
       -nic user,model=virtio-net-pci,smb="$HOME/Downloads" \
-      -audiodev pa,id=snd0 \
+      -audiodev spice,id=snd0 \
       -device ich9-intel-hda \
       -device hda-duplex,audiodev=snd0 \
       -usb -device usb-tablet \
