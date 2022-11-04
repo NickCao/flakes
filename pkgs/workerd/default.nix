@@ -15,15 +15,15 @@ let
 in
 buildClangBazelPackage rec {
   pname = "workerd";
-  version = "unstable-2022-10-25";
+  version = "unstable-2022-11-04";
 
   bazel = bazel_5;
 
   src = fetchFromGitHub {
     owner = "cloudflare";
     repo = pname;
-    rev = "2305361fe47f7ba27c8992003a2a01f6fc8572ef";
-    hash = "sha256-oBl5fQBWJ7tCl9Sml1RWVsXQ4PQ0I4RggXL6KT2hveY=";
+    rev = "c6a5a9929df036031a6b5d4d592151850d74d8b1";
+    hash = "sha256-BmaE6Iw66AODV9WhXbUOxwyAP799L6ZjQxt//E5cqGw=";
   };
 
   removeRulesCC = false;
@@ -36,7 +36,7 @@ buildClangBazelPackage rec {
 
   fetchAttrs = {
     nativeBuildInputs = [ git ];
-    sha256 = "sha256-sveucQQR/CrRVSDv2a38EUgDKZkKKrlsWaLxwpQMwgg=";
+    sha256 = "sha256-bj1PYleoXAQ4/ey6Q5lAm+F/8CwwfGoKFxrHduEqpr4=";
   };
 
   buildAttrs = {
