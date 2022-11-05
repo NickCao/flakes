@@ -36,7 +36,8 @@ buildClangBazelPackage rec {
 
   fetchAttrs = {
     nativeBuildInputs = [ git ];
-    sha256 = "sha256-bj1PYleoXAQ4/ey6Q5lAm+F/8CwwfGoKFxrHduEqpr4=";
+    # sha256 = "sha256-bj1PYleoXAQ4/ey6Q5lAm+F/8CwwfGoKFxrHduEqpr4=";
+    sha256 = "sha256-bfsgtzLMJWO4FMVfKnOWXDL5uhgxrAUrgGxanNjgNnw=";
   };
 
   buildAttrs = {
