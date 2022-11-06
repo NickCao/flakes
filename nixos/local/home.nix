@@ -240,7 +240,6 @@ in
       terraform.withPlugins (ps: with ps; [ vultr sops gandi ])
         }/bin/terraform")
     windows-run
-    virt-viewer
   ];
 
   systemd.user.sessionVariables = {
