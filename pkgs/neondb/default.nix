@@ -1,4 +1,5 @@
 { lib
+, source
 , stdenv
 , fetchFromGitHub
 , perl
@@ -23,23 +24,11 @@ let
   '';
 in
 stdenv.mkDerivation rec {
-  pname = "neondb";
-  version = "unstable-2022-10-26";
+  inherit (source) pname version src;
 
   outputs = [ "out" "dev" "postgres" ];
 
-  src = fetchFromGitHub {
-    owner = "neondatabase";
-    repo = "neon";
-    rev = "a3cb8c11e067aac0efe637f4095863eba0361822";
-    hash = "sha256-aqfBSc4Tpo8dB2mTEuwUFaZ5ObVA+ZVaaYYM3e85RSU=";
-    fetchSubmodules = true;
-  };
-
-  cargoDeps = rustPlatform.fetchCargoTarball {
-    inherit src;
-    hash = "sha256-EijOVYoxDuXOonaN9zRgyIeAwsAZ8nJQFoO2CtDDDwU=";
-  };
+  cargoDeps = rustPlatform.importCargoLock source.cargoLock."Cargo.lock";
 
   postPatch = ''
     patchShebangs scripts/ninstall.sh

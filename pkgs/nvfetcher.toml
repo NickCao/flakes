@@ -30,3 +30,9 @@ git.fetchSubmodules = true
 src.git = "https://github.com/NickCao/bird"
 src.branch = "babel-rtt"
 fetch.github = "NickCao/bird"
+
+[neondb]
+src.git = "https://github.com/neondatabase/neon"
+fetch.github = "neondatabase/neon"
+git.fetchSubmodules = true
+cargo_locks = [ "Cargo.lock" ]

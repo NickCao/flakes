@@ -32,6 +32,25 @@
       sha256 = "sha256-GWbYTudS74iaw+7+mvcjt+QXkC4tFm+v4dDXWTx7aG8=";
     };
   };
+  neondb = {
+    pname = "neondb";
+    version = "e999f66b01acfaa32869152aa87ecc7a0ddb2443";
+    src = fetchFromGitHub ({
+      owner = "neondatabase";
+      repo = "neon";
+      rev = "e999f66b01acfaa32869152aa87ecc7a0ddb2443";
+      fetchSubmodules = true;
+      sha256 = "sha256-EUKY1SIFgGrRNEMytK5DGiIEPjIkAaiXozGfB+qAq1k=";
+    });
+    cargoLock."Cargo.lock" = {
+      lockFile = ./neondb-e999f66b01acfaa32869152aa87ecc7a0ddb2443/Cargo.lock;
+      outputHashes = {
+        "pprof-0.6.1" = "sha256-Ej0NNN8TDNvgXtSI5LLCwOJjo+XDU7RaVE6Ai3ZMlUY=";
+        "amplify_num-0.4.1" = "sha256-7raFT2CLEz4bza0CCSnA0EEnIRJ/neRvXp8Ji4l0AfA=";
+        "postgres-0.19.2" = "sha256-yobBu0t1xzUHjI9RDxcSBZgycLKdVm3bDTxKNJxl1HM=";
+      };
+    };
+  };
   rait = {
     pname = "rait";
     version = "278188c8bae13165aa70b6a2fbbb99101fd6f4cd";
