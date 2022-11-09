@@ -6,11 +6,38 @@ resource "hydra_project" "nixpkgs" {
   owner        = "nickcao@nichi.co"
 }
 
+resource "hydra_project" "nixos" {
+  name         = "nixos"
+  display_name = "NixOS"
+  description  = "NixOS, the purely functional Linux distribution"
+  homepage     = "https://nixos.org/nixos"
+  owner        = "nickcao@nichi.co"
+  declarative {
+    file  = "hydra/nixos.json"
+    type  = "git"
+    value = "https://github.com/NickCao/flakes.git"
+  }
+
+}
+
+resource "hydra_project" "misc" {
+  name         = "misc"
+  display_name = "Misc"
+  description  = "Miscellaneous projects"
+  owner        = "nickcao@nichi.co"
+  declarative {
+    file  = "hydra/misc.json"
+    type  = "git"
+    value = "https://github.com/NickCao/flakes.git"
+  }
+}
+
 resource "hydra_jobset" "riscv" {
-  project = hydra_project.nixpkgs.name
-  state   = "enabled"
-  name    = "riscv"
-  type    = "legacy"
+  project     = hydra_project.nixpkgs.name
+  state       = "enabled"
+  name        = "riscv"
+  description = "cross-compiled riscv packages"
+  type        = "legacy"
 
   nix_expression {
     file  = "pkgs/top-level/release.nix"
