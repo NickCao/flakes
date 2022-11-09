@@ -103,7 +103,6 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = with config.boot.kernelPackages; [
-      v4l2loopback
       (callPackage "${inputs.dhack}/dhack.nix" { })
     ];
     kernelParams = [
@@ -123,8 +122,6 @@
     '';
     enableContainers = false;
   };
-
-  environment.systemPackages = [ config.boot.kernelPackages.usbip ];
 
   virtualisation = {
     podman.enable = true;
