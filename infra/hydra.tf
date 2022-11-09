@@ -12,12 +12,6 @@ resource "hydra_project" "nixos" {
   description  = "NixOS, the purely functional Linux distribution"
   homepage     = "https://nixos.org/nixos"
   owner        = "nickcao@nichi.co"
-  declarative {
-    file  = "hydra/nixos.json"
-    type  = "git"
-    value = "https://github.com/NickCao/flakes.git"
-  }
-
 }
 
 resource "hydra_project" "misc" {
@@ -25,14 +19,43 @@ resource "hydra_project" "misc" {
   display_name = "Misc"
   description  = "Miscellaneous projects"
   owner        = "nickcao@nichi.co"
-  declarative {
-    file  = "hydra/misc.json"
-    type  = "git"
-    value = "https://github.com/NickCao/flakes.git"
-  }
 }
 
-resource "hydra_jobset" "riscv" {
+resource "hydra_jobset" "nixos_riscv" {
+  project           = hydra_project.nixos.name
+  state             = "enabled"
+  name              = "riscv"
+  description       = "cross-compiled riscv nixos"
+  type              = "flake"
+  flake_uri         = "github:NickCao/nixos-riscv"
+  check_interval    = 120
+  scheduling_shares = 50
+  keep_evaluations  = 10
+}
+
+resource "hydra_jobset" "misc_flakes" {
+  project           = hydra_project.misc.name
+  state             = "enabled"
+  name              = "flakes"
+  type              = "flake"
+  flake_uri         = "github:NickCao/flakes"
+  check_interval    = 120
+  scheduling_shares = 100
+  keep_evaluations  = 3
+}
+
+resource "hydra_jobset" "misc_netboot" {
+  project           = hydra_project.misc.name
+  state             = "enabled"
+  name              = "netboot"
+  type              = "flake"
+  flake_uri         = "github:NickCao/netboot"
+  check_interval    = 120
+  scheduling_shares = 100
+  keep_evaluations  = 3
+}
+
+resource "hydra_jobset" "nixpkgs_riscv" {
   project     = hydra_project.nixpkgs.name
   state       = "enabled"
   name        = "riscv"
