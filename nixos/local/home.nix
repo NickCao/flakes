@@ -143,6 +143,7 @@ in
           tree-sitter-lua
           tree-sitter-rust
           tree-sitter-go
+          tree-sitter-hcl
         ]
       ))
     ];

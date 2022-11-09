@@ -30,7 +30,7 @@ resource "hydra_jobset" "nixos_riscv" {
   flake_uri         = "github:NickCao/nixos-riscv"
   check_interval    = 120
   scheduling_shares = 50
-  keep_evaluations  = 10
+  keep_evaluations  = 3
 }
 
 resource "hydra_jobset" "misc_flakes" {
@@ -98,5 +98,4 @@ resource "hydra_jobset" "nixpkgs_riscv" {
     type              = "nix"
     value             = "[ \"x86_64-linux\" ]"
   }
-
 }

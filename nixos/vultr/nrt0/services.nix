@@ -73,7 +73,7 @@
         services = {
           rants.loadBalancer.servers = [{ url = "http://127.0.0.1:8002"; }];
           fn.loadBalancer.servers = [{ url = "http://127.0.0.1:8001"; }];
-          rait.loadBalancer.servers = [{ url = "http://127.0.0.1:8003";  }];
+          rait.loadBalancer.servers = [{ url = "http://127.0.0.1:8003"; }];
         };
       };
     };
