@@ -12,5 +12,8 @@ terraform {
     gandi = {
       source = "go-gandi/gandi"
     }
+    hydra = {
+      source = "DeterminateSystems/hydra"
+    }
   }
 }

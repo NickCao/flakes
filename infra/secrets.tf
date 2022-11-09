@@ -13,3 +13,9 @@ provider "vultr" {
 provider "gandi" {
   key = local.secrets.gandi.key
 }
+
+provider "hydra" {
+  host     = "https://hydra.nichi.co"
+  username = "terraform"
+  password = local.secrets.hydra.password
+}
