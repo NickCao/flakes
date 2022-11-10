@@ -16,10 +16,14 @@ in
     mailUser = "dovemail";
     mailGroup = "dovemail";
     sieveScripts = {
-      after = builtins.toFile "spam.sieve" ''
+      after = builtins.toFile "after.sieve" ''
         require "fileinto";
         if header :is "X-Spam" "Yes" {
             fileinto "Junk";
+            stop;
+        }
+        if address :all :is "cc" [ "ci_activity@noreply.github.com" ] {
+            fileinto "Info";
             stop;
         }
       '';
@@ -75,6 +79,9 @@ in
 
       namespace inbox {
         inbox = yes
+        mailbox Info {
+          auto = subscribe
+        }
         mailbox Drafts {
           auto = subscribe
           special_use = \Drafts
