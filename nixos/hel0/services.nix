@@ -10,11 +10,8 @@
     secrets = {
       restic = { };
       backup = { };
-      hydra = { group = "hydra"; mode = "0440"; };
-      hydra-github = { group = "hydra"; mode = "0440"; };
       carinae = { };
       canopus = { };
-      plct = { owner = "hydra-queue-runner"; };
       vault = { };
     };
   };
@@ -47,29 +44,6 @@
     enable = true;
     address = "127.0.0.1";
     port = 34123;
-  };
-
-  services.hydra = {
-    enable = true;
-    listenHost = "127.0.0.1";
-    hydraURL = "https://hydra.nichi.co";
-    useSubstitutes = true;
-    notificationSender = "hydra@nichi.co";
-    buildMachinesFiles = [ "/etc/nix/machines" ];
-    extraConfig = ''
-      include ${config.sops.secrets.hydra.path}
-      github_client_id = e55d265b1883eb42630e
-      github_client_secret_file = ${config.sops.secrets.hydra-github.path}
-      max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
-      <dynamicruncommand>
-        enable = 1
-      </dynamicruncommand>
-      <githubstatus>
-        jobs = misc:flakes:.*
-        excludeBuildFromContext = 1
-        useShortContext = 1
-      </githubstatus>
-    '';
   };
 
   services.vaultwarden = {
@@ -140,11 +114,6 @@
             entryPoints = [ "https" ];
             service = "meow";
           };
-          hydra = {
-            rule = "Host(`hydra.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "hydra";
-          };
           vault = {
             rule = "Host(`vault.nichi.co`)";
             entryPoints = [ "https" ];
@@ -182,10 +151,6 @@
           meow.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:8002"; }];
-          };
-          hydra.loadBalancer = {
-            passHostHeader = true;
-            servers = [{ url = "http://127.0.0.1:3000"; }];
           };
           vault.loadBalancer = {
             passHostHeader = true;

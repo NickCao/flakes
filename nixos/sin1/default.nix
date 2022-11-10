@@ -19,6 +19,7 @@
     secrets = {
       hydra = { group = "hydra"; mode = "0440"; };
       hydra-github = { group = "hydra"; mode = "0440"; };
+      plct = { owner = "hydra-queue-runner"; };
     };
   };
 
@@ -30,6 +31,22 @@
   environment.persistence."/persist" = {
     directories = [
       "/var"
+    ];
+  };
+
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
+      allowed-uris = [ "https://github.com" "https://gitlab.com" ];
+    };
+    buildMachines = [
+      {
+        hostName = "k11-plct.nichi.link";
+        systems = [ "x86_64-linux" ];
+        maxJobs = 32;
+        supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
+      }
     ];
   };
 
@@ -74,6 +91,37 @@
         useShortContext = 1
       </githubstatus>
     '';
+  };
+
+  programs.ssh = {
+    knownHosts = {
+      "k11-plct.nichi.link".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7Gb+JDMj+P2Wumrvwbr7lCqyl93gy06b8Af9si7Rye";
+    };
+    extraConfig = ''
+      Host k11-plct.nichi.link
+        User root
+        IdentityFile ${config.sops.secrets.plct.path}
+    '';
+  };
+
+  services.traefik = {
+    dynamicConfigOptions = {
+      http = {
+        routers = {
+          hydra = {
+            rule = "Host(`hydra.nichi.co`)";
+            entryPoints = [ "https" ];
+            service = "hydra";
+          };
+        };
+        services = {
+          hydra.loadBalancer = {
+            passHostHeader = true;
+            servers = [{ url = "http://127.0.0.1:3000"; }];
+          };
+        };
+      };
+    };
   };
 
   users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
