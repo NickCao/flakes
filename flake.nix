@@ -145,6 +145,13 @@
           };
           imports = [ ./nixos/iad0 ];
         };
+        sin1 = { ... }: {
+          deployment = {
+            targetHost = "sin1.nichi.link";
+            tags = [ "normal" ];
+          };
+          imports = [ ./nixos/sin1 ];
+        };
       } // inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" ] (name: { ... }: {
         deployment = {
           targetHost = "${name}.nichi.link";
