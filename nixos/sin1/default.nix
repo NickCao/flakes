@@ -3,8 +3,11 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     self.nixosModules.default
     self.nixosModules.cloud.filesystems
+    inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
   ];
+
+  nixpkgs.overlays = [ self.overlays.default ];
 
   boot = {
     loader.grub.device = "/dev/sda";
