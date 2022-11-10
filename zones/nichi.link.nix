@@ -15,5 +15,6 @@ dns.lib.toString "nichi.link" {
   subdomains = builtins.mapAttrs (name: value: host value.ipv4 value.ipv6) nodes // {
     "rpi".CNAME = [ "rpi.dyn.nichi.link." ];
     "k11-plct".A = [ "8.214.124.155" ];
+    "sin1".A = [ "154.26.139.162" ];
   };
 }

@@ -23,7 +23,13 @@
   networking = {
     hostName = "sin1";
     domain = "nichi.link";
-    useDHCP = true;
+    useDHCP = false;
+    useNetworkd = true;
+    interfaces.ens18 = {
+      useDHCP = true;
+      ipv6.addresses = [{ address = "2407:3640:2108:595::1"; prefixLength = 64; }];
+      ipv6.routes = [{ address = "::"; prefixLength = 0; via = "fe80::1"; }];
+    };
   };
 
   services.openssh.enable = true;
