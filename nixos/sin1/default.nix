@@ -9,6 +9,14 @@
 
   nixpkgs.overlays = [ self.overlays.default ];
 
+  sops = {
+    age = {
+      keyFile = "/var/lib/sops.key";
+      sshKeyPaths = [ ];
+    };
+    gnupg.sshKeyPaths = [ ];
+  };
+
   boot = {
     loader.grub.device = "/dev/sda";
     initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" ];
@@ -33,6 +41,8 @@
   };
 
   services.openssh.enable = true;
+  services.sshcert.enable = true;
+  services.gateway.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
 
