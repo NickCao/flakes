@@ -1,4 +1,5 @@
 { pkgs, config, modulesPath, self, inputs, ... }: {
+
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     self.nixosModules.default
@@ -30,6 +31,12 @@
     ];
   };
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+    fileSystems = [ "/persist" ];
+  };
+
   networking = {
     hostName = "sin1";
     domain = "nichi.link";
@@ -52,4 +59,5 @@
   environment.baseline.enable = true;
 
   system.stateVersion = "22.05";
+
 }
