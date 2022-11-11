@@ -4,6 +4,7 @@
     hydra = { group = "hydra"; mode = "0440"; };
     hydra-github = { group = "hydra"; mode = "0440"; };
     plct = { owner = "hydra-queue-runner"; };
+    carinae = { };
   };
 
   nix = {
@@ -67,6 +68,11 @@
     '';
   };
 
+  cloud.services.carinae.config = {
+    ExecStart = "${inputs.carinae.packages."${pkgs.system}".default}/bin/carinae -l 127.0.0.1:8004";
+    EnvironmentFile = config.sops.secrets.carinae.path;
+  };
+
   programs.ssh = {
     knownHosts = {
       "k11-plct.nichi.link".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP7Gb+JDMj+P2Wumrvwbr7lCqyl93gy06b8Af9si7Rye";
@@ -87,11 +93,20 @@
             entryPoints = [ "https" ];
             service = "hydra";
           };
+          cache = {
+            rule = "Host(`cache.nichi.co`)";
+            entryPoints = [ "https" ];
+            service = "cache";
+          };
         };
         services = {
           hydra.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:3000"; }];
+          };
+          cache.loadBalancer = {
+            passHostHeader = true;
+            servers = [{ url = "http://127.0.0.1:8004"; }];
           };
         };
       };

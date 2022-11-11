@@ -15,7 +15,6 @@
     {
       nixpkgs.overlays = [
         (final: prev: {
-          carinae = inputs.carinae.packages."${pkgs.system}".default;
           canopus = inputs.canopus.packages."${pkgs.system}".default;
           nixpkgs = inputs.nixpkgs;
         })

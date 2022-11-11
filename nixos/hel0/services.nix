@@ -10,7 +10,6 @@
     secrets = {
       restic = { };
       backup = { };
-      carinae = { };
       canopus = { };
       vault = { };
     };
@@ -58,11 +57,6 @@
       rocketPort = 8003;
     };
     environmentFile = config.sops.secrets.vault.path;
-  };
-
-  cloud.services.carinae.config = {
-    ExecStart = "${pkgs.carinae}/bin/carinae -l 127.0.0.1:8004";
-    EnvironmentFile = config.sops.secrets.carinae.path;
   };
 
   cloud.services.meow.config = {
@@ -119,11 +113,6 @@
             entryPoints = [ "https" ];
             service = "vault";
           };
-          cache = {
-            rule = "Host(`cache.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "cache";
-          };
           blog = {
             rule = "Host(`nichi.co`)";
             entryPoints = [ "https" ];
@@ -155,10 +144,6 @@
           vault.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:8003"; }];
-          };
-          cache.loadBalancer = {
-            passHostHeader = true;
-            servers = [{ url = "http://127.0.0.1:8004"; }];
           };
           blog.loadBalancer = {
             servers = [{ url = "http://127.0.0.1:8007"; }];
