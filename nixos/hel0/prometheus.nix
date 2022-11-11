@@ -1,5 +1,14 @@
 { config, pkgs, ... }:
-let cfg = config.services.prometheus; in
+let
+  cfg = config.services.prometheus;
+  targets = [
+    "nrt0.nichi.link"
+    "sin0.nichi.link"
+    "sin1.nichi.link"
+    "sea0.nichi.link"
+    "hel0.nichi.link"
+  ];
+in
 {
   sops.secrets.alert = { };
   services.prometheus = {
@@ -23,27 +32,13 @@ let cfg = config.services.prometheus; in
       {
         job_name = "metrics";
         scheme = "https";
-        static_configs = [{
-          targets = [
-            "nrt0.nichi.link"
-            "sin0.nichi.link"
-            "sea0.nichi.link"
-            "hel0.nichi.link"
-          ];
-        }];
+        static_configs = [{ inherit targets; }];
       }
       {
         job_name = "traefik";
         scheme = "https";
         metrics_path = "/traefik";
-        static_configs = [{
-          targets = [
-            "nrt0.nichi.link"
-            "sin0.nichi.link"
-            "sea0.nichi.link"
-            "hel0.nichi.link"
-          ];
-        }];
+        static_configs = [{ inherit targets; }];
       }
     ];
     rules = [

@@ -52,6 +52,7 @@
   services.openssh.enable = true;
   services.sshcert.enable = true;
   services.gateway.enable = true;
+  services.metrics.enable = true;
   services.fstrim.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
