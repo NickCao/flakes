@@ -43,8 +43,8 @@ dns.lib.toString "nichi.co" {
     red.CNAME = [ "hel0.nichi.link." ];
     ntfy.CNAME = [ "hel0.nichi.link." ];
     hydra.CNAME = [ "sin1.nichi.link." ];
+    cache.CNAME = [ "sin1.nichi.link." ];
     vault.CNAME = [ "hel0.nichi.link." ];
-    cache.CNAME = [ "hel0.nichi.link." ];
     matrix.CNAME = [ "hel0.nichi.link." ];
   };
 }
