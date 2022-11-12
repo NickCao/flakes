@@ -59,12 +59,6 @@
     environmentFile = config.sops.secrets.vault.path;
   };
 
-  cloud.services.meow.config = {
-    ExecStart = "${pkgs.meow}/bin/meow --listen 127.0.0.1:8002 --base-url https://pb.nichi.co --data-dir \${STATE_DIRECTORY}";
-    StateDirectory = "meow";
-    SystemCallFilter = null;
-  };
-
   cloud.services.blog.config = {
     ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8007 -p ${pkgs.blog}";
   };
@@ -103,11 +97,6 @@
             entryPoints = [ "https" ];
             service = "libreddit";
           };
-          meow = {
-            rule = "Host(`pb.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "meow";
-          };
           vault = {
             rule = "Host(`vault.nichi.co`)";
             entryPoints = [ "https" ];
@@ -136,10 +125,6 @@
           libreddit.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://${config.services.libreddit.address}:${toString config.services.libreddit.port}"; }];
-          };
-          meow.loadBalancer = {
-            passHostHeader = true;
-            servers = [{ url = "http://127.0.0.1:8002"; }];
           };
           vault.loadBalancer = {
             passHostHeader = true;

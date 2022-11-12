@@ -7,9 +7,13 @@
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
     ./hydra.nix
+    ./pb.nix
   ];
 
-  nixpkgs.overlays = [ self.overlays.default ];
+  nixpkgs.overlays = [
+    self.overlays.default
+    inputs.fn.overlays.default
+  ];
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
