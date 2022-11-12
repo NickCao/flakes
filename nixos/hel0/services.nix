@@ -39,12 +39,6 @@
     };
   };
 
-  services.libreddit = {
-    enable = true;
-    address = "127.0.0.1";
-    port = 34123;
-  };
-
   services.vaultwarden = {
     enable = true;
     config = {
@@ -92,11 +86,6 @@
     dynamicConfigOptions = {
       http = {
         routers = {
-          libreddit = {
-            rule = "Host(`red.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "libreddit";
-          };
           vault = {
             rule = "Host(`vault.nichi.co`)";
             entryPoints = [ "https" ];
@@ -122,10 +111,6 @@
           };
         };
         services = {
-          libreddit.loadBalancer = {
-            passHostHeader = true;
-            servers = [{ url = "http://${config.services.libreddit.address}:${toString config.services.libreddit.port}"; }];
-          };
           vault.loadBalancer = {
             passHostHeader = true;
             servers = [{ url = "http://127.0.0.1:8003"; }];

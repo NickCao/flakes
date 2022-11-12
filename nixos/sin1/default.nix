@@ -8,6 +8,7 @@
     inputs.impermanence.nixosModules.impermanence
     ./hydra.nix
     ./pb.nix
+    ./misc.nix
   ];
 
   nixpkgs.overlays = [
