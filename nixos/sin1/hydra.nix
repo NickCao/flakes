@@ -79,7 +79,7 @@
     };
     extraConfig = ''
       Host k11-plct.nichi.link
-        User root
+        User hydra
         IdentityFile ${config.sops.secrets.plct.path}
     '';
   };
