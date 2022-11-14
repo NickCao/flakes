@@ -54,7 +54,7 @@
   };
 
   cloud.services.blog.config = {
-    ExecStart = "${pkgs.serve}/bin/serve -l 127.0.0.1:8007 -p ${pkgs.blog}";
+    ExecStart = "${pkgs.miniserve}/bin/miniserve -i 127.0.0.1 -p 8007 --index index.html ${pkgs.blog}";
   };
 
   cloud.services.canopus.config = {
