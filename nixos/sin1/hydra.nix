@@ -68,9 +68,11 @@
     '';
   };
 
-  cloud.services.carinae.config = {
-    ExecStart = "${inputs.carinae.packages."${pkgs.system}".default}/bin/carinae -l 127.0.0.1:8004";
-    EnvironmentFile = config.sops.secrets.carinae.path;
+  cloud.services.nix-serve.config = {
+    ExecStart = "${pkgs.haskellPackages.nix-serve-ng}/bin/nix-serve --listen 127.0.0.1:8004 --priority 50 --verbose";
+    Environment = [ "NIX_SECRET_KEY_FILE=%d/key" ];
+    LoadCredential = [ "key:${config.sops.secrets.carinae.path}" ];
+    MemoryDenyWriteExecute = false;
   };
 
   programs.ssh = {
