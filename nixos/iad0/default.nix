@@ -32,6 +32,12 @@
     ];
   };
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+    fileSystems = [ "/persist" ];
+  };
+
   networking = {
     hostName = "iad0";
     domain = "nichi.link";
