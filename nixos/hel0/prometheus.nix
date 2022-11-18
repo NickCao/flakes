@@ -7,6 +7,7 @@ let
     "sin1.nichi.link"
     "sea0.nichi.link"
     "hel0.nichi.link"
+    "iad0.nichi.link"
   ];
 in
 {
@@ -22,13 +23,6 @@ in
       evaluation_interval = "1m";
     };
     scrapeConfigs = [
-      {
-        job_name = "rspamd";
-        scheme = "http";
-        static_configs = [{
-          targets = [ "localhost:11334" ];
-        }];
-      }
       {
         job_name = "metrics";
         scheme = "https";
