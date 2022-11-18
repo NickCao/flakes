@@ -23,7 +23,7 @@ in
             stop;
         }
         if address :all :is "cc" [ "ci_activity@noreply.github.com" ] {
-            fileinto "Info";
+            fileinto "Trans";
             stop;
         }
       '';
@@ -79,7 +79,7 @@ in
 
       namespace inbox {
         inbox = yes
-        mailbox Info {
+        mailbox Trans {
           auto = subscribe
         }
         mailbox Drafts {
