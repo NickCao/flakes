@@ -107,11 +107,23 @@ in
       '';
     };
   };
+
+  services.telegraf = {
+    enable = true;
+    extraConfig = {
+      inputs = {
+        prometheus.urls = [ "http://localhost:11334/metrics" ];
+      };
+    };
+  };
+
   boot.kernel.sysctl."vm.overcommit_memory" = 1;
+
   services.redis.servers.rspamd = {
     enable = true;
     port = 16380;
   };
+
   services.traefik = {
     dynamicConfigOptions = {
       http = {
