@@ -22,14 +22,7 @@
     files = {
       repository = "sftp:u273007.your-storagebox.de:backup";
       passwordFile = config.sops.secrets.restic.path;
-      paths = builtins.map (x: "/persist/var/lib/" + x) [
-        "bitwarden_rs"
-        "knot"
-        "matrix-synapse"
-        "mjolnir"
-        "private/mautrix-telegram"
-        "backup/postgresql"
-      ] ++ [ "/persist/home/git" "/persist/var/spool" ];
+      paths = [ "/persist/var" "/persist/home/git" ];
       timerConfig = {
         OnCalendar = "daily";
       };
