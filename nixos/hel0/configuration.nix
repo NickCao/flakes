@@ -5,8 +5,9 @@
       "u273007.your-storagebox.de".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICf9svRenC/PLKIL9nk6K/pxQgoiFC41wTNvoIncOxs";
     };
     extraConfig = ''
-      Host u273007.your-storagebox.de
+      Host backup
         User u273007
+        HostName u273007.your-storagebox.de
         Port 23
         IdentityFile ${config.sops.secrets.backup.path}
     '';
@@ -19,12 +20,20 @@
   };
 
   services.restic.backups = {
-    files = {
-      repository = "sftp:u273007.your-storagebox.de:backup";
+    var = {
+      repository = "sftp:backup:backup";
       passwordFile = config.sops.secrets.restic.path;
-      paths = [ "/persist/var" "/persist/home/git" ];
+      paths = [ "/persist/var" ];
       timerConfig = {
         OnCalendar = "daily";
+      };
+    };
+    git = {
+      repository = "sftp:backup:backup";
+      passwordFile = config.sops.secrets.restic.path;
+      paths = [ "/persist/home/git" ];
+      timerConfig = {
+        OnCalendar = "weekly";
       };
     };
   };
