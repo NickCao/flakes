@@ -19,7 +19,7 @@ dns.lib.toString "nichi.co" {
       service = "matrix";
       proto = "tcp";
       port = 443;
-      target = "iad0.nichi.link.";
+      target = "hel0.nichi.link.";
     }
   ];
   subdomains = {
