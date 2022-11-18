@@ -5,9 +5,9 @@ let
   inherit (common) nodes;
 in
 dns.lib.toString "nichi.link" {
-  inherit (common) TTL SOA NS DKIM DMARC CAA;
+  inherit (common) TTL SOA NS DKIM DMARC CAA SRV;
   MX = with mx; [
-    (mx 10 "hel0.nichi.link.")
+    (mx 10 "iad0.nichi.link.")
   ];
   TXT = [
     (with spf; soft [ "mx" ])

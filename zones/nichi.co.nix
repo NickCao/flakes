@@ -14,19 +14,7 @@ dns.lib.toString "nichi.co" {
   TXT = [
     (with spf; soft [ "mx" ])
   ];
-  SRV = [
-    {
-      service = "imaps";
-      proto = "tcp";
-      port = 993;
-      target = "iad0.nichi.link.";
-    }
-    {
-      service = "submission";
-      proto = "tcp";
-      port = 465;
-      target = "iad0.nichi.link.";
-    }
+  SRV = common.SRV ++ [
     {
       service = "matrix";
       proto = "tcp";

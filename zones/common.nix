@@ -34,5 +34,19 @@ in
     tag = "issue";
     value = "letsencrypt.org";
   }];
+  SRV = [
+    {
+      service = "imaps";
+      proto = "tcp";
+      port = 993;
+      target = "iad0.nichi.link.";
+    }
+    {
+      service = "submission";
+      proto = "tcp";
+      port = 465;
+      target = "iad0.nichi.link.";
+    }
+  ];
   nodes = data.nodes.value;
 }
