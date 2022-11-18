@@ -7,8 +7,6 @@
     ./prometheus.nix
     ./matrix.nix
     ./git.nix
-    ./postfix.nix
-    ./dovecot.nix
     self.nixosModules.default
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops

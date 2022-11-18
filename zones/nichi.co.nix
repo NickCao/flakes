@@ -9,7 +9,7 @@ dns.lib.toString "nichi.co" {
   A = [ hel0.ipv4 ];
   AAAA = [ hel0.ipv6 ];
   MX = with mx; [
-    (mx 10 "hel0.nichi.link.")
+    (mx 10 "iad0.nichi.link.")
   ];
   TXT = [
     (with spf; soft [ "mx" ])
@@ -19,19 +19,19 @@ dns.lib.toString "nichi.co" {
       service = "imaps";
       proto = "tcp";
       port = 993;
-      target = "hel0.nichi.link.";
+      target = "iad0.nichi.link.";
     }
     {
       service = "submission";
       proto = "tcp";
       port = 465;
-      target = "hel0.nichi.link.";
+      target = "iad0.nichi.link.";
     }
     {
       service = "matrix";
       proto = "tcp";
       port = 443;
-      target = "hel0.nichi.link.";
+      target = "iad0.nichi.link.";
     }
   ];
   subdomains = {
