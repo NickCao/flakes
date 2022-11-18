@@ -1,4 +1,4 @@
-rec {
+{
   default = ({ ... }: {
     imports = [
       (import ./baseline.nix)
@@ -8,6 +8,7 @@ rec {
       (import ./dns/secondary)
       (import ./cloud/services.nix)
       (import ./gravity)
+      (import ./backup)
     ];
   });
   vultr = import ./vultr.nix;

@@ -38,6 +38,17 @@
     fileSystems = [ "/persist" ];
   };
 
+  services.restic.backups = {
+    persist = {
+      repository = "sftp:backup:backup";
+      passwordFile = config.sops.secrets.restic.path;
+      paths = [ "/persist" ];
+      timerConfig = {
+        OnCalendar = "daily";
+      };
+    };
+  };
+
   networking = {
     hostName = "iad0";
     domain = "nichi.link";
@@ -58,6 +69,7 @@
   users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
 
   environment.baseline.enable = true;
+  environment.backup.enable = true;
 
   system.stateVersion = "22.05";
 }
