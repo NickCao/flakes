@@ -8,8 +8,6 @@
     };
     gnupg.sshKeyPaths = [ ];
     secrets = {
-      restic = { };
-      backup = { };
       canopus = { };
       vault = { };
     };
