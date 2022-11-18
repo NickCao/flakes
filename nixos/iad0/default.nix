@@ -6,9 +6,12 @@
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
     ./knot.nix
+    ./postfix.nix
+    ./dovecot.nix
   ];
 
   sops = {
+    defaultSopsFile = ./secrets.yaml;
     age = {
       keyFile = "/var/lib/sops.key";
       sshKeyPaths = [ ];
@@ -43,6 +46,7 @@
 
   services.openssh.enable = true;
   services.sshcert.enable = true;
+  services.gateway.enable = true;
 
   cloud.services.knotd-exporter.config = {
     ExecStart = "${inputs.knot-sys.packages."${pkgs.system}".default}/bin/knotd-exporter -l 127.0.0.1:8000";
