@@ -134,7 +134,6 @@
         hel0 = { ... }: {
           deployment = {
             targetHost = "hel0.nichi.link";
-            tags = [ "normal" ];
           };
           imports = [ ./nixos/hel0 ];
         };
@@ -148,7 +147,6 @@
         sin1 = { ... }: {
           deployment = {
             targetHost = "sin1.nichi.link";
-            tags = [ "normal" ];
           };
           imports = [ ./nixos/sin1 ];
         };
