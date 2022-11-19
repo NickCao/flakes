@@ -10,7 +10,6 @@ let
 in
 {
   hardware.cpu.amd.updateMicrocode = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "sd_mod" ];
   boot.kernelModules = [ "kvm-amd" ];
 

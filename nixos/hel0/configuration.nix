@@ -56,23 +56,14 @@
     startAt = "weekly";
   };
 
-  nix = {
-    package = pkgs.nixVersions.stable;
-    settings = {
-      auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
+  nix.settings = {
+    auto-optimise-store = true;
+    experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
   };
 
   networking = {
     useNetworkd = true;
     useDHCP = false;
-    firewall.enable = false;
     hostName = "hel0";
     domain = "nichi.link";
   };
@@ -96,7 +87,6 @@
   };
 
   users = {
-    mutableUsers = false;
     users = {
       root.openssh.authorizedKeys.keys = pkgs.keys;
       nickcao = {
@@ -109,10 +99,6 @@
   services.sshcert.enable = true;
   services.openssh.enable = true;
   services.fstrim.enable = true;
-
-  services.resolved.extraConfig = ''
-    DNSStubListener=no
-  '';
 
   environment.systemPackages = with pkgs;[
     tmux
@@ -127,6 +113,7 @@
     ];
   };
 
+  environment.baseline.enable = true;
   environment.backup.enable = true;
 
   system.stateVersion = "21.05";
