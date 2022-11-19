@@ -34,16 +34,16 @@
   };
   neondb = {
     pname = "neondb";
-    version = "e999f66b01acfaa32869152aa87ecc7a0ddb2443";
+    version = "a50a7e8ac083285222fa5923e25991eaeee62885";
     src = fetchFromGitHub ({
       owner = "neondatabase";
       repo = "neon";
-      rev = "e999f66b01acfaa32869152aa87ecc7a0ddb2443";
+      rev = "a50a7e8ac083285222fa5923e25991eaeee62885";
       fetchSubmodules = true;
-      sha256 = "sha256-EUKY1SIFgGrRNEMytK5DGiIEPjIkAaiXozGfB+qAq1k=";
+      sha256 = "sha256-X0ZcK7mxIygpLptYuw6+Aa9+oToAQfW8SEcfSRxIB+M=";
     });
     cargoLock."Cargo.lock" = {
-      lockFile = ./neondb-e999f66b01acfaa32869152aa87ecc7a0ddb2443/Cargo.lock;
+      lockFile = ./neondb-a50a7e8ac083285222fa5923e25991eaeee62885/Cargo.lock;
       outputHashes = {
         "pprof-0.6.1" = "sha256-Ej0NNN8TDNvgXtSI5LLCwOJjo+XDU7RaVE6Ai3ZMlUY=";
         "amplify_num-0.4.1" = "sha256-7raFT2CLEz4bza0CCSnA0EEnIRJ/neRvXp8Ji4l0AfA=";
@@ -66,24 +66,24 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "70980e7f570b8c98653e4c0ac4b5a92f348ee8b1";
+    version = "bec0fe22368940ad129f12b9d29bb61a9f7291ef";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "70980e7f570b8c98653e4c0ac4b5a92f348ee8b1";
+      rev = "bec0fe22368940ad129f12b9d29bb61a9f7291ef";
       fetchSubmodules = true;
-      sha256 = "sha256-gUhk+3Ug/JikhAv+28I2Oy+7c0on8/haZ8N5vFBPfgA=";
+      sha256 = "sha256-/h9lQs4tmj5Ph+wJqU+8YMRDvCRJxIk5/V/XFp+lk4E=";
     });
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "cdb33c764d057bc99050691cec72518ae8265571";
+    version = "7fc451ab2be54eeca0d5e25eef352063f3753f15";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "cdb33c764d057bc99050691cec72518ae8265571";
+      rev = "7fc451ab2be54eeca0d5e25eef352063f3753f15";
       fetchSubmodules = false;
-      sha256 = "sha256-ypVdSuPRVtU10T9Hh0u68txmtJQ4DwnV+UpEuxX34Ew=";
+      sha256 = "sha256-ze/3jY7goYYhCvFSzmO0Xsgc0kBg4JPn4aafox7NPLA=";
     });
   };
   wemeet = {
