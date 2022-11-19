@@ -98,7 +98,6 @@
 
   services.sshcert.enable = true;
   services.openssh.enable = true;
-  services.fstrim.enable = true;
 
   environment.systemPackages = with pkgs;[
     tmux
