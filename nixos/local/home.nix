@@ -59,7 +59,7 @@ in
         "1" = [{ app_id = "Alacritty"; }];
         "2" = [{ app_id = "firefox"; }];
         "3" = [{ app_id = "telegramdesktop"; }];
-        "4" = [{ class = "thunderbird"; }];
+        "4" = [{ app_id = "thunderbird"; }];
         "5" = [{ app_id = "qemu"; }];
       };
       window.commands = [
