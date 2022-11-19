@@ -69,7 +69,7 @@ in
         }
         {
           criteria = { app_id = "pavucontrol"; };
-          command = "floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 35";
+          command = "floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 40";
         }
       ];
       gaps = {
