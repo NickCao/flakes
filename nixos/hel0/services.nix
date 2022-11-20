@@ -17,17 +17,6 @@
   services.sshcert.enable = true;
   services.metrics.enable = true;
 
-  systemd.tmpfiles.rules = [ "d /data/download 0770 download download - -" ];
-  users.groups.download = { };
-  users.users.download = { isSystemUser = true; group = "download"; };
-  cloud.services.qbittorrent-nox.config = {
-    ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=1999 --profile=/data/download";
-    User = "download";
-    Group = "download";
-    BindPaths = [ "/data/download" ];
-    MemoryLimit = "10G";
-  };
-
   services.ntfy-sh = {
     enable = true;
     settings = {
