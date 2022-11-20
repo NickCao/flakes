@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "bootspec-secureboot": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1663598402,
+        "narHash": "sha256-z2Hqm2lciJcD00+YG1vO1PGbRBGDrj99MTt+QEEs6KI=",
+        "owner": "DeterminateSystems",
+        "repo": "bootspec-secureboot",
+        "rev": "31cc8d0acd716f93ee8fdc1fb618cc1145b19e09",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DeterminateSystems",
+        "ref": "main",
+        "repo": "bootspec-secureboot",
+        "type": "github"
+      }
+    },
     "canopus": {
       "inputs": {
         "flake-utils": [
@@ -260,11 +281,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1668921066,
-        "narHash": "sha256-61ZwyJngJT5FnhNP3LxLmeGauk6NNZg0RSmWjAjA2b4=",
+        "lastModified": 1668942405,
+        "narHash": "sha256-BpKaS9bWfBLQ+KsRevOzVJMe6Sr/NDr+CwZGNvmIH0k=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "c9be331d786a1e4eb1fd1b146c5fa304e871d5ac",
+        "rev": "c5b0c2c9e6a32bc3831c3d41bceddb49a60f6db2",
         "type": "github"
       },
       "original": {
@@ -322,6 +343,7 @@
     },
     "root": {
       "inputs": {
+        "bootspec-secureboot": "bootspec-secureboot",
         "canopus": "canopus",
         "carinae": "carinae",
         "colmena": "colmena",

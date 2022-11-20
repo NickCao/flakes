@@ -93,7 +93,6 @@
       timeout = 0;
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/efi";
-      systemd-boot.enable = true;
     };
     kernel = {
       sysctl = {

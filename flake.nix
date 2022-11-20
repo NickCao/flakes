@@ -19,6 +19,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-22_05.follows = "nixpkgs";
     };
+    bootspec-secureboot = {
+      url = "github:DeterminateSystems/bootspec-secureboot/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     dns = {
       url = "github:NickCao/dns.nix";
       inputs.nixpkgs.follows = "nixpkgs";
