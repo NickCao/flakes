@@ -91,8 +91,15 @@
     };
     loader = {
       timeout = 0;
-      efi.canTouchEfiVariables = true;
-      efi.efiSysMountPoint = "/efi";
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/efi";
+      };
+      secureboot = {
+        enable = true;
+        signingKeyPath = "${config.users.users.nickcao.home}/Documents/secureboot/db.key";
+        signingCertPath = "${config.users.users.nickcao.home}/Documents/secureboot/db.crt";
+      };
     };
     kernel = {
       sysctl = {
