@@ -113,5 +113,4 @@
     };
   };
 
-  documentation.nixos.enable = false;
 }
