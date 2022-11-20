@@ -35,12 +35,6 @@ in
     options = [ "subvol=nix" ] ++ opts;
   };
 
-  fileSystems."/data" = {
-    fsType = "btrfs";
-    device = sata;
-    options = [ "subvol=data" ] ++ opts;
-  };
-
   fileSystems."/persist" = {
     fsType = "btrfs";
     device = nvme;
