@@ -15,5 +15,8 @@ terraform {
     hydra = {
       source = "DeterminateSystems/hydra"
     }
+    hcloud = {
+      source = "hetznercloud/hcloud"
+    }
   }
 }

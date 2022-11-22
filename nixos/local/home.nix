@@ -237,7 +237,7 @@ in
     restic
     libarchive
     (mkWrap "terraform" "${coreutils}/bin/env CHECKPOINT_DISABLE=1 ${
-      terraform.withPlugins (ps: with ps; [ vultr sops gandi hydra ])
+      terraform.withPlugins (ps: with ps; [ vultr sops gandi hydra hcloud ])
         }/bin/terraform")
     windows-run
   ];

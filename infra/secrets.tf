@@ -19,3 +19,7 @@ provider "hydra" {
   username = "terraform"
   password = local.secrets.hydra.password
 }
+
+provider "hcloud" {
+  token = local.secrets.hcloud.token
+}
