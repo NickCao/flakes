@@ -1,5 +1,5 @@
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
-import Stripe from "https://esm.sh/stripe@9.16.0";
+import Stripe from "npm:stripe";
 
 const stripe = Stripe(Deno.env.get("STRIPE_SECRET_KEY"), {
   httpClient: Stripe.createFetchHttpClient(),
