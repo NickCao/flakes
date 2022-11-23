@@ -8,6 +8,7 @@
     ./knot.nix
     ./postfix.nix
     ./dovecot.nix
+    ./vaultwarden.nix
   ];
 
   sops = {
