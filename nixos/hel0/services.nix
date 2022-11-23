@@ -16,15 +16,6 @@
   services.sshcert.enable = true;
   services.metrics.enable = true;
 
-  services.ntfy-sh = {
-    enable = true;
-    settings = {
-      base-url = "https://ntfy.nichi.co";
-      listen-http = "127.0.0.1:8008";
-      behind-proxy = true;
-    };
-  };
-
   cloud.services.blog.config = {
     ExecStart = "${pkgs.miniserve}/bin/miniserve -i 127.0.0.1 -p 8007 --index index.html ${pkgs.blog}";
   };
@@ -64,11 +55,6 @@
             middlewares = [ "blog" ];
             service = "blog";
           };
-          ntfy = {
-            rule = "Host(`ntfy.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "ntfy";
-          };
         };
         middlewares = {
           blog.headers = {
@@ -80,9 +66,6 @@
         services = {
           blog.loadBalancer = {
             servers = [{ url = "http://127.0.0.1:8007"; }];
-          };
-          ntfy.loadBalancer = {
-            servers = [{ url = "http://127.0.0.1:8008"; }];
           };
         };
       };
