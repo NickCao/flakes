@@ -19,6 +19,7 @@ in
       rocketAddress = "127.0.0.1";
       rocketPort = 8003;
     };
+    backupDir = "/var/lib/bitwarden_rs/backup";
     environmentFile = config.sops.secrets.vault.path;
   };
 
