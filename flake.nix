@@ -100,7 +100,7 @@
     // {
       hydraJobs = self.packages.x86_64-linux //
       inputs.nixpkgs.lib.genAttrs
-        [ "nrt0" "sin0" "sea0" ]
+        [ "nrt0" "sin0" "sea0" "lax0" ]
         (name: self.colmenaHive.nodes.${name}.config.system.build.install)
       // {
         local = self.nixosConfigurations.local.config.system.build.toplevel;
@@ -154,7 +154,7 @@
           };
           imports = [ ./nixos/sin1 ];
         };
-      } // inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" ] (name: { ... }: {
+      } // inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" "lax0" ] (name: { ... }: {
         deployment = {
           targetHost = "${name}.nichi.link";
           tags = [ "normal" "vultr" ];
