@@ -72,6 +72,7 @@
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     let
       this = import ./pkgs;
+      data = builtins.fromJSON (builtins.readFile ./zones/data.json);
     in
     flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ]
       (
@@ -157,7 +158,7 @@
       } // inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" "lax0" ] (name: { ... }: {
         deployment = {
           targetHost = "${name}.nichi.link";
-          tags = [ "normal" "vultr" ];
+          tags = data.nodes.value.${name}.tags;
         };
         imports = [ ./nixos/vultr/${name} ];
       }));
