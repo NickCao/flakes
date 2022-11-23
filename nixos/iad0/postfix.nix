@@ -86,7 +86,7 @@ in
     };
     locals = {
       "worker-controller.inc".text = ''
-        secure_ip = 127.0.0.1
+        secure_ip = ["127.0.0.1", "::1"];
       '';
       "worker-proxy.inc".text = ''
         upstream "local" {
