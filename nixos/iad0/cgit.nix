@@ -34,10 +34,10 @@ let
   '';
 in
 {
+
   cloud.services.cgit.config = {
     ExecStart = "${pkgs.lighttpd}/bin/lighttpd -D -f ${lighttpdConfig}";
     PrivateUsers = false;
-    ProtectHome = "tmpfs";
     BindReadOnlyPaths = config.users.users.git.home;
   };
 
@@ -46,26 +46,23 @@ in
     isSystemUser = true;
     group = "git";
     description = "git";
-    home = "/home/git";
+    home = "/var/lib/git";
     shell = "${pkgs.git}/bin/git-shell";
     openssh.authorizedKeys.keys = pkgs.keys;
   };
 
-  services.traefik.dynamicConfigOptions = {
-    http = {
-      routers = {
-        git = {
-          rule = "Host(`git.nichi.co`)";
-          entryPoints = [ "https" ];
-          service = "cgit";
-        };
-      };
-      services = {
-        cgit.loadBalancer = {
-          passHostHeader = true;
-          servers = [{ url = "http://127.0.0.1:8006"; }];
-        };
-      };
+  systemd.tmpfiles.rules = [ "d /var/lib/git 0755 git git - -" ];
+
+  services.traefik.dynamicConfigOptions.http = {
+    routers.git = {
+      rule = "Host(`git.nichi.co`)";
+      entryPoints = [ "https" ];
+      service = "cgit";
+    };
+    services.cgit.loadBalancer = {
+      passHostHeader = true;
+      servers = [{ url = "http://127.0.0.1:8006"; }];
     };
   };
+
 }

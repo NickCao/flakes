@@ -27,7 +27,7 @@ dns.lib.toString "nichi.co" {
     fn.CNAME = [ "nrt0.nichi.link." ];
     pb.CNAME = [ "sin1.nichi.link." ];
     api.CNAME = [ "nrt0.nichi.link." ];
-    git.CNAME = [ "hel0.nichi.link." ];
+    git.CNAME = [ "iad0.nichi.link." ];
     red.CNAME = [ "sin1.nichi.link." ];
     ntfy.CNAME = [ "lax0.nichi.link." ];
     hydra.CNAME = [ "sin1.nichi.link." ];
