@@ -34,16 +34,16 @@
   };
   neondb = {
     pname = "neondb";
-    version = "a50a7e8ac083285222fa5923e25991eaeee62885";
+    version = "37625c4433eca0e2e3ec2c2b84e988d29aa9bc66";
     src = fetchFromGitHub ({
       owner = "neondatabase";
       repo = "neon";
-      rev = "a50a7e8ac083285222fa5923e25991eaeee62885";
+      rev = "37625c4433eca0e2e3ec2c2b84e988d29aa9bc66";
       fetchSubmodules = true;
-      sha256 = "sha256-X0ZcK7mxIygpLptYuw6+Aa9+oToAQfW8SEcfSRxIB+M=";
+      sha256 = "sha256-j5Z48CrczuBbEDZTu6JpzwuaILhcO+/xFOjokXwv2ZI=";
     });
     cargoLock."Cargo.lock" = {
-      lockFile = ./neondb-a50a7e8ac083285222fa5923e25991eaeee62885/Cargo.lock;
+      lockFile = ./neondb-37625c4433eca0e2e3ec2c2b84e988d29aa9bc66/Cargo.lock;
       outputHashes = {
         "pprof-0.6.1" = "sha256-Ej0NNN8TDNvgXtSI5LLCwOJjo+XDU7RaVE6Ai3ZMlUY=";
         "amplify_num-0.4.1" = "sha256-7raFT2CLEz4bza0CCSnA0EEnIRJ/neRvXp8Ji4l0AfA=";
@@ -66,24 +66,24 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "bec0fe22368940ad129f12b9d29bb61a9f7291ef";
+    version = "cc5e78172a5a0b575a2f8050a210204a12b56696";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "bec0fe22368940ad129f12b9d29bb61a9f7291ef";
+      rev = "cc5e78172a5a0b575a2f8050a210204a12b56696";
       fetchSubmodules = true;
-      sha256 = "sha256-/h9lQs4tmj5Ph+wJqU+8YMRDvCRJxIk5/V/XFp+lk4E=";
+      sha256 = "sha256-O653UOfIckyuyChkSdIy8aw/O+Bj4tCjQ0PO5KiJftc=";
     });
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "7fc451ab2be54eeca0d5e25eef352063f3753f15";
+    version = "450eb18d5a63e8411c35ce8fa5507310a45599a9";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "7fc451ab2be54eeca0d5e25eef352063f3753f15";
+      rev = "450eb18d5a63e8411c35ce8fa5507310a45599a9";
       fetchSubmodules = false;
-      sha256 = "sha256-ze/3jY7goYYhCvFSzmO0Xsgc0kBg4JPn4aafox7NPLA=";
+      sha256 = "sha256-+RN2ZyIv3pP/iDmDqWwS1UovijlkydlL7SI9KRdxAMg=";
     });
   };
   wemeet = {

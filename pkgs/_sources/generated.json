@@ -56,7 +56,7 @@
     "neondb": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./neondb-a50a7e8ac083285222fa5923e25991eaeee62885/Cargo.lock",
+                "./neondb-37625c4433eca0e2e3ec2c2b84e988d29aa9bc66/Cargo.lock",
                 {
                     "amplify_num-0.4.1": "sha256-7raFT2CLEz4bza0CCSnA0EEnIRJ/neRvXp8Ji4l0AfA=",
                     "postgres-0.19.2": "sha256-yobBu0t1xzUHjI9RDxcSBZgycLKdVm3bDTxKNJxl1HM=",
@@ -75,11 +75,11 @@
             "name": null,
             "owner": "neondatabase",
             "repo": "neon",
-            "rev": "a50a7e8ac083285222fa5923e25991eaeee62885",
-            "sha256": "sha256-X0ZcK7mxIygpLptYuw6+Aa9+oToAQfW8SEcfSRxIB+M=",
+            "rev": "37625c4433eca0e2e3ec2c2b84e988d29aa9bc66",
+            "sha256": "sha256-j5Z48CrczuBbEDZTu6JpzwuaILhcO+/xFOjokXwv2ZI=",
             "type": "github"
         },
-        "version": "a50a7e8ac083285222fa5923e25991eaeee62885"
+        "version": "37625c4433eca0e2e3ec2c2b84e988d29aa9bc66"
     },
     "rait": {
         "cargoLocks": null,
@@ -114,11 +114,11 @@
             "name": null,
             "owner": "riscv",
             "repo": "riscv-openocd",
-            "rev": "bec0fe22368940ad129f12b9d29bb61a9f7291ef",
-            "sha256": "sha256-/h9lQs4tmj5Ph+wJqU+8YMRDvCRJxIk5/V/XFp+lk4E=",
+            "rev": "cc5e78172a5a0b575a2f8050a210204a12b56696",
+            "sha256": "sha256-O653UOfIckyuyChkSdIy8aw/O+Bj4tCjQ0PO5KiJftc=",
             "type": "github"
         },
-        "version": "bec0fe22368940ad129f12b9d29bb61a9f7291ef"
+        "version": "cc5e78172a5a0b575a2f8050a210204a12b56696"
     },
     "smartdns-china-list": {
         "cargoLocks": null,
@@ -133,11 +133,11 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "7fc451ab2be54eeca0d5e25eef352063f3753f15",
-            "sha256": "sha256-ze/3jY7goYYhCvFSzmO0Xsgc0kBg4JPn4aafox7NPLA=",
+            "rev": "450eb18d5a63e8411c35ce8fa5507310a45599a9",
+            "sha256": "sha256-+RN2ZyIv3pP/iDmDqWwS1UovijlkydlL7SI9KRdxAMg=",
             "type": "github"
         },
-        "version": "7fc451ab2be54eeca0d5e25eef352063f3753f15"
+        "version": "450eb18d5a63e8411c35ce8fa5507310a45599a9"
     },
     "wemeet": {
         "cargoLocks": null,
