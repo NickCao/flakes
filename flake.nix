@@ -73,6 +73,7 @@
     let
       this = import ./pkgs;
       data = builtins.fromJSON (builtins.readFile ./zones/data.json);
+      lib = inputs.nixpkgs.lib;
     in
     flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ]
       (
@@ -99,10 +100,8 @@
         }
       )
     // {
-      hydraJobs = self.packages.x86_64-linux //
-      inputs.nixpkgs.lib.genAttrs
-        [ "nrt0" "sin0" "sea0" "lax0" ]
-        (name: self.colmenaHive.nodes.${name}.config.system.build.install)
+      hydraJobs = self.packages.x86_64-linux // lib.mapAttrs (name: value: value.config.system.build.install)
+        (lib.filterAttrs (name: value: builtins.elem "vultr" value.config.deployment.tags) self.colmenaHive.nodes)
       // {
         local = self.nixosConfigurations.local.config.system.build.toplevel;
       };
@@ -136,31 +135,19 @@
           };
           imports = [ ./nixos/rpi ];
         };
-        hel0 = { ... }: {
+      } // (lib.mapAttrs
+        (name: value: { ... }: {
           deployment = {
-            targetHost = "hel0.nichi.link";
+            targetHost = "${name}.nichi.link";
+            tags = value.tags;
           };
-          imports = [ ./nixos/hel0 ];
-        };
-        iad0 = { ... }: {
-          deployment = {
-            targetHost = "iad0.nichi.link";
-            tags = [ "normal" ];
-          };
-          imports = [ ./nixos/iad0 ];
-        };
-        sin1 = { ... }: {
-          deployment = {
-            targetHost = "sin1.nichi.link";
-          };
-          imports = [ ./nixos/sin1 ];
-        };
-      } // inputs.nixpkgs.lib.genAttrs [ "nrt0" "sin0" "sea0" "lax0" ] (name: { ... }: {
-        deployment = {
-          targetHost = "${name}.nichi.link";
-          tags = data.nodes.value.${name}.tags;
-        };
-        imports = [ ./nixos/vultr/${name} ];
-      }));
+          imports =
+            if (builtins.elem "vultr" value.tags) then [
+              ./nixos/vultr/${name}
+            ] else [
+              ./nixos/${name}
+            ];
+        })
+        data.nodes.value));
     };
 }
