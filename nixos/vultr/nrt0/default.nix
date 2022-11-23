@@ -10,7 +10,6 @@
     };
   };
   networking.hostName = "nrt0";
-  services.dns.secondary.enable = true;
   services.gravity = {
     enable = true;
     reload.enable = true;

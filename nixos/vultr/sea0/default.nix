@@ -6,7 +6,6 @@
     secrets.ranet.reloadUnits = [ "gravity.service" ];
   };
   networking.hostName = "sea0";
-  services.dns.secondary.enable = true;
   services.gravity = {
     enable = true;
     reload.enable = true;

@@ -1,4 +1,8 @@
-{ pkgs, self, inputs, ... }: {
+{ config, pkgs, self, inputs, ... }:
+let
+  hasTag = tag: builtins.elem tag config.deployment.tags;
+in
+{
 
   imports = [
     self.nixosModules.vultr
@@ -7,6 +11,8 @@
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
   ];
+
+  services.dns.secondary.enable = hasTag "nameserver";
 
   nixpkgs.overlays = [
     self.overlays.default
