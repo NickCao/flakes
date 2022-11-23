@@ -13,6 +13,12 @@ locals {
       ipv6       = "2a01:4f9:3a:40c9::1",
       nameserver = false,
     },
+    sin1 = {
+      fqdn       = "sin1.nichi.link",
+      ipv4       = "154.26.139.162",
+      ipv6       = "2407:3640:2108:595::1",
+      nameserver = false,
+    },
   })
   nameservers = { for k, v in local.hosts : k => v if v.nameserver == true }
   ns          = concat(values(local.nameservers)[*].fqdn)
