@@ -4,7 +4,9 @@ let
 in
 {
 
-  sops.secrets.vault = { };
+  sops.secrets.vault = {
+    restartUnits = [ "vaultwarden.service" ];
+  };
 
   services.vaultwarden = {
     enable = true;
