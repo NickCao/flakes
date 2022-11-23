@@ -5,9 +5,6 @@ let
 in
 {
   sops.secrets = {
-    controller = {
-      owner = "rspamd";
-    };
     dkim = {
       owner = "rspamd";
       path = "/var/lib/rspamd/dkim.key";
@@ -88,7 +85,9 @@ in
       };
     };
     locals = {
-      "worker-controller.inc".source = config.sops.secrets.controller.path;
+      "worker-controller.inc".text = ''
+        secure_ip = 127.0.0.1
+      '';
       "worker-proxy.inc".text = ''
         upstream "local" {
           self_scan = yes;
@@ -119,28 +118,4 @@ in
     port = 16380;
   };
 
-  services.traefik = {
-    dynamicConfigOptions = {
-      http = {
-        routers = {
-          rspamd = {
-            rule = "Host(`${config.networking.fqdn}`) && PathPrefix(`/rspamd`)";
-            entryPoints = [ "https" ];
-            service = "rspamd";
-            middlewares = [ "rspamd" ];
-          };
-        };
-        middlewares = {
-          rspamd.stripPrefix = {
-            prefixes = [ "/rspamd" ];
-          };
-        };
-        services = {
-          rspamd.loadBalancer.servers = [{
-            url = "http://127.0.0.1:11334";
-          }];
-        };
-      };
-    };
-  };
 }
