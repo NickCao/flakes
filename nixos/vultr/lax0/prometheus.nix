@@ -8,6 +8,7 @@ let
     "sea0.nichi.link"
     "hel0.nichi.link"
     "iad0.nichi.link"
+    "lax0.nichi.link"
   ];
 in
 {
@@ -90,7 +91,7 @@ in
   };
 
   cloud.services.prometheus-ntfy-bridge.config = {
-    ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --no-check ${../../fn/alert.ts}";
+    ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --no-check ${../../../fn/alert.ts}";
     MemoryDenyWriteExecute = false;
     EnvironmentFile = [ config.sops.secrets.alert.path ];
     Environment = [ "PORT=8009" "DENO_DIR=/tmp" ];

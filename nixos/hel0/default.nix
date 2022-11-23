@@ -4,7 +4,6 @@
     ./configuration.nix
     ./hardware.nix
     ./services.nix
-    ./prometheus.nix
     ./matrix.nix
     ./git.nix
     self.nixosModules.default
