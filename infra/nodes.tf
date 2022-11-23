@@ -1,30 +1,30 @@
 locals {
   nodes = {
     nrt0 = {
-      region     = "nrt"
-      nameserver = true
+      region = "nrt"
+      tags   = ["vultr", "nameserver"]
     }
     sin0 = {
-      region     = "sgp"
-      nameserver = true
+      region = "sgp"
+      tags   = ["vultr", "nameserver"]
     }
     sea0 = {
-      region     = "sea"
-      nameserver = true
+      region = "sea"
+      tags   = ["vultr", "nameserver"]
     }
     lax0 = {
-      region     = "lax"
-      nameserver = false
+      region = "lax"
+      tags   = ["vultr"]
     }
   }
 }
 
 module "nodes" {
-  source     = "./modules/node"
-  for_each   = local.nodes
-  hostname   = each.key
-  fqdn       = "${each.key}.nichi.link"
-  region     = each.value.region
-  userdata   = local.secrets.nixos.key
-  nameserver = each.value.nameserver
+  source   = "./modules/node"
+  for_each = local.nodes
+  hostname = each.key
+  fqdn     = "${each.key}.nichi.link"
+  region   = each.value.region
+  userdata = local.secrets.nixos.key
+  tags     = each.value.tags
 }

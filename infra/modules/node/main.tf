@@ -15,8 +15,8 @@ variable "userdata" {
   sensitive = true
 }
 
-variable "nameserver" {
-  type      = bool
+variable "tags" {
+  type      = list(string)
 }
 
 terraform {
@@ -75,6 +75,6 @@ output "fqdn" {
   value = var.fqdn
 }
 
-output "nameserver" {
-  value = var.nameserver
+output "tags" {
+  value = var.tags
 }

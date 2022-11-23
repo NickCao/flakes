@@ -28,7 +28,12 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
-            "nameserver": "bool"
+            "tags": [
+              "tuple",
+              [
+                "string"
+              ]
+            ]
           }
         ],
         "iad0": [
@@ -37,7 +42,13 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
-            "nameserver": "bool"
+            "tags": [
+              "tuple",
+              [
+                "string",
+                "string"
+              ]
+            ]
           }
         ],
         "lax0": [
@@ -46,7 +57,10 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
-            "nameserver": "bool"
+            "tags": [
+              "list",
+              "string"
+            ]
           }
         ],
         "nrt0": [
@@ -55,7 +69,10 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
-            "nameserver": "bool"
+            "tags": [
+              "list",
+              "string"
+            ]
           }
         ],
         "sea0": [
@@ -64,7 +81,10 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
-            "nameserver": "bool"
+            "tags": [
+              "list",
+              "string"
+            ]
           }
         ],
         "sin0": [
@@ -73,7 +93,10 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
-            "nameserver": "bool"
+            "tags": [
+              "list",
+              "string"
+            ]
           }
         ],
         "sin1": [
@@ -82,7 +105,12 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
-            "nameserver": "bool"
+            "tags": [
+              "tuple",
+              [
+                "string"
+              ]
+            ]
           }
         ]
       }
@@ -92,43 +120,61 @@
         "fqdn": "hel0.nichi.link",
         "ipv4": "65.21.32.182",
         "ipv6": "2a01:4f9:3a:40c9::1",
-        "nameserver": false
+        "tags": [
+          "hetzner"
+        ]
       },
       "iad0": {
         "fqdn": "iad0.nichi.link",
         "ipv4": "5.161.83.9",
         "ipv6": "2a01:4ff:f0:db00::1",
-        "nameserver": true
+        "tags": [
+          "hetzner",
+          "nameserver"
+        ]
       },
       "lax0": {
         "fqdn": "lax0.nichi.link",
         "ipv4": "149.28.95.78",
         "ipv6": "2001:19f0:6001:5eb4:5400:04ff:fe37:bf76",
-        "nameserver": false
+        "tags": [
+          "vultr"
+        ]
       },
       "nrt0": {
         "fqdn": "nrt0.nichi.link",
         "ipv4": "45.32.61.43",
         "ipv6": "2001:19f0:7001:53db:5400:04ff:fe19:b7a0",
-        "nameserver": true
+        "tags": [
+          "vultr",
+          "nameserver"
+        ]
       },
       "sea0": {
         "fqdn": "sea0.nichi.link",
         "ipv4": "104.207.158.228",
         "ipv6": "2001:19f0:8001:1bbd:5400:04ff:fe19:a6c6",
-        "nameserver": true
+        "tags": [
+          "vultr",
+          "nameserver"
+        ]
       },
       "sin0": {
         "fqdn": "sin0.nichi.link",
         "ipv4": "45.32.119.153",
         "ipv6": "2001:19f0:4400:6a40:5400:04ff:fe19:b6d8",
-        "nameserver": true
+        "tags": [
+          "vultr",
+          "nameserver"
+        ]
       },
       "sin1": {
         "fqdn": "sin1.nichi.link",
         "ipv4": "154.26.139.162",
         "ipv6": "2407:3640:2108:595::1",
-        "nameserver": false
+        "tags": [
+          "contabo"
+        ]
       }
     }
   }
