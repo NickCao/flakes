@@ -15,6 +15,10 @@ variable "userdata" {
   sensitive = true
 }
 
+variable "nameserver" {
+  type      = bool
+}
+
 terraform {
   required_providers {
     vultr = {
@@ -72,5 +76,5 @@ output "fqdn" {
 }
 
 output "nameserver" {
-  value = true
+  value = var.nameserver
 }
