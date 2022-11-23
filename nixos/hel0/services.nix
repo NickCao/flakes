@@ -9,7 +9,6 @@
     gnupg.sshKeyPaths = [ ];
     secrets = {
       canopus = { };
-      vault = { };
     };
   };
 
@@ -24,20 +23,6 @@
       listen-http = "127.0.0.1:8008";
       behind-proxy = true;
     };
-  };
-
-  services.vaultwarden = {
-    enable = true;
-    config = {
-      signupsAllowed = false;
-      sendsAllowed = false;
-      emergencyAccessAllowed = false;
-      orgCreationUsers = "none";
-      domain = "https://vault.nichi.co";
-      rocketAddress = "127.0.0.1";
-      rocketPort = 8003;
-    };
-    environmentFile = config.sops.secrets.vault.path;
   };
 
   cloud.services.blog.config = {
@@ -73,11 +58,6 @@
     dynamicConfigOptions = {
       http = {
         routers = {
-          vault = {
-            rule = "Host(`vault.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "vault";
-          };
           blog = {
             rule = "Host(`nichi.co`)";
             entryPoints = [ "https" ];
@@ -98,10 +78,6 @@
           };
         };
         services = {
-          vault.loadBalancer = {
-            passHostHeader = true;
-            servers = [{ url = "http://127.0.0.1:8003"; }];
-          };
           blog.loadBalancer = {
             servers = [{ url = "http://127.0.0.1:8007"; }];
           };

@@ -5,6 +5,7 @@
     ./hardware.nix
     ./services.nix
     ./matrix.nix
+    ./vaultwarden.nix
     ./git.nix
     self.nixosModules.default
     inputs.impermanence.nixosModules.impermanence
