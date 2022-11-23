@@ -40,6 +40,15 @@
             "nameserver": "bool"
           }
         ],
+        "lax0": [
+          "object",
+          {
+            "fqdn": "string",
+            "ipv4": "string",
+            "ipv6": "string",
+            "nameserver": "bool"
+          }
+        ],
         "nrt0": [
           "object",
           {
@@ -81,6 +90,12 @@
         "ipv4": "5.161.83.9",
         "ipv6": "2a01:4ff:f0:db00::1",
         "nameserver": true
+      },
+      "lax0": {
+        "fqdn": "lax0.nichi.link",
+        "ipv4": "149.28.95.78",
+        "ipv6": "2001:19f0:6001:5eb4:5400:04ff:fe37:bf76",
+        "nameserver": false
       },
       "nrt0": {
         "fqdn": "nrt0.nichi.link",
