@@ -1,6 +1,6 @@
-{ pkgs, specialArgs, ... }:
+{ pkgs, self, inputs, ... }:
 {
-  imports = with specialArgs;[
+  imports = [
     ./configuration.nix
     ./hardware.nix
     ./services.nix
