@@ -12,7 +12,6 @@
       passwd.neededForUsers = true;
       u2f = { mode = "0444"; };
       wireless = { };
-      restic = { };
       tsinghua-secure = { path = "/var/lib/iwd/Tsinghua-Secure.8021x"; };
     };
     age = {
@@ -189,15 +188,13 @@
       dnssec = "false";
       llmnr = "false";
     };
-    restic.backups = {
-      hel0 = {
-        repository = "sftp:nickcao@hel0.nichi.link:backup";
-        passwordFile = config.sops.secrets.restic.path;
-        paths = [ "/persist" ];
-        extraBackupArgs = [ "--exclude-caches" ];
-        timerConfig = {
-          OnBootSec = "15min";
-        };
+    restic.backups.persist = {
+      repository = "sftp:backup:backup";
+      passwordFile = config.sops.secrets.restic.path;
+      paths = [ "/persist" ];
+      extraBackupArgs = [ "--exclude-caches" ];
+      timerConfig = {
+        OnBootSec = "15min";
       };
     };
     pcscd.enable = true;
@@ -256,6 +253,7 @@
   ];
 
   environment.pathsToLink = [ "/share/fish" ];
+  environment.backup.enable = true;
 
   security.pam.services.swaylock = { };
   security.pam.u2f = {
