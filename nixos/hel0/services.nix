@@ -1,20 +1,5 @@
 { config, pkgs, ... }:
 {
-  sops = {
-    defaultSopsFile = ./secrets.yaml;
-    age = {
-      keyFile = "/var/lib/sops.key";
-      sshKeyPaths = [ ];
-    };
-    gnupg.sshKeyPaths = [ ];
-    secrets = {
-      canopus = { };
-    };
-  };
-
-  services.gateway.enable = true;
-  services.sshcert.enable = true;
-  services.metrics.enable = true;
 
   cloud.services.blog.config = {
     ExecStart = "${pkgs.miniserve}/bin/miniserve -i 127.0.0.1 -p 8007 --index index.html ${pkgs.blog}";
