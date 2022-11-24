@@ -7,22 +7,12 @@
     fileSystems = [ "/persist" "/nix" ];
   };
 
-  services.restic.backups = {
-    var = {
-      repository = "sftp:backup:backup";
-      passwordFile = config.sops.secrets.restic.path;
-      paths = [ "/persist/var" ];
-      timerConfig = {
-        OnCalendar = "daily";
-      };
-    };
-    git = {
-      repository = "sftp:backup:backup";
-      passwordFile = config.sops.secrets.restic.path;
-      paths = [ "/persist/home/git" ];
-      timerConfig = {
-        OnCalendar = "weekly";
-      };
+  services.restic.backups.var = {
+    repository = "sftp:backup:backup";
+    passwordFile = config.sops.secrets.restic.path;
+    paths = [ "/persist/var" ];
+    timerConfig = {
+      OnCalendar = "daily";
     };
   };
 
