@@ -7,10 +7,10 @@
     fileSystems = [ "/persist" "/nix" ];
   };
 
-  services.restic.backups.var = {
+  services.restic.backups.persist = {
     repository = "sftp:backup:backup";
     passwordFile = config.sops.secrets.restic.path;
-    paths = [ "/persist/var" ];
+    paths = [ "/persist" ];
     timerConfig = {
       OnCalendar = "daily";
     };
@@ -76,29 +76,14 @@
     };
   };
 
-  users = {
-    users = {
-      root.openssh.authorizedKeys.keys = pkgs.keys;
-      nickcao = {
-        isNormalUser = true;
-        openssh.authorizedKeys.keys = pkgs.keys;
-      };
-    };
-  };
+  users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
 
   services.sshcert.enable = true;
   services.openssh.enable = true;
 
-  environment.systemPackages = with pkgs;[
-    tmux
-    restic
-    git
-  ];
-
   environment.persistence."/persist" = {
     directories = [
       "/var"
-      "/home"
     ];
   };
 
