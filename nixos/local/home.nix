@@ -178,6 +178,7 @@ in
         Preferences = {
           "browser.newtabpage.activity-stream.feeds.topsites" = false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          "browser.tabs.closeWindowWithLastTab" = false;
         };
         ExtensionSettings = {
           "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
