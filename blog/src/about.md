@@ -3,6 +3,7 @@ Nick Cao\
 Golang / Rust / Nix{,OS}\
 An imperfect perfectionist
 ## Identity
+GitHub: [github.com/NickCao](https://github.com/NickCao)\
 GitLab: [gitlab.com/NickCao](https://gitlab.com/NickCao)\
 Telegram: [t.me/NickCao](https://t.me/NickCao)\
 Mail: [nickcao@nichi.co](mailto:nickcao@nichi.co)\
