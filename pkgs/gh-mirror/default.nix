@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "NickCao";
     repo = pname;
-    rev = "3f6499e5304841c9a3993b1f1018725e9c3dfc97";
-    hash = "sha256-8ruDXE44K3Nfh478o5hCWbvlY9fRFD8lNgcKC8QznAU=";
+    rev = "46a1231c96c54009a75016e5e6f85b15cb7eacdd";
+    hash = "sha256-5zeO0vTzD44lKuWYHz5vbzZgZXzLxGFx1alObbMV1ZY=";
   };
 
   buildInputs = [ python3 makeWrapper ];
