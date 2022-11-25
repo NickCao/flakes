@@ -12,6 +12,7 @@ let
     css=/custom.css
     clone-prefix=https://git.nichi.co
     section-from-path=1
+    remove-suffix=1
     scan-path=${config.users.users.git.home}
   '';
   cgitWebroot = "${pkgs.cgit-pink}/cgit";
@@ -40,6 +41,19 @@ in
     ExecStart = "${pkgs.lighttpd}/bin/lighttpd -D -f ${lighttpdConfig}";
     PrivateUsers = false;
     BindReadOnlyPaths = config.users.users.git.home;
+  };
+
+  cloud.services.cgit-mirror.enable = false;
+  cloud.services.cgit-mirror.config = {
+    User = "git";
+    ExecStart = "${pkgs.gh-mirror}/bin/gh-mirror --exclude-forks --include nixpkgs NickCao";
+    BindPaths = config.users.users.git.home;
+    WorkingDirectory = "${config.users.users.git.home}/mirror";
+  };
+
+  systemd.timers.cgit-mirror = {
+    wantedBy = [ "timers.target" ];
+    timerConfig.OnCalendar = "hourly";
   };
 
   users.groups.git = { };
