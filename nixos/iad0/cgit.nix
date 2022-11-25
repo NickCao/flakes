@@ -11,6 +11,7 @@ let
     snapshots=tar.zst
     css=/custom.css
     clone-prefix=https://git.nichi.co
+    section-from-path=1
     scan-path=${config.users.users.git.home}
   '';
   cgitWebroot = "${pkgs.cgit-pink}/cgit";
