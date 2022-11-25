@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gh-mirror";
-  version = "2022-04-14";
+  version = "2022-11-25";
 
   src = fetchFromGitHub {
-    owner = "cdown";
+    owner = "NickCao";
     repo = pname;
-    rev = "250cab172f1ebbc3af19444d328a74db588639ef";
-    hash = "sha256-XVt7JHrLsVv1Fy2ZdWrA0mH/eQNKCJrcuJp1xLVnLIM=";
+    rev = "3f6499e5304841c9a3993b1f1018725e9c3dfc97";
+    hash = "sha256-8ruDXE44K3Nfh478o5hCWbvlY9fRFD8lNgcKC8QznAU=";
   };
 
   buildInputs = [ python3 makeWrapper ];
