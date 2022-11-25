@@ -47,6 +47,8 @@ in
 
   cloud.services.cgit-mirror.enable = false;
   cloud.services.cgit-mirror.config = {
+    Type = "oneshot";
+    Restart = "on-failure";
     User = "git";
     ExecStart = "${pkgs.gh-mirror}/bin/gh-mirror --exclude-forks --include nixpkgs NickCao";
     BindPaths = config.users.users.git.home;
