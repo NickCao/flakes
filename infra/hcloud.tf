@@ -28,3 +28,15 @@ resource "hcloud_primary_ip" "iad0_v6" {
   auto_delete       = false
   delete_protection = true
 }
+
+resource "hcloud_rdns" "iad0_v4" {
+  server_id  = hcloud_server.iad0.id
+  ip_address = hcloud_server.iad0.ipv4_address
+  dns_ptr    = "iad0.nichi.link"
+}
+
+resource "hcloud_rdns" "iad0_v6" {
+  server_id  = hcloud_server.iad0.id
+  ip_address = hcloud_server.iad0.ipv6_address
+  dns_ptr    = "iad0.nichi.link"
+}
