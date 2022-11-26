@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  cgitFilters = "${pkgs.cgit-pink}/lib/cgit/filters";
+  cgitFilters = "${pkgs.cgit}/lib/cgit/filters";
   cgitrc = pkgs.writeText "cgitrc" ''
     root-title=nichi yorozuya
     root-desc=¯\_(ツ)_/¯
@@ -15,7 +15,7 @@ let
     remove-suffix=1
     scan-path=${config.users.users.git.home}
   '';
-  cgitWebroot = "${pkgs.cgit-pink}/cgit";
+  cgitWebroot = "${pkgs.cgit}/cgit";
   lighttpdConfig = pkgs.writeText "lighttpd.conf" ''
     server.bind = "127.0.0.1"
     server.port = 8006
