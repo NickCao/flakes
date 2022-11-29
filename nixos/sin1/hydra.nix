@@ -81,6 +81,9 @@
       Host k11-plct.nichi.link
         User hydra
         IdentityFile ${config.sops.secrets.plct.path}
+        ControlMaster yes
+        ControlPath ~/ssh-master-%r@%n:%p
+        ControlPersist 0
     '';
   };
 
