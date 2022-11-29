@@ -11,6 +11,7 @@
 , zlib
 , openssl
 , libseccomp
+, protobuf
 , rustPlatform
 , buildType ? "release"
 , nixosTest
@@ -43,7 +44,13 @@ stdenv.mkDerivation rec {
     rust.rustc
   ]);
 
-  buildInputs = [ readline zlib openssl libseccomp ];
+  buildInputs = [
+    readline
+    zlib
+    openssl
+    libseccomp
+    protobuf
+  ];
 
   dontUseCmakeConfigure = true;
 
