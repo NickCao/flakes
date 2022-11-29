@@ -39,6 +39,10 @@
     };
   };
 
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "nvidia-x11"
+  ];
+
   networking = {
     hostName = "local";
     domain = "nichi.link";
@@ -146,9 +150,25 @@
   };
 
   hardware = {
+    nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      open = true;
+      nvidiaSettings = false;
+    };
     pulseaudio.enable = false;
     cpu.intel.updateMicrocode = true;
     bluetooth.enable = true;
+    nvidia = {
+      prime = {
+        offload.enable = true;
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+      powerManagement = {
+        enable = true;
+        finegrained = true;
+      };
+    };
     opengl = {
       enable = true;
       extraPackages = with pkgs; [ intel-media-driver ];
@@ -222,6 +242,9 @@
           SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${power} powersave"
           SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${power} performance"
         '';
+    };
+    xserver = {
+      videoDrivers = [ "nvidia" ];
     };
     stratis.enable = true;
   };
