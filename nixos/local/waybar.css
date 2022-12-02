@@ -15,7 +15,7 @@ window#waybar.hidden {
   transition: none;
   color: #7c818c;
   background: #161320;
-  padding: 5px;
+  padding: 3px;
   border-radius: inherit;
 }
 
@@ -51,14 +51,10 @@ window#waybar.hidden {
 #clock,
 #tray {
   color: #24273a;
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 2px;
-  margin-bottom: 2px;
   border-radius: 10px;
   min-width: 40px;
   transition: none;
-  padding: 2px;
+  padding: 3px;
 }
 
 #workspaces {
