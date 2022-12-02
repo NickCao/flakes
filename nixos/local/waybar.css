@@ -1,9 +1,6 @@
 * {
-	border: none;
-	border-radius: 0;
-	font-family: Roboto;
-	font-size: 18px;
-	min-height: 0;
+  font-family: Roboto;
+  font-size: 18px;
 }
 
 window#waybar {
@@ -11,52 +8,83 @@ window#waybar {
 }
 
 window#waybar.hidden {
-	opacity: 0.2;
+  opacity: 0.2;
 }
 
 #workspaces button {
-    transition: none;
-    color: #7C818C;
-    background: #161320;
-    padding: 5px;
-    border-radius: inherit;
+  transition: none;
+  color: #7c818c;
+  background: #161320;
+  padding: 5px;
+  border-radius: inherit;
 }
 
 #workspaces button.focused {
-    box-shadow: inherit;
-    text-shadow: inherit;
-    color: #ABE9B3;
-    background: #7C818C;
+  box-shadow: inherit;
+  text-shadow: inherit;
+  color: #abe9b3;
+  background: #7c818c;
 }
 
 #workspaces button.urgent {
-    color: #ABE9B3;
+  color: #abe9b3;
 }
 
-#mode, #window {
-    color: #FFFFFF;
-    text-shadow: 2px 0px 2px #000000, 0px 2px 2px #000000, -2px 0px 2px #000000, 0px -2px 2px #000000;
+#mode,
+#window {
+  color: #ffffff;
+  text-shadow: 2px 0px 2px #000000, 0px 2px 2px #000000, -2px 0px 2px #000000,
+    0px -2px 2px #000000;
 }
 
-.modules-right { margin-right: 2px; }
+.modules-right {
+  margin-right: 2px;
+}
 
-#workspaces, #idle_inhibitor, #pulseaudio, #memory, #temperature, #backlight, #battery, #clock, #tray {
-  color: #24273A;
-	margin-left: 2px;
-	margin-right: 2px;
-	margin-top: 2px;
-	margin-bottom: 2px;
-	border-radius: 10px;
+#workspaces,
+#idle_inhibitor,
+#pulseaudio,
+#memory,
+#temperature,
+#backlight,
+#battery,
+#clock,
+#tray {
+  color: #24273a;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius: 10px;
   min-width: 40px;
-	transition: none;
+  transition: none;
+  padding: 2px;
 }
 
-#workspaces { background: #161320; }
-#idle_inhibitor { background: #CAD3F5; }
-#pulseaudio { background: #8BD5CA; }
-#memory { background: #DDB6F2; }
-#temperature { background: #F8BD96; }
-#backlight { background: #FAE3B0; }
-#battery { background: #B5E8E0; }
-#clock { background: #ABE9B3; }
-#tray { background: #E8A2AF; }
+#workspaces {
+  background: #161320;
+}
+#idle_inhibitor {
+  background: #cad3f5;
+}
+#pulseaudio {
+  background: #8bd5ca;
+}
+#memory {
+  background: #ddb6f2;
+}
+#temperature {
+  background: #f8bd96;
+}
+#backlight {
+  background: #fae3b0;
+}
+#battery {
+  background: #b5e8e0;
+}
+#clock {
+  background: #abe9b3;
+}
+#tray {
+  background: #e8a2af;
+}
