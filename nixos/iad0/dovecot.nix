@@ -22,10 +22,6 @@ in
             fileinto "Junk";
             stop;
         }
-        if address :all :is "cc" [ "ci_activity@noreply.github.com" ] {
-            fileinto "Trans";
-            stop;
-        }
       '';
     };
     configFile = pkgs.writeText "dovecot.conf" ''
@@ -79,9 +75,6 @@ in
 
       namespace inbox {
         inbox = yes
-        mailbox Trans {
-          auto = subscribe
-        }
         mailbox Drafts {
           auto = subscribe
           special_use = \Drafts
