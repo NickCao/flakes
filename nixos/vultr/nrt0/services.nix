@@ -1,10 +1,9 @@
 { pkgs, config, ... }:
 {
   cloud.services.fn.config = {
-    ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --no-check ${../../../fn}/index.ts";
+    ExecStart = "${pkgs.python3.withPackages (ps: with ps; [ uvicorn fastapi stripe])}/bin/python ${../../../fn/index.py}";
     EnvironmentFile = config.sops.secrets.woff.path;
-    MemoryDenyWriteExecute = false;
-    Environment = [ "PORT=8001" "DENO_DIR=/tmp" ];
+    Environment = [ "PORT=8001" ];
   };
 
   cloud.services.workerd.config = {
