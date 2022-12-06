@@ -22,20 +22,6 @@
     "type": [
       "object",
       {
-        "hel0": [
-          "object",
-          {
-            "fqdn": "string",
-            "ipv4": "string",
-            "ipv6": "string",
-            "tags": [
-              "tuple",
-              [
-                "string"
-              ]
-            ]
-          }
-        ],
         "hio0": [
           "object",
           {
@@ -125,14 +111,6 @@
       }
     ],
     "value": {
-      "hel0": {
-        "fqdn": "hel0.nichi.link",
-        "ipv4": "65.21.32.182",
-        "ipv6": "2a01:4f9:3a:40c9::1",
-        "tags": [
-          "hetzner"
-        ]
-      },
       "hio0": {
         "fqdn": "hio0.nichi.link",
         "ipv4": "5.78.46.154",

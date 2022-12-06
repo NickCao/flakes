@@ -1,12 +1,6 @@
 locals {
   dnssec_key = "LBbl0S/D5U9yKQOy+r0+lZEJP3kpPklCBagsT13p64U="
   hosts = merge(module.vultr, module.hcloud, {
-    hel0 = {
-      fqdn = "hel0.nichi.link",
-      ipv4 = "65.21.32.182",
-      ipv6 = "2a01:4f9:3a:40c9::1",
-      tags = ["hetzner"]
-    },
     sin1 = {
       fqdn = "sin1.nichi.link",
       ipv4 = "154.26.139.162",
