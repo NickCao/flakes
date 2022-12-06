@@ -16,36 +16,6 @@
     };
   };
 
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_15;
-    settings = {
-      max_connections = 300;
-      shared_buffers = "16GB";
-      effective_cache_size = "48GB";
-      maintenance_work_mem = "2GB";
-      checkpoint_completion_target = 0.9;
-      wal_buffers = "16MB";
-      default_statistics_target = 100;
-      random_page_cost = 1.1;
-      effective_io_concurrency = 200;
-      work_mem = "20971kB";
-      min_wal_size = "1GB";
-      max_wal_size = "4GB";
-      max_worker_processes = 12;
-      max_parallel_workers_per_gather = 4;
-      max_parallel_workers = 12;
-      max_parallel_maintenance_workers = 4;
-    };
-  };
-
-  services.postgresqlBackup = {
-    enable = true;
-    location = "/var/lib/backup/postgresql";
-    compression = "zstd";
-    startAt = "weekly";
-  };
-
   nix.settings = {
     auto-optimise-store = true;
     experimental-features = [ "nix-command" "flakes" "ca-derivations" ];

@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 {
 
-  cloud.services.blog.config = {
-    ExecStart = "${pkgs.miniserve}/bin/miniserve -i 127.0.0.1 -p 8007 --index index.html ${pkgs.blog}";
-  };
-
   cloud.services.canopus.config = {
     MemoryLimit = "5G";
     SystemCallFilter = null;
@@ -28,33 +24,6 @@
       updater.start_polling()
     ''}";
     EnvironmentFile = config.sops.secrets.canopus.path;
-  };
-
-  services.traefik = {
-    dynamicConfigOptions = {
-      http = {
-        routers = {
-          blog = {
-            rule = "Host(`nichi.co`)";
-            entryPoints = [ "https" ];
-            middlewares = [ "blog" ];
-            service = "blog";
-          };
-        };
-        middlewares = {
-          blog.headers = {
-            stsSeconds = 31536000;
-            stsIncludeSubdomains = true;
-            stsPreload = true;
-          };
-        };
-        services = {
-          blog.loadBalancer = {
-            servers = [{ url = "http://127.0.0.1:8007"; }];
-          };
-        };
-      };
-    };
   };
 
 }
