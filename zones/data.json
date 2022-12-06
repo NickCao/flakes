@@ -36,6 +36,18 @@
             ]
           }
         ],
+        "hio0": [
+          "object",
+          {
+            "fqdn": "string",
+            "ipv4": "string",
+            "ipv6": "string",
+            "tags": [
+              "list",
+              "string"
+            ]
+          }
+        ],
         "iad0": [
           "object",
           {
@@ -43,11 +55,8 @@
             "ipv4": "string",
             "ipv6": "string",
             "tags": [
-              "tuple",
-              [
-                "string",
-                "string"
-              ]
+              "list",
+              "string"
             ]
           }
         ],
@@ -120,6 +129,14 @@
         "fqdn": "hel0.nichi.link",
         "ipv4": "65.21.32.182",
         "ipv6": "2a01:4f9:3a:40c9::1",
+        "tags": [
+          "hetzner"
+        ]
+      },
+      "hio0": {
+        "fqdn": "hio0.nichi.link",
+        "ipv4": "5.78.46.154",
+        "ipv6": "2a01:4ff:1f0:f06c::1",
         "tags": [
           "hetzner"
         ]
