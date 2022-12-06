@@ -5,6 +5,7 @@
     self.nixosModules.cloud.filesystems
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
+    ./blog.nix
     ./matrix.nix
   ];
 
