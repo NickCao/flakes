@@ -38,6 +38,15 @@
     fileSystems = [ "/persist" ];
   };
 
+  services.restic.backups.persist = {
+    repository = "sftp:backup:backup";
+    passwordFile = config.sops.secrets.restic.path;
+    paths = [ "/persist" ];
+    timerConfig = {
+      OnCalendar = "daily";
+    };
+  };
+
   networking = {
     hostName = "hio0";
     domain = "nichi.link";
