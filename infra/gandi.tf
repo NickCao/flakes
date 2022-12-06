@@ -1,6 +1,6 @@
 locals {
   dnssec_key = "LBbl0S/D5U9yKQOy+r0+lZEJP3kpPklCBagsT13p64U="
-  hosts = merge(module.nodes, {
+  hosts = merge(module.vultr, {
     iad0 = {
       fqdn = "iad0.nichi.link",
       ipv4 = "5.161.83.9",

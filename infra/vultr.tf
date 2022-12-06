@@ -19,8 +19,8 @@ locals {
   }
 }
 
-module "nodes" {
-  source   = "./modules/node"
+module "vultr" {
+  source   = "./modules/vultr"
   for_each = local.nodes
   hostname = each.key
   fqdn     = "${each.key}.nichi.link"
