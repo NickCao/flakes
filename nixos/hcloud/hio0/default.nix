@@ -7,6 +7,7 @@
     inputs.sops-nix.nixosModules.sops
     ./blog.nix
     ./matrix.nix
+    ./services.nix
   ];
 
   sops = {

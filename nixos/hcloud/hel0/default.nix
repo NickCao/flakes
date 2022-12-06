@@ -4,7 +4,6 @@
   imports = [
     ./configuration.nix
     ./hardware.nix
-    ./services.nix
     self.nixosModules.default
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
@@ -20,15 +19,11 @@
   ];
 
   sops = {
-    defaultSopsFile = ./secrets.yaml;
     age = {
       keyFile = "/var/lib/sops.key";
       sshKeyPaths = [ ];
     };
     gnupg.sshKeyPaths = [ ];
-    secrets = {
-      canopus = { };
-    };
   };
 
   services.gateway.enable = true;
