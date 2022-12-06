@@ -3,10 +3,12 @@ locals {
     iad0 = {
       region = "ash-dc1"
       plan   = "cpx11"
+      tags   = ["hetzner", "nameserver"]
     }
     hio0 = {
       region = "hil-dc1"
       plan   = "cpx31"
+      tags   = ["hetzner"]
     }
   }
 }
@@ -18,4 +20,5 @@ module "hcloud" {
   fqdn     = "${each.key}.nichi.link"
   region   = each.value.region
   plan     = each.value.plan
+  tags     = each.value.tags
 }

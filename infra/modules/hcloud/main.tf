@@ -14,6 +14,10 @@ variable "plan" {
   type = string
 }
 
+variable "tags" {
+  type = list(string)
+}
+
 terraform {
   required_providers {
     hcloud = {
@@ -63,4 +67,20 @@ resource "hcloud_rdns" "ipv6" {
   server_id  = hcloud_server.server.id
   ip_address = hcloud_server.server.ipv6_address
   dns_ptr    = var.fqdn
+}
+
+output "ipv4" {
+  value = hcloud_primary_ip.ipv4.ip_address
+}
+
+output "ipv6" {
+  value = cidrhost("${hcloud_primary_ip.ipv6.ip_address}/64", 1)
+}
+
+output "fqdn" {
+  value = var.fqdn
+}
+
+output "tags" {
+  value = var.tags
 }
