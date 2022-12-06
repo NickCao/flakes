@@ -28,6 +28,8 @@ in
           IdentityFile ${config.sops.secrets.backup.path}
       '';
     };
+
+    environment.systemPackages = [ pkgs.restic ];
   };
 
 }

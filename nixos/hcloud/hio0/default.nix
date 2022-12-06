@@ -5,6 +5,7 @@
     self.nixosModules.cloud.filesystems
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
+    ./matrix.nix
   ];
 
   sops = {
@@ -54,6 +55,7 @@
   users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
 
   environment.baseline.enable = true;
+  environment.backup.enable = true;
 
   system.stateVersion = "22.05";
 }
