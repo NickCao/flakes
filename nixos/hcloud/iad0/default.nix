@@ -58,7 +58,7 @@
     useNetworkd = true;
     interfaces.enp1s0 = {
       useDHCP = true;
-      ipv6.addresses = [{ address = ((import ../../zones/common.nix).nodes.iad0.ipv6); prefixLength = 64; }];
+      ipv6.addresses = [{ address = ((import ../../../zones/common.nix).nodes.iad0.ipv6); prefixLength = 64; }];
       ipv6.routes = [{ address = "::"; prefixLength = 0; via = "fe80::1"; }];
     };
   };

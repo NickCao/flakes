@@ -144,6 +144,8 @@
           imports =
             if (builtins.elem "vultr" value.tags) then [
               ./nixos/vultr/${name}
+            ] else if (builtins.elem "hetzner" value.tags) then [
+              ./nixos/hcloud/${name}
             ] else [
               ./nixos/${name}
             ];
