@@ -5,7 +5,6 @@
     ./configuration.nix
     ./hardware.nix
     ./services.nix
-    ./matrix.nix
     self.nixosModules.default
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
