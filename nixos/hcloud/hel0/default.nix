@@ -9,14 +9,7 @@
     inputs.sops-nix.nixosModules.sops
   ];
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      canopus = inputs.canopus.packages."${pkgs.system}".default;
-      nixpkgs = inputs.nixpkgs;
-    })
-    inputs.fn.overlays.default
-    self.overlays.default
-  ];
+  nixpkgs.overlays = [ self.overlays.default ];
 
   sops = {
     age = {
