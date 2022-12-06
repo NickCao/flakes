@@ -16,7 +16,7 @@ variable "userdata" {
 }
 
 variable "tags" {
-  type      = list(string)
+  type = list(string)
 }
 
 terraform {
