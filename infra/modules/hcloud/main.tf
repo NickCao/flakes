@@ -10,6 +10,10 @@ variable "region" {
   type = string
 }
 
+variable "plan" {
+  type = string
+}
+
 terraform {
   required_providers {
     hcloud = {
@@ -20,7 +24,7 @@ terraform {
 
 resource "hcloud_server" "server" {
   name               = var.hostname
-  server_type        = "cpx11"
+  server_type        = var.plan
   datacenter         = var.region
   image              = "debian-11"
   delete_protection  = true
