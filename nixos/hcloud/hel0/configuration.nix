@@ -7,20 +7,6 @@
     fileSystems = [ "/persist" "/nix" ];
   };
 
-  services.restic.backups.persist = {
-    repository = "sftp:backup:backup";
-    passwordFile = config.sops.secrets.restic.path;
-    paths = [ "/persist" ];
-    timerConfig = {
-      OnCalendar = "daily";
-    };
-  };
-
-  nix.settings = {
-    auto-optimise-store = true;
-    experimental-features = [ "nix-command" "flakes" "ca-derivations" ];
-  };
-
   networking = {
     useNetworkd = true;
     useDHCP = false;
@@ -58,7 +44,6 @@
   };
 
   environment.baseline.enable = true;
-  environment.backup.enable = true;
 
   system.stateVersion = "21.05";
 }
