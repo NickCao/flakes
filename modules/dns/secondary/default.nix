@@ -1,8 +1,7 @@
-{ config, lib, ... }:
+{ config, lib, data, ... }:
 with lib;
 let
   cfg = config.services.dns.secondary;
-  iad0 = (import ../../../zones/common.nix).nodes.iad0;
 in
 {
   options.services.dns.secondary = {
@@ -28,8 +27,8 @@ in
 
         remote:
           - id: transfer
-            address: ${iad0.ipv4}
-            address: ${iad0.ipv6}
+            address: ${data.nodes.iad0.ipv4}
+            address: ${data.nodes.iad0.ipv6}
             key: transfer
           - id: cloudflare
             address: 1.1.1.1

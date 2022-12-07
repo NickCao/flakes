@@ -1,4 +1,4 @@
-{ config, pkgs, modulesPath, ... }:
+{ config, pkgs, modulesPath, data, ... }:
 let
   mkService = { ExecStart, SupplementaryGroups ? [ ] }: {
     unitConfig = {
@@ -72,7 +72,7 @@ in
     script = ''
       set -e
       knsupdate -k ''${CREDENTIALS_DIRECTORY}/tsig << EOT
-      server ${(import ../../zones/common.nix).nodes.iad0.ipv4}
+      server ${data.nodes.iad0.ipv4}
       zone nichi.link
       origin nichi.link
       del rpi.dyn
