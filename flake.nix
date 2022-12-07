@@ -122,7 +122,7 @@
         meta = {
           specialArgs = {
             inherit self inputs;
-            data.nodes = (builtins.fromJSON (builtins.readFile ./zones/data.json)).nodes.value;
+            data.nodes = data.nodes.value;
           };
           nixpkgs = import inputs.nixpkgs {
             system = "x86_64-linux";
