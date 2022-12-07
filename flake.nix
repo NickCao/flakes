@@ -106,15 +106,7 @@
         local = self.nixosConfigurations.local.config.system.build.toplevel;
       };
       nixosModules = import ./modules;
-      overlays.default = final: prev: (nixpkgs.lib.composeExtensions this.overlay
-        (final: prev: {
-          keys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJNPLArhyazrFjK4Jt/ImHSzICvwKOk4f+7OEcv2HEb7"
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
-          ];
-        })
-        final
-        prev);
+      overlays.default = this.overlay;
       nixosConfigurations = {
         local = import ./nixos/local { system = "x86_64-linux"; inherit self nixpkgs inputs; };
       } // self.colmenaHive.nodes;
@@ -123,6 +115,10 @@
           specialArgs = {
             inherit self inputs;
             data.nodes = data.nodes.value;
+            data.keys = [
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJNPLArhyazrFjK4Jt/ImHSzICvwKOk4f+7OEcv2HEb7"
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
+            ];
           };
           nixpkgs = import inputs.nixpkgs {
             system = "x86_64-linux";

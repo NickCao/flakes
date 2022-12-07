@@ -131,7 +131,7 @@ in
     };
   };
 
-  users.users.root.openssh.authorizedKeys.keys = pkgs.keys ++ [
+  users.users.root.openssh.authorizedKeys.keys = data.keys ++ [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII2X4EKIQTUUctgGnrXhHYddKzs69hXsmEK2ePBzSIwM"
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7GmFmf0avCqYFIjhmq6TIOdPnzkVMYJLzlE4rqXLB4Q9BKXsRgpefAmd+OzqtbRjRM51ZKuV5rlMsF/QiuGU3qnE09JV97kiBCvWH30X9VVLjohjQCwbJRZzFXeW+9olILbjNbdBgYq0pe/41ohmq4cCNQ69u4+Hgf9XpEB7oJ4bzRuQZ/rrcl92zHqxS5QJZmKWiUcUGnQiN5XqwtHUdHhJ7qTzMEwWgtwRtVxVGIzauZU9Si89+amwyWkIOJwXh7oMcrqMyU110LpVeXs78vyjmYwTXGYDGlUnFaQ5FrkD/VoBgEhME9kZhDqyDVC6FxE5hNdtu3YaXWTTn0QMx"
     "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCw9mmG3he9C9dLjOtjms9cn9vzijtowzno/5XQgomyReWiUItgL6AoyQF46DbJMkM2cNZQ/cQyqNS8zs5FDdWKTiHsVSEYYeCTeppHB9qqgjGx2slLrs7sQTgsF+D5ork98Wk4KUr8dmR4Q3rbBU9uQjSuda2H7Ye0sd8fnanT2ZKbK/SGgfQlU0KRoo2RC5p9VB7Siw1xnIM+oaCNw9UuBYBzKcF5/lbZXbJoIz953U6KJZ/A5wZR9VaV9y/xhvnNeiVz497yN5s0s+em4tjNnCCaeNlp6Tk9Y3d8OFKfaLxvKV7HbtWiQLN2eA/LmWLR5A5Q8jHH9xWX2dHGUuB9"

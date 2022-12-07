@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, data, ... }:
 let
   cgitFilters = "${pkgs.cgit}/lib/cgit/filters";
   cgitrc = pkgs.writeText "cgitrc" ''
@@ -68,7 +68,7 @@ in
     description = "git";
     home = "/var/lib/git";
     shell = "${pkgs.git}/bin/git-shell";
-    openssh.authorizedKeys.keys = pkgs.keys;
+    openssh.authorizedKeys.keys = data.keys;
   };
 
   systemd.tmpfiles.rules = [ "d /var/lib/git 0755 git git - -" ];

@@ -68,7 +68,7 @@
   services.gateway.enable = true;
   services.metrics.enable = true;
 
-  users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
+  users.users.root.openssh.authorizedKeys.keys = data.keys;
 
   environment.baseline.enable = true;
   environment.backup.enable = true;

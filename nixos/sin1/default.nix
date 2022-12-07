@@ -1,4 +1,4 @@
-{ pkgs, config, modulesPath, self, inputs, ... }: {
+{ pkgs, config, modulesPath, self, inputs, data, ... }: {
 
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -59,7 +59,7 @@
   services.gateway.enable = true;
   services.metrics.enable = true;
 
-  users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
+  users.users.root.openssh.authorizedKeys.keys = data.keys;
 
   environment.baseline.enable = true;
 

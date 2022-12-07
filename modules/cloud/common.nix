@@ -1,4 +1,4 @@
-{ config, pkgs, modulesPath, ... }:
+{ config, pkgs, modulesPath, data, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -14,7 +14,7 @@
     gnupg.sshKeyPaths = [ ];
   };
 
-  users.users.root.openssh.authorizedKeys.keys = pkgs.keys;
+  users.users.root.openssh.authorizedKeys.keys = data.keys;
 
   services.gateway.enable = true;
   services.metrics.enable = true;
