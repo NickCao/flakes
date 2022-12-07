@@ -284,8 +284,6 @@
   '';
   security.polkit.enable = true;
 
-  systemd.services."user@".serviceConfig.Delegate = [ "cpu" ];
-
   fonts.enableDefaultFonts = false;
   fonts.fonts = with pkgs; [
     noto-fonts
