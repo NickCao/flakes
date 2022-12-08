@@ -14,7 +14,7 @@ with lib;
     }];
     sops.secrets.sshca.sopsFile = ./secrets.yaml;
     systemd.services.sshd.preStart = mkAfter (flip concatMapStrings config.services.openssh.hostKeys (k: ''
-      if [ -s "${k.path}.pub" ]; then
+      if [ -s "${k.path}.pub" ] && [ -s "${config.sops.secrets.sshca.path}" ]; then
           ssh-keygen -s ${config.sops.secrets.sshca.path} -I ${config.networking.hostName} -h ${k.path}.pub
       fi
     ''));
