@@ -12,7 +12,10 @@ with lib;
       assertion = !config.services.openssh.startWhenNeeded;
       message = "sshcert: sshd socket activation is not supported";
     }];
-    sops.secrets.sshca.sopsFile = ./secrets.yaml;
+    sops.secrets.sshca = {
+      sopsFile = ./secrets.yaml;
+      restartUnits = [ "sshd.service" ];
+    };
     systemd.services.sshd.preStart = mkAfter (flip concatMapStrings config.services.openssh.hostKeys (k: ''
       if [ -s "${k.path}.pub" ] && [ -s "${config.sops.secrets.sshca.path}" ]; then
           ssh-keygen -s ${config.sops.secrets.sshca.path} -I ${config.networking.hostName} -h ${k.path}.pub
