@@ -59,7 +59,7 @@
       mount -o subvol=persist,$OPTS $NIXOS /mnt/persist
 
       mkdir -p /mnt/persist/var/lib/
-      curl -s http://169.254.169.254/latest/user-data -o /mnt/persist/var/lib/sops.key
+      (umask 0077 && curl -s http://169.254.169.254/latest/user-data -o /mnt/persist/var/lib/sops.key)
 
       nixos-install --root /mnt --system ${config.system.build.toplevel} \
         --no-channel-copy --no-root-passwd \
