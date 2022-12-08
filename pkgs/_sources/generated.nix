@@ -34,16 +34,16 @@
   };
   neondb = {
     pname = "neondb";
-    version = "f277140234d28b63ea878450278aedba46d589e8";
+    version = "b50e0793cf482e47f28f4d34b9c959885f0a167d";
     src = fetchFromGitHub ({
       owner = "neondatabase";
       repo = "neon";
-      rev = "f277140234d28b63ea878450278aedba46d589e8";
+      rev = "b50e0793cf482e47f28f4d34b9c959885f0a167d";
       fetchSubmodules = true;
-      sha256 = "sha256-LtUIE8Z7DzBWFoDo0gkR8x0LN800N61tJD9wHs9b2xI=";
+      sha256 = "sha256-RPfSkTJQkRZi7D4h1QKr50ScEzQhvxfROyh9lIIUxNk=";
     });
     cargoLock."Cargo.lock" = {
-      lockFile = ./neondb-f277140234d28b63ea878450278aedba46d589e8/Cargo.lock;
+      lockFile = ./neondb-b50e0793cf482e47f28f4d34b9c959885f0a167d/Cargo.lock;
       outputHashes = {
         "pprof-0.6.1" = "sha256-Ej0NNN8TDNvgXtSI5LLCwOJjo+XDU7RaVE6Ai3ZMlUY=";
         "amplify_num-0.4.1" = "sha256-7raFT2CLEz4bza0CCSnA0EEnIRJ/neRvXp8Ji4l0AfA=";
@@ -66,32 +66,32 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "d6bf022560d54f83bb7d73d5b1b9ae78cb5eaf11";
+    version = "b337b0cfb4612c0474c109abeb511189bfd5559c";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "d6bf022560d54f83bb7d73d5b1b9ae78cb5eaf11";
+      rev = "b337b0cfb4612c0474c109abeb511189bfd5559c";
       fetchSubmodules = true;
-      sha256 = "sha256-dfA3F4WirWCco+2zlvaQ2IXqMhE6YBl79Tf9djuo4uE=";
+      sha256 = "sha256-kWsLLHuFasYimzitb6b+p3e7EmhbaQ+v02BAF5n8LFI=";
     });
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "ff136e899f712d091064c8d7bc8c132eaf99b3ad";
+    version = "4a96e02847ecd7a1746297b7b908ac4de0537c39";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "ff136e899f712d091064c8d7bc8c132eaf99b3ad";
+      rev = "4a96e02847ecd7a1746297b7b908ac4de0537c39";
       fetchSubmodules = false;
-      sha256 = "sha256-5QGxmb6fMaMG85PxxeO+wH/Sk87xwHPW/Ve096aXKC4=";
+      sha256 = "sha256-2wWobqEC2ypQE5crcLpFz/osQp02LbSvpcv0Xhikio0=";
     });
   };
   wemeet = {
     pname = "wemeet";
-    version = "3.11.0.402";
+    version = "3.12.0.400";
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/9b74d4127a16a011db8cb6300fa5fbc9/TencentMeeting_0300000000_3.11.0.402_x86_64_default.publish.deb";
-      sha256 = "sha256-iO9W5dwgVDI9bg8wNHzjDZx426x1Q7uYsM05SBVRM74=";
+      url = "https://updatecdn.meeting.qq.com/cos/e078bf97365540d9f0ff063f93372a9c/TencentMeeting_0300000000_3.12.0.400_x86_64_default.publish.deb";
+      sha256 = "sha256-NN09Sm8IepV0tkosqC3pSor4/db4iF11XcGAuN/iOpM=";
     };
   };
 }
