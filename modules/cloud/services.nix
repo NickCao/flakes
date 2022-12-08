@@ -4,7 +4,7 @@ let
   cfg = config.cloud;
   mkService = { enable, serviceConfig }: {
     serviceConfig = {
-      MemoryLimit = "300M";
+      MemoryMax = "300M";
       DynamicUser = true;
       NoNewPrivileges = true;
       ProtectSystem = "strict";

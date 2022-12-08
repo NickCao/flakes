@@ -7,7 +7,7 @@ in
   sops.secrets.canopus = { };
 
   cloud.services.canopus.config = {
-    MemoryLimit = "5G";
+    MemoryMax = "5G";
     SystemCallFilter = null;
     ExecStart = "${pkgs.python3.withPackages (ps: with ps;[ python-telegram-bot ])}/bin/python ${pkgs.writeText "canopus.py" ''
       from telegram.ext import Updater
