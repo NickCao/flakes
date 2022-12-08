@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.cloud;
-  mkService = { enable, serviceConfig }: {
+  mkService = { enable, serviceConfig, unitConfig }: {
     serviceConfig = {
       MemoryMax = "300M";
       DynamicUser = true;
@@ -31,6 +31,7 @@ let
       SystemCallErrorNumber = "EPERM";
       Restart = "always";
     } // serviceConfig;
+    unitConfig = { } // unitConfig;
     wantedBy = lib.optionals enable [ "multi-user.target" ];
   };
   serviceOptions =
@@ -38,7 +39,8 @@ let
     {
       options = {
         enable = mkOption { default = true; };
-        config = mkOption { };
+        config = mkOption { default = { }; };
+        unit = mkOption { default = { }; };
       };
     };
 in
@@ -54,6 +56,7 @@ in
       (name: v: mkService {
         enable = v.enable;
         serviceConfig = v.config;
+        unitConfig = v.unit;
       })
       cfg.services;
   };
