@@ -16,7 +16,7 @@ qt5.mkDerivation {
     dpkg-deb -x $src .
     mkdir -p $out/{bin,lib}
     mv opt/wemeet/bin/{wemeetapp,raw,modules,wemeet.res,manifest.json,qt_zh_CN.qm} $out/bin
-    mv opt/wemeet/lib/lib{ImSDK,desktop_common,nxui*,qt_*,ui*,wemeet*,xcast,xcast_codec,xnn*}.so $out/lib
+    mv opt/wemeet/lib/lib{ImSDK,desktop_common,nxui*,qt_*,ui*,wemeet*,xcast,xcast_codec,xnn*,service_manager}.so $out/lib
     wrapQtApp "$out/bin/wemeetapp" \
       --set PULSE_LATENCY_MSEC 20
   '';
