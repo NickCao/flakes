@@ -33,9 +33,11 @@
       trusted-public-keys = [ "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk=" ];
       auto-optimise-store = true;
       flake-registry = "/etc/nix/registry.json";
-      experimental-features = [ "nix-command" "flakes" "ca-derivations" "impure-derivations" ];
+      experimental-features = [ "nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups" ];
       builders-use-substitutes = true;
       keep-derivations = true;
+      auto-allocate-uids = true;
+      use-cgroups = true;
     };
   };
 
