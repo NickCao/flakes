@@ -20,10 +20,16 @@ with lib;
     };
 
     nix = {
+      nrBuildUsers = 0;
       gc = {
         automatic = true;
         options = "--delete-older-than 14d";
         dates = "weekly";
+      };
+      settings = {
+        experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" "cgroups" ];
+        auto-allocate-uids = true;
+        use-cgroups = true;
       };
     };
 
