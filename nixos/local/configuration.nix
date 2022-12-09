@@ -23,6 +23,7 @@
 
   nix = {
     package = pkgs.nixVersions.stable;
+    nrBuildUsers = 0;
     settings = {
       trusted-users = [ "root" "nickcao" ];
       substituters = pkgs.lib.mkForce [
