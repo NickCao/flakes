@@ -241,7 +241,7 @@
         '';
     };
     xserver = {
-      # videoDrivers = [ "nvidia" ];
+      videoDrivers = [ "nvidia" ];
     };
     stratis.enable = true;
   };
