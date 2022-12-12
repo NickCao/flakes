@@ -15,13 +15,13 @@
   };
   bird-babel-rtt = {
     pname = "bird-babel-rtt";
-    version = "6a7ff0bd1f02aa1c13dd32586075a444e69b426a";
+    version = "e508ca76a198f633e1720466e1084333ae8b2742";
     src = fetchFromGitHub ({
       owner = "NickCao";
       repo = "bird";
-      rev = "6a7ff0bd1f02aa1c13dd32586075a444e69b426a";
+      rev = "e508ca76a198f633e1720466e1084333ae8b2742";
       fetchSubmodules = false;
-      sha256 = "sha256-pf7zyzJGaBfoqF/W+hNNUzmN39yINLD4DIe5Q/9iab4=";
+      sha256 = "sha256-JdxWSXsPUPNHZxFxdOa8Ogui6Xf2Ife5UgWSLO6Lwrc=";
     });
   };
   fcitx5-pinyin-zhwiki = {
@@ -34,16 +34,16 @@
   };
   neondb = {
     pname = "neondb";
-    version = "b50e0793cf482e47f28f4d34b9c959885f0a167d";
+    version = "0f445827f5c070f8adedcd5f9d56c92d0355eda2";
     src = fetchFromGitHub ({
       owner = "neondatabase";
       repo = "neon";
-      rev = "b50e0793cf482e47f28f4d34b9c959885f0a167d";
+      rev = "0f445827f5c070f8adedcd5f9d56c92d0355eda2";
       fetchSubmodules = true;
-      sha256 = "sha256-RPfSkTJQkRZi7D4h1QKr50ScEzQhvxfROyh9lIIUxNk=";
+      sha256 = "sha256-c7H6szd/kREg8AVXVW3Ak3oA8G8v98tNLsZAAi4j7ns=";
     });
     cargoLock."Cargo.lock" = {
-      lockFile = ./neondb-b50e0793cf482e47f28f4d34b9c959885f0a167d/Cargo.lock;
+      lockFile = ./neondb-0f445827f5c070f8adedcd5f9d56c92d0355eda2/Cargo.lock;
       outputHashes = {
         "pprof-0.6.1" = "sha256-Ej0NNN8TDNvgXtSI5LLCwOJjo+XDU7RaVE6Ai3ZMlUY=";
         "amplify_num-0.4.1" = "sha256-7raFT2CLEz4bza0CCSnA0EEnIRJ/neRvXp8Ji4l0AfA=";
@@ -77,13 +77,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "4a96e02847ecd7a1746297b7b908ac4de0537c39";
+    version = "4ab939664aa6444783726ae4c5e8c0ee4dafedc4";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "4a96e02847ecd7a1746297b7b908ac4de0537c39";
+      rev = "4ab939664aa6444783726ae4c5e8c0ee4dafedc4";
       fetchSubmodules = false;
-      sha256 = "sha256-2wWobqEC2ypQE5crcLpFz/osQp02LbSvpcv0Xhikio0=";
+      sha256 = "sha256-i6cYGP1xDa9ieUEzPupOpstQpvHP6czaeC2BLy3ZYlk=";
     });
   };
   wemeet = {
