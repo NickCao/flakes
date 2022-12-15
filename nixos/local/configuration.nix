@@ -13,6 +13,7 @@
       u2f = { mode = "0444"; };
       wireless = { };
       tsinghua-secure = { path = "/var/lib/iwd/Tsinghua-Secure.8021x"; };
+      home = { path = "/var/lib/iwd/CMCC-39rG-5G.psk"; };
     };
     age = {
       keyFile = "/var/lib/sops.key";
