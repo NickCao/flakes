@@ -225,7 +225,6 @@ in
     yubikey-manager
     prime-run
     wireguard-tools
-    auth-thu
     nixpkgs-fmt
     smartmontools
     python3
