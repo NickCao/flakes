@@ -183,6 +183,11 @@
     "@cert-authority *.nichi.link".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEe0p7erHjrkNKcY/Kp6fvZtxLcl0hVMVMQPhQrPDZKp";
   };
 
+  systemd.services.nix-daemon.serviceConfig.Environment = [
+    "https_proxy=http://127.0.0.1:8888"
+    "http_proxy=http://127.0.0.1:8888"
+  ];
+
   systemd.services.iwd.serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
 
   systemd.services.greetd.serviceConfig = {
