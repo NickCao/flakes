@@ -1,11 +1,8 @@
 import uvicorn
-import stripe
 import os
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
-
-stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
 
 app = FastAPI()
 
@@ -16,29 +13,8 @@ def index():
 
 
 @app.get("/pay")
-def pay(amount: float):
-    try:
-        session = stripe.checkout.Session.create(
-            payment_method_types=["card", "alipay"],
-            mode="payment",
-            success_url="https://nichi.co",
-            cancel_url="https://nichi.co",
-            line_items=[
-                {
-                    "price_data": {
-                        "currency": "cny",
-                        "product_data": {
-                            "name": "payment",
-                        },
-                        "unit_amount": round(amount * 100),
-                    },
-                    "quantity": 1,
-                }
-            ],
-        )
-    except stripe.error.InvalidRequestError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    return RedirectResponse(session.url)
+def pay():
+    return RedirectResponse("https://buy.stripe.com/cN27sA4TM7uMgRa145")
 
 
 if __name__ == "__main__":

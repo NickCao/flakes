@@ -5,7 +5,6 @@
     defaultSopsFile = ./secrets.yaml;
     secrets = {
       ranet.reloadUnits = [ "gravity.service" ];
-      woff = { };
       traefik = { };
     };
   };

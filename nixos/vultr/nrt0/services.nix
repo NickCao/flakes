@@ -1,8 +1,7 @@
 { pkgs, config, ... }:
 {
   cloud.services.fn.config = {
-    ExecStart = "${pkgs.python3.withPackages (ps: with ps; [ uvicorn fastapi stripe])}/bin/python ${../../../fn/index.py}";
-    EnvironmentFile = config.sops.secrets.woff.path;
+    ExecStart = "${pkgs.python3.withPackages (ps: with ps; [ uvicorn fastapi ])}/bin/python ${../../../fn/index.py}";
     Environment = [ "PORT=8001" ];
   };
 
