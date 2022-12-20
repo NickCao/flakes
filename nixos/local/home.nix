@@ -209,7 +209,6 @@ in
     sequoia
     openpgp-card-tools
     picocom
-    nix-top
     thunderbird
     mpv
     tdesktop
