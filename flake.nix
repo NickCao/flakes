@@ -95,7 +95,13 @@
           };
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
-            nativeBuildInputs = [ colmena mdbook terrasops nvfetcher ];
+            nativeBuildInputs = [
+              colmena
+              mdbook
+              terrasops
+              nvfetcher
+              (terraform.withPlugins (ps: with ps; [ vultr sops gandi hydra hcloud ]))
+            ];
           };
         }
       )

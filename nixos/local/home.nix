@@ -1,6 +1,5 @@
 { pkgs, lib, config, ... }:
 let
-  mkWrap = name: cmd: pkgs.writeShellScriptBin name "exec ${cmd} \"$@\"";
   fbk = pkgs.fetchurl {
     url = "https://pbs.twimg.com/media/ElphQpaU4AAt9Bv?format=jpg";
     name = "fubuki.jpg";
@@ -235,9 +234,6 @@ in
     sops
     restic
     libarchive
-    (mkWrap "terraform" "${coreutils}/bin/env CHECKPOINT_DISABLE=1 ${
-      terraform.withPlugins (ps: with ps; [ vultr sops gandi hydra hcloud ])
-        }/bin/terraform")
     windows-run
   ];
 
