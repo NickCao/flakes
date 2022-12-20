@@ -11,12 +11,7 @@ let
     } ''
     convert -blur 14x5 ${fbk} $out
   '';
-  tide = pkgs.fetchFromGitHub {
-    owner = "IlanCosman";
-    repo = "tide";
-    rev = "v5.5.1";
-    hash = "sha256-vi4sYoI366FkIonXDlf/eE2Pyjq7E/kOKBrQS+LtE+M=";
-  };
+  tide = pkgs.fishPlugins.tide.src;
 in
 {
   gtk = {
