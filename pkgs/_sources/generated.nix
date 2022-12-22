@@ -34,20 +34,20 @@
   };
   neondb = {
     pname = "neondb";
-    version = "0f445827f5c070f8adedcd5f9d56c92d0355eda2";
+    version = "7ff591ffbfc8f084e0b1b5cdbed8bd69e008d4c0";
     src = fetchFromGitHub ({
       owner = "neondatabase";
       repo = "neon";
-      rev = "0f445827f5c070f8adedcd5f9d56c92d0355eda2";
+      rev = "7ff591ffbfc8f084e0b1b5cdbed8bd69e008d4c0";
       fetchSubmodules = true;
-      sha256 = "sha256-c7H6szd/kREg8AVXVW3Ak3oA8G8v98tNLsZAAi4j7ns=";
+      sha256 = "sha256-ZK2sGUZN2NcFseakxxoYchRfqPw8OijV/Q/AS+HXdQY=";
     });
     cargoLock."Cargo.lock" = {
-      lockFile = ./neondb-0f445827f5c070f8adedcd5f9d56c92d0355eda2/Cargo.lock;
+      lockFile = ./neondb-7ff591ffbfc8f084e0b1b5cdbed8bd69e008d4c0/Cargo.lock;
       outputHashes = {
         "pprof-0.6.1" = "sha256-Ej0NNN8TDNvgXtSI5LLCwOJjo+XDU7RaVE6Ai3ZMlUY=";
+        "postgres-0.19.4" = "sha256-rpboUP7K+2XdcRr80T4u1jKIj788bqz2usSqWmZDB3E=";
         "amplify_num-0.4.1" = "sha256-7raFT2CLEz4bza0CCSnA0EEnIRJ/neRvXp8Ji4l0AfA=";
-        "postgres-0.19.2" = "sha256-yobBu0t1xzUHjI9RDxcSBZgycLKdVm3bDTxKNJxl1HM=";
       };
     };
   };
@@ -77,13 +77,13 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "4ab939664aa6444783726ae4c5e8c0ee4dafedc4";
+    version = "b02288fe7287af37859ff3f784c803370579357f";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "4ab939664aa6444783726ae4c5e8c0ee4dafedc4";
+      rev = "b02288fe7287af37859ff3f784c803370579357f";
       fetchSubmodules = false;
-      sha256 = "sha256-i6cYGP1xDa9ieUEzPupOpstQpvHP6czaeC2BLy3ZYlk=";
+      sha256 = "sha256-NyMihWuXsW6doWtH9tLB5QVSJDmcyvvbqL2/D9Ah3sA=";
     });
   };
   wemeet = {
