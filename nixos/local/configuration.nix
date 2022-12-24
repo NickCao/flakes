@@ -14,6 +14,7 @@
       wireless = { };
       tsinghua-secure = { path = "/var/lib/iwd/Tsinghua-Secure.8021x"; };
       home = { path = "/var/lib/iwd/CMCC-39rG-5G.psk"; };
+      alt = { path = "/var/lib/iwd/CMCC-EGfY.psk"; };
     };
     age = {
       keyFile = "/var/lib/sops.key";
