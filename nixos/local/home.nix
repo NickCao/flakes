@@ -142,8 +142,6 @@ in
       ))
     ];
     extraConfig = ''
-      set viminfo+=n${config.xdg.stateHome}/viminfo
-      let g:everforest_background = 'soft'
       lua << EOT
       ${builtins.readFile ./nvim.lua}
       EOT
