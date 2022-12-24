@@ -11,10 +11,6 @@ vim.opt.timeoutlen = 500
 vim.opt.scrolloff = 5
 
 vim.g.everforest_background = 'soft'
-vim.g.maplocalleader = " "
-vim.g.vimtex_view_general_viewer = 'evince-synctex'
-vim.g.vimtex_view_general_options = '-f @line @pdf "nvim --headless -c \\\"VimtexInverseSearch %l \'%f\'\\\""'
-vim.g.vimtex_quickfix_open_on_warning = 0
 
 vim.cmd.colorscheme('everforest')
 
