@@ -1,3 +1,5 @@
+vim.cmd.colorscheme('everforest')
+
 vim.opt.background = 'dark'
 vim.opt.number = true
 vim.opt.termguicolors = true
