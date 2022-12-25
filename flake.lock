@@ -328,11 +328,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1670303276,
-        "narHash": "sha256-xoJEF3FxUlBK9xmmibD/thrQbIC6xrUrkGV9kEqnOMc=",
+        "lastModified": 1671945965,
+        "narHash": "sha256-dsQ2xTbx1i88emK4eV9wkoY93G5bb6vpng6gpGvnEeg=",
         "owner": "NickCao",
         "repo": "resign",
-        "rev": "3ceaf6f596df59be9b0b3ed32cccdb63d70c62f7",
+        "rev": "da45dbbf0da63eaaccbae83c2c1809d7334081f7",
         "type": "github"
       },
       "original": {
@@ -371,11 +371,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1671472949,
-        "narHash": "sha256-9iHSGpljCX+RypahQssBXPwkru9onfKfceCTeVrMpH4=",
+        "lastModified": 1671937829,
+        "narHash": "sha256-YtaNB+mLw0d67JFYNjRWM+/AL3JCXuD/DGlnTlyX1tY=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "32840f16ffa0856cdf9503a8658f2dd42bf70342",
+        "rev": "855b8d51fc3991bd817978f0f093aa6ae0fae738",
         "type": "github"
       },
       "original": {
