@@ -17,7 +17,7 @@
       {
         hostName = "k11-plct.nichi.link";
         systems = [ "x86_64-linux" ];
-        maxJobs = 16;
+        maxJobs = 8;
         supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
       }
     ];
