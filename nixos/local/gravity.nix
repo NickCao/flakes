@@ -15,79 +15,55 @@
   };
   systemd.services.bird2.after = [ "network-online.target" ];
 
-  cloud.services.gravity-proxy.config = {
-    ExecStart = "${pkgs.ranet}/bin/ranet-proxy --listen 127.0.0.1:9999 --bind6 2a0c:b641:69c:99cc::1 --interface gravity";
-  };
-
-  services.v2ray = {
-    enable = true;
-    config = {
-      log = { loglevel = "error"; access = "none"; };
-      dns = {
-        servers = [
-          { address = "https://1.0.0.1/dns-query"; }
-          { address = "https://1.1.1.1/dns-query"; }
-        ];
-      };
-      inbounds = [
-        {
+  systemd.services.sing-box =
+    let
+      config = {
+        dns = {
+          servers = [{
+            tag = "cloudflare";
+            address = "https://1.0.0.1/dns-query";
+          }];
+          strategy = "prefer_ipv6";
+        };
+        inbounds = [{
+          type = "mixed";
+          tag = "inbound";
           listen = "127.0.0.1";
-          port = 8888;
-          protocol = "http";
-          sniffing = { destOverride = [ "http" "tls" ]; enabled = true; metadataOnly = false; };
-          tag = "http";
-        }
-        {
-          listen = "127.0.0.1";
-          port = 1080;
-          protocol = "socks";
-          sniffing = { destOverride = [ "http" "tls" ]; enabled = true; metadataOnly = false; };
-          tag = "socks";
-        }
-      ];
-      outbounds = [
-        {
-          protocol = "blackhole";
-          tag = "blackhole";
-        }
-        {
-          protocol = "freedom";
-          tag = "direct";
-        }
-        {
-          protocol = "freedom";
-          settings = {
-            domainStrategy = "UseIP";
-          };
-          proxySettings = {
+          listen_port = 1080;
+          sniff = true;
+          sniff_override_destination = true;
+          domain_strategy = "prefer_ipv6";
+        }];
+        outbounds = [
+          {
+            type = "direct";
             tag = "gravity";
-          };
-          tag = "proxy";
-        }
-        {
-          protocol = "socks";
-          settings = {
-            servers = [{
-              address = "127.0.0.1";
-              port = 9999;
-            }];
-            version = "5";
-          };
-          tag = "gravity";
-        }
-      ];
-      routing = {
-        domainMatcher = "mph";
-        domainStrategy = "IPIfNonMatch";
-        rules = [
-          { domains = [ "geosite:cn" ]; outboundTag = "direct"; type = "field"; }
-          { ip = [ "geoip:private" "geoip:cn" ]; outboundTag = "direct"; type = "field"; }
-          { network = "tcp"; outboundTag = "proxy"; type = "field"; }
-          { network = "udp"; outboundTag = "direct"; type = "field"; }
+            bind_interface = "gravity";
+            inet6_bind_address = "2a0c:b641:69c:99cc::1";
+          }
+          {
+            type = "direct";
+            tag = "direct";
+          }
         ];
+        route = {
+          rules = [{
+            geosite = [ "cn" ];
+            geoip = [ "cn" ];
+            outbound = "direct";
+          }];
+          final = "gravity";
+        };
       };
+    in
+    {
+      serviceConfig = {
+        DynamicUser = true;
+        StateDirectory = "sing-box";
+        ExecStart = "${pkgs.sing-box}/bin/sing-box run -c ${(pkgs.formats.json {}).generate "config.json" config} -D $STATE_DIRECTORY";
+      };
+      wantedBy = [ "multi-user.target" ];
     };
-  };
 
   systemd.network.networks.clat = {
     name = "clat";

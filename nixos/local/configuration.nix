@@ -148,7 +148,6 @@
         passwordFile = pkgs.lib.mkForce null;
       };
       services.gravity.enable = pkgs.lib.mkForce false;
-      systemd.services.gravity-proxy.enable = false;
       environment.persistence."/persist" = pkgs.lib.mkForce { };
     };
   };
@@ -184,8 +183,8 @@
   };
 
   systemd.services.nix-daemon.serviceConfig.Environment = [
-    "https_proxy=http://127.0.0.1:8888"
-    "http_proxy=http://127.0.0.1:8888"
+    "https_proxy=http://127.0.0.1:1080"
+    "http_proxy=http://127.0.0.1:1080"
   ];
 
   systemd.services.iwd.serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
