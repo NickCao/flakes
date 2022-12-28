@@ -19,11 +19,23 @@
     let
       config = {
         dns = {
-          servers = [{
-            tag = "cloudflare";
-            address = "https://1.0.0.1/dns-query";
+          servers = [
+            {
+              tag = "cloudflare";
+              address = "https://1.0.0.1/dns-query";
+              strategy = "prefer_ipv6";
+            }
+            {
+              tag = "local";
+              address = "local";
+              strategy = "prefer_ipv4";
+            }
+          ];
+          rules = [{
+            geosite = [ "cn" ];
+            server = "local";
           }];
-          strategy = "prefer_ipv6";
+          final = "cloudflare";
         };
         inbounds = [{
           type = "mixed";
@@ -32,7 +44,6 @@
           listen_port = 1080;
           sniff = true;
           sniff_override_destination = true;
-          domain_strategy = "prefer_ipv6";
         }];
         outbounds = [
           {
@@ -40,6 +51,7 @@
             tag = "gravity";
             bind_interface = "gravity";
             inet6_bind_address = "2a0c:b641:69c:99cc::1";
+            domain_strategy = "prefer_ipv6";
           }
           {
             type = "direct";
