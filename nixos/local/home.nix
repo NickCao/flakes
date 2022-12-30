@@ -142,9 +142,7 @@ in
       ))
     ];
     extraConfig = ''
-      lua << EOT
-      ${builtins.readFile ./nvim.lua}
-      EOT
+      :source ${./nvim.lua}
     '';
   };
   programs.firefox = {
