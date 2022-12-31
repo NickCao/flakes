@@ -120,6 +120,7 @@ in
     enable = true;
     vimAlias = true;
     vimdiffAlias = true;
+    defaultEditor = true;
     plugins = with pkgs.vimPlugins; [
       nvim-lspconfig
       nvim-cmp
@@ -228,7 +229,6 @@ in
   ];
 
   systemd.user.sessionVariables = {
-    EDITOR = "nvim";
     LIBVA_DRIVER_NAME = "iHD";
     SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
     SOPS_GPG_EXEC = "resign-gpg";
