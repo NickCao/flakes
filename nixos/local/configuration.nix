@@ -190,7 +190,6 @@
   systemd.services.iwd.serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
 
   systemd.services.greetd.serviceConfig = {
-    Type = "idle";
     ExecStartPre = "${pkgs.util-linux}/bin/kill -SIGRTMIN+21 1";
     ExecStopPost = "${pkgs.util-linux}/bin/kill -SIGRTMIN+20 1";
   };
