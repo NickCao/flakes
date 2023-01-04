@@ -19,10 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
-    bootspec-secureboot = {
-      url = "github:DeterminateSystems/bootspec-secureboot/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     dns = {
       url = "github:NickCao/dns.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,6 +63,11 @@
     dhack = {
       url = "github:NickCao/dhack";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:

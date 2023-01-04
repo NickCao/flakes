@@ -102,11 +102,11 @@
         canTouchEfiVariables = true;
         efiSysMountPoint = "/efi";
       };
-      secureboot = {
-        enable = true;
-        signingKeyPath = "${config.users.users.nickcao.home}/Documents/secureboot/db.key";
-        signingCertPath = "${config.users.users.nickcao.home}/Documents/secureboot/db.crt";
-      };
+    };
+    lanzaboote = {
+      enable = true;
+      privateKeyFile = "${config.users.users.nickcao.home}/Documents/secureboot/db.key";
+      publicKeyFile = "${config.users.users.nickcao.home}/Documents/secureboot/db.crt";
     };
     kernel = {
       sysctl = {
