@@ -26,28 +26,28 @@
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20221128";
+    version = "20221230";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20221128.dict";
-      sha256 = "sha256-zP1jVvpcgoUrkLTUACzl0uMYSp7ybAacSVcBAPIyii4=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20221230.dict";
+      sha256 = "sha256-Mu06WNiL73YWVLbFyZNoDBJONvRB3H0PNeAZb09gx0o=";
     };
   };
   neondb = {
     pname = "neondb";
-    version = "7ff591ffbfc8f084e0b1b5cdbed8bd69e008d4c0";
+    version = "8c6e607327d17b98dd6635d5dc6036d28d1efc04";
     src = fetchFromGitHub ({
       owner = "neondatabase";
       repo = "neon";
-      rev = "7ff591ffbfc8f084e0b1b5cdbed8bd69e008d4c0";
+      rev = "8c6e607327d17b98dd6635d5dc6036d28d1efc04";
       fetchSubmodules = true;
-      sha256 = "sha256-ZK2sGUZN2NcFseakxxoYchRfqPw8OijV/Q/AS+HXdQY=";
+      sha256 = "sha256-1bUzaD0rTr8Wws4QYWCYET29t5xA8pANo0dfk2rp3yM=";
     });
     cargoLock."Cargo.lock" = {
-      lockFile = ./neondb-7ff591ffbfc8f084e0b1b5cdbed8bd69e008d4c0/Cargo.lock;
+      lockFile = ./neondb-8c6e607327d17b98dd6635d5dc6036d28d1efc04/Cargo.lock;
       outputHashes = {
-        "pprof-0.6.1" = "sha256-Ej0NNN8TDNvgXtSI5LLCwOJjo+XDU7RaVE6Ai3ZMlUY=";
         "postgres-0.19.4" = "sha256-rpboUP7K+2XdcRr80T4u1jKIj788bqz2usSqWmZDB3E=";
         "amplify_num-0.4.1" = "sha256-7raFT2CLEz4bza0CCSnA0EEnIRJ/neRvXp8Ji4l0AfA=";
+        "tokio-tar-0.3.0" = "sha256-ktQOFE6yItvP77oVe6bT1hwXjdvPmvJVYxYF4FS6b3I=";
       };
     };
   };
@@ -66,24 +66,24 @@
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "b337b0cfb4612c0474c109abeb511189bfd5559c";
+    version = "43ea20dfbb6c815004a51106a3b2009d7f6c4940";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "b337b0cfb4612c0474c109abeb511189bfd5559c";
+      rev = "43ea20dfbb6c815004a51106a3b2009d7f6c4940";
       fetchSubmodules = true;
-      sha256 = "sha256-kWsLLHuFasYimzitb6b+p3e7EmhbaQ+v02BAF5n8LFI=";
+      sha256 = "sha256-mupLfeTg/zeErHSwwgMaKmxbi/X0TvXm1RlEOgkgyJk=";
     });
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "b02288fe7287af37859ff3f784c803370579357f";
+    version = "a3111ea8c4eeca3e93d4867da0f490013f54d4e4";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "b02288fe7287af37859ff3f784c803370579357f";
+      rev = "a3111ea8c4eeca3e93d4867da0f490013f54d4e4";
       fetchSubmodules = false;
-      sha256 = "sha256-NyMihWuXsW6doWtH9tLB5QVSJDmcyvvbqL2/D9Ah3sA=";
+      sha256 = "sha256-of88udooj0KiVgWOYbfM6fKxS6pEhyXYPrYnN4r0PlQ=";
     });
   };
   wemeet = {
