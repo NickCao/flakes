@@ -1,4 +1,7 @@
 { pkgs }:
+let
+  mkSpan = abbr: content: "<span color='#8aadf4'>${abbr}</span> ${content}";
+in
 {
   margin = "3px 3px 3px";
   height = 40;
@@ -43,8 +46,11 @@
     format-icons = { "1" = ""; "2" = ""; "3" = ""; "4" = ""; default = ""; focused = ""; urgent = ""; };
   };
   idle_inhibitor = {
-    format = "{icon}";
-    format-icons = { activated = ""; deactivated = ""; };
+    format = mkSpan "IDLE" "{icon}";
+    format-icons = {
+      activated = "OFF";
+      deactivated = "ON";
+    };
   };
   pulseaudio = {
     format = "{volume}% {icon} {format_source}";
@@ -65,30 +71,25 @@
     on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
   };
   backlight = {
-    format = "{percent}% {icon}";
-    format-icons = [ "" "" ];
+    format = mkSpan "BRI" "{percent}%";
     on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl set 3%-";
     on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set +3%";
   };
   battery = {
-    format = "{capacity}% {icon}";
-    format-alt = "{time} {icon}";
-    format-charging = "{capacity}% ";
-    format-icons = [ "" "" "" "" "" ];
-    format-plugged = "{capacity}% ";
-    states = { critical = 10; warning = 20; };
+    format = mkSpan "BAT" "{capacity}%";
+    format-charging = mkSpan "CHG" "{capacity}%";
+    format-alt = mkSpan "BAT" "{time}";
   };
   clock = {
-    format = "{:%m-%d %H:%M}";
+    format = "{:<span color='#8aadf4'>%b %d</span> %H:%M}";
     tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+    format-alt = "{:<span color='#8aadf4'>%A %B</span> %d %Y}";
   };
   memory = {
-    format = "{}% ";
+    format = mkSpan "MEM" "{percentage}%";
   };
   temperature = {
-    critical-threshold = 100;
-    format = "{temperatureC}°C {icon}";
-    format-icons = [ "" "" "" ];
+    format = mkSpan "TEMP" "{temperatureC}°C";
     interval = 10;
     thermal-zone = 9;
   };
