@@ -1,22 +1,41 @@
 { pkgs }:
 {
+  margin = "3px 3px 3px";
+  height = 40;
   layer = "top";
+  "custom/nixos" = {
+    format = "";
+    interval = "once";
+    tooltip = false;
+  };
+  "custom/separator" = {
+    format = "|";
+    interval = "once";
+    tooltip = false;
+  };
   modules-left = [
+    "custom/nixos"
     "sway/workspaces"
     "sway/mode"
-  ];
-  modules-center = [
+    "custom/separator"
     "sway/window"
   ];
   modules-right = [
-    "idle_inhibitor"
-    "pulseaudio"
-    "memory"
-    "temperature"
-    "backlight"
-    "battery"
-    "clock"
     "tray"
+    "custom/separator"
+    "idle_inhibitor"
+    "custom/separator"
+    "pulseaudio"
+    "custom/separator"
+    "memory"
+    "custom/separator"
+    "temperature"
+    "custom/separator"
+    "backlight"
+    "custom/separator"
+    "battery"
+    "custom/separator"
+    "clock"
   ];
   "sway/workspaces" = {
     all-outputs = true;

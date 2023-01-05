@@ -1,90 +1,67 @@
 * {
-  font-family: Roboto;
-  font-size: 18px;
+  font-family: RobotoMono Nerd Font, Sarasa Gothic SC;
+  font-weight: bold;
+  font-size: 17px;
 }
-
 window#waybar {
-  background: transparent;
-}
-
-window#waybar.hidden {
-  opacity: 0.2;
-}
-
-#workspaces button {
-  transition: none;
-  color: #7c818c;
-  background: #161320;
-  padding: 2px;
-  border-radius: inherit;
-}
-
-#workspaces button.focused {
-  box-shadow: inherit;
-  text-shadow: inherit;
-  color: #abe9b3;
-  background: #7c818c;
-}
-
-#workspaces button.urgent {
-  color: #abe9b3;
-}
-
-#mode,
-#window {
-  color: #ffffff;
-  text-shadow: 2px 0px 2px #000000, 0px 2px 2px #000000, -2px 0px 2px #000000,
-    0px -2px 2px #000000;
-}
-
-.modules-right {
-  margin-right: 2px;
-}
-
-#workspaces,
-#idle_inhibitor,
-#pulseaudio,
-#memory,
-#temperature,
-#backlight,
-#battery,
-#clock,
-#tray {
-  color: #24273a;
+  color: #cad3f5;
+  opacity: 0.95;
+  background-color: #24273a;
+  padding: 0;
   border-radius: 10px;
-  min-width: 40px;
-  transition: none;
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  padding: 2px;
 }
-
+#custom-nixos {
+  color: #cad3f5;
+  background-color: #24273a;
+  border-radius: 10px;
+  padding-left: 15px;
+  padding-right: 18px;
+}
+#custom-separator {
+  color: #cad3f5;
+  margin: 0 6px;
+}
 #workspaces {
-  background: #161320;
+  color: #cad3f5;
+  background-color: #24273a;
+  border-radius: 0;
 }
-#idle_inhibitor {
-  background: #cad3f5;
+#workspaces button {
+  color: #cad3f5;
+  padding: 0 3px;
+  border-radius: 0;
 }
-#pulseaudio {
-  background: #8bd5ca;
+#workspaces button.hidden {
+  background-color: #24273a;
 }
-#memory {
-  background: #ddb6f2;
+#workspaces button.focused,
+#workspaces button.active {
+  background-color: #363a4f;
+  border-bottom: 4px solid #8aadf4;
 }
-#temperature {
-  background: #f8bd96;
+#workspaces button.urgent {
+  background-color: #ed8796;
+  border-bottom: 4px solid #8aadf4;
 }
-#backlight {
-  background: #fae3b0;
-}
+#tray,
+#idle_inhibitor,
+#cpu,
+#memory,
+#pulseaudio,
+#network,
 #battery {
-  background: #b5e8e0;
+  color: #cad3f5;
 }
 #clock {
-  background: #abe9b3;
+  color: #cad3f5;
+  margin-right: 15px;
 }
-#tray {
-  background: #e8a2af;
+#battery.warning {
+  color: #eed49f;
+}
+#battery.critical {
+  color: #ed8796;
+}
+#battery.charging {
+  color: #a6da95;
 }
