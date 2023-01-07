@@ -120,6 +120,9 @@
           "@nickcao:nichi.co" = "admin";
           "@lilydjwg:mozilla.org" = "admin";
         };
+        relaybot = {
+          authless_portals = false;
+        };
       };
       telegram = {
         api_id = 611335;
