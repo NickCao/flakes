@@ -12,7 +12,6 @@
       const config :Workerd.Config = (
         services = [
           (name = "rants", worker = .rants),
-          (name = "gravity", disk = "/var/lib/gravity"),
         ],
 
         sockets = [
@@ -20,11 +19,6 @@
             address = "127.0.0.1:8002",
             http = (),
             service = "rants"
-          ),
-          ( name = "http",
-            address = "127.0.0.1:8003",
-            http = (),
-            service = "gravity"
           ),
         ]
       );
@@ -44,9 +38,9 @@
       http = {
         routers = {
           rait = {
-            rule = "Host(`api.nichi.co`) && Path(`/rait`)";
-            middlewares = [ "rait0" "rait1" ];
-            service = "rait";
+            rule = "Host(`api.nichi.co`, `fn.nichi.co`) && Path(`/rait`)";
+            middlewares = [ "rait" ];
+            service = "fn";
           };
           fn = {
             rule = "Host(`fn.nichi.co`)";
@@ -59,10 +53,7 @@
           };
         };
         middlewares = {
-          rait0.replacePath = {
-            path = "/registry.json";
-          };
-          rait1.basicAuth = {
+          rait.basicAuth = {
             users = [ "{{ env `RAIT_PASSWD` }}" ];
             removeheader = true;
           };
@@ -71,7 +62,6 @@
         services = {
           rants.loadBalancer.servers = [{ url = "http://127.0.0.1:8002"; }];
           fn.loadBalancer.servers = [{ url = "http://127.0.0.1:8001"; }];
-          rait.loadBalancer.servers = [{ url = "http://127.0.0.1:8003"; }];
         };
       };
     };
