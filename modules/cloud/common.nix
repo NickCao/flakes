@@ -3,7 +3,7 @@
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     (import ../.).default
-    (import ../.).cloud.filesystems
+    (import ../.).cloud.disko
   ];
 
   sops = {

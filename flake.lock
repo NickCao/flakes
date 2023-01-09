@@ -124,6 +124,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1672841174,
+        "narHash": "sha256-E4t0BnQdbvfbpd9uJnQen5Gsu3LreHoZff7c9Z0wr+Y=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "dd025155fb0f5d36afd6719e358e7cf99a47644e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "dns": {
       "inputs": {
         "flake-utils": [
@@ -468,6 +488,7 @@
         "carinae": "carinae",
         "colmena": "colmena",
         "dhack": "dhack",
+        "disko": "disko",
         "dns": "dns",
         "flake-utils": "flake-utils",
         "fn": "fn",
