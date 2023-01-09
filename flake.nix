@@ -111,11 +111,9 @@
         }
       )
     // {
-      hydraJobs = self.packages.x86_64-linux // lib.mapAttrs (name: value: value.config.system.build.install)
-        (lib.filterAttrs (name: value: builtins.elem "vultr" value.config.deployment.tags) self.colmenaHive.nodes)
-      // {
-        local = self.nixosConfigurations.local.config.system.build.toplevel;
-      };
+      hydraJobs = self.packages.x86_64-linux // lib.mapAttrs
+        (name: value: { inherit (value.config.system.build) toplevel install; })
+        (lib.filterAttrs (name: value: builtins.elem "vultr" value.config.deployment.tags) self.colmenaHive.nodes);
       nixosModules = import ./modules;
       overlays.default = this.overlay;
       nixosConfigurations = {
