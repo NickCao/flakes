@@ -23,7 +23,7 @@
 
   boot = {
     tmpOnTmpfs = true;
-    loader.grub.device = "/dev/vda";
+    loader.grub.device = config.disko.devices.disk.vda.device;
   };
 
   networking = {
