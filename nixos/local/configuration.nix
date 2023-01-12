@@ -331,6 +331,13 @@
     wlr.enable = true;
   };
 
+  systemd.packages = [ pkgs.zram-generator ];
+  systemd.services."systemd-zram-setup@".path = [ pkgs.util-linux ];
+  environment.etc."systemd/zram-generator.conf".text = ''
+    [zram0]
+    zram-size = ram / 2
+  '';
+
   system.stateVersion = "20.09";
   documentation.nixos.enable = false;
 }
