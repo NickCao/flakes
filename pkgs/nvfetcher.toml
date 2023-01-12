@@ -1,16 +1,6 @@
-[auth-thu]
-src.github = "z4yx/GoAuthing"
-fetch.github = "z4yx/GoAuthing"
-passthru = { vendorSha256 = "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o=" }
-
 [smartdns-china-list]
 src.git = "https://github.com/felixonmars/dnsmasq-china-list"
 fetch.github = "felixonmars/dnsmasq-china-list"
-
-[rait]
-src.git = "https://gitlab.com/NickCao/RAIT"
-fetch.git = "https://gitlab.com/NickCao/RAIT"
-passthru = { vendorSha256 = "sha256-T/ufC4mEXRBKgsmIk8jSCQva5Td0rnFHx3UIVV+t08k=" }
 
 [wemeet]
 src.manual = "3.12.0.400"

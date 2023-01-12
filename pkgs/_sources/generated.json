@@ -1,27 +1,7 @@
 {
-    "auth-thu": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "auth-thu",
-        "passthru": {
-            "vendorSha256": "sha256-LSGyy4i4JWopX54wWXZwEtRQfijCgA618FeQErwdy8o="
-        },
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "z4yx",
-            "repo": "GoAuthing",
-            "rev": "v2.2",
-            "sha256": "sha256-xvYmtgwAeZF5J9+dv2TCgQeuqOQI3/AiSR7n6FQivoE=",
-            "type": "github"
-        },
-        "version": "v2.2"
-    },
     "bird-babel-rtt": {
         "cargoLocks": null,
+        "date": "2022-12-12",
         "extract": null,
         "name": "bird-babel-rtt",
         "passthru": null,
@@ -41,6 +21,7 @@
     },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "fcitx5-pinyin-zhwiki",
         "passthru": null,
@@ -56,7 +37,7 @@
     "neondb": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./neondb-8c6e607327d17b98dd6635d5dc6036d28d1efc04/Cargo.lock",
+                "./neondb-95bf19b85a06b27a7fc3118dee03d48648efab15/Cargo.lock",
                 {
                     "amplify_num-0.4.1": "sha256-7raFT2CLEz4bza0CCSnA0EEnIRJ/neRvXp8Ji4l0AfA=",
                     "postgres-0.19.4": "sha256-rpboUP7K+2XdcRr80T4u1jKIj788bqz2usSqWmZDB3E=",
@@ -64,6 +45,7 @@
                 }
             ]
         },
+        "date": "2023-01-10",
         "extract": null,
         "name": "neondb",
         "passthru": null,
@@ -75,34 +57,15 @@
             "name": null,
             "owner": "neondatabase",
             "repo": "neon",
-            "rev": "8c6e607327d17b98dd6635d5dc6036d28d1efc04",
-            "sha256": "sha256-1bUzaD0rTr8Wws4QYWCYET29t5xA8pANo0dfk2rp3yM=",
+            "rev": "95bf19b85a06b27a7fc3118dee03d48648efab15",
+            "sha256": "sha256-PUwbYQfLakhDNU4hDn49YJvVs9HvY7a+W3TQnlchEgM=",
             "type": "github"
         },
-        "version": "8c6e607327d17b98dd6635d5dc6036d28d1efc04"
-    },
-    "rait": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "rait",
-        "passthru": {
-            "vendorSha256": "sha256-T/ufC4mEXRBKgsmIk8jSCQva5Td0rnFHx3UIVV+t08k="
-        },
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "278188c8bae13165aa70b6a2fbbb99101fd6f4cd",
-            "sha256": "sha256-6Y0s5/HUmWrZA6QmV5wYjB1M0Ab/jHM3TSruRpMRwtA=",
-            "type": "git",
-            "url": "https://gitlab.com/NickCao/RAIT"
-        },
-        "version": "278188c8bae13165aa70b6a2fbbb99101fd6f4cd"
+        "version": "95bf19b85a06b27a7fc3118dee03d48648efab15"
     },
     "riscv-openocd": {
         "cargoLocks": null,
+        "date": "2023-01-04",
         "extract": null,
         "name": "riscv-openocd",
         "passthru": null,
@@ -122,6 +85,7 @@
     },
     "smartdns-china-list": {
         "cargoLocks": null,
+        "date": "2023-01-10",
         "extract": null,
         "name": "smartdns-china-list",
         "passthru": null,
@@ -133,14 +97,15 @@
             "name": null,
             "owner": "felixonmars",
             "repo": "dnsmasq-china-list",
-            "rev": "a3111ea8c4eeca3e93d4867da0f490013f54d4e4",
-            "sha256": "sha256-of88udooj0KiVgWOYbfM6fKxS6pEhyXYPrYnN4r0PlQ=",
+            "rev": "75c54c2d3d5e3bb1b7e490c9ff27e99e7c28cd27",
+            "sha256": "sha256-gBMvYgK03psZtfLDzwGXcWY6P4Cg5L8YD79cRAovQUc=",
             "type": "github"
         },
-        "version": "a3111ea8c4eeca3e93d4867da0f490013f54d4e4"
+        "version": "75c54c2d3d5e3bb1b7e490c9ff27e99e7c28cd27"
     },
     "wemeet": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "wemeet",
         "passthru": null,
