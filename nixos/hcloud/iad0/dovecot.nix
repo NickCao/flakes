@@ -107,14 +107,9 @@ in
   services.traefik = {
     staticConfigOptions = {
       entryPoints = {
-        imap = {
-          address = ":993";
-          http.tls.certResolver = "le";
-        };
-        submission = {
-          address = ":465";
-          http.tls.certResolver = "le";
-        };
+        imap.address = ":993";
+        submission.address = ":465";
+        ldaps.address = ":636";
       };
     };
     dynamicConfigOptions = {
@@ -124,13 +119,19 @@ in
             rule = "HostSNI(`${config.networking.fqdn}`)";
             entryPoints = [ "imap" ];
             service = "imap";
-            tls = { };
+            tls.certResolver = "le";
           };
           submission = {
             rule = "HostSNI(`${config.networking.fqdn}`)";
             entryPoints = [ "submission" ];
             service = "submission";
-            tls = { };
+            tls.certResolver = "le";
+          };
+          ldaps = {
+            rule = "HostSNI(`ldap.nichi.co`)";
+            entryPoints = [ "ldaps" ];
+            service = "ldap";
+            tls.certResolver = "le";
           };
         };
         services = {
@@ -141,6 +142,9 @@ in
           submission.loadBalancer = {
             proxyProtocol = { };
             servers = [{ address = "127.0.0.1:587"; }];
+          };
+          ldap.loadBalancer = {
+            servers = [{ address = "127.0.0.1:3893"; }];
           };
         };
       };
