@@ -4,9 +4,6 @@ let
   maildir = "/var/spool/mail";
 in
 {
-  sops.secrets.dovecot = {
-    owner = cfg.user;
-  };
   systemd.tmpfiles.rules = [
     "d ${maildir} 0700 ${cfg.mailUser} ${cfg.mailGroup} -"
   ];
