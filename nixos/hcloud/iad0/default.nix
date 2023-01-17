@@ -7,6 +7,7 @@
     ./dovecot.nix
     ./vaultwarden.nix
     ./cgit.nix
+    ./kanidm.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;

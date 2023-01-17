@@ -107,7 +107,6 @@ in
       entryPoints = {
         imap.address = ":993";
         submission.address = ":465";
-        ldaps.address = ":636";
       };
     };
     dynamicConfigOptions = {
@@ -125,12 +124,6 @@ in
             service = "submission";
             tls.certResolver = "le";
           };
-          ldaps = {
-            rule = "HostSNI(`ldap.nichi.co`)";
-            entryPoints = [ "ldaps" ];
-            service = "ldap";
-            tls.certResolver = "le";
-          };
         };
         services = {
           imap.loadBalancer = {
@@ -140,9 +133,6 @@ in
           submission.loadBalancer = {
             proxyProtocol = { };
             servers = [{ address = "127.0.0.1:587"; }];
-          };
-          ldap.loadBalancer = {
-            servers = [{ address = "127.0.0.1:3893"; }];
           };
         };
       };

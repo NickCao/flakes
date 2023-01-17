@@ -24,6 +24,7 @@ dns.lib.toString "nichi.co" {
   ];
   subdomains = {
     www.TXT = [ "http.cat/404" ];
+    id.CNAME = [ "iad0.nichi.link." ];
     fn.CNAME = [ "nrt0.nichi.link." ];
     pb.CNAME = [ "sin1.nichi.link." ];
     api.CNAME = [ "nrt0.nichi.link." ];
