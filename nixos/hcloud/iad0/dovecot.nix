@@ -42,13 +42,8 @@ in
       mail_gid=${cfg.mailGroup}
 
       passdb {
-        driver = ldap
-        args = ${pkgs.writeText "dovecot-ldap.conf" ''
-          uris = ldap://127.0.0.1:3893
-          base = dc=nichi
-          auth_bind_userdn = cn=%u,dc=nichi
-          auth_bind = yes
-        ''}
+        driver = passwd-file
+        args = ${config.sops.secrets.dovecot.path}
       }
 
       userdb {
