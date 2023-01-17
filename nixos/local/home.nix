@@ -189,6 +189,7 @@ in
     };
   };
   home.packages = with pkgs; [
+    kanidm
     rage
     resign
     pinentry-gtk2
@@ -461,6 +462,9 @@ in
         GO111MODULE=on
         GOPROXY=https://goproxy.cn
         GOSUMDB=sum.golang.google.cn
+      '';
+      "kanidm".text = ''
+        uri = "https://id.nichi.co"
       '';
     };
   };
