@@ -9,9 +9,6 @@ in
       owner = "rspamd";
       path = "/var/lib/rspamd/dkim.key";
     };
-    glauth = {
-      restartUnits = [ "glauth.service" ];
-    };
   };
 
   systemd.services.postfix.serviceConfig = {
@@ -19,11 +16,6 @@ in
     ExecStartPre = ''
       ${pkgs.openssl}/bin/openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout /tmp/selfsigned.key -out /tmp/selfsigned.crt -batch
     '';
-  };
-
-  cloud.services.glauth.config = {
-    ExecStart = "${pkgs.glauth}/bin/glauth -c %d/config";
-    LoadCredential = "config:${config.sops.secrets.glauth.path}";
   };
 
   services.postfix = {
