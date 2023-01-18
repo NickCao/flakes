@@ -23,6 +23,10 @@ in
     '';
   };
 
+  cloud.services.ldap-proxy.config = {
+    ExecStart = "${pkgs.socat}/bin/socat TCP-LISTEN:8194,fork,reuseaddr,bind=127.0.0.1 OPENSSL:${cfg.ldapbindaddress},verify=0";
+  };
+
   services.traefik = {
     staticConfigOptions = {
       entryPoints.ldap.address = ":636";
@@ -46,10 +50,10 @@ in
           rule = "HostSNI(`${cfg.domain}`)";
           entryPoints = [ "ldap" ];
           service = "ldap";
-          tls.passthrough = true;
+          tls.certResolver = "le";
         };
         services.ldap.loadBalancer = {
-          servers = [{ address = "${cfg.ldapbindaddress}"; }];
+          servers = [{ address = "127.0.0.1:8194"; }];
         };
       };
     };
