@@ -418,11 +418,8 @@ in
           hostname = "rpi.nichi.link";
           port = 8122;
         };
-        "unmatched" = {
-          proxyJump = "rpi";
-          user = "root";
-          hostname = "fe80::72b3:d5ff:fe92:f9ff%%eth0";
-          extraOptions.StrictHostKeyChecking = "no";
+        "*.nichi.link" = {
+          extraOptions.UserKnownHostsFile = "/dev/null";
         };
       };
       extraConfig = ''
