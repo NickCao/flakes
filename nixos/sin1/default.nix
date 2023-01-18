@@ -55,7 +55,6 @@
   };
 
   services.openssh.enable = true;
-  services.sshcert.enable = true;
   services.gateway.enable = true;
   services.metrics.enable = true;
 

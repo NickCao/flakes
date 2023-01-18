@@ -18,7 +18,6 @@
 
   services.gateway.enable = true;
   services.metrics.enable = true;
-  services.sshcert.enable = true;
   services.openssh.enable = true;
 
   boot = {

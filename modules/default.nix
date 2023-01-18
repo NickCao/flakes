@@ -4,7 +4,6 @@
       (import ./baseline.nix)
       (import ./gateway.nix)
       (import ./metrics.nix)
-      (import ./sshcert)
       (import ./dns/secondary)
       (import ./cloud/services.nix)
       (import ./gravity)

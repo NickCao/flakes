@@ -178,9 +178,11 @@
     };
   };
 
-  programs.ssh.knownHosts = {
-    "@cert-authority *.nichi.link".publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEe0p7erHjrkNKcY/Kp6fvZtxLcl0hVMVMQPhQrPDZKp";
-  };
+  programs.ssh.extraConfig = ''
+    Host *.nichi.link
+      StrictHostKeyChecking no
+      UserKnownHostsFile /dev/null
+  '';
 
   systemd.services.nix-daemon.serviceConfig.Environment = [
     "https_proxy=http://127.0.0.1:1080"
