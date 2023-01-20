@@ -168,7 +168,9 @@ in
         Preferences = {
           "browser.newtabpage.activity-stream.feeds.topsites" = false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          "browser.urlbar.autoFill.adaptiveHistory.enabled" = true;
           "browser.tabs.closeWindowWithLastTab" = false;
+          "extensions.unifiedExtensions.enabled" = false;
         };
         ExtensionSettings = {
           "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
@@ -182,9 +184,7 @@ in
       default = {
         settings = {
           "fission.autostart" = true;
-          "browser.urlbar.autoFill.adaptiveHistory.enabled" = true;
           "media.peerconnection.enabled" = false;
-          "extensions.unifiedExtensions.enabled" = false;
         };
       };
     };
