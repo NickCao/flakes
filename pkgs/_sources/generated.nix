@@ -3,15 +3,15 @@
 {
   bird-babel-rtt = {
     pname = "bird-babel-rtt";
-    version = "e508ca76a198f633e1720466e1084333ae8b2742";
+    version = "dc33c5a814028441b57c12eec44bfc819904bbaa";
     src = fetchFromGitHub ({
       owner = "NickCao";
       repo = "bird";
-      rev = "e508ca76a198f633e1720466e1084333ae8b2742";
+      rev = "dc33c5a814028441b57c12eec44bfc819904bbaa";
       fetchSubmodules = false;
-      sha256 = "sha256-JdxWSXsPUPNHZxFxdOa8Ogui6Xf2Ife5UgWSLO6Lwrc=";
+      sha256 = "sha256-Bc1eIVroktKIuRQfcL41j/x6FnWXALdtfIt3vPzE3O8=";
     });
-    date = "2022-12-12";
+    date = "2023-01-23";
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
@@ -23,47 +23,46 @@
   };
   neondb = {
     pname = "neondb";
-    version = "95bf19b85a06b27a7fc3118dee03d48648efab15";
+    version = "5c865f46bae28532ebe0ff6ed5317ba2b30e9892";
     src = fetchFromGitHub ({
       owner = "neondatabase";
       repo = "neon";
-      rev = "95bf19b85a06b27a7fc3118dee03d48648efab15";
+      rev = "5c865f46bae28532ebe0ff6ed5317ba2b30e9892";
       fetchSubmodules = true;
-      sha256 = "sha256-PUwbYQfLakhDNU4hDn49YJvVs9HvY7a+W3TQnlchEgM=";
+      sha256 = "sha256-1zg0Azph5Sc24oR2xAIuM/UATNz6x/Cvk0rNx7MOhZw=";
     });
     cargoLock."Cargo.lock" = {
-      lockFile = ./neondb-95bf19b85a06b27a7fc3118dee03d48648efab15/Cargo.lock;
+      lockFile = ./neondb-5c865f46bae28532ebe0ff6ed5317ba2b30e9892/Cargo.lock;
       outputHashes = {
         "postgres-0.19.4" = "sha256-rpboUP7K+2XdcRr80T4u1jKIj788bqz2usSqWmZDB3E=";
-        "amplify_num-0.4.1" = "sha256-7raFT2CLEz4bza0CCSnA0EEnIRJ/neRvXp8Ji4l0AfA=";
         "tokio-tar-0.3.0" = "sha256-ktQOFE6yItvP77oVe6bT1hwXjdvPmvJVYxYF4FS6b3I=";
       };
     };
-    date = "2023-01-10";
+    date = "2023-01-23";
   };
   riscv-openocd = {
     pname = "riscv-openocd";
-    version = "43ea20dfbb6c815004a51106a3b2009d7f6c4940";
+    version = "9c3a4b458cbe88b4deff81452150e6c163e2e6e5";
     src = fetchFromGitHub ({
       owner = "riscv";
       repo = "riscv-openocd";
-      rev = "43ea20dfbb6c815004a51106a3b2009d7f6c4940";
+      rev = "9c3a4b458cbe88b4deff81452150e6c163e2e6e5";
       fetchSubmodules = true;
-      sha256 = "sha256-mupLfeTg/zeErHSwwgMaKmxbi/X0TvXm1RlEOgkgyJk=";
+      sha256 = "sha256-+wIsalAnARwTIbzMHG6/gbspXWppnarF9Zuf/r6hUtg=";
     });
-    date = "2023-01-04";
+    date = "2023-01-18";
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "75c54c2d3d5e3bb1b7e490c9ff27e99e7c28cd27";
+    version = "511c2768162329ae7e3d50c08e39dc7c9782fc90";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "75c54c2d3d5e3bb1b7e490c9ff27e99e7c28cd27";
+      rev = "511c2768162329ae7e3d50c08e39dc7c9782fc90";
       fetchSubmodules = false;
-      sha256 = "sha256-gBMvYgK03psZtfLDzwGXcWY6P4Cg5L8YD79cRAovQUc=";
+      sha256 = "sha256-FmSIJElf+COT8vXplLeWxKUtt5S6KraeWv2Bdl4cpqM=";
     });
-    date = "2023-01-10";
+    date = "2023-01-22";
   };
   wemeet = {
     pname = "wemeet";
