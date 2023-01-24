@@ -3,15 +3,15 @@
 {
   bird-babel-rtt = {
     pname = "bird-babel-rtt";
-    version = "dc33c5a814028441b57c12eec44bfc819904bbaa";
+    version = "e508ca76a198f633e1720466e1084333ae8b2742";
     src = fetchFromGitHub ({
       owner = "NickCao";
       repo = "bird";
-      rev = "dc33c5a814028441b57c12eec44bfc819904bbaa";
+      rev = "e508ca76a198f633e1720466e1084333ae8b2742";
       fetchSubmodules = false;
-      sha256 = "sha256-Bc1eIVroktKIuRQfcL41j/x6FnWXALdtfIt3vPzE3O8=";
+      sha256 = "sha256-JdxWSXsPUPNHZxFxdOa8Ogui6Xf2Ife5UgWSLO6Lwrc=";
     });
-    date = "2023-01-23";
+    date = "2022-12-12";
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
@@ -23,22 +23,22 @@
   };
   neondb = {
     pname = "neondb";
-    version = "5c865f46bae28532ebe0ff6ed5317ba2b30e9892";
+    version = "fd18692dfbb3c0e4b16dd521d07a9077aff80752";
     src = fetchFromGitHub ({
       owner = "neondatabase";
       repo = "neon";
-      rev = "5c865f46bae28532ebe0ff6ed5317ba2b30e9892";
+      rev = "fd18692dfbb3c0e4b16dd521d07a9077aff80752";
       fetchSubmodules = true;
-      sha256 = "sha256-1zg0Azph5Sc24oR2xAIuM/UATNz6x/Cvk0rNx7MOhZw=";
+      sha256 = "sha256-sw+zm7IKr63CrNv8QSBm0SjQ76My2bmqSODSiYq/npY=";
     });
     cargoLock."Cargo.lock" = {
-      lockFile = ./neondb-5c865f46bae28532ebe0ff6ed5317ba2b30e9892/Cargo.lock;
+      lockFile = ./neondb-fd18692dfbb3c0e4b16dd521d07a9077aff80752/Cargo.lock;
       outputHashes = {
         "postgres-0.19.4" = "sha256-rpboUP7K+2XdcRr80T4u1jKIj788bqz2usSqWmZDB3E=";
         "tokio-tar-0.3.0" = "sha256-ktQOFE6yItvP77oVe6bT1hwXjdvPmvJVYxYF4FS6b3I=";
       };
     };
-    date = "2023-01-23";
+    date = "2023-01-24";
   };
   riscv-openocd = {
     pname = "riscv-openocd";
