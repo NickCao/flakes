@@ -81,6 +81,7 @@
       Host k11-plct.nichi.link
         User hydra
         IdentityFile ${config.sops.secrets.plct.path}
+        Compression yes
     '';
   };
 
