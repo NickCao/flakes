@@ -10,11 +10,12 @@
     settings = {
       auto-optimise-store = true;
       allowed-uris = [ "https://github.com" "https://gitlab.com" ];
-      trusted-users = [ "root" ];
       max-jobs = 4;
       cores = 16;
     };
   };
+
+  environment.variables.NIX_REMOTE = lib.mkForce "";
 
   services.postgresql = {
     package = pkgs.postgresql_15;
