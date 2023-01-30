@@ -419,6 +419,10 @@ in
           hostname = "rpi.nichi.link";
           port = 8122;
         };
+        "hydra" = {
+          user = "root";
+          proxyJump = "root@k11-plct.nichi.link";
+        };
         "*.nichi.link" = {
           extraOptions.UserKnownHostsFile = "/dev/null";
         };
