@@ -7,6 +7,8 @@
     ./hydra.nix
   ];
 
+  virtualisation.lxc.privilegedContainer = true;
+
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age = {
@@ -23,17 +25,12 @@
   };
 
   services.openssh.enable = true;
-  # services.gateway.enable = true;
-  # services.metrics.enable = true;
+  services.gateway.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = data.keys;
 
   environment.baseline.enable = true;
 
   system.stateVersion = "23.05";
-
-  system.activationScripts.specialfs = lib.mkForce ''
-    mkdir -p /run/wrappers
-  '';
 
 }

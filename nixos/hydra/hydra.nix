@@ -7,15 +7,12 @@
   };
 
   nix = {
-    nrBuildUsers = lib.mkForce 32;
     settings = {
       auto-optimise-store = true;
       allowed-uris = [ "https://github.com" "https://gitlab.com" ];
       trusted-users = [ "root" ];
       max-jobs = 4;
       cores = 16;
-      auto-allocate-uids = lib.mkForce false;
-      use-cgroups = lib.mkForce false;
     };
   };
 
