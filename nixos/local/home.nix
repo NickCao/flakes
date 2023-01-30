@@ -436,7 +436,7 @@ in
         {
           timeout = 905;
           command = ''${pkgs.sway}/bin/swaymsg "output * dpms off"'';
-          resumeCommand = ''${pkgs.sway}swaymsg "output * dpms on"'';
+          resumeCommand = ''${pkgs.sway}/bin/swaymsg "output * dpms on"'';
         }
       ];
       events = [
