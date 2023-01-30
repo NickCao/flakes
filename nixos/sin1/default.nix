@@ -6,7 +6,6 @@
     self.nixosModules.cloud.filesystems
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
-    ./hydra.nix
     ./pb.nix
     ./misc.nix
   ];
@@ -17,7 +16,6 @@
   ];
 
   sops = {
-    defaultSopsFile = ./secrets.yaml;
     age = {
       keyFile = "/var/lib/sops.key";
       sshKeyPaths = [ ];
