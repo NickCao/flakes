@@ -21,21 +21,21 @@
     package = pkgs.postgresql_15;
     settings = {
       max_connections = 100;
-      shared_buffers = "4GB";
-      effective_cache_size = "12GB";
-      maintenance_work_mem = "1GB";
+      shared_buffers = "16GB";
+      effective_cache_size = "48GB";
+      maintenance_work_mem = "2GB";
       checkpoint_completion_target = 0.9;
       wal_buffers = "16MB";
       default_statistics_target = 100;
-      random_page_cost = 1.1;
-      effective_io_concurrency = 200;
-      work_mem = "6990kB";
-      min_wal_size = "1GB";
-      max_wal_size = "4GB";
-      max_worker_processes = 6;
-      max_parallel_workers_per_gather = 3;
-      max_parallel_workers = 6;
-      max_parallel_maintenance_workers = 3;
+      random_page_cost = 4;
+      effective_io_concurrency = 2;
+      work_mem = "41943kB";
+      min_wal_size = "2GB";
+      max_wal_size = "8GB";
+      max_worker_processes = 64;
+      max_parallel_workers_per_gather = 4;
+      max_parallel_workers = 64;
+      max_parallel_maintenance_workers = 4;
     };
   };
 
