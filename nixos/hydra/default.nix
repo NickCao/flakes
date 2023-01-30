@@ -32,6 +32,8 @@
 
   system.stateVersion = "23.05";
 
-  system.activationScripts.specialfs = lib.mkForce "";
+  system.activationScripts.specialfs = lib.mkForce ''
+    mkdir -p /run/wrappers
+  '';
 
 }
