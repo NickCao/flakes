@@ -1,6 +1,6 @@
 { pkgs, lib, config, modulesPath, self, inputs, data, ... }: {
 
-  # podman run --rm -d --name hydra --rootfs --systemd always --network slirp4netns \
+  # podman run --rm -d --name hydra --rootfs --ulimit=host --pids-limit -1 --systemd always --network slirp4netns \
   #   -p 80:80 -p 443:443 -p 9022:22 --privileged /data/hydra /nix/var/nix/profiles/system/init
 
   imports = [
