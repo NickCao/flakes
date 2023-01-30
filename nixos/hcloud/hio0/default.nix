@@ -5,6 +5,7 @@
     ./blog.nix
     ./matrix.nix
     ./services.nix
+    ./pb.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;

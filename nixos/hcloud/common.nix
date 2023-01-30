@@ -16,7 +16,10 @@
     gnupg.sshKeyPaths = [ ];
   };
 
-  nixpkgs.overlays = [ self.overlays.default ];
+  nixpkgs.overlays = [
+    self.overlays.default
+    inputs.fn.overlays.default
+  ];
 
   boot = {
     loader.grub.device = "/dev/sda";
