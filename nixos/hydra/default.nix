@@ -1,13 +1,15 @@
 { pkgs, lib, config, modulesPath, self, inputs, data, ... }: {
 
+  # podman run --rm -d --name hydra --rootfs --systemd always --network slirp4netns \
+  #   -p 80:80 -p 443:443 -p 9022:22 --privileged /data/hydra /nix/var/nix/profiles/system/init
+
   imports = [
-    (modulesPath + "/virtualisation/lxc-container.nix")
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     ./hydra.nix
   ];
 
-  virtualisation.lxc.privilegedContainer = true;
+  boot.isContainer = true;
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
@@ -18,8 +20,8 @@
     gnupg.sshKeyPaths = [ ];
   };
 
-
   networking = {
+    useDHCP = false;
     hostName = "hydra";
     domain = "nichi.link";
   };
