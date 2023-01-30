@@ -141,6 +141,10 @@
           };
           imports = [ ./nixos/rpi ];
         };
+        hydra = { ... }: {
+          deployment.targetHost = "hydra";
+          imports = [ ./nixos/hydra ];
+        };
       } // (lib.mapAttrs
         (name: value: { ... }: {
           deployment = {

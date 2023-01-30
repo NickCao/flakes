@@ -48,6 +48,6 @@ with lib;
     users.mutableUsers = false;
 
     programs.command-not-found.enable = false;
-    documentation.nixos.enable = false;
+    documentation.nixos.enable = lib.mkForce false;
   };
 }
