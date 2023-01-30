@@ -6,7 +6,6 @@
     self.nixosModules.cloud.filesystems
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
-    ./misc.nix
   ];
 
   nixpkgs.overlays = [
