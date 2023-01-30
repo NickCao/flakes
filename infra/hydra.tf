@@ -3,7 +3,7 @@ resource "hydra_project" "nixpkgs" {
   display_name = "Nixpkgs"
   description  = "Nix Packages collection"
   homepage     = "https://nixos.org/nixpkgs"
-  owner        = "nickcao@nichi.co"
+  owner        = "terraform"
 }
 
 resource "hydra_project" "nixos" {
@@ -11,14 +11,14 @@ resource "hydra_project" "nixos" {
   display_name = "NixOS"
   description  = "NixOS, the purely functional Linux distribution"
   homepage     = "https://nixos.org/nixos"
-  owner        = "nickcao@nichi.co"
+  owner        = "terraform"
 }
 
 resource "hydra_project" "misc" {
   name         = "misc"
   display_name = "Misc"
   description  = "Miscellaneous projects"
-  owner        = "nickcao@nichi.co"
+  owner        = "terraform"
 }
 
 resource "hydra_jobset" "nixos_riscv" {
