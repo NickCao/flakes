@@ -1,13 +1,6 @@
 locals {
-  dnssec_key = "LBbl0S/D5U9yKQOy+r0+lZEJP3kpPklCBagsT13p64U="
-  hosts = merge(module.vultr, module.hcloud, {
-    sin1 = {
-      fqdn = "sin1.nichi.link",
-      ipv4 = "154.26.139.162",
-      ipv6 = "2407:3640:2108:595::1",
-      tags = ["contabo"]
-    },
-  })
+  dnssec_key  = "LBbl0S/D5U9yKQOy+r0+lZEJP3kpPklCBagsT13p64U="
+  hosts       = merge(module.vultr, module.hcloud)
   nameservers = { for k, v in local.hosts : k => v if contains(v.tags, "nameserver") }
   ns          = concat(values(local.nameservers)[*].fqdn)
 }

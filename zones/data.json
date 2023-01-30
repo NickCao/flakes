@@ -93,20 +93,6 @@
               "string"
             ]
           }
-        ],
-        "sin1": [
-          "object",
-          {
-            "fqdn": "string",
-            "ipv4": "string",
-            "ipv6": "string",
-            "tags": [
-              "tuple",
-              [
-                "string"
-              ]
-            ]
-          }
         ]
       }
     ],
@@ -161,14 +147,6 @@
         "tags": [
           "vultr",
           "nameserver"
-        ]
-      },
-      "sin1": {
-        "fqdn": "sin1.nichi.link",
-        "ipv4": "154.26.139.162",
-        "ipv6": "2407:3640:2108:595::1",
-        "tags": [
-          "contabo"
         ]
       }
     }
