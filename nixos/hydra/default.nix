@@ -4,7 +4,18 @@
     (modulesPath + "/virtualisation/lxc-container.nix")
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
+    ./hydra.nix
   ];
+
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age = {
+      keyFile = "/var/lib/sops.key";
+      sshKeyPaths = [ ];
+    };
+    gnupg.sshKeyPaths = [ ];
+  };
+
 
   networking = {
     hostName = "hydra";
