@@ -9,6 +9,7 @@ let
     "iad0.nichi.link"
     "lax0.nichi.link"
     "hio0.nichi.link"
+    "hydra.nichi.link"
   ];
 in
 {
