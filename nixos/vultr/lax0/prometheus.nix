@@ -4,7 +4,6 @@ let
   targets = [
     "nrt0.nichi.link"
     "sin0.nichi.link"
-    "sin1.nichi.link"
     "sea0.nichi.link"
     "iad0.nichi.link"
     "lax0.nichi.link"
