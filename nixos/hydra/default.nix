@@ -26,6 +26,7 @@
 
   services.openssh.enable = true;
   services.gateway.enable = true;
+  services.metrics.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = data.keys;
 
