@@ -421,7 +421,8 @@ in
         };
         "hydra" = {
           user = "root";
-          proxyJump = "root@k11-plct.nichi.link";
+          hostname = "k11-plct.nichi.link";
+          port = 9022;
         };
         "*.nichi.link" = {
           extraOptions.UserKnownHostsFile = "/dev/null";
