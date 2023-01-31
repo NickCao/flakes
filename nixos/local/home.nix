@@ -134,11 +134,11 @@ in
       lualine-lsp-progress
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
-          tree-sitter-nix
-          tree-sitter-lua
-          tree-sitter-rust
-          tree-sitter-go
-          tree-sitter-hcl
+          nix
+          lua
+          rust
+          go
+          hcl
         ]
       ))
     ];
