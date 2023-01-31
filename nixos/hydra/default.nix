@@ -33,6 +33,10 @@
   users.users.root.openssh.authorizedKeys.keys = data.keys;
 
   environment.baseline.enable = true;
+  environment.systemPackages = with pkgs; [
+    git
+    nixpkgs-review
+  ];
 
   system.stateVersion = "23.05";
 
