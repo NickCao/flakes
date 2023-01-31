@@ -425,7 +425,10 @@ in
           port = 9022;
         };
         "*.nichi.link" = {
-          extraOptions.UserKnownHostsFile = "/dev/null";
+          extraOptions = {
+            UserKnownHostsFile = "/dev/null";
+            LogLevel = "ERROR";
+          };
         };
       };
       extraConfig = ''
