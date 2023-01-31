@@ -333,13 +333,6 @@
     wlr.enable = true;
   };
 
-  systemd.package = pkgs.systemd.overrideAttrs (attrs: {
-    patches = attrs.patches ++ [ ./0001-tpm2_context_init-fix-driver-name-checking.patch ];
-  });
-  boot.initrd.systemd.package = pkgs.systemdStage1.overrideAttrs (attrs: {
-    patches = attrs.patches ++ [ ./0001-tpm2_context_init-fix-driver-name-checking.patch ];
-  });
-
   system.stateVersion = "20.09";
   documentation.nixos.enable = false;
 }
