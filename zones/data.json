@@ -46,6 +46,18 @@
             ]
           }
         ],
+        "itm0": [
+          "object",
+          {
+            "fqdn": "string",
+            "ipv4": "string",
+            "ipv6": "string",
+            "tags": [
+              "list",
+              "string"
+            ]
+          }
+        ],
         "lax0": [
           "object",
           {
@@ -112,6 +124,14 @@
         "tags": [
           "hetzner",
           "nameserver"
+        ]
+      },
+      "itm0": {
+        "fqdn": "itm0.nichi.link",
+        "ipv4": "64.176.39.8",
+        "ipv6": "2401:c080:3800:2638:5400:04ff:fe4a:9cbc",
+        "tags": [
+          "vultr"
         ]
       },
       "lax0": {

@@ -20,6 +20,11 @@ locals {
       plan   = "vc2-1c-1gb"
       tags   = ["vultr"]
     }
+    itm0 = {
+      region = "itm"
+      plan   = "vhp-1c-1gb-amd"
+      tags   = ["vultr"]
+    }
   }
 }
 
