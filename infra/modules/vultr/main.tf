@@ -10,6 +10,10 @@ variable "region" {
   type = string
 }
 
+variable "plan" {
+  type = string
+}
+
 variable "userdata" {
   type      = string
   sensitive = true
@@ -40,7 +44,7 @@ resource "vultr_startup_script" "script" {
 
 resource "vultr_instance" "server" {
   region           = var.region
-  plan             = "vc2-1c-1gb"
+  plan             = var.plan
   os_id            = 159
   script_id        = vultr_startup_script.script.id
   user_data        = var.userdata
