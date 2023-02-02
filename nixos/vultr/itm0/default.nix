@@ -1,6 +1,6 @@
 { config, ... }: {
 
   imports = [ ../common.nix ];
-  networking.hostName = "item0";
+  networking.hostName = "itm0";
 
 }
