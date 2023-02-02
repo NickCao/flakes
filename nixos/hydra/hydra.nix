@@ -10,7 +10,7 @@
     settings = {
       auto-optimise-store = true;
       allowed-uris = [ "https://github.com" "https://gitlab.com" ];
-      max-jobs = 8;
+      max-jobs = 4;
       cores = 16;
     };
   };
