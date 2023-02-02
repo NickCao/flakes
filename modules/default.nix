@@ -11,6 +11,7 @@
     ];
   });
   vultr = import ./vultr.nix;
+  shadowsocks = import ./shadowsocks;
   cloud = {
     common = import ./cloud/common.nix;
     filesystems = import ./cloud/filesystems.nix;
