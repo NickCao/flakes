@@ -1,9 +1,10 @@
-{ config, pkgs, modulesPath, data, ... }:
+{ config, pkgs, modulesPath, data, self, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-    (import ../.).default
-    (import ../.).cloud.disko
+    self.nixosModules.default
+    self.nixosModules.shadowsocks
+    self.nixosModules.cloud.disko
   ];
 
   sops = {
