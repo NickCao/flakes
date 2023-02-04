@@ -37,7 +37,6 @@ with lib;
 
     services.getty.autologinUser = "root";
     services.fstrim.enable = true;
-    services.nscd.enableNsncd = true;
     services.resolved = {
       llmnr = "false";
       extraConfig = ''
