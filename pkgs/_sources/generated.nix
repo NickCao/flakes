@@ -15,30 +15,30 @@
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20221230";
+    version = "20230128";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20221230.dict";
-      sha256 = "sha256-Mu06WNiL73YWVLbFyZNoDBJONvRB3H0PNeAZb09gx0o=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230128.dict";
+      sha256 = "sha256-SFSNwsyE9W9pCIKlu+8pGVVNdNn6MITA4x7meicbUyQ=";
     };
   };
   neondb = {
     pname = "neondb";
-    version = "fd18692dfbb3c0e4b16dd521d07a9077aff80752";
+    version = "121d535068bc9cbe4d6de1b0ac7fe9c7270ac9d7";
     src = fetchFromGitHub ({
       owner = "neondatabase";
       repo = "neon";
-      rev = "fd18692dfbb3c0e4b16dd521d07a9077aff80752";
+      rev = "121d535068bc9cbe4d6de1b0ac7fe9c7270ac9d7";
       fetchSubmodules = true;
-      sha256 = "sha256-sw+zm7IKr63CrNv8QSBm0SjQ76My2bmqSODSiYq/npY=";
+      sha256 = "sha256-2dCVhR4KKl9FOv9MG6CXLYWXFSMwbDs6LCDmvbqHk7M=";
     });
     cargoLock."Cargo.lock" = {
-      lockFile = ./neondb-fd18692dfbb3c0e4b16dd521d07a9077aff80752/Cargo.lock;
+      lockFile = ./neondb-121d535068bc9cbe4d6de1b0ac7fe9c7270ac9d7/Cargo.lock;
       outputHashes = {
         "postgres-0.19.4" = "sha256-rpboUP7K+2XdcRr80T4u1jKIj788bqz2usSqWmZDB3E=";
         "tokio-tar-0.3.0" = "sha256-ktQOFE6yItvP77oVe6bT1hwXjdvPmvJVYxYF4FS6b3I=";
       };
     };
-    date = "2023-01-24";
+    date = "2023-02-04";
   };
   riscv-openocd = {
     pname = "riscv-openocd";
@@ -54,15 +54,15 @@
   };
   smartdns-china-list = {
     pname = "smartdns-china-list";
-    version = "511c2768162329ae7e3d50c08e39dc7c9782fc90";
+    version = "b8edb76f0209aae25ca6f65c78a62108f4cc56f4";
     src = fetchFromGitHub ({
       owner = "felixonmars";
       repo = "dnsmasq-china-list";
-      rev = "511c2768162329ae7e3d50c08e39dc7c9782fc90";
+      rev = "b8edb76f0209aae25ca6f65c78a62108f4cc56f4";
       fetchSubmodules = false;
-      sha256 = "sha256-FmSIJElf+COT8vXplLeWxKUtt5S6KraeWv2Bdl4cpqM=";
+      sha256 = "sha256-GyEer4syDaXe8ssLkHNxGes5R9TMVXmMEy6DhQT7VmE=";
     });
-    date = "2023-01-22";
+    date = "2023-02-03";
   };
   wemeet = {
     pname = "wemeet";
