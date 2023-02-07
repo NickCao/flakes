@@ -11,9 +11,9 @@
     secrets = {
       passwd.neededForUsers = true;
       u2f = { mode = "0444"; };
-      "wireless/tsinghua" = { path = "/var/lib/iwd/Tsinghua-Secure.8021x"; };
-      "wireless/home" = { path = "/var/lib/iwd/CMCC-39rG-5G.psk"; };
-      "wireless/alt" = { path = "/var/lib/iwd/CMCC-EGfY.psk"; };
+      "wireless/tsinghua" = { };
+      "wireless/home" = { };
+      "wireless/alt" = { };
     };
     age = {
       keyFile = "/var/lib/sops.key";
@@ -21,6 +21,12 @@
     };
     gnupg.sshKeyPaths = [ ];
   };
+
+  systemd.tmpfiles.rules = [
+    "C /var/lib/iwd/Tsinghua-Secure.8021x - - - - ${config.sops.secrets."wireless/tsinghua".path}"
+    "C /var/lib/iwd/CMCC-39rG-5G.psk      - - - - ${config.sops.secrets."wireless/home".path}"
+    "C /var/lib/iwd/CMCC-EGfY.psk         - - - - ${config.sops.secrets."wireless/alt".path}"
+  ];
 
   nix = {
     package = pkgs.nixVersions.stable;
