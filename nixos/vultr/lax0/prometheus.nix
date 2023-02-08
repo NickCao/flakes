@@ -67,6 +67,13 @@ in
               };
             }
             {
+              alert = "DiskFull";
+              expr = "disk_used_percent { path = '/nix' } > 80";
+              annotations = {
+                summary = ''node {{ $labels.host }} disk full, {{ $value | printf "%.2f" }} percent used'';
+              };
+            }
+            {
               alert = "TraefikError";
               expr = "traefik_config_reloads_failure_total > 0";
               annotations = {
