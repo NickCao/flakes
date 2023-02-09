@@ -14,7 +14,7 @@ writeShellApplication {
       -device ich9-intel-hda \
       -device hda-duplex,audiodev=snd0 \
       -usb -device usb-tablet \
-      -drive if=virtio,file="$HOME"/Documents/vm/windows.img,format=raw,aio=io_uring \
+      -drive if=virtio,file="$HOME"/Documents/vm/windows.qcow2,aio=io_uring \
       "$@"
   '';
 }
