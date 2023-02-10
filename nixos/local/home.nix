@@ -231,6 +231,7 @@ in
   ];
 
   systemd.user.sessionVariables = {
+    CARGO_UNSTABLE_SPARSE_REGISTRY = "true";
     LIBVA_DRIVER_NAME = "iHD";
     SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
     SOPS_GPG_EXEC = "resign-gpg";
