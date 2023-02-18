@@ -104,6 +104,7 @@
         displayname_template = "{displayname}";
         public_portals = true;
         delivery_error_reports = true;
+        incoming_bridge_error_reports = true;
         bridge_matrix_leave = false;
         relay_user_distinguishers = [ ];
         animated_sticker = {
