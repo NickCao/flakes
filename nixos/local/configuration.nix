@@ -51,6 +51,8 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "nvidia-x11"
+    "uhk-agent"
+    "uhk-udev-rules"
   ];
 
   networking = {
@@ -335,6 +337,8 @@
   };
 
   zramSwap.enable = true;
+
+  hardware.keyboard.uhk.enable = true;
 
   system.stateVersion = "20.09";
   documentation.nixos.enable = false;
