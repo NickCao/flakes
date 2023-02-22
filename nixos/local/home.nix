@@ -194,6 +194,7 @@ in
     };
   };
   home.packages = with pkgs; [
+    uhk-agent
     kanidm
     rage
     resign
