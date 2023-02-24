@@ -25,7 +25,8 @@ let
   '';
 in
 stdenv.mkDerivation rec {
-  inherit (source) pname version src;
+  inherit (source) pname src;
+  version = "unstable-${source.date}";
 
   outputs = [ "out" "dev" "postgres" ];
 

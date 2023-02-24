@@ -13,7 +13,8 @@
 }:
 
 stdenv.mkDerivation rec {
-  inherit (source) pname version src;
+  inherit (source) pname src;
+  version = "unstable-${source.date}";
   nativeBuildInputs = [ pkg-config which libtool automake autoconf ];
   buildInputs = [ hidapi libftdi1 libusb1 libgpiod ];
   preConfigure = ''

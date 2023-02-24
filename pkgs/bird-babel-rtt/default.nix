@@ -1,7 +1,8 @@
 { source, lib, stdenv, autoreconfHook, flex, bison, readline, libssh }:
 
 stdenv.mkDerivation {
-  inherit (source) pname version src;
+  inherit (source) pname src;
+  version = "unstable-${source.date}";
   nativeBuildInputs = [ autoreconfHook flex bison ];
   buildInputs = [ readline libssh ];
 
