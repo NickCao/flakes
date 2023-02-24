@@ -166,7 +166,7 @@ in
 
   environment.systemPackages = with pkgs;[
     socat
-    riscv-openocd
+    openocd
     ttyd
     ustreamer
     ffmpeg

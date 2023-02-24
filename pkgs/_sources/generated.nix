@@ -41,30 +41,6 @@
     };
     date = "2023-02-23";
   };
-  riscv-openocd = {
-    pname = "riscv-openocd";
-    version = "8933785ab32ace83a49c1f67332e872882f64aba";
-    src = fetchFromGitHub ({
-      owner = "riscv";
-      repo = "riscv-openocd";
-      rev = "8933785ab32ace83a49c1f67332e872882f64aba";
-      fetchSubmodules = true;
-      sha256 = "sha256-w71CxoP5GJdUOMWzldNmk7GrReDG/3Wd5ITzYfhzGSo=";
-    });
-    date = "2023-02-20";
-  };
-  smartdns-china-list = {
-    pname = "smartdns-china-list";
-    version = "14f4309f39aab8f4d2eb0d8b7ab3ab3cd69a21f2";
-    src = fetchFromGitHub ({
-      owner = "felixonmars";
-      repo = "dnsmasq-china-list";
-      rev = "14f4309f39aab8f4d2eb0d8b7ab3ab3cd69a21f2";
-      fetchSubmodules = false;
-      sha256 = "sha256-CojvG3HNrVzQAbWcWC96Q3DHoXgYckGZ/s2ErPW/eLk=";
-    });
-    date = "2023-02-23";
-  };
   wemeet = {
     pname = "wemeet";
     version = "3.12.0.400";

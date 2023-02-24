@@ -1,7 +1,3 @@
-[smartdns-china-list]
-src.git = "https://github.com/felixonmars/dnsmasq-china-list"
-fetch.github = "felixonmars/dnsmasq-china-list"
-
 [wemeet]
 src.manual = "3.12.0.400"
 fetch.url = "https://updatecdn.meeting.qq.com/cos/e078bf97365540d9f0ff063f93372a9c/TencentMeeting_0300000000_3.12.0.400_x86_64_default.publish.deb"
@@ -10,11 +6,6 @@ fetch.url = "https://updatecdn.meeting.qq.com/cos/e078bf97365540d9f0ff063f93372a
 src.archpkg = "fcitx5-pinyin-zhwiki"
 src.prefix = "0.2.4."
 fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-$ver.dict"
-
-[riscv-openocd]
-src.git = "https://github.com/riscv/riscv-openocd"
-fetch.github = "riscv/riscv-openocd"
-git.fetchSubmodules = true
 
 [bird-babel-rtt]
 src.git = "https://github.com/NickCao/bird"

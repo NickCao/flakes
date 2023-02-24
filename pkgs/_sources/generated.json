@@ -63,46 +63,6 @@
         },
         "version": "9f906ff2369ac9cea4a92245d88e5a70cf5f7e02"
     },
-    "riscv-openocd": {
-        "cargoLocks": null,
-        "date": "2023-02-20",
-        "extract": null,
-        "name": "riscv-openocd",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "riscv",
-            "repo": "riscv-openocd",
-            "rev": "8933785ab32ace83a49c1f67332e872882f64aba",
-            "sha256": "sha256-w71CxoP5GJdUOMWzldNmk7GrReDG/3Wd5ITzYfhzGSo=",
-            "type": "github"
-        },
-        "version": "8933785ab32ace83a49c1f67332e872882f64aba"
-    },
-    "smartdns-china-list": {
-        "cargoLocks": null,
-        "date": "2023-02-23",
-        "extract": null,
-        "name": "smartdns-china-list",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "felixonmars",
-            "repo": "dnsmasq-china-list",
-            "rev": "14f4309f39aab8f4d2eb0d8b7ab3ab3cd69a21f2",
-            "sha256": "sha256-CojvG3HNrVzQAbWcWC96Q3DHoXgYckGZ/s2ErPW/eLk=",
-            "type": "github"
-        },
-        "version": "14f4309f39aab8f4d2eb0d8b7ab3ab3cd69a21f2"
-    },
     "wemeet": {
         "cargoLocks": null,
         "date": null,
