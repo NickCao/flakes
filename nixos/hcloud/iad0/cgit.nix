@@ -50,7 +50,7 @@ in
     Type = "oneshot";
     Restart = "on-failure";
     User = "git";
-    ExecStart = "${pkgs.gh-mirror}/bin/gh-mirror --exclude-forks --include nixpkgs NickCao";
+    ExecStart = "${pkgs.gh-mirror}/bin/gh-mirror --exclude-forks --include nixpkgs --exclude linux NickCao";
     BindPaths = config.users.users.git.home;
     WorkingDirectory = "${config.users.users.git.home}/mirror";
     EnvironmentFile = config.sops.secrets.cgit-mirror.path;
