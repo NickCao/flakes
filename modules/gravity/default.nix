@@ -6,6 +6,17 @@ in
 {
   options.services.gravity = {
     enable = mkEnableOption "gravity overlay network, next generation";
+    ipsec = {
+      enable = mkEnableOption "ipsec";
+      port = mkOption {
+        type = types.port;
+        default = 13000;
+      };
+      interfaces = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+      };
+    };
     reload.enable = mkEnableOption "auto reload registry";
     config = mkOption {
       type = types.path;
@@ -294,6 +305,27 @@ in
           OnCalendar = "hourly";
         };
         wantedBy = [ "timers.target" ];
+      };
+    })
+    (mkIf cfg.ipsec.enable {
+      services.strongswan-swanctl = {
+        enable = true;
+        strongswan.extraConfig = ''
+          charon {
+            interfaces_use = ${lib.strings.concatStringsSep "," cfg.ipsec.interfaces}
+            port = 0
+            port_nat_t = ${toString cfg.ipsec.port}
+            plugins {
+              socket-default {
+                set_source = yes
+                set_sourceif = yes
+              }
+              dhcp {
+                load = no
+              }
+            }
+          }
+        '';
       };
     })
   ]);
