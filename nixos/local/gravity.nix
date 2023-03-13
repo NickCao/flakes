@@ -12,6 +12,17 @@
       prefix = "2a0c:b641:69c:99cc::/64";
       pattern = "grv*";
     };
+    ipsec = {
+      enable = true;
+      organization = "nickcao";
+      commonName = "local";
+      port = 13000;
+      interfaces = [ "wlan0" ];
+      endpoints = [
+        { serialNumber = "0"; addressFamily = "ip4"; }
+        { serialNumber = "1"; addressFamily = "ip6"; }
+      ];
+    };
   };
   systemd.services.bird2.after = [ "network-online.target" ];
 

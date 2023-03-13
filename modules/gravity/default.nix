@@ -8,6 +8,18 @@ in
     enable = mkEnableOption "gravity overlay network, next generation";
     ipsec = {
       enable = mkEnableOption "ipsec";
+      organization = mkOption { type = types.str; };
+      commonName = mkOption { type = types.str; };
+      endpoints = mkOption {
+        type = types.listOf
+          (types.submodule {
+            options = {
+              serialNumber = mkOption { type = types.str; };
+              addressFamily = mkOption { type = types.str; };
+              address = mkOption { type = types.nullOr types.str; default = null; };
+            };
+          });
+      };
       port = mkOption {
         type = types.port;
         default = 13000;
@@ -308,6 +320,19 @@ in
       };
     })
     (mkIf cfg.ipsec.enable {
+      environment.systemPackages = [ pkgs.strongswan ];
+      environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" {
+        organization = cfg.ipsec.organization;
+        common_name = cfg.ipsec.commonName;
+        endpoints = builtins.map
+          (ep: {
+            serial_number = ep.serialNumber;
+            address_family = ep.addressFamily;
+            address = ep.address;
+            port = cfg.ipsec.port;
+          })
+          cfg.ipsec.endpoints;
+      };
       services.strongswan-swanctl = {
         enable = true;
         strongswan.extraConfig = ''
