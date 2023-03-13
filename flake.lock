@@ -503,13 +503,14 @@
       "locked": {
         "lastModified": 1678004431,
         "narHash": "sha256-b2CVGDG4EtEuSdSJyc6OOzBnpzfxnMgYbbG+irjA7o8=",
-        "owner": "SCP-2000",
+        "owner": "NickCao",
         "repo": "ranet",
         "rev": "f7b21f4ae929d2a4e3033b32b55689cf2c3f2fe5",
         "type": "github"
       },
       "original": {
-        "owner": "SCP-2000",
+        "owner": "NickCao",
+        "ref": "wireguard",
         "repo": "ranet",
         "type": "github"
       }
@@ -524,16 +525,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1678698632,
-        "narHash": "sha256-8snvKzGrHJWobWCLUs5pTBTeLvuYgRRQGhQhXqd32tM=",
-        "owner": "SCP-2000",
+        "lastModified": 1678708429,
+        "narHash": "sha256-sxkXEVxbG6cZcwn5eEJWkT5sLnhWHeEyxkKEjloWC8c=",
+        "owner": "NickCao",
         "repo": "ranet",
-        "rev": "71249730580f6bea66bd6b0bc454dc6ee8ab2ece",
+        "rev": "18cfef55627d22f30fa2000f24c1e0ce7c4aaaa8",
         "type": "github"
       },
       "original": {
-        "owner": "SCP-2000",
-        "ref": "ipsec",
+        "owner": "NickCao",
         "repo": "ranet",
         "type": "github"
       }

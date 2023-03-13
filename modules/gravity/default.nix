@@ -218,6 +218,13 @@ in
               rtt cost 1024;
               rtt max 1024 ms;
             };
+            interface "gn*" {
+              type tunnel;
+              rxcost 32;
+              hello interval 20 s;
+              rtt cost 1024;
+              rtt max 1024 ms;
+            };
           }
 
           ${optionalString cfg.bird.exit.enable ''
@@ -332,14 +339,14 @@ in
             address = ep.address;
             port = cfg.ipsec.port;
             updown = pkgs.writeShellScript "updown" ''
-              LINK=''${PLUTO_CONNECTION:0:15}
+              LINK=gn''${PLUTO_CONNECTION:0:13}
               case "$PLUTO_VERB" in
                 up-*)
                   ip link add "$LINK" type xfrm if_id "$PLUTO_IF_ID_OUT"
-                  ip link set "$LINK" netns testnet up
+                  ip link set "$LINK" master gravity multicast on up
                   ;;
                 down-*)
-                  ip -n testnet link del "$LINK"
+                  ip link del "$LINK"
                   ;;
               esac
             '';
@@ -352,16 +359,9 @@ in
         in
         {
           path = [ inputs.ranet-ipsec.packages.x86_64-linux.default pkgs.iproute2 ];
-          script = ''
-            ip netns add testnet || true
-            ${command} up
-
-          '';
+          script = "${command} up";
           reload = "${command} up";
-          preStop = ''
-            ${command} down
-            ip netns del testnet || true
-          '';
+          preStop = "${command} down";
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;

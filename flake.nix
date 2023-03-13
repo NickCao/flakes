@@ -35,12 +35,12 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     ranet = {
-      url = "github:SCP-2000/ranet";
+      url = "github:NickCao/ranet/wireguard";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
     ranet-ipsec = {
-      url = "github:SCP-2000/ranet/ipsec";
+      url = "github:NickCao/ranet";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
