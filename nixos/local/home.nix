@@ -274,16 +274,17 @@ in
     };
   };
 
+  services.mako = {
+    enable = true;
+    extraConfig = ''
+      on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
+    '';
+  };
+
   programs = {
     pandoc.enable = true;
     jq.enable = true;
     lf.enable = true;
-    mako = {
-      enable = true;
-      extraConfig = ''
-        on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
-      '';
-    };
     waybar = {
       enable = true;
       settings = [ (import ./waybar.nix { inherit pkgs; }) ];
