@@ -374,6 +374,7 @@ in
             Type = "oneshot";
             RemainAfterExit = true;
           };
+          bindsTo = [ "strongswan-swanctl.service" ];
           wants = [ "network-online.target" "strongswan-swanctl.service" ];
           after = [ "network-online.target" "strongswan-swanctl.service" ];
           wantedBy = [ "multi-user.target" ];
@@ -385,6 +386,7 @@ in
             interfaces_use = ${lib.strings.concatStringsSep "," cfg.ipsec.interfaces}
             port = 0
             port_nat_t = ${toString cfg.ipsec.port}
+            retry_initiate_interval = 30s
             plugins {
               socket-default {
                 set_source = yes
