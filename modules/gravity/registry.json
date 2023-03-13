@@ -1,0 +1,74 @@
+[
+  {
+    "public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA1O8H5JDXOd4Lbhcq7DDZu9/OUxo+ys6EQ/jdO7JxdT8=\n-----END PUBLIC KEY-----",
+    "organization": "nickcao",
+    "nodes": [
+      {
+        "common_name": "local",
+        "endpoints": [
+          {
+            "serial_number": "0",
+            "address_family": "ip4",
+            "port": 13000
+          },
+          {
+            "serial_number": "1",
+            "address_family": "ip6",
+            "port": 13000
+          }
+        ]
+      },
+      {
+        "common_name": "nrt0",
+        "endpoints": [
+          {
+            "serial_number": "0",
+            "address_family": "ip4",
+            "address": "nrt0.nichi.link",
+            "port": 13000
+          },
+          {
+            "serial_number": "1",
+            "address_family": "ip6",
+            "address": "nrt0.nichi.link",
+            "port": 13000
+          }
+        ]
+      },
+      {
+        "common_name": "sin0",
+        "endpoints": [
+          {
+            "serial_number": "0",
+            "address_family": "ip4",
+            "address": "sin0.nichi.link",
+            "port": 13000
+          },
+          {
+            "serial_number": "1",
+            "address_family": "ip6",
+            "address": "sin0.nichi.link",
+            "port": 13000
+          }
+        ]
+      },
+      {
+        "common_name": "sea0",
+        "endpoints": [
+          {
+            "serial_number": "0",
+            "address_family": "ip4",
+            "address": "sea0.nichi.link",
+            "port": 13000
+          },
+          {
+            "serial_number": "1",
+            "address_family": "ip6",
+            "address": "sea0.nichi.link",
+            "port": 13000
+          }
+        ]
+      }
+    ]
+  }
+]

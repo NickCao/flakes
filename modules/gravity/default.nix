@@ -336,7 +336,7 @@ in
       };
       systemd.services.gravity-ipsec =
         let
-          command = "ranet -c /etc/ranet/config.json -r /etc/ranet/registry.json -k ${config.sops.secrets.ipsec.path}";
+          command = "ranet -c /etc/ranet/config.json -r ${./registry.json} -k ${config.sops.secrets.ipsec.path}";
         in
         {
           path = [ inputs.ranet-ipsec.packages.x86_64-linux.default ];

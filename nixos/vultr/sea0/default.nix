@@ -20,5 +20,16 @@
       enable = true;
       prefix = "2a0c:b641:69c:4ed4:0:4::/96";
     };
+    ipsec = {
+      enable = true;
+      organization = "nickcao";
+      commonName = "sea0";
+      port = 13000;
+      interfaces = [ "ens3" ];
+      endpoints = [
+        { serialNumber = "0"; addressFamily = "ip4"; }
+        { serialNumber = "1"; addressFamily = "ip6"; }
+      ];
+    };
   };
 }
