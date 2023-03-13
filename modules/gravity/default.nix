@@ -331,6 +331,18 @@ in
             address_family = ep.addressFamily;
             address = ep.address;
             port = cfg.ipsec.port;
+            updown = pkgs.writeShellScript "updown" ''
+              LINK=''${PLUTO_CONNECTION:0:15}
+              case "$PLUTO_VERB" in
+                up-*)
+                  ip link add "$LINK" type xfrm if_id "$PLUTO_IF_ID_OUT"
+                  ip link set "$LINK" netns testnet up
+                  ;;
+                down-*)
+                  ip -n testnet link del "$LINK"
+                  ;;
+              esac
+            '';
           })
           cfg.ipsec.endpoints;
       };
@@ -339,10 +351,17 @@ in
           command = "ranet -c /etc/ranet/config.json -r ${./registry.json} -k ${config.sops.secrets.ipsec.path}";
         in
         {
-          path = [ inputs.ranet-ipsec.packages.x86_64-linux.default ];
-          script = "${command} up";
+          path = [ inputs.ranet-ipsec.packages.x86_64-linux.default pkgs.iproute2 ];
+          script = ''
+            ip netns add testnet || true
+            ${command} up
+
+          '';
           reload = "${command} up";
-          preStop = "${command} down";
+          preStop = ''
+            ${command} down
+            ip netns del testnet || true
+          '';
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
