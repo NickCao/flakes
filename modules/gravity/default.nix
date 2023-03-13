@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 with lib;
 let
   cfg = config.services.gravity;
@@ -320,6 +320,7 @@ in
       };
     })
     (mkIf cfg.ipsec.enable {
+      sops.secrets.ipsec.sopsFile = ./secrets.yaml;
       environment.systemPackages = [ pkgs.strongswan ];
       environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" {
         organization = cfg.ipsec.organization;
@@ -333,6 +334,23 @@ in
           })
           cfg.ipsec.endpoints;
       };
+      systemd.services.gravity-ipsec =
+        let
+          command = "ranet -c /etc/ranet/config.json -r /etc/ranet/registry.json -k ${config.sops.secrets.ipsec.path}";
+        in
+        {
+          path = [ inputs.ranet-ipsec.packages.x86_64-linux.default ];
+          script = "${command} up";
+          reload = "${command} up";
+          preStop = "${command} down";
+          serviceConfig = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+          };
+          wants = [ "network-online.target" "strongswan-swanctl.service" ];
+          after = [ "network-online.target" "strongswan-swanctl.service" ];
+          wantedBy = [ "multi-user.target" ];
+        };
       services.strongswan-swanctl = {
         enable = true;
         strongswan.extraConfig = ''

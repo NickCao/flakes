@@ -514,6 +514,30 @@
         "type": "github"
       }
     },
+    "ranet-ipsec": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1678696475,
+        "narHash": "sha256-509mm+fLAZID4Fzgaphz3bHPzBtYOt7F6fchVuYCFCo=",
+        "owner": "SCP-2000",
+        "repo": "ranet",
+        "rev": "5bcd5b6bbbb9638834904754f4e63e669ee84350",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SCP-2000",
+        "ref": "ipsec",
+        "repo": "ranet",
+        "type": "github"
+      }
+    },
     "resign": {
       "inputs": {
         "flake-utils": [
@@ -553,6 +577,7 @@
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs",
         "ranet": "ranet",
+        "ranet-ipsec": "ranet-ipsec",
         "resign": "resign",
         "sops-nix": "sops-nix",
         "terrasops": "terrasops"

@@ -39,6 +39,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    ranet-ipsec = {
+      url = "github:SCP-2000/ranet/ipsec";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     terrasops = {
       url = "github:NickCao/terrasops";
       inputs.nixpkgs.follows = "nixpkgs";
