@@ -130,11 +130,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1678688544,
-        "narHash": "sha256-R4WqsMwZ/lCsC9O9moHj4k1jiYCow4ai9TVQ2bYsEwI=",
+        "lastModified": 1678764397,
+        "narHash": "sha256-ryQ0g9qgQj0ru2sZdS8iOBIi3W7QwcC9TL2IFdyTB44=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "a683b848c3c9dd81e9639dc3fd9c5329fd4294a4",
+        "rev": "1233f5148cb3039f0fbf9295bdebb66298da6355",
         "type": "github"
       },
       "original": {
@@ -318,11 +318,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1678714646,
-        "narHash": "sha256-L7u4ua/p3cTptqlTVwT1OaQMGkexULjQhKmUxRUYmMQ=",
+        "lastModified": 1678729503,
+        "narHash": "sha256-j+h4Bdqbe+qjzhxdhkRmVgSx2lxJ8HnKeYcAhhnd1zM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7fe539dfbba8a158a455b54697d1bd7e97b37c60",
+        "rev": "24c1a6335e3da6a3ecf82f33ac50c2ad66aee346",
         "type": "github"
       },
       "original": {
@@ -385,11 +385,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1678093477,
-        "narHash": "sha256-a3oj34aXs1Qp7lBVULJ6J4Xhfh+5wFlTCweu4SqmTpM=",
+        "lastModified": 1678750306,
+        "narHash": "sha256-su+fOHbn84IWoOVxNTEhMF3RBdf9Yy5BPbMsgRajdD0=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "3efb505a2a29de97accade8efee7a0505386a86d",
+        "rev": "8aad4af5ad0654c239a0c54179a01c48f310035b",
         "type": "github"
       },
       "original": {
@@ -400,11 +400,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1678671384,
-        "narHash": "sha256-1+TQ8RNIiybkB6ZgdRV3zWAxsbJk4zwMhx0GKa1ORpg=",
+        "lastModified": 1678777115,
+        "narHash": "sha256-sG8BQQFaDQyZCvf1v7lDPrG26w0Tvs7JwNF/Lv2a5N8=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "c9c784cd8dec64951d46a8a2691b4cea5f0b2496",
+        "rev": "ea9cad9c792b1d98c513f06813b56c81f410c00f",
         "type": "github"
       },
       "original": {
@@ -525,11 +525,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1678714627,
-        "narHash": "sha256-kDtAGcV1NelnNgM9oGVOYvBAFEALGi+hw8em9P4Mcnk=",
+        "lastModified": 1678788326,
+        "narHash": "sha256-KN/YHwgoQHrnFYYrjkrfP6YoD/wBFN3aFTf32zNraaI=",
         "owner": "NickCao",
         "repo": "ranet",
-        "rev": "9957364704bfa3a79be894f1237b74c2f6b5f668",
+        "rev": "eca81d2c885ee898fcaf8798259c8e17c71ffe83",
         "type": "github"
       },
       "original": {
