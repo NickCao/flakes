@@ -342,7 +342,7 @@ in
             address = ep.address;
             port = cfg.ipsec.port;
             updown = pkgs.writeShellScript "updown" ''
-              LINK=gn''${PLUTO_CONNECTION:0:13}
+              LINK=gn$(printf '%08x\n' "$PLUTO_IF_ID_OUT")
               case "$PLUTO_VERB" in
                 up-*)
                   ip link add "$LINK" type xfrm if_id "$PLUTO_IF_ID_OUT"
@@ -386,7 +386,6 @@ in
             interfaces_use = ${lib.strings.concatStringsSep "," cfg.ipsec.interfaces}
             port = 0
             port_nat_t = ${toString cfg.ipsec.port}
-            retry_initiate_interval = 30s
             plugins {
               socket-default {
                 set_source = yes
