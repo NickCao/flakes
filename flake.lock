@@ -525,11 +525,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1678849144,
-        "narHash": "sha256-sLIztRx9KRE1d0713gBpgKnn13QgiojynGC9huzAApI=",
+        "lastModified": 1678854066,
+        "narHash": "sha256-/12aGULnuEy/qFyYNT5n6lIyK4nGt27CrN/jLlIqYCE=",
         "owner": "NickCao",
         "repo": "ranet",
-        "rev": "4b5a5b7c20830b7a6f95429a629a98927f089e23",
+        "rev": "4be3ee85d81789ba0b476cf05e3d80e57d2a72e6",
         "type": "github"
       },
       "original": {
