@@ -386,6 +386,7 @@ in
             interfaces_use = ${lib.strings.concatStringsSep "," cfg.ipsec.interfaces}
             port = 0
             port_nat_t = ${toString cfg.ipsec.port}
+            retransmit_base = 1
             plugins {
               socket-default {
                 set_source = yes
