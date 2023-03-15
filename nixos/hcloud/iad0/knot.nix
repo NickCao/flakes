@@ -15,7 +15,6 @@
           template: catalog
         - domain: nichi.co
           file: ${pkgs.writeText "db.co.nichi" (import ../../../zones/nichi.co.nix { inherit (inputs) dns; })}
-          dnssec-signing: off
         - domain: nichi.link
           file: ${pkgs.writeText "db.link.nichi" (import ../../../zones/nichi.link.nix { inherit (inputs) dns; })}
         - domain: scp.link

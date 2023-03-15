@@ -1,5 +1,5 @@
 locals {
-  dnssec_key  = "LBbl0S/D5U9yKQOy+r0+lZEJP3kpPklCBagsT13p64U="
+  dnssec_key  = "pYOdKjQ9UAyXvBNxvppvsathBVNga1bQ8wYiIrWC3CQ="
   hosts       = merge(module.vultr, module.hcloud)
   nameservers = { for k, v in local.hosts : k => v if contains(v.tags, "nameserver") }
   ns          = concat(values(local.nameservers)[*].fqdn)
@@ -28,11 +28,6 @@ resource "gandi_dnssec_key" "scp_link" {
 
 resource "gandi_nameservers" "nichi_link" {
   domain      = "nichi.link"
-  nameservers = local.ns
-}
-
-resource "gandi_nameservers" "nichi_co" {
-  domain      = "nichi.co"
   nameservers = local.ns
 }
 
