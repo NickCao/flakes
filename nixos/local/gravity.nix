@@ -24,6 +24,9 @@
       ];
     };
   };
+
+  systemd.services.gravity.enable = false;
+
   systemd.services.bird2.after = [ "network-online.target" ];
 
   systemd.services.sing-box =
