@@ -151,23 +151,12 @@ in
             Table = cfg.table;
           };
         };
-        gravity-bind = {
-          netdevConfig = {
-            Name = "gravity-bind";
-            Kind = "dummy";
-          };
-        };
       };
 
       systemd.network.networks = {
         gravity = {
           name = "gravity";
           address = cfg.address;
-        };
-        gravity-bind = {
-          name = "gravity-bind";
-          address = cfg.address;
-          vrf = [ "gravity" ];
         };
       };
     })
