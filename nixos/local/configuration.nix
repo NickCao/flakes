@@ -68,7 +68,7 @@
   };
   systemd.network.wait-online = {
     anyInterface = true;
-    ignoredInterfaces = [ "gravity" "gravity-bind" ];
+    ignoredInterfaces = [ "gravity" ];
   };
   systemd.network.networks = {
     wlan0 = {
