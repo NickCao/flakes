@@ -19,20 +19,8 @@ resource "gandi_dnssec_key" "nichi_link" {
   public_key = local.dnssec_key
 }
 
-resource "gandi_dnssec_key" "scp_link" {
-  domain     = "scp.link"
-  algorithm  = 15
-  type       = "ksk"
-  public_key = local.dnssec_key
-}
-
 resource "gandi_nameservers" "nichi_link" {
   domain      = "nichi.link"
-  nameservers = local.ns
-}
-
-resource "gandi_nameservers" "scp_link" {
-  domain      = "scp.link"
   nameservers = local.ns
 }
 
