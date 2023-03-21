@@ -382,7 +382,9 @@
         ],
         "nixpkgs-test": "nixpkgs-test",
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": [
+          "rust-overlay"
+        ]
       },
       "locked": {
         "lastModified": 1679304893,
@@ -395,6 +397,32 @@
       "original": {
         "owner": "nix-community",
         "repo": "lanzaboote",
+        "type": "github"
+      }
+    },
+    "lldap": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1679399725,
+        "narHash": "sha256-q1+fR7Pacq6Q/DIVg+W5+qVmXVSf9g+mg5uP/b3RANA=",
+        "owner": "NickCao",
+        "repo": "lldap",
+        "rev": "d2d1b365e91e69b6dc06f9b6f1ed416acbb22bc0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NickCao",
+        "repo": "lldap",
         "type": "github"
       }
     },
@@ -575,10 +603,12 @@
         "impermanence": "impermanence",
         "knot-sys": "knot-sys",
         "lanzaboote": "lanzaboote",
+        "lldap": "lldap",
         "nixpkgs": "nixpkgs",
         "ranet": "ranet",
         "ranet-ipsec": "ranet-ipsec",
         "resign": "resign",
+        "rust-overlay": "rust-overlay",
         "sops-nix": "sops-nix",
         "terrasops": "terrasops"
       }
@@ -586,20 +616,18 @@
     "rust-overlay": {
       "inputs": {
         "flake-utils": [
-          "lanzaboote",
           "flake-utils"
         ],
         "nixpkgs": [
-          "lanzaboote",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1679279218,
-        "narHash": "sha256-vWUbkLgNaUo0TYi5BaboPTaB6IjoZPm+0y0SqLS54Jc=",
+        "lastModified": 1679365133,
+        "narHash": "sha256-VSGnA2oXLV0dxViRS1HfwiGJPuQohQQx44OPRImpSeA=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "c680a0a4144bb0931f6cebd601a3978bbafc4f64",
+        "rev": "f5efdf14ed378aac26cadded4d0c00ca91974d32",
         "type": "github"
       },
       "original": {
