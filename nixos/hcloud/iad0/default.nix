@@ -6,7 +6,6 @@
     ./postfix.nix
     ./dovecot.nix
     ./vaultwarden.nix
-    ./cgit.nix
     ./kanidm.nix
   ];
 
