@@ -192,6 +192,13 @@
           KeepQuotedReply = true;
         };
       };
+      tengo = {
+        InMessage = pkgs.writeText "inmessage.tengo" ''
+          text := import("text")
+          re := text.re_compile(`^'google`)
+          msgText = re.replace(msgText, "google")
+        '';
+      };
     });
   };
 
