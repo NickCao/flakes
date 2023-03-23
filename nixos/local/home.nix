@@ -195,7 +195,6 @@ in
   };
   home.packages = with pkgs; [
     uhk-agent
-    kanidm
     rage
     resign
     pinentry-gtk2
@@ -282,7 +281,7 @@ in
   };
 
   programs = {
-    pandoc.enable = true;
+    # pandoc.enable = true;
     jq.enable = true;
     lf.enable = true;
     waybar = {
