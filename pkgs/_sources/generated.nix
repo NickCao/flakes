@@ -21,26 +21,6 @@
       sha256 = "sha256-SFSNwsyE9W9pCIKlu+8pGVVNdNn6MITA4x7meicbUyQ=";
     };
   };
-  neondb = {
-    pname = "neondb";
-    version = "9f906ff2369ac9cea4a92245d88e5a70cf5f7e02";
-    src = fetchFromGitHub ({
-      owner = "neondatabase";
-      repo = "neon";
-      rev = "9f906ff2369ac9cea4a92245d88e5a70cf5f7e02";
-      fetchSubmodules = true;
-      sha256 = "sha256-PtR8beyXuFPcvqKQ3XdfI+WG/Mtwc3uPTzzOx56/0m0=";
-    });
-    cargoLock."Cargo.lock" = {
-      lockFile = ./neondb-9f906ff2369ac9cea4a92245d88e5a70cf5f7e02/Cargo.lock;
-      outputHashes = {
-        "heapless-0.8.0" = "sha256-phCls7RQZV0uYhDEp0GIphTBw0cXcurpqvzQCAionhs=";
-        "postgres-0.19.4" = "sha256-rpboUP7K+2XdcRr80T4u1jKIj788bqz2usSqWmZDB3E=";
-        "tokio-tar-0.3.0" = "sha256-ktQOFE6yItvP77oVe6bT1hwXjdvPmvJVYxYF4FS6b3I=";
-      };
-    };
-    date = "2023-02-23";
-  };
   wemeet = {
     pname = "wemeet";
     version = "3.12.0.400";
