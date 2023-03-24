@@ -33,20 +33,5 @@
             "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230128.dict"
         },
         "version": "20230128"
-    },
-    "wemeet": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "wemeet",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-NN09Sm8IepV0tkosqC3pSor4/db4iF11XcGAuN/iOpM=",
-            "type": "url",
-            "url": "https://updatecdn.meeting.qq.com/cos/e078bf97365540d9f0ff063f93372a9c/TencentMeeting_0300000000_3.12.0.400_x86_64_default.publish.deb"
-        },
-        "version": "3.12.0.400"
     }
 }

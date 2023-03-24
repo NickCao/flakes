@@ -21,12 +21,4 @@
       sha256 = "sha256-SFSNwsyE9W9pCIKlu+8pGVVNdNn6MITA4x7meicbUyQ=";
     };
   };
-  wemeet = {
-    pname = "wemeet";
-    version = "3.12.0.400";
-    src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/e078bf97365540d9f0ff063f93372a9c/TencentMeeting_0300000000_3.12.0.400_x86_64_default.publish.deb";
-      sha256 = "sha256-NN09Sm8IepV0tkosqC3pSor4/db4iF11XcGAuN/iOpM=";
-    };
-  };
 }

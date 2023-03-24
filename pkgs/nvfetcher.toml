@@ -1,7 +1,3 @@
-[wemeet]
-src.manual = "3.12.0.400"
-fetch.url = "https://updatecdn.meeting.qq.com/cos/e078bf97365540d9f0ff063f93372a9c/TencentMeeting_0300000000_3.12.0.400_x86_64_default.publish.deb"
-
 [fcitx5-pinyin-zhwiki]
 src.archpkg = "fcitx5-pinyin-zhwiki"
 src.prefix = "0.2.4."
