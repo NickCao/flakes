@@ -231,20 +231,7 @@
         SystemMaxUse=1G
       '';
     };
-    udev = {
-      packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
-      extraRules =
-        let
-          power = pkgs.writeShellScript "power" ''
-            ${config.boot.kernelPackages.cpupower}/bin/cpupower frequency-set --governor $1
-          '';
-        in
-        ''
-          SUBSYSTEMS=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0666"
-          SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${power} powersave"
-          SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${power} performance"
-        '';
-    };
+    udev.packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
     xserver = {
       # videoDrivers = [ "nvidia" ];
     };
