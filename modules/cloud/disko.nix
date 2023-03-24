@@ -26,7 +26,7 @@
             end = "100%";
             content = {
               type = "btrfs";
-              extraArgs = "-f";
+              extraArgs = [ "-f" ];
               subvolumes = {
                 "/boot" = { mountOptions = [ "compress=zstd" "noatime" ]; };
                 "/nix" = { mountOptions = [ "compress=zstd" "noatime" ]; };
