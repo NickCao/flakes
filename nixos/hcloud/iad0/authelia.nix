@@ -17,6 +17,9 @@ in
       storageEncryptionKeyFile = config.sops.secrets.authelia-storage.path;
     };
     settings = {
+      theme = "grey";
+      default_2fa_method = "webauthn";
+      totp.disable = true;
       server = {
         host = "127.0.0.1";
         port = 8005;
@@ -35,9 +38,8 @@ in
         };
       };
       authentication_backend = {
-        file = {
-          path = config.sops.secrets.authelia-users.path;
-        };
+        password_reset.disable = true;
+        file.path = config.sops.secrets.authelia-users.path;
       };
       access_control = {
         default_policy = "two_factor";
