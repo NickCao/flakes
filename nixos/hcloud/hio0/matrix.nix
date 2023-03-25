@@ -70,6 +70,23 @@
           names = [ "client" "federation" ];
         }];
       }];
+
+      oidc_providers = [{
+        idp_id = "authelia";
+        idp_name = "id.nichi.co";
+        idp_icon = "mxc://authelia.com/cKlrTPsGvlpKxAYeHWJsdVHI";
+        issuer = "https://id.nichi.co";
+        client_id = "synapse";
+        client_auth_method = "none";
+        scopes = [ "openid" "profile" "email" ];
+        allow_existing_users = true;
+        user_mapping_provider.config = {
+          confirm_localpart = true;
+          localpart_template = "{{ user.preferred_username }}";
+          display_name_template = "{{ user.name }}";
+          email_template = "{{ user.email }}";
+        };
+      }];
     };
   };
 

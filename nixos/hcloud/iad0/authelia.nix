@@ -7,6 +7,7 @@ in
   sops.secrets = {
     authelia-jwt = { owner = cfg.user; };
     authelia-storage = { owner = cfg.user; };
+    authelia-oidc = { owner = cfg.user; };
     authelia-users = { owner = cfg.user; };
   };
 
@@ -15,6 +16,7 @@ in
     secrets = {
       jwtSecretFile = config.sops.secrets.authelia-jwt.path;
       storageEncryptionKeyFile = config.sops.secrets.authelia-storage.path;
+      oidcIssuerPrivateKeyFile = config.sops.secrets.authelia-oidc.path;
     };
     settings = {
       theme = "grey";
@@ -43,6 +45,17 @@ in
       };
       access_control = {
         default_policy = "two_factor";
+      };
+      identity_providers.oidc = {
+        clients = [{
+          id = "synapse";
+          description = "Synapse";
+          public = true;
+          authorization_policy = "two_factor";
+          redirect_uris = [ "https://nichi.co/_synapse/client/oidc/callback" ];
+          scopes = [ "openid" "profile" "email" ];
+          userinfo_signing_algorithm = "none";
+        }];
       };
     };
   };
