@@ -218,7 +218,6 @@ in
     ncdu
     mode
     yubikey-manager
-    prime-run
     wireguard-tools
     nixpkgs-fmt
     smartmontools

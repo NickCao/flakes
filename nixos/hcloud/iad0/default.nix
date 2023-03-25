@@ -6,7 +6,7 @@
     ./postfix.nix
     ./dovecot.nix
     ./vaultwarden.nix
-    ./lldap.nix
+    ./authelia.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
