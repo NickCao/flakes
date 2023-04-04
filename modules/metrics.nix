@@ -35,7 +35,7 @@ in
         };
         outputs = {
           prometheus_client = {
-            listen = "127.0.0.0:9273";
+            listen = "127.0.0.1:9273";
             metric_version = 2;
             path = "/metrics";
           };
