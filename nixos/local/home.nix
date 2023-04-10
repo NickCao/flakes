@@ -207,7 +207,7 @@ in
     picocom
     thunderbird
     mpv
-    tdesktop
+    telegram-desktop
     nixpkgs-review
     waypipe
     xdg-utils
