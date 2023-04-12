@@ -266,6 +266,21 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1678901627,
+        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "fn": {
       "inputs": {
         "flake-utils": [
@@ -377,24 +392,18 @@
         "crane": "crane",
         "flake-compat": "flake-compat_3",
         "flake-parts": "flake-parts",
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-test": "nixpkgs-test",
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
-        "rust-overlay": [
-          "rust-overlay"
-        ]
+        "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1681126332,
-        "narHash": "sha256-OTaVsjqnGCNgq3czNZ074qNdd1g1cRyUvOLZSvSNl6c=",
+        "lastModified": 1681317649,
+        "narHash": "sha256-Aq8BwMChOVwLXMYPQOKgoSH5NwC/GosmqfnadiY7i5g=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "f0cc345caa9eb3f8e033ddd74865f57b35825170",
+        "rev": "ed50448200ebbe9442157c7cdda85ff7e3095292",
         "type": "github"
       },
       "original": {
@@ -431,15 +440,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1681267715,
-        "narHash": "sha256-QPePjlu0iU1sskmcCJtVUkNT9JF2JkR31zfcAOFX0SI=",
-        "owner": "NickCao",
+        "lastModified": 1681109905,
+        "narHash": "sha256-2dBz4WSjYzkjCzDgepH5i2BsN0fVQOlLseG/kt6FhZg=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a6c00b214b6b2e91c34794a059b15f0f77477d80",
+        "rev": "4fba351146e26d9e09d455687b75089ac50b9b13",
         "type": "github"
       },
       "original": {
-        "owner": "NickCao",
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -490,6 +500,21 @@
       "original": {
         "owner": "NixOS",
         "ref": "qemu-boot-disk-using-make-disk-image",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1681349060,
+        "narHash": "sha256-mRqg6X5jK01ep+ps0IOL86QIy2wlUNeg9FAH/wObLsM=",
+        "owner": "NickCao",
+        "repo": "nixpkgs",
+        "rev": "2df5a464fb0857d28fb8494a1d89a5656de89d29",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NickCao",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -607,16 +632,41 @@
         "knot-sys": "knot-sys",
         "lanzaboote": "lanzaboote",
         "lldap": "lldap",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "ranet": "ranet",
         "ranet-ipsec": "ranet-ipsec",
         "resign": "resign",
-        "rust-overlay": "rust-overlay",
+        "rust-overlay": "rust-overlay_2",
         "sops-nix": "sops-nix",
         "terrasops": "terrasops"
       }
     },
     "rust-overlay": {
+      "inputs": {
+        "flake-utils": [
+          "lanzaboote",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "lanzaboote",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1681093076,
+        "narHash": "sha256-6uLZNeuP5jDDGlFkXgcoAxsJhTKy8yUTw25zdLHzdxE=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "45c2ed9dd1397526dad35fc867c43955d87f9f3f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
