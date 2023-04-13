@@ -87,6 +87,10 @@
           email_template = "{{ user.email }}";
         };
       }];
+
+      experimental_features = {
+        msc3952_intentional_mentions = true;
+      };
     };
   };
 
