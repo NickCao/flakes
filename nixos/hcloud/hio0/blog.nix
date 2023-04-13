@@ -14,6 +14,7 @@
           };
         };
         brand = "Nichi Yorozuya";
+        show_labs_settings = true;
       };
     in
     {
