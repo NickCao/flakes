@@ -71,6 +71,10 @@
         }];
       }];
 
+      media_retention = {
+        remote_media_lifetime = "14d";
+      };
+
       oidc_providers = [{
         idp_id = "authelia";
         idp_name = "id.nichi.co";
