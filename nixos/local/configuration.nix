@@ -29,7 +29,7 @@
   ];
 
   nix = {
-    package = pkgs.nixVersions.stable;
+    package = pkgs.nixVersions.unstable;
     nrBuildUsers = 0;
     settings = {
       trusted-users = [ "root" "nickcao" ];
@@ -46,6 +46,7 @@
       keep-derivations = true;
       auto-allocate-uids = true;
       use-cgroups = true;
+      use-xdg-base-directories = true;
     };
   };
 
