@@ -400,32 +400,6 @@
         "type": "github"
       }
     },
-    "lldap": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": [
-          "rust-overlay"
-        ]
-      },
-      "locked": {
-        "lastModified": 1680281119,
-        "narHash": "sha256-qK759YNuwlFTde8R/4T6dyA2W8NJmX7Prpp2fCy7hBw=",
-        "owner": "NickCao",
-        "repo": "lldap",
-        "rev": "1497619976373e230d4065433978f2d70bf42e2a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NickCao",
-        "repo": "lldap",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1681523000,
@@ -603,7 +577,6 @@
         "impermanence": "impermanence",
         "knot-sys": "knot-sys",
         "lanzaboote": "lanzaboote",
-        "lldap": "lldap",
         "nixpkgs": "nixpkgs",
         "ranet": "ranet",
         "ranet-ipsec": "ranet-ipsec",
