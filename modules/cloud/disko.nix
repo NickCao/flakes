@@ -14,14 +14,12 @@
         partitions = [
           {
             name = "boot";
-            type = "partition";
             start = "0";
             end = "1M";
             flags = [ "bios_grub" ];
           }
           {
             name = "root";
-            type = "partition";
             start = "1M";
             end = "100%";
             content = {
