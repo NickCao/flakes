@@ -22,7 +22,7 @@
   services.openssh.enable = true;
 
   boot = {
-    tmpOnTmpfs = true;
+    tmp.useTmpfs = true;
     loader.grub.device = config.disko.devices.disk.vda.device;
   };
 
