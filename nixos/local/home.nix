@@ -194,6 +194,7 @@ in
     };
   };
   home.packages = with pkgs; [
+    nix-update
     uhk-agent
     rage
     resign
