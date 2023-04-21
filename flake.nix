@@ -143,14 +143,6 @@
             system = "x86_64-linux";
           };
         };
-        rpi = { ... }: {
-          nixpkgs.system = "aarch64-linux";
-          deployment = {
-            targetHost = "rpi.nichi.link";
-            targetPort = 8122;
-          };
-          imports = [ ./nixos/rpi ];
-        };
         hydra = { ... }: {
           deployment.targetHost = "hydra";
           imports = [ ./nixos/hydra ];
