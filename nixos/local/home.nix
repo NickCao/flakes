@@ -48,7 +48,6 @@ in
         { command = "systemd-run-app telegram-desktop"; }
         { command = "systemd-run-app thunderbird"; }
       ];
-      focus.newWindow = "focus";
       assigns = {
         "1" = [{ app_id = "Alacritty"; }];
         "2" = [{ app_id = "firefox"; }];
