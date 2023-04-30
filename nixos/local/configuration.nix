@@ -114,8 +114,7 @@
     };
     lanzaboote = {
       enable = true;
-      privateKeyFile = "${config.users.users.nickcao.home}/Documents/secureboot/db.key";
-      publicKeyFile = "${config.users.users.nickcao.home}/Documents/secureboot/db.crt";
+      pkiBundle = "${config.users.users.nickcao.home}/Documents/secureboot";
     };
     kernel = {
       sysctl = {
