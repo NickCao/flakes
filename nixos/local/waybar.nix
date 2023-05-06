@@ -43,7 +43,7 @@ in
   "sway/workspaces" = {
     all-outputs = true;
     format = "{name} {icon}";
-    format-icons = { "1" = ""; "2" = ""; "3" = ""; "4" = ""; default = ""; focused = ""; urgent = ""; };
+    format-icons = { "1" = ""; "2" = ""; "3" = ""; "4" = "󰇮"; default = ""; focused = ""; urgent = ""; };
   };
   idle_inhibitor = {
     format = mkSpan "IDLE" "{icon}";
