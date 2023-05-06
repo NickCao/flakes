@@ -412,7 +412,6 @@ in
         };
         "*.sc.team" = {
           user = "nickcao";
-          proxyJump = "pacman";
           forwardAgent = true;
         };
         "pacman" = {
