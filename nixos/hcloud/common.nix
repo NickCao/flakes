@@ -38,6 +38,10 @@
     fileSystems = [ "/persist" ];
   };
 
+  systemd.services.restic-backups-persist = {
+    serviceConfig.Environment = [ "GOGC=20" ];
+  };
+
   services.restic.backups.persist = {
     repository = "sftp:backup:backup";
     passwordFile = config.sops.secrets.restic.path;
