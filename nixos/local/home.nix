@@ -479,9 +479,6 @@ in
         GOPROXY=https://goproxy.cn
         GOSUMDB=sum.golang.google.cn
       '';
-      "kanidm".text = ''
-        uri = "https://id.nichi.co"
-      '';
     };
   };
 
