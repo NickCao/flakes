@@ -4,6 +4,10 @@
     ExecStart = "${pkgs.miniserve}/bin/miniserve -i 127.0.0.1 -p 8007 --hidden --index index.html ${pkgs.blog}";
   };
 
+  cloud.services.ruyi.config = {
+    ExecStart = "${pkgs.miniserve}/bin/miniserve -i 127.0.0.1 -p 8008 --route-prefix /ruyi /var/lib/ruyi";
+  };
+
   cloud.services.element-web.config =
     let
       conf = {
@@ -30,20 +34,30 @@
         middlewares = [ "blog" ];
         service = "blog";
       };
+      ruyi = {
+        rule = "Host(`${config.networking.fqdn}`) && PathPrefix(`/ruyi`)";
+        entryPoints = [ "https" ];
+        service = "ruyi";
+      };
       element = {
         rule = "Host(`matrix.nichi.co`)";
         entryPoints = [ "https" ];
         service = "element";
       };
     };
-    middlewares.blog.headers = {
-      stsSeconds = 31536000;
-      stsIncludeSubdomains = true;
-      stsPreload = true;
+    middlewares = {
+      blog.headers = {
+        stsSeconds = 31536000;
+        stsIncludeSubdomains = true;
+        stsPreload = true;
+      };
     };
     services = {
       blog.loadBalancer = {
         servers = [{ url = "http://127.0.0.1:8007"; }];
+      };
+      ruyi.loadBalancer = {
+        servers = [{ url = "http://127.0.0.1:8008"; }];
       };
       element.loadBalancer = {
         servers = [{ url = "http://127.0.0.1:8005"; }];
