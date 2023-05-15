@@ -44,12 +44,22 @@
         entryPoints = [ "https" ];
         service = "element";
       };
+      wiki = {
+        rule = "Host(`wikipedia.zip`)";
+        entryPoints = [ "https" ];
+        middlewares = [ "wiki" ];
+        service = "ping@internal";
+      };
     };
     middlewares = {
       blog.headers = {
         stsSeconds = 31536000;
         stsIncludeSubdomains = true;
         stsPreload = true;
+      };
+      wiki.redirectRegex = {
+        regex = ".*";
+        replacement = "https://www.wikipedia.org/wiki/Wikipedia:Database_download";
       };
     };
     services = {
