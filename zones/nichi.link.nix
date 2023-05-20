@@ -1,4 +1,4 @@
-{ dns }:
+{ dns, lib }:
 with dns.lib.combinators;
 let
   common = import ./common.nix;
@@ -12,7 +12,20 @@ dns.lib.toString "nichi.link" {
   TXT = [
     (with spf; soft [ "mx" ])
   ];
-  subdomains = builtins.mapAttrs (name: value: host value.ipv4 value.ipv6) nodes // {
+  subdomains = lib.recursiveUpdate (builtins.mapAttrs (name: value: host value.ipv4 value.ipv6) nodes) {
+    "iad0" = {
+      DMARC = [{
+        p = "reject";
+        sp = "reject";
+        pct = 100;
+        adkim = "relaxed";
+        aspf = "strict";
+        fo = [ "1" ];
+        ri = 604800;
+        ruf = [ "mailto:postmaster@nichi.co" ];
+        rua = [ "mailto:postmaster@nichi.co" ];
+      }];
+    };
     "rpi".CNAME = [ "rpi.dyn.nichi.link." ];
     "k11-plct".A = [ "8.214.124.155" ];
     "hydra".CNAME = [ "k11-plct.nichi.link." ];

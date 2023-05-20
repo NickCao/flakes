@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: {
+{ config, pkgs, lib, inputs, ... }: {
 
   sops.secrets = {
     tsig = { owner = "knot"; reloadUnits = [ "knot.service" ]; sopsFile = ../../../zones/secrets.yaml; };
@@ -16,7 +16,7 @@
         - domain: nichi.co
           file: ${pkgs.writeText "db.co.nichi" (import ../../../zones/nichi.co.nix { inherit (inputs) dns; })}
         - domain: nichi.link
-          file: ${pkgs.writeText "db.link.nichi" (import ../../../zones/nichi.link.nix { inherit (inputs) dns; })}
+          file: ${pkgs.writeText "db.link.nichi" (import ../../../zones/nichi.link.nix { inherit (inputs) dns; inherit lib; })}
         - domain: scp.link
           file: ${pkgs.writeText "db.link.scp" (import ../../../zones/scp.link.nix { inherit (inputs) dns; })}
         - domain: wikipedia.zip

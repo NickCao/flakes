@@ -47,6 +47,7 @@ in
       milter_default_action = "accept";
       smtpd_milters = [ "unix:/run/rspamd/postfix.sock" ];
       non_smtpd_milters = [ "unix:/run/rspamd/postfix.sock" ];
+      internal_mail_filter_classes = [ "bounce" ];
     };
     masterConfig = {
       lmtp = {
@@ -103,6 +104,7 @@ in
         path = "${config.sops.secrets.dkim.path}";
         selector = "default";
         allow_username_mismatch = true;
+        allow_envfrom_empty = true;
       '';
     };
   };
