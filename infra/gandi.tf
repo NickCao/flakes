@@ -5,25 +5,6 @@ locals {
   ns          = concat(values(local.nameservers)[*].fqdn)
 }
 
-resource "gandi_glue_record" "nichi_link" {
-  for_each = local.nameservers
-  zone     = "nichi.link"
-  name     = each.key
-  ips      = sort([each.value.ipv4, cidrhost("${each.value.ipv6}/128", 0)])
-}
-
-resource "gandi_dnssec_key" "nichi_link" {
-  domain     = "nichi.link"
-  algorithm  = 15
-  type       = "ksk"
-  public_key = local.dnssec_key
-}
-
-resource "gandi_nameservers" "nichi_link" {
-  domain      = "nichi.link"
-  nameservers = local.ns
-}
-
 output "nameservers" {
   value = local.ns
 }
