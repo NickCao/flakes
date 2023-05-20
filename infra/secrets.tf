@@ -10,10 +10,6 @@ provider "vultr" {
   api_key = local.secrets.vultr.api_key
 }
 
-provider "gandi" {
-  key = local.secrets.gandi.key
-}
-
 provider "hydra" {
   host     = "https://hydra.nichi.co"
   username = "terraform"

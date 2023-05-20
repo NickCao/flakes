@@ -9,9 +9,6 @@ terraform {
     sops = {
       source = "carlpett/sops"
     }
-    gandi = {
-      source = "go-gandi/gandi"
-    }
     hydra = {
       source = "DeterminateSystems/hydra"
     }
