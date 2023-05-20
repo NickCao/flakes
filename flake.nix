@@ -115,7 +115,7 @@
               mdbook
               terrasops
               nvfetcher
-              (terraform.withPlugins (ps: with ps; [ vultr sops gandi hydra hcloud ]))
+              (terraform.withPlugins (ps: with ps; [ vultr sops hydra hcloud ]))
             ];
           };
         }
