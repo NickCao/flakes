@@ -39,9 +39,9 @@
       nix --extra-experimental-features nix-command copy \
         --from "https://cache.nichi.co" \
         --option trusted-public-keys "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk=" \
-        ${config.system.build.disko}
+        ${config.system.build.diskoScript}
       # run disko script
-      ${config.system.build.disko}
+      ${config.system.build.diskoScript}
       # copy sops key
       mkdir -p /mnt/persist/var/lib/
       (umask 0077 && curl -s http://169.254.169.254/latest/user-data -o /mnt/persist/var/lib/sops.key)
