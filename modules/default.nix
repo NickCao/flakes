@@ -2,7 +2,6 @@
   default = ({ ... }: {
     imports = [
       (import ./baseline.nix)
-      (import ./gateway.nix)
       (import ./caddy.nix)
       (import ./metrics.nix)
       (import ./dns/secondary)
