@@ -98,22 +98,15 @@ in
     Environment = [ "PORT=8009" "DENO_DIR=/tmp" ];
   };
 
-  services.traefik = {
-    dynamicConfigOptions = {
-      http = {
-        routers = {
-          prometheus = {
-            rule = "Host(`${config.networking.fqdn}`) && PathPrefix(`/prom`)";
-            entryPoints = [ "https" ];
-            service = "prometheus";
-          };
-        };
-        services = {
-          prometheus.loadBalancer.servers = [{
-            url = "http://${cfg.listenAddress}:${builtins.toString cfg.port}";
-          }];
-        };
-      };
-    };
-  };
+  cloud.caddy.settings.apps.http.servers.default.routes = [{
+    match = [{
+      host = [ config.networking.fqdn ];
+      path = [ "/prom" "/prom/*" ];
+    }];
+    handle = [{
+      handler = "reverse_proxy";
+      upstreams = [{ dial = "${cfg.listenAddress}:${builtins.toString cfg.port}"; }];
+    }];
+  }];
+
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, ... }: {
 
   services.ntfy-sh = {
     enable = true;
@@ -10,5 +10,15 @@
       behind-proxy = true;
     };
   };
+
+  cloud.caddy.settings.apps.http.servers.default.routes = [{
+    match = [{
+      host = [ "ntfy.nichi.co" ];
+    }];
+    handle = [{
+      handler = "reverse_proxy";
+      upstreams = [{ dial = "unix/${config.services.ntfy-sh.settings.listen-unix}"; }];
+    }];
+  }];
 
 }

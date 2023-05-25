@@ -56,5 +56,15 @@ in
         };
       };
     };
+    cloud.caddy.settings.apps.http.servers.default.routes = [{
+      match = [{
+        host = [ config.networking.fqdn ];
+        path = [ telegrafConfig.outputs.prometheus_client.path ];
+      }];
+      handle = [{
+        handler = "reverse_proxy";
+        upstreams = [{ dial = telegrafConfig.outputs.prometheus_client.listen; }];
+      }];
+    }];
   };
 }
