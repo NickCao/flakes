@@ -60,22 +60,14 @@ in
     };
   };
 
-  services.traefik = {
-    dynamicConfigOptions = {
-      http = {
-        routers.authelia = {
-          rule = "Host(`id.nichi.co`)";
-          entryPoints = [ "https" ];
-          service = "authelia";
-        };
-        services.authelia.loadBalancer = {
-          passHostHeader = true;
-          servers = [{
-            url = "http://${cfg.settings.server.host}:${toString cfg.settings.server.port}";
-          }];
-        };
-      };
-    };
-  };
+  cloud.caddy.settings.apps.http.servers.default.routes = [{
+    match = [{
+      host = [ "id.nichi.co" ];
+    }];
+    handle = [{
+      handler = "reverse_proxy";
+      upstreams = [{ dial = "${cfg.settings.server.host}:${toString cfg.settings.server.port}"; }];
+    }];
+  }];
 
 }
