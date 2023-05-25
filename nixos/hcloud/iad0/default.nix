@@ -1,4 +1,4 @@
-{ pkgs, config, modulesPath, self, inputs, data, ... }: {
+{ pkgs, lib, config, modulesPath, self, inputs, data, ... }: {
 
   imports = [
     ../common.nix
@@ -12,5 +12,8 @@
   sops.defaultSopsFile = ./secrets.yaml;
 
   networking.hostName = "iad0";
+
+  cloud.caddy.enable = true;
+  services.gateway.enable = lib.mkForce false;
 
 }

@@ -102,40 +102,44 @@ in
       }
     '';
   };
-  services.traefik = {
-    staticConfigOptions = {
-      entryPoints = {
-        imap.address = ":993";
-        submission.address = ":465";
-      };
+
+  cloud.caddy.settings.apps.layer4.servers = {
+    imap = {
+      listen = [ ":993" ];
+      routes = [{
+        handle = [
+          {
+            handler = "tls";
+            connection_policies = [{
+              match = { sni = [ config.networking.fqdn ]; };
+            }];
+          }
+          {
+            handler = "proxy";
+            upstreams = [{ dial = [ "127.0.0.1:8143" ]; }];
+            proxy_protocol = "v2";
+          }
+        ];
+      }];
     };
-    dynamicConfigOptions = {
-      tcp = {
-        routers = {
-          imap = {
-            rule = "HostSNI(`${config.networking.fqdn}`)";
-            entryPoints = [ "imap" ];
-            service = "imap";
-            tls.certResolver = "le";
-          };
-          submission = {
-            rule = "HostSNI(`${config.networking.fqdn}`)";
-            entryPoints = [ "submission" ];
-            service = "submission";
-            tls.certResolver = "le";
-          };
-        };
-        services = {
-          imap.loadBalancer = {
-            proxyProtocol = { };
-            servers = [{ address = "127.0.0.1:8143"; }];
-          };
-          submission.loadBalancer = {
-            proxyProtocol = { };
-            servers = [{ address = "127.0.0.1:587"; }];
-          };
-        };
-      };
+    submission = {
+      listen = [ ":465" ];
+      routes = [{
+        handle = [
+          {
+            handler = "tls";
+            connection_policies = [{
+              match = { sni = [ config.networking.fqdn ]; };
+            }];
+          }
+          {
+            handler = "proxy";
+            upstreams = [{ dial = [ "127.0.0.1:587" ]; }];
+            proxy_protocol = "v2";
+          }
+        ];
+      }];
     };
   };
+
 }
