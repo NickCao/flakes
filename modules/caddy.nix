@@ -30,6 +30,7 @@ in
           on_demand = true;
           key_type = "p256";
         }];
+        http.grace_period = "1s";
         http.servers.default = {
           listen = [ ":443" ];
           tls_connection_policies = [{
@@ -45,6 +46,7 @@ in
               handler = "metrics";
             }];
           }];
+          metrics = { };
         };
       };
     };
