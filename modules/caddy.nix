@@ -32,6 +32,9 @@ in
         }];
         http.servers.default = {
           listen = [ ":443" ];
+          tls_connection_policies = [{
+            match = { sni = [ "*.nichi.link" "*.nichi.co" "nichi.co" "wikipedia.zip" ]; };
+          }];
           routes = [{
             match = [{
               host = [ config.networking.fqdn ];
