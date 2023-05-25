@@ -1,4 +1,4 @@
-{ pkgs, config, lib }:
+{ pkgs, config, lib, ... }:
 let
   cfg = config.cloud.caddy;
   format = pkgs.formats.json { };
@@ -10,27 +10,32 @@ in
     cloud.caddy = {
       enable = lib.mkEnableOption "caddy api gateway";
       settings = lib.mkOption {
-        default = {
-          admin = {
-            disabled = true;
-            config.persist = false;
-          };
-          apps = {
-            tls.automation.policies = [{
-              on_demand = true;
-              key_type = "p256";
-            }];
-            http.servers.default = {
-              listen = [ ":443" ];
-            };
-          };
+        type = lib.types.submodule {
+          freeformType = format.type;
         };
-        type = format.type;
+        default = { };
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
+
+    cloud.caddy.settings = {
+      admin = {
+        disabled = true;
+        config.persist = false;
+      };
+      apps = {
+        tls.automation.policies = [{
+          on_demand = true;
+          key_type = "p256";
+        }];
+        http.servers.default = {
+          listen = [ ":443" ];
+        };
+      };
+    };
+
     systemd.services.caddy = {
       serviceConfig = {
         ExecStart = "${pkgs.caddy-nickcao}/bin/caddy run --adapter jsonc --config ${configfile}";
