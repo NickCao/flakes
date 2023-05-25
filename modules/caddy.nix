@@ -35,6 +35,7 @@ in
           tls_connection_policies = [{
             match = { sni = [ "*.nichi.link" "*.nichi.co" "nichi.co" "wikipedia.zip" ]; };
           }];
+          strict_sni_host = true;
           routes = [{
             match = [{
               host = [ config.networking.fqdn ];
