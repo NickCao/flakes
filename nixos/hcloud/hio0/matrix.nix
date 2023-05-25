@@ -227,25 +227,17 @@
     });
   };
 
-  services.traefik.dynamicConfigOptions.http = {
-    routers = {
-      matrix = {
-        rule = "Host(`nichi.co`) && PathPrefix(`/_matrix`)";
-        entryPoints = [ "https" ];
-        service = "synapse";
-      };
-      synapse = {
-        rule = "Host(`nichi.co`) && PathPrefix(`/_synapse`)";
-        entryPoints = [ "https" ];
-        service = "synapse";
-      };
-    };
-    services = {
-      synapse.loadBalancer = {
-        passHostHeader = true;
-        servers = [{ url = "http://127.0.0.1:8196"; }];
-      };
-    };
-  };
+  cloud.caddy.settings.apps.http.servers.default.routes = lib.mkBefore [
+    {
+      match = [{
+        host = [ "nichi.co" ];
+        path = [ "/_matrix" "/_matrix/*" "/_synapse" "/_synapse/*" ];
+      }];
+      handle = [{
+        handler = "reverse_proxy";
+        upstreams = [{ dial = "127.0.0.1:8196"; }];
+      }];
+    }
+  ];
 
 }

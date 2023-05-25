@@ -1,78 +1,69 @@
-{ config, pkgs, ... }: {
-
-  cloud.services.blog.config = {
-    ExecStart = "${pkgs.miniserve}/bin/miniserve -i 127.0.0.1 -p 8007 --hidden --index index.html ${pkgs.blog}";
-  };
-
-  cloud.services.ruyi.config = {
-    ExecStart = "${pkgs.miniserve}/bin/miniserve -i 127.0.0.1 -p 8008 --route-prefix /ruyi /var/lib/ruyi";
-  };
-
-  cloud.services.element-web.config =
-    let
-      conf = {
-        default_server_config = {
-          "m.homeserver" = {
-            base_url = "https://nichi.co";
-            server_name = "nichi.co";
-          };
-        };
-        brand = "Nichi Yorozuya";
-        show_labs_settings = true;
+{ config, pkgs, ... }:
+let
+  conf = {
+    default_server_config = {
+      "m.homeserver" = {
+        base_url = "https://nichi.co";
+        server_name = "nichi.co";
       };
-    in
+    };
+    brand = "Nichi Yorozuya";
+    show_labs_settings = true;
+  };
+in
+{
+
+  cloud.caddy.settings.apps.http.servers.default.routes = [
     {
-      ExecStart = "${pkgs.miniserve}/bin/miniserve -i 127.0.0.1 -p 8005 --index index.html ${pkgs.element-web.override { inherit conf; }}";
-    };
-
-
-  services.traefik.dynamicConfigOptions.http = {
-    routers = {
-      blog = {
-        rule = "Host(`nichi.co`)";
-        entryPoints = [ "https" ];
-        middlewares = [ "blog" ];
-        service = "blog";
-      };
-      ruyi = {
-        rule = "Host(`${config.networking.fqdn}`) && PathPrefix(`/ruyi`)";
-        entryPoints = [ "https" ];
-        service = "ruyi";
-      };
-      element = {
-        rule = "Host(`matrix.nichi.co`)";
-        entryPoints = [ "https" ];
-        service = "element";
-      };
-      wiki = {
-        rule = "Host(`wikipedia.zip`)";
-        entryPoints = [ "https" ];
-        middlewares = [ "wiki" ];
-        service = "ping@internal";
-      };
-    };
-    middlewares = {
-      blog.headers = {
-        stsSeconds = 31536000;
-        stsIncludeSubdomains = true;
-        stsPreload = true;
-      };
-      wiki.redirectRegex = {
-        regex = ".*";
-        replacement = "https://www.wikipedia.org/wiki/Wikipedia:Database_download";
-      };
-    };
-    services = {
-      blog.loadBalancer = {
-        servers = [{ url = "http://127.0.0.1:8007"; }];
-      };
-      ruyi.loadBalancer = {
-        servers = [{ url = "http://127.0.0.1:8008"; }];
-      };
-      element.loadBalancer = {
-        servers = [{ url = "http://127.0.0.1:8005"; }];
-      };
-    };
-  };
+      match = [{
+        host = [ "nichi.co" ];
+      }];
+      handle = [
+        {
+          handler = "headers";
+          response.set = {
+            Strict-Transport-Security = [ "max-age=31536000; includeSubDomains; preload" ];
+          };
+        }
+        {
+          handler = "file_server";
+          root = "${pkgs.blog}";
+        }
+      ];
+    }
+    {
+      match = [{
+        host = [ "matrix.nichi.co" ];
+      }];
+      handle = [{
+        handler = "file_server";
+        root = "${pkgs.element-web.override { inherit conf; }}";
+      }];
+    }
+    {
+      match = [{
+        host = [ "wikipedia.zip" ];
+      }];
+      handle = [{
+        handler = "static_response";
+        status_code = "302";
+        headers = {
+          Location = [ "https://www.wikipedia.org/wiki/Wikipedia:Database_download" ];
+        };
+      }];
+    }
+    /*
+      {
+      match = [{
+        host = [ config.networking.fqdn ];
+        path = [ "/ruyi" "/ruyi/*" ];
+      }];
+      handle = [{
+        handler = "file_server";
+        root = "/var/lib/ruyi";
+      }];
+      }
+        */
+  ];
 
 }

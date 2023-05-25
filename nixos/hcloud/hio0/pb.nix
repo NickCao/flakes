@@ -6,16 +6,14 @@
     SystemCallFilter = null;
   };
 
-  services.traefik.dynamicConfigOptions.http = {
-    routers.meow = {
-      rule = "Host(`pb.nichi.co`)";
-      entryPoints = [ "https" ];
-      service = "meow";
-    };
-    services.meow.loadBalancer = {
-      passHostHeader = true;
-      servers = [{ url = "http://127.0.0.1:8002"; }];
-    };
-  };
+  cloud.caddy.settings.apps.http.servers.default.routes = [{
+    match = [{
+      host = [ "pb.nichi.co" ];
+    }];
+    handle = [{
+      handler = "reverse_proxy";
+      upstreams = [{ dial = "127.0.0.1:8002"; }];
+    }];
+  }];
 
 }

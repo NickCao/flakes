@@ -6,16 +6,14 @@
     port = 34123;
   };
 
-  services.traefik.dynamicConfigOptions.http = {
-    routers.libreddit = {
-      rule = "Host(`red.nichi.co`)";
-      entryPoints = [ "https" ];
-      service = "libreddit";
-    };
-    services.libreddit.loadBalancer = {
-      passHostHeader = true;
-      servers = [{ url = "http://${config.services.libreddit.address}:${toString config.services.libreddit.port}"; }];
-    };
-  };
+  cloud.caddy.settings.apps.http.servers.default.routes = [{
+    match = [{
+      host = [ "red.nichi.co" ];
+    }];
+    handle = [{
+      handler = "reverse_proxy";
+      upstreams = [{ dial = "${config.services.libreddit.address}:${toString config.services.libreddit.port}"; }];
+    }];
+  }];
 
 }
