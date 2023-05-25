@@ -66,33 +66,25 @@
     EnvironmentFile = config.sops.secrets.carinae.path;
   };
 
-  services.traefik = {
-    dynamicConfigOptions = {
-      http = {
-        routers = {
-          hydra = {
-            rule = "Host(`hydra.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "hydra";
-          };
-          cache = {
-            rule = "Host(`cache.nichi.co`)";
-            entryPoints = [ "https" ];
-            service = "cache";
-          };
-        };
-        services = {
-          hydra.loadBalancer = {
-            passHostHeader = true;
-            servers = [{ url = "http://127.0.0.1:3000"; }];
-          };
-          cache.loadBalancer = {
-            passHostHeader = true;
-            servers = [{ url = "http://127.0.0.1:8004"; }];
-          };
-        };
-      };
-    };
-  };
+  cloud.caddy.settings.apps.http.servers.default.routes = [
+    {
+      match = [{
+        host = [ "hydra.nichi.co" ];
+      }];
+      handle = [{
+        handler = "reverse_proxy";
+        upstreams = [{ dial = "127.0.0.1:3000"; }];
+      }];
+    }
+    {
+      match = [{
+        host = [ "cache.nichi.co" ];
+      }];
+      handle = [{
+        handler = "reverse_proxy";
+        upstreams = [{ dial = "127.0.0.1:8004"; }];
+      }];
+    }
+  ];
 
 }
