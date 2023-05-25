@@ -51,7 +51,7 @@ in
 
     systemd.services.caddy = {
       serviceConfig = {
-        ExecStart = "${pkgs.caddy-nickcao}/bin/caddy run --adapter jsonc --config ${configfile}";
+        ExecStart = "${pkgs.caddy-nickcao}/bin/caddy run --config ${configfile}";
         DynamicUser = true;
         StateDirectory = "caddy";
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
