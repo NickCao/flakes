@@ -5,7 +5,7 @@
     defaultSopsFile = ./secrets.yaml;
     secrets = {
       ranet.reloadUnits = [ "gravity.service" ];
-      traefik = { };
+      caddy = { };
     };
   };
   networking.hostName = "nrt0";

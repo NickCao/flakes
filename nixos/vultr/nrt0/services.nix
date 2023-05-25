@@ -6,6 +6,7 @@
     Environment = [ "PORT=8002" "DENO_DIR=/tmp" ];
   };
 
+  systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.secrets.caddy.path;
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
     {
@@ -18,7 +19,7 @@
           handler = "authentication";
           providers.http_basic.accounts = [{
             username = "rait";
-            password = "$2a$14$MZ3rVQAvrZTWuowGB5EnjefZi0qHzDKd3D6psDSbrOtro0pAtlHnS";
+            password = "{env.RAIT_PASSWD}";
           }];
         }
         {
