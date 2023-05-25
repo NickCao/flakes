@@ -42,20 +42,7 @@ in
         };
       };
     };
-    services.traefik = {
-      dynamicConfigOptions = {
-        http = {
-          routers.telegraf = {
-            rule = "Host(`${config.networking.fqdn}`) && Path(`${telegrafConfig.outputs.prometheus_client.path}`)";
-            entryPoints = [ "https" ];
-            service = "telegraf";
-          };
-          services.telegraf.loadBalancer.servers = [{
-            url = "http://${telegrafConfig.outputs.prometheus_client.listen}";
-          }];
-        };
-      };
-    };
+
     cloud.caddy.settings.apps.http.servers.default.routes = [{
       match = [{
         host = [ config.networking.fqdn ];
