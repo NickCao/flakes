@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, ... }:
 {
   imports = [ ../common.nix ./services.nix ];
   sops = {
@@ -35,6 +35,4 @@
       ];
     };
   };
-  cloud.caddy.enable = true;
-  services.gateway.enable = lib.mkForce false;
 }

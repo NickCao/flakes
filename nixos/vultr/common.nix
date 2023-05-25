@@ -1,4 +1,4 @@
-{ config, pkgs, self, inputs, ... }:
+{ config, pkgs, lib, self, inputs, ... }:
 let
   hasTag = tag: builtins.elem tag config.deployment.tags;
 in
@@ -12,6 +12,9 @@ in
   ];
 
   services.dns.secondary.enable = hasTag "nameserver";
+
+  cloud.caddy.enable = true;
+  services.gateway.enable = lib.mkForce false;
 
   nixpkgs.overlays = [
     self.overlays.default
