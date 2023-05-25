@@ -24,9 +24,9 @@ in
         static_configs = [{ inherit targets; }];
       }
       {
-        job_name = "traefik";
+        job_name = "caddy";
         scheme = "https";
-        metrics_path = "/traefik";
+        metrics_path = "/caddy";
         static_configs = [{ inherit targets; }];
       }
     ];
@@ -71,13 +71,6 @@ in
               expr = "disk_used_percent { path = '/nix' } > 80";
               annotations = {
                 summary = ''node {{ $labels.host }} disk full, {{ $value | printf "%.2f" }} percent used'';
-              };
-            }
-            {
-              alert = "TraefikError";
-              expr = "traefik_config_reloads_failure_total > 0";
-              annotations = {
-                summary = "traefik on node {{ $labels.host }} failed to reload config";
               };
             }
           ];
