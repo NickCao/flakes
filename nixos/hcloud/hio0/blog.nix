@@ -52,18 +52,6 @@ in
         };
       }];
     }
-    /*
-      {
-      match = [{
-        host = [ config.networking.fqdn ];
-        path = [ "/ruyi" "/ruyi/*" ];
-      }];
-      handle = [{
-        handler = "file_server";
-        root = "/var/lib/ruyi";
-      }];
-      }
-        */
   ];
 
 }
