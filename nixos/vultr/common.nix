@@ -13,9 +13,6 @@ in
 
   services.dns.secondary.enable = hasTag "nameserver";
 
-  cloud.caddy.enable = true;
-  services.gateway.enable = lib.mkForce false;
-
   nixpkgs.overlays = [
     self.overlays.default
     inputs.fn.overlays.default

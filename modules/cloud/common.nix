@@ -17,7 +17,7 @@
 
   users.users.root.openssh.authorizedKeys.keys = data.keys;
 
-  services.gateway.enable = true;
+  cloud.caddy.enable = true;
   services.metrics.enable = true;
   services.openssh.enable = true;
 

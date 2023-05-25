@@ -13,7 +13,4 @@
 
   networking.hostName = "iad0";
 
-  cloud.caddy.enable = true;
-  services.gateway.enable = lib.mkForce false;
-
 }
