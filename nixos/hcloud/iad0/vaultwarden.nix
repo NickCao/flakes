@@ -23,16 +23,14 @@ in
     environmentFile = config.sops.secrets.vault.path;
   };
 
-  services.traefik.dynamicConfigOptions.http = {
-    routers.vault = {
-      rule = "Host(`vault.nichi.co`)";
-      entryPoints = [ "https" ];
-      service = "vault";
-    };
-    services.vault.loadBalancer = {
-      passHostHeader = true;
-      servers = [{ url = "http://${cfg.rocketAddress}:${toString cfg.rocketPort}"; }];
-    };
-  };
+  cloud.caddy.settings.apps.http.servers.default.routes = [{
+    match = [{
+      host = [ "vault.nichi.co" ];
+    }];
+    handle = [{
+      handler = "reverse_proxy";
+      upstreams = [{ dial = "${cfg.rocketAddress}:${toString cfg.rocketPort}"; }];
+    }];
+  }];
 
 }
