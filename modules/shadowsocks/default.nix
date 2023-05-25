@@ -1,14 +1,21 @@
-{ config, pkgs, ... }:
-{
-  sops.secrets.shadowsocks = {
+{ config, ... }: {
+
+  sops.secrets.naive = {
     sopsFile = ./secrets.yaml;
-    restartUnits = [ "shadowsocks.service" ];
+    restartUnits = [ "caddy.service" ];
   };
-  cloud.services.shadowsocks = {
-    config = {
-      ExecStart = "${pkgs.shadowsocks-rust}/bin/ssserver -c %d/config";
-      LoadCredential = "config:${config.sops.secrets.shadowsocks.path}";
-    };
-    unit.ConditionFileNotEmpty = config.sops.secrets.shadowsocks.path;
-  };
+
+  systemd.services.caddy.serviceConfig.EnvironmentFile = [ config.sops.secrets.naive.path ];
+
+  cloud.caddy.settings.apps.http.servers.default.routes = [{
+    match = [{
+      header = { sometimes = [ "{env.NAIVE}" ]; };
+    }];
+    handle = [{
+      handler = "forward_proxy";
+      hide_ip = true;
+      hide_via = true;
+    }];
+  }];
+
 }
