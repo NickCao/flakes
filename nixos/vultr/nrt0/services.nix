@@ -6,32 +6,36 @@
     Environment = [ "PORT=8002" "DENO_DIR=/tmp" ];
   };
 
-  systemd.services.traefik.serviceConfig.EnvironmentFile = config.sops.secrets.traefik.path;
-  services.traefik = {
-    dynamicConfigOptions = {
-      http = {
-        routers = {
-          rait = {
-            rule = "Host(`fn.nichi.co`, `api.nichi.co`) && Path(`/rait`)";
-            middlewares = [ "rait" ];
-            service = "fn";
-          };
-          fn = {
-            rule = "Host(`fn.nichi.co`)";
-            service = "fn";
-          };
-        };
-        middlewares = {
-          rait.basicAuth = {
-            users = [ "{{ env `RAIT_PASSWD` }}" ];
-            removeheader = true;
-          };
-        };
-        services = {
-          fn.loadBalancer.servers = [{ url = "http://127.0.0.1:8002"; }];
-        };
-      };
-    };
-  };
+
+  cloud.caddy.settings.apps.http.servers.default.routes = [
+    {
+      match = [{
+        host = [ "fn.nichi.co" "api.nichi.co" ];
+        path = [ "/rait" ];
+      }];
+      handle = [
+        {
+          handler = "authentication";
+          providers.http_basic.accounts = [{
+            username = "rait";
+            password = "$2a$14$MZ3rVQAvrZTWuowGB5EnjefZi0qHzDKd3D6psDSbrOtro0pAtlHnS";
+          }];
+        }
+        {
+          handler = "reverse_proxy";
+          upstreams = [{ dial = "127.0.0.1:8002"; }];
+        }
+      ];
+    }
+    {
+      match = [{
+        host = [ "fn.nichi.co" ];
+      }];
+      handle = [{
+        handler = "reverse_proxy";
+        upstreams = [{ dial = "127.0.0.1:8002"; }];
+      }];
+    }
+  ];
 
 }
