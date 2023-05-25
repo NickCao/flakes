@@ -6,7 +6,7 @@
     Environment = [ "PORT=8002" "DENO_DIR=/tmp" ];
   };
 
-  systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.secrets.caddy.path;
+  systemd.services.caddy.serviceConfig.EnvironmentFile = [ config.sops.secrets.caddy.path ];
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
     {
