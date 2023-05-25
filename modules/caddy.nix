@@ -32,6 +32,15 @@ in
         }];
         http.servers.default = {
           listen = [ ":443" ];
+          routes = [{
+            match = [{
+              host = [ config.networking.fqdn ];
+              path = [ "/caddy" ];
+            }];
+            handle = [{
+              handler = "metrics";
+            }];
+          }];
         };
       };
     };
