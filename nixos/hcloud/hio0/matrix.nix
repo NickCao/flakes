@@ -255,10 +255,21 @@ in
       match = [{
         host = [ "matrix.nichi.co" ];
       }];
-      handle = [{
-        handler = "file_server";
-        root = "${pkgs.element-web.override { inherit conf; }}";
-      }];
+      handle = [
+        {
+          handler = "headers";
+          response.set = {
+            X-Frame-Options = [ "SAMEORIGIN" ];
+            X-Content-Type-Options = [ "nosniff" ];
+            X-XSS-Protection = [ "1; mode=block" ];
+            Content-Security-Policy = [ "frame-ancestors 'self'" ];
+          };
+        }
+        {
+          handler = "file_server";
+          root = "${pkgs.element-web.override { inherit conf; }}";
+        }
+      ];
     }
   ];
 
