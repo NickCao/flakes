@@ -17,6 +17,27 @@ in
     {
       match = [{
         host = [ "nichi.co" ];
+        path = [ "/.well-known/webfinger" "/.well-known/webfinger/*" ];
+      }];
+      handle = [
+        {
+          handler = "headers";
+          response.set = {
+            Access-Control-Allow-Origin = [ "*" ];
+          };
+        }
+        {
+          handler = "static_response";
+          status_code = "302";
+          headers = {
+            Location = [ "https://matrix.nichi.co{http.request.uri}" ];
+          };
+        }
+      ];
+    }
+    {
+      match = [{
+        host = [ "nichi.co" ];
       }];
       handle = [
         {
