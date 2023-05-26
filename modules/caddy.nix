@@ -27,15 +27,11 @@ in
       };
       apps = {
         tls.automation.policies = [{
-          on_demand = true;
           key_type = "p256";
         }];
         http.grace_period = "1s";
         http.servers.default = {
           listen = [ ":443" ];
-          tls_connection_policies = [{
-            match = { sni = [ "*.nichi.link" "*.nichi.co" "nichi.co" "wikipedia.zip" ]; };
-          }];
           strict_sni_host = false;
           routes = [{
             match = [{
