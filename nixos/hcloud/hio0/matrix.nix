@@ -230,8 +230,8 @@
   cloud.caddy.settings.apps.http.servers.default.routes = lib.mkBefore [
     {
       match = [{
-        host = [ "nichi.co" ];
-        path = [ "/_matrix" "/_matrix/*" "/_synapse" "/_synapse/*" ];
+        host = [ "matrix.nichi.co" "nichi.co" ];
+        path = [ "/_matrix/*" "/_synapse/*" ];
       }];
       handle = [{
         handler = "reverse_proxy";
