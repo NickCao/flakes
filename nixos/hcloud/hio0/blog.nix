@@ -17,7 +17,7 @@ in
     {
       match = [{
         host = [ "nichi.co" ];
-        path = [ "/.well-known/webfinger" "/.well-known/webfinger/*" ];
+        path = [ "/.well-known/webfinger" ];
       }];
       handle = [
         {
@@ -30,7 +30,7 @@ in
           handler = "static_response";
           status_code = "302";
           headers = {
-            Location = [ "https://matrix.nichi.co{http.request.uri}" ];
+            Location = [ "https://mastodon.nichi.co{http.request.uri}" ];
           };
         }
       ];
