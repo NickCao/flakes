@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
     {
@@ -47,7 +47,7 @@
         status_code = "302";
         headers = {
           Access-Control-Allow-Origin = [ "*" ];
-          Location = [ "https://mastodon.nichi.co{http.request.uri}" ];
+          Location = [ "https://${config.services.mastodon.extraConfig.WEB_DOMAIN}{http.request.uri}" ];
         };
       }];
     }
