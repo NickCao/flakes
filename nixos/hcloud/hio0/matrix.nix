@@ -1,4 +1,17 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }:
+let
+  conf = {
+    default_server_config = {
+      "m.homeserver" = {
+        base_url = "https://nichi.co";
+        server_name = "nichi.co";
+      };
+    };
+    brand = "Nichi Yorozuya";
+    show_labs_settings = true;
+  };
+in
+{
 
   services.postgresql = {
     enable = true;
@@ -236,6 +249,15 @@
       handle = [{
         handler = "reverse_proxy";
         upstreams = [{ dial = "127.0.0.1:8196"; }];
+      }];
+    }
+    {
+      match = [{
+        host = [ "matrix.nichi.co" ];
+      }];
+      handle = [{
+        handler = "file_server";
+        root = "${pkgs.element-web.override { inherit conf; }}";
       }];
     }
   ];

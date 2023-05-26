@@ -54,15 +54,6 @@ in
     }
     {
       match = [{
-        host = [ "matrix.nichi.co" ];
-      }];
-      handle = [{
-        handler = "file_server";
-        root = "${pkgs.element-web.override { inherit conf; }}";
-      }];
-    }
-    {
-      match = [{
         host = [ "wikipedia.zip" ];
       }];
       handle = [{
