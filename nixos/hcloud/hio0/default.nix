@@ -7,6 +7,7 @@
     ./services.nix
     ./pb.nix
     ./misc.nix
+    ./mastodon.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
