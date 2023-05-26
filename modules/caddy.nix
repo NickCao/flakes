@@ -22,7 +22,7 @@ in
 
     cloud.caddy.settings = {
       admin = {
-        disabled = true;
+        listen = "unix//tmp/caddy.sock";
         config.persist = false;
       };
       apps = {
@@ -47,15 +47,22 @@ in
       };
     };
 
+    environment.etc."caddy/config.json".source = configfile;
+
     systemd.services.caddy = {
       serviceConfig = {
-        ExecStart = "${pkgs.caddy-nickcao}/bin/caddy run --config ${configfile}";
+        Type = "notify";
+        ExecStart = "${pkgs.caddy-nickcao}/bin/caddy run --config /etc/caddy/config.json";
+        ExecReload = "${pkgs.caddy-nickcao}/bin/caddy reload --force --config /etc/caddy/config.json";
         DynamicUser = true;
         StateDirectory = "caddy";
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         Environment = [ "XDG_DATA_HOME=%S" ];
       };
       wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" "network-online.target" ];
+      requires = [ "network-online.target" ];
+      reloadTriggers = [ configfile ];
     };
   };
 
