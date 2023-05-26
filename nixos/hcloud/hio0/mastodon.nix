@@ -9,6 +9,18 @@
     };
     extraConfig = {
       WEB_DOMAIN = "mastodon.nichi.co";
+      OIDC_ENABLED = "true";
+      OIDC_DISPLAY_NAME = "id.nichi.co";
+      OIDC_CLIENT_AUTH_METHOD = "query";
+      OIDC_ISSUER = "https://id.nichi.co";
+      OIDC_UID_FIELD = "preferred_username";
+      OIDC_SEND_SCOPE_TO_TOKEN_ENDPOINT = "false";
+      OIDC_DISCOVERY = "true";
+      OIDC_SCOPE = "openid,profile,email";
+      OIDC_CLIENT_ID = "mastodon";
+      OIDC_CLIENT_SECRET = "insecure_secret";
+      OIDC_REDIRECT_URI = "https://mastodon.nichi.co/auth/auth/openid_connect/callback";
+      OIDC_SECURITY_ASSUME_EMAIL_IS_VERIFIED = "true";
     };
   };
 

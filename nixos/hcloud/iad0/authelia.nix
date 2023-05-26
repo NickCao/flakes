@@ -47,15 +47,27 @@ in
         default_policy = "two_factor";
       };
       identity_providers.oidc = {
-        clients = [{
-          id = "synapse";
-          description = "Synapse";
-          public = true;
-          authorization_policy = "two_factor";
-          redirect_uris = [ "https://nichi.co/_synapse/client/oidc/callback" ];
-          scopes = [ "openid" "profile" "email" ];
-          userinfo_signing_algorithm = "none";
-        }];
+        clients = [
+          {
+            id = "synapse";
+            description = "Synapse";
+            public = true;
+            authorization_policy = "two_factor";
+            redirect_uris = [ "https://nichi.co/_synapse/client/oidc/callback" ];
+            scopes = [ "openid" "profile" "email" ];
+            userinfo_signing_algorithm = "none";
+          }
+          {
+            id = "mastodon";
+            secret = "$pbkdf2-sha512$310000$c8p78n7pUMln0jzvd4aK4Q$JNRBzwAo0ek5qKn50cFzzvE9RXV88h1wJn5KGiHrD0YKtZaR/nCb2CJPOsKaPK0hjf.9yHxzQGZziziccp6Yng";
+            description = "Mastodon";
+            public = false;
+            authorization_policy = "two_factor";
+            redirect_uris = [ "https://mastodon.nichi.co/auth/auth/openid_connect/callback" ];
+            scopes = [ "openid" "profile" "email" ];
+            userinfo_signing_algorithm = "none";
+          }
+        ];
       };
     };
   };
