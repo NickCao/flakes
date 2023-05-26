@@ -32,7 +32,7 @@
         };
         body = builtins.toJSON {
           "m.homeserver" = {
-            "base_url" = "https://nichi.co";
+            "base_url" = "https://matrix.nichi.co";
           };
         };
       }];
