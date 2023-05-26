@@ -14,14 +14,6 @@ dns.lib.toString "nichi.co" {
   TXT = [
     (with spf; soft [ "mx" ])
   ];
-  SRV = common.SRV ++ [
-    {
-      service = "matrix";
-      proto = "tcp";
-      port = 443;
-      target = "hio0.nichi.link.";
-    }
-  ];
   subdomains = {
     www.TXT = [ "http.cat/404" ];
     id.CNAME = [ "iad0.nichi.link." ];
