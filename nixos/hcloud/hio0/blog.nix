@@ -1,17 +1,4 @@
-{ config, pkgs, ... }:
-let
-  conf = {
-    default_server_config = {
-      "m.homeserver" = {
-        base_url = "https://nichi.co";
-        server_name = "nichi.co";
-      };
-    };
-    brand = "Nichi Yorozuya";
-    show_labs_settings = true;
-  };
-in
-{
+{ pkgs, ... }: {
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
     {
