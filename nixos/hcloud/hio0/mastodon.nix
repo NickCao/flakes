@@ -26,50 +26,52 @@
 
   systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "mastodon" ];
 
-  cloud.caddy.settings.apps.http.servers.default.routes = [
-    {
-      match = [{
-        host = [ "mastodon.nichi.co" ];
-        path = [ "/system/*" ];
-      }];
-      handle = [
+  cloud.caddy.settings.apps.http.servers.default.routes = [{
+    match = [{
+      host = [ "mastodon.nichi.co" ];
+    }];
+    handle = [{
+      handler = "subroute";
+      routes = [
         {
-          "handler" = "rewrite";
-          "strip_path_prefix" = "/system";
+          match = [{
+            path = [ "/system/*" ];
+          }];
+          handle = [
+            {
+              handler = "rewrite";
+              strip_path_prefix = "/system";
+            }
+            {
+              handler = "file_server";
+              root = "/var/lib/mastodon/public-system";
+            }
+          ];
         }
         {
-          handler = "file_server";
-          root = "/var/lib/mastodon/public-system";
+          match = [{
+            path = [ "/api/v1/streaming/*" ];
+          }];
+          handle = [{
+            handler = "reverse_proxy";
+            upstreams = [{ dial = "unix//run/mastodon-streaming/streaming.socket"; }];
+          }];
+        }
+        {
+          handle = [
+            {
+              handler = "file_server";
+              root = "${pkgs.mastodon}/public";
+              pass_thru = true;
+            }
+            {
+              handler = "reverse_proxy";
+              upstreams = [{ dial = "unix//run/mastodon-web/web.socket"; }];
+            }
+          ];
         }
       ];
-    }
-    {
-      match = [{
-        host = [ "mastodon.nichi.co" ];
-        path = [ "/api/v1/streaming/*" ];
-      }];
-      handle = [{
-        handler = "reverse_proxy";
-        upstreams = [{ dial = "unix//run/mastodon-streaming/streaming.socket"; }];
-      }];
-    }
-    {
-      match = [{
-        host = [ "mastodon.nichi.co" ];
-      }];
-      handle = [
-        {
-          handler = "file_server";
-          root = "${pkgs.mastodon}/public";
-          pass_thru = true;
-        }
-        {
-          handler = "reverse_proxy";
-          upstreams = [{ dial = "unix//run/mastodon-web/web.socket"; }];
-        }
-      ];
-    }
-  ];
-
+    }];
+  }];
 
 }
