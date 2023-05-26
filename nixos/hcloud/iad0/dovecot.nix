@@ -52,9 +52,11 @@ in
       }
 
       service imap-login {
+        unix_listener imap-caddy {
+          mode    = 0666
+        }
         inet_listener imap {
-          port    = 8143
-          haproxy = yes
+          port = 0
         }
         inet_listener imaps {
           port = 0
@@ -116,8 +118,7 @@ in
           }
           {
             handler = "proxy";
-            upstreams = [{ dial = [ "127.0.0.1:8143" ]; }];
-            proxy_protocol = "v2";
+            upstreams = [{ dial = [ "unix//run/dovecot2/imap-caddy" ]; }];
           }
         ];
       }];
