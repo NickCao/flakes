@@ -3,11 +3,10 @@ let
   conf = {
     default_server_config = {
       "m.homeserver" = {
-        base_url = "https://nichi.co";
+        base_url = "https://matrix.nichi.co";
         server_name = "nichi.co";
       };
     };
-    brand = "Nichi Yorozuya";
     show_labs_settings = true;
   };
 in
