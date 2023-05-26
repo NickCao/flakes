@@ -34,6 +34,25 @@ in
     {
       match = [{
         host = [ "nichi.co" ];
+        path = [ "/.well-known/matrix/client" ];
+      }];
+      handle = [{
+        handler = "static_response";
+        status_code = 200;
+        headers = {
+          Access-Control-Allow-Origin = [ "*" ];
+          Content-Type = [ "application/json" ];
+        };
+        body = builtins.toJSON {
+          "m.homeserver" = {
+            "base_url" = "https://nichi.co";
+          };
+        };
+      }];
+    }
+    {
+      match = [{
+        host = [ "nichi.co" ];
         path = [ "/.well-known/webfinger" ];
       }];
       handle = [{
