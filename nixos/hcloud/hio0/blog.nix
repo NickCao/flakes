@@ -68,18 +68,6 @@
         }
       ];
     }
-    {
-      match = [{
-        host = [ "wikipedia.zip" ];
-      }];
-      handle = [{
-        handler = "static_response";
-        status_code = "302";
-        headers = {
-          Location = [ "https://www.wikipedia.org/wiki/Wikipedia:Database_download" ];
-        };
-      }];
-    }
   ];
 
 }
