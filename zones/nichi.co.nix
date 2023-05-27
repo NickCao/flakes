@@ -27,6 +27,5 @@ dns.lib.toString "nichi.co" {
     vault.CNAME = [ "iad0.nichi.link." ];
     matrix.CNAME = [ "hio0.nichi.link." ];
     mastodon.CNAME = [ "hio0.nichi.link." ];
-    accounts.CNAME = [ "hio0.nichi.link." ];
   };
 }
