@@ -88,19 +88,18 @@ in
       };
 
       oidc_providers = [{
-        idp_id = "authelia";
-        idp_name = "id.nichi.co";
-        idp_icon = "mxc://authelia.com/cKlrTPsGvlpKxAYeHWJsdVHI";
-        issuer = "https://id.nichi.co";
+        idp_id = "keycloak";
+        idp_name = "accounts.nichi.co";
+        issuer = "https://accounts.nichi.co/realms/nichi";
         client_id = "synapse";
-        client_auth_method = "none";
-        scopes = [ "openid" "profile" "email" ];
+        client_secret = "nEM2NUdoVskBhmTfqq62ZsQzWHeTpf1U"; # FIXME: client secret is, secret
+        scopes = [ "openid" "profile" ];
         allow_existing_users = true;
+        backchannel_logout_enabled = true;
         user_mapping_provider.config = {
           confirm_localpart = true;
           localpart_template = "{{ user.preferred_username }}";
           display_name_template = "{{ user.name }}";
-          email_template = "{{ user.email }}";
         };
       }];
 
