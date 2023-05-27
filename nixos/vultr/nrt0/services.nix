@@ -49,6 +49,18 @@
         };
       }];
     }
+    {
+      match = [{
+        host = [ "nixos.zip" ];
+      }];
+      handle = [{
+        handler = "static_response";
+        status_code = "302";
+        headers = {
+          Location = [ "https://channels.nixos.org/nixos-unstable" ];
+        };
+      }];
+    }
   ];
 
 }
