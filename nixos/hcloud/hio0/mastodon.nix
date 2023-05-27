@@ -9,6 +9,9 @@
     };
     extraConfig = {
       WEB_DOMAIN = "mastodon.nichi.co";
+
+      OMNIAUTH_ONLY = "true";
+
       OIDC_ENABLED = "true";
       OIDC_DISPLAY_NAME = "id.nichi.co";
       OIDC_CLIENT_AUTH_METHOD = "query";
