@@ -7,14 +7,14 @@
       http-port = 8125;
       proxy = "edge";
       hostname-strict-backchannel = true;
-      hostname = "accounts.nichi.co";
+      hostname = "id.nichi.co";
     };
     database.passwordFile = toString (pkgs.writeText "password" "keycloak");
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = [{
     match = [{
-      host = [ "accounts.nichi.co" ];
+      host = [ config.services.keycloak.settings.hostname ];
     }];
     handle = [{
       handler = "reverse_proxy";

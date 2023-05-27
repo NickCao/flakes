@@ -89,8 +89,8 @@ in
 
       oidc_providers = [{
         idp_id = "keycloak";
-        idp_name = "accounts.nichi.co";
-        issuer = "https://accounts.nichi.co/realms/nichi";
+        idp_name = "id.nichi.co";
+        issuer = "https://id.nichi.co/realms/nichi";
         client_id = "synapse";
         client_secret = "nEM2NUdoVskBhmTfqq62ZsQzWHeTpf1U"; # FIXME: client secret is, secret
         scopes = [ "openid" "profile" ];
