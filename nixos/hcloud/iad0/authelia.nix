@@ -53,7 +53,7 @@ in
             description = "Synapse";
             public = true;
             authorization_policy = "two_factor";
-            redirect_uris = [ "https://nichi.co/_synapse/client/oidc/callback" ];
+            redirect_uris = [ "https://matrix.nichi.co/_synapse/client/oidc/callback" ];
             scopes = [ "openid" "profile" "email" ];
             userinfo_signing_algorithm = "none";
           }
