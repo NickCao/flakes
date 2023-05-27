@@ -3,8 +3,8 @@ let
   conf = {
     default_server_config = {
       "m.homeserver" = {
-        base_url = "https://matrix.nichi.co";
-        server_name = "nichi.co";
+        base_url = config.services.matrix-synapse.settings.public_baseurl;
+        server_name = config.services.matrix-synapse.settings.server_name;
       };
     };
     show_labs_settings = true;
@@ -60,7 +60,7 @@ in
     withJemalloc = true;
     settings = {
       server_name = "nichi.co";
-      public_baseurl = conf.default_server_config."m.homeserver".base_url;
+      public_baseurl = "https://matrix.nichi.co";
       signing_key_path = config.sops.secrets.matrix-synapse.path;
 
       enable_search = true;
@@ -116,7 +116,7 @@ in
       protectAllJoinedRooms = true;
     };
     managementRoom = "#moderators:nichi.co";
-    homeserverUrl = conf.default_server_config."m.homeserver".base_url;
+    homeserverUrl = config.services.matrix-synapse.settings.public_baseurl;
     accessTokenFile = config.sops.secrets.mjolnir.path;
     pantalaimon.username = "mjolnir";
   };
@@ -128,7 +128,7 @@ in
     settings = {
       homeserver = {
         address = "http://127.0.0.1:8196";
-        domain = "nichi.co";
+        domain = config.services.matrix-synapse.settings.server_name;
       };
       appservice = {
         address = "http://127.0.0.1:29317";
@@ -224,7 +224,7 @@ in
         nichi = {
           Login = "matterbridge";
           RemoteNickFormat = "[{NICK}] ";
-          Server = conf.default_server_config."m.homeserver".base_url;
+          Server = config.services.matrix-synapse.settings.public_baseurl;
           HTMLDisable = true;
           KeepQuotedReply = true;
         };
