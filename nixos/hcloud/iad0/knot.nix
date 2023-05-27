@@ -20,7 +20,7 @@
         - domain: scp.link
           file: ${pkgs.writeText "db.link.scp" (import ../../../zones/scp.link.nix { inherit (inputs) dns; })}
         - domain: wikipedia.zip
-          file: ${pkgs.writeText "db.zip.wikipedia" (import ../../../zones/wikipedia.zip.nix { inherit (inputs) dns; })}
+          file: ${pkgs.writeText "db.zip.wikipedia" (import ../../../zones/parking.nix { inherit (inputs) dns; })}
         - domain: gravity
           file: ${config.sops.secrets.gravity.path}
           dnssec-signing: off
