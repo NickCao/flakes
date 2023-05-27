@@ -232,37 +232,41 @@ in
     });
   };
 
-  cloud.caddy.settings.apps.http.servers.default.routes = lib.mkBefore [
-    {
-      match = [{
-        host = [ "matrix.nichi.co" "nichi.co" ];
-        path = [ "/_matrix/*" "/_synapse/*" ];
-      }];
-      handle = [{
-        handler = "reverse_proxy";
-        upstreams = [{ dial = "127.0.0.1:8196"; }];
-      }];
-    }
-    {
-      match = [{
-        host = [ "matrix.nichi.co" ];
-      }];
-      handle = [
+  cloud.caddy.settings.apps.http.servers.default.routes = [{
+    match = [{
+      host = [ "matrix.nichi.co" ];
+    }];
+    handle = [{
+      handler = "subroute";
+      routes = [
         {
-          handler = "headers";
-          response.set = {
-            X-Frame-Options = [ "SAMEORIGIN" ];
-            X-Content-Type-Options = [ "nosniff" ];
-            X-XSS-Protection = [ "1; mode=block" ];
-            Content-Security-Policy = [ "frame-ancestors 'self'" ];
-          };
+          match = [{
+            path = [ "/_matrix/*" "/_synapse/*" ];
+          }];
+          handle = [{
+            handler = "reverse_proxy";
+            upstreams = [{ dial = "127.0.0.1:8196"; }];
+          }];
         }
         {
-          handler = "file_server";
-          root = "${pkgs.element-web.override { inherit conf; }}";
+          handle = [
+            {
+              handler = "headers";
+              response.set = {
+                X-Frame-Options = [ "SAMEORIGIN" ];
+                X-Content-Type-Options = [ "nosniff" ];
+                X-XSS-Protection = [ "1; mode=block" ];
+                Content-Security-Policy = [ "frame-ancestors 'self'" ];
+              };
+            }
+            {
+              handler = "file_server";
+              root = "${pkgs.element-web.override { inherit conf; }}";
+            }
+          ];
         }
       ];
-    }
-  ];
+    }];
+  }];
 
 }
