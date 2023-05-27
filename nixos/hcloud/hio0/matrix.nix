@@ -116,7 +116,7 @@ in
       protectAllJoinedRooms = true;
     };
     managementRoom = "#moderators:nichi.co";
-    homeserverUrl = "https://nichi.co";
+    homeserverUrl = conf.default_server_config."m.homeserver".base_url;
     accessTokenFile = config.sops.secrets.mjolnir.path;
     pantalaimon.username = "mjolnir";
   };
