@@ -60,7 +60,7 @@ in
     withJemalloc = true;
     settings = {
       server_name = "nichi.co";
-      public_baseurl = "https://nichi.co";
+      public_baseurl = conf.default_server_config."m.homeserver".base_url;
       signing_key_path = config.sops.secrets.matrix-synapse.path;
 
       enable_search = true;
