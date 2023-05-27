@@ -224,7 +224,7 @@ in
         nichi = {
           Login = "matterbridge";
           RemoteNickFormat = "[{NICK}] ";
-          Server = "https://nichi.co";
+          Server = conf.default_server_config."m.homeserver".base_url;
           HTMLDisable = true;
           KeepQuotedReply = true;
         };
