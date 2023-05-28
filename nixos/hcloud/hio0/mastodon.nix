@@ -1,5 +1,9 @@
 { config, pkgs, lib, ... }: {
 
+  sops.secrets.mastodon = { restartUnits = [ "mastodon-web.service" ]; };
+
+  systemd.services.mastodon-web.serviceConfig.EnvironmentFile = [ config.sops.secrets.mastodon.path ];
+
   services.mastodon = {
     enable = true;
     localDomain = "nichi.co";
@@ -22,7 +26,6 @@
       OIDC_SECURITY_ASSUME_EMAIL_IS_VERIFIED = "true";
 
       OIDC_CLIENT_ID = "mastodon";
-      OIDC_CLIENT_SECRET = "t8U06Gpqxa8x0oXtPNJZtQccIhOepuJM"; # FIXME: client secret is, secret
     };
   };
 
