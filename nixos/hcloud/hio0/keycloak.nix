@@ -8,6 +8,7 @@
       proxy = "edge";
       hostname-strict-backchannel = true;
       hostname = "id.nichi.co";
+      cache = "local";
     };
     database.passwordFile = toString (pkgs.writeText "password" "keycloak");
   };
