@@ -22,7 +22,7 @@
       OIDC_DISCOVERY = "true";
       OIDC_SCOPE = "openid,profile,email";
       OIDC_UID_FIELD = "preferred_username";
-      OIDC_REDIRECT_URI = "https://mastodon.nichi.co/auth/auth/openid_connect/callback";
+      OIDC_REDIRECT_URI = "https://${config.services.mastodon.extraConfig.WEB_DOMAIN}/auth/auth/openid_connect/callback";
       OIDC_SECURITY_ASSUME_EMAIL_IS_VERIFIED = "true";
 
       OIDC_CLIENT_ID = "mastodon";
@@ -33,7 +33,7 @@
 
   cloud.caddy.settings.apps.http.servers.default.routes = [{
     match = [{
-      host = [ "mastodon.nichi.co" ];
+      host = [ config.services.mastodon.extraConfig.WEB_DOMAIN ];
     }];
     handle = [{
       handler = "subroute";
