@@ -32,7 +32,7 @@
         };
         body = builtins.toJSON {
           "m.homeserver" = {
-            "base_url" = "https://matrix.nichi.co";
+            "base_url" = config.services.matrix-synapse.settings.public_baseurl;
           };
         };
       }];
