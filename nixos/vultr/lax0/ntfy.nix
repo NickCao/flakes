@@ -5,11 +5,13 @@
     settings = {
       base-url = "https://ntfy.nichi.co";
       listen-http = "";
-      listen-unix = "/var/lib/ntfy-sh/ntfy.sock";
+      listen-unix = "/run/ntfy-sh/ntfy.sock";
       listen-unix-mode = 511; # 0777
       behind-proxy = true;
     };
   };
+
+  systemd.services.ntfy-sh.serviceConfig.RuntimeDirectory = [ "ntfy-sh" ];
 
   cloud.caddy.settings.apps.http.servers.default.routes = [{
     match = [{
