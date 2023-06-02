@@ -1,7 +1,7 @@
 {
     "bird-babel-rtt": {
         "cargoLocks": null,
-        "date": "2023-02-14",
+        "date": "2023-06-02",
         "extract": null,
         "name": "bird-babel-rtt",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "NickCao",
             "repo": "bird",
-            "rev": "b0b12f37388e59b4456119d3a90d4ff69622d698",
-            "sha256": "sha256-9Ufu6gGDVMZHoxZdqc2khNBsrvBcS+18IIYIcsVsdsY=",
+            "rev": "69372dc9aa8b234b79999c4cdcdfa3aa05e3a672",
+            "sha256": "sha256-b9RVWZmzT6E7XAb+GW6YXcZXmG+nQBKYjOXEZNPkGpQ=",
             "type": "github"
         },
-        "version": "b0b12f37388e59b4456119d3a90d4ff69622d698"
+        "version": "69372dc9aa8b234b79999c4cdcdfa3aa05e3a672"
     },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
@@ -28,10 +28,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-w0GvAJMnC71AlUs2T3HJkXz6Kj1+fg+VBghV8LmjI0g=",
+            "sha256": "sha256-p4JdQMIBfg9QuRu6vT+eCLqXGyTvAUz2V5wJOSAbv7c=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230329.dict"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230507.dict"
         },
-        "version": "20230329"
+        "version": "20230507"
     }
 }

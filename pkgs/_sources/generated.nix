@@ -3,22 +3,22 @@
 {
   bird-babel-rtt = {
     pname = "bird-babel-rtt";
-    version = "b0b12f37388e59b4456119d3a90d4ff69622d698";
-    src = fetchFromGitHub ({
+    version = "69372dc9aa8b234b79999c4cdcdfa3aa05e3a672";
+    src = fetchFromGitHub {
       owner = "NickCao";
       repo = "bird";
-      rev = "b0b12f37388e59b4456119d3a90d4ff69622d698";
+      rev = "69372dc9aa8b234b79999c4cdcdfa3aa05e3a672";
       fetchSubmodules = false;
-      sha256 = "sha256-9Ufu6gGDVMZHoxZdqc2khNBsrvBcS+18IIYIcsVsdsY=";
-    });
-    date = "2023-02-14";
+      sha256 = "sha256-b9RVWZmzT6E7XAb+GW6YXcZXmG+nQBKYjOXEZNPkGpQ=";
+    };
+    date = "2023-06-02";
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
-    version = "20230329";
+    version = "20230507";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230329.dict";
-      sha256 = "sha256-w0GvAJMnC71AlUs2T3HJkXz6Kj1+fg+VBghV8LmjI0g=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230507.dict";
+      sha256 = "sha256-p4JdQMIBfg9QuRu6vT+eCLqXGyTvAUz2V5wJOSAbv7c=";
     };
   };
 }
