@@ -15,4 +15,6 @@
 
   networking.hostName = "hio0";
 
+  zramSwap.enable = true;
+
 }
