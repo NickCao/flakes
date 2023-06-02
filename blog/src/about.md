@@ -3,6 +3,7 @@
 - Nixpkgs committer
 ## Identity
 - GitHub: [github.com/NickCao](https://github.com/NickCao)
+- Mastodon: <a rel="me" href="https://mastodon.nichi.co/@nickcao">@nickcao@nichi.co</a>
 - GitLab: [gitlab.com/NickCao](https://gitlab.com/NickCao)
 - Telegram: [t.me/NickCao](https://t.me/NickCao)
 - Mail: [nickcao@nichi.co](mailto:nickcao@nichi.co)
