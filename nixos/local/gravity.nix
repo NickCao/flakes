@@ -32,6 +32,9 @@
   systemd.services.sing-box =
     let
       config = {
+        log = {
+          level = "info";
+        };
         dns = {
           servers = [
             {
@@ -73,6 +76,8 @@
           }
         ];
         route = {
+          geosite.path = "${pkgs.sing-geosite}/share/sing-box/geosite.db";
+          geoip.path = "${pkgs.sing-geoip}/share/sing-box/geoip.db";
           rules = [{
             geosite = [ "cn" ];
             geoip = [ "cn" ];
@@ -85,8 +90,7 @@
     {
       serviceConfig = {
         DynamicUser = true;
-        StateDirectory = "sing-box";
-        ExecStart = "${pkgs.sing-box}/bin/sing-box run -c ${(pkgs.formats.json {}).generate "config.json" config} -D $STATE_DIRECTORY";
+        ExecStart = "${pkgs.sing-box}/bin/sing-box run -c ${(pkgs.formats.json {}).generate "config.json" config}";
       };
       wantedBy = [ "multi-user.target" ];
     };
