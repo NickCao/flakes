@@ -43,8 +43,9 @@
   };
 
   services.restic.backups.persist = {
-    repository = "sftp:backup:backup";
-    passwordFile = config.sops.secrets.restic.path;
+    repositoryFile = config.sops.secrets.restic-repo.path;
+    passwordFile = config.sops.secrets.restic-pass.path;
+    environmentFile = config.sops.secrets.restic-envs.path;
     paths = [ "/persist" ];
     timerConfig = {
       OnCalendar = "daily";
