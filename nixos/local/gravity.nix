@@ -39,7 +39,7 @@
           servers = [
             {
               tag = "cloudflare";
-              address = "https://1.0.0.1/dns-query";
+              address = "https://[2606:4700:4700::1111]/dns-query";
               strategy = "prefer_ipv6";
             }
             {
