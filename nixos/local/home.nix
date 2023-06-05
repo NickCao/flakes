@@ -1,10 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  fbk = pkgs.fetchurl {
-    url = "https://pbs.twimg.com/media/ElphQpaU4AAt9Bv?format=jpg";
-    name = "fubuki.jpg";
-    hash = "sha256-541/iI7scwyyEOxZAYFql4X/W5xmg5hUfeDJbtJ+voE=";
-  };
+  fbk = "${./fubuki.jpg}";
   fbk-blurred = pkgs.runCommand "fubuki.png"
     {
       nativeBuildInputs = with pkgs;[ imagemagick ];
