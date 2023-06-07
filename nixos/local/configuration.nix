@@ -29,7 +29,7 @@
   ];
 
   nix = {
-    package = pkgs.nixVersions.unstable;
+    package = pkgs.nixVersions.stable;
     nrBuildUsers = 0;
     settings = {
       trusted-users = [ "root" "nickcao" ];
