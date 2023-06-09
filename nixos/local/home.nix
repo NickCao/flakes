@@ -127,15 +127,6 @@ in
       lualine-nvim
       which-key-nvim
       lualine-lsp-progress
-      (nvim-treesitter.withPlugins (
-        plugins: with plugins; [
-          nix
-          lua
-          rust
-          go
-          hcl
-        ]
-      ))
     ];
     extraConfig = ''
       :source ${./nvim.lua}
