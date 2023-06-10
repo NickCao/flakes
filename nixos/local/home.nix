@@ -33,6 +33,10 @@ in
   };
   wayland.windowManager.sway = {
     enable = true;
+    systemd = {
+      enable = true;
+      xdgAutostart = true;
+    };
     extraOptions = [ "--unsupported-gpu" ];
     wrapperFeatures.gtk = true;
     config = {
@@ -244,7 +248,6 @@ in
   };
 
   systemd.user = {
-    targets.sway-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
     services.resign = {
       Install.WantedBy = [ "graphical-session.target" ];
       Unit.PartOf = [ "graphical-session.target" ];
