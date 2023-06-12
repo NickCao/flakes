@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 let
   conf = {
     default_server_config = {
@@ -47,10 +47,17 @@ in
       mautrix-telegram = { };
       matrix-synapse = { owner = "matrix-synapse"; };
       matterbridge = { };
+      bouncer = { };
     };
   };
 
-  # systemd.services.mjolnir.after = [ "matrix-synapse.service" ];
+  cloud.services.bouncer.config = {
+    ExecStart = "${inputs.bouncer.packages."${pkgs.system}".default}/bin/bouncer";
+    EnvironmentFile = config.sops.secrets.bouncer.path;
+    Environment = [ "RUST_LOG=info" ];
+  };
+
+  systemd.services.bouncer.after = [ "matrix-synapse.service" ];
 
   systemd.services.matrix-synapse.serviceConfig.LoadCredential = [
     "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
