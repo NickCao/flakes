@@ -51,10 +51,13 @@ in
     };
   };
 
-  cloud.services.bouncer.config = {
-    ExecStart = "${inputs.bouncer.packages."${pkgs.system}".default}/bin/bouncer";
-    EnvironmentFile = config.sops.secrets.bouncer.path;
-    Environment = [ "RUST_LOG=info" ];
+  cloud.services.bouncer = {
+    enable = false;
+    config = {
+      ExecStart = "${inputs.bouncer.packages."${pkgs.system}".default}/bin/bouncer";
+      EnvironmentFile = config.sops.secrets.bouncer.path;
+      Environment = [ "RUST_LOG=info" ];
+    };
   };
 
   systemd.services.bouncer.after = [ "matrix-synapse.service" ];
