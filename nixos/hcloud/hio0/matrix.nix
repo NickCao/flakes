@@ -46,12 +46,12 @@ in
     secrets = {
       mautrix-telegram = { };
       matrix-synapse = { owner = "matrix-synapse"; };
-      mjolnir = { owner = "mjolnir"; };
       matterbridge = { };
     };
   };
 
-  systemd.services.mjolnir.after = [ "matrix-synapse.service" ];
+  # systemd.services.mjolnir.after = [ "matrix-synapse.service" ];
+
   systemd.services.matrix-synapse.serviceConfig.LoadCredential = [
     "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
   ];
@@ -108,17 +108,6 @@ in
         msc3266_enabled = true;
       };
     };
-  };
-
-  services.mjolnir = {
-    enable = true;
-    settings = {
-      protectAllJoinedRooms = true;
-    };
-    managementRoom = "#moderators:nichi.co";
-    homeserverUrl = config.services.matrix-synapse.settings.public_baseurl;
-    accessTokenFile = config.sops.secrets.mjolnir.path;
-    pantalaimon.username = "mjolnir";
   };
 
   services.mautrix-telegram = {
