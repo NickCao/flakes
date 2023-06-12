@@ -10,11 +10,6 @@ https://pb.nichi.co
 https://ntfy.nichi.co
 ```
 
-##### libreddit
-```
-https://red.nichi.co
-```
-
 #### private services
 
 ##### keycloak

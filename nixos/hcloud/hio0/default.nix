@@ -6,7 +6,6 @@
     ./matrix.nix
     ./services.nix
     ./pb.nix
-    ./misc.nix
     ./mastodon.nix
     ./keycloak.nix
   ];
