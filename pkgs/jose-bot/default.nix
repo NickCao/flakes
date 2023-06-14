@@ -12,8 +12,8 @@ buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "ShadowRZ";
     repo = pname;
-    rev = "cef9a8ce1bef27b1ca9370e11f4460981c392102";
-    hash = "sha256-OU58G5iS6kQIQjmcZKk1hK3Tj0orZeDHAt9wUQ69NT8=";
+    rev = "958a175eb5b61c8a22504b11c50c9d7bf96018b7";
+    hash = "sha256-kYChKS6W/jNQhbrsVWF91/Uf6lLViyqnn6KjJn6Innw=";
   };
 
   nativeBuildInputs = [
