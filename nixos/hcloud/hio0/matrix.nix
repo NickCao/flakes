@@ -47,18 +47,29 @@ in
       mautrix-telegram = { };
       matrix-synapse = { owner = "matrix-synapse"; };
       matterbridge = { };
-      bouncer = { };
+      jose = { };
     };
   };
 
-  cloud.services.bouncer = {
-    enable = false;
-    config = {
-      ExecStart = "${inputs.bouncer.packages."${pkgs.system}".default}/bin/bouncer";
-      EnvironmentFile = config.sops.secrets.bouncer.path;
-      Environment = [ "RUST_LOG=info" ];
+  cloud.services.jose.config =
+    let
+      configFile = (pkgs.formats.yaml { }).generate "config.yaml" {
+        matrix = {
+          user_id = "@mjolnir:nichi.co";
+          homeserver_url = "https://matrix.nichi.co";
+          device_id = "jose_bot";
+        };
+        logging = {
+          level = "DEBUG";
+          file_logging.enabled = false;
+        };
+        allowed_servers = [ "nichi.co" ];
+      };
+    in
+    {
+      ExecStart = "${pkgs.jose-bot}/bin/jose-bot ${configFile}";
+      EnvironmentFile = config.sops.secrets.jose.path;
     };
-  };
 
   systemd.services.bouncer.after = [ "matrix-synapse.service" ];
 
