@@ -125,7 +125,6 @@ in
       }];
 
       experimental_features = {
-        msc3952_intentional_mentions = true;
         msc3266_enabled = true;
       };
     };
