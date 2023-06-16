@@ -46,6 +46,7 @@
   environment.systemPackages = with pkgs; [
     git
     nixpkgs-review
+    htop
   ];
 
   system.stateVersion = "23.05";
