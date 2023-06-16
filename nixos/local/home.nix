@@ -417,7 +417,7 @@ in
         };
         "hydra" = {
           user = "root";
-          hostname = "k11-plct.nichi.link";
+          hostname = "k17-plct.nichi.link";
           port = 9022;
         };
         "*.nichi.link" = {

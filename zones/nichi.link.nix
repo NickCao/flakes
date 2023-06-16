@@ -28,6 +28,7 @@ dns.lib.toString "nichi.link" {
     };
     "rpi".CNAME = [ "rpi.dyn.nichi.link." ];
     "k11-plct".A = [ "8.214.124.155" ];
-    "hydra".CNAME = [ "k11-plct.nichi.link." ];
+    "k17-plct".A = [ "110.238.111.26" ];
+    "hydra".CNAME = [ "k17-plct.nichi.link." ];
   };
 }
