@@ -1,28 +1,5 @@
 {
   "nodes": {
-    "bouncer": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1686579250,
-        "narHash": "sha256-0WLebkCjIpukgvaVWPcfACSD0bUfypm/iOukfYMH58w=",
-        "owner": "NickCao",
-        "repo": "bouncer",
-        "rev": "d50cfdf88c5f7b353ab3758e2060abfdbb2d5502",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NickCao",
-        "repo": "bouncer",
-        "type": "github"
-      }
-    },
     "canopus": {
       "inputs": {
         "flake-utils": [
@@ -470,7 +447,6 @@
     },
     "root": {
       "inputs": {
-        "bouncer": "bouncer",
         "canopus": "canopus",
         "carinae": "carinae",
         "colmena": "colmena",

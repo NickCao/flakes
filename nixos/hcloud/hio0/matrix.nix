@@ -71,7 +71,7 @@ in
       EnvironmentFile = config.sops.secrets.jose.path;
     };
 
-  systemd.services.bouncer.after = [ "matrix-synapse.service" ];
+  systemd.services.jose.after = [ "matrix-synapse.service" ];
 
   systemd.services.matrix-synapse.serviceConfig.LoadCredential = [
     "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"

@@ -72,11 +72,6 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    bouncer = {
-      url = "github:NickCao/bouncer";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
   };
   outputs = inputs@{ self, nixpkgs, flake-utils, ... }:
     let
