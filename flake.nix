@@ -53,11 +53,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    knot-sys = {
-      url = "github:NickCao/knot-sys";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.stable.follows = "nixpkgs";
@@ -76,11 +71,6 @@
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     bouncer = {
       url = "github:NickCao/bouncer";

@@ -31,13 +31,4 @@
     '';
   };
 
-  cloud.services.knotd-exporter.config = {
-    ExecStart = "${inputs.knot-sys.packages."${pkgs.system}".default}/bin/knotd-exporter -l 127.0.0.1:8000";
-    SupplementaryGroups = [ "knot" ];
-  };
-
-  services.telegraf.extraConfig.inputs = {
-    prometheus.urls = [ "http://localhost:8000/metrics" ];
-  };
-
 }

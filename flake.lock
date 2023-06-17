@@ -310,29 +310,6 @@
         "type": "github"
       }
     },
-    "knot-sys": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1661256153,
-        "narHash": "sha256-DrDRRycjqTLgvLvYCwoL78dUzreGI4Csp2jRg2QaNxw=",
-        "owner": "NickCao",
-        "repo": "knot-sys",
-        "rev": "a5f84c6c4404841be31fd026ea712f7c783db5d7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NickCao",
-        "repo": "knot-sys",
-        "type": "github"
-      }
-    },
     "lanzaboote": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -504,38 +481,13 @@
         "fn": "fn",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "knot-sys": "knot-sys",
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs",
         "ranet": "ranet",
         "ranet-ipsec": "ranet-ipsec",
         "resign": "resign",
-        "rust-overlay": "rust-overlay",
         "sops-nix": "sops-nix",
         "terrasops": "terrasops"
-      }
-    },
-    "rust-overlay": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1686882360,
-        "narHash": "sha256-6iWVGIdIzmx/CgXPVLPyyxxBhPGYMl8sG09S8hpQ6pc=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "b519b1d7a31f1bd35423990398adecc6f7dd4dd2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
       }
     },
     "sops-nix": {
