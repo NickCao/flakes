@@ -470,11 +470,5 @@ in
     };
   };
 
-  home.activation.installPackages = {
-    data = lib.mkForce "";
-    before = lib.mkForce [ ];
-    after = lib.mkForce [ ];
-  };
-
   home.stateVersion = "21.11";
 }
