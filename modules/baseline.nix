@@ -41,6 +41,7 @@ with lib;
       llmnr = "false";
       extraConfig = ''
         DNSStubListener=no
+        MulticastDNS=off
       '';
     };
 

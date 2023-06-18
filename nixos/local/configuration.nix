@@ -212,6 +212,9 @@
     resolved = {
       dnssec = "false";
       llmnr = "false";
+      extraConfig = ''
+        MulticastDNS=off
+      '';
     };
     restic.backups.persist = {
       repositoryFile = config.sops.secrets.restic-repo.path;
