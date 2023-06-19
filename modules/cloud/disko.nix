@@ -15,12 +15,11 @@
             type = "ef02";
             label = "BOOT";
             start = "0";
-            end = "1M";
+            end = "+1M";
           };
           root = {
             label = "ROOT";
-            start = "1M";
-            end = "100%";
+            end = "-0";
             content = {
               type = "btrfs";
               extraArgs = [ "-f" ];
