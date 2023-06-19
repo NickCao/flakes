@@ -9,17 +9,16 @@
       device = "/dev/vda";
       type = "disk";
       content = {
-        type = "table";
-        format = "gpt";
-        partitions = [
-          {
-            name = "boot";
+        type = "gpt";
+        partitions = {
+          boot = {
+            type = "ef02";
+            label = "BOOT";
             start = "0";
             end = "1M";
-            flags = [ "bios_grub" ];
-          }
-          {
-            name = "root";
+          };
+          root = {
+            label = "ROOT";
             start = "1M";
             end = "100%";
             content = {
@@ -31,8 +30,8 @@
                 "/persist" = { mountOptions = [ "compress=zstd" "noatime" ]; };
               };
             };
-          }
-        ];
+          };
+        };
       };
     };
     nodev = {
