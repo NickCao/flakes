@@ -19,12 +19,12 @@ in
   fileSystems."/persist" = mkMount "persist" // { neededForBoot = true; };
 
   fileSystems."/efi" = {
-    device = "/dev/disk/by-path/pci-0000:06:00.0-nvme-1-part1";
+    device = "/dev/disk/by-partlabel/ESP";
     fsType = "vfat";
   };
 
   boot.initrd.luks.devices.cryptroot = {
-    device = "/dev/disk/by-path/pci-0000:06:00.0-nvme-1-part2";
+    device = "/dev/disk/by-partlabel/CRYPTROOT";
     allowDiscards = true;
     bypassWorkqueues = true;
     crypttabExtraOpts = [ "same-cpu-crypt" "fido2-device=auto" ];
