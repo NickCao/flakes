@@ -27,6 +27,10 @@ in
     device = "/dev/disk/by-partlabel/CRYPTROOT";
     allowDiscards = true;
     bypassWorkqueues = true;
-    crypttabExtraOpts = [ "same-cpu-crypt" "fido2-device=auto" ];
+    crypttabExtraOpts = [
+      "same-cpu-crypt"
+      "submit-from-crypt-cpus"
+      "fido2-device=auto"
+    ];
   };
 }
