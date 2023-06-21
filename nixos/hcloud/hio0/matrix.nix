@@ -166,6 +166,7 @@ in
           "*" = "relaybot";
           "@nickcao:nichi.co" = "admin";
           "@lilydjwg:mozilla.org" = "admin";
+          "@i:steamedfish.org" = "user";
         };
         relaybot = {
           authless_portals = false;
