@@ -15,7 +15,9 @@
     };
   };
 
-  environment.variables.NIX_REMOTE = lib.mkForce "";
+  systemd.services.nix-daemon.serviceConfig.Environment = [
+    "TMPDIR=/var/tmp"
+  ];
 
   services.postgresql = {
     package = pkgs.postgresql_15;
