@@ -13,11 +13,11 @@
             "name": null,
             "owner": "NickCao",
             "repo": "bird",
-            "rev": "e8d316be602270c834bc6940d9492a4a0ff598e4",
-            "sha256": "sha256-kHt5RGgE4ABbd0rNEfQSIQ0qLj83XnGCu11nGTFxJQ8=",
+            "rev": "8cc318234442fc9dc1cdc465bacbfe03986f889b",
+            "sha256": "sha256-UlzgDwkyK+Jd22ly1iUyMjEZeVfJIEFN7CBcWf/zxns=",
             "type": "github"
         },
-        "version": "e8d316be602270c834bc6940d9492a4a0ff598e4"
+        "version": "8cc318234442fc9dc1cdc465bacbfe03986f889b"
     },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,

@@ -3,13 +3,13 @@
 {
   bird-babel-rtt = {
     pname = "bird-babel-rtt";
-    version = "e8d316be602270c834bc6940d9492a4a0ff598e4";
+    version = "8cc318234442fc9dc1cdc465bacbfe03986f889b";
     src = fetchFromGitHub {
       owner = "NickCao";
       repo = "bird";
-      rev = "e8d316be602270c834bc6940d9492a4a0ff598e4";
+      rev = "8cc318234442fc9dc1cdc465bacbfe03986f889b";
       fetchSubmodules = false;
-      sha256 = "sha256-kHt5RGgE4ABbd0rNEfQSIQ0qLj83XnGCu11nGTFxJQ8=";
+      sha256 = "sha256-UlzgDwkyK+Jd22ly1iUyMjEZeVfJIEFN7CBcWf/zxns=";
     };
     date = "2023-06-23";
   };
