@@ -229,12 +229,10 @@ in
     SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
     SOPS_GPG_EXEC = "resign-gpg";
     # cache
-    __GL_SHADER_DISK_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CARGO_HOME = "${config.xdg.cacheHome}/cargo";
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
-    LESSHISTFILE = "${config.xdg.stateHome}/lesshst";
     GNUPGHOME = (pkgs.writeTextDir "pubring.gpg" (builtins.readFile ./pubring.gpg)).outPath;
     # shit
     PYTHONSTARTUP = (
