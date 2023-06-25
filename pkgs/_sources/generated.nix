@@ -3,15 +3,15 @@
 {
   bird-babel-rtt = {
     pname = "bird-babel-rtt";
-    version = "8cc318234442fc9dc1cdc465bacbfe03986f889b";
+    version = "0b28efeace71a2c489b178a12b6aa6ed3e6ed4a4";
     src = fetchFromGitHub {
       owner = "NickCao";
       repo = "bird";
-      rev = "8cc318234442fc9dc1cdc465bacbfe03986f889b";
+      rev = "0b28efeace71a2c489b178a12b6aa6ed3e6ed4a4";
       fetchSubmodules = false;
-      sha256 = "sha256-UlzgDwkyK+Jd22ly1iUyMjEZeVfJIEFN7CBcWf/zxns=";
+      sha256 = "sha256-qOI7b3Ut4/JjnFOW+Cjt1ypWJdy2g95qizGgEpr6xTc=";
     };
-    date = "2023-06-23";
+    date = "2023-06-27";
   };
   fcitx5-pinyin-zhwiki = {
     pname = "fcitx5-pinyin-zhwiki";
