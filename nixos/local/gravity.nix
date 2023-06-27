@@ -29,71 +29,62 @@
 
   systemd.services.bird2.after = [ "network-online.target" ];
 
-  systemd.services.sing-box =
-    let
-      config = {
-        log = {
-          level = "info";
-        };
-        dns = {
-          servers = [
-            {
-              tag = "cloudflare";
-              address = "https://[2606:4700:4700::1111]/dns-query";
-              strategy = "prefer_ipv6";
-            }
-            {
-              tag = "local";
-              address = "local";
-              strategy = "prefer_ipv4";
-            }
-          ];
-          rules = [{
-            geosite = [ "cn" ];
-            server = "local";
-          }];
-          final = "cloudflare";
-        };
-        inbounds = [{
-          type = "mixed";
-          tag = "inbound";
-          listen = "127.0.0.1";
-          listen_port = 1080;
-          sniff = true;
-          sniff_override_destination = true;
-        }];
-        outbounds = [
+  services.sing-box = {
+    enable = true;
+    settings = {
+      log = {
+        level = "info";
+      };
+      dns = {
+        servers = [
           {
-            type = "direct";
-            tag = "gravity";
-            bind_interface = "gravity";
-            inet6_bind_address = "2a0c:b641:69c:99cc::1";
-            domain_strategy = "prefer_ipv6";
+            tag = "cloudflare";
+            address = "https://[2606:4700:4700::1111]/dns-query";
+            strategy = "prefer_ipv6";
           }
           {
-            type = "direct";
-            tag = "direct";
+            tag = "local";
+            address = "local";
+            strategy = "prefer_ipv4";
           }
         ];
-        route = {
-          geosite.path = "${pkgs.sing-geosite}/share/sing-box/geosite.db";
-          geoip.path = "${pkgs.sing-geoip}/share/sing-box/geoip.db";
-          rules = [{
-            geosite = [ "cn" ];
-            geoip = [ "cn" ];
-            outbound = "direct";
-          }];
-          final = "gravity";
-        };
+        rules = [{
+          geosite = [ "cn" ];
+          server = "local";
+        }];
+        final = "cloudflare";
       };
-    in
-    {
-      serviceConfig = {
-        DynamicUser = true;
-        ExecStart = "${pkgs.sing-box}/bin/sing-box run -c ${(pkgs.formats.json {}).generate "config.json" config}";
+      inbounds = [{
+        type = "mixed";
+        tag = "inbound";
+        listen = "127.0.0.1";
+        listen_port = 1080;
+        sniff = true;
+        sniff_override_destination = true;
+      }];
+      outbounds = [
+        {
+          type = "direct";
+          tag = "gravity";
+          bind_interface = "gravity";
+          inet6_bind_address = "2a0c:b641:69c:99cc::1";
+          domain_strategy = "prefer_ipv6";
+        }
+        {
+          type = "direct";
+          tag = "direct";
+        }
+      ];
+      route = {
+        rules = [{
+          geosite = [ "cn" ];
+          geoip = [ "cn" ];
+          outbound = "direct";
+        }];
+        final = "gravity";
       };
-      wantedBy = [ "multi-user.target" ];
     };
+  };
 
   systemd.network.networks.clat = {
     name = "clat";
