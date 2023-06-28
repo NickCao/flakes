@@ -61,10 +61,7 @@
     firewall.enable = false;
     useNetworkd = true;
     useDHCP = false;
-    wireless.iwd = {
-      enable = true;
-      package = pkgs.iwd-thu;
-    };
+    wireless.iwd.enable = true;
   };
   systemd.network.wait-online = {
     anyInterface = true;
@@ -122,9 +119,6 @@
       };
     };
     kernelPackages = pkgs.linuxPackages_latest;
-    extraModulePackages = with config.boot.kernelPackages; [
-      (callPackage "${inputs.dhack}/dhack.nix" { })
-    ];
     kernelParams = [
       "mitigations=off"
       "nowatchdog"
@@ -132,7 +126,7 @@
       "iommu=pt"
       # "intel_pstate=passive"
     ];
-    kernelModules = [ "ec_sys" "uhid" "kvm-intel" "dhack" ];
+    kernelModules = [ "ec_sys" "uhid" "kvm-intel" ];
     extraModprobeConfig = ''
       options i915 enable_guc=2
       options i915 enable_fbc=1
