@@ -11,7 +11,6 @@
     secrets = {
       passwd.neededForUsers = true;
       u2f = { mode = "0444"; };
-      "wireless/tsinghua" = { };
       "wireless/home" = { };
       "wireless/alt" = { };
     };
@@ -23,7 +22,6 @@
   };
 
   systemd.tmpfiles.rules = [
-    "C /var/lib/iwd/Tsinghua-Secure.8021x - - - - ${config.sops.secrets."wireless/tsinghua".path}"
     "C /var/lib/iwd/CMCC-39rG-5G.psk      - - - - ${config.sops.secrets."wireless/home".path}"
     "C /var/lib/iwd/CMCC-EGfY.psk         - - - - ${config.sops.secrets."wireless/alt".path}"
   ];
