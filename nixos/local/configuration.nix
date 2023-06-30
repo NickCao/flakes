@@ -234,6 +234,7 @@
       # videoDrivers = [ "nvidia" ];
     };
     stratis.enable = true;
+    bpftune.enable = true;
   };
 
   programs = {
