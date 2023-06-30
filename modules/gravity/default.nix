@@ -299,19 +299,13 @@ in
       sops.secrets.gravity_registry.sopsFile = ./secrets.yaml;
       systemd.tmpfiles.rules = [ "d /var/lib/gravity 0755 root root - -" ];
       systemd.services.gravity-registry = {
-        path = with pkgs; [ curl ];
+        path = with pkgs; [ curl jq coreutils ];
         script = ''
-          curl -sL "$BASE_URL/artifacts/combined.json" -o /var/lib/gravity/registry.json.new
-          curl -sL "$BASE_URL/artifacts/registry.json" -o /var/lib/gravity/ipsec.json.new
-          mv /var/lib/gravity/registry.json.new /var/lib/gravity/registry.json
-          mv /var/lib/gravity/ipsec.json.new /var/lib/gravity/ipsec.json
+          source ${config.sops.secrets.gravity_registry.path}
           /run/current-system/systemd/bin/systemctl reload --no-block gravity || true
           /run/current-system/systemd/bin/systemctl reload --no-block gravity-ipsec || true
         '';
-        serviceConfig = {
-          Type = "oneshot";
-          EnvironmentFile = config.sops.secrets.gravity_registry.path;
-        };
+        serviceConfig.Type = "oneshot";
       };
       systemd.timers.gravity-registry = {
         timerConfig = {
@@ -349,14 +343,14 @@ in
       };
       systemd.services.gravity-ipsec =
         let
-          command = "ranet -c /etc/ranet/config.json -r /var/lib/gravity/ipsec.json -k ${config.sops.secrets.ipsec.path}";
+          command = "ranet -c /etc/ranet/config.json -r /var/lib/gravity/registry.json -k ${config.sops.secrets.ipsec.path}";
         in
         {
           path = [ inputs.ranet-ipsec.packages.x86_64-linux.default pkgs.iproute2 ];
           script = "${command} up";
           reload = "${command} up";
           preStart = mkIf cfg.reload.enable ''
-            if [ ! -s /var/lib/gravity/ipsec.json ]; then
+            if [ ! -s /var/lib/gravity/registry.json ]; then
               /run/current-system/systemd/bin/systemctl start gravity-registry
             fi
           '';
