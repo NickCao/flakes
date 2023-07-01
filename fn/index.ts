@@ -13,7 +13,7 @@ for (const [key, value] of Object.entries(mapping)) {
   router.get(key, () => Response.redirect(value, 302));
 }
 
-router.get("/rait", () => fetch("file:///var/lib/gravity/registry.json"));
+router.get("/rait", () => fetch("file:///var/lib/gravity/combined.json"));
 router.get("/rants/:id", rants);
 router.all("*", () => new Response("Not Found", { status: 404 }));
 
