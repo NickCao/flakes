@@ -406,11 +406,6 @@ in
           hostname = "166.111.68.163";
           port = 2222;
         };
-        "rpi" = {
-          user = "root";
-          hostname = "rpi.nichi.link";
-          port = 8122;
-        };
         "hydra" = {
           user = "root";
           hostname = "k17-plct.nichi.link";

@@ -1,9 +1,4 @@
 creation_rules:
-  - path_regex: nixos/rpi/.*
-    pgp: >-
-      A1E513A77CC0D91C8806A4EB068A56CEF48FA2C1
-    age: >-
-      age18hysd09ftl8wmrfe24pf3m0qtnlend29q3va85tzmn3fuwut7vdq7v0h5h
   - pgp: >-
       A1E513A77CC0D91C8806A4EB068A56CEF48FA2C1
     age: >-

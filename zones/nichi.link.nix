@@ -26,7 +26,6 @@ dns.lib.toString "nichi.link" {
         rua = [ "mailto:postmaster@nichi.co" ];
       }];
     };
-    "rpi".CNAME = [ "rpi.dyn.nichi.link." ];
     "k17-plct".A = [ "110.238.111.26" ];
     "hydra".CNAME = [ "k17-plct.nichi.link." ];
   };
