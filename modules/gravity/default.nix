@@ -99,7 +99,7 @@ in
         script = "ranet -c ${cfg.config} up";
         reload = "ranet -c ${cfg.config} up";
         preStart = mkIf cfg.reload.enable ''
-          if [ ! -s /var/lib/gravity/registry.json ]; then
+          if [ ! -s /var/lib/gravity/combined.json ]; then
             /run/current-system/systemd/bin/systemctl start gravity-registry
           fi
         '';
