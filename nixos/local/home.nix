@@ -185,6 +185,8 @@ in
   };
   home.packages = with pkgs; [
     nix-update
+    nix-init
+    compsize
     uhk-agent
     rage
     resign
@@ -200,7 +202,6 @@ in
     mpv
     telegram-desktop
     nixpkgs-review
-    waypipe
     xdg-utils
     pavucontrol
     brightnessctl
