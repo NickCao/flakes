@@ -1,4 +1,4 @@
-{ pkgs, lib, config, modulesPath, self, inputs, ... }: {
+{ pkgs, config, inputs, ... }: {
 
   sops.secrets = {
     hydra = { group = "hydra"; mode = "0440"; };

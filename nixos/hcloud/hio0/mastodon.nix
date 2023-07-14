@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, ... }: {
 
   sops.secrets.mastodon = { restartUnits = [ "mastodon-web.service" ]; };
 

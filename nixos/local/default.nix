@@ -13,7 +13,7 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [
         self.overlays.default
-        (final: prev: {
+        (_final: prev: {
           ranet = inputs.ranet.packages.${system}.default;
           bird = prev.bird-babel-rtt;
           resign = inputs.resign.packages.${system}.default;

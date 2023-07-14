@@ -1,4 +1,4 @@
-{ pkgs, config, modulesPath, self, inputs, ... }: {
+{ pkgs, config, ... }: {
 
   cloud.services.meow.config = {
     ExecStart = "${pkgs.meow}/bin/meow --listen 127.0.0.1:8002 --base-url https://pb.nichi.co --data-dir \${STATE_DIRECTORY}";

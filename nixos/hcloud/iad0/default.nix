@@ -1,4 +1,4 @@
-{ pkgs, lib, config, modulesPath, self, inputs, data, ... }: {
+{ ... }: {
 
   imports = [
     ../common.nix

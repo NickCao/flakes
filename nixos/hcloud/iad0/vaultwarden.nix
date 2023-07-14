@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 let
   cfg = config.services.vaultwarden.config;
 in

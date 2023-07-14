@@ -1,4 +1,4 @@
-{ config, pkgs, lib, self, inputs, ... }:
+{ config, pkgs, self, inputs, ... }:
 let
   hasTag = tag: builtins.elem tag config.deployment.tags;
 in
@@ -16,7 +16,7 @@ in
   nixpkgs.overlays = [
     self.overlays.default
     inputs.fn.overlays.default
-    (final: prev: {
+    (_final: prev: {
       ranet = inputs.ranet.packages.${pkgs.system}.default;
       bird = prev.bird-babel-rtt;
     })

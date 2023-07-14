@@ -1,7 +1,7 @@
 { config, pkgs, lib, data, ... }:
 let
   cfg = config.services.prometheus;
-  targets = lib.mapAttrsToList (mame: node: node.fqdn) data.nodes ++ [
+  targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [
     "hydra.nichi.link"
   ];
 in
