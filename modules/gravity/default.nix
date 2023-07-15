@@ -301,6 +301,7 @@ in
       systemd.services.gravity-registry = {
         path = with pkgs; [ curl jq coreutils ];
         script = ''
+          set -euo pipefail
           source ${config.sops.secrets.gravity_registry.path}
           /run/current-system/systemd/bin/systemctl reload --no-block gravity || true
           /run/current-system/systemd/bin/systemctl reload --no-block gravity-ipsec || true
