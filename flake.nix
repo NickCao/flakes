@@ -122,6 +122,7 @@
             data.keys = [
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJNPLArhyazrFjK4Jt/ImHSzICvwKOk4f+7OEcv2HEb7"
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
+              "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIJmBRZdpd4ECKUaNje7h+TPnZ3xjUsyfpfC50+DMJ732AAAACHNzaDp0ZXN0"
             ];
           };
           nixpkgs = import inputs.nixpkgs {
