@@ -68,6 +68,10 @@ in
           criteria = { app_id = "lxqt-openssh-askpass"; };
           command = "floating enable";
         }
+        {
+          criteria = { class = "lxqt-openssh-askpass"; };
+          command = "floating enable";
+        }
       ];
       gaps = {
         inner = 5;

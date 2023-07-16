@@ -172,6 +172,12 @@
     };
   };
 
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+    askPassword = lib.getExe pkgs.lxqt.lxqt-openssh-askpass;
+  };
+
   systemd.services.nix-daemon.serviceConfig.Environment = [
     "https_proxy=http://127.0.0.1:1080"
     "http_proxy=http://127.0.0.1:1080"
