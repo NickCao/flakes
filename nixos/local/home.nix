@@ -274,13 +274,11 @@ in
       enable = true;
       userEmail = "nickcao@nichi.co";
       userName = "Nick Cao";
+      signing.key = "~/.ssh/id_ed25519_sk";
       extraConfig = {
         commit.gpgSign = true;
         gpg = {
           format = "ssh";
-          ssh.defaultKeyCommand = toString (pkgs.writeShellScript "key" ''
-            echo key::$(cat ~/.ssh/id_ed25519_sk.pub)
-          '');
           ssh.allowedSignersFile = toString (pkgs.writeText "allowed_signers" ''
           '');
         };
