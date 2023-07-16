@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   home-manager = {
     useGlobalPkgs = true;
@@ -172,11 +172,16 @@
     };
   };
 
-  programs.ssh.extraConfig = ''
-    Host *.nichi.link
-      StrictHostKeyChecking no
-      UserKnownHostsFile /dev/null
-  '';
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+    askPassword = lib.getExe pkgs.lxqt.lxqt-openssh-askpass;
+    extraConfig = ''
+      Host *.nichi.link
+        StrictHostKeyChecking no
+        UserKnownHostsFile /dev/null
+    '';
+  };
 
   systemd.services.nix-daemon.serviceConfig.Environment = [
     "https_proxy=http://127.0.0.1:1080"

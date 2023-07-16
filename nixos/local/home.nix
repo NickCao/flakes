@@ -64,6 +64,10 @@ in
           criteria = { app_id = "pavucontrol"; };
           command = "floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 40";
         }
+        {
+          criteria = { app_id = "lxqt-openssh-askpass"; };
+          command = "floating enable";
+        }
       ];
       gaps = {
         inner = 5;
@@ -227,7 +231,6 @@ in
 
   systemd.user.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
-    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/resign.ssh";
     SOPS_GPG_EXEC = "resign-gpg";
     # cache
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
@@ -242,21 +245,6 @@ in
         readline.write_history_file = lambda *args: None
       ''
     ).outPath;
-  };
-
-  systemd.user = {
-    services.resign = {
-      Install.WantedBy = [ "graphical-session.target" ];
-      Unit.PartOf = [ "graphical-session.target" ];
-      Unit.After = [ "graphical-session.target" ];
-      Service = {
-        Environment = [
-          "PATH=${lib.makeBinPath [ pkgs.pinentry-gtk2 ]}"
-          "GTK2_RC_FILES=${config.home.sessionVariables.GTK2_RC_FILES}"
-        ];
-        ExecStart = "${pkgs.resign}/bin/resign --listen %t/resign.ssh";
-      };
-    };
   };
 
   services.mako = {
@@ -290,7 +278,9 @@ in
         commit.gpgSign = true;
         gpg = {
           format = "ssh";
-          ssh.defaultKeyCommand = "ssh-add -L";
+          ssh.defaultKeyCommand = toString (pkgs.writeShellScript "key" ''
+            echo key::$(cat ~/.ssh/id_ed25519_sk.pub)
+          '');
           ssh.allowedSignersFile = toString (pkgs.writeText "allowed_signers" ''
           '');
         };
