@@ -404,6 +404,7 @@ in
         };
         "*.nichi.link" = {
           extraOptions = {
+            StrictHostKeyChecking = "no";
             UserKnownHostsFile = "/dev/null";
             LogLevel = "ERROR";
           };

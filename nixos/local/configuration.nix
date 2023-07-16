@@ -176,11 +176,6 @@
     startAgent = true;
     enableAskPassword = true;
     askPassword = lib.getExe pkgs.lxqt.lxqt-openssh-askpass;
-    extraConfig = ''
-      Host *.nichi.link
-        StrictHostKeyChecking no
-        UserKnownHostsFile /dev/null
-    '';
   };
 
   systemd.services.nix-daemon.serviceConfig.Environment = [
