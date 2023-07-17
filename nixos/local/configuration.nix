@@ -173,9 +173,8 @@
   };
 
   programs.ssh = {
+    package = pkgs.openssh-fido2;
     startAgent = true;
-    enableAskPassword = true;
-    askPassword = lib.getExe pkgs.lxqt.lxqt-openssh-askpass;
   };
 
   systemd.services.nix-daemon.serviceConfig.Environment = [
