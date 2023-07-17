@@ -322,6 +322,19 @@
 
   hardware.keyboard.uhk.enable = true;
 
+  environment.systemPackages = [ pkgs.keyutils ];
+  environment.etc."request-key.conf".text =
+    let
+      request-key = pkgs.writeShellScript "request-key" ''
+        export DISPLAY=:0
+        PIN=$(/run/wrappers/bin/sudo -u \#$1 -g \#$2 --preserve-env=DISPLAY ${lib.getExe pkgs.lxqt.lxqt-openssh-askpass} "$3")
+        printf "%s\0" "$PIN"
+      '';
+    in
+    ''
+      create user * * |${request-key} %u %g %c
+    '';
+
   system.stateVersion = "20.09";
   documentation.nixos.enable = false;
 }
