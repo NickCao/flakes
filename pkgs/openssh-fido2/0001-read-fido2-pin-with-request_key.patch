@@ -1,0 +1,38 @@
+From ec7a74422ad2c9f7159d0133edf4f7994a915812 Mon Sep 17 00:00:00 2001
+From: Nick Cao <nickcao@nichi.co>
+Date: Mon, 17 Jul 2023 09:27:35 +0800
+Subject: [PATCH] read fido2 pin with request_key
+
+---
+ ssh-agent.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/ssh-agent.c b/ssh-agent.c
+index 618bb198..781bd13d 100644
+--- a/ssh-agent.c
++++ b/ssh-agent.c
+@@ -90,6 +90,7 @@
+ #include "ssh-pkcs11.h"
+ #include "sk-api.h"
+ #include "myproposal.h"
++#include <keyutils.h>
+ 
+ #ifndef DEFAULT_ALLOWED_PROVIDERS
+ # define DEFAULT_ALLOWED_PROVIDERS "/usr/lib*/*,/usr/local/lib*/*"
+@@ -834,7 +835,12 @@ process_sign_request2(SocketEntry *e)
+ 			    (id->key->sk_flags & SSH_SK_USER_PRESENCE_REQD) ?
+ 			    " and confirm user presence " : " ",
+ 			    sshkey_type(id->key), fp);
+-			pin = read_passphrase(prompt, RP_USE_ASKPASS);
++
++			key_serial_t key_serial = request_key("user", fp, prompt, KEY_SPEC_PROCESS_KEYRING);
++			if (key_serial != -1) {
++				keyctl_read_alloc(key_serial, &pin);
++			}
++
+ 			retried = 1;
+ 			goto retry_pin;
+ 		}
+-- 
+2.41.0
+
