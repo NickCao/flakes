@@ -177,6 +177,10 @@
     startAgent = true;
   };
 
+  systemd.user.services.ssh-agent.serviceConfig.ExecStartPost = "${pkgs.writeShellScript "ssh-add" ''
+    SSH_AUTH_SOCK="$1" ${config.programs.ssh.package}/bin/ssh-add
+  ''} %t/ssh-agent";
+
   systemd.services.nix-daemon.serviceConfig.Environment = [
     "https_proxy=http://127.0.0.1:1080"
     "http_proxy=http://127.0.0.1:1080"
