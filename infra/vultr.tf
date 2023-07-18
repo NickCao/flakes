@@ -12,7 +12,7 @@ locals {
     }
     sea0 = {
       region = "sea"
-      plan   = "vc2-1c-1gb"
+      plan   = "vhp-1c-1gb-amd"
       tags   = ["vultr", "nameserver"]
     }
     lax0 = {
