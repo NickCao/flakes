@@ -17,7 +17,7 @@ locals {
     }
     lax0 = {
       region = "lax"
-      plan   = "vc2-1c-1gb"
+      plan   = "vhp-1c-1gb-amd"
       tags   = ["vultr"]
     }
     itm0 = {
