@@ -48,6 +48,7 @@ in
             global-module: mod-dnsproxy/cloudflare
           - id: member
             master: transfer
+            zonemd-verify: on
 
         zone:
           - domain: firstparty
