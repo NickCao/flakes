@@ -278,7 +278,7 @@ in
       enable = true;
       userEmail = "nickcao@nichi.co";
       userName = "Nick Cao";
-      signing.key = "~/.ssh/id_ed25519_sk";
+      signing.key = "~/.ssh/id_ed25519_sk_signing";
       extraConfig = {
         commit.gpgSign = true;
         gpg = {
