@@ -88,7 +88,6 @@
   };
 
   boot = {
-    binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
     tmp.useTmpfs = true;
     initrd = {
       kernelModules = [ "i915" ];
