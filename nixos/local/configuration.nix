@@ -177,7 +177,8 @@
   };
 
   systemd.user.services.ssh-agent.serviceConfig.ExecStartPost = "${pkgs.writeShellScript "ssh-add" ''
-    SSH_AUTH_SOCK="$1" ${config.programs.ssh.package}/bin/ssh-add
+    shopt -s extglob
+    SSH_AUTH_SOCK="$1" ${config.programs.ssh.package}/bin/ssh-add ~/.ssh/id_!(*.pub)
   ''} %t/ssh-agent";
 
   systemd.services.nix-daemon.serviceConfig.Environment = [
