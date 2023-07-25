@@ -251,41 +251,52 @@ in
     });
   };
 
-  cloud.caddy.settings.apps.http.servers.default.routes = [{
-    match = [{
-      host = [ "matrix.nichi.co" ];
-    }];
-    handle = [{
-      handler = "subroute";
-      routes = [
-        {
-          match = [{
-            path = [ "/_matrix/*" "/_synapse/*" ];
-          }];
-          handle = [{
-            handler = "reverse_proxy";
-            upstreams = [{ dial = "127.0.0.1:8196"; }];
-          }];
-        }
-        {
-          handle = [
-            {
-              handler = "headers";
-              response.set = {
-                X-Frame-Options = [ "SAMEORIGIN" ];
-                X-Content-Type-Options = [ "nosniff" ];
-                X-XSS-Protection = [ "1; mode=block" ];
-                Content-Security-Policy = [ "frame-ancestors 'self'" ];
-              };
-            }
-            {
-              handler = "file_server";
-              root = "${pkgs.element-web.override { inherit conf; }}";
-            }
-          ];
-        }
-      ];
-    }];
-  }];
+  cloud.caddy.settings.apps.http.servers.default.routes = [
+    {
+      match = [{
+        host = [ "syncv3.nichi.co" ];
+      }];
+      handle = [{
+        handler = "reverse_proxy";
+        upstreams = [{ dial = config.services.matrix-synapse.sliding-sync.settings.SYNCV3_BINDADDR; }];
+      }];
+    }
+    {
+      match = [{
+        host = [ "matrix.nichi.co" ];
+      }];
+      handle = [{
+        handler = "subroute";
+        routes = [
+          {
+            match = [{
+              path = [ "/_matrix/*" "/_synapse/*" ];
+            }];
+            handle = [{
+              handler = "reverse_proxy";
+              upstreams = [{ dial = "127.0.0.1:8196"; }];
+            }];
+          }
+          {
+            handle = [
+              {
+                handler = "headers";
+                response.set = {
+                  X-Frame-Options = [ "SAMEORIGIN" ];
+                  X-Content-Type-Options = [ "nosniff" ];
+                  X-XSS-Protection = [ "1; mode=block" ];
+                  Content-Security-Policy = [ "frame-ancestors 'self'" ];
+                };
+              }
+              {
+                handler = "file_server";
+                root = "${pkgs.element-web.override { inherit conf; }}";
+              }
+            ];
+          }
+        ];
+      }];
+    }
+  ];
 
 }

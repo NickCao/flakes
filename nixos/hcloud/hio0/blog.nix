@@ -34,6 +34,9 @@
           "m.homeserver" = {
             "base_url" = config.services.matrix-synapse.settings.public_baseurl;
           };
+          "org.matrix.msc3575.proxy" = {
+            "url" = "https://syncv3.nichi.co";
+          };
         };
       }];
     }
