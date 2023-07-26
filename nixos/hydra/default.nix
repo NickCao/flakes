@@ -13,6 +13,8 @@
     self.overlays.default
   ];
 
+  nix.settings.nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
+
   imports = [
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
