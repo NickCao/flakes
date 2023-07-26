@@ -20,7 +20,7 @@ with lib;
     };
 
     nix = {
-      nrBuildUsers = 0;
+      channel.enable = false;
       gc = {
         automatic = true;
         options = "--delete-older-than 14d";

@@ -28,6 +28,7 @@
 
   nix = {
     package = pkgs.nixVersions.stable;
+    channel.enable = false;
     settings = {
       trusted-users = [ "root" "nickcao" ];
       substituters = [ "https://mirrors.bfsu.edu.cn/nix-channels/store" "https://cache.nichi.co" ];
@@ -277,20 +278,22 @@
   '';
   security.polkit.enable = true;
 
-  fonts.enableDefaultFonts = false;
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-    noto-fonts-emoji
-    jetbrains-mono
-    (nerdfonts.override { fonts = [ "JetBrainsMono" "RobotoMono" ]; })
-  ];
-  fonts.fontconfig.defaultFonts = pkgs.lib.mkForce {
-    serif = [ "Noto Serif" "Noto Serif CJK SC" ];
-    sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
-    monospace = [ "JetBrains Mono" ];
-    emoji = [ "Noto Color Emoji" ];
+  fonts = {
+    enableDefaultPackages = false;
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-emoji
+      jetbrains-mono
+      (nerdfonts.override { fonts = [ "JetBrainsMono" "RobotoMono" ]; })
+    ];
+    fontconfig.defaultFonts = pkgs.lib.mkForce {
+      serif = [ "Noto Serif" "Noto Serif CJK SC" ];
+      sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
+      monospace = [ "JetBrains Mono" ];
+      emoji = [ "Noto Color Emoji" ];
+    };
   };
 
   environment.persistence."/persist" = {
