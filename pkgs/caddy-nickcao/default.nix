@@ -9,11 +9,11 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "NickCao";
     repo = "caddy";
-    rev = "a7512db8be3ad5c3fc7a7d30e77f35f810fc44ce";
-    hash = "sha256-ROQcCaTNsV6XQq59kZp/Fb9a84xtF3O3Sx24WbXJNos=";
+    rev = "33a65b3dac03b361099ab0e8fdccfff6537a181e";
+    hash = "sha256-VsadybCr8zbuUy58LUrhnw+ssYZnFAXl3cqoJ47mZHY=";
   };
 
-  vendorHash = "sha256-12JtK1hLkEwnTzS8hQdYN8G6eXZbsrVsyQBaedA3P4c=";
+  vendorHash = "sha256-Pg8x2veJsnGlUt18CoMnDjvF56YQ+8X+jeuYcX8kHNo=";
 
   subPackages = [ "cmd/caddy" ];
 
