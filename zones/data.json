@@ -22,6 +22,18 @@
     "type": [
       "object",
       {
+        "fra0": [
+          "object",
+          {
+            "fqdn": "string",
+            "ipv4": "string",
+            "ipv6": "string",
+            "tags": [
+              "list",
+              "string"
+            ]
+          }
+        ],
         "hio0": [
           "object",
           {
@@ -109,6 +121,14 @@
       }
     ],
     "value": {
+      "fra0": {
+        "fqdn": "fra0.nichi.link",
+        "ipv4": "192.248.176.225",
+        "ipv6": "2001:19f0:6c01:01f5:5400:04ff:fe87:0ff5",
+        "tags": [
+          "vultr"
+        ]
+      },
       "hio0": {
         "fqdn": "hio0.nichi.link",
         "ipv4": "5.78.46.154",
