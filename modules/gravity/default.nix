@@ -126,6 +126,9 @@ in
       };
 
       systemd.network.enable = true;
+
+      systemd.network.config.networkConfig.ManageForeignRoutes = false;
+
       systemd.network.netdevs = {
         gravity = {
           netdevConfig = {
