@@ -1,5 +1,7 @@
 { pkgs, config, ... }: {
 
+  sops.secrets.caddy = { };
+
   cloud.services.fn.config = {
     ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --allow-read --no-check ${../../../fn}/index.ts";
     MemoryDenyWriteExecute = false;

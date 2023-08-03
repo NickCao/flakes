@@ -1,13 +1,12 @@
 { config, ... }:
 {
-  imports = [ ../common.nix ./services.nix ];
+  imports = [ ../common.nix ];
+
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    secrets = {
-      ranet.reloadUnits = [ "gravity.service" ];
-      caddy = { };
-    };
+    secrets.ranet.reloadUnits = [ "gravity.service" ];
   };
+
   networking.hostName = "nrt0";
   services.gravity = {
     enable = true;
