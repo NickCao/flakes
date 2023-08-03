@@ -31,7 +31,8 @@ in
     };
     reload.enable = mkEnableOption "auto reload registry";
     config = mkOption {
-      type = types.path;
+      type = types.nullOr types.path;
+      default = null;
       description = "path to ranet config";
     };
     table = mkOption {
@@ -94,25 +95,6 @@ in
         "net.ipv4.raw_l3mdev_accept" = 0;
       };
 
-      systemd.services.gravity = {
-        path = with pkgs; [ ranet ];
-        script = "ranet -c ${cfg.config} up";
-        reload = "ranet -c ${cfg.config} up";
-        preStart = mkIf cfg.reload.enable ''
-          if [ ! -s /var/lib/gravity/combined.json ]; then
-            /run/current-system/systemd/bin/systemctl start gravity-registry
-          fi
-        '';
-        preStop = "ranet -c ${cfg.config} down";
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
-      };
-
       systemd.services.gravity-rules = {
         path = with pkgs;[ iproute2 coreutils ];
         script = ''
@@ -158,6 +140,26 @@ in
           name = "gravity";
           address = cfg.address;
         };
+      };
+    })
+    (mkIf (cfg.config != null) {
+      systemd.services.gravity = {
+        path = with pkgs; [ ranet ];
+        script = "ranet -c ${cfg.config} up";
+        reload = "ranet -c ${cfg.config} up";
+        preStart = mkIf cfg.reload.enable ''
+          if [ ! -s /var/lib/gravity/combined.json ]; then
+            /run/current-system/systemd/bin/systemctl start gravity-registry
+          fi
+        '';
+        preStop = "ranet -c ${cfg.config} down";
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+        };
+        wants = [ "network-online.target" ];
+        after = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
       };
     })
     (mkIf cfg.bird.enable {
