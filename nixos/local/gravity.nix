@@ -1,11 +1,8 @@
-{ config, pkgs, ... }:
-{
-  sops.secrets.ranet.reloadUnits = [ "gravity.service" ];
+{ pkgs, ... }: {
 
   services.gravity = {
     enable = true;
     reload.enable = true;
-    config = config.sops.secrets.ranet.path;
     address = [ "2a0c:b641:69c:99cc::1/128" ];
     bird = {
       enable = true;
