@@ -23,7 +23,7 @@
     ipsec = {
       enable = true;
       organization = "nickcao";
-      commonName = "sea0";
+      commonName = config.networking.hostName;
       port = 13000;
       interfaces = [ "ens3" ];
       endpoints = [

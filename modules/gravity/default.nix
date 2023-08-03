@@ -366,6 +366,7 @@ in
           wants = [ "network-online.target" "strongswan-swanctl.service" ];
           after = [ "network-online.target" "strongswan-swanctl.service" ];
           wantedBy = [ "multi-user.target" ];
+          reloadTriggers = [ config.environment.etc."ranet/config.json".source ];
         };
       services.strongswan-swanctl = {
         enable = true;

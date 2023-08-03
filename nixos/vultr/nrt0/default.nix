@@ -25,7 +25,7 @@
     ipsec = {
       enable = true;
       organization = "nickcao";
-      commonName = "nrt0";
+      commonName = config.networking.hostName;
       port = 13000;
       interfaces = [ "ens3" ];
       endpoints = [
