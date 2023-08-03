@@ -90,7 +90,10 @@ in
         "net.ipv6.conf.all.forwarding" = 1;
         "net.ipv4.conf.all.forwarding" = 1;
         # https://www.kernel.org/doc/html/latest/networking/vrf.html#applications
-        "net.ipv4.tcp_l3mdev_accept" = 1;
+        # established sockets will be created in the VRF based on the ingress interface
+        # in case ingress traffic comes from inside the VRF targeting VRF external addresses
+        # the connection would silently fail
+        "net.ipv4.tcp_l3mdev_accept" = 0;
         "net.ipv4.udp_l3mdev_accept" = 0;
         "net.ipv4.raw_l3mdev_accept" = 0;
       };
