@@ -1,21 +1,20 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
 
-  sops.secrets.naive = {
-    sopsFile = ./secrets.yaml;
-    restartUnits = [ "caddy.service" ];
+  sops.secrets = {
+    tuic-cfg = { sopsFile = ./secrets.yaml; restartUnits = [ "tuic.service" ]; };
+    tuic-crt = { sopsFile = ./secrets.yaml; restartUnits = [ "tuic.service" ]; };
+    tuic-key = { sopsFile = ./secrets.yaml; restartUnits = [ "tuic.service" ]; };
   };
 
-  systemd.services.caddy.serviceConfig.EnvironmentFile = [ config.sops.secrets.naive.path ];
-
-  cloud.caddy.settings.apps.http.servers.default.routes = [{
-    match = [{
-      header = { sometimes = [ "{env.NAIVE}" ]; };
-    }];
-    handle = [{
-      handler = "forward_proxy";
-      hide_ip = true;
-      hide_via = true;
-    }];
-  }];
+  cloud.services.tuic = {
+    config = {
+      ExecStart = "${pkgs.tuic}/bin/tuic-server -c %d/cfg";
+      LoadCredential = [
+        "cfg:${config.sops.secrets.tuic-cfg.path}"
+        "crt:${config.sops.secrets.tuic-crt.path}"
+        "key:${config.sops.secrets.tuic-key.path}"
+      ];
+    };
+  };
 
 }
