@@ -153,15 +153,13 @@ in
         path = with pkgs; [ ranet ];
         script = "ranet -c ${cfg.config} up";
         reload = "ranet -c ${cfg.config} up";
-        preStart = mkIf cfg.reload.enable ''
-          if [ ! -s /var/lib/gravity/combined.json ]; then
-            /run/current-system/systemd/bin/systemctl start gravity-registry
-          fi
-        '';
         preStop = "ranet -c ${cfg.config} down";
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
+        };
+        unitConfig = {
+          AssertFileNotEmpty = "/var/lib/gravity/combined.json";
         };
         wants = [ "network-online.target" ];
         after = [ "network-online.target" ];
@@ -310,8 +308,8 @@ in
         script = ''
           set -euo pipefail
           source ${config.sops.secrets.gravity_registry.path}
-          /run/current-system/systemd/bin/systemctl reload --no-block gravity || true
-          /run/current-system/systemd/bin/systemctl reload --no-block gravity-ipsec || true
+          /run/current-system/systemd/bin/systemctl reload-or-restart --no-block gravity || true
+          /run/current-system/systemd/bin/systemctl reload-or-restart --no-block gravity-ipsec || true
         '';
         serviceConfig.Type = "oneshot";
       };
@@ -357,15 +355,13 @@ in
           path = [ inputs.ranet-ipsec.packages.x86_64-linux.default pkgs.iproute2 ];
           script = "${command} up";
           reload = "${command} up";
-          preStart = mkIf cfg.reload.enable ''
-            if [ ! -s /var/lib/gravity/registry.json ]; then
-              /run/current-system/systemd/bin/systemctl start gravity-registry
-            fi
-          '';
           preStop = "${command} down";
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
+          };
+          unitConfig = {
+            AssertFileNotEmpty = "/var/lib/gravity/registry.json";
           };
           bindsTo = [ "strongswan-swanctl.service" ];
           wants = [ "network-online.target" "strongswan-swanctl.service" ];
