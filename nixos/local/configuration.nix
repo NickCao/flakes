@@ -63,14 +63,7 @@
     ignoredInterfaces = [ "gravity" ];
   };
   systemd.network.networks = {
-    "10-wlan0-home" = {
-      name = "wlan0";
-      DHCP = "yes";
-      matchConfig.SSID = [ "CMCC-39rG" "CMCC-39rG-5G" ];
-      dhcpV4Config.RouteMetric = 2048;
-      networkConfig.IPv6AcceptRA = false;
-    };
-    "11-wlan0" = {
+    "10-wlan0" = {
       name = "wlan0";
       DHCP = "yes";
       dhcpV4Config.RouteMetric = 2048;
