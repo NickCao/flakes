@@ -262,7 +262,6 @@ in
         name = "divi";
         routes = [
           { routeConfig = { Destination = cfg.divi.prefix; Table = cfg.table; }; }
-          { routeConfig.Destination = cfg.divi.prefix; }
           { routeConfig.Destination = cfg.divi.dynamic-pool; }
         ];
       };
