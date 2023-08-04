@@ -405,6 +405,7 @@ in
           port = 9022;
         };
         "*.nichi.link" = {
+          user = "root";
           extraOptions = {
             StrictHostKeyChecking = "no";
             UserKnownHostsFile = "/dev/null";
