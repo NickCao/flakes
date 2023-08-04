@@ -177,7 +177,7 @@ in
           ${optionalString cfg.bird.exit.enable ''
           protocol kernel {
             ipv6 {
-              export all;
+              export where proto = "announce";
               import all;
             };
             learn;
@@ -213,6 +213,7 @@ in
               hello interval 20 s;
               rtt cost 1024;
               rtt max 1024 ms;
+              rx buffer 2000;
             };
             interface "gn*" {
               type tunnel;
@@ -221,6 +222,7 @@ in
               hello interval 20 s;
               rtt cost 1024;
               rtt max 1024 ms;
+              rx buffer 2000;
             };
           }
 
