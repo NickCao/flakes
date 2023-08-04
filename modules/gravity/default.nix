@@ -315,7 +315,7 @@ in
       };
       systemd.timers.gravity-registry = {
         timerConfig = {
-          OnCalendar = "hourly";
+          OnCalendar = "*:0/15";
         };
         wantedBy = [ "timers.target" ];
       };
