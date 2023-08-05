@@ -230,7 +230,6 @@ in
     sops
     restic
     libarchive
-    windows-run
   ];
 
   systemd.user.sessionVariables = {
