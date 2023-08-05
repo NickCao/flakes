@@ -221,7 +221,6 @@ in
         [
           (mkGateway "archlinux-cn")
           (mkGateway "archlinux-cn-offtopic")
-          (mkGateway "archlinux-cn-game")
         ];
       irc = {
         libera = {
