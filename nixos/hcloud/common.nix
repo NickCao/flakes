@@ -43,9 +43,9 @@
   };
 
   services.restic.backups.persist = {
-    repositoryFile = config.sops.secrets.restic-repo.path;
+    repository = "rclone:rsyncnet:backup";
     passwordFile = config.sops.secrets.restic-pass.path;
-    environmentFile = config.sops.secrets.restic-envs.path;
+    rcloneConfigFile = "/etc/rclone.conf";
     paths = [ "/persist" ];
     timerConfig = {
       OnCalendar = "daily";
