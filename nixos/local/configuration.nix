@@ -207,16 +207,6 @@
         MulticastDNS=off
       '';
     };
-    restic.backups.persist = {
-      repository = "rclone:rsyncnet:backup";
-      passwordFile = config.sops.secrets.restic-pass.path;
-      rcloneConfigFile = "/etc/rclone.conf";
-      paths = [ "/persist" ];
-      extraBackupArgs = [ "--exclude-caches" ];
-      timerConfig = {
-        OnBootSec = "15min";
-      };
-    };
     pcscd.enable = true;
     fstrim.enable = true;
     logind.lidSwitch = "ignore";

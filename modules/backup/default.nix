@@ -10,28 +10,44 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    environment.etc."rclone.conf".source = (pkgs.formats.ini { }).generate "rclone.conf" {
-      rsyncnet = rec {
-        type = "sftp";
-        host = "${user}.rsync.net";
-        user = "fm1622";
-        key_file = config.sops.secrets.restic-keys.path;
-        # see https://forum.rclone.org/t/rclone-fails-ssh-handshakes-with-rsync-nets-sftp-when-a-known-hosts-file-is-specified/29206
-        known_hosts_file = pkgs.writeText "known_hosts" ''
-          ${host} ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNKxjzXzYdLwYoXcT/lRlxNzfHdGkr0pZDLk1tiPvLnbec1st3UjYq8HgYE1c/ko0VqINCR1uarlObpKpmazVHc=
-          ${host} ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINdUkGe6kKn5ssz4WRZKjcws0InbQqZayenzk9obmP1z
-        '';
-        shell_type = "unix";
-        md5sum_command = "md5 -r";
-        sha1sum_command = "sha1 -r";
-        chunk_size = "255k";
-        concurrency = 128;
-      };
+    programs.ssh = {
+      extraConfig = ''
+        Host rsyncnet
+          HostName     fm1622.rsync.net
+          User         fm1622
+          IdentityFile ${config.sops.secrets.restic-keys.path}
+      '';
+      knownHosts."fm1622.rsync.net".publicKey = ''
+        ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINdUkGe6kKn5ssz4WRZKjcws0InbQqZayenzk9obmP1z
+      '';
     };
 
     sops.secrets = {
       restic-pass = { sopsFile = ./secrets.yaml; };
       restic-keys = { sopsFile = ./secrets.yaml; };
+    };
+
+    services.restic.backups.persist = {
+      package = pkgs.restic-hpn;
+      repository = "sftp://dummy.invalid/backup";
+      passwordFile = config.sops.secrets.restic-pass.path;
+      paths = [ "/persist" ];
+      extraBackupArgs = [
+        "-o sftp.command='${pkgs.openssh_hpn}/bin/ssh rsyncnet -s sftp'"
+        "--one-file-system"
+        "--exclude-caches"
+        "--no-scan"
+      ];
+      timerConfig = {
+        OnCalendar = "daily";
+        RandomizedDelaySec = "4h";
+        FixedRandomDelay = true;
+        Persistent = true;
+      };
+    };
+
+    systemd.services.restic-backups-persist = {
+      serviceConfig.Environment = [ "GOGC=20" ];
     };
 
     environment.systemPackages = [ pkgs.restic ];

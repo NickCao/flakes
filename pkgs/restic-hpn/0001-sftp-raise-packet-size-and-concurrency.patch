@@ -1,28 +1,39 @@
-From 68aca45d3c4c49bfdb4139adf2ce562a8e66eccc Mon Sep 17 00:00:00 2001
+From 9f57f4371731ef0ff784ea47a9bbc87de9a87faf Mon Sep 17 00:00:00 2001
 From: Nick Cao <nickcao@nichi.co>
 Date: Sun, 6 Aug 2023 16:11:38 +0800
-Subject: [PATCH] sftp: raise packet size and concurrency
+Subject: [PATCH] sftp: raise packet size and concurrency, enable concurrent
+ write
 
 ---
- internal/backend/sftp/sftp.go | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ internal/backend/sftp/sftp.go | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/internal/backend/sftp/sftp.go b/internal/backend/sftp/sftp.go
-index 3e127ef05..6cca14528 100644
+index 3e127ef05..d84ef9ada 100644
 --- a/internal/backend/sftp/sftp.go
 +++ b/internal/backend/sftp/sftp.go
-@@ -102,7 +102,10 @@ func startClient(cfg Config) (*SFTP, error) {
+@@ -102,7 +102,11 @@ func startClient(cfg Config) (*SFTP, error) {
  	}()
  
  	// open the SFTP session
 -	client, err := sftp.NewClientPipe(rd, wr)
 +	client, err := sftp.NewClientPipe(rd, wr,
++		sftp.UseConcurrentWrites(true),
 +		sftp.MaxConcurrentRequestsPerFile(256),
 +		sftp.MaxPacketUnchecked(261120),
 +	)
  	if err != nil {
  		return nil, errors.Errorf("unable to start the sftp session, error: %v", err)
  	}
+@@ -348,7 +352,7 @@ func (r *SFTP) Save(_ context.Context, h restic.Handle, rd restic.RewindReader)
+ 	}()
+ 
+ 	// save data, make sure to use the optimized sftp upload method
+-	wbytes, err := f.ReadFrom(rd)
++	wbytes, err := f.ReadFromWithConcurrency(rd, 0)
+ 	if err != nil {
+ 		_ = f.Close()
+ 		err = r.checkNoSpace(dirname, rd.Length(), err)
 -- 
 2.41.0
 

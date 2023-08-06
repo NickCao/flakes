@@ -38,20 +38,6 @@
     fileSystems = [ "/persist" ];
   };
 
-  systemd.services.restic-backups-persist = {
-    serviceConfig.Environment = [ "GOGC=20" ];
-  };
-
-  services.restic.backups.persist = {
-    repository = "rclone:rsyncnet:backup";
-    passwordFile = config.sops.secrets.restic-pass.path;
-    rcloneConfigFile = "/etc/rclone.conf";
-    paths = [ "/persist" ];
-    timerConfig = {
-      OnCalendar = "daily";
-    };
-  };
-
   networking = {
     domain = "nichi.link";
     useDHCP = false;
