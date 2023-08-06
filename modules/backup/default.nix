@@ -30,9 +30,7 @@ in
     };
 
     sops.secrets = {
-      restic-repo = { sopsFile = ./secrets.yaml; };
       restic-pass = { sopsFile = ./secrets.yaml; };
-      restic-envs = { sopsFile = ./secrets.yaml; };
       restic-keys = { sopsFile = ./secrets.yaml; };
     };
 
