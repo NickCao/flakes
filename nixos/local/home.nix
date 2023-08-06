@@ -194,6 +194,7 @@ in
   home.packages = with pkgs; [
     nix-update
     nix-init
+    nixd
     compsize
     uhk-agent
     rage
@@ -214,7 +215,6 @@ in
     pavucontrol
     brightnessctl
     ripgrep
-    nil
     ncdu
     mode
     yubikey-manager
