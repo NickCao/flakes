@@ -37,6 +37,7 @@ in
         "--one-file-system"
         "--exclude-caches"
         "--no-scan"
+        "--retry-lock 2h"
       ];
       timerConfig = {
         OnCalendar = "daily";
