@@ -15,11 +15,16 @@ vim.g.everforest_background = 'soft'
 vim.cmd.colorscheme('everforest')
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local servers = { 'gopls', 'rust_analyzer', 'nixd', 'clangd', 'texlab' }
+local servers = { 'gopls', 'rust_analyzer', 'nil_ls', 'clangd', 'texlab' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     capabilities = capabilities,
     settings = {
+      ['nil'] = {
+        formatting = {
+          command = { 'nixpkgs-fmt' }
+        }
+      },
       texlab = {
         build = {
           executable = 'tectonic',
