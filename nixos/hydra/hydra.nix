@@ -7,12 +7,12 @@
   };
 
   nix = {
-    settings = {
+    settings = rec {
       trusted-users = [ "root" ];
       auto-optimise-store = true;
       allowed-uris = [ "https://github.com" "https://gitlab.com" ];
-      max-jobs = 8;
-      cores = 8;
+      max-jobs = 2;
+      cores = 64 / max-jobs;
     };
   };
 
