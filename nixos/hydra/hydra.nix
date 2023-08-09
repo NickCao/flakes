@@ -11,7 +11,7 @@
       trusted-users = [ "root" ];
       auto-optimise-store = true;
       allowed-uris = [ "https://github.com" "https://gitlab.com" ];
-      max-jobs = 2;
+      max-jobs = 8;
       cores = 64 / max-jobs;
     };
   };
