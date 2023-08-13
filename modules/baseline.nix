@@ -47,6 +47,8 @@ with lib;
 
     users.mutableUsers = false;
 
+    zramSwap.enable = true;
+
     programs.command-not-found.enable = false;
     documentation.nixos.enable = lib.mkForce false;
   };
