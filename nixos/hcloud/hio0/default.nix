@@ -4,7 +4,6 @@
     ../common.nix
     ./blog.nix
     ./matrix.nix
-    ./services.nix
     ./pb.nix
     ./mastodon.nix
     ./keycloak.nix
