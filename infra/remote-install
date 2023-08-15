@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+
+import subprocess
+import tempfile
+import shutil
+import os
+import pathlib
+
+nix = shutil.which("nix")
+ssh = shutil.which("ssh")
+
+hostname = "fra0"
+host = "fra0.nichi.link"
+
+with tempfile.TemporaryDirectory() as tmpdir:
+    tmpdir = pathlib.Path(tmpdir)
+
+    def build(attr):
+        outlink = tmpdir / attr
+
+        subprocess.run(
+            [
+                nix,
+                "build",
+                f".#nixosConfigurations.{hostname}.config.system.build.{attr}",
+                "--out-link",
+                outlink,
+            ]
+        )
+
+        return os.path.realpath(outlink)
+
+    disko = build("diskoScript")
+    toplevel = build("toplevel")
+
+    subprocess.run([nix, "copy", "--no-check-sigs", "--to", f"ssh-ng://{host}", disko])
+    subprocess.run([ssh, host, disko])
+
+    subprocess.run(
+        [
+            nix,
+            "copy",
+            "--no-check-sigs",
+            "--to",
+            f"ssh-ng://{host}?remote-store=local?root=/mnt",
+            toplevel,
+        ]
+    )
+
+    subprocess.run(
+        [
+            ssh,
+            host,
+            "nixos-install",
+            "--root",
+            "/mnt",
+            "--system",
+            toplevel,
+            "--no-channel-copy",
+            "--no-root-passwd",
+        ]
+    )
