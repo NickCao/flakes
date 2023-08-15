@@ -14,11 +14,6 @@ variable "plan" {
   type = string
 }
 
-variable "userdata" {
-  type      = string
-  sensitive = true
-}
-
 variable "tags" {
   type = list(string)
 }
@@ -47,7 +42,6 @@ resource "vultr_instance" "server" {
   plan             = var.plan
   os_id            = 159
   script_id        = vultr_startup_script.script.id
-  user_data        = var.userdata
   enable_ipv6      = true
   activation_email = false
   ddos_protection  = false

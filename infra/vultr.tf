@@ -40,6 +40,5 @@ module "vultr" {
   fqdn     = "${each.key}.nichi.link"
   region   = each.value.region
   plan     = each.value.plan
-  userdata = local.secrets.nixos.key
   tags     = each.value.tags
 }
