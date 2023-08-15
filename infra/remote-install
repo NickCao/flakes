@@ -22,6 +22,7 @@ args = parser.parse_args()
 
 nix = shutil.which("nix")
 ssh = shutil.which("ssh")
+sops = shutil.which("sops")
 
 with tempfile.TemporaryDirectory() as tmpdir:
     tmpdir = pathlib.Path(tmpdir)
@@ -89,12 +90,27 @@ with tempfile.TemporaryDirectory() as tmpdir:
     )
 
     logging.info(f"copying key to {args.name}")
+    key = subprocess.run(
+        [
+            sops,
+            "-d",
+            "--extract",
+            '["nixos"]["key"]',
+            "secrets.yaml",
+        ],
+        stdout=subprocess.PIPE,
+        check=True,
+    )
     subprocess.run(
         [
             ssh,
             args.host,
-            "sh -c 'mkdir -p /mnt/persist/var/lib && (umask 0077 && curl -s http://169.254.169.254/latest/user-data -o /mnt/persist/var/lib/sops.key)'",
+            "install",
+            "-Dm400",
+            "/dev/stdin",
+            "/mnt/persist/var/lib/sops.key",
         ],
+        input=key.stdout,
         check=True,
     )
 
