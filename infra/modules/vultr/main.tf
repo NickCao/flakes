@@ -58,10 +58,6 @@ resource "vultr_instance" "server" {
   ddos_protection  = false
   hostname         = var.fqdn
   label            = var.hostname
-
-  provisioner "local-exec" {
-    command = "./remote-install --name ${var.hostname} --host ${self.main_ip}"
-  }
 }
 
 resource "vultr_reverse_ipv4" "reverse_ipv4" {
