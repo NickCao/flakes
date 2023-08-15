@@ -45,12 +45,20 @@ with tempfile.TemporaryDirectory() as tmpdir:
         return os.path.realpath(outlink)
 
     disko = build("diskoScript")
-
     toplevel = build("toplevel")
+    install = build("nixos-install")
 
-    logging.info(f"copying diskoScript to {args.name}")
+    logging.info(f"copying diskoScript and nixos-install to {args.name}")
     subprocess.run(
-        [nix, "copy", "--no-check-sigs", "--to", f"ssh-ng://{args.host}", disko],
+        [
+            nix,
+            "copy",
+            "--no-check-sigs",
+            "--to",
+            f"ssh-ng://{args.host}",
+            disko,
+            install,
+        ],
         check=True,
     )
 
@@ -78,7 +86,7 @@ with tempfile.TemporaryDirectory() as tmpdir:
         [
             ssh,
             args.host,
-            "nixos-install",
+            pathlib.Path(install) / "bin" / "nixos-install",
             "--root",
             "/mnt",
             "--system",
