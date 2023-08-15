@@ -34,12 +34,7 @@ terraform {
 resource "vultr_startup_script" "script" {
   name = var.hostname
   type = "pxe"
-  script = (var.hostname != "fra0") ? base64encode(<<EOT
-  #!ipxe
-  set cmdline script=https://hydra.nichi.co/job/misc/flakes/${var.hostname}/latest/download-by-type/file/install
-  chain https://github.com/NickCao/netboot/releases/download/latest/ipxe
-  EOT
-  ) : base64encode(<<EOT
+  script = base64encode(<<EOT
   #!ipxe
   set cmdline sshkey="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
   chain https://github.com/NickCao/netboot/releases/download/latest/ipxe
