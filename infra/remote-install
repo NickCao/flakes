@@ -93,9 +93,7 @@ with tempfile.TemporaryDirectory() as tmpdir:
         [
             ssh,
             args.host,
-            "sh",
-            "-c",
-            "mkdir -p /mnt/persist/var/lib && (umask 0077 && curl -s http://169.254.169.254/latest/user-data -o /mnt/persist/var/lib/sops.key)",
+            "sh -c 'mkdir -p /mnt/persist/var/lib && (umask 0077 && curl -s http://169.254.169.254/latest/user-data -o /mnt/persist/var/lib/sops.key)'",
         ],
         check=True,
     )
