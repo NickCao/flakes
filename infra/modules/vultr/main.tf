@@ -18,6 +18,10 @@ variable "tags" {
   type = list(string)
 }
 
+variable "script" {
+  type = string
+}
+
 terraform {
   required_providers {
     vultr = {
@@ -26,27 +30,21 @@ terraform {
   }
 }
 
-resource "vultr_startup_script" "script" {
-  name = var.hostname
-  type = "pxe"
-  script = base64encode(<<EOT
-  #!ipxe
-  set cmdline sshkey="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
-  chain https://github.com/NickCao/netboot/releases/download/latest/ipxe
-  EOT
-  )
-}
-
 resource "vultr_instance" "server" {
   region           = var.region
   plan             = var.plan
   os_id            = 159
-  script_id        = vultr_startup_script.script.id
+  script_id        = var.script
   enable_ipv6      = true
   activation_email = false
   ddos_protection  = false
   hostname         = var.fqdn
   label            = var.hostname
+  lifecycle {
+    ignore_changes = [
+      script_id,
+    ]
+  }
 }
 
 resource "vultr_reverse_ipv4" "reverse_ipv4" {

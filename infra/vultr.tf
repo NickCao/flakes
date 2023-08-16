@@ -33,6 +33,17 @@ locals {
   }
 }
 
+resource "vultr_startup_script" "script" {
+  name = "nixos"
+  type = "pxe"
+  script = base64encode(<<EOT
+  #!ipxe
+  set cmdline sshkey="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
+  chain https://github.com/NickCao/netboot/releases/download/latest/ipxe
+  EOT
+  )
+}
+
 module "vultr" {
   source   = "./modules/vultr"
   for_each = local.nodes
@@ -41,4 +52,5 @@ module "vultr" {
   region   = each.value.region
   plan     = each.value.plan
   tags     = each.value.tags
+  script   = vultr_startup_script.script.id
 }
