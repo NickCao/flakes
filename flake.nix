@@ -23,11 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    carinae = {
-      url = "github:NickCao/carinae";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     ranet = {
       url = "github:NickCao/ranet/wireguard";
       inputs.nixpkgs.follows = "nixpkgs";
