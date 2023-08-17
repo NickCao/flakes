@@ -1,9 +1,9 @@
-{ pkgs, config, inputs, ... }: {
+{ pkgs, config, lib, ... }: {
 
   sops.secrets = {
     hydra = { group = "hydra"; mode = "0440"; };
     hydra-github = { group = "hydra"; mode = "0440"; };
-    carinae = { };
+    harmonia = { mode = "0440"; };
   };
 
   nix = {
@@ -64,9 +64,12 @@
     '';
   };
 
-  cloud.services.carinae.config = {
-    ExecStart = "${inputs.carinae.packages."${pkgs.system}".default}/bin/carinae -l 127.0.0.1:8004";
-    EnvironmentFile = config.sops.secrets.carinae.path;
+  services.harmonia = {
+    enable = true;
+    signKeyPath = config.sops.secrets.harmonia.path;
+    settings = {
+      bind = "127.0.0.1:5000";
+    };
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
@@ -85,7 +88,7 @@
       }];
       handle = [{
         handler = "reverse_proxy";
-        upstreams = [{ dial = "127.0.0.1:8004"; }];
+        upstreams = [{ dial = config.services.harmonia.settings.bind; }];
       }];
     }
   ];
