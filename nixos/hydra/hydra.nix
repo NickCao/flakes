@@ -86,10 +86,19 @@
       match = [{
         host = [ "cache.nichi.co" ];
       }];
-      handle = [{
-        handler = "reverse_proxy";
-        upstreams = [{ dial = config.services.harmonia.settings.bind; }];
-      }];
+      handle = [
+        {
+          handler = "encode";
+          encodings.zstd = { };
+          match.headers = {
+            "Content-Type" = [ "application/x-nix-archive" ];
+          };
+        }
+        {
+          handler = "reverse_proxy";
+          upstreams = [{ dial = config.services.harmonia.settings.bind; }];
+        }
+      ];
     }
   ];
 
