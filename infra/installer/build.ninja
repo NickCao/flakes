@@ -1,0 +1,59 @@
+flake = ../..
+name  = fra0
+host  = root@fra0.nichi.link
+
+
+rule nix-build
+  command = nix build ${flake}#nixosConfigurations.${name}.config.system.build.${attr} --out-link ${out}
+  description = BUILD ${out}
+
+build output/diskoScript: nix-build
+  attr = diskoScript
+
+build output/nixos-install: nix-build
+  attr = nixos-install
+
+build output/toplevel: nix-build
+  attr = toplevel
+
+
+rule nix-copy
+  command = nix copy --substitute-on-destination --no-check-sigs --to ssh-ng://${host}${args} $$(realpath ${in}) && touch ${out}
+  description = COPY ${in}
+
+build target/stage-1: nix-copy output/diskoScript output/nixos-install
+
+
+rule disko
+  command = ssh ${host} $$(realpath ${in}) && touch ${out}
+  description = DISKO
+
+build target/disko: disko output/diskoScript | target/stage-1
+
+build target/stage-2: nix-copy output/toplevel | target/disko
+  args = ?remote-store=local?root=/mnt
+
+
+rule install
+  command = ssh ${host} $$(realpath ${in}/bin/nixos-install) --root /mnt --system $$(realpath ${system}) --no-channel-copy --no-root-passwd && touch ${out}
+  description = INSTALL
+
+build target/install: install output/nixos-install | target/stage-2
+  system = output/toplevel
+
+
+rule secret
+  command = sops -d --extract '["nixos"]["key"]' ${in} | ssh ${host} install -Dm400 /dev/stdin /mnt/persist/var/lib/sops.key && touch ${out}
+  description = SECRET
+
+build target/secret: secret ${flake}/infra/secrets.yaml | target/install
+
+
+rule reboot
+  command = ssh ${host} reboot && touch ${out}
+  description = REBOOT
+
+build target/reboot: reboot | target/secret
+
+
+default target/reboot
