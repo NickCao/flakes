@@ -1,6 +1,6 @@
 flake = ../..
-name  = fra0
-host  = root@fra0.nichi.link
+name  = invalid
+host  = invalid@invalid.invalid
 
 
 rule nix-build
