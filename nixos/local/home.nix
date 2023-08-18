@@ -230,6 +230,7 @@ in
     sops
     restic
     libarchive
+    wl-clipboard
   ];
 
   systemd.user.sessionVariables = {
