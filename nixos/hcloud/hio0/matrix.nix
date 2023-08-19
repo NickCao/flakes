@@ -85,7 +85,12 @@ in
       public_baseurl = "https://matrix.nichi.co";
       signing_key_path = config.sops.secrets.matrix-synapse.path;
 
-      enable_search = true;
+      extra_well_known_client_content = {
+        "org.matrix.msc3575.proxy" = {
+          "url" = "https://syncv3.nichi.co";
+        };
+      };
+
       dynamic_thumbnails = true;
       allow_public_rooms_over_federation = true;
       app_service_config_files = [ "/run/credentials/matrix-synapse.service/telegram" ];

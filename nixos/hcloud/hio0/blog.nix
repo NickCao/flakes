@@ -24,20 +24,8 @@
         path = [ "/.well-known/matrix/client" ];
       }];
       handle = [{
-        handler = "static_response";
-        status_code = 200;
-        headers = {
-          Access-Control-Allow-Origin = [ "*" ];
-          Content-Type = [ "application/json" ];
-        };
-        body = builtins.toJSON {
-          "m.homeserver" = {
-            "base_url" = config.services.matrix-synapse.settings.public_baseurl;
-          };
-          "org.matrix.msc3575.proxy" = {
-            "url" = "https://syncv3.nichi.co";
-          };
-        };
+        handler = "reverse_proxy";
+        upstreams = [{ dial = "127.0.0.1:8196"; }];
       }];
     }
     {
