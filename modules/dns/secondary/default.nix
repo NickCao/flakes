@@ -8,7 +8,10 @@ in
     enable = mkEnableOption "secondary dns service";
   };
   config = mkIf cfg.enable {
-    sops.secrets.tsig = { sopsFile = ../../../zones/secrets.yaml; owner = "knot"; };
+    sops.secrets.tsig = {
+      owner = config.systemd.services.knot.serviceConfig.User;
+      sopsFile = ../../../zones/secrets.yaml;
+    };
     services.knot = {
       enable = true;
       keyFiles = [ config.sops.secrets.tsig.path ];

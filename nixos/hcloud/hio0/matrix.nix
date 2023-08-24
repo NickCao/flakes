@@ -45,8 +45,8 @@ in
   sops = {
     secrets = {
       mautrix-telegram = { };
-      matrix-synapse = { owner = "matrix-synapse"; };
-      matrix-synapse-oidc = { owner = "matrix-synapse"; };
+      matrix-synapse = { owner = config.systemd.services.matrix-synapse.serviceConfig.User; };
+      matrix-synapse-oidc = { owner = config.systemd.services.matrix-synapse.serviceConfig.User; };
       matterbridge = { };
       jose = { };
       sliding-sync = { };

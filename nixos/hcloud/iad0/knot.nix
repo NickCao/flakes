@@ -1,9 +1,21 @@
 { config, pkgs, lib, inputs, ... }: {
 
   sops.secrets = {
-    tsig = { owner = "knot"; reloadUnits = [ "knot.service" ]; sopsFile = ../../../zones/secrets.yaml; };
-    gravity = { owner = "knot"; reloadUnits = [ "knot.service" ]; sopsFile = ../../../zones/secrets.yaml; };
-    gravity_reverse = { owner = "knot"; reloadUnits = [ "knot.service" ]; sopsFile = ../../../zones/secrets.yaml; };
+    tsig = {
+      owner = config.systemd.services.knot.serviceConfig.User;
+      reloadUnits = [ "knot.service" ];
+      sopsFile = ../../../zones/secrets.yaml;
+    };
+    gravity = {
+      owner = config.systemd.services.knot.serviceConfig.User;
+      reloadUnits = [ "knot.service" ];
+      sopsFile = ../../../zones/secrets.yaml;
+    };
+    gravity_reverse = {
+      owner = config.systemd.services.knot.serviceConfig.User;
+      reloadUnits = [ "knot.service" ];
+      sopsFile = ../../../zones/secrets.yaml;
+    };
   };
 
   services.knot = {

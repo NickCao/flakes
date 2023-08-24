@@ -6,7 +6,7 @@ in
 {
   sops.secrets = {
     dkim = {
-      owner = "rspamd";
+      owner = config.services.rspamd.user;
       path = "/var/lib/rspamd/dkim.key";
     };
   };

@@ -252,7 +252,7 @@ in
     (mkIf cfg.bird.exit.enable {
       sops.secrets.bgp_passwd = {
         sopsFile = ./secrets.yaml;
-        owner = "bird2";
+        owner = config.systemd.services.bird2.serviceConfig.User;
         reloadUnits = [ "bird2.service" ];
       };
       services.bird2.checkConfig = false;
