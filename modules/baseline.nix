@@ -45,9 +45,15 @@ with lib;
       '';
     };
 
-    users.mutableUsers = false;
+    services.zram-generator = {
+      enable = true;
+      settings.zram0 = {
+        compression-algorithm = "zstd";
+        zram-size = "ram";
+      };
+    };
 
-    zramSwap.enable = true;
+    users.mutableUsers = false;
 
     programs.command-not-found.enable = false;
     documentation.nixos.enable = lib.mkForce false;
