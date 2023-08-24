@@ -10,30 +10,18 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    programs.ssh = {
-      extraConfig = ''
-        Host rsyncnet
-          HostName     fm1622.rsync.net
-          User         fm1622
-          IdentityFile ${config.sops.secrets.restic-keys.path}
-      '';
-      knownHosts."fm1622.rsync.net".publicKey = ''
-        ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINdUkGe6kKn5ssz4WRZKjcws0InbQqZayenzk9obmP1z
-      '';
-    };
-
     sops.secrets = {
+      restic-repo = { sopsFile = ./secrets.yaml; };
       restic-pass = { sopsFile = ./secrets.yaml; };
-      restic-keys = { sopsFile = ./secrets.yaml; };
+      restic-envs = { sopsFile = ./secrets.yaml; };
     };
 
     services.restic.backups.persist = {
-      package = pkgs.restic-hpn;
-      repository = "sftp://dummy.invalid/backup";
+      repositoryFile = config.sops.secrets.restic-repo.path;
       passwordFile = config.sops.secrets.restic-pass.path;
+      environmentFile = config.sops.secrets.restic-envs.path;
       paths = [ "/persist" ];
       extraBackupArgs = [
-        "-o sftp.command='${pkgs.openssh_hpn}/bin/ssh rsyncnet -s sftp'"
         "--one-file-system"
         "--exclude-caches"
         "--no-scan"
