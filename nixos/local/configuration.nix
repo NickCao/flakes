@@ -312,7 +312,14 @@
     wlr.enable = true;
   };
 
-  zramSwap.enable = true;
+  services.zram-generator = {
+    enable = true;
+    settings.zram0 = {
+      compression-algorithm = "zstd";
+      zram-size = "ram";
+    };
+  };
+
 
   hardware.keyboard.uhk.enable = true;
 
