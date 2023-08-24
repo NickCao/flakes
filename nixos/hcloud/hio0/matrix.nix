@@ -46,6 +46,7 @@ in
     secrets = {
       mautrix-telegram = { };
       matrix-synapse = { owner = "matrix-synapse"; };
+      matrix-synapse-oidc = { owner = "matrix-synapse"; };
       matterbridge = { };
       jose = { };
       sliding-sync = { };
@@ -119,7 +120,7 @@ in
         idp_name = "id.nichi.co";
         issuer = "https://id.nichi.co/realms/nichi";
         client_id = "synapse";
-        client_secret = "nEM2NUdoVskBhmTfqq62ZsQzWHeTpf1U"; # FIXME: client secret is, secret
+        client_secret_path = config.sops.secrets.matrix-synapse-oidc.path;
         scopes = [ "openid" "profile" ];
         allow_existing_users = true;
         backchannel_logout_enabled = true;
