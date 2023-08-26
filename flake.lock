@@ -391,29 +391,6 @@
         "type": "github"
       }
     },
-    "resign": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1686904151,
-        "narHash": "sha256-mNKn3SWo+6spgD+4bMVcfuCaPwFr4z73oy4jl/CzmGM=",
-        "owner": "NickCao",
-        "repo": "resign",
-        "rev": "a60d02461537964671ec8a5fff4f5e736229aa81",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NickCao",
-        "repo": "resign",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "colmena": "colmena",
@@ -427,7 +404,6 @@
         "nixpkgs": "nixpkgs",
         "ranet": "ranet",
         "ranet-ipsec": "ranet-ipsec",
-        "resign": "resign",
         "sops-nix": "sops-nix",
         "terrasops": "terrasops"
       }

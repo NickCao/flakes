@@ -38,11 +38,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    resign = {
-      url = "github:NickCao/resign";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.stable.follows = "nixpkgs";

@@ -197,7 +197,6 @@ in
     compsize
     uhk-agent
     rage
-    resign
     pinentry-gtk2
     sioyek
     texlab
@@ -235,7 +234,7 @@ in
 
   systemd.user.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
-    SOPS_GPG_EXEC = "resign-gpg";
+    SOPS_AGE_KEY_FILE = "$HOME/Documents/key.txt";
     # cache
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CARGO_HOME = "${config.xdg.cacheHome}/cargo";
