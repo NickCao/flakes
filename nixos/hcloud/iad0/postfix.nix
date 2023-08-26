@@ -5,7 +5,7 @@ let
 in
 {
   sops.secrets = {
-    dkim = {
+    dkim-20230826 = {
       owner = config.services.rspamd.user;
       path = "/var/lib/rspamd/dkim.key";
     };
@@ -101,8 +101,8 @@ in
         autolearn = true;
       '';
       "dkim_signing.conf".text = ''
-        path = "${config.sops.secrets.dkim.path}";
-        selector = "default";
+        path = "${config.sops.secrets.dkim-20230826.path}";
+        selector = "20230826";
         allow_username_mismatch = true;
         allow_envfrom_empty = true;
       '';
