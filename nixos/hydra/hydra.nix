@@ -14,6 +14,7 @@
       max-jobs = 8;
       cores = 64 / max-jobs;
     };
+    channel.enable = lib.mkForce true;
   };
 
   systemd.services.nix-daemon.serviceConfig.Environment = [
