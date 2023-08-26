@@ -6,6 +6,7 @@ in
 {
   sops.secrets.dovecot = {
     owner = cfg.user;
+    reloadUnits = [ "dovecot2.service" ];
   };
   systemd.tmpfiles.rules = [
     "d ${maildir} 0700 ${cfg.mailUser} ${cfg.mailGroup} -"
