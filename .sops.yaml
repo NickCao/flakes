@@ -1,19 +1,25 @@
+keys:
+  age:
+    - &local age14ccywqqxr7v2efqnmwrqfre4yr7xeeh5w292xpc64zp86y5sydeshkx3zr
+    - &hcloud age1ap484mksxcg5zz70yw7wjqg0l3pt5ak40eund4wc7csygdgycfrst3eqcw
+    - &other age1zxpft3utrvutt7ycfxanx8xp0gjc8mjcygv94wqw2e4w7kj29acsjx3pye
 creation_rules:
   - path_regex: infra/.*
-    age: >-
-      age14ccywqqxr7v2efqnmwrqfre4yr7xeeh5w292xpc64zp86y5sydeshkx3zr
+    key_groups:
+      - age:
+          - *local
   - path_regex: nixos/hcloud/.*
-    age: >-
-      age14ccywqqxr7v2efqnmwrqfre4yr7xeeh5w292xpc64zp86y5sydeshkx3zr,
-      age1ap484mksxcg5zz70yw7wjqg0l3pt5ak40eund4wc7csygdgycfrst3eqcw
+    key_groups:
+      - age:
+          - *local
+          - *hcloud
   - path_regex: nixos/.*
-    age: >-
-      age14ccywqqxr7v2efqnmwrqfre4yr7xeeh5w292xpc64zp86y5sydeshkx3zr,
-      age1zxpft3utrvutt7ycfxanx8xp0gjc8mjcygv94wqw2e4w7kj29acsjx3pye
-  - age: >-
-      age14ccywqqxr7v2efqnmwrqfre4yr7xeeh5w292xpc64zp86y5sydeshkx3zr,
-      age1ap484mksxcg5zz70yw7wjqg0l3pt5ak40eund4wc7csygdgycfrst3eqcw,
-      age1zxpft3utrvutt7ycfxanx8xp0gjc8mjcygv94wqw2e4w7kj29acsjx3pye
-# local  age14ccywqqxr7v2efqnmwrqfre4yr7xeeh5w292xpc64zp86y5sydeshkx3zr,
-# hcloud age1ap484mksxcg5zz70yw7wjqg0l3pt5ak40eund4wc7csygdgycfrst3eqcw,
-# other  age1zxpft3utrvutt7ycfxanx8xp0gjc8mjcygv94wqw2e4w7kj29acsjx3pye
+    key_groups:
+      - age:
+          - *local
+          - *other
+  - key_groups:
+      - age:
+          - *local
+          - *hcloud
+          - *other
