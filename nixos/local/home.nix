@@ -344,7 +344,7 @@ in
         freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
       };
       shellAbbrs = {
-        rebuild = "nixos-rebuild --use-remote-sudo -v -L --flake /home/nickcao/Projects/flakes";
+        rebuild = "nixos-rebuild --use-remote-sudo -v -L --flake ~/Projects/flakes";
       };
     };
     tmux = {
