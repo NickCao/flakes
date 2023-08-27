@@ -202,8 +202,6 @@ in
     texlab
     tectonic
     systemd-run-app
-    sequoia
-    openpgp-card-tools
     picocom
     thunderbird
     mpv
@@ -240,7 +238,6 @@ in
     CARGO_HOME = "${config.xdg.cacheHome}/cargo";
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
-    GNUPGHOME = (pkgs.writeTextDir "pubring.gpg" (builtins.readFile ./pubring.gpg)).outPath;
     # shit
     PYTHONSTARTUP = (
       pkgs.writeText "start.py" ''
