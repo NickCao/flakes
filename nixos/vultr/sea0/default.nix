@@ -1,15 +1,10 @@
 { config, ... }:
 {
   imports = [ ../common.nix ];
-  sops = {
-    defaultSopsFile = ./secrets.yaml;
-    secrets.ranet.reloadUnits = [ "gravity.service" ];
-  };
   networking.hostName = "sea0";
   services.gravity = {
     enable = true;
     reload.enable = true;
-    config = config.sops.secrets.ranet.path;
     address = [ "2a0c:b641:69c:4ed0::1/128" ];
     bird = {
       enable = true;
