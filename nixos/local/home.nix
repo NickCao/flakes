@@ -433,21 +433,10 @@ in
 
   xdg = {
     enable = true;
-    userDirs = {
-      enable = true;
-      desktop = "$HOME";
-      templates = "$HOME";
-      music = "$HOME";
-      videos = "$HOME";
-      publicShare = "$HOME";
-    };
     configFile = {
-      "sioyek/prefs_user.config".text = ''
-      '';
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
         GOBIN=${config.xdg.stateHome}/go/bin
-        GO111MODULE=on
         GOPROXY=https://goproxy.cn
         GOSUMDB=sum.golang.google.cn
       '';
