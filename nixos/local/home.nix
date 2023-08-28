@@ -198,7 +198,7 @@ in
     uhk-agent
     rage
     pinentry-gtk2
-    sioyek
+    # sioyek
     texlab
     tectonic
     systemd-run-app
