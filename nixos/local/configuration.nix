@@ -182,11 +182,6 @@
     SSH_AUTH_SOCK="$1" ${config.programs.ssh.package}/bin/ssh-add ~/.ssh/id_!(*.pub)
   ''} %t/ssh-agent";
 
-  systemd.services.nix-daemon.serviceConfig.Environment = [
-    "https_proxy=http://127.0.0.1:1080"
-    "http_proxy=http://127.0.0.1:1080"
-  ];
-
   systemd.services.iwd.serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
 
   services.greetd = {
