@@ -3,7 +3,6 @@
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     self.nixosModules.default
-    self.nixosModules.shadowsocks
     self.nixosModules.cloud.disko
   ];
 
