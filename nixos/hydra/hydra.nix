@@ -21,11 +21,6 @@
     "TMPDIR=/var/tmp"
   ];
 
-  systemd.services.hydra-evaluator.serviceConfig = {
-    MemoryHigh = "60G";
-    MemoryMax = "64G";
-  };
-
   services.postgresql = {
     package = pkgs.postgresql_15;
     settings = {
