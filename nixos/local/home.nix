@@ -57,10 +57,6 @@ in
       };
       window.commands = [
         {
-          criteria = { title = "Firefox — Sharing Indicator"; };
-          command = "floating enable, kill";
-        }
-        {
           criteria = { app_id = "pavucontrol"; };
           command = "floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 40";
         }
