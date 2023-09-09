@@ -22,12 +22,14 @@ in
     enable = true;
     hostname = config.networking.fqdn;
     mapFiles.senders = builtins.toFile "senders" ''
-      nickcao@nichi.co nickcao
+      nickcao@nichi.co      nickcao
     '';
     mapFiles.aliases = builtins.toFile "aliases" ''
       hostmaster@nichi.link nickcao@nichi.co
-      hostmaster@nichi.co nickcao@nichi.co
-      noc@nichi.co nickcao@nichi.co
+      hostmaster@nichi.co   nickcao@nichi.co
+      postmaster@nichi.link nickcao@nichi.co
+      postmaster@nichi.co   nickcao@nichi.co
+      noc@nichi.co          nickcao@nichi.co
     '';
     config = {
       smtp_tls_security_level = "may";
