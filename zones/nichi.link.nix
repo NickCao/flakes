@@ -22,8 +22,6 @@ dns.lib.toString "nichi.link" {
         aspf = "strict";
         fo = [ "1" ];
         ri = 604800;
-        ruf = [ "mailto:postmaster@nichi.co" ];
-        rua = [ "mailto:postmaster@nichi.co" ];
       }];
     };
     "k17-plct".A = [ "110.238.111.26" ];
