@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 let
   cfg = config.environment.backup;
 in
@@ -39,7 +39,6 @@ in
       serviceConfig.Environment = [ "GOGC=20" ];
     };
 
-    environment.systemPackages = [ pkgs.restic ];
   };
 
 }
