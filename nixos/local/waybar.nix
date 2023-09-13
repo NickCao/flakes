@@ -81,9 +81,8 @@ in
     format-alt = mkSpan "BAT" "{time}";
   };
   clock = {
-    format = "{:${mkSpan "%b %d" "%H:%M"}}";
+    format = "{:${mkSpan "%a %b %d" "%H:%M"}}";
     tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-    format-alt = "{:${mkSpan "%A %B""%d %Y"}}";
   };
   memory = {
     format = mkSpan "MEM" "{percentage}%";
