@@ -33,7 +33,7 @@
     channel.enable = false;
     settings = {
       trusted-users = [ "root" "nickcao" ];
-      substituters = [ "https://cache.nichi.co" ];
+      substituters = lib.mkAfter [ "https://cache.nichi.co" ];
       trusted-public-keys = [ "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk=" ];
       auto-optimise-store = true;
       flake-registry = "/etc/nix/registry.json";
