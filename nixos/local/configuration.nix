@@ -138,7 +138,7 @@
     vmVariant = {
       users.users.nickcao = {
         password = "passwd";
-        passwordFile = pkgs.lib.mkForce null;
+        hashedPasswordFile = pkgs.lib.mkForce null;
       };
       services.gravity.enable = pkgs.lib.mkForce false;
       environment.persistence."/persist" = pkgs.lib.mkForce { };
@@ -233,7 +233,7 @@
     users = {
       nickcao = {
         isNormalUser = true;
-        passwordFile = config.sops.secrets.passwd.path;
+        hashedPasswordFile = config.sops.secrets.passwd.path;
         extraGroups = [ "wheel" "kvm" ];
       };
     };
