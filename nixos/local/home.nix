@@ -433,8 +433,6 @@ in
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
         GOBIN=${config.xdg.stateHome}/go/bin
-        GOPROXY=https://goproxy.cn
-        GOSUMDB=sum.golang.google.cn
       '';
     };
   };
