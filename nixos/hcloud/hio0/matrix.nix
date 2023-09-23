@@ -132,7 +132,16 @@ in
       }];
 
       experimental_features = {
+        # Room summary api
         msc3266_enabled = true;
+        # Removing account data
+        msc3391_enabled = true;
+        # Thread notifications
+        msc3773_enabled = true;
+        # Remotely toggle push notifications for another client
+        msc3881_enabled = true;
+        # Remotely silence local notifications
+        msc3890_enabled = true;
       };
     };
 
