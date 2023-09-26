@@ -15,6 +15,11 @@ locals {
       plan   = "vhp-1c-1gb-amd"
       tags   = ["vultr", "nameserver"]
     }
+    ewr0 = {
+      region = "ewr"
+      plan   = "vhp-1c-1gb-amd"
+      tags   = ["vultr"]
+    }
     lax0 = {
       region = "lax"
       plan   = "vhp-1c-1gb-amd"

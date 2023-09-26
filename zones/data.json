@@ -22,6 +22,18 @@
     "type": [
       "object",
       {
+        "ewr0": [
+          "object",
+          {
+            "fqdn": "string",
+            "ipv4": "string",
+            "ipv6": "string",
+            "tags": [
+              "list",
+              "string"
+            ]
+          }
+        ],
         "fra0": [
           "object",
           {
@@ -121,6 +133,14 @@
       }
     ],
     "value": {
+      "ewr0": {
+        "fqdn": "ewr0.nichi.link",
+        "ipv4": "45.77.102.104",
+        "ipv6": "2001:19f0:1000:7642:5400:04ff:fe96:da39",
+        "tags": [
+          "vultr"
+        ]
+      },
       "fra0": {
         "fqdn": "fra0.nichi.link",
         "ipv4": "95.179.169.2",
