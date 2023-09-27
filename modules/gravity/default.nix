@@ -264,7 +264,9 @@ in
           { routeConfig = { Destination = cfg.divi.prefix; Table = cfg.table; }; }
           { routeConfig.Destination = cfg.divi.dynamic-pool; }
         ];
+        linkConfig.RequiredForOnline = false;
       };
+
       systemd.services.divi = {
         serviceConfig = {
           ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
