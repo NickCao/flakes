@@ -7,6 +7,7 @@
     ./pb.nix
     ./mastodon.nix
     ./keycloak.nix
+    ./parking.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
