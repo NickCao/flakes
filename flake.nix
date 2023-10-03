@@ -84,7 +84,7 @@
               colmena
               mdbook
               terrasops
-              # nvfetcher
+              nvfetcher
               (terraform.withPlugins (ps: with ps; [ vultr sops hydra hcloud ]))
             ];
           };
