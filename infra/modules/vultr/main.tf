@@ -25,7 +25,7 @@ variable "script" {
 terraform {
   required_providers {
     vultr = {
-      source = "vultr/vultr"
+      source = "registry.terraform.io/vultr/vultr"
     }
   }
 }

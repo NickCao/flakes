@@ -4,16 +4,16 @@ terraform {
   }
   required_providers {
     vultr = {
-      source = "vultr/vultr"
+      source = "registry.terraform.io/vultr/vultr"
     }
     sops = {
-      source = "carlpett/sops"
+      source = "registry.terraform.io/carlpett/sops"
     }
     hydra = {
-      source = "DeterminateSystems/hydra"
+      source = "registry.terraform.io/DeterminateSystems/hydra"
     }
     hcloud = {
-      source = "hetznercloud/hcloud"
+      source = "registry.terraform.io/hetznercloud/hcloud"
     }
   }
 }

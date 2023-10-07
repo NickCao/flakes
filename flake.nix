@@ -85,7 +85,7 @@
               mdbook
               terrasops
               nvfetcher
-              (terraform.withPlugins (ps: with ps; [ vultr sops hydra hcloud ]))
+              (opentofu.withPlugins (ps: with ps; [ vultr sops hydra hcloud ]))
             ];
           };
         }

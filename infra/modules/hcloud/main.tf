@@ -21,7 +21,7 @@ variable "tags" {
 terraform {
   required_providers {
     hcloud = {
-      source = "hetznercloud/hcloud"
+      source = "registry.terraform.io/hetznercloud/hcloud"
     }
   }
 }
