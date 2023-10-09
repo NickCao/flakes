@@ -1,4 +1,22 @@
-{ config, pkgs, lib, inputs, ... }: {
+{ config, pkgs, lib, inputs, data, ... }:
+let
+  secondary = (lib.mapAttrs
+    (name: value: {
+      id = name;
+      address = [
+        value.ipv4
+        value.ipv6
+      ];
+      key = "transfer";
+    })
+    (lib.filterAttrs
+      (name: value:
+        lib.elem "nameserver" value.tags && name != config.networking.hostName)
+      data.nodes
+    )
+  );
+in
+{
 
   sops.secrets = {
     tsig = {
@@ -33,11 +51,6 @@
         target = "syslog";
         any = "info";
       }];
-      acl = [{
-        action = "transfer";
-        id = "transfer";
-        key = "transfer";
-      }];
       policy = [{
         algorithm = "ed25519";
         id = "default";
@@ -49,8 +62,12 @@
         signing-threads = "12";
       }];
       remote = [{
-        address = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
         id = "cloudflare";
+        address = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
+      }] ++ lib.attrValues secondary;
+      remotes = [{
+        id = "secondary";
+        remote = lib.attrNames secondary;
       }];
       submission = [{
         check-interval = "10m";
@@ -59,12 +76,12 @@
       }];
       template = [
         {
-          acl = "transfer";
+          id = "default";
+          notify = "secondary";
           catalog-role = "member";
           catalog-zone = "firstparty";
           dnssec-policy = "default";
           dnssec-signing = true;
-          id = "default";
           journal-content = "all";
           semantic-checks = true;
           serial-policy = "unixtime";
@@ -73,9 +90,9 @@
           zonemd-generate = "zonemd-sha512";
         }
         {
-          acl = "transfer";
-          catalog-role = "generate";
           id = "catalog";
+          notify = "secondary";
+          catalog-role = "generate";
           journal-content = "all";
           serial-policy = "unixtime";
           zonefile-load = "difference-no-serial";
