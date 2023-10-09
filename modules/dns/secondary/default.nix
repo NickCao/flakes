@@ -21,6 +21,7 @@ in
           tcp-reuseport = true;
           tcp-fastopen = true;
           edns-client-subnet = true;
+          automatic-acl = true;
           listen = [
             "0.0.0.0"
             "::"
@@ -35,11 +36,11 @@ in
         remote = [
           {
             id = "transfer";
-            key = "transfer";
             address = [
               data.nodes.iad0.ipv4
               data.nodes.iad0.ipv6
             ];
+            key = "transfer";
           }
           {
             id = "cloudflare";

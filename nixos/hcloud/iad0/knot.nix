@@ -45,6 +45,7 @@ in
         edns-client-subnet = true;
         tcp-fastopen = true;
         tcp-reuseport = true;
+        automatic-acl = true;
         listen = [ "0.0.0.0" "::" ];
       };
       log = [{
