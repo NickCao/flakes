@@ -48,7 +48,7 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "nvidia-x11"
-    "uhk-agent-3.0.2"
+    "uhk-agent-3.1.0"
     "uhk-udev-rules"
   ];
 
