@@ -2,7 +2,7 @@
 let
   device = "/dev/disk/by-partlabel/NIXOS";
   fsType = "btrfs";
-  options = [ "noatime" "compress-force=zstd" "space_cache=v2" ];
+  options = [ "relatime" "compress-force=zstd" "space_cache=v2" ];
 in
 {
   fileSystems = {
