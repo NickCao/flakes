@@ -28,10 +28,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-aPJN8NWxTTVol85pAqx2O6JFwtJaOSiBZ8DRWsPzCm8=",
+            "sha256": "sha256-aQAAg+ArqwI5/fbhY80oAkvpRonU6FUsfYuWp3Z2WCM=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20230823.dict"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20231016.dict"
         },
-        "version": "20230823"
+        "version": "20231016"
     }
 }
