@@ -3,7 +3,7 @@ let
   mkMount = subvol: {
     device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
-    options = [ "subvol=${subvol}" "relatime" "compress-force=zstd" ];
+    options = [ "subvol=${subvol}" "compress-force=zstd" ];
   };
 in
 {

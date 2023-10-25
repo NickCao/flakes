@@ -26,15 +26,15 @@
               subvolumes = {
                 "boot" = {
                   mountpoint = "/boot";
-                  mountOptions = [ "compress=zstd" "relatime" ];
+                  mountOptions = [ "compress=zstd" ];
                 };
                 "nix" = {
                   mountpoint = "/nix";
-                  mountOptions = [ "compress=zstd" "relatime" ];
+                  mountOptions = [ "compress=zstd" ];
                 };
                 "persist" = {
                   mountpoint = "/persist";
-                  mountOptions = [ "compress=zstd" "relatime" ];
+                  mountOptions = [ "compress=zstd" ];
                 };
               };
             };
