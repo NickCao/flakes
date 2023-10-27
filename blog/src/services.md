@@ -22,7 +22,7 @@ https://id.nichi.co/realms/nichi/account
 https://matrix.nichi.co
 ```
 
-##### keycloak
+##### mastodon
 ```
 https://mastodon.nichi.co
 ```
