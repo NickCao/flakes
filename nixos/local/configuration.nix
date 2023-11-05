@@ -90,6 +90,8 @@
     };
   };
 
+  environment.variables.GTK_IM_MODULE = lib.mkForce "wayland";
+
   boot = {
     tmp.useTmpfs = true;
     initrd = {
