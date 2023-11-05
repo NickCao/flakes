@@ -121,8 +121,6 @@
       "mitigations=off"
       "nowatchdog"
       "intel_iommu=on"
-      "iommu=pt"
-      # "intel_pstate=passive"
     ];
     kernelModules = [ "ec_sys" "uhid" "kvm-intel" ];
     extraModprobeConfig = ''
