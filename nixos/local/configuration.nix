@@ -49,14 +49,15 @@
   nixpkgs.config = {
     allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
       "nvidia-x11"
-      "uhk-agent-3.1.0"
+      "uhk-agent"
       "uhk-udev-rules"
     ];
 
     allowNonSource = false;
     allowNonSourcePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "uhk-agent-3.1.0"
+      "uhk-agent"
       "sof-firmware"
+      "adoptopenjdk-hotspot-bin"
     ];
   };
 
