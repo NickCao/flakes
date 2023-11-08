@@ -86,13 +86,6 @@ resource "hydra_jobset" "nixpkgs_riscv" {
   }
 
   input {
-    name              = "limitedSupportedSystems"
-    notify_committers = false
-    type              = "nix"
-    value             = "[]"
-  }
-
-  input {
     name              = "supportedSystems"
     notify_committers = false
     type              = "nix"
