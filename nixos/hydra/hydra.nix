@@ -67,6 +67,7 @@
 
   services.harmonia = {
     enable = true;
+    package = pkgs.harmonia.override { nix = pkgs.nixVersions.nix_2_17; };
     signKeyPath = config.sops.secrets.harmonia.path;
     settings = {
       bind = "127.0.0.1:5000";
