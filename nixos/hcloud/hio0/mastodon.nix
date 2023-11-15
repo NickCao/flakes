@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
 
   sops.secrets.mastodon = { restartUnits = [ "mastodon-web.service" ]; };
 
@@ -7,6 +7,7 @@
   services.mastodon = {
     enable = true;
     localDomain = "nichi.co";
+    streamingProcesses = 3;
     smtp = {
       createLocally = false;
       fromAddress = "mastodon@nichi.co";
@@ -59,7 +60,9 @@
           }];
           handle = [{
             handler = "reverse_proxy";
-            upstreams = [{ dial = "unix//run/mastodon-streaming/streaming.socket"; }];
+            upstreams = lib.genList
+              (i: { dial = "unix//run/mastodon-streaming/streaming-${toString (i + 1)}.socket"; })
+              config.services.mastodon.streamingProcesses;
           }];
         }
         {
