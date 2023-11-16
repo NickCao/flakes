@@ -134,3 +134,5 @@ require('lualine').setup {
 
 require('which-key').setup {
 }
+
+require('leap').add_default_mappings()
