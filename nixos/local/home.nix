@@ -12,10 +12,6 @@ in
 {
   gtk = {
     enable = true;
-    theme = {
-      package = pkgs.materia-theme;
-      name = "Materia";
-    };
     iconTheme = {
       package = pkgs.numix-icon-theme-circle;
       name = "Numix-Circle";
