@@ -333,7 +333,7 @@
     let
       request-key = pkgs.writeShellScript "request-key" ''
         export DISPLAY=:0
-        PIN=$(/run/wrappers/bin/sudo -u \#$1 -g \#$2 --preserve-env=DISPLAY ${lib.getExe' pkgs.lxqt.lxqt-openssh-askpass "lxqt-openssh-askpass"} "$3")
+        PIN=$(/run/wrappers/bin/sudo -u \#$1 -g \#$2 --preserve-env=DISPLAY ${lib.getExe pkgs.lxqt.lxqt-openssh-askpass} "$3")
         printf "%s\0" "$PIN"
       '';
     in

@@ -375,7 +375,6 @@ in
     };
     ssh = {
       enable = true;
-      compression = true;
       serverAliveInterval = 30;
       matchBlocks = {
         "*.lab.pacman-thu.org" = {
