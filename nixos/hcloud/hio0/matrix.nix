@@ -52,6 +52,12 @@ in
     };
   };
 
+  systemd.tmpfiles.settings = {
+    "10-synapse" = {
+      "/var/lib/matrix-synapse/media_store/local_thumbnails".e.age = "7d";
+    };
+  };
+
   systemd.services.matrix-synapse.serviceConfig.LoadCredential = [
     "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
   ];
