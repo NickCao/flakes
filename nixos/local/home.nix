@@ -161,6 +161,7 @@ in
         "browser.urlbar.autoFill.adaptiveHistory.enabled" = true;
         "browser.tabs.closeWindowWithLastTab" = false;
         "extensions.unifiedExtensions.enabled" = false;
+        "media.peerconnection.enabled" = false;
       };
       ExtensionSettings = {
         "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
@@ -173,15 +174,8 @@ in
         };
       };
     };
-    profiles = {
-      default = {
-        settings = {
-          "fission.autostart" = true;
-          "media.peerconnection.enabled" = false;
-        };
-      };
-    };
   };
+
   home.packages = with pkgs; [
     nix-update
     nix-init
