@@ -25,7 +25,7 @@ in
   };
   qt = {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme = "gtk3";
   };
   wayland.windowManager.sway = {
     enable = true;
