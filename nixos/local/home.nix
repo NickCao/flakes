@@ -160,7 +160,6 @@ in
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.urlbar.autoFill.adaptiveHistory.enabled" = true;
         "browser.tabs.closeWindowWithLastTab" = false;
-        "extensions.unifiedExtensions.enabled" = false;
         "media.peerconnection.enabled" = false;
       };
       ExtensionSettings = {
