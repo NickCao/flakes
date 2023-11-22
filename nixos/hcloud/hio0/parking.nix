@@ -25,6 +25,30 @@
         };
       }];
     }
+    {
+      match = [{
+        host = [ "archlinux.icu" ];
+      }];
+      handle = [{
+        handler = "static_response";
+        status_code = "302";
+        headers = {
+          Location = [ "https://manjaro.org" ];
+        };
+      }];
+    }
+    {
+      match = [{
+        host = [ "nixos.icu" ];
+      }];
+      handle = [{
+        handler = "static_response";
+        status_code = "302";
+        headers = {
+          Location = [ "https://archlinux.org" ];
+        };
+      }];
+    }
   ];
 
 }
