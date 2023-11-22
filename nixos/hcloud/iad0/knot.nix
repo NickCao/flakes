@@ -130,6 +130,14 @@ in
           file = pkgs.writeText "db.zip.nixos" (import ../../../zones/parking.nix { inherit (inputs) dns; });
         }
         {
+          domain = "archlinux.icu";
+          file = pkgs.writeText "db.icu.archlinux" (import ../../../zones/parking.nix { inherit (inputs) dns; });
+        }
+        {
+          domain = "nixos.icu";
+          file = pkgs.writeText "db.icu.nixos" (import ../../../zones/parking.nix { inherit (inputs) dns; });
+        }
+        {
           domain = "gravity";
           file = config.sops.secrets.gravity.path;
           dnssec-signing = false;
