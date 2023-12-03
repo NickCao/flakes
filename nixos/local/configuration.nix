@@ -1,5 +1,4 @@
-{ config, pkgs, lib, ... }:
-{
+{ config, pkgs, lib, ... }: {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -12,7 +11,6 @@
       passwd.neededForUsers = true;
       u2f = { mode = "0444"; };
       "wireless/home" = { };
-      "wireless/alt" = { };
       "wireless/eduroam" = { };
     };
     age = {
@@ -22,11 +20,12 @@
     gnupg.sshKeyPaths = [ ];
   };
 
-  systemd.tmpfiles.rules = [
-    "C /var/lib/iwd/CMCC-39rG-5G.psk      - - - - ${config.sops.secrets."wireless/home".path}"
-    "C /var/lib/iwd/CMCC-EGfY.psk         - - - - ${config.sops.secrets."wireless/alt".path}"
-    "C /var/lib/iwd/eduroam.8021x         - - - - ${config.sops.secrets."wireless/eduroam".path}"
-  ];
+  systemd.tmpfiles.settings = {
+    "10-iwd" = {
+      "/var/lib/iwd/Verizon_K3ND63.psk".C.argument = config.sops.secrets."wireless/home".path;
+      "/var/lib/iwd/eduroam.8021x".C.argument = config.sops.secrets."wireless/eduroam".path;
+    };
+  };
 
   nix = {
     package = pkgs.nixVersions.stable;
