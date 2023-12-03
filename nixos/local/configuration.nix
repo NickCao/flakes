@@ -47,7 +47,6 @@
 
   nixpkgs.config = {
     allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-      "nvidia-x11"
       "uhk-agent"
       "uhk-udev-rules"
     ];
@@ -153,28 +152,9 @@
   };
 
   hardware = {
-    nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      open = true;
-      nvidiaSettings = false;
-    };
     pulseaudio.enable = false;
     cpu.intel.updateMicrocode = true;
     bluetooth.enable = true;
-    nvidia = {
-      prime = {
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
-      powerManagement = {
-        enable = true;
-        finegrained = true;
-      };
-    };
     opengl = {
       enable = true;
       extraPackages = with pkgs; [ intel-media-driver ];
@@ -224,9 +204,6 @@
       '';
     };
     udev.packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
-    xserver = {
-      # videoDrivers = [ "nvidia" ];
-    };
   };
 
   programs = {
