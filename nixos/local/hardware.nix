@@ -1,36 +1,68 @@
-{ lib, ... }:
-let
-  mkMount = subvol: {
-    device = "/dev/mapper/cryptroot";
-    fsType = "btrfs";
-    options = [ "subvol=${subvol}" "compress-force=zstd" ];
-  };
-in
-{
+{ lib, ... }: {
+
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
-  fileSystems."/" = {
-    fsType = "tmpfs";
-    options = [ "defaults" "size=2G" "mode=755" ];
+  disko.devices = {
+    disk = {
+      nvme = {
+        type = "disk";
+        device = "/dev/disk/by-path/pci-0000:06:00.0-nvme-1";
+        content = {
+          type = "gpt";
+          partitions = {
+            esp = {
+              label = "ESP";
+              size = "2G";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/efi";
+              };
+            };
+            cryptroot = {
+              label = "CRYPTROOT";
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "cryptroot";
+                settings = {
+                  allowDiscards = true;
+                  bypassWorkqueues = true;
+                  crypttabExtraOpts = [
+                    "same-cpu-crypt"
+                    "submit-from-crypt-cpus"
+                    "fido2-device=auto"
+                  ];
+                };
+                content = {
+                  type = "btrfs";
+                  extraArgs = [ "-f" ];
+                  subvolumes = {
+                    "/persist" = {
+                      mountpoint = "/persist";
+                      mountOptions = [ "compress-force=zstd" ];
+                    };
+                    "/nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [ "compress-force=zstd" ];
+                    };
+                  };
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+    nodev = {
+      "/" = {
+        fsType = "tmpfs";
+        mountOptions = [ "defaults" "size=2G" "mode=755" ];
+      };
+    };
   };
 
-  fileSystems."/nix" = mkMount "nix";
+  fileSystems."/persist".neededForBoot = true;
 
-  fileSystems."/persist" = mkMount "persist" // { neededForBoot = true; };
-
-  fileSystems."/efi" = {
-    device = "/dev/disk/by-partlabel/ESP";
-    fsType = "vfat";
-  };
-
-  boot.initrd.luks.devices.cryptroot = {
-    device = "/dev/disk/by-partlabel/CRYPTROOT";
-    allowDiscards = true;
-    bypassWorkqueues = true;
-    crypttabExtraOpts = [
-      "same-cpu-crypt"
-      "submit-from-crypt-cpus"
-      "fido2-device=auto"
-    ];
-  };
 }
