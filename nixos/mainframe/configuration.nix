@@ -102,8 +102,7 @@
   boot = {
     tmp.useTmpfs = true;
     initrd = {
-      kernelModules = [ "i915" ];
-      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" ];
+      availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
       systemd.enable = true;
     };
     loader = {
@@ -128,7 +127,7 @@
       "mitigations=off"
       "nowatchdog"
     ];
-    kernelModules = [ "ec_sys" "uhid" ];
+    kernelModules = [ "kvm-amd" ];
     enableContainers = false;
   };
 
