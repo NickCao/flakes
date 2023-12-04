@@ -226,7 +226,6 @@ in
   ];
 
   systemd.user.sessionVariables = {
-    LIBVA_DRIVER_NAME = "iHD";
     SOPS_AGE_KEY_FILE = "$HOME/Documents/key.txt";
     # cache
     CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";

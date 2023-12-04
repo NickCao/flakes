@@ -102,7 +102,16 @@
   boot = {
     tmp.useTmpfs = true;
     initrd = {
-      availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
+      kernelModules = [
+        "amdgpu"
+      ];
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "thunderbolt"
+        "usb_storage"
+        "sd_mod"
+      ];
       systemd.enable = true;
     };
     loader = {
