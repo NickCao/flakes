@@ -29,7 +29,6 @@ in
       enable = true;
       xdgAutostart = true;
     };
-    extraOptions = [ "--unsupported-gpu" ];
     wrapperFeatures.gtk = true;
     config = {
       modifier = "Mod4";
@@ -93,17 +92,18 @@ in
           "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
         };
       input = {
-        "1739:32552:MSFT0001:01_06CB:7F28_Touchpad" = {
+        "2362:628:PIXA3854:00_093A:0274_Touchpad" = {
           natural_scroll = "enabled";
           tap = "enabled";
         };
-        "1165:49408:ITE_Tech._Inc._ITE_Device(8910)_Keyboard" = {
+        "1:1:AT_Translated_Set_2_keyboard" = {
           xkb_options = "ctrl:nocaps";
         };
       };
       output = {
         eDP-1 = {
           bg = "${fbk} fill";
+          scale = "1.3";
         };
       };
       bars = [ ];
