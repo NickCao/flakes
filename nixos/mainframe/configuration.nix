@@ -131,10 +131,10 @@
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_testing;
     kernelParams = [
       "mitigations=off"
-      "amdgpu.abmlevel=2"
+      "amdgpu.abmlevel=1"
     ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;
