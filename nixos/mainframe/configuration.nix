@@ -114,7 +114,7 @@
     };
     lanzaboote = {
       enable = true;
-      pkiBundle = "/tmp/secureboot";
+      pkiBundle = "${config.users.users.nickcao.home}/Documents/secureboot";
     };
     kernel = {
       sysctl = {
