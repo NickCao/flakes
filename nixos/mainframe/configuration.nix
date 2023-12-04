@@ -125,7 +125,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "mitigations=off"
-      "nowatchdog"
+      "amdgpu.abmlevel=3"
     ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;

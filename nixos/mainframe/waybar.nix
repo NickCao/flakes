@@ -90,7 +90,7 @@ in
   temperature = {
     format = mkSpan "TEMP" "{temperatureC}°C";
     interval = 10;
-    thermal-zone = 9;
+    thermal-zone = 3;
   };
   tray = {
     icon-size = 25;
