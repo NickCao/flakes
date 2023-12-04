@@ -1,0 +1,67 @@
+* {
+  font-family: RobotoMono Nerd Font, Noto Sans CJK SC;
+  font-weight: bold;
+  font-size: 17px;
+}
+window#waybar {
+  color: #cad3f5;
+  opacity: 0.95;
+  background-color: #24273a;
+  padding: 0;
+  border-radius: 10px;
+}
+#custom-nixos {
+  color: #cad3f5;
+  background-color: #24273a;
+  border-radius: 10px;
+  padding-left: 15px;
+  padding-right: 18px;
+}
+#custom-separator {
+  color: #cad3f5;
+  margin: 0 6px;
+}
+#workspaces {
+  color: #cad3f5;
+  background-color: #24273a;
+  border-radius: 0;
+}
+#workspaces button {
+  color: #cad3f5;
+  padding: 0 10px;
+  border-radius: 0;
+}
+#workspaces button.hidden {
+  background-color: #24273a;
+}
+#workspaces button.focused,
+#workspaces button.active {
+  background-color: #363a4f;
+  border-bottom: 4px solid #8aadf4;
+}
+#workspaces button.urgent {
+  background-color: #ed8796;
+  border-bottom: 4px solid #8aadf4;
+}
+#tray,
+#idle_inhibitor,
+#cpu,
+#memory,
+#pulseaudio,
+#network,
+#battery {
+  color: #cad3f5;
+}
+#clock {
+  color: #cad3f5;
+  margin-right: 15px;
+}
+#battery.warning {
+  color: #eed49f;
+}
+#battery.critical {
+  color: #ed8796;
+}
+#battery.charging {
+  color: #a6da95;
+}
