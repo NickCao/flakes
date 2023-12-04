@@ -125,7 +125,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "mitigations=off"
-      "amdgpu.abmlevel=3"
+      "amdgpu.abmlevel=2"
     ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;
@@ -150,6 +150,7 @@
     opengl = {
       enable = true;
     };
+    sensor.iio.enable = true;
   };
 
   services.fwupd.enable = true;
