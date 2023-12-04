@@ -152,6 +152,8 @@
     };
   };
 
+  services.fwupd.enable = true;
+
   programs.ssh = {
     package = pkgs.openssh-fido2;
     startAgent = true;
