@@ -60,7 +60,7 @@
   };
 
   networking = {
-    hostName = "local";
+    hostName = "mainframe";
     domain = "nichi.link";
     firewall.enable = false;
     useNetworkd = true;
@@ -115,7 +115,7 @@
     };
     lanzaboote = {
       enable = true;
-      pkiBundle = "${config.users.users.nickcao.home}/Documents/secureboot";
+      pkiBundle = "/tmp/secureboot";
     };
     kernel = {
       sysctl = {
@@ -128,14 +128,7 @@
       "mitigations=off"
       "nowatchdog"
     ];
-    kernelModules = [ "ec_sys" "uhid" "kvm-intel" ];
-    extraModprobeConfig = ''
-      options i915 enable_guc=2
-      options i915 enable_fbc=1
-      options i915 fastboot=1
-      blacklist ideapad_laptop
-      options kvm_intel nested=1
-    '';
+    kernelModules = [ "ec_sys" "uhid" ];
     enableContainers = false;
   };
 
@@ -153,11 +146,10 @@
 
   hardware = {
     pulseaudio.enable = false;
-    cpu.intel.updateMicrocode = true;
+    cpu.amd.updateMicrocode = true;
     bluetooth.enable = true;
     opengl = {
       enable = true;
-      extraPackages = with pkgs; [ intel-media-driver ];
     };
   };
 
