@@ -78,7 +78,7 @@ in
           "${modifier}+b" = null;
           "${modifier}+v" = null;
           "${modifier}+w" = null;
-          "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run -run-command 'systemd-run-app {cmd}'";
+          "${modifier}+d" = "exec ${lib.getExe pkgs.rofi-wayland} -show run -run-command 'systemd-run-app {cmd}'";
           "${modifier}+Shift+l" = "exec loginctl lock-session";
           "${modifier}+space" = null;
           "Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
@@ -244,7 +244,7 @@ in
   services.mako = {
     enable = true;
     extraConfig = ''
-      on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
+      on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${lib.getExe pkgs.rofi-wayland} -dmenu -p 'action: '
     '';
   };
 
