@@ -230,6 +230,7 @@ in
     restic
     libarchive
     wl-clipboard
+    wl-mirror
   ];
 
   systemd.user.sessionVariables = {

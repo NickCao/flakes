@@ -192,6 +192,7 @@
     };
     udev.packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
     fprintd.enable = true;
+    power-profiles-daemon.enable = true;
   };
 
   programs = {
