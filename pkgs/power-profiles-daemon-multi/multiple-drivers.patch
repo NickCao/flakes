@@ -1,0 +1,516 @@
+From 93f28391b7cfd33d4d85e519e3cbbdf8457e9122 Mon Sep 17 00:00:00 2001
+From: Antoine Damhet <antoine@damhet.fr>
+Date: Sun, 4 Jun 2023 16:06:49 +0200
+Subject: [PATCH 1/3] PoC: use multiple drivers
+
+---
+ src/power-profiles-daemon.c | 96 +++++++++++++++++++++++--------------
+ tests/integration-test.py   |  8 ++--
+ 2 files changed, 64 insertions(+), 40 deletions(-)
+
+diff --git a/src/power-profiles-daemon.c b/src/power-profiles-daemon.c
+index 2a3c26b..f6e09ae 100644
+--- a/src/power-profiles-daemon.c
++++ b/src/power-profiles-daemon.c
+@@ -39,7 +39,7 @@ typedef struct {
+   PpdProfile active_profile;
+   PpdProfile selected_profile;
+   GPtrArray *probed_drivers;
+-  PpdDriver *driver;
++  GPtrArray *drivers;
+   GPtrArray *actions;
+   GHashTable *profile_holds;
+ } PpdApp;
+@@ -67,9 +67,6 @@ static PpdApp *ppd_app = NULL;
+ static void stop_profile_drivers (PpdApp *data);
+ static void start_profile_drivers (PpdApp *data);
+ 
+-#define GET_DRIVER(p) (ppd_driver_get_profiles (data->driver) & p ? data->driver : NULL)
+-#define ACTIVE_DRIVER (data->driver)
+-
+ /* profile drivers and actions */
+ #include "ppd-action-trickle-charge.h"
+ #include "ppd-driver-placeholder.h"
+@@ -88,7 +85,7 @@ static GTypeGetFunc objects[] = {
+   ppd_driver_amd_pstate_get_type,
+ 
+   /* Generic profile driver */
+-  ppd_driver_placeholder_get_type,
++  //ppd_driver_placeholder_get_type,
+ 
+   /* Actions */
+   ppd_action_trickle_charge_get_type,
+@@ -109,10 +106,11 @@ static gboolean
+ get_profile_available (PpdApp     *data,
+                        PpdProfile  profile)
+ {
+-    PpdDriver *driver;
+-
+-    driver = GET_DRIVER(profile);
+-    return driver != NULL;
++  for (guint i = 0; i < data->drivers->len; i++) {
++    if ((ppd_driver_get_profiles (data->drivers->pdata[i]) & profile) != profile)
++      return FALSE;
++  }
++  return TRUE;
+ }
+ 
+ static const char *
+@@ -121,18 +119,36 @@ get_active_profile (PpdApp *data)
+   return ppd_profile_to_str (data->active_profile);
+ }
+ 
++static gchar *
++get_drivers_name (PpdApp *data)
++{
++  GString *dnames = g_string_new (NULL);
++
++  for (guint i = 0; i < data->drivers->len; i++) {
++    if (i != 0)
++      g_string_append(dnames, ", ");
++    g_string_append (dnames, ppd_driver_get_driver_name (data->drivers->pdata[i]));
++  }
++
++  return g_string_free (dnames, FALSE);
++}
++
+ static const char *
+ get_performance_degraded (PpdApp *data)
+ {
+   const char *ret;
+-  PpdDriver *driver;
+ 
+-  driver = GET_DRIVER(PPD_PROFILE_PERFORMANCE);
+-  if (!driver)
++  if (!get_profile_available(data, PPD_PROFILE_PERFORMANCE))
+     return "";
+-  ret = ppd_driver_get_performance_degraded (driver);
+-  g_assert (ret != NULL);
+-  return ret;
++
++  for (guint i = 0; i < data->drivers->len; i++) {
++    ret = ppd_driver_get_performance_degraded (data->drivers->pdata[i]);
++    g_assert (ret != NULL);
++    if (ret[0])
++      return ret;
++  }
++
++  return "";
+ }
+ 
+ static GVariant *
+@@ -140,21 +156,22 @@ get_profiles_variant (PpdApp *data)
+ {
+   GVariantBuilder builder;
+   guint i;
++  g_autofree char *drivers_name = get_drivers_name (data);
+ 
+   g_variant_builder_init (&builder, G_VARIANT_TYPE ("aa{sv}"));
+ 
+   for (i = 0; i < NUM_PROFILES; i++) {
+-    PpdDriver *driver = GET_DRIVER(1 << i);
++    // FIXME: handle capability exposed by a subset of drivers
+     GVariantBuilder asv_builder;
+ 
+-    if (driver == NULL)
++    if (!get_profile_available(data, 1 << i))
+       continue;
+ 
+     g_variant_builder_init (&asv_builder, G_VARIANT_TYPE ("a{sv}"));
+     g_variant_builder_add (&asv_builder, "{sv}", "Profile",
+                            g_variant_new_string (ppd_profile_to_str (1 << i)));
+     g_variant_builder_add (&asv_builder, "{sv}", "Driver",
+-                           g_variant_new_string (ppd_driver_get_driver_name (driver)));
++                           g_variant_new_string (drivers_name));
+ 
+     g_variant_builder_add (&builder, "a{sv}", &asv_builder);
+   }
+@@ -263,8 +280,9 @@ static void
+ save_configuration (PpdApp *data)
+ {
+   g_autoptr(GError) error = NULL;
++  g_autofree char *drivers_name = get_drivers_name (data);
+ 
+-  g_key_file_set_string (data->config, "State", "Driver", ppd_driver_get_driver_name (data->driver));
++  g_key_file_set_string (data->config, "State", "Driver", drivers_name);
+   g_key_file_set_string (data->config, "State", "Profile", ppd_profile_to_str (data->active_profile));
+   if (!g_key_file_save_to_file (data->config, data->config_path, &error))
+     g_warning ("Could not save configuration file '%s': %s", data->config_path, error->message);
+@@ -275,10 +293,11 @@ apply_configuration (PpdApp *data)
+ {
+   g_autofree char *driver = NULL;
+   g_autofree char *profile_str = NULL;
++  g_autofree char *drivers_name = get_drivers_name (data);
+   PpdProfile profile;
+ 
+   driver = g_key_file_get_string (data->config, "State", "Driver", NULL);
+-  if (g_strcmp0 (ppd_driver_get_driver_name (data->driver), driver) != 0)
++  if (g_strcmp0 (drivers_name, driver) != 0)
+     return FALSE;
+   profile_str = g_key_file_get_string (data->config, "State", "Profile", NULL);
+   if (profile_str == NULL)
+@@ -346,12 +365,15 @@ activate_target_profile (PpdApp                      *data,
+            ppd_profile_activation_reason_to_str (reason),
+            ppd_profile_to_str (data->active_profile));
+ 
+-  if (!ppd_driver_activate_profile (data->driver, target_profile, reason, &internal_error)) {
+-    g_warning ("Failed to activate driver '%s': %s",
+-               ppd_driver_get_driver_name (data->driver),
+-               internal_error->message);
+-    g_propagate_error (error, internal_error);
+-    return FALSE;
++  for (guint i = 0; i < data->drivers->len; i++) {
++    // FIXME: how to handle errors ?
++    if (!ppd_driver_activate_profile (data->drivers->pdata[i], target_profile, reason, &internal_error)) {
++      g_warning ("Failed to activate driver '%s': %s",
++                 ppd_driver_get_driver_name (data->drivers->pdata[i]),
++                 internal_error->message);
++      g_propagate_error (error, internal_error);
++      return FALSE;
++    }
+   }
+ 
+   actions_activate_profile (data->actions, target_profile);
+@@ -789,13 +811,12 @@ bus_acquired_handler (GDBusConnection *connection,
+ static gboolean
+ has_required_drivers (PpdApp *data)
+ {
+-  PpdDriver *driver;
++  for (guint i = 0; i < data->drivers->len; i++) {
++    if (!G_IS_OBJECT (data->drivers->pdata[i]))
++      return FALSE;
++  }
+ 
+-  driver = GET_DRIVER (PPD_PROFILE_BALANCED);
+-  if (!driver || !G_IS_OBJECT (driver))
+-    return FALSE;
+-  driver = GET_DRIVER (PPD_PROFILE_POWER_SAVER);
+-  if (!driver || !G_IS_OBJECT (driver))
++  if (!get_profile_available(data, PPD_PROFILE_BALANCED | PPD_PROFILE_POWER_SAVER))
+     return FALSE;
+ 
+   return TRUE;
+@@ -817,7 +838,7 @@ stop_profile_drivers (PpdApp *data)
+   release_all_profile_holds (data);
+   g_ptr_array_set_size (data->probed_drivers, 0);
+   g_ptr_array_set_size (data->actions, 0);
+-  g_clear_object (&data->driver);
++  g_ptr_array_set_size (data->drivers, 0);
+ }
+ 
+ static void
+@@ -836,12 +857,14 @@ start_profile_drivers (PpdApp *data)
+ 
+       g_debug ("Handling driver '%s'", ppd_driver_get_driver_name (driver));
+ 
++      // FIXME: how to handle conflicting drivers ?
++#if 0
+       if (data->driver != NULL) {
+         g_debug ("Driver '%s' already probed, skipping driver '%s'",
+                  ppd_driver_get_driver_name (data->driver),
+                  ppd_driver_get_driver_name (driver));
+-        continue;
+       }
++#endif
+ 
+       profiles = ppd_driver_get_profiles (driver);
+       if (!(profiles & PPD_PROFILE_ALL)) {
+@@ -865,7 +888,7 @@ start_profile_drivers (PpdApp *data)
+         continue;
+       }
+ 
+-      data->driver = driver;
++      g_ptr_array_add(data->drivers, driver);
+ 
+       g_signal_connect (G_OBJECT (driver), "notify::performance-degraded",
+                         G_CALLBACK (driver_performance_degraded_changed_cb), data);
+@@ -971,8 +994,8 @@ free_app_data (PpdApp *data)
+   g_clear_pointer (&data->config_path, g_free);
+   g_clear_pointer (&data->config, g_key_file_unref);
+   g_ptr_array_free (data->probed_drivers, TRUE);
++  g_ptr_array_free (data->drivers, TRUE);
+   g_ptr_array_free (data->actions, TRUE);
+-  g_clear_object (&data->driver);
+   g_hash_table_destroy (data->profile_holds);
+ 
+   g_clear_object (&data->auth);
+@@ -1024,6 +1047,7 @@ int main (int argc, char **argv)
+   data->auth = polkit_authority_get_sync (NULL, NULL);
+   data->probed_drivers = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
+   data->actions = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
++  data->drivers = g_ptr_array_new_with_free_func ((GDestroyNotify) g_object_unref);
+   data->profile_holds = g_hash_table_new_full (g_direct_hash, g_direct_equal, NULL, (GDestroyNotify) profile_hold_free);
+   data->active_profile = PPD_PROFILE_BALANCED;
+   data->selected_profile = PPD_PROFILE_BALANCED;
+diff --git a/tests/integration-test.py b/tests/integration-test.py
+index 8e37f69..e4c6b43 100755
+--- a/tests/integration-test.py
++++ b/tests/integration-test.py
+@@ -423,13 +423,13 @@ class Tests(dbusmock.DBusTestCase):
+ 
+       self.stop_daemon()
+ 
+-      # Verify that the Lenovo DYTC driver still gets preferred
++      # Verify that both drivers are loaded
+       self.create_platform_profile()
+       self.start_daemon()
+ 
+       profiles = self.get_dbus_property('Profiles')
+       self.assertEqual(len(profiles), 3)
+-      self.assertEqual(profiles[0]['Driver'], 'platform_profile')
++      self.assertEqual(profiles[0]['Driver'], 'platform_profile, intel_pstate')
+ 
+     def test_intel_pstate_balance(self):
+       '''Intel P-State driver (balance)'''
+@@ -651,13 +651,13 @@ class Tests(dbusmock.DBusTestCase):
+ 
+       self.stop_daemon()
+ 
+-      # Verify that the Lenovo DYTC driver still gets preferred
++      # Verify that both drivers are loaded
+       self.create_platform_profile()
+       self.start_daemon()
+ 
+       profiles = self.get_dbus_property('Profiles')
+       self.assertEqual(len(profiles), 3)
+-      self.assertEqual(profiles[0]['Driver'], 'platform_profile')
++      self.assertEqual(profiles[0]['Driver'], 'platform_profile, amd_pstate')
+ 
+     def test_amd_pstate_balance(self):
+       '''AMD P-State driver (balance)'''
+-- 
+GitLab
+
+
+From 84a83e2ddae3aea1f5a951c110dbe4874c523d53 Mon Sep 17 00:00:00 2001
+From: Antoine Damhet <antoine@damhet.fr>
+Date: Sun, 25 Jun 2023 11:13:31 +0200
+Subject: [PATCH 2/3] main: introduce exclusive drivers for fake/placeholder
+
+---
+ src/power-profiles-daemon.c  | 14 ++++++++------
+ src/ppd-driver-fake.c        |  1 +
+ src/ppd-driver-placeholder.c |  1 +
+ src/ppd-driver.c             | 34 +++++++++++++++++++++++++++++++++-
+ src/ppd-driver.h             |  1 +
+ 5 files changed, 44 insertions(+), 7 deletions(-)
+
+diff --git a/src/power-profiles-daemon.c b/src/power-profiles-daemon.c
+index f6e09ae..0a29941 100644
+--- a/src/power-profiles-daemon.c
++++ b/src/power-profiles-daemon.c
+@@ -85,7 +85,7 @@ static GTypeGetFunc objects[] = {
+   ppd_driver_amd_pstate_get_type,
+ 
+   /* Generic profile driver */
+-  //ppd_driver_placeholder_get_type,
++  ppd_driver_placeholder_get_type,
+ 
+   /* Actions */
+   ppd_action_trickle_charge_get_type,
+@@ -845,9 +845,11 @@ static void
+ start_profile_drivers (PpdApp *data)
+ {
+   guint i;
++  gboolean exclusive_loaded = FALSE;
+ 
+   for (i = 0; i < G_N_ELEMENTS (objects); i++) {
+     GObject *object;
++    gboolean exclusive_driver;
+ 
+     object = g_object_new (objects[i](), NULL);
+     if (PPD_IS_DRIVER (object)) {
+@@ -857,14 +859,13 @@ start_profile_drivers (PpdApp *data)
+ 
+       g_debug ("Handling driver '%s'", ppd_driver_get_driver_name (driver));
+ 
+-      // FIXME: how to handle conflicting drivers ?
+-#if 0
+-      if (data->driver != NULL) {
++      exclusive_driver = ppd_driver_is_exclusive (driver);
++      if (exclusive_loaded || (exclusive_driver && data->drivers->len > 0)) {
+         g_debug ("Driver '%s' already probed, skipping driver '%s'",
+-                 ppd_driver_get_driver_name (data->driver),
++                 get_drivers_name (data),
+                  ppd_driver_get_driver_name (driver));
++        continue;
+       }
+-#endif
+ 
+       profiles = ppd_driver_get_profiles (driver);
+       if (!(profiles & PPD_PROFILE_ALL)) {
+@@ -888,6 +889,7 @@ start_profile_drivers (PpdApp *data)
+         continue;
+       }
+ 
++      exclusive_loaded |= exclusive_driver;
+       g_ptr_array_add(data->drivers, driver);
+ 
+       g_signal_connect (G_OBJECT (driver), "notify::performance-degraded",
+diff --git a/src/ppd-driver-fake.c b/src/ppd-driver-fake.c
+index ecd6154..b0ae137 100644
+--- a/src/ppd-driver-fake.c
++++ b/src/ppd-driver-fake.c
+@@ -42,6 +42,7 @@ ppd_driver_fake_constructor (GType                  type,
+   g_object_set (object,
+                 "driver-name", "fake",
+                 "profiles", PPD_PROFILE_ALL,
++                "exclusive", TRUE,
+                 NULL);
+ 
+   return object;
+diff --git a/src/ppd-driver-placeholder.c b/src/ppd-driver-placeholder.c
+index 11d9e93..ee786bc 100644
+--- a/src/ppd-driver-placeholder.c
++++ b/src/ppd-driver-placeholder.c
+@@ -29,6 +29,7 @@ ppd_driver_placeholder_constructor (GType                  type,
+   g_object_set (object,
+                 "driver-name", "placeholder",
+                 "profiles", PPD_PROFILE_POWER_SAVER | PPD_PROFILE_BALANCED,
++                "exclusive", TRUE,
+                 NULL);
+ 
+   return object;
+diff --git a/src/ppd-driver.c b/src/ppd-driver.c
+index 9a1f369..1e68972 100644
+--- a/src/ppd-driver.c
++++ b/src/ppd-driver.c
+@@ -40,13 +40,15 @@ typedef struct
+   PpdProfile     profiles;
+   gboolean       selected;
+   char          *performance_degraded;
++  gboolean       exclusive;
+ } PpdDriverPrivate;
+ 
+ enum {
+   PROP_0,
+   PROP_DRIVER_NAME,
+   PROP_PROFILES,
+-  PROP_PERFORMANCE_DEGRADED
++  PROP_PERFORMANCE_DEGRADED,
++  PROP_EXCLUSIVE
+ };
+ 
+ enum {
+@@ -81,6 +83,9 @@ ppd_driver_set_property (GObject        *object,
+     g_clear_pointer (&priv->performance_degraded, g_free);
+     priv->performance_degraded = g_value_dup_string (value);
+     break;
++  case PROP_EXCLUSIVE:
++    priv->exclusive = g_value_get_boolean (value);
++    break;
+   default:
+     G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec);
+   }
+@@ -105,6 +110,9 @@ ppd_driver_get_property (GObject        *object,
+   case PROP_PERFORMANCE_DEGRADED:
+     g_value_set_string (value, priv->performance_degraded);
+     break;
++  case PROP_EXCLUSIVE:
++    g_value_set_boolean (value, priv->exclusive);
++    break;
+   default:
+     G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec);
+   }
+@@ -204,6 +212,18 @@ ppd_driver_class_init (PpdDriverClass *klass)
+                                                        "Why the performance profile is degraded, if set",
+                                                        NULL,
+                                                        G_PARAM_READWRITE));
++
++  /**
++   * PpdDriver:exclusive:
++   *
++   * If set to true, the driver is incompatible with any other driver.
++   */
++  g_object_class_install_property (object_class, PROP_EXCLUSIVE,
++                                   g_param_spec_boolean("exclusive",
++                                                       "Exclusive",
++                                                       "The driver is incompatible with others",
++                                                       FALSE,
++                                                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+ }
+ 
+ static void
+@@ -323,3 +343,15 @@ ppd_profile_activation_reason_to_str (PpdProfileActivationReason reason)
+     g_assert_not_reached ();
+   }
+ }
++
++gboolean
++ppd_driver_is_exclusive (PpdDriver *driver)
++{
++  PpdDriverPrivate *priv;
++
++  g_return_val_if_fail (PPD_IS_DRIVER (driver), FALSE);
++
++  priv = PPD_DRIVER_GET_PRIVATE (driver);
++
++  return priv->exclusive;
++}
+diff --git a/src/ppd-driver.h b/src/ppd-driver.h
+index f1e0f63..d056bf7 100644
+--- a/src/ppd-driver.h
++++ b/src/ppd-driver.h
+@@ -88,4 +88,5 @@ const char *ppd_driver_get_performance_degraded (PpdDriver *driver);
+ gboolean ppd_driver_is_performance_degraded (PpdDriver *driver);
+ void ppd_driver_emit_profile_changed (PpdDriver *driver, PpdProfile profile);
+ const char *ppd_profile_activation_reason_to_str (PpdProfileActivationReason reason);
++gboolean ppd_driver_is_exclusive (PpdDriver *driver);
+ #endif
+-- 
+GitLab
+
+
+From b69fe74854177829f276b284a0034280075efb80 Mon Sep 17 00:00:00 2001
+From: Antoine Damhet <antoine@damhet.fr>
+Date: Sun, 25 Jun 2023 11:54:30 +0200
+Subject: [PATCH 3/3] main: rollback drivers state in case of activation
+ failure
+
+---
+ src/power-profiles-daemon.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/src/power-profiles-daemon.c b/src/power-profiles-daemon.c
+index 0a29941..4e03415 100644
+--- a/src/power-profiles-daemon.c
++++ b/src/power-profiles-daemon.c
+@@ -358,20 +358,32 @@ activate_target_profile (PpdApp                      *data,
+                          PpdProfileActivationReason   reason,
+                          GError                     **error)
+ {
+-  GError *internal_error = NULL;
++  GError *internal_error = NULL, *recovery_error = NULL;
++  PpdProfile current_profile = data->active_profile;
+ 
+   g_debug ("Setting active profile '%s' for reason '%s' (current: '%s')",
+            ppd_profile_to_str (target_profile),
+            ppd_profile_activation_reason_to_str (reason),
+-           ppd_profile_to_str (data->active_profile));
++           ppd_profile_to_str (current_profile));
+ 
+   for (guint i = 0; i < data->drivers->len; i++) {
+-    // FIXME: how to handle errors ?
+     if (!ppd_driver_activate_profile (data->drivers->pdata[i], target_profile, reason, &internal_error)) {
+       g_warning ("Failed to activate driver '%s': %s",
+                  ppd_driver_get_driver_name (data->drivers->pdata[i]),
+                  internal_error->message);
+       g_propagate_error (error, internal_error);
++
++      for (guint j = i; j > 0; j--) {
++        if (!ppd_driver_activate_profile (data->drivers->pdata[j - 1], current_profile, PPD_PROFILE_ACTIVATION_REASON_INTERNAL, &recovery_error)) {
++          g_warning ("Failed to revert driver '%s': %s",
++                     ppd_driver_get_driver_name (data->drivers->pdata[j - 1]),
++                     recovery_error->message);
++
++          // The internal state can't be consistent anymore, we abort to avoid
++          // giving users wrong data
++          g_abort ();
++        }
++      }
+       return FALSE;
+     }
+   }
+-- 
+GitLab
+
