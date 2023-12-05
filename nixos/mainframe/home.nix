@@ -12,10 +12,6 @@ in
 {
   gtk = {
     enable = true;
-    iconTheme = {
-      package = pkgs.numix-icon-theme-circle;
-      name = "Numix-Circle";
-    };
     font = {
       package = pkgs.roboto;
       name = "Roboto";
@@ -49,7 +45,7 @@ in
       window.commands = [
         {
           criteria = { app_id = "pavucontrol"; };
-          command = "floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 40";
+          command = "floating enable, sticky enable, resize set width 650 px height 600px, move position cursor, move down 60";
         }
         {
           criteria = { app_id = "lxqt-openssh-askpass"; };
