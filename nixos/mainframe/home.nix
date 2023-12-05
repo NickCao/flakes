@@ -421,11 +421,7 @@ in
       enable = true;
       timeouts = [
         { timeout = 900; command = "${pkgs.swaylock}/bin/swaylock"; }
-        {
-          timeout = 905;
-          command = ''${pkgs.sway}/bin/swaymsg "output * dpms off"'';
-          resumeCommand = ''${pkgs.sway}/bin/swaymsg "output * dpms on"'';
-        }
+        { timeout = 905; command = "/run/current-system/systemd/bin/systemctl suspend"; }
       ];
       events = [
         { event = "lock"; command = "${pkgs.swaylock}/bin/swaylock"; }
