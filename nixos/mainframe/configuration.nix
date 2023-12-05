@@ -196,7 +196,6 @@
     };
     pcscd.enable = true;
     fstrim.enable = true;
-    logind.lidSwitch = "ignore";
     pipewire = {
       enable = true;
       pulse.enable = true;

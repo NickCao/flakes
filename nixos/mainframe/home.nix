@@ -105,7 +105,14 @@ in
           bg = "${fbk} fill";
           scale = "1.3";
         };
+        DP-2 = {
+          scale = "1.3";
+        };
       };
+      workspaceOutputAssign = [{
+        workspace = "9";
+        output = "DP-2";
+      }];
       bars = [ ];
     };
   };
