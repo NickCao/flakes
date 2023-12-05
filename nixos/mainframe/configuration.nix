@@ -195,6 +195,8 @@
     power-profiles-daemon.enable = true;
   };
 
+  powerManagement.powertop.enable = true;
+
   programs = {
     adb.enable = true;
     dconf.enable = true;
