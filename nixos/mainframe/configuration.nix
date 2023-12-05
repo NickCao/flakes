@@ -1,4 +1,5 @@
 { config, pkgs, lib, ... }: {
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -67,20 +68,18 @@
     useDHCP = false;
     wireless.iwd.enable = true;
   };
+
   systemd.network.wait-online = {
     anyInterface = true;
     ignoredInterfaces = [ "gravity" ];
   };
+
   systemd.network.networks = {
     "10-wlan0" = {
       name = "wlan0";
       DHCP = "yes";
       dhcpV4Config.RouteMetric = 2048;
       dhcpV6Config.RouteMetric = 2048;
-    };
-    "10-enp7s0" = {
-      name = "enp7s0";
-      DHCP = "yes";
     };
   };
 
@@ -97,11 +96,10 @@
     };
   };
 
-  environment.variables.GTK_IM_MODULE = lib.mkForce "wayland";
-
   boot = {
     tmp.useTmpfs = true;
     initrd = {
+      systemd.enable = true;
       kernelModules = [
         "amdgpu"
       ];
@@ -112,7 +110,6 @@
         "usb_storage"
         "sd_mod"
       ];
-      systemd.enable = true;
     };
     loader = {
       timeout = 0;
@@ -134,31 +131,19 @@
     kernelPackages = pkgs.linuxPackages_testing;
     kernelParams = [
       "mitigations=off"
-      "amdgpu.abmlevel=1"
+      # "amdgpu.abmlevel=1"
     ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;
   };
 
-  virtualisation = {
-    podman.enable = true;
-    vmVariant = {
-      users.users.nickcao = {
-        password = "passwd";
-        hashedPasswordFile = pkgs.lib.mkForce null;
-      };
-      services.gravity.enable = pkgs.lib.mkForce false;
-      environment.persistence."/persist" = pkgs.lib.mkForce { };
-    };
-  };
+  virtualisation.podman.enable = true;
 
   hardware = {
-    pulseaudio.enable = false;
     cpu.amd.updateMicrocode = true;
+    pulseaudio.enable = false;
     bluetooth.enable = true;
-    opengl = {
-      enable = true;
-    };
+    opengl.enable = true;
     sensor.iio.enable = true;
   };
 
@@ -304,7 +289,6 @@
       zram-size = "ram";
     };
   };
-
 
   hardware.keyboard.uhk.enable = true;
 
