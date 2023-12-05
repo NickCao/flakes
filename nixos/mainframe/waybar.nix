@@ -72,8 +72,8 @@ in
   };
   backlight = {
     format = mkSpan "BRI" "{percent}%";
-    on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl set 3%-";
-    on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set +3%";
+    on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl set 1%-";
+    on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set +1%";
   };
   battery = {
     format = mkSpan "BAT" "{capacity}%";
