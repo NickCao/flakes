@@ -103,10 +103,10 @@ in
       output = {
         eDP-1 = {
           bg = "${fbk} fill";
-          scale = "1.3";
+          scale = "1.5";
         };
         DP-2 = {
-          scale = "1.3";
+          scale = "1.5";
         };
       };
       workspaceOutputAssign = [{
