@@ -76,7 +76,7 @@ in
     on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set +1%";
   };
   battery = {
-    format = mkSpan "BAT" "{capacity}%";
+    format = mkSpan "BAT" "{capacity}% {power:.1f}W";
     format-charging = mkSpan "CHG" "{capacity}%";
     format-alt = mkSpan "BAT" "{time}";
   };
