@@ -146,6 +146,20 @@
     bluetooth.enable = true;
     opengl.enable = true;
     sensor.iio.enable = true;
+    firmware = lib.mkBefore [
+      # vaapi vp9 decoding glitches on rembrandt
+      # https://gitlab.freedesktop.org/mesa/mesa/-/issues/8044
+      (pkgs.fetchurl {
+        name = "amdgpu-firmware-vcn";
+        url = "https://gitlab.freedesktop.org/mesa/mesa/uploads/f51d221a24d4ac354e2d1d901613b594/vcn_4_0_2.bin";
+        hash = "sha256-1xFS8//lTuDJFOt4F1hPOrBOKw0UQ6I/WUBNqKS92Yc=";
+        downloadToTemp = true;
+        recursiveHash = true;
+        postFetch = ''
+          install -Dm444 "$downloadedFile" "$out/lib/firmware/amdgpu/vcn_4_0_2.bin"
+        '';
+      })
+    ];
   };
 
   services.fwupd.enable = true;
