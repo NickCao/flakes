@@ -336,7 +336,7 @@ in
       '';
       shellAliases = {
         b = "brightnessctl";
-        freq = "sudo ${pkgs.linuxPackages.cpupower}/bin/cpupower frequency-set -g";
+        p = "powerprofilesctl";
       };
       shellAbbrs = {
         rebuild = "nixos-rebuild --use-remote-sudo -v -L --flake ~/Projects/flakes";
