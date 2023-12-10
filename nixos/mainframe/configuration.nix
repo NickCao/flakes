@@ -132,6 +132,7 @@
     kernelParams = [
       "mitigations=off"
       "rtc_cmos.use_acpi_alarm=1"
+      "amdgpu.sg_display=0"
       # "amdgpu.abmlevel=1"
     ];
     kernelModules = [ "kvm-amd" ];
