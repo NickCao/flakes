@@ -1,11 +1,11 @@
 { pkgs, lib, config, ... }:
 let
-  fbk = "${./fubuki.jpg}";
-  fbk-blurred = pkgs.runCommand "fubuki.png"
+  cst = "${./chisato.jpg}";
+  cst-blurred = pkgs.runCommand "chisato.jpg"
     {
       nativeBuildInputs = with pkgs;[ imagemagick ];
     } ''
-    convert -blur 14x5 ${fbk} $out
+    convert -blur 14x5 ${cst} $out
   '';
   tide = pkgs.fishPlugins.tide.src;
 in
@@ -98,7 +98,7 @@ in
       };
       output = {
         eDP-1 = {
-          bg = "${fbk} fill";
+          bg = "${cst} fill";
           scale = "1.5";
         };
         DP-2 = {
@@ -115,7 +115,7 @@ in
   programs.swaylock.settings = {
     show-failed-attempts = true;
     daemonize = true;
-    image = "${fbk-blurred}";
+    image = "${cst-blurred}";
     scaling = "fill";
   };
   programs.neovim = {
