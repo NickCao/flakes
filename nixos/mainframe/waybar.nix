@@ -21,7 +21,6 @@ in
     "sway/workspaces"
     "sway/mode"
     "custom/separator"
-    "sway/window"
   ];
   modules-right = [
     "tray"
