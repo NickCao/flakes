@@ -417,6 +417,7 @@ in
       ];
       events = [
         { event = "lock"; command = "${pkgs.swaylock}/bin/swaylock"; }
+        { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock"; }
       ];
     };
   };
