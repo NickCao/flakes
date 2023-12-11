@@ -195,6 +195,7 @@
         MulticastDNS=off
       '';
     };
+    dbus.implementation = "broker";
     pcscd.enable = true;
     fstrim.enable = true;
     pipewire = {
