@@ -228,7 +228,6 @@ in
   systemd.user.sessionVariables = {
     SOPS_AGE_KEY_FILE = "$HOME/Documents/key.txt";
     # cache
-    CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
     CARGO_HOME = "${config.xdg.cacheHome}/cargo";
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
