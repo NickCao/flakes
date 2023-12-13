@@ -328,6 +328,7 @@
       create user * * |${request-key} %u %g %c
     '';
 
-  system.stateVersion = "20.09";
+  system.stateVersion = "23.11";
+
   documentation.nixos.enable = false;
 }
