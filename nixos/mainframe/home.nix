@@ -48,14 +48,6 @@ in
           command = "floating enable, sticky enable, resize set width 650 px height 600px, move position cursor, move down 60";
         }
         {
-          criteria = { app_id = "lxqt-openssh-askpass"; };
-          command = "floating enable";
-        }
-        {
-          criteria = { class = "lxqt-openssh-askpass"; };
-          command = "floating enable";
-        }
-        {
           criteria = { title = "Extension: \\(Bitwarden - Free Password Manager\\) - Bitwarden — Mozilla Firefox"; };
           command = "floating enable, move scratchpad, scratchpad show";
         }

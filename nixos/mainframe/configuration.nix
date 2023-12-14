@@ -164,7 +164,11 @@
 
   services.fwupd.enable = true;
 
-  programs.ssh.startAgent = true;
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+    askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+  };
 
   systemd.services.iwd.serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
 
