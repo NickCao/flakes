@@ -15,6 +15,10 @@
       enable = true;
       prefix = "2a0c:b641:69c:4ed4:0:4::/96";
     };
+    srv6 = {
+      enable = true;
+      prefix = "2a0c:b641:69c:4ed";
+    };
     ipsec = {
       enable = true;
       organization = "nickcao";
