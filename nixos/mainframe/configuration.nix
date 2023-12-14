@@ -164,10 +164,7 @@
 
   services.fwupd.enable = true;
 
-  programs.ssh = {
-    package = pkgs.openssh-fido2;
-    startAgent = true;
-  };
+  programs.ssh.startAgent = true;
 
   systemd.services.iwd.serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
 
@@ -308,19 +305,6 @@
   };
 
   hardware.keyboard.uhk.enable = true;
-
-  environment.systemPackages = [ pkgs.keyutils ];
-  environment.etc."request-key.conf".text =
-    let
-      request-key = pkgs.writeShellScript "request-key" ''
-        export DISPLAY=:0
-        PIN=$(/run/wrappers/bin/sudo -u \#$1 -g \#$2 --preserve-env=DISPLAY ${lib.getExe pkgs.lxqt.lxqt-openssh-askpass} "$3")
-        printf "%s\0" "$PIN"
-      '';
-    in
-    ''
-      create user * * |${request-key} %u %g %c
-    '';
 
   system.stateVersion = "23.11";
 
