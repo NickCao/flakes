@@ -80,6 +80,13 @@ in
         description = "list of addresses allowed to use divi";
       };
     };
+    srv6 = {
+      enable = mkEnableOption "sample srv6 configuration";
+      prefix = mkOption {
+        type = types.str;
+        description = "prefix for srv6 actions";
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -322,6 +329,24 @@ in
           OnCalendar = "*:0/15";
         };
         wantedBy = [ "timers.target" ];
+      };
+    })
+    (mkIf cfg.srv6.enable {
+      systemd.services.gravity-srv6 = {
+        path = with pkgs;[ iproute2 ];
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStart = [
+            "${pkgs.iproute2}/bin/ip r a ${cfg.srv6.prefix}6::1 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 :: dev gravity vrf gravity"
+          ];
+          ExecStop = [
+            "${pkgs.iproute2}/bin/ip r d ${cfg.srv6.prefix}6::1 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 :: dev gravity vrf gravity"
+          ];
+        };
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
       };
     })
     (mkIf cfg.ipsec.enable {
