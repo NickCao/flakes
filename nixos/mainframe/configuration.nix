@@ -169,11 +169,6 @@
     startAgent = true;
   };
 
-  systemd.user.services.ssh-agent.serviceConfig.ExecStartPost = "${pkgs.writeShellScript "ssh-add" ''
-    shopt -s extglob
-    SSH_AUTH_SOCK="$1" ${config.programs.ssh.package}/bin/ssh-add ~/.ssh/id_!(*.pub)
-  ''} %t/ssh-agent";
-
   systemd.services.iwd.serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
 
   services.greetd = {
