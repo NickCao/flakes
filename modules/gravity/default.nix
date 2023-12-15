@@ -371,7 +371,7 @@ in
         serviceConfig =
           let
             routes = [
-              "${cfg.srv6.prefix}6::1 encap seg6local action End.DX6 nh6 ::     dev gravity table localsid"
+              "${cfg.srv6.prefix}6::1 encap seg6local action End.DT6 table main dev gravity table localsid"
               "${cfg.srv6.prefix}6::2 encap seg6local action End                dev gravity table localsid"
               "${cfg.srv6.prefix}6::3 encap seg6local action End.DX6 nh6 fc00:: dev gravity table localsid"
               "blackhole default table localsid"
