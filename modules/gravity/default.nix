@@ -66,7 +66,7 @@ in
       };
       dynamic-pool = mkOption {
         type = types.str;
-        default = "10.208.0.0/12";
+        default = "10.200.0.0/16";
         description = "prefix for dynamic assignment";
       };
       oif = mkOption {
@@ -265,6 +265,15 @@ in
       services.bird2.checkConfig = false;
     })
     (mkIf cfg.divi.enable {
+      systemd.network.networks.nat64 = {
+        name = "nat64";
+        routes = [
+          { routeConfig = { Destination = "64:ff9b::/96"; Table = cfg.table; }; }
+          { routeConfig.Destination = "10.201.0.0/16"; }
+        ];
+        linkConfig.RequiredForOnline = false;
+      };
+
       systemd.network.networks.divi = {
         name = "divi";
         routes = [
@@ -274,11 +283,25 @@ in
         linkConfig.RequiredForOnline = false;
       };
 
+      systemd.services.nat64 = {
+        serviceConfig = {
+          ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
+          tun-device nat64
+          ipv4-addr 10.201.0.1
+          ipv6-addr fc00::
+          prefix 64:ff9b::/96
+          dynamic-pool 10.201.0.0/16
+        ''}";
+        };
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+      };
+
       systemd.services.divi = {
         serviceConfig = {
           ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
           tun-device divi
-          ipv4-addr 10.208.0.1
+          ipv4-addr 10.200.0.1
           prefix ${cfg.divi.prefix}
           dynamic-pool ${cfg.divi.dynamic-pool}
         ''}";
