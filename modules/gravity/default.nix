@@ -273,7 +273,7 @@ in
       systemd.network.networks.nat64 = {
         name = "nat64";
         routes = [
-          { routeConfig = { Destination = "fc00::/128"; Table = cfg.table; }; }
+          { routeConfig = { Destination = "64:ff9b::/96"; Table = 101; }; }
           { routeConfig.Destination = "10.201.0.0/16"; }
         ];
         linkConfig.RequiredForOnline = false;
@@ -364,6 +364,7 @@ in
         mode = "0644";
         text = ''
           100 localsid
+          101 stateful
         '';
       };
       systemd.services.gravity-srv6 = {
@@ -371,10 +372,11 @@ in
         serviceConfig =
           let
             routes = [
-              "${cfg.srv6.prefix}6::1 encap seg6local action End.DT6 table main dev gravity table localsid"
-              "${cfg.srv6.prefix}6::2 encap seg6local action End                dev gravity table localsid"
-              "${cfg.srv6.prefix}6::3 encap seg6local action End.DX6 nh6 fc00:: dev gravity table localsid"
               "blackhole default table localsid"
+              "blackhole default table stateful"
+              "${cfg.srv6.prefix}6::1 encap seg6local action End.DT6 table main     dev gravity table localsid"
+              "${cfg.srv6.prefix}6::2 encap seg6local action End                    dev gravity table localsid"
+              "${cfg.srv6.prefix}6::3 encap seg6local action End.DT6 table stateful dev gravity table localsid"
             ];
           in
           {
