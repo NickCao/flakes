@@ -374,6 +374,10 @@ in
               "${cfg.srv6.prefix}6::1 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 :: dev gravity vrf gravity"
               "${cfg.srv6.prefix}6::2 from 2a0c:b641:69c::/48 encap seg6local action End nh6 :: dev gravity vrf gravity"
               "${cfg.srv6.prefix}6::3 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 fc00:: dev gravity vrf gravity"
+
+              "${cfg.srv6.prefix}6::1 encap seg6local action End.DX6 nh6 ::     dev gravity table localsid"
+              "${cfg.srv6.prefix}6::2 encap seg6local action End                dev gravity table localsid"
+              "${cfg.srv6.prefix}6::3 encap seg6local action End.DX6 nh6 fc00:: dev gravity table localsid"
               "blackhole default table localsid"
             ];
           in
