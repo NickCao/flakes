@@ -374,13 +374,14 @@ in
               "${cfg.srv6.prefix}6::1 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 :: dev gravity vrf gravity"
               "${cfg.srv6.prefix}6::2 from 2a0c:b641:69c::/48 encap seg6local action End nh6 :: dev gravity vrf gravity"
               "${cfg.srv6.prefix}6::3 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 fc00:: dev gravity vrf gravity"
+              "blackhole default table localsid"
             ];
           in
           {
             Type = "oneshot";
             RemainAfterExit = true;
-            ExecStart = builtins.map (route: "${pkgs.iproute2}/bin/ip r a ${route}") routes;
-            ExecStop = builtins.map (route: "${pkgs.iproute2}/bin/ip r d ${route}") routes;
+            ExecStart = builtins.map (route: "${pkgs.iproute2}/bin/ip -6 r a ${route}") routes;
+            ExecStop = builtins.map (route: "${pkgs.iproute2}/bin/ip -6 r d ${route}") routes;
           };
         after = [ "network-online.target" ];
         wants = [ "network-online.target" ];
