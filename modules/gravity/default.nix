@@ -110,6 +110,11 @@ in
         script = ''
           ip -4 ru del pref 0 || true
           ip -6 ru del pref 0 || true
+        '' + (lib.optionalString cfg.srv6.enable ''
+          if [ -z "$(ip -6 ru list pref 500)" ]; then
+            ip -6 ru add pref 500 from 2a0c:b641:69c::/48 to ${cfg.srv6.prefix}6::/64 lookup localsid proto kernel
+          fi
+        '') + ''
           if [ -z "$(ip -4 ru list pref 2000)" ]; then
             ip -4 ru add pref 2000 l3mdev unreachable proto kernel
           fi
@@ -355,6 +360,12 @@ in
       };
     })
     (mkIf cfg.srv6.enable {
+      environment.etc."iproute2/rt_tables.d/gravity.conf" = {
+        mode = "0644";
+        text = ''
+          100 localsid
+        '';
+      };
       systemd.services.gravity-srv6 = {
         path = with pkgs;[ iproute2 ];
         serviceConfig =
