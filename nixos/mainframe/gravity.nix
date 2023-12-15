@@ -99,13 +99,17 @@
   };
 
   systemd.services.clatd = {
-    path = with pkgs; [ tayga ];
-    script = "tayga -d --config ${pkgs.writeText "tayga.conf" ''
-      tun-device clat
-      prefix 2a0c:b641:69c:aeb4:0:4::/96
-      ipv4-addr 192.0.0.1
-      map 192.0.0.2 2a0c:b641:69c:99cc::2
-    ''}";
+    path = with pkgs; [ iproute2 tayga ];
+    script = ''
+      ip r replace 64:ff9b::/96 from 2a0c:b641:69c:99c0::/60 \
+        encap seg6 mode encap segs 2a0c:b641:69c:aeb6::3 dev gravity vrf gravity mtu 1280
+      exec tayga -d --config ${pkgs.writeText "tayga.conf" ''
+        tun-device clat
+        prefix 64:ff9b::/96
+        ipv4-addr 192.0.0.1
+        map 192.0.0.2 2a0c:b641:69c:99cc::2
+      ''}
+    '';
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
   };
