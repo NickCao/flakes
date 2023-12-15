@@ -339,9 +339,11 @@ in
           RemainAfterExit = true;
           ExecStart = [
             "${pkgs.iproute2}/bin/ip r a ${cfg.srv6.prefix}6::1 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 :: dev gravity vrf gravity"
+            "${pkgs.iproute2}/bin/ip r a ${cfg.srv6.prefix}6::2 from 2a0c:b641:69c::/48 encap seg6local action End nh6 :: dev gravity vrf gravity"
           ];
           ExecStop = [
             "${pkgs.iproute2}/bin/ip r d ${cfg.srv6.prefix}6::1 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 :: dev gravity vrf gravity"
+            "${pkgs.iproute2}/bin/ip r d ${cfg.srv6.prefix}6::2 from 2a0c:b641:69c::/48 encap seg6local action End nh6 :: dev gravity vrf gravity"
           ];
         };
         after = [ "network-online.target" ];
