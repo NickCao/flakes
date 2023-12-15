@@ -268,7 +268,7 @@ in
       systemd.network.networks.nat64 = {
         name = "nat64";
         routes = [
-          { routeConfig = { Destination = "64:ff9b::/96"; Table = cfg.table; }; }
+          { routeConfig = { Destination = "fc00::/128"; Table = cfg.table; }; }
           { routeConfig.Destination = "10.201.0.0/16"; }
         ];
         linkConfig.RequiredForOnline = false;
@@ -363,10 +363,12 @@ in
           ExecStart = [
             "${pkgs.iproute2}/bin/ip r a ${cfg.srv6.prefix}6::1 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 :: dev gravity vrf gravity"
             "${pkgs.iproute2}/bin/ip r a ${cfg.srv6.prefix}6::2 from 2a0c:b641:69c::/48 encap seg6local action End nh6 :: dev gravity vrf gravity"
+            "${pkgs.iproute2}/bin/ip r a ${cfg.srv6.prefix}6::3 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 fc00:: dev gravity vrf gravity"
           ];
           ExecStop = [
             "${pkgs.iproute2}/bin/ip r d ${cfg.srv6.prefix}6::1 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 :: dev gravity vrf gravity"
             "${pkgs.iproute2}/bin/ip r d ${cfg.srv6.prefix}6::2 from 2a0c:b641:69c::/48 encap seg6local action End nh6 :: dev gravity vrf gravity"
+            "${pkgs.iproute2}/bin/ip r d ${cfg.srv6.prefix}6::3 from 2a0c:b641:69c::/48 encap seg6local action End.DX6 nh6 fc00:: dev gravity vrf gravity"
           ];
         };
         after = [ "network-online.target" ];
