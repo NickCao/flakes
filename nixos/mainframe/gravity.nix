@@ -101,8 +101,10 @@
   systemd.services.clatd = {
     path = with pkgs; [ iproute2 tayga ];
     script = ''
+      ip sr tunsrc set 2a0c:b641:69c:99cc::1
       ip r replace 64:ff9b::/96 from 2a0c:b641:69c:99c0::/60 \
         encap seg6 mode encap segs 2a0c:b641:69c:aeb6::3 dev gravity vrf gravity mtu 1280
+      ip r replace default from 2a0c:b641:69c:99cc::1 dev gravity
       exec tayga -d --config ${pkgs.writeText "tayga.conf" ''
         tun-device clat
         prefix 64:ff9b::/96
