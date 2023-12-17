@@ -241,6 +241,7 @@ in
 
   programs = {
     # pandoc.enable = true;
+    man.generateCaches = false;
     jq.enable = true;
     lf.enable = true;
     waybar = {
