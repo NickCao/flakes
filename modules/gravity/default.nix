@@ -258,8 +258,7 @@ in
             route ${cfg.bird.prefix} from ::/0 unreachable;
             ${optionalString cfg.bird.exit.enable ''
             route 2a0c:b641:69c::/48 from ::/0 unreachable;
-            route ::/0 from 2a0c:b641:69c::/48 recursive 2606:4700:4700::1111;
-            igp table master6;
+            route ::/0 from 2a0c:b641:69c::/48 via "stateles";
             ''}
           }
           protocol babel {
