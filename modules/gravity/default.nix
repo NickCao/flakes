@@ -418,6 +418,7 @@ in
         mode = "0644";
         text = ''
           100 localsid
+          ${toString stateles} stateles
           ${toString stateful} stateful
         '';
       };
@@ -427,8 +428,9 @@ in
           let
             routes = [
               "blackhole default table localsid"
+              "blackhole default vrf stateles"
               "blackhole default vrf stateful"
-              "${cfg.srv6.prefix}6::1 encap seg6local action End.DT6 table main        dev gravity table localsid"
+              "${cfg.srv6.prefix}6::1 encap seg6local action End.DT6 vrftable stateles dev gravity table localsid"
               "${cfg.srv6.prefix}6::2 encap seg6local action End                       dev gravity table localsid"
               "${cfg.srv6.prefix}6::3 encap seg6local action End.DT6 vrftable stateful dev gravity table localsid"
             ];
