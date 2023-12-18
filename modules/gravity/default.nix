@@ -204,9 +204,17 @@ in
           }
           ${optionalString cfg.bird.exit.enable ''
           ipv6 table stateles;
+          ipv6 table stateful;
 
           protocol pipe stateles_pipe {
             table stateles;
+            peer table master6;
+            import all;
+            export none;
+          }
+
+          protocol pipe stateful_pipe {
+            table stateful;
             peer table master6;
             import all;
             export none;
@@ -221,28 +229,21 @@ in
             };
           }
 
-          ipv6 sadr table sadr6s;
+          protocol kernel stateful_kern {
+            kernel table ${toString stateful};
+            ipv6 {
+              table stateful;
+              import none;
+              export all;
+            };
+          }
+
           protocol kernel {
             ipv6 {
               export where proto = "announce";
               import all;
             };
             learn;
-          }
-          protocol static stateful {
-            ipv6 sadr {
-              table sadr6s;
-            };
-            route ::/0 from 2a0c:b641:69c::/48 recursive 2606:4700:4700::1111;
-            igp table master6;
-          }
-          protocol kernel {
-            kernel table ${toString stateful};
-            ipv6 sadr {
-              table sadr6s;
-              export where proto = "stateful";
-              import none;
-            };
           }
           ''}
           protocol kernel {
