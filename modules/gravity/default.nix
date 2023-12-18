@@ -3,6 +3,7 @@ with lib;
 let
   cfg = config.services.gravity;
   stateful = config.systemd.network.netdevs.stateful.vrfConfig.Table;
+  stateles = config.systemd.network.netdevs.stateles.vrfConfig.Table;
 in
 {
   options.services.gravity = {
@@ -202,6 +203,24 @@ in
             scan time 5;
           }
           ${optionalString cfg.bird.exit.enable ''
+          ipv6 table stateles;
+
+          protocol pipe stateles_pipe {
+            table stateles;
+            peer table master6;
+            import all;
+            export none;
+          }
+
+          protocol kernel stateles_kern {
+            kernel table ${toString stateles};
+            ipv6 {
+              table stateles;
+              import none;
+              export all;
+            };
+          }
+
           ipv6 sadr table sadr6s;
           protocol kernel {
             ipv6 {
