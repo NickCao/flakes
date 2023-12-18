@@ -146,33 +146,31 @@ in
 
       systemd.network.netdevs = {
         gravity = {
-          netdevConfig = {
-            Name = "gravity";
-            Kind = "vrf";
-          };
-          vrfConfig = {
-            Table = cfg.table;
-          };
+          netdevConfig = { Kind = "vrf"; Name = "gravity"; };
+          vrfConfig = { Table = cfg.table + 0; };
         };
         stateful = {
-          netdevConfig = {
-            Name = "stateful";
-            Kind = "vrf";
-          };
-          vrfConfig = {
-            Table = cfg.table + 1;
-          };
+          netdevConfig = { Kind = "vrf"; Name = "stateful"; };
+          vrfConfig = { Table = cfg.table + 1; };
+        };
+        stateles = {
+          netdevConfig = { Kind = "vrf"; Name = "stateles"; };
+          vrfConfig = { Table = cfg.table + 2; };
         };
       };
 
       systemd.network.networks = {
         gravity = {
-          name = "gravity";
+          name = config.systemd.network.netdevs.gravity.netdevConfig.Name;
           address = cfg.address;
           linkConfig.RequiredForOnline = false;
         };
         stateful = {
-          name = "stateful";
+          name = config.systemd.network.netdevs.stateful.netdevConfig.Name;
+          linkConfig.RequiredForOnline = false;
+        };
+        stateles = {
+          name = config.systemd.network.netdevs.stateles.netdevConfig.Name;
           linkConfig.RequiredForOnline = false;
         };
       };
