@@ -203,12 +203,28 @@ in
             scan time 5;
           }
           ${optionalString cfg.bird.exit.enable ''
+          ipv6 sadr table sadr6s;
           protocol kernel {
             ipv6 {
               export where proto = "announce";
               import all;
             };
             learn;
+          }
+          protocol static stateful {
+            ipv6 sadr {
+              table sadr6s;
+            };
+            route ::/0 from 2a0c:b641:69c::/48 recursive 2606:4700:4700::1111;
+            igp table master6;
+          }
+          protocol kernel {
+            kernel table ${toString stateful};
+            ipv6 sadr {
+              table sadr6s;
+              export where proto = "stateful";
+              import none;
+            };
           }
           ''}
           protocol kernel {
