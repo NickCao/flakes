@@ -169,6 +169,7 @@ in
         gravity = {
           name = "gravity";
           address = cfg.address;
+          linkConfig.RequiredForOnline = false;
         };
         stateful = {
           name = "stateful";
