@@ -2,6 +2,7 @@
 with lib;
 let
   cfg = config.services.gravity;
+  stateful = config.systemd.network.netdevs.stateful.vrfConfig.Table;
 in
 {
   options.services.gravity = {
@@ -153,12 +154,25 @@ in
             Table = cfg.table;
           };
         };
+        stateful = {
+          netdevConfig = {
+            Name = "stateful";
+            Kind = "vrf";
+          };
+          vrfConfig = {
+            Table = cfg.table + 1;
+          };
+        };
       };
 
       systemd.network.networks = {
         gravity = {
           name = "gravity";
           address = cfg.address;
+        };
+        stateful = {
+          name = "stateful";
+          linkConfig.RequiredForOnline = false;
         };
       };
     })
@@ -275,7 +289,7 @@ in
       systemd.network.networks.nat64 = {
         name = "nat64";
         routes = [
-          { routeConfig = { Destination = "64:ff9b::/96"; Table = 101; }; }
+          { routeConfig = { Destination = "64:ff9b::/96"; Table = stateful; }; }
           { routeConfig.Destination = "10.201.0.0/16"; }
         ];
         linkConfig.RequiredForOnline = false;
@@ -366,7 +380,7 @@ in
         mode = "0644";
         text = ''
           100 localsid
-          101 stateful
+          ${toString stateful} stateful
         '';
       };
       systemd.services.gravity-srv6 = {
@@ -375,10 +389,10 @@ in
           let
             routes = [
               "blackhole default table localsid"
-              "blackhole default table stateful"
-              "${cfg.srv6.prefix}6::1 encap seg6local action End.DT6 table main     dev gravity table localsid"
-              "${cfg.srv6.prefix}6::2 encap seg6local action End                    dev gravity table localsid"
-              "${cfg.srv6.prefix}6::3 encap seg6local action End.DT6 table stateful dev gravity table localsid"
+              "blackhole default vrf stateful"
+              "${cfg.srv6.prefix}6::1 encap seg6local action End.DT6 table main        dev gravity table localsid"
+              "${cfg.srv6.prefix}6::2 encap seg6local action End                       dev gravity table localsid"
+              "${cfg.srv6.prefix}6::3 encap seg6local action End.DT6 vrftable stateful dev gravity table localsid"
             ];
           in
           {
