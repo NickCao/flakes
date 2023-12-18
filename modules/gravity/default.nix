@@ -347,6 +347,10 @@ in
             }
           }
           table ip6 filter {
+            chain postrouting {
+              type nat hook postrouting priority 100;
+              iifname "stateful" oifname "${cfg.divi.oif}" masquerade
+            }
             chain forward {
               type filter hook forward priority 0;
               oifname "divi" ip6 saddr != { ${lib.concatStringsSep ", " cfg.divi.allow} } reject
