@@ -160,6 +160,7 @@ in
         incoming_bridge_error_reports = true;
         bridge_matrix_leave = false;
         relay_user_distinguishers = [ ];
+        create_group_on_invite = false;
         animated_sticker = {
           target = "webp";
           convert_from_webm = true;
