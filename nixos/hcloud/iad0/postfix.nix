@@ -32,6 +32,8 @@ in
       noc@nichi.co          nickcao@nichi.co
     '';
     config = {
+      smtpd_data_restrictions = "reject_unauth_pipelining";
+
       smtp_tls_security_level = "may";
 
       smtpd_tls_chain_files = [ "/tmp/selfsigned.key" "/tmp/selfsigned.crt" ];
