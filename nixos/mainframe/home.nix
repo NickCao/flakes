@@ -49,7 +49,7 @@ in
         }
         {
           criteria = { title = "Extension: \\(Bitwarden - Free Password Manager\\) - Bitwarden — Mozilla Firefox"; };
-          command = "floating enable, move scratchpad, scratchpad show";
+          command = "floating enable";
         }
       ];
       gaps = {
