@@ -57,6 +57,9 @@
       "uhk-agent"
       "sof-firmware"
       "adoptopenjdk-hotspot-bin"
+      "cargo-bootstrap"
+      "rustc-bootstrap"
+      "rustc-bootstrap-wrapper"
     ];
   };
 
