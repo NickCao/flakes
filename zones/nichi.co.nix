@@ -14,6 +14,11 @@ dns.lib.toString "nichi.co" {
   TXT = [
     (with spf; soft [ "mx" ])
   ];
+  HTTPS = [{
+    alpn = [ "h3" "h2" ];
+    ipv4hint = [ hio0.ipv4 ];
+    ipv6hint = [ hio0.ipv6 ];
+  }];
   subdomains = {
     www.TXT = [ "http.cat/404" ];
     id.CNAME = [ "hio0.nichi.link." ];

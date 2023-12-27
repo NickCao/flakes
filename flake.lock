@@ -78,11 +78,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1657004964,
-        "narHash": "sha256-hZyLOYZn6fzJd8ubMqLF4T+mGAT88MSkGsM5bgr3pB8=",
+        "lastModified": 1703643450,
+        "narHash": "sha256-EUUF5oxFFPX/etKm0FNQg+7MPHQlNjmM1XhNgyDf7A0=",
         "owner": "NickCao",
         "repo": "dns.nix",
-        "rev": "097375727ee958c9a764370011ca7b2850e52421",
+        "rev": "70dcce71560d4253f63812fa36dee994c81ae814",
         "type": "github"
       },
       "original": {
