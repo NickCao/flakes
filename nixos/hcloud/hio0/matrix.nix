@@ -127,13 +127,13 @@ in
         msc3890_enabled = true;
       };
     };
+  };
 
-    sliding-sync = {
-      enable = true;
-      environmentFile = config.sops.secrets.sliding-sync.path;
-      settings = {
-        SYNCV3_SERVER = config.services.matrix-synapse.settings.public_baseurl;
-      };
+  services.matrix-sliding-sync = {
+    enable = true;
+    environmentFile = config.sops.secrets.sliding-sync.path;
+    settings = {
+      SYNCV3_SERVER = config.services.matrix-synapse.settings.public_baseurl;
     };
   };
 
