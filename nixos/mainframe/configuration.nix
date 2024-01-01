@@ -186,6 +186,7 @@
   };
 
   services = {
+    logind.powerKey = "suspend";
     resolved = {
       dnssec = "false";
       llmnr = "false";
