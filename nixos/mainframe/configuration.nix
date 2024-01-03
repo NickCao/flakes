@@ -173,8 +173,6 @@
     askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
   };
 
-  systemd.services.iwd.serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
-
   services.greetd = {
     enable = true;
     settings = {
