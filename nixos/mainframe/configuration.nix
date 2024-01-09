@@ -131,7 +131,7 @@
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_testing;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "rtc_cmos.use_acpi_alarm=1"
       "amdgpu.sg_display=0"
