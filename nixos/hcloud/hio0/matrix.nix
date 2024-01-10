@@ -256,7 +256,7 @@ in
       }];
       handle = [{
         handler = "reverse_proxy";
-        upstreams = [{ dial = config.services.matrix-synapse.sliding-sync.settings.SYNCV3_BINDADDR; }];
+        upstreams = [{ dial = config.services.matrix-sliding-sync.settings.SYNCV3_BINDADDR; }];
       }];
     }
     {
