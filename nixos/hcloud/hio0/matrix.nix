@@ -54,7 +54,7 @@ in
 
   systemd.tmpfiles.settings = {
     "10-synapse" = {
-      "/var/lib/matrix-synapse/media_store/local_thumbnails".e.age = "7d";
+      "${config.services.matrix-synapse.settings.media_store_path}/local_thumbnails".e.age = "7d";
     };
   };
 
@@ -68,6 +68,8 @@ in
       server_name = "nichi.co";
       public_baseurl = "https://matrix.nichi.co";
       signing_key_path = config.sops.secrets.matrix-synapse.path;
+
+      media_store_path = "/data/synapse/media_store";
 
       extra_well_known_client_content = {
         "org.matrix.msc3575.proxy" = {
