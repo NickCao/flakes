@@ -68,7 +68,7 @@ in
             }
             {
               alert = "DiskFull";
-              expr = "disk_used_percent { path = '/nix' } > 90";
+              expr = "disk_used_percent { path =~ '/nix|/data' } > 90";
               annotations = {
                 summary = ''node {{ $labels.host }} disk full, {{ $value | printf "%.2f" }} percent used'';
               };
