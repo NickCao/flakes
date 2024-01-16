@@ -134,6 +134,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "rtc_cmos.use_acpi_alarm=1"
+      "amdgpu.sg_display=0"
     ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;
