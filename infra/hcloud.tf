@@ -29,3 +29,8 @@ resource "hcloud_volume" "data" {
   location          = "hil"
   delete_protection = true
 }
+
+resource "hcloud_volume_attachment" "main" {
+  volume_id = hcloud_volume.data.id
+  server_id = module.hcloud["hio0"].id
+}

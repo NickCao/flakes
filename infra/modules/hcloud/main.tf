@@ -69,6 +69,10 @@ resource "hcloud_rdns" "ipv6" {
   dns_ptr    = var.fqdn
 }
 
+output "id" {
+  value = hcloud_server.server.id
+}
+
 output "ipv4" {
   value = hcloud_primary_ip.ipv4.ip_address
 }
