@@ -22,3 +22,10 @@ module "hcloud" {
   plan     = each.value.plan
   tags     = each.value.tags
 }
+
+resource "hcloud_volume" "data" {
+  name              = "data"
+  size              = 128
+  location          = "hil"
+  delete_protection = true
+}
