@@ -14,4 +14,10 @@
 
   networking.hostName = "hio0";
 
+  fileSystems."/data" = {
+    device = "/dev/disk/by-partlabel/DATA";
+    fsType = "btrfs";
+    options = [ "compress-force=zstd" ];
+  };
+
 }
