@@ -114,22 +114,11 @@ in
         script = ''
           ip -4 ru del pref 0 || true
           ip -6 ru del pref 0 || true
-        '' + (lib.optionalString cfg.srv6.enable ''
-          if [ -z "$(ip -6 ru list pref 500)" ]; then
-            ip -6 ru add pref 500 from 2a0c:b641:69c::/48 to ${cfg.srv6.prefix}6::/64 lookup localsid proto kernel
-          fi
-        '') + ''
           if [ -z "$(ip -4 ru list pref 2000)" ]; then
             ip -4 ru add pref 2000 l3mdev unreachable proto kernel
           fi
           if [ -z "$(ip -6 ru list pref 2000)" ]; then
             ip -6 ru add pref 2000 l3mdev unreachable proto kernel
-          fi
-          if [ -z "$(ip -4 ru list pref 3000)" ]; then
-            ip -4 ru add pref 3000 lookup local proto kernel
-          fi
-          if [ -z "$(ip -6 ru list pref 3000)" ]; then
-            ip -6 ru add pref 3000 lookup local proto kernel
           fi
         '';
         serviceConfig = {
@@ -165,6 +154,21 @@ in
           name = config.systemd.network.netdevs.gravity.netdevConfig.Name;
           address = cfg.address;
           linkConfig.RequiredForOnline = false;
+          routingPolicyRules = lib.optionals (cfg.srv6.enable) [{
+            routingPolicyRuleConfig = {
+              Priority = 500;
+              Family = "ipv6";
+              Table = 100; # localsid
+              From = "2a0c:b641:69c::/48";
+              To = "${cfg.srv6.prefix}6::/64";
+            };
+          }] ++ [{
+            routingPolicyRuleConfig = {
+              Priority = 3000;
+              Family = "both";
+              Table = "local";
+            };
+          }];
         };
         stateful = {
           name = config.systemd.network.netdevs.stateful.netdevConfig.Name;
