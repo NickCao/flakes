@@ -10,6 +10,9 @@ with lib;
   config = lib.mkIf cfg.enable {
     boot = {
       kernelPackages = pkgs.linuxPackages_latest;
+      kernelParams = [
+        "ia32_emulation=0"
+      ];
       kernel.sysctl = {
         "kernel.panic" = 60;
         "net.core.default_qdisc" = "fq";
