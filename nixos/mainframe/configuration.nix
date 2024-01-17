@@ -135,6 +135,7 @@
     kernelParams = [
       "rtc_cmos.use_acpi_alarm=1"
       "amdgpu.sg_display=0"
+      "ia32_emulation=0"
     ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;
