@@ -26,6 +26,10 @@ in
             "0.0.0.0"
             "::"
           ];
+          listen-quic = [
+            "0.0.0.0"
+            "::"
+          ];
         };
 
         log = [{
@@ -41,6 +45,7 @@ in
               data.nodes.iad0.ipv6
             ];
             key = "transfer";
+            quic = true;
           }
           {
             id = "cloudflare";

@@ -8,6 +8,7 @@ let
         value.ipv6
       ];
       key = "transfer";
+      quic = true;
     })
     (lib.filterAttrs
       (name: value:
@@ -47,6 +48,7 @@ in
         tcp-reuseport = true;
         automatic-acl = true;
         listen = [ "0.0.0.0" "::" ];
+        listen-quic = [ "0.0.0.0" "::" ];
       };
       log = [{
         target = "syslog";
