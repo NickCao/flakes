@@ -8,13 +8,20 @@ in
     enable = mkEnableOption "secondary dns service";
   };
   config = mkIf cfg.enable {
-    sops.secrets.tsig = {
-      owner = config.systemd.services.knot.serviceConfig.User;
-      sopsFile = ../../../zones/secrets.yaml;
+    sops.secrets = {
+      "quic/key" = {
+        owner = config.systemd.services.knot.serviceConfig.User;
+        restartUnits = [ "knot.service" ];
+        sopsFile = ../../../zones/secrets.yaml;
+      };
+      "quic/cert" = {
+        owner = config.systemd.services.knot.serviceConfig.User;
+        restartUnits = [ "knot.service" ];
+        sopsFile = ../../../zones/secrets.yaml;
+      };
     };
     services.knot = {
       enable = true;
-      keyFiles = [ config.sops.secrets.tsig.path ];
       settings = {
         server = {
           async-start = true;
@@ -22,14 +29,10 @@ in
           tcp-fastopen = true;
           edns-client-subnet = true;
           automatic-acl = true;
-          listen = [
-            "0.0.0.0"
-            "::"
-          ];
-          listen-quic = [
-            "0.0.0.0"
-            "::"
-          ];
+          listen = [ "0.0.0.0" "::" ];
+          listen-quic = [ "0.0.0.0" "::" ];
+          key-file = config.sops.secrets."quic/key".path;
+          cert-file = config.sops.secrets."quic/cert".path;
         };
 
         log = [{
@@ -44,8 +47,8 @@ in
               data.nodes.iad0.ipv4
               data.nodes.iad0.ipv6
             ];
-            key = "transfer";
             quic = true;
+            cert-key = "ZvTOnBFFp0WBMFOu62pjGrYVeBOQK3STxJu99C9BuGA=";
           }
           {
             id = "cloudflare";

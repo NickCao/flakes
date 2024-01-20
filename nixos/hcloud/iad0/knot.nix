@@ -7,8 +7,8 @@ let
         value.ipv4
         value.ipv6
       ];
-      key = "transfer";
       quic = true;
+      cert-key = "ZvTOnBFFp0WBMFOu62pjGrYVeBOQK3STxJu99C9BuGA=";
     })
     (lib.filterAttrs
       (name: value:
@@ -20,9 +20,14 @@ in
 {
 
   sops.secrets = {
-    tsig = {
+    "quic/key" = {
       owner = config.systemd.services.knot.serviceConfig.User;
-      reloadUnits = [ "knot.service" ];
+      restartUnits = [ "knot.service" ];
+      sopsFile = ../../../zones/secrets.yaml;
+    };
+    "quic/cert" = {
+      owner = config.systemd.services.knot.serviceConfig.User;
+      restartUnits = [ "knot.service" ];
       sopsFile = ../../../zones/secrets.yaml;
     };
     gravity = {
@@ -39,7 +44,6 @@ in
 
   services.knot = {
     enable = true;
-    keyFiles = [ config.sops.secrets.tsig.path ];
     settings = {
       server = {
         async-start = true;
@@ -49,6 +53,8 @@ in
         automatic-acl = true;
         listen = [ "0.0.0.0" "::" ];
         listen-quic = [ "0.0.0.0" "::" ];
+        key-file = config.sops.secrets."quic/key".path;
+        cert-file = config.sops.secrets."quic/cert".path;
       };
       log = [{
         target = "syslog";
