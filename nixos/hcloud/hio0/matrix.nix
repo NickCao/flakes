@@ -139,6 +139,8 @@ in
     };
   };
 
+  systemd.services.mautrix-telegram.serviceConfig.RuntimeMaxSec = 86400;
+
   services.mautrix-telegram = {
     enable = true;
     environmentFile = config.sops.secrets.mautrix-telegram.path;
