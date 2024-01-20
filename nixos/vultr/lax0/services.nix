@@ -35,8 +35,32 @@
         host = [ "fn.nichi.co" ];
       }];
       handle = [{
-        handler = "reverse_proxy";
-        upstreams = [{ dial = "127.0.0.1:8002"; }];
+        handler = "subroute";
+        routes = [
+          {
+            match = [{ path = [ "/" ]; }];
+            handle = [{
+              handler = "static_response";
+              status_code = "302";
+              headers = { Location = [ "https://github.com/NickCao/flakes/tree/master/fn" ]; };
+            }];
+          }
+          {
+            match = [{ path = [ "/pay" ]; }];
+            handle = [{
+              handler = "static_response";
+              status_code = "302";
+              headers = { Location = [ "https://buy.stripe.com/cN27sA4TM7uMgRa145" ]; };
+            }];
+          }
+          {
+            match = [{ path = [ "/rants/*" ]; }];
+            handle = [{
+              handler = "reverse_proxy";
+              upstreams = [{ dial = "127.0.0.1:8002"; }];
+            }];
+          }
+        ];
       }];
     }
   ];
