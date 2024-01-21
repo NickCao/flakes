@@ -165,7 +165,10 @@
     ];
   };
 
-  services.fwupd.enable = true;
+  services.fwupd = {
+    enable = true;
+    extraRemotes = [ "lvfs-testing" ];
+  };
 
   programs.ssh = {
     startAgent = true;
