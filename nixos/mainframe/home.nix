@@ -394,6 +394,11 @@ in
             LogLevel = "ERROR";
           };
         };
+        "bandit" = {
+          user = "terrier003";
+          hostname = "ec521.bu.edu";
+          port = 10001;
+        };
       };
       extraConfig = ''
         CheckHostIP no
