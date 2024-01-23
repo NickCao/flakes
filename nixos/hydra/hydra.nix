@@ -10,7 +10,7 @@
     settings = rec {
       trusted-users = [ "root" ];
       auto-optimise-store = true;
-      allowed-uris = [ "https://github.com" "https://gitlab.com" ];
+      allowed-uris = [ "https://github.com" "https://gitlab.com" "github:" ];
       max-jobs = 8;
       cores = 64 / max-jobs;
     };
