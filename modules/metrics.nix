@@ -34,9 +34,16 @@ in
             ];
           };
         };
+        transforms = {
+          aggregated = {
+            type = "remap";
+            inputs = [ "host" "telegraf" ];
+            source = ".tags.host = \"${config.networking.hostName}\"";
+          };
+        };
         sinks = {
           prom = {
-            inputs = [ "host" "telegraf" ];
+            inputs = [ "aggregated" ];
             type = "prometheus_exporter";
             address = "127.0.0.1:9273";
           };
