@@ -2,26 +2,47 @@
 with lib;
 let
   cfg = config.services.metrics;
-  telegrafConfig = config.services.telegraf.extraConfig;
+  telegrafConfig = config.services.telegraf.extraConfig.outputs.prometheus_client;
 in
 {
   options.services.metrics = {
     enable = mkEnableOption "export server metrics";
   };
   config = mkIf cfg.enable {
+    services.vector = {
+      enable = true;
+      settings = {
+        sources = {
+          host = {
+            type = "host_metrics";
+            collectors = [
+              "filesystem"
+              "load"
+              "memory"
+            ];
+            filesystem.mountpoints.includes = [
+              "/nix"
+              "/data"
+            ];
+          };
+          telegraf = {
+            type = "prometheus_scrape";
+            endpoints = [ "http://${telegrafConfig.listen}${telegrafConfig.path}" ];
+          };
+        };
+        sinks = {
+          prom = {
+            inputs = [ "host" "telegraf" ];
+            type = "prometheus_exporter";
+            address = "127.0.0.1:9273";
+          };
+        };
+      };
+    };
     services.telegraf = {
       enable = true;
       extraConfig = {
         inputs = {
-          cpu = { };
-          disk = {
-            ignore_fs = [ "tmpfs" "devtmpfs" "devfs" "overlay" "aufs" "squashfs" ];
-          };
-          diskio = { };
-          mem = { };
-          net = { };
-          processes = { };
-          system = { };
           systemd_units = { };
           dns_query = {
             servers = [
@@ -35,7 +56,7 @@ in
         };
         outputs = {
           prometheus_client = {
-            listen = "127.0.0.1:9273";
+            listen = "127.0.0.1:9274";
             metric_version = 2;
             path = "/metrics";
           };
@@ -46,11 +67,11 @@ in
     cloud.caddy.settings.apps.http.servers.default.routes = [{
       match = [{
         host = [ config.networking.fqdn ];
-        path = [ telegrafConfig.outputs.prometheus_client.path ];
+        path = [ "/metrics" ];
       }];
       handle = [{
         handler = "reverse_proxy";
-        upstreams = [{ dial = telegrafConfig.outputs.prometheus_client.listen; }];
+        upstreams = [{ dial = config.services.vector.settings.sinks.prom.address; }];
       }];
     }];
   };

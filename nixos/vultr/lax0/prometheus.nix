@@ -61,14 +61,14 @@ in
             }
             {
               alert = "OOM";
-              expr = "mem_available_percent < 20";
+              expr = "(host_memory_available_bytes / host_memory_total_bytes) * 100 < 20";
               annotations = {
                 summary = ''node {{ $labels.host }} low in memory, {{ $value | printf "%.2f" }} percent available'';
               };
             }
             {
               alert = "DiskFull";
-              expr = "disk_used_percent { path =~ '/nix|/data' } > 90";
+              expr = "host_filesystem_used_ratio * 100 > 90";
               annotations = {
                 summary = ''node {{ $labels.host }} disk full, {{ $value | printf "%.2f" }} percent used'';
               };
