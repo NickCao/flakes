@@ -27,7 +27,11 @@ in
           };
           telegraf = {
             type = "prometheus_scrape";
-            endpoints = [ "http://${telegrafConfig.listen}${telegrafConfig.path}" ];
+            endpoints = [
+              "http://${telegrafConfig.listen}${telegrafConfig.path}"
+              (with config.services.prometheus.exporters.systemd;
+              "http://${listenAddress}:${toString port}/metrics")
+            ];
           };
         };
         sinks = {
@@ -39,11 +43,17 @@ in
         };
       };
     };
+
+    services.prometheus.exporters.systemd = {
+      enable = true;
+      listenAddress = "127.0.0.1";
+      port = 9275;
+    };
+
     services.telegraf = {
       enable = true;
       extraConfig = {
         inputs = {
-          systemd_units = { };
           dns_query = {
             servers = [
               "1.1.1.1"

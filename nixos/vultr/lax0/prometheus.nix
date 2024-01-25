@@ -45,7 +45,7 @@ in
             }
             {
               alert = "UnitFailed";
-              expr = "systemd_units_active_code == 3";
+              expr = "systemd_unit_state{state=\"failed\"} == 1";
               for = "1m";
               annotations = {
                 summary = "unit {{ $labels.name }} on {{ $labels.host }} failed";
