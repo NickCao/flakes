@@ -53,10 +53,10 @@ in
             }
             {
               alert = "DNSError";
-              expr = "dns_query_result_code != 0";
+              expr = "probe_dns_query_succeeded != 1";
               for = "5m";
               annotations = {
-                summary = "dns query for {{ $labels.domain }} IN {{ $labels.record_type }} on {{ $labels.host }} via {{ $labels.server }} failed with rcode {{ $labels.rcode }}";
+                summary = "dns query on {{ $labels.host }} failed";
               };
             }
             {

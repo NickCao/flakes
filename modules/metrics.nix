@@ -1,14 +1,12 @@
-{ config, lib, ... }:
-with lib;
+{ config, pkgs, lib, ... }:
 let
   cfg = config.services.metrics;
-  telegrafConfig = config.services.telegraf.extraConfig.outputs.prometheus_client;
 in
 {
   options.services.metrics = {
-    enable = mkEnableOption "export server metrics";
+    enable = lib.mkEnableOption "export server metrics";
   };
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.vector = {
       enable = true;
       settings = {
@@ -25,19 +23,27 @@ in
               "/data"
             ];
           };
-          telegraf = {
+          systemd = {
             type = "prometheus_scrape";
-            endpoints = [
-              "http://${telegrafConfig.listen}${telegrafConfig.path}"
-              (with config.services.prometheus.exporters.systemd;
-              "http://${listenAddress}:${toString port}/metrics")
+            endpoints = with config.services.prometheus.exporters.systemd;[
+              "http://${listenAddress}:${toString port}/metrics"
             ];
+          };
+          blackbox = {
+            type = "prometheus_scrape";
+            endpoints = with config.services.prometheus.exporters.blackbox;[
+              "http://${listenAddress}:${toString port}/probe"
+            ];
+            query = {
+              module = [ "dns" ];
+              target = [ "1.0.0.1" ];
+            };
           };
         };
         transforms = {
           aggregated = {
             type = "remap";
-            inputs = [ "host" "telegraf" ];
+            inputs = [ "host" "systemd" "blackbox" ];
             source = ".tags.host = \"${config.networking.hostName}\"";
           };
         };
@@ -57,25 +63,19 @@ in
       port = 9275;
     };
 
-    services.telegraf = {
+    services.prometheus.exporters.blackbox = {
       enable = true;
-      extraConfig = {
-        inputs = {
-          dns_query = {
-            servers = [
-              "1.1.1.1"
-              "1.0.0.1"
-            ];
-            domains = [ "nichi.co" ];
-            record_type = "A";
-            timeout = 5;
-          };
-        };
-        outputs = {
-          prometheus_client = {
-            listen = "127.0.0.1:9274";
-            metric_version = 2;
-            path = "/metrics";
+      listenAddress = "127.0.0.1";
+      port = 9276;
+      configFile = (pkgs.formats.json { }).generate "config.json" {
+        modules = {
+          dns = {
+            prober = "dns";
+            dns = {
+              query_name = "nichi.co";
+              query_type = "NS";
+              valid_rcodes = [ "NOERROR" ];
+            };
           };
         };
       };
