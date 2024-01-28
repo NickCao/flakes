@@ -16,7 +16,7 @@ in
     modules = [ pkgs.dovecot_pigeonhole ];
     mailUser = "dovemail";
     mailGroup = "dovemail";
-    sieveScripts = {
+    sieve.scripts = {
       after = builtins.toFile "after.sieve" ''
         require "fileinto";
         if header :is "X-Spam" "Yes" {
