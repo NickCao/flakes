@@ -16,6 +16,7 @@ in
     modules = [ pkgs.dovecot_pigeonhole ];
     mailUser = "dovemail";
     mailGroup = "dovemail";
+    sieve.extensions = [ "fileinto" ];
     sieve.scripts = {
       after = builtins.toFile "after.sieve" ''
         require "fileinto";
@@ -25,22 +26,43 @@ in
         }
       '';
     };
-    configFile = pkgs.writeText "dovecot.conf" ''
+    enableLmtp = true;
+    enablePAM = false;
+    enableDHE = false;
+    mailPlugins.perProtocol.lmtp.enable = [ "sieve" ];
+    mailLocation = "maildir:~";
+    mailboxes = {
+      Drafts = {
+        auto = "subscribe";
+        specialUse = "Drafts";
+      };
+      Sent = {
+        auto = "subscribe";
+        specialUse = "Sent";
+      };
+      Trash = {
+        auto = "subscribe";
+        specialUse = "Trash";
+      };
+      Junk = {
+        auto = "subscribe";
+        specialUse = "Junk";
+      };
+      Archive = {
+        auto = "subscribe";
+        specialUse = "Archive";
+      };
+    };
+    pluginSettings = {
+      sieve_after = "/var/lib/dovecot/sieve/after";
+    };
+    extraConfig = ''
       listen = 127.0.0.1
       haproxy_trusted_networks = 127.0.0.1/8
-      protocols = imap lmtp
-      ssl = no
-      base_dir = /run/dovecot2
 
-      default_internal_user  = ${cfg.user}
-      default_internal_group = ${cfg.group}
-      disable_plaintext_auth = no
       auth_username_format   = %Ln
 
       mail_home = ${maildir}/%u
-      mail_location = maildir:~
-      mail_uid=${cfg.mailUser}
-      mail_gid=${cfg.mailGroup}
 
       passdb {
         driver = passwd-file
@@ -70,38 +92,6 @@ in
           user = postfix
           group = postfix
         }
-      }
-
-      protocol lmtp {
-        mail_plugins = $mail_plugins sieve
-      }
-
-      namespace inbox {
-        inbox = yes
-        mailbox Drafts {
-          auto = subscribe
-          special_use = \Drafts
-        }
-        mailbox Sent {
-          auto = subscribe
-          special_use = \Sent
-        }
-        mailbox Trash {
-          auto = subscribe
-          special_use = \Trash
-        }
-        mailbox Junk {
-          auto = subscribe
-          special_use = \Junk
-        }
-        mailbox Archive {
-          auto = subscribe
-          special_use = \Archive
-        }
-      }
-
-      plugin {
-        sieve_after = /var/lib/dovecot/sieve/after
       }
     '';
   };
