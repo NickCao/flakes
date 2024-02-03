@@ -302,7 +302,14 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    config.common.default = "*";
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config = {
+      common = {
+        "default" = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+      };
+    };
   };
 
   services.zram-generator = {
