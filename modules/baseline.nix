@@ -58,6 +58,8 @@ with lib;
 
     users.mutableUsers = false;
 
+    environment.stub-ld.enable = false;
+
     programs.command-not-found.enable = false;
     documentation.nixos.enable = lib.mkForce false;
   };

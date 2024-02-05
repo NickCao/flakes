@@ -322,7 +322,9 @@
 
   hardware.keyboard.uhk.enable = true;
 
-  system.stateVersion = "23.11";
+  environment.stub-ld.enable = false;
 
   documentation.nixos.enable = false;
+
+  system.stateVersion = "23.11";
 }
