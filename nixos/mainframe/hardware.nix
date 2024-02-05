@@ -18,6 +18,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/efi";
+                mountOptions = [ "umask=0077" ];
               };
             };
             cryptroot = {
