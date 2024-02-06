@@ -10,6 +10,5 @@ dns.lib.toString "scp.link" {
     "o".NS = he;
     "com".NS = he;
     "t".NS = he;
-    "test".NS = he;
   };
 }
