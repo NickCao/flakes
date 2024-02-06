@@ -91,5 +91,21 @@ in
         }];
       };
     };
+
+    services.prometheus.exporters.knot = {
+      enable = true;
+      listenAddress = "127.0.0.1";
+    };
+
+    services.vector.settings = {
+      sources.knot = {
+        type = "prometheus_scrape";
+        endpoints = with config.services.prometheus.exporters.knot;[
+          "http://${listenAddress}:${toString port}"
+        ];
+      };
+      transforms.aggregated.inputs = [ "knot" ];
+    };
+
   };
 }

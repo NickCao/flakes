@@ -60,13 +60,11 @@ in
     services.prometheus.exporters.systemd = {
       enable = true;
       listenAddress = "127.0.0.1";
-      port = 9275;
     };
 
     services.prometheus.exporters.blackbox = {
       enable = true;
       listenAddress = "127.0.0.1";
-      port = 9276;
       configFile = (pkgs.formats.json { }).generate "config.json" {
         modules = {
           dns = {
