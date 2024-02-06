@@ -45,7 +45,7 @@ in
             }
             {
               alert = "UnitFailed";
-              expr = "systemd_unit_state{state=\"failed\"} == 1";
+              expr = ''systemd_unit_state{state="failed"} == 1'';
               for = "1m";
               annotations = {
                 summary = "unit {{ $labels.name }} on {{ $labels.host }} failed";
@@ -71,6 +71,13 @@ in
               expr = "host_filesystem_used_ratio * 100 > 90";
               annotations = {
                 summary = ''node {{ $labels.host }} disk full, {{ $value | printf "%.2f" }} percent used'';
+              };
+            }
+            {
+              alert = "ZoneStale";
+              expr = ''knot_zone_serial{host="iad0"} - on(zone) group_right knot_zone_serial{host!="iad0"} > 0'';
+              annotations = {
+                summary = ''node {{ $labels.host }} zone {{ $labels.zone }} stale'';
               };
             }
           ];
