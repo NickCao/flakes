@@ -199,7 +199,6 @@ in
     ripgrep
     nil
     ncdu
-    mode
     yubikey-manager
     wireguard-tools
     nixpkgs-fmt
