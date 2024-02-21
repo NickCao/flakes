@@ -136,8 +136,11 @@ in
     environmentFile = config.sops.secrets.sliding-sync.path;
     settings = {
       SYNCV3_SERVER = config.services.matrix-synapse.settings.public_baseurl;
+      SYNCV3_BINDADDR = "/run/matrix-sliding-sync/sync.sock";
     };
   };
+
+  systemd.services.matrix-sliding-sync.serviceConfig.RuntimeDirectory = [ "matrix-sliding-sync" ];
 
   systemd.services.mautrix-telegram.serviceConfig.RuntimeMaxSec = 86400;
 
@@ -260,7 +263,7 @@ in
       }];
       handle = [{
         handler = "reverse_proxy";
-        upstreams = [{ dial = config.services.matrix-sliding-sync.settings.SYNCV3_BINDADDR; }];
+        upstreams = [{ dial = "unix/${config.services.matrix-sliding-sync.settings.SYNCV3_BINDADDR}"; }];
       }];
     }
     {
