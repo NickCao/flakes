@@ -11,21 +11,9 @@ in
       enable = true;
       settings = {
         sources = {
-          host = {
-            type = "host_metrics";
-            collectors = [
-              "filesystem"
-              "load"
-              "memory"
-            ];
-            filesystem.mountpoints.includes = [
-              "/nix"
-              "/data"
-            ];
-          };
-          systemd = {
+          node = {
             type = "prometheus_scrape";
-            endpoints = with config.services.prometheus.exporters.systemd;[
+            endpoints = with config.services.prometheus.exporters.node;[
               "http://${listenAddress}:${toString port}/metrics"
             ];
           };
@@ -43,7 +31,7 @@ in
         transforms = {
           aggregated = {
             type = "remap";
-            inputs = [ "host" "systemd" "blackbox" ];
+            inputs = [ "node" "blackbox" ];
             source = ".tags.host = \"${config.networking.hostName}\"";
           };
         };
@@ -57,9 +45,10 @@ in
       };
     };
 
-    services.prometheus.exporters.systemd = {
+    services.prometheus.exporters.node = {
       enable = true;
       listenAddress = "127.0.0.1";
+      enabledCollectors = [ "systemd" ];
     };
 
     services.prometheus.exporters.blackbox = {

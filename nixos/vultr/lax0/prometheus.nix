@@ -30,60 +30,37 @@ in
         static_configs = [{ inherit targets; }];
       }
     ];
-    rules = [
-      (builtins.toJSON {
-        groups = [{
-          name = "metrics";
-          rules = [
-            {
-              alert = "NodeDown";
-              expr = "up == 0";
-              for = "3m";
-              annotations = {
-                summary = "node {{ $labels.host }} down for job {{ $labels.job }}";
-              };
-            }
-            {
-              alert = "UnitFailed";
-              expr = ''systemd_unit_state{state="failed"} == 1'';
-              for = "1m";
-              annotations = {
-                summary = "unit {{ $labels.name }} on {{ $labels.host }} failed";
-              };
-            }
-            {
-              alert = "DNSError";
-              expr = "probe_dns_query_succeeded != 1";
-              for = "5m";
-              annotations = {
-                summary = "dns query on {{ $labels.host }} failed";
-              };
-            }
-            {
-              alert = "OOM";
-              expr = "(host_memory_available_bytes / host_memory_total_bytes) * 100 < 20";
-              annotations = {
-                summary = ''node {{ $labels.host }} low in memory, {{ $value | printf "%.2f" }} percent available'';
-              };
-            }
-            {
-              alert = "DiskFull";
-              expr = "host_filesystem_used_ratio * 100 > 90";
-              annotations = {
-                summary = ''node {{ $labels.host }} disk full, {{ $value | printf "%.2f" }} percent used'';
-              };
-            }
-            {
-              alert = "ZoneStale";
-              expr = ''knot_zone_serial{host="iad0"} - on(zone) group_right knot_zone_serial{host!="iad0"} > 0'';
-              annotations = {
-                summary = ''node {{ $labels.host }} zone {{ $labels.zone }} stale'';
-              };
-            }
-          ];
-        }];
-      })
-    ];
+    rules = lib.singleton (builtins.toJSON {
+      groups = [{
+        name = "metrics";
+        rules = [
+          {
+            alert = "NodeDown";
+            expr = "up == 0";
+          }
+          {
+            alert = "OOM";
+            expr = "node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1";
+          }
+          {
+            alert = "DiskFull";
+            expr = ''node_filesystem_avail_bytes{mountpoint=~"/persist|/data"} / node_filesystem_size_bytes < 0.1'';
+          }
+          {
+            alert = "UnitFailed";
+            expr = ''node_systemd_unit_state{state="failed"} == 1'';
+          }
+          {
+            alert = "DNSError";
+            expr = "probe_dns_query_succeeded != 1";
+          }
+          {
+            alert = "ZoneStale";
+            expr = ''knot_zone_serial{host="iad0"} - on(zone) group_right knot_zone_serial{host!="iad0"} > 0'';
+          }
+        ];
+      }];
+    });
     alertmanagers = [{
       static_configs = [{
         targets = [ "127.0.0.1:8009" ];
