@@ -6,7 +6,14 @@ let
   ];
 in
 {
-  sops.secrets.alert = { };
+  sops.secrets = {
+    alert = { };
+    prometheus = {
+      owner = config.systemd.services.prometheus.serviceConfig.User;
+      reloadUnits = [ "prometheus.service" ];
+    };
+  };
+
   services.prometheus = {
     enable = true;
     webExternalUrl = "https://${config.networking.fqdn}/prom";
@@ -21,11 +28,19 @@ in
       {
         job_name = "metrics";
         scheme = "https";
+        basic_auth = {
+          username = "prometheus";
+          password_file = config.sops.secrets.prometheus.path;
+        };
         static_configs = [{ inherit targets; }];
       }
       {
         job_name = "caddy";
         scheme = "https";
+        basic_auth = {
+          username = "prometheus";
+          password_file = config.sops.secrets.prometheus.path;
+        };
         metrics_path = "/caddy";
         static_configs = [{ inherit targets; }];
       }

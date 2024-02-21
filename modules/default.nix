@@ -3,7 +3,7 @@
     imports = [
       (import ./baseline.nix)
       (import ./caddy.nix)
-      (import ./metrics.nix)
+      (import ./metrics)
       (import ./dns/secondary)
       (import ./cloud/services.nix)
       (import ./gravity)
