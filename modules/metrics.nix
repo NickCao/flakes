@@ -49,6 +49,7 @@ in
       enable = true;
       listenAddress = "127.0.0.1";
       enabledCollectors = [ "systemd" ];
+      disabledCollectors = [ "arp" ];
     };
 
     services.prometheus.exporters.blackbox = {

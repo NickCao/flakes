@@ -36,11 +36,11 @@ in
         rules = [
           {
             alert = "NodeDown";
-            expr = "up == 0";
+            expr = ''up == 0'';
           }
           {
             alert = "OOM";
-            expr = "node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1";
+            expr = ''node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1'';
           }
           {
             alert = "DiskFull";
@@ -52,7 +52,7 @@ in
           }
           {
             alert = "DNSError";
-            expr = "probe_dns_query_succeeded != 1";
+            expr = ''probe_dns_query_succeeded != 1'';
           }
           {
             alert = "ZoneStale";
