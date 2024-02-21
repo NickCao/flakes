@@ -12,7 +12,7 @@
         type = "gpt";
         partitions = {
           boot = {
-            type = "ef02";
+            type = "EF02";
             label = "BOOT";
             start = "0";
             end = "+1M";

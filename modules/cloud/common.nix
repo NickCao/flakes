@@ -20,10 +20,7 @@
   services.metrics.enable = true;
   services.openssh.enable = true;
 
-  boot = {
-    tmp.useTmpfs = true;
-    loader.grub.device = config.disko.devices.disk.vda.device;
-  };
+  boot.tmp.useTmpfs = true;
 
   networking = {
     useNetworkd = true;
