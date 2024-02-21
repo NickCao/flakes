@@ -38,9 +38,18 @@ in
               host = [ config.networking.fqdn ];
               path = [ "/caddy" ];
             }];
-            handle = [{
-              handler = "metrics";
-            }];
+            handle = [
+              {
+                handler = "authentication";
+                providers.http_basic.accounts = [{
+                  username = "prometheus";
+                  password = "{env.PROM_PASSWD}";
+                }];
+              }
+              {
+                handler = "metrics";
+              }
+            ];
           }];
           metrics = { };
         };
