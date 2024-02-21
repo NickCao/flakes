@@ -44,6 +44,24 @@ in
         metrics_path = "/caddy";
         static_configs = [{ inherit targets; }];
       }
+      {
+        job_name = "blackbox";
+        scheme = "https";
+        basic_auth = {
+          username = "prometheus";
+          password_file = config.sops.secrets.prometheus.path;
+        };
+        metrics_path = "/probe";
+        params = {
+          module = [ "http_2xx" ];
+          target = [ "https://nichi.co" ];
+        };
+        static_configs = [{ inherit targets; }];
+        relabel_configs = [{
+          source_labels = [ "__param_target" ];
+          target_label = "target";
+        }];
+      }
     ];
     rules = lib.singleton (builtins.toJSON {
       groups = [{
