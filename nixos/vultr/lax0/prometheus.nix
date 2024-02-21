@@ -50,14 +50,6 @@ in
             alert = "UnitFailed";
             expr = ''node_systemd_unit_state{state="failed"} == 1'';
           }
-          {
-            alert = "DNSError";
-            expr = ''probe_dns_query_succeeded != 1'';
-          }
-          {
-            alert = "ZoneStale";
-            expr = ''knot_zone_serial{host="iad0"} - on(zone) group_right knot_zone_serial{host!="iad0"} > 0'';
-          }
         ];
       }];
     });
