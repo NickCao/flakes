@@ -45,7 +45,25 @@ in
         static_configs = [{ inherit targets; }];
       }
       {
-        job_name = "blackbox";
+        job_name = "dns";
+        scheme = "https";
+        basic_auth = {
+          username = "prometheus";
+          password_file = config.sops.secrets.prometheus.path;
+        };
+        metrics_path = "/probe";
+        params = {
+          module = [ "dns_soa" ];
+          target = [ "1.0.0.1" ];
+        };
+        static_configs = [{ inherit targets; }];
+        relabel_configs = [{
+          source_labels = [ "__param_target" ];
+          target_label = "target";
+        }];
+      }
+      {
+        job_name = "http";
         scheme = "https";
         basic_auth = {
           username = "prometheus";

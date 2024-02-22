@@ -29,7 +29,13 @@ in
         modules = {
           http_2xx = {
             prober = "http";
-            http.preferred_ip_protocol = "ip6";
+          };
+          dns_soa = {
+            prober = "dns";
+            dns = {
+              query_name = "nichi.co";
+              query_type = "SOA";
+            };
           };
         };
       };
