@@ -93,9 +93,10 @@
     defaultLocale = "C.UTF-8";
     inputMethod = {
       enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [
-        fcitx5-chinese-addons
-        fcitx5-pinyin-zhwiki
+      fcitx5.plasma6Support = true;
+      fcitx5.addons = [
+        pkgs.qt6Packages.fcitx5-chinese-addons
+        pkgs.fcitx5-pinyin-zhwiki
       ];
     };
   };
@@ -154,8 +155,8 @@
       # https://gitlab.freedesktop.org/mesa/mesa/-/issues/8044
       (pkgs.fetchurl {
         name = "amdgpu-firmware-vcn";
-        url = "https://gitlab.freedesktop.org/mesa/mesa/uploads/f51d221a24d4ac354e2d1d901613b594/vcn_4_0_2.bin";
-        hash = "sha256-1xFS8//lTuDJFOt4F1hPOrBOKw0UQ6I/WUBNqKS92Yc=";
+        url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/amdgpu/vcn_4_0_2.bin?id=977332782302476e1c863b09b840f463d0378807";
+        hash = "sha256-gt6pGlA14M56XqkqGVn7aZRy8iNsDrFSHIOXLvFWFyw=";
         downloadToTemp = true;
         recursiveHash = true;
         postFetch = ''
