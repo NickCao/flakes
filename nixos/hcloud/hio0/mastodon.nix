@@ -7,6 +7,10 @@
   services.mastodon = {
     enable = true;
     localDomain = "nichi.co";
+    mediaAutoRemove = {
+      enable = true;
+      olderThanDays = 14;
+    };
     streamingProcesses = 3;
     smtp = {
       createLocally = false;
