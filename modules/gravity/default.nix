@@ -330,6 +330,7 @@ in
           { routeConfig = { Destination = "64:ff9b::/96"; Table = stateful; }; }
           { routeConfig.Destination = "10.201.0.0/16"; }
         ];
+        networkConfig.LinkLocalAddressing = false;
         linkConfig.RequiredForOnline = false;
       };
 
@@ -339,6 +340,7 @@ in
           { routeConfig = { Destination = cfg.divi.prefix; Table = cfg.table; }; }
           { routeConfig.Destination = cfg.divi.dynamic-pool; }
         ];
+        networkConfig.LinkLocalAddressing = false;
         linkConfig.RequiredForOnline = false;
       };
 
