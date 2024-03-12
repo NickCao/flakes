@@ -135,7 +135,6 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
-      "rtc_cmos.use_acpi_alarm=1"
       "ia32_emulation=0"
     ];
     kernelModules = [ "kvm-amd" ];
@@ -150,20 +149,6 @@
     bluetooth.enable = true;
     opengl.enable = true;
     sensor.iio.enable = true;
-    firmware = lib.mkBefore [
-      # vaapi vp9 decoding glitches on rembrandt
-      # https://gitlab.freedesktop.org/mesa/mesa/-/issues/8044
-      (pkgs.fetchurl {
-        name = "amdgpu-firmware-vcn";
-        url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/amdgpu/vcn_4_0_2.bin?id=977332782302476e1c863b09b840f463d0378807";
-        hash = "sha256-gt6pGlA14M56XqkqGVn7aZRy8iNsDrFSHIOXLvFWFyw=";
-        downloadToTemp = true;
-        recursiveHash = true;
-        postFetch = ''
-          install -Dm444 "$downloadedFile" "$out/lib/firmware/amdgpu/vcn_4_0_2.bin"
-        '';
-      })
-    ];
   };
 
   services.fwupd = {
