@@ -87,7 +87,7 @@
     };
   };
 
-  time.timeZone = "America/New_York";
+  time.timeZone = "America/Los_Angeles";
 
   i18n = {
     defaultLocale = "C.UTF-8";
