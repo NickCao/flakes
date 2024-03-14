@@ -392,8 +392,7 @@
         "nixpkgs": "nixpkgs",
         "ranet": "ranet",
         "ranet-ipsec": "ranet-ipsec",
-        "sops-nix": "sops-nix",
-        "terrasops": "terrasops"
+        "sops-nix": "sops-nix"
       }
     },
     "rust-overlay": {
@@ -456,29 +455,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "terrasops": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1701917356,
-        "narHash": "sha256-rYy3ea6ugajsUPNo/KkVuPhCCB/jEttaUMqcD7KqkJ4=",
-        "owner": "NickCao",
-        "repo": "terrasops",
-        "rev": "b4e33e6b463f09d1c629a4733161bbd1ad067509",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NickCao",
-        "repo": "terrasops",
         "type": "github"
       }
     }

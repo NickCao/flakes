@@ -33,11 +33,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    terrasops = {
-      url = "github:NickCao/terrasops";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.stable.follows = "nixpkgs";
@@ -69,21 +64,17 @@
             overlays = [
               self.overlays.default
               inputs.colmena.overlay
-              inputs.terrasops.overlay
             ];
           };
         in
         {
           formatter = pkgs.nixpkgs-fmt;
-          packages = this.packages pkgs // {
-            inherit (pkgs) terrasops;
-          };
+          packages = this.packages pkgs;
           legacyPackages = pkgs;
           devShells.default = with pkgs; mkShell {
             nativeBuildInputs = [
               colmena
               mdbook
-              terrasops
               nvfetcher
               (opentofu.withPlugins (ps: with ps; [ vultr sops hydra hcloud ]))
             ];
