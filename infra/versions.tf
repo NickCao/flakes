@@ -1,7 +1,4 @@
 terraform {
-  backend "http" {
-    address = "http://127.0.0.1:5000"
-  }
   required_providers {
     vultr = {
       source = "registry.terraform.io/vultr/vultr"
@@ -14,6 +11,15 @@ terraform {
     }
     hcloud = {
       source = "registry.terraform.io/hetznercloud/hcloud"
+    }
+  }
+  encryption {
+    method "aes_gcm" "default" {
+      keys = key_provider.pbkdf2.default
+    }
+    state {
+      method   = method.aes_gcm.default
+      enforced = true
     }
   }
 }
