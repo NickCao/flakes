@@ -80,7 +80,7 @@ in
     format-charging = mkSpan "CHG" "{capacity}% {power:.1f}W";
   };
   clock = {
-    format = "{:${mkSpan "%a %b %d" "%H:%M"}}";
+    format = "{:%a %b %d %H:%M}";
     tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
   };
   memory = {
