@@ -38,8 +38,6 @@ in
       smtpd_tls_security_level = "may";
       smtpd_relay_restrictions = [ "permit_sasl_authenticated" "defer_unauth_destination" ];
 
-      smtpd_forbid_bare_newline = true;
-
       virtual_transport = "lmtp:unix:/run/dovecot2/lmtp";
       virtual_mailbox_domains = [ "nichi.co" "nichi.link" ];
       virtual_alias_maps = "hash:/etc/postfix/aliases";

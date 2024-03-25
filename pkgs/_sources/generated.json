@@ -1,7 +1,7 @@
 {
     "bird-babel-rtt": {
         "cargoLocks": null,
-        "date": "2024-03-10",
+        "date": "2024-03-24",
         "extract": null,
         "name": "bird-babel-rtt",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "NickCao",
             "repo": "bird",
-            "rev": "5fbfd91e4352bfa008506ce92d52459a4bfcfc27",
-            "sha256": "sha256-72LW50Vdr5p4sFYJyQpLOeilf92+J+L4s1qn7wrjxvw=",
+            "rev": "dac2ce348f5ee321c80d219719118292f027c2d2",
+            "sha256": "sha256-F1UWNwXuISEhhz7BFolUJa7aSKkNpajYH46YqtcknKg=",
             "type": "github"
         },
-        "version": "5fbfd91e4352bfa008506ce92d52459a4bfcfc27"
+        "version": "dac2ce348f5ee321c80d219719118292f027c2d2"
     },
     "fcitx5-pinyin-zhwiki": {
         "cargoLocks": null,
