@@ -128,6 +128,11 @@ in
         # Remotely silence local notifications
         msc3890_enabled = true;
       };
+
+      rc_admin_redaction = {
+        per_second = 1000;
+        burst_count = 10000;
+      };
     };
   };
 
