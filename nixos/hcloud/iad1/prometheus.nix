@@ -105,17 +105,29 @@ in
       }];
     });
     alertmanagers = [{
+      path_prefix = "/alert";
       static_configs = [{
-        targets = [ "127.0.0.1:8009" ];
+        targets = [ "${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}" ];
       }];
     }];
-  };
-
-  cloud.services.prometheus-ntfy-bridge.config = {
-    ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --no-check ${../../../fn/alert.ts}";
-    MemoryDenyWriteExecute = false;
-    EnvironmentFile = [ config.sops.secrets.alert.path ];
-    Environment = [ "PORT=8009" "DENO_DIR=/tmp" ];
+    alertmanager = {
+      enable = true;
+      webExternalUrl = "https://${config.networking.fqdn}/alert";
+      listenAddress = "127.0.0.1";
+      port = 9093;
+      extraFlags = [ ''--cluster.listen-address=""'' ];
+      configuration = {
+        receivers = [{
+          name = "ntfy";
+          webhook_configs = [{
+            url = "https://ntfy.nichi.co/alert";
+          }];
+        }];
+        route = {
+          receiver = "ntfy";
+        };
+      };
+    };
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = [{
