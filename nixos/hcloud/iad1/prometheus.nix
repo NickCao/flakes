@@ -10,7 +10,7 @@ in
     alert = { };
     prometheus = {
       owner = config.systemd.services.prometheus.serviceConfig.User;
-      reloadUnits = [ "prometheus.service" ];
+      restartUnits = [ "prometheus.service" ];
     };
   };
 
