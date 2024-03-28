@@ -4,7 +4,7 @@ import { rants } from "./rants.ts";
 
 const router = Router();
 
-router.get("/rait", () => fetch("file:///var/lib/gravity/combined.json"));
+router.get("/rait", () => fetch(Deno.env.get("RAIT")));
 router.get("/rants/:id", rants);
 router.all("*", () => new Response("Not Found", { status: 404 }));
 

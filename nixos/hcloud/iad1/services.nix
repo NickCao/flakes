@@ -1,11 +1,15 @@
 { pkgs, config, ... }: {
 
-  sops.secrets.caddy = { };
+  sops.secrets = {
+    fn = { };
+    caddy = { };
+  };
 
   cloud.services.fn.config = {
     ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --allow-read --no-check ${../../../fn}/index.ts";
     MemoryDenyWriteExecute = false;
     Environment = [ "PORT=8002" "DENO_DIR=/tmp" ];
+    EnvironmentFile = [ config.sops.secrets.fn.path ];
   };
 
   systemd.services.caddy.serviceConfig.EnvironmentFile = [ config.sops.secrets.caddy.path ];
