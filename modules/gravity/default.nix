@@ -373,30 +373,41 @@ in
 
       networking.nftables = {
         enable = true;
-        ruleset = ''
-          table inet filter {
-            chain forward {
-              type filter hook forward priority 0;
-              tcp flags syn tcp option maxseg size set 1300
-            }
-          }
-          table ip nat {
-            chain postrouting {
-              type nat hook postrouting priority 100;
-              oifname "${cfg.divi.oif}" masquerade
-            }
-          }
-          table ip6 filter {
-            chain postrouting {
-              type nat hook postrouting priority 100;
-              iifname "stateful" oifname "${cfg.divi.oif}" masquerade
-            }
-            chain forward {
-              type filter hook forward priority 0;
-              oifname "divi" ip6 saddr != { ${lib.concatStringsSep ", " cfg.divi.allow} } reject
-            }
-          }
-        '';
+        tables = {
+          filter4 = {
+            name = "filter";
+            family = "inet";
+            content = ''
+              chain forward {
+                type filter hook forward priority 0;
+                tcp flags syn tcp option maxseg size set 1300
+              }
+            '';
+          };
+          filter6 = {
+            name = "filter";
+            family = "ip6";
+            content = ''
+              chain postrouting {
+                type nat hook postrouting priority 100;
+                iifname "stateful" oifname "${cfg.divi.oif}" masquerade
+              }
+              chain forward {
+                type filter hook forward priority 0;
+                oifname "divi" ip6 saddr != { ${lib.concatStringsSep ", " cfg.divi.allow} } reject
+              }
+            '';
+          };
+          nat = {
+            family = "ip";
+            content = ''
+              chain postrouting {
+                type nat hook postrouting priority 100;
+                oifname "${cfg.divi.oif}" masquerade
+              }
+            '';
+          };
+        };
       };
     })
     (mkIf cfg.reload.enable {
