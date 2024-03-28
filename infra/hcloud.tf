@@ -5,6 +5,11 @@ locals {
       plan   = "cpx11"
       tags   = ["hetzner", "nameserver"]
     }
+    iad1 = {
+      region = "ash-dc1"
+      plan   = "cpx11"
+      tags   = ["hetzner"]
+    }
     hio0 = {
       region = "hil-dc1"
       plan   = "cpx31"

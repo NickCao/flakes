@@ -72,6 +72,19 @@
             ]
           }
         ],
+        "iad1": [
+          "object",
+          {
+            "fqdn": "string",
+            "id": "string",
+            "ipv4": "string",
+            "ipv6": "string",
+            "tags": [
+              "list",
+              "string"
+            ]
+          }
+        ],
         "itm0": [
           "object",
           {
@@ -168,6 +181,15 @@
         "tags": [
           "hetzner",
           "nameserver"
+        ]
+      },
+      "iad1": {
+        "fqdn": "iad1.nichi.link",
+        "id": "45146486",
+        "ipv4": "5.161.180.132",
+        "ipv6": "2a01:4ff:f0:26c3::1",
+        "tags": [
+          "hetzner"
         ]
       },
       "itm0": {
