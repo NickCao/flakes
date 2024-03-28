@@ -13,7 +13,6 @@
   vultr = import ./vultr.nix;
   cloud = {
     common = import ./cloud/common.nix;
-    filesystems = import ./cloud/filesystems.nix;
     disko = import ./cloud/disko.nix;
   };
 }

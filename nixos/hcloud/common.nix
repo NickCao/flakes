@@ -1,12 +1,15 @@
-{ config, modulesPath, self, inputs, data, ... }: {
+{ config, lib, modulesPath, self, inputs, data, ... }: {
 
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     self.nixosModules.default
-    self.nixosModules.cloud.filesystems
+    self.nixosModules.cloud.disko
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
   ];
+
+
+  disko.devices.disk.vda.device = lib.mkForce "/dev/sda";
 
   sops = {
     age = {
@@ -22,7 +25,6 @@
   ];
 
   boot = {
-    loader.grub.device = "/dev/sda";
     initrd.availableKernelModules = [ "ahci" "xhci_pci" "sd_mod" "sr_mod" ];
   };
 
