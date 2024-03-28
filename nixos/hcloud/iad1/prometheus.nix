@@ -120,7 +120,12 @@ in
         receivers = [{
           name = "ntfy";
           webhook_configs = [{
-            url = "https://ntfy.nichi.co/alert";
+            url = "https://ntfy.nichi.co/alert?tpl=yes&m=${lib.escapeURL ''
+              Alert {{.status}}
+              {{range .alerts}}-----{{range $k,$v := .labels}}
+              {{$k}}={{$v}}{{end}}
+              {{end}}
+            ''}";
           }];
         }];
         route = {
