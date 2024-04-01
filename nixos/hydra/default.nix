@@ -47,6 +47,7 @@
     git
     nixpkgs-review
     htop
+    tmux
   ];
 
   # https://github.com/NixOS/nixpkgs/issues/157449
