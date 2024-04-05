@@ -196,7 +196,12 @@
         SystemMaxUse=1G
       '';
     };
-    udev.packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
+    udev = {
+      packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
+      extraRules = ''
+        ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled"
+      '';
+    };
     fprintd.enable = true;
     power-profiles-daemon.enable = true;
   };
