@@ -133,7 +133,29 @@
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_testing;
+    kernelPatches = [
+      {
+        # Framework Laptop 13 AMD suspend/wakeup regression with 6.9rc1
+        # https://bugzilla.kernel.org/show_bug.cgi?id=218641
+        name = "s2idle";
+        patch = pkgs.fetchpatch {
+          name = "s2idle.patch";
+          url = "https://lore.kernel.org/all/20240405083410.4896-1-anna-maria@linutronix.de/raw";
+          hash = "sha256-aWsU/Jdt2eRt0vtb8IE1myRyPsAFRnxvkqJa7Mjkmp8=";
+        };
+      }
+      {
+        # platform/chrome: cros_ec_lpc: add support for AMD Framework Laptops
+        # https://patchwork.kernel.org/project/chrome-platform/cover/20240403004713.130365-1-dustin@howett.net/
+        name = "cros_ec";
+        patch = pkgs.fetchpatch {
+          name = "cros_ec.patch";
+          url = "https://patchwork.kernel.org/series/840830/mbox/";
+          hash = "sha256-7jSEAGInFC+a+ozCyD4dFz3Qgh2JrHskwz7UfswizFw=";
+        };
+      }
+    ];
     kernelParams = [
       "ia32_emulation=0"
     ];
