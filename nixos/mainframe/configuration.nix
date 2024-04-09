@@ -334,6 +334,7 @@
   };
 
   hardware.keyboard.uhk.enable = true;
+  hardware.keyboard.zsa.enable = true;
 
   environment.stub-ld.enable = false;
 
