@@ -1,7 +1,7 @@
 {
   "public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA1O8H5JDXOd4Lbhcq7DDZu9/OUxo+ys6EQ/jdO7JxdT8=\n-----END PUBLIC KEY-----",
   "organization": "nickcao",
-  "nodes": [.nodes.value | to_entries[] | select(.value.tags | index("vultr")) | {
+  "nodes": ([.nodes.value | to_entries[] | select(.value.tags | index("vultr")) | {
     "common_name": .key,
     "endpoints": [
       {
@@ -23,5 +23,22 @@
       "provider": "vultr",
       "prefix": "2a0c:b641:69c:\(.value.prefix)0::/60"
     }
-  }]
+  }] + [{
+    "common_name": "local",
+    "endpoints": [
+      {
+        "serial_number": "0",
+        "address_family": "ip4",
+        "port": 13000
+      },
+      {
+        "serial_number": "1",
+        "address_family": "ip6",
+        "port": 13000
+      }
+    ],
+    "remarks": {
+      "prefix": "2a0c:b641:69c:99c0::/60"
+    }
+  }])
 }
