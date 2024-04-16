@@ -4,41 +4,49 @@ locals {
       region = "nrt"
       plan   = "vc2-1c-1gb"
       tags   = ["vultr", "nameserver"]
+      prefix = "786"
     }
     sin0 = {
       region = "sgp"
       plan   = "vc2-1c-1gb"
       tags   = ["vultr", "nameserver"]
+      prefix = "f25"
     }
     sea0 = {
       region = "sea"
       plan   = "vhp-1c-1gb-amd"
       tags   = ["vultr", "nameserver"]
+      prefix = "4ed"
     }
     ewr0 = {
       region = "ewr"
       plan   = "vhp-1c-1gb-amd"
       tags   = ["vultr"]
+      prefix = "aeb"
     }
     lax0 = {
       region = "lax"
       plan   = "vhp-1c-1gb-amd"
       tags   = ["vultr"]
+      prefix = "a2a"
     }
     itm0 = {
       region = "itm"
       plan   = "vhp-1c-1gb-amd"
       tags   = ["vultr"]
+      prefix = "a4b"
     }
     fra0 = {
       region = "fra"
       plan   = "vhp-1c-1gb-amd"
       tags   = ["vultr"]
+      prefix = "38c"
     }
     lhr0 = {
       region = "lhr"
       plan   = "vhp-1c-1gb-amd"
       tags   = ["vultr"]
+      prefix = "244"
     }
   }
 }
@@ -63,4 +71,5 @@ module "vultr" {
   plan     = each.value.plan
   tags     = each.value.tags
   script   = vultr_startup_script.script.id
+  prefix   = each.value.prefix
 }

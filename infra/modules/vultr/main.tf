@@ -22,6 +22,10 @@ variable "script" {
   type = string
 }
 
+variable "prefix" {
+  type = string
+}
+
 terraform {
   required_providers {
     vultr = {
@@ -80,6 +84,10 @@ output "fqdn" {
 
 output "tags" {
   value = var.tags
+}
+
+output "prefix" {
+  value = var.prefix
 }
 
 output "remarks" {

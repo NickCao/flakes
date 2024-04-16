@@ -28,6 +28,7 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "prefix": "string",
             "remarks": [
               "object",
               {
@@ -48,6 +49,7 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "prefix": "string",
             "remarks": [
               "object",
               {
@@ -107,6 +109,7 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "prefix": "string",
             "remarks": [
               "object",
               {
@@ -127,6 +130,7 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "prefix": "string",
             "remarks": [
               "object",
               {
@@ -147,6 +151,7 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "prefix": "string",
             "remarks": [
               "object",
               {
@@ -167,6 +172,7 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "prefix": "string",
             "remarks": [
               "object",
               {
@@ -187,6 +193,7 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "prefix": "string",
             "remarks": [
               "object",
               {
@@ -207,6 +214,7 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "prefix": "string",
             "remarks": [
               "object",
               {
@@ -228,6 +236,7 @@
         "fqdn": "ewr0.nichi.link",
         "ipv4": "45.77.102.104",
         "ipv6": "2001:19f0:1000:7642:5400:04ff:fe96:da39",
+        "prefix": "aeb",
         "remarks": {
           "city": "New Jersey",
           "continent": "North America",
@@ -241,6 +250,7 @@
         "fqdn": "fra0.nichi.link",
         "ipv4": "95.179.169.2",
         "ipv6": "2a05:f480:1800:0e26:5400:04ff:fe8a:60b3",
+        "prefix": "38c",
         "remarks": {
           "city": "Frankfurt",
           "continent": "Europe",
@@ -282,6 +292,7 @@
         "fqdn": "itm0.nichi.link",
         "ipv4": "64.176.39.8",
         "ipv6": "2401:c080:3800:2638:5400:04ff:fe4a:9cbc",
+        "prefix": "a4b",
         "remarks": {
           "city": "Osaka",
           "continent": "Asia",
@@ -295,6 +306,7 @@
         "fqdn": "lax0.nichi.link",
         "ipv4": "144.202.117.213",
         "ipv6": "2001:19f0:6001:2f1f:5400:04ff:fe83:6ab5",
+        "prefix": "a2a",
         "remarks": {
           "city": "Los Angeles",
           "continent": "North America",
@@ -308,6 +320,7 @@
         "fqdn": "lhr0.nichi.link",
         "ipv4": "45.76.135.126",
         "ipv6": "2001:19f0:7400:8fed:5400:04ff:fedd:8289",
+        "prefix": "244",
         "remarks": {
           "city": "London",
           "continent": "Europe",
@@ -321,6 +334,7 @@
         "fqdn": "nrt0.nichi.link",
         "ipv4": "45.32.61.43",
         "ipv6": "2001:19f0:7001:53db:5400:04ff:fe19:b7a0",
+        "prefix": "786",
         "remarks": {
           "city": "Tokyo",
           "continent": "Asia",
@@ -335,6 +349,7 @@
         "fqdn": "sea0.nichi.link",
         "ipv4": "104.238.153.235",
         "ipv6": "2001:19f0:8001:1276:5400:04ff:fe82:c30c",
+        "prefix": "4ed",
         "remarks": {
           "city": "Seattle",
           "continent": "North America",
@@ -349,6 +364,7 @@
         "fqdn": "sin0.nichi.link",
         "ipv4": "45.32.119.153",
         "ipv6": "2001:19f0:4400:6a40:5400:04ff:fe19:b6d8",
+        "prefix": "f25",
         "remarks": {
           "city": "Singapore",
           "continent": "Asia",
