@@ -109,6 +109,18 @@
             ]
           }
         ],
+        "lhr0": [
+          "object",
+          {
+            "fqdn": "string",
+            "ipv4": "string",
+            "ipv6": "string",
+            "tags": [
+              "list",
+              "string"
+            ]
+          }
+        ],
         "nrt0": [
           "object",
           {
@@ -204,6 +216,14 @@
         "fqdn": "lax0.nichi.link",
         "ipv4": "144.202.117.213",
         "ipv6": "2001:19f0:6001:2f1f:5400:04ff:fe83:6ab5",
+        "tags": [
+          "vultr"
+        ]
+      },
+      "lhr0": {
+        "fqdn": "lhr0.nichi.link",
+        "ipv4": "45.76.135.126",
+        "ipv6": "2001:19f0:7400:8fed:5400:04ff:fedd:8289",
         "tags": [
           "vultr"
         ]
