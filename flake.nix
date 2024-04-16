@@ -113,9 +113,13 @@
             tags = value.tags;
           };
           imports =
-            if (builtins.elem "vultr" value.tags) then [
-              ./nixos/vultr/${name}
-            ] else if (builtins.elem "hetzner" value.tags) then [
+            if (builtins.elem "vultr" value.tags) then
+              (lib.optionals (builtins.pathExists ./nixos/vultr/${name}) [
+                ./nixos/vultr/${name}
+              ] ++ [
+                ./nixos/vultr/common.nix
+                { networking.hostName = name; }
+              ]) else if (builtins.elem "hetzner" value.tags) then [
               ./nixos/hcloud/${name}
             ] else [
               ./nixos/${name}
