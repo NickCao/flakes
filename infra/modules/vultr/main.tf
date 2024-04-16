@@ -59,6 +59,13 @@ resource "vultr_reverse_ipv6" "reverse_ipv6" {
   reverse     = var.fqdn
 }
 
+data "vultr_region" "region" {
+  filter {
+    name   = "id"
+    values = [vultr_instance.server.region]
+  }
+}
+
 output "ipv4" {
   value = vultr_reverse_ipv4.reverse_ipv4.ip
 }
@@ -73,4 +80,12 @@ output "fqdn" {
 
 output "tags" {
   value = var.tags
+}
+
+output "remarks" {
+  value = {
+    continent = data.vultr_region.region.continent
+    country   = data.vultr_region.region.country
+    city      = data.vultr_region.region.city
+  }
 }

@@ -28,6 +28,14 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "continent": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -40,6 +48,14 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "continent": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -91,6 +107,14 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "continent": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -103,6 +127,14 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "continent": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -115,6 +147,14 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "continent": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -127,6 +167,14 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "continent": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -139,6 +187,14 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "continent": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -151,6 +207,14 @@
             "fqdn": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "continent": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -164,6 +228,11 @@
         "fqdn": "ewr0.nichi.link",
         "ipv4": "45.77.102.104",
         "ipv6": "2001:19f0:1000:7642:5400:04ff:fe96:da39",
+        "remarks": {
+          "city": "New Jersey",
+          "continent": "North America",
+          "country": "US"
+        },
         "tags": [
           "vultr"
         ]
@@ -172,6 +241,11 @@
         "fqdn": "fra0.nichi.link",
         "ipv4": "95.179.169.2",
         "ipv6": "2a05:f480:1800:0e26:5400:04ff:fe8a:60b3",
+        "remarks": {
+          "city": "Frankfurt",
+          "continent": "Europe",
+          "country": "DE"
+        },
         "tags": [
           "vultr"
         ]
@@ -208,6 +282,11 @@
         "fqdn": "itm0.nichi.link",
         "ipv4": "64.176.39.8",
         "ipv6": "2401:c080:3800:2638:5400:04ff:fe4a:9cbc",
+        "remarks": {
+          "city": "Osaka",
+          "continent": "Asia",
+          "country": "JP"
+        },
         "tags": [
           "vultr"
         ]
@@ -216,6 +295,11 @@
         "fqdn": "lax0.nichi.link",
         "ipv4": "144.202.117.213",
         "ipv6": "2001:19f0:6001:2f1f:5400:04ff:fe83:6ab5",
+        "remarks": {
+          "city": "Los Angeles",
+          "continent": "North America",
+          "country": "US"
+        },
         "tags": [
           "vultr"
         ]
@@ -224,6 +308,11 @@
         "fqdn": "lhr0.nichi.link",
         "ipv4": "45.76.135.126",
         "ipv6": "2001:19f0:7400:8fed:5400:04ff:fedd:8289",
+        "remarks": {
+          "city": "London",
+          "continent": "Europe",
+          "country": "GB"
+        },
         "tags": [
           "vultr"
         ]
@@ -232,6 +321,11 @@
         "fqdn": "nrt0.nichi.link",
         "ipv4": "45.32.61.43",
         "ipv6": "2001:19f0:7001:53db:5400:04ff:fe19:b7a0",
+        "remarks": {
+          "city": "Tokyo",
+          "continent": "Asia",
+          "country": "JP"
+        },
         "tags": [
           "vultr",
           "nameserver"
@@ -241,6 +335,11 @@
         "fqdn": "sea0.nichi.link",
         "ipv4": "104.238.153.235",
         "ipv6": "2001:19f0:8001:1276:5400:04ff:fe82:c30c",
+        "remarks": {
+          "city": "Seattle",
+          "continent": "North America",
+          "country": "US"
+        },
         "tags": [
           "vultr",
           "nameserver"
@@ -250,6 +349,11 @@
         "fqdn": "sin0.nichi.link",
         "ipv4": "45.32.119.153",
         "ipv6": "2001:19f0:4400:6a40:5400:04ff:fe19:b6d8",
+        "remarks": {
+          "city": "Singapore",
+          "continent": "Asia",
+          "country": "SG"
+        },
         "tags": [
           "vultr",
           "nameserver"
