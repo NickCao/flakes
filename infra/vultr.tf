@@ -35,6 +35,11 @@ locals {
       plan   = "vhp-1c-1gb-amd"
       tags   = ["vultr"]
     }
+    lhr0 = {
+      region = "lhr"
+      plan   = "vhp-1c-1gb-amd"
+      tags   = ["vultr"]
+    }
   }
 }
 
