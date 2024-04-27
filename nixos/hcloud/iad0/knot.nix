@@ -146,6 +146,10 @@ in
           file = pkgs.writeText "db.icu.nixos" (import ../../../zones/parking.nix { inherit (inputs) dns; });
         }
         {
+          domain = "really-save-nix-together.org";
+          file = pkgs.writeText "db.org.really-save-nix-together" (import ../../../zones/really-save-nix-together.org.nix { inherit (inputs) dns; });
+        }
+        {
           domain = "gravity";
           file = config.sops.secrets.gravity.path;
           dnssec-signing = false;
