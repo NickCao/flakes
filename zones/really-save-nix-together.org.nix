@@ -17,5 +17,8 @@ dns.lib.toString "scp.link" {
     "2606:50c0:8002::153"
     "2606:50c0:8003::153"
   ];
+  subdomains.www = {
+    CNAME = [ "nickcao.github.io." ];
+  };
 }
 
