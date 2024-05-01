@@ -201,7 +201,7 @@ in
     ncdu
     yubikey-manager
     wireguard-tools
-    nixpkgs-fmt
+    nixfmt-rfc-style
     smartmontools
     python3
     knot-dns

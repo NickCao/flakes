@@ -22,7 +22,7 @@ for _, lsp in pairs(servers) do
     settings = {
       ['nil'] = {
         formatting = {
-          command = { 'nixpkgs-fmt' }
+          command = { 'nixfmt' }
         }
       },
       texlab = {
