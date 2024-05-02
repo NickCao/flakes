@@ -8,9 +8,7 @@ in
     owner = cfg.user;
     reloadUnits = [ "dovecot2.service" ];
   };
-  systemd.tmpfiles.rules = [
-    "d ${maildir} 0700 ${cfg.mailUser} ${cfg.mailGroup} -"
-  ];
+  systemd.tmpfiles.rules = [ "d ${maildir} 0700 ${cfg.mailUser} ${cfg.mailGroup} -" ];
   services.dovecot2 = {
     enable = true;
     modules = [ pkgs.dovecot_pigeonhole ];
@@ -99,39 +97,50 @@ in
   cloud.caddy.settings.apps.layer4.servers = {
     imap = {
       listen = [ ":993" ];
-      routes = [{
-        handle = [
-          {
-            handler = "tls";
-            connection_policies = [{
-              match = { sni = [ config.networking.fqdn ]; };
-            }];
-          }
-          {
-            handler = "proxy";
-            upstreams = [{ dial = [ "unix//run/dovecot2/imap-caddy" ]; }];
-          }
-        ];
-      }];
+      routes = [
+        {
+          handle = [
+            {
+              handler = "tls";
+              connection_policies = [
+                {
+                  match = {
+                    sni = [ config.networking.fqdn ];
+                  };
+                }
+              ];
+            }
+            {
+              handler = "proxy";
+              upstreams = [ { dial = [ "unix//run/dovecot2/imap-caddy" ]; } ];
+            }
+          ];
+        }
+      ];
     };
     submission = {
       listen = [ ":465" ];
-      routes = [{
-        handle = [
-          {
-            handler = "tls";
-            connection_policies = [{
-              match = { sni = [ config.networking.fqdn ]; };
-            }];
-          }
-          {
-            handler = "proxy";
-            upstreams = [{ dial = [ "127.0.0.1:587" ]; }];
-            proxy_protocol = "v2";
-          }
-        ];
-      }];
+      routes = [
+        {
+          handle = [
+            {
+              handler = "tls";
+              connection_policies = [
+                {
+                  match = {
+                    sni = [ config.networking.fqdn ];
+                  };
+                }
+              ];
+            }
+            {
+              handler = "proxy";
+              upstreams = [ { dial = [ "127.0.0.1:587" ]; } ];
+              proxy_protocol = "v2";
+            }
+          ];
+        }
+      ];
     };
   };
-
 }

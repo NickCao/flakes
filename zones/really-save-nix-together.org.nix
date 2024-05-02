@@ -21,4 +21,3 @@ dns.lib.toString "scp.link" {
     CNAME = [ "nickcao.github.io." ];
   };
 }
-

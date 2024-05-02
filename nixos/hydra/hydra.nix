@@ -1,25 +1,41 @@
-{ pkgs, config, lib, ... }: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
 
   sops.secrets = {
-    hydra = { group = "hydra"; mode = "0440"; };
-    hydra-github = { group = "hydra"; mode = "0440"; };
-    harmonia = { mode = "0440"; };
+    hydra = {
+      group = "hydra";
+      mode = "0440";
+    };
+    hydra-github = {
+      group = "hydra";
+      mode = "0440";
+    };
+    harmonia = {
+      mode = "0440";
+    };
   };
 
   nix = {
     settings = rec {
       trusted-users = [ "root" ];
       auto-optimise-store = true;
-      allowed-uris = [ "https://github.com" "https://gitlab.com" "github:" ];
+      allowed-uris = [
+        "https://github.com"
+        "https://gitlab.com"
+        "github:"
+      ];
       max-jobs = 8;
       cores = 64 / max-jobs;
     };
     channel.enable = lib.mkForce true;
   };
 
-  systemd.services.nix-daemon.serviceConfig.Environment = [
-    "TMPDIR=/var/tmp"
-  ];
+  systemd.services.nix-daemon.serviceConfig.Environment = [ "TMPDIR=/var/tmp" ];
 
   services.postgresql = {
     package = pkgs.postgresql_16;
@@ -75,18 +91,16 @@
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
     {
-      match = [{
-        host = [ "hydra.nichi.co" ];
-      }];
-      handle = [{
-        handler = "reverse_proxy";
-        upstreams = [{ dial = "127.0.0.1:3000"; }];
-      }];
+      match = [ { host = [ "hydra.nichi.co" ]; } ];
+      handle = [
+        {
+          handler = "reverse_proxy";
+          upstreams = [ { dial = "127.0.0.1:3000"; } ];
+        }
+      ];
     }
     {
-      match = [{
-        host = [ "cache.nichi.co" ];
-      }];
+      match = [ { host = [ "cache.nichi.co" ]; } ];
       handle = [
         {
           handler = "encode";
@@ -97,10 +111,9 @@
         }
         {
           handler = "reverse_proxy";
-          upstreams = [{ dial = config.services.harmonia.settings.bind; }];
+          upstreams = [ { dial = config.services.harmonia.settings.bind; } ];
         }
       ];
     }
   ];
-
 }

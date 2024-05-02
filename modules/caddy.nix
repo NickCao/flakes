@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.cloud.caddy;
   format = pkgs.formats.json { };
@@ -10,9 +15,7 @@ in
     cloud.caddy = {
       enable = lib.mkEnableOption "caddy api gateway";
       settings = lib.mkOption {
-        type = lib.types.submodule {
-          freeformType = format.type;
-        };
+        type = lib.types.submodule { freeformType = format.type; };
         default = { };
       };
     };
@@ -26,31 +29,33 @@ in
         config.persist = false;
       };
       apps = {
-        tls.automation.policies = [{
-          key_type = "p256";
-        }];
+        tls.automation.policies = [ { key_type = "p256"; } ];
         http.grace_period = "1s";
         http.servers.default = {
           listen = [ ":443" ];
           strict_sni_host = false;
-          routes = [{
-            match = [{
-              host = [ config.networking.fqdn ];
-              path = [ "/caddy" ];
-            }];
-            handle = [
-              {
-                handler = "authentication";
-                providers.http_basic.accounts = [{
-                  username = "prometheus";
-                  password = "{env.PROM_PASSWD}";
-                }];
-              }
-              {
-                handler = "metrics";
-              }
-            ];
-          }];
+          routes = [
+            {
+              match = [
+                {
+                  host = [ config.networking.fqdn ];
+                  path = [ "/caddy" ];
+                }
+              ];
+              handle = [
+                {
+                  handler = "authentication";
+                  providers.http_basic.accounts = [
+                    {
+                      username = "prometheus";
+                      password = "{env.PROM_PASSWD}";
+                    }
+                  ];
+                }
+                { handler = "metrics"; }
+              ];
+            }
+          ];
           metrics = { };
         };
       };
@@ -69,10 +74,12 @@ in
         Environment = [ "XDG_DATA_HOME=%S" ];
       };
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "network-online.target" ];
+      after = [
+        "network.target"
+        "network-online.target"
+      ];
       requires = [ "network-online.target" ];
       reloadTriggers = [ configfile ];
     };
   };
-
 }

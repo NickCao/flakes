@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
 
   services.keycloak = {
     enable = true;
@@ -13,14 +14,15 @@
     database.passwordFile = toString (pkgs.writeText "password" "keycloak");
   };
 
-  cloud.caddy.settings.apps.http.servers.default.routes = [{
-    match = [{
-      host = [ config.services.keycloak.settings.hostname ];
-    }];
-    handle = [{
-      handler = "reverse_proxy";
-      upstreams = [{ dial = "127.0.0.1:${toString config.services.keycloak.settings.http-port}"; }];
-    }];
-  }];
-
+  cloud.caddy.settings.apps.http.servers.default.routes = [
+    {
+      match = [ { host = [ config.services.keycloak.settings.hostname ]; } ];
+      handle = [
+        {
+          handler = "reverse_proxy";
+          upstreams = [ { dial = "127.0.0.1:${toString config.services.keycloak.settings.http-port}"; } ];
+        }
+      ];
+    }
+  ];
 }

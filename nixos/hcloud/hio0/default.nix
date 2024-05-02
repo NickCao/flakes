@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
 
   imports = [
     ../common.nix
@@ -19,5 +20,4 @@
     fsType = "btrfs";
     options = [ "compress-force=zstd" ];
   };
-
 }

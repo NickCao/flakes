@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.gravity;
@@ -13,14 +19,18 @@ in
       organization = mkOption { type = types.str; };
       commonName = mkOption { type = types.str; };
       endpoints = mkOption {
-        type = types.listOf
-          (types.submodule {
+        type = types.listOf (
+          types.submodule {
             options = {
               serialNumber = mkOption { type = types.str; };
               addressFamily = mkOption { type = types.str; };
-              address = mkOption { type = types.nullOr types.str; default = null; };
+              address = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+              };
             };
-          });
+          }
+        );
       };
       port = mkOption {
         type = types.port;
@@ -110,7 +120,10 @@ in
       };
 
       systemd.services.gravity-rules = {
-        path = with pkgs;[ iproute2 coreutils ];
+        path = with pkgs; [
+          iproute2
+          coreutils
+        ];
         script = ''
           ip -4 ru del pref 0 || true
           ip -6 ru del pref 0 || true
@@ -136,16 +149,31 @@ in
 
       systemd.network.netdevs = {
         gravity = {
-          netdevConfig = { Kind = "vrf"; Name = "gravity"; };
-          vrfConfig = { Table = cfg.table + 0; };
+          netdevConfig = {
+            Kind = "vrf";
+            Name = "gravity";
+          };
+          vrfConfig = {
+            Table = cfg.table + 0;
+          };
         };
         stateful = {
-          netdevConfig = { Kind = "vrf"; Name = "stateful"; };
-          vrfConfig = { Table = cfg.table + 1; };
+          netdevConfig = {
+            Kind = "vrf";
+            Name = "stateful";
+          };
+          vrfConfig = {
+            Table = cfg.table + 1;
+          };
         };
         stateles = {
-          netdevConfig = { Kind = "vrf"; Name = "stateles"; };
-          vrfConfig = { Table = cfg.table + 2; };
+          netdevConfig = {
+            Kind = "vrf";
+            Name = "stateles";
+          };
+          vrfConfig = {
+            Table = cfg.table + 2;
+          };
         };
       };
 
@@ -154,21 +182,27 @@ in
           name = config.systemd.network.netdevs.gravity.netdevConfig.Name;
           address = cfg.address;
           linkConfig.RequiredForOnline = false;
-          routingPolicyRules = lib.optionals (cfg.srv6.enable) [{
-            routingPolicyRuleConfig = {
-              Priority = 500;
-              Family = "ipv6";
-              Table = 100; # localsid
-              From = "2a0c:b641:69c::/48";
-              To = "${cfg.srv6.prefix}6::/64";
-            };
-          }] ++ [{
-            routingPolicyRuleConfig = {
-              Priority = 3000;
-              Family = "both";
-              Table = "local";
-            };
-          }];
+          routingPolicyRules =
+            lib.optionals (cfg.srv6.enable) [
+              {
+                routingPolicyRuleConfig = {
+                  Priority = 500;
+                  Family = "ipv6";
+                  Table = 100; # localsid
+                  From = "2a0c:b641:69c::/48";
+                  To = "${cfg.srv6.prefix}6::/64";
+                };
+              }
+            ]
+            ++ [
+              {
+                routingPolicyRuleConfig = {
+                  Priority = 3000;
+                  Family = "both";
+                  Table = "local";
+                };
+              }
+            ];
         };
         stateful = {
           name = config.systemd.network.netdevs.stateful.netdevConfig.Name;
@@ -207,48 +241,48 @@ in
             scan time 5;
           }
           ${optionalString cfg.bird.exit.enable ''
-          ipv6 table stateles;
-          ipv6 table stateful;
+            ipv6 table stateles;
+            ipv6 table stateful;
 
-          protocol pipe stateles_pipe {
-            table stateles;
-            peer table master6;
-            import all;
-            export none;
-          }
-
-          protocol pipe stateful_pipe {
-            table stateful;
-            peer table master6;
-            import all;
-            export none;
-          }
-
-          protocol kernel stateles_kern {
-            kernel table ${toString stateles};
-            ipv6 {
+            protocol pipe stateles_pipe {
               table stateles;
-              import none;
-              export all;
-            };
-          }
-
-          protocol kernel stateful_kern {
-            kernel table ${toString stateful};
-            ipv6 {
-              table stateful;
-              import none;
-              export all;
-            };
-          }
-
-          protocol kernel {
-            ipv6 {
-              export where proto = "announce";
+              peer table master6;
               import all;
-            };
-            learn;
-          }
+              export none;
+            }
+
+            protocol pipe stateful_pipe {
+              table stateful;
+              peer table master6;
+              import all;
+              export none;
+            }
+
+            protocol kernel stateles_kern {
+              kernel table ${toString stateles};
+              ipv6 {
+                table stateles;
+                import none;
+                export all;
+              };
+            }
+
+            protocol kernel stateful_kern {
+              kernel table ${toString stateful};
+              ipv6 {
+                table stateful;
+                import none;
+                export all;
+              };
+            }
+
+            protocol kernel {
+              ipv6 {
+                export where proto = "announce";
+                import all;
+              };
+              learn;
+            }
           ''}
           protocol kernel {
             kernel table ${toString cfg.table};
@@ -261,8 +295,8 @@ in
             ipv6 sadr;
             route ${cfg.bird.prefix} from ::/0 unreachable;
             ${optionalString cfg.bird.exit.enable ''
-            route 2a0c:b641:69c::/48 from ::/0 unreachable;
-            route ::/0 from 2a0c:b641:69c::/48 via "stateles";
+              route 2a0c:b641:69c::/48 from ::/0 unreachable;
+              route ::/0 from 2a0c:b641:69c::/48 via "stateles";
             ''}
           }
           protocol babel {
@@ -293,24 +327,24 @@ in
           }
 
           ${optionalString cfg.bird.exit.enable ''
-          protocol static announce {
-            ipv6;
-            route 2a0c:b641:69c::/48 via "gravity";
-            route 2a0c:b641:690::/44 unreachable;
-            route 2602:feda:bc0::/44 unreachable;
-          }
-          include "${config.sops.secrets.bgp_passwd.path}";
-          protocol bgp vultr {
-            ipv6 {
-              import none;
-              export where proto = "announce";
-            };
-            local as 209297;
-            graceful restart on;
-            multihop 2;
-            neighbor 2001:19f0:ffff::1 as 64515;
-            password BGP_PASSWD;
-          }
+            protocol static announce {
+              ipv6;
+              route 2a0c:b641:69c::/48 via "gravity";
+              route 2a0c:b641:690::/44 unreachable;
+              route 2602:feda:bc0::/44 unreachable;
+            }
+            include "${config.sops.secrets.bgp_passwd.path}";
+            protocol bgp vultr {
+              ipv6 {
+                import none;
+                export where proto = "announce";
+              };
+              local as 209297;
+              graceful restart on;
+              multihop 2;
+              neighbor 2001:19f0:ffff::1 as 64515;
+              password BGP_PASSWD;
+            }
           ''}
         '';
       };
@@ -327,7 +361,12 @@ in
       systemd.network.networks.nat64 = {
         name = "nat64";
         routes = [
-          { routeConfig = { Destination = "64:ff9b::/96"; Table = stateful; }; }
+          {
+            routeConfig = {
+              Destination = "64:ff9b::/96";
+              Table = stateful;
+            };
+          }
           { routeConfig.Destination = "10.201.0.0/16"; }
         ];
         networkConfig.LinkLocalAddressing = false;
@@ -337,7 +376,12 @@ in
       systemd.network.networks.divi = {
         name = "divi";
         routes = [
-          { routeConfig = { Destination = cfg.divi.prefix; Table = cfg.table; }; }
+          {
+            routeConfig = {
+              Destination = cfg.divi.prefix;
+              Table = cfg.table;
+            };
+          }
           { routeConfig.Destination = cfg.divi.dynamic-pool; }
         ];
         networkConfig.LinkLocalAddressing = false;
@@ -347,12 +391,12 @@ in
       systemd.services.nat64 = {
         serviceConfig = {
           ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
-          tun-device nat64
-          ipv4-addr 10.201.0.1
-          ipv6-addr fc00::
-          prefix 64:ff9b::/96
-          dynamic-pool 10.201.0.0/16
-        ''}";
+            tun-device nat64
+            ipv4-addr 10.201.0.1
+            ipv6-addr fc00::
+            prefix 64:ff9b::/96
+            dynamic-pool 10.201.0.0/16
+          ''}";
         };
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
@@ -361,11 +405,11 @@ in
       systemd.services.divi = {
         serviceConfig = {
           ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
-          tun-device divi
-          ipv4-addr 10.200.0.1
-          prefix ${cfg.divi.prefix}
-          dynamic-pool ${cfg.divi.dynamic-pool}
-        ''}";
+            tun-device divi
+            ipv4-addr 10.200.0.1
+            prefix ${cfg.divi.prefix}
+            dynamic-pool ${cfg.divi.dynamic-pool}
+          ''}";
         };
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
@@ -414,7 +458,11 @@ in
       sops.secrets.gravity_registry.sopsFile = ./secrets.yaml;
       systemd.tmpfiles.rules = [ "d /var/lib/gravity 0755 root root - -" ];
       systemd.services.gravity-registry = {
-        path = with pkgs; [ curl jq coreutils ];
+        path = with pkgs; [
+          curl
+          jq
+          coreutils
+        ];
         script = ''
           set -euo pipefail
           source ${config.sops.secrets.gravity_registry.path}
@@ -440,7 +488,7 @@ in
         '';
       };
       systemd.services.gravity-srv6 = {
-        path = with pkgs;[ iproute2 ];
+        path = with pkgs; [ iproute2 ];
         serviceConfig =
           let
             routes = [
@@ -467,33 +515,34 @@ in
       environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" {
         organization = cfg.ipsec.organization;
         common_name = cfg.ipsec.commonName;
-        endpoints = builtins.map
-          (ep: {
-            serial_number = ep.serialNumber;
-            address_family = ep.addressFamily;
-            address = ep.address;
-            port = cfg.ipsec.port;
-            updown = pkgs.writeShellScript "updown" ''
-              LINK=gn$(printf '%08x\n' "$PLUTO_IF_ID_OUT")
-              case "$PLUTO_VERB" in
-                up-client)
-                  ip link add "$LINK" type xfrm if_id "$PLUTO_IF_ID_OUT"
-                  ip link set "$LINK" master gravity multicast on mtu 1420 up
-                  ;;
-                down-client)
-                  ip link del "$LINK"
-                  ;;
-              esac
-            '';
-          })
-          cfg.ipsec.endpoints;
+        endpoints = builtins.map (ep: {
+          serial_number = ep.serialNumber;
+          address_family = ep.addressFamily;
+          address = ep.address;
+          port = cfg.ipsec.port;
+          updown = pkgs.writeShellScript "updown" ''
+            LINK=gn$(printf '%08x\n' "$PLUTO_IF_ID_OUT")
+            case "$PLUTO_VERB" in
+              up-client)
+                ip link add "$LINK" type xfrm if_id "$PLUTO_IF_ID_OUT"
+                ip link set "$LINK" master gravity multicast on mtu 1420 up
+                ;;
+              down-client)
+                ip link del "$LINK"
+                ;;
+            esac
+          '';
+        }) cfg.ipsec.endpoints;
       };
       systemd.services.gravity-ipsec =
         let
           command = "ranet -c /etc/ranet/config.json -r /var/lib/gravity/registry.json -k ${config.sops.secrets.ipsec.path}";
         in
         {
-          path = [ inputs.ranet-ipsec.packages.x86_64-linux.default pkgs.iproute2 ];
+          path = [
+            inputs.ranet-ipsec.packages.x86_64-linux.default
+            pkgs.iproute2
+          ];
           script = "${command} up";
           reload = "${command} up";
           preStop = "${command} down";
@@ -505,8 +554,14 @@ in
             AssertFileNotEmpty = "/var/lib/gravity/registry.json";
           };
           bindsTo = [ "strongswan-swanctl.service" ];
-          wants = [ "network-online.target" "strongswan-swanctl.service" ];
-          after = [ "network-online.target" "strongswan-swanctl.service" ];
+          wants = [
+            "network-online.target"
+            "strongswan-swanctl.service"
+          ];
+          after = [
+            "network-online.target"
+            "strongswan-swanctl.service"
+          ];
           wantedBy = [ "multi-user.target" ];
           reloadTriggers = [ config.environment.etc."ranet/config.json".source ];
         };

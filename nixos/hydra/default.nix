@@ -1,4 +1,11 @@
-{ pkgs, self, inputs, data, ... }: {
+{
+  pkgs,
+  self,
+  inputs,
+  data,
+  ...
+}:
+{
 
   # provision secrets
 
@@ -9,9 +16,7 @@
   # podman run --rm --detach --name=hydra --rootfs --ulimit=host --pids-limit=-1 --systemd=always --network=slirp4netns \
   #   --no-hosts -p=80:80 -p=443:443 -p=9022:22 --privileged /data/hydra /nix/var/nix/profiles/system/init
 
-  nixpkgs.overlays = [
-    self.overlays.default
-  ];
+  nixpkgs.overlays = [ self.overlays.default ];
 
   imports = [
     self.nixosModules.default
@@ -54,5 +59,4 @@
   boot.specialFileSystems."/run".options = [ "rshared" ];
 
   system.stateVersion = "23.05";
-
 }

@@ -1,20 +1,28 @@
-{ config, pkgs, lib, inputs, data, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  data,
+  ...
+}:
 let
-  secondary = (lib.mapAttrs
-    (name: value: {
-      id = name;
-      address = [
-        value.ipv4
-        value.ipv6
-      ];
-      quic = true;
-      cert-key = "ZvTOnBFFp0WBMFOu62pjGrYVeBOQK3STxJu99C9BuGA=";
-    })
-    (lib.filterAttrs
-      (name: value:
-        lib.elem "nameserver" value.tags && name != config.networking.hostName)
-      data.nodes
-    )
+  secondary = (
+    lib.mapAttrs
+      (name: value: {
+        id = name;
+        address = [
+          value.ipv4
+          value.ipv6
+        ];
+        quic = true;
+        cert-key = "ZvTOnBFFp0WBMFOu62pjGrYVeBOQK3STxJu99C9BuGA=";
+      })
+      (
+        lib.filterAttrs (
+          name: value: lib.elem "nameserver" value.tags && name != config.networking.hostName
+        ) data.nodes
+      )
   );
 in
 {
@@ -51,38 +59,59 @@ in
         tcp-fastopen = true;
         tcp-reuseport = true;
         automatic-acl = true;
-        listen = [ "0.0.0.0" "::" ];
-        listen-quic = [ "0.0.0.0" "::" ];
+        listen = [
+          "0.0.0.0"
+          "::"
+        ];
+        listen-quic = [
+          "0.0.0.0"
+          "::"
+        ];
         key-file = config.sops.secrets."quic/key".path;
         cert-file = config.sops.secrets."quic/cert".path;
       };
-      log = [{
-        target = "syslog";
-        any = "info";
-      }];
-      policy = [{
-        algorithm = "ed25519";
-        id = "default";
-        ksk-lifetime = "365d";
-        ksk-shared = true;
-        ksk-submission = "default";
-        nsec3 = true;
-        nsec3-iterations = "10";
-        signing-threads = "12";
-      }];
-      remote = [{
-        id = "cloudflare";
-        address = [ "1.1.1.1" "1.0.0.1" "2606:4700:4700::1111" "2606:4700:4700::1001" ];
-      }] ++ lib.attrValues secondary;
-      remotes = [{
-        id = "secondary";
-        remote = lib.attrNames secondary;
-      }];
-      submission = [{
-        check-interval = "10m";
-        id = "default";
-        parent = "cloudflare";
-      }];
+      log = [
+        {
+          target = "syslog";
+          any = "info";
+        }
+      ];
+      policy = [
+        {
+          algorithm = "ed25519";
+          id = "default";
+          ksk-lifetime = "365d";
+          ksk-shared = true;
+          ksk-submission = "default";
+          nsec3 = true;
+          nsec3-iterations = "10";
+          signing-threads = "12";
+        }
+      ];
+      remote = [
+        {
+          id = "cloudflare";
+          address = [
+            "1.1.1.1"
+            "1.0.0.1"
+            "2606:4700:4700::1111"
+            "2606:4700:4700::1001"
+          ];
+        }
+      ] ++ lib.attrValues secondary;
+      remotes = [
+        {
+          id = "secondary";
+          remote = lib.attrNames secondary;
+        }
+      ];
+      submission = [
+        {
+          check-interval = "10m";
+          id = "default";
+          parent = "cloudflare";
+        }
+      ];
       template = [
         {
           id = "default";
@@ -115,23 +144,26 @@ in
         }
         {
           domain = "nichi.co";
-          file = pkgs.writeText "db.co.nichi" (import ../../../zones/nichi.co.nix {
-            inherit (inputs) dns;
-          });
+          file = pkgs.writeText "db.co.nichi" (import ../../../zones/nichi.co.nix { inherit (inputs) dns; });
         }
         {
           domain = "nichi.link";
-          file = pkgs.writeText "db.link.nichi" (import ../../../zones/nichi.link.nix { inherit (inputs) dns; inherit lib; });
+          file = pkgs.writeText "db.link.nichi" (
+            import ../../../zones/nichi.link.nix {
+              inherit (inputs) dns;
+              inherit lib;
+            }
+          );
         }
         {
           domain = "scp.link";
-          file = pkgs.writeText "db.link.scp" (import ../../../zones/scp.link.nix {
-            inherit (inputs) dns;
-          });
+          file = pkgs.writeText "db.link.scp" (import ../../../zones/scp.link.nix { inherit (inputs) dns; });
         }
         {
           domain = "wikipedia.zip";
-          file = pkgs.writeText "db.zip.wikipedia" (import ../../../zones/parking.nix { inherit (inputs) dns; });
+          file = pkgs.writeText "db.zip.wikipedia" (
+            import ../../../zones/parking.nix { inherit (inputs) dns; }
+          );
         }
         {
           domain = "nixos.zip";
@@ -139,7 +171,9 @@ in
         }
         {
           domain = "archlinux.icu";
-          file = pkgs.writeText "db.icu.archlinux" (import ../../../zones/parking.nix { inherit (inputs) dns; });
+          file = pkgs.writeText "db.icu.archlinux" (
+            import ../../../zones/parking.nix { inherit (inputs) dns; }
+          );
         }
         {
           domain = "nixos.icu";
@@ -147,7 +181,9 @@ in
         }
         {
           domain = "really-save-nix-together.org";
-          file = pkgs.writeText "db.org.really-save-nix-together" (import ../../../zones/really-save-nix-together.org.nix { inherit (inputs) dns; });
+          file = pkgs.writeText "db.org.really-save-nix-together" (
+            import ../../../zones/really-save-nix-together.org.nix { inherit (inputs) dns; }
+          );
         }
         {
           domain = "gravity";
@@ -161,5 +197,4 @@ in
       ];
     };
   };
-
 }

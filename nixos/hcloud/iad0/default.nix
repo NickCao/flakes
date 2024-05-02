@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
 
   imports = [
     ../common.nix
@@ -11,5 +12,4 @@
   sops.defaultSopsFile = ./secrets.yaml;
 
   networking.hostName = "iad0";
-
 }

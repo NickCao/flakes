@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
 
@@ -71,5 +72,4 @@
   };
 
   fileSystems."/persist".neededForBoot = true;
-
 }

@@ -1,4 +1,13 @@
-{ config, lib, modulesPath, self, inputs, data, ... }: {
+{
+  config,
+  lib,
+  modulesPath,
+  self,
+  inputs,
+  data,
+  ...
+}:
+{
 
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -7,7 +16,6 @@
     inputs.impermanence.nixosModules.impermanence
     inputs.sops-nix.nixosModules.sops
   ];
-
 
   disko.devices.disk.vda.device = lib.mkForce "/dev/sda";
 
@@ -25,13 +33,16 @@
   ];
 
   boot = {
-    initrd.availableKernelModules = [ "ahci" "xhci_pci" "sd_mod" "sr_mod" ];
+    initrd.availableKernelModules = [
+      "ahci"
+      "xhci_pci"
+      "sd_mod"
+      "sr_mod"
+    ];
   };
 
   environment.persistence."/persist" = {
-    directories = [
-      "/var"
-    ];
+    directories = [ "/var" ];
   };
 
   services.btrfs.autoScrub = {
@@ -46,8 +57,19 @@
     useNetworkd = true;
     interfaces.enp1s0 = {
       useDHCP = true;
-      ipv6.addresses = [{ address = data.nodes.${config.networking.hostName}.ipv6; prefixLength = 64; }];
-      ipv6.routes = [{ address = "::"; prefixLength = 0; via = "fe80::1"; }];
+      ipv6.addresses = [
+        {
+          address = data.nodes.${config.networking.hostName}.ipv6;
+          prefixLength = 64;
+        }
+      ];
+      ipv6.routes = [
+        {
+          address = "::";
+          prefixLength = 0;
+          via = "fe80::1";
+        }
+      ];
     };
   };
 
@@ -61,5 +83,4 @@
   environment.backup.enable = true;
 
   system.stateVersion = "22.05";
-
 }

@@ -42,7 +42,15 @@ in
   "sway/workspaces" = {
     all-outputs = true;
     format = "{name} {icon}";
-    format-icons = { "1" = ""; "2" = ""; "3" = ""; "4" = "󰇮"; default = ""; focused = ""; urgent = ""; };
+    format-icons = {
+      "1" = "";
+      "2" = "";
+      "3" = "";
+      "4" = "󰇮";
+      default = "";
+      focused = "";
+      urgent = "";
+    };
   };
   idle_inhibitor = {
     format = mkSpan "IDLE" "{icon}";
@@ -57,7 +65,11 @@ in
     format-bluetooth-muted = " {icon}  {format_source}";
     format-icons = {
       car = "";
-      default = [ "" "" "" ];
+      default = [
+        ""
+        ""
+        ""
+      ];
       hands-free = "";
       headphone = "";
       headset = "";

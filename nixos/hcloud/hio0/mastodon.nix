@@ -1,6 +1,14 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
 
-  sops.secrets.mastodon = { restartUnits = [ "mastodon-web.service" ]; };
+  sops.secrets.mastodon = {
+    restartUnits = [ "mastodon-web.service" ];
+  };
 
   systemd.services.mastodon-web.serviceConfig.EnvironmentFile = [ config.sops.secrets.mastodon.path ];
 
@@ -36,54 +44,53 @@
 
   systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "mastodon" ];
 
-  cloud.caddy.settings.apps.http.servers.default.routes = [{
-    match = [{
-      host = [ config.services.mastodon.extraConfig.WEB_DOMAIN ];
-    }];
-    handle = [{
-      handler = "subroute";
-      routes = [
+  cloud.caddy.settings.apps.http.servers.default.routes = [
+    {
+      match = [ { host = [ config.services.mastodon.extraConfig.WEB_DOMAIN ]; } ];
+      handle = [
         {
-          match = [{
-            path = [ "/system/*" ];
-          }];
-          handle = [
+          handler = "subroute";
+          routes = [
             {
-              handler = "rewrite";
-              strip_path_prefix = "/system";
+              match = [ { path = [ "/system/*" ]; } ];
+              handle = [
+                {
+                  handler = "rewrite";
+                  strip_path_prefix = "/system";
+                }
+                {
+                  handler = "file_server";
+                  root = "/var/lib/mastodon/public-system";
+                }
+              ];
             }
             {
-              handler = "file_server";
-              root = "/var/lib/mastodon/public-system";
-            }
-          ];
-        }
-        {
-          match = [{
-            path = [ "/api/v1/streaming/*" ];
-          }];
-          handle = [{
-            handler = "reverse_proxy";
-            upstreams = lib.genList
-              (i: { dial = "unix//run/mastodon-streaming/streaming-${toString (i + 1)}.socket"; })
-              config.services.mastodon.streamingProcesses;
-          }];
-        }
-        {
-          handle = [
-            {
-              handler = "file_server";
-              root = "${pkgs.mastodon}/public";
-              pass_thru = true;
+              match = [ { path = [ "/api/v1/streaming/*" ]; } ];
+              handle = [
+                {
+                  handler = "reverse_proxy";
+                  upstreams = lib.genList (i: {
+                    dial = "unix//run/mastodon-streaming/streaming-${toString (i + 1)}.socket";
+                  }) config.services.mastodon.streamingProcesses;
+                }
+              ];
             }
             {
-              handler = "reverse_proxy";
-              upstreams = [{ dial = "unix//run/mastodon-web/web.socket"; }];
+              handle = [
+                {
+                  handler = "file_server";
+                  root = "${pkgs.mastodon}/public";
+                  pass_thru = true;
+                }
+                {
+                  handler = "reverse_proxy";
+                  upstreams = [ { dial = "unix//run/mastodon-web/web.socket"; } ];
+                }
+              ];
             }
           ];
         }
       ];
-    }];
-  }];
-
+    }
+  ];
 }

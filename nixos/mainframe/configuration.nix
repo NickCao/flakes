@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
 
   home-manager = {
     useGlobalPkgs = true;
@@ -10,7 +16,9 @@
     defaultSopsFile = ./secrets.yaml;
     secrets = {
       passwd.neededForUsers = true;
-      u2f = { mode = "0444"; };
+      u2f = {
+        mode = "0444";
+      };
       "wireless/home" = { };
       "wireless/eduroam" = { };
     };
@@ -32,12 +40,21 @@
     package = pkgs.nixVersions.stable;
     channel.enable = false;
     settings = {
-      trusted-users = [ "root" "nickcao" ];
+      trusted-users = [
+        "root"
+        "nickcao"
+      ];
       substituters = lib.mkAfter [ "https://cache.nichi.co" ];
       trusted-public-keys = [ "hydra.nichi.co-0:P3nkYHhmcLR3eNJgOAnHDjmQLkfqheGyhZ6GLrUVHwk=" ];
       auto-optimise-store = true;
       flake-registry = "/etc/nix/registry.json";
-      experimental-features = [ "nix-command" "flakes" "ca-derivations" "auto-allocate-uids" "cgroups" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "ca-derivations"
+        "auto-allocate-uids"
+        "cgroups"
+      ];
       builders-use-substitutes = true;
       keep-derivations = true;
       auto-allocate-uids = true;
@@ -47,21 +64,25 @@
   };
 
   nixpkgs.config = {
-    allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-      "uhk-agent"
-      "uhk-udev-rules"
-    ];
+    allowUnfreePredicate =
+      pkg:
+      builtins.elem (pkgs.lib.getName pkg) [
+        "uhk-agent"
+        "uhk-udev-rules"
+      ];
 
     allowNonSource = false;
-    allowNonSourcePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "uhk-agent"
-      "sof-firmware"
-      "adoptopenjdk-hotspot-bin"
-      "temurin-bin"
-      "cargo-bootstrap"
-      "rustc-bootstrap"
-      "rustc-bootstrap-wrapper"
-    ];
+    allowNonSourcePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "uhk-agent"
+        "sof-firmware"
+        "adoptopenjdk-hotspot-bin"
+        "temurin-bin"
+        "cargo-bootstrap"
+        "rustc-bootstrap"
+        "rustc-bootstrap-wrapper"
+      ];
   };
 
   networking = {
@@ -105,9 +126,7 @@
     tmp.useTmpfs = true;
     initrd = {
       systemd.enable = true;
-      kernelModules = [
-        "amdgpu"
-      ];
+      kernelModules = [ "amdgpu" ];
       availableKernelModules = [
         "nvme"
         "xhci_pci"
@@ -146,9 +165,7 @@
         };
       }
     ];
-    kernelParams = [
-      "ia32_emulation=0"
-    ];
+    kernelParams = [ "ia32_emulation=0" ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;
   };
@@ -209,7 +226,10 @@
       '';
     };
     udev = {
-      packages = [ pkgs.yubikey-personalization pkgs.libu2f-host ];
+      packages = [
+        pkgs.yubikey-personalization
+        pkgs.libu2f-host
+      ];
       extraRules = ''
         ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled"
       '';
@@ -232,7 +252,10 @@
       nickcao = {
         isNormalUser = true;
         hashedPasswordFile = config.sops.secrets.passwd.path;
-        extraGroups = [ "wheel" "kvm" ];
+        extraGroups = [
+          "wheel"
+          "kvm"
+        ];
       };
     };
   };
@@ -269,23 +292,30 @@
       noto-fonts-cjk-serif
       noto-fonts-emoji
       jetbrains-mono
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "RobotoMono" ]; })
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+          "RobotoMono"
+        ];
+      })
     ];
     fontconfig.defaultFonts = pkgs.lib.mkForce {
-      serif = [ "Noto Serif" "Noto Serif CJK SC" ];
-      sansSerif = [ "Noto Sans" "Noto Sans CJK SC" ];
+      serif = [
+        "Noto Serif"
+        "Noto Serif CJK SC"
+      ];
+      sansSerif = [
+        "Noto Sans"
+        "Noto Sans CJK SC"
+      ];
       monospace = [ "JetBrains Mono" ];
       emoji = [ "Noto Color Emoji" ];
     };
   };
 
   environment.persistence."/persist" = {
-    directories = [
-      "/var"
-    ];
-    files = [
-      "/etc/machine-id"
-    ];
+    directories = [ "/var" ];
+    files = [ "/etc/machine-id" ];
     users.nickcao = {
       directories = [
         "Documents"

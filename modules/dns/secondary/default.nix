@@ -1,4 +1,9 @@
-{ config, lib, data, ... }:
+{
+  config,
+  lib,
+  data,
+  ...
+}:
 with lib;
 let
   cfg = config.services.dns.secondary;
@@ -29,16 +34,24 @@ in
           tcp-fastopen = true;
           edns-client-subnet = true;
           automatic-acl = true;
-          listen = [ "0.0.0.0" "::" ];
-          listen-quic = [ "0.0.0.0" "::" ];
+          listen = [
+            "0.0.0.0"
+            "::"
+          ];
+          listen-quic = [
+            "0.0.0.0"
+            "::"
+          ];
           key-file = config.sops.secrets."quic/key".path;
           cert-file = config.sops.secrets."quic/cert".path;
         };
 
-        log = [{
-          target = "syslog";
-          any = "info";
-        }];
+        log = [
+          {
+            target = "syslog";
+            any = "info";
+          }
+        ];
 
         remote = [
           {
@@ -61,15 +74,17 @@ in
           }
         ];
 
-        mod-dnsproxy = [{
-          id = "cloudflare";
-          remote = "cloudflare";
-          fallback = true;
-          address = [
-            "2a0c:b641:69c::/48"
-            "2001:470:4c22::/48"
-          ];
-        }];
+        mod-dnsproxy = [
+          {
+            id = "cloudflare";
+            remote = "cloudflare";
+            fallback = true;
+            address = [
+              "2a0c:b641:69c::/48"
+              "2001:470:4c22::/48"
+            ];
+          }
+        ];
 
         template = [
           {
@@ -83,12 +98,14 @@ in
           }
         ];
 
-        zone = [{
-          domain = "firstparty";
-          master = "transfer";
-          catalog-role = "interpret";
-          catalog-template = "member";
-        }];
+        zone = [
+          {
+            domain = "firstparty";
+            master = "transfer";
+            catalog-role = "interpret";
+            catalog-template = "member";
+          }
+        ];
       };
     };
   };

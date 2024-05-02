@@ -11,9 +11,15 @@ in
   config = lib.mkIf cfg.enable {
 
     sops.secrets = {
-      restic-repo = { sopsFile = ./secrets.yaml; };
-      restic-pass = { sopsFile = ./secrets.yaml; };
-      restic-envs = { sopsFile = ./secrets.yaml; };
+      restic-repo = {
+        sopsFile = ./secrets.yaml;
+      };
+      restic-pass = {
+        sopsFile = ./secrets.yaml;
+      };
+      restic-envs = {
+        sopsFile = ./secrets.yaml;
+      };
     };
 
     services.restic.backups.persist = {
@@ -38,7 +44,5 @@ in
     systemd.services.restic-backups-persist = {
       serviceConfig.Environment = [ "GOGC=20" ];
     };
-
   };
-
 }

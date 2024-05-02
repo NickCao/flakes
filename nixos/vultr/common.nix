@@ -1,4 +1,11 @@
-{ config, pkgs, self, inputs, data, ... }:
+{
+  config,
+  pkgs,
+  self,
+  inputs,
+  data,
+  ...
+}:
 let
   hasTag = tag: builtins.elem tag config.deployment.tags;
   prefix = data.nodes."${config.networking.hostName}".prefix;
@@ -47,10 +54,15 @@ in
       port = 13000;
       interfaces = [ "ens3" ];
       endpoints = [
-        { serialNumber = "0"; addressFamily = "ip4"; }
-        { serialNumber = "1"; addressFamily = "ip6"; }
+        {
+          serialNumber = "0";
+          addressFamily = "ip4";
+        }
+        {
+          serialNumber = "1";
+          addressFamily = "ip6";
+        }
       ];
     };
   };
-
 }

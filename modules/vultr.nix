@@ -1,12 +1,21 @@
 { ... }:
 {
   boot = {
-    initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk" ];
+    initrd.availableKernelModules = [
+      "ata_piix"
+      "uhci_hcd"
+      "virtio_pci"
+      "sr_mod"
+      "virtio_blk"
+    ];
   };
 
   systemd.network.networks = {
     ethernet = {
-      matchConfig.Name = [ "en*" "eth*" ];
+      matchConfig.Name = [
+        "en*"
+        "eth*"
+      ];
       DHCP = "yes";
       networkConfig = {
         KeepConfiguration = "yes";

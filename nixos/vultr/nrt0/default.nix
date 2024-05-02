@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
@@ -6,5 +7,4 @@
   };
 
   services.gravity.config = config.sops.secrets.ranet.path;
-
 }

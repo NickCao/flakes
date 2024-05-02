@@ -1,8 +1,7 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+{
 
-  imports = [
-    inputs.disko.nixosModules.disko
-  ];
+  imports = [ inputs.disko.nixosModules.disko ];
 
   disko.devices = {
     disk.vda = {
@@ -45,11 +44,13 @@
     nodev = {
       "/" = {
         fsType = "tmpfs";
-        mountOptions = [ "defaults" "mode=755" ];
+        mountOptions = [
+          "defaults"
+          "mode=755"
+        ];
       };
     };
   };
 
   fileSystems."/persist".neededForBoot = true;
-
 }

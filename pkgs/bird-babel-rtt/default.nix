@@ -1,14 +1,28 @@
-{ source, lib, stdenv, autoreconfHook, flex, bison, readline, libssh }:
+{
+  source,
+  lib,
+  stdenv,
+  autoreconfHook,
+  flex,
+  bison,
+  readline,
+  libssh,
+}:
 
 stdenv.mkDerivation {
   inherit (source) pname src;
   version = "unstable-${source.date}";
-  nativeBuildInputs = [ autoreconfHook flex bison ];
-  buildInputs = [ readline libssh ];
-
-  patches = [
-    ./dont-create-sysconfdir-2.patch
+  nativeBuildInputs = [
+    autoreconfHook
+    flex
+    bison
   ];
+  buildInputs = [
+    readline
+    libssh
+  ];
+
+  patches = [ ./dont-create-sysconfdir-2.patch ];
 
   CPP = "${stdenv.cc.targetPrefix}cpp -E";
 

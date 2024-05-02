@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.environment.baseline;
 in
@@ -10,9 +15,7 @@ with lib;
   config = lib.mkIf cfg.enable {
     boot = {
       kernelPackages = pkgs.linuxPackages_latest;
-      kernelParams = [
-        "ia32_emulation=0"
-      ];
+      kernelParams = [ "ia32_emulation=0" ];
       kernel.sysctl = {
         "kernel.panic" = 60;
         "net.core.default_qdisc" = "fq";
@@ -30,7 +33,12 @@ with lib;
         dates = "weekly";
       };
       settings = {
-        experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" "cgroups" ];
+        experimental-features = [
+          "nix-command"
+          "flakes"
+          "auto-allocate-uids"
+          "cgroups"
+        ];
         auto-allocate-uids = true;
         use-cgroups = true;
       };

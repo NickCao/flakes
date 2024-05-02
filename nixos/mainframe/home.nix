@@ -1,10 +1,12 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   cst = "${./chisato.jpg}";
-  cst-blurred = pkgs.runCommand "chisato.jpg"
-    {
-      nativeBuildInputs = with pkgs;[ imagemagick ];
-    } ''
+  cst-blurred = pkgs.runCommand "chisato.jpg" { nativeBuildInputs = with pkgs; [ imagemagick ]; } ''
     convert -blur 14x5 ${cst} $out
   '';
   tide = pkgs.fishPlugins.tide.src;
@@ -36,19 +38,23 @@ in
         { command = "systemd-run-app thunderbird"; }
       ];
       assigns = {
-        "1" = [{ app_id = "Alacritty"; }];
-        "2" = [{ app_id = "firefox"; }];
-        "3" = [{ app_id = "org.telegram.desktop"; }];
-        "4" = [{ app_id = "thunderbird"; }];
-        "5" = [{ app_id = "qemu"; }];
+        "1" = [ { app_id = "Alacritty"; } ];
+        "2" = [ { app_id = "firefox"; } ];
+        "3" = [ { app_id = "org.telegram.desktop"; } ];
+        "4" = [ { app_id = "thunderbird"; } ];
+        "5" = [ { app_id = "qemu"; } ];
       };
       window.commands = [
         {
-          criteria = { app_id = "pavucontrol"; };
+          criteria = {
+            app_id = "pavucontrol";
+          };
           command = "floating enable, sticky enable, resize set width 650 px height 600px, move position cursor, move down 60";
         }
         {
-          criteria = { title = "Extension: \\(Bitwarden - Free Password Manager\\) - Bitwarden — Mozilla Firefox"; };
+          criteria = {
+            title = "Extension: \\(Bitwarden - Free Password Manager\\) - Bitwarden — Mozilla Firefox";
+          };
           command = "floating enable";
         }
       ];
@@ -97,10 +103,12 @@ in
           scale = "1.5";
         };
       };
-      workspaceOutputAssign = [{
-        workspace = "9";
-        output = "DP-2";
-      }];
+      workspaceOutputAssign = [
+        {
+          workspace = "9";
+          output = "DP-2";
+        }
+      ];
       bars = [ ];
     };
   };
@@ -223,12 +231,11 @@ in
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
     # shit
-    PYTHONSTARTUP = (
-      pkgs.writeText "start.py" ''
+    PYTHONSTARTUP =
+      (pkgs.writeText "start.py" ''
         import readline
         readline.write_history_file = lambda *args: None
-      ''
-    ).outPath;
+      '').outPath;
   };
 
   services.mako = {
@@ -264,8 +271,7 @@ in
         commit.gpgSign = true;
         gpg = {
           format = "ssh";
-          ssh.allowedSignersFile = toString (pkgs.writeText "allowed_signers" ''
-          '');
+          ssh.allowedSignersFile = toString (pkgs.writeText "allowed_signers" '''');
         };
         merge.conflictStyle = "diff3";
         merge.tool = "vimdiff";
@@ -281,10 +287,12 @@ in
     };
     fish = {
       enable = true;
-      plugins = [{
-        name = "tide";
-        src = tide;
-      }];
+      plugins = [
+        {
+          name = "tide";
+          src = tide;
+        }
+      ];
       shellInit = ''
         set fish_greeting
 
@@ -354,10 +362,16 @@ in
       enable = true;
       settings = {
         import = [ ./alacritty.toml ];
-        font = { size = 15.0; };
+        font = {
+          size = 15.0;
+        };
         shell = {
           program = "${pkgs.tmux}/bin/tmux";
-          args = [ "new-session" "-t" "main" ];
+          args = [
+            "new-session"
+            "-t"
+            "main"
+          ];
         };
       };
     };
@@ -408,11 +422,20 @@ in
     swayidle = {
       enable = true;
       timeouts = [
-        { timeout = 900; command = "/run/current-system/systemd/bin/systemctl suspend"; }
+        {
+          timeout = 900;
+          command = "/run/current-system/systemd/bin/systemctl suspend";
+        }
       ];
       events = [
-        { event = "lock"; command = "${pkgs.swaylock}/bin/swaylock"; }
-        { event = "before-sleep"; command = "/run/current-system/systemd/bin/loginctl lock-session"; }
+        {
+          event = "lock";
+          command = "${pkgs.swaylock}/bin/swaylock";
+        }
+        {
+          event = "before-sleep";
+          command = "/run/current-system/systemd/bin/loginctl lock-session";
+        }
       ];
     };
   };

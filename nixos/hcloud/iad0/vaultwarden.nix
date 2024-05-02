@@ -23,14 +23,15 @@ in
     environmentFile = config.sops.secrets.vault.path;
   };
 
-  cloud.caddy.settings.apps.http.servers.default.routes = [{
-    match = [{
-      host = [ "vault.nichi.co" ];
-    }];
-    handle = [{
-      handler = "reverse_proxy";
-      upstreams = [{ dial = "${cfg.rocketAddress}:${toString cfg.rocketPort}"; }];
-    }];
-  }];
-
+  cloud.caddy.settings.apps.http.servers.default.routes = [
+    {
+      match = [ { host = [ "vault.nichi.co" ]; } ];
+      handle = [
+        {
+          handler = "reverse_proxy";
+          upstreams = [ { dial = "${cfg.rocketAddress}:${toString cfg.rocketPort}"; } ];
+        }
+      ];
+    }
+  ];
 }

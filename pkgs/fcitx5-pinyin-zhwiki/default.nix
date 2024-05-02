@@ -1,4 +1,8 @@
-{ source, stdenv, lib }:
+{
+  source,
+  stdenv,
+  lib,
+}:
 stdenv.mkDerivation {
   inherit (source) pname version src;
   dontUnpack = true;

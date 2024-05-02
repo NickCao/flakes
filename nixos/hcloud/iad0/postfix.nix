@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  mkKeyVal = opt: val: [ "-o" (opt + "=" + val) ];
+  mkKeyVal = opt: val: [
+    "-o"
+    (opt + "=" + val)
+  ];
   mkOpts = opts: lib.concatLists (lib.mapAttrsToList mkKeyVal opts);
 in
 {
@@ -34,12 +42,21 @@ in
     config = {
       smtp_tls_security_level = "may";
 
-      smtpd_tls_chain_files = [ "/tmp/selfsigned.key" "/tmp/selfsigned.crt" ];
+      smtpd_tls_chain_files = [
+        "/tmp/selfsigned.key"
+        "/tmp/selfsigned.crt"
+      ];
       smtpd_tls_security_level = "may";
-      smtpd_relay_restrictions = [ "permit_sasl_authenticated" "defer_unauth_destination" ];
+      smtpd_relay_restrictions = [
+        "permit_sasl_authenticated"
+        "defer_unauth_destination"
+      ];
 
       virtual_transport = "lmtp:unix:/run/dovecot2/lmtp";
-      virtual_mailbox_domains = [ "nichi.co" "nichi.link" ];
+      virtual_mailbox_domains = [
+        "nichi.co"
+        "nichi.link"
+      ];
       virtual_alias_maps = "hash:/etc/postfix/aliases";
 
       lmtp_destination_recipient_limit = "1";
@@ -81,10 +98,12 @@ in
         bindSockets = [ "localhost:11334" ];
       };
       rspamd_proxy = {
-        bindSockets = [{
-          mode = "0666";
-          socket = "/run/rspamd/postfix.sock";
-        }];
+        bindSockets = [
+          {
+            mode = "0666";
+            socket = "/run/rspamd/postfix.sock";
+          }
+        ];
       };
     };
     locals = {
@@ -119,5 +138,4 @@ in
     enable = true;
     port = 16380;
   };
-
 }

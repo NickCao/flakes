@@ -1,4 +1,10 @@
-{ config, modulesPath, data, self, ... }:
+{
+  config,
+  modulesPath,
+  data,
+  self,
+  ...
+}:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -29,9 +35,7 @@
   };
 
   environment.persistence."/persist" = {
-    directories = [
-      "/var"
-    ];
+    directories = [ "/var" ];
   };
 
   environment.baseline.enable = true;

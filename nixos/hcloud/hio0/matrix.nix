@@ -45,8 +45,12 @@ in
   sops = {
     secrets = {
       mautrix-telegram = { };
-      matrix-synapse = { owner = config.systemd.services.matrix-synapse.serviceConfig.User; };
-      matrix-synapse-oidc = { owner = config.systemd.services.matrix-synapse.serviceConfig.User; };
+      matrix-synapse = {
+        owner = config.systemd.services.matrix-synapse.serviceConfig.User;
+      };
+      matrix-synapse-oidc = {
+        owner = config.systemd.services.matrix-synapse.serviceConfig.User;
+      };
       matterbridge = { };
       sliding-sync = { };
     };
@@ -84,37 +88,49 @@ in
       enable_registration = true;
       registration_requires_token = true;
 
-      listeners = [{
-        bind_addresses = [ "127.0.0.1" ];
-        port = 8196;
-        tls = false;
-        type = "http";
-        x_forwarded = true;
-        resources = [{
-          compress = true;
-          names = [ "client" "federation" ];
-        }];
-      }];
+      listeners = [
+        {
+          bind_addresses = [ "127.0.0.1" ];
+          port = 8196;
+          tls = false;
+          type = "http";
+          x_forwarded = true;
+          resources = [
+            {
+              compress = true;
+              names = [
+                "client"
+                "federation"
+              ];
+            }
+          ];
+        }
+      ];
 
       media_retention = {
         remote_media_lifetime = "14d";
       };
 
-      oidc_providers = [{
-        idp_id = "keycloak";
-        idp_name = "id.nichi.co";
-        issuer = "https://id.nichi.co/realms/nichi";
-        client_id = "synapse";
-        client_secret_path = config.sops.secrets.matrix-synapse-oidc.path;
-        scopes = [ "openid" "profile" ];
-        allow_existing_users = true;
-        backchannel_logout_enabled = true;
-        user_mapping_provider.config = {
-          confirm_localpart = true;
-          localpart_template = "{{ user.preferred_username }}";
-          display_name_template = "{{ user.name }}";
-        };
-      }];
+      oidc_providers = [
+        {
+          idp_id = "keycloak";
+          idp_name = "id.nichi.co";
+          issuer = "https://id.nichi.co/realms/nichi";
+          client_id = "synapse";
+          client_secret_path = config.sops.secrets.matrix-synapse-oidc.path;
+          scopes = [
+            "openid"
+            "profile"
+          ];
+          allow_existing_users = true;
+          backchannel_logout_enabled = true;
+          user_mapping_provider.config = {
+            confirm_localpart = true;
+            localpart_template = "{{ user.preferred_username }}";
+            display_name_template = "{{ user.name }}";
+          };
+        }
+      ];
 
       experimental_features = {
         # Room summary api
@@ -211,102 +227,110 @@ in
   systemd.services.matterbridge.serviceConfig.EnvironmentFile = config.sops.secrets.matterbridge.path;
   services.matterbridge = {
     enable = true;
-    configPath = toString ((pkgs.formats.toml { }).generate "config.toml" {
-      gateway =
-        let
-          mkGateway = channel: {
-            enable = true;
-            name = channel;
-            inout = [
-              {
-                account = "irc.libera";
-                channel = "#${channel}";
-              }
-              {
-                account = "matrix.nichi";
-                channel = "#${channel}:nichi.co";
-              }
-            ];
+    configPath = toString (
+      (pkgs.formats.toml { }).generate "config.toml" {
+        gateway =
+          let
+            mkGateway = channel: {
+              enable = true;
+              name = channel;
+              inout = [
+                {
+                  account = "irc.libera";
+                  channel = "#${channel}";
+                }
+                {
+                  account = "matrix.nichi";
+                  channel = "#${channel}:nichi.co";
+                }
+              ];
+            };
+          in
+          [
+            (mkGateway "archlinux-cn")
+            (mkGateway "archlinux-cn-offtopic")
+          ];
+        irc = {
+          libera = {
+            ColorNicks = true;
+            MessageDelay = 100;
+            MessageLength = 400;
+            MessageSplit = true;
+            Nick = "nichi_bot";
+            RealName = "bridge bot by nichi.co";
+            RemoteNickFormat = "[{NICK}] ";
+            Server = "irc.libera.chat:6697";
+            NickServNick = "nichi_bot";
+            UseTLS = true;
+            UseSASL = true;
+            Charset = "utf-8";
           };
-        in
-        [
-          (mkGateway "archlinux-cn")
-          (mkGateway "archlinux-cn-offtopic")
-        ];
-      irc = {
-        libera = {
-          ColorNicks = true;
-          MessageDelay = 100;
-          MessageLength = 400;
-          MessageSplit = true;
-          Nick = "nichi_bot";
-          RealName = "bridge bot by nichi.co";
-          RemoteNickFormat = "[{NICK}] ";
-          Server = "irc.libera.chat:6697";
-          NickServNick = "nichi_bot";
-          UseTLS = true;
-          UseSASL = true;
-          Charset = "utf-8";
         };
-      };
-      matrix = {
-        nichi = {
-          Login = "matterbridge";
-          RemoteNickFormat = "[{NICK}] ";
-          Server = config.services.matrix-synapse.settings.public_baseurl;
-          HTMLDisable = true;
-          KeepQuotedReply = true;
+        matrix = {
+          nichi = {
+            Login = "matterbridge";
+            RemoteNickFormat = "[{NICK}] ";
+            Server = config.services.matrix-synapse.settings.public_baseurl;
+            HTMLDisable = true;
+            KeepQuotedReply = true;
+          };
         };
-      };
-    });
+      }
+    );
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
     {
-      match = [{
-        host = [ "syncv3.nichi.co" ];
-      }];
-      handle = [{
-        handler = "reverse_proxy";
-        upstreams = [{ dial = "unix/${config.services.matrix-sliding-sync.settings.SYNCV3_BINDADDR}"; }];
-      }];
+      match = [ { host = [ "syncv3.nichi.co" ]; } ];
+      handle = [
+        {
+          handler = "reverse_proxy";
+          upstreams = [ { dial = "unix/${config.services.matrix-sliding-sync.settings.SYNCV3_BINDADDR}"; } ];
+        }
+      ];
     }
     {
-      match = [{
-        host = [ "matrix.nichi.co" ];
-      }];
-      handle = [{
-        handler = "subroute";
-        routes = [
-          {
-            match = [{
-              path = [ "/_matrix/*" "/_synapse/*" ];
-            }];
-            handle = [{
-              handler = "reverse_proxy";
-              upstreams = [{ dial = "127.0.0.1:8196"; }];
-            }];
-          }
-          {
-            handle = [
-              {
-                handler = "headers";
-                response.set = {
-                  X-Frame-Options = [ "SAMEORIGIN" ];
-                  X-Content-Type-Options = [ "nosniff" ];
-                  X-XSS-Protection = [ "1; mode=block" ];
-                  Content-Security-Policy = [ "frame-ancestors 'self'" ];
-                };
-              }
-              {
-                handler = "file_server";
-                root = "${pkgs.element-web.override { inherit conf; }}";
-              }
-            ];
-          }
-        ];
-      }];
+      match = [ { host = [ "matrix.nichi.co" ]; } ];
+      handle = [
+        {
+          handler = "subroute";
+          routes = [
+            {
+              match = [
+                {
+                  path = [
+                    "/_matrix/*"
+                    "/_synapse/*"
+                  ];
+                }
+              ];
+              handle = [
+                {
+                  handler = "reverse_proxy";
+                  upstreams = [ { dial = "127.0.0.1:8196"; } ];
+                }
+              ];
+            }
+            {
+              handle = [
+                {
+                  handler = "headers";
+                  response.set = {
+                    X-Frame-Options = [ "SAMEORIGIN" ];
+                    X-Content-Type-Options = [ "nosniff" ];
+                    X-XSS-Protection = [ "1; mode=block" ];
+                    Content-Security-Policy = [ "frame-ancestors 'self'" ];
+                  };
+                }
+                {
+                  handler = "file_server";
+                  root = "${pkgs.element-web.override { inherit conf; }}";
+                }
+              ];
+            }
+          ];
+        }
+      ];
     }
   ];
-
 }

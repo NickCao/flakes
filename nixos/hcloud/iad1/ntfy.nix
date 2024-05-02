@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
 
   services.ntfy-sh = {
     enable = true;
@@ -13,14 +14,15 @@
 
   systemd.services.ntfy-sh.serviceConfig.RuntimeDirectory = [ "ntfy-sh" ];
 
-  cloud.caddy.settings.apps.http.servers.default.routes = [{
-    match = [{
-      host = [ "ntfy.nichi.co" ];
-    }];
-    handle = [{
-      handler = "reverse_proxy";
-      upstreams = [{ dial = "unix/${config.services.ntfy-sh.settings.listen-unix}"; }];
-    }];
-  }];
-
+  cloud.caddy.settings.apps.http.servers.default.routes = [
+    {
+      match = [ { host = [ "ntfy.nichi.co" ]; } ];
+      handle = [
+        {
+          handler = "reverse_proxy";
+          upstreams = [ { dial = "unix/${config.services.ntfy-sh.settings.listen-unix}"; } ];
+        }
+      ];
+    }
+  ];
 }
