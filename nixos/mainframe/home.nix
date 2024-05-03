@@ -207,7 +207,7 @@ in
     ripgrep
     nil
     ncdu
-    yubikey-manager
+    # yubikey-manager
     wireguard-tools
     nixfmt-rfc-style
     smartmontools

@@ -153,18 +153,6 @@
       };
     };
     kernelPackages = pkgs.linuxPackages_testing;
-    kernelPatches = [
-      {
-        # platform/chrome: cros_ec_lpc: add support for AMD Framework Laptops
-        # https://patchwork.kernel.org/project/chrome-platform/cover/20240403004713.130365-1-dustin@howett.net/
-        name = "cros_ec";
-        patch = pkgs.fetchpatch {
-          name = "cros_ec.patch";
-          url = "https://patchwork.kernel.org/series/840830/mbox/";
-          hash = "sha256-7jSEAGInFC+a+ozCyD4dFz3Qgh2JrHskwz7UfswizFw=";
-        };
-      }
-    ];
     kernelParams = [ "ia32_emulation=0" ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;
