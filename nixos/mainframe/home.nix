@@ -192,7 +192,6 @@ in
     uhk-agent
     rage
     pinentry-gtk2
-    # sioyek
     texlab
     tectonic
     systemd-run-app
@@ -207,7 +206,7 @@ in
     ripgrep
     nil
     ncdu
-    # yubikey-manager
+    yubikey-manager
     wireguard-tools
     nixfmt-rfc-style
     smartmontools
