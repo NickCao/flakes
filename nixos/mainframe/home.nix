@@ -53,7 +53,7 @@ in
         }
         {
           criteria = {
-            title = "Extension: \\(Bitwarden - Free Password Manager\\) - Bitwarden — Mozilla Firefox";
+            title = "Extension: \\(Bitwarden Password Manager\\) - Bitwarden — Mozilla Firefox";
           };
           command = "floating enable";
         }
