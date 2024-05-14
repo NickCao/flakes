@@ -7,6 +7,7 @@
     ./matrix.nix
     ./pb.nix
     ./mastodon.nix
+    ./miniflux.nix
     ./keycloak.nix
     ./parking.nix
   ];
