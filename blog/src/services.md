@@ -26,3 +26,8 @@ https://matrix.nichi.co
 ```
 https://mastodon.nichi.co
 ```
+
+##### miniflux
+```
+https://rss.nichi.co
+```
