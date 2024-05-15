@@ -7,11 +7,16 @@ in
   sops.secrets.miniflux = {
     restartUnits = [ "miniflux.service" ];
   };
+  systemd.sockets.miniflux = {
+    wantedBy = [ "sockets.target" ];
+    requiredBy = [ "miniflux.service" ];
+    listenStreams = [ "/run/miniflux.sock" ];
+  };
+  systemd.services.miniflux.serviceConfig.NonBlocking = true;
   services.miniflux = {
     enable = true;
     adminCredentialsFile = config.sops.secrets.miniflux.path;
     config = {
-      LISTEN_ADDR = "127.0.0.1:${toString config.lib.ports.miniflux}";
       BASE_URL = baseURL;
       OAUTH2_PROVIDER = "oidc";
       OAUTH2_CLIENT_ID = "miniflux";
@@ -26,7 +31,7 @@ in
       handle = [
         {
           handler = "reverse_proxy";
-          upstreams = [ { dial = config.services.miniflux.config.LISTEN_ADDR; } ];
+          upstreams = [ { dial = "unix//run/miniflux.sock"; } ];
         }
       ];
     }
