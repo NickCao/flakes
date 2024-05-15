@@ -11,7 +11,7 @@ in
     enable = true;
     adminCredentialsFile = config.sops.secrets.miniflux.path;
     config = {
-      LISTEN_ADDR = "127.0.0.1:9123";
+      LISTEN_ADDR = "127.0.0.1:${toString config.lib.ports.miniflux}";
       BASE_URL = baseURL;
       OAUTH2_PROVIDER = "oidc";
       OAUTH2_CLIENT_ID = "miniflux";

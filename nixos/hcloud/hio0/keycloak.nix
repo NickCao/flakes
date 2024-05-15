@@ -1,11 +1,10 @@
 { config, pkgs, ... }:
 {
-
   services.keycloak = {
     enable = true;
     settings = {
       http-host = "127.0.0.1";
-      http-port = 8125;
+      http-port = config.lib.ports.keycloak;
       proxy = "edge";
       hostname-strict-backchannel = true;
       hostname = "id.nichi.co";

@@ -31,7 +31,7 @@
       handle = [
         {
           handler = "reverse_proxy";
-          upstreams = [ { dial = "127.0.0.1:8196"; } ];
+          upstreams = [ { dial = "127.0.0.1:${toString config.lib.ports.synapse}"; } ];
         }
       ];
     }

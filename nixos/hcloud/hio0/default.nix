@@ -10,6 +10,7 @@
     ./miniflux.nix
     ./keycloak.nix
     ./parking.nix
+    ./ports.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;

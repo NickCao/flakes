@@ -1,8 +1,20 @@
-{ pkgs, config, ... }:
 {
-
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
   cloud.services.meow.config = {
-    ExecStart = "${pkgs.meow}/bin/meow --listen 127.0.0.1:8002 --base-url https://pb.nichi.co --data-dir \${STATE_DIRECTORY}";
+    ExecStart = lib.escapeShellArgs [
+      "${pkgs.meow}/bin/meow"
+      "--listen"
+      "127.0.0.1:${toString config.lib.ports.meow}"
+      "--base-url"
+      "https://pb.nichi.co"
+      "--data-dir"
+      "\${STATE_DIRECTORY}"
+    ];
     StateDirectory = "meow";
     SystemCallFilter = null;
   };
@@ -13,7 +25,7 @@
       handle = [
         {
           handler = "reverse_proxy";
-          upstreams = [ { dial = "127.0.0.1:8002"; } ];
+          upstreams = [ { dial = "127.0.0.1:${toString config.lib.ports.meow}"; } ];
         }
       ];
     }

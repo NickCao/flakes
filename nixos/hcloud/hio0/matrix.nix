@@ -91,7 +91,7 @@ in
       listeners = [
         {
           bind_addresses = [ "127.0.0.1" ];
-          port = 8196;
+          port = config.lib.ports.synapse;
           tls = false;
           type = "http";
           x_forwarded = true;
@@ -171,14 +171,14 @@ in
     serviceDependencies = [ "matrix-synapse.service" ];
     settings = {
       homeserver = {
-        address = "http://127.0.0.1:8196";
+        address = "http://127.0.0.1:${toString config.lib.ports.synapse}";
         domain = config.services.matrix-synapse.settings.server_name;
       };
       appservice = {
-        address = "http://127.0.0.1:29317";
+        address = "http://127.0.0.1:${toString config.lib.ports.mautrix-telegram}";
         database = "postgres:///mautrix-telegram?host=/run/postgresql";
         hostname = "127.0.0.1";
-        port = 29317;
+        port = config.lib.ports.mautrix-telegram;
         provisioning.enabled = false;
       };
       bridge = {
@@ -307,7 +307,7 @@ in
               handle = [
                 {
                   handler = "reverse_proxy";
-                  upstreams = [ { dial = "127.0.0.1:8196"; } ];
+                  upstreams = [ { dial = "127.0.0.1:${toString config.lib.ports.synapse}"; } ];
                 }
               ];
             }
