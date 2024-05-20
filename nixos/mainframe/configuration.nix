@@ -21,6 +21,7 @@
       };
       "wireless/home" = { };
       "wireless/eduroam" = { };
+      "wireless/redhat" = { };
     };
     age = {
       keyFile = "/var/lib/sops.key";
@@ -33,6 +34,7 @@
     "10-iwd" = {
       "/var/lib/iwd/Verizon_K3ND63.psk".C.argument = config.sops.secrets."wireless/home".path;
       "/var/lib/iwd/eduroam.8021x".C.argument = config.sops.secrets."wireless/eduroam".path;
+      "/var/lib/iwd/Red Hat Wi-Fi.psk".C.argument = config.sops.secrets."wireless/redhat".path;
     };
   };
 
