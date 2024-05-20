@@ -225,6 +225,8 @@ in
     libarchive
     wl-clipboard
     wl-mirror
+    nwg-displays
+    openvpn
   ];
 
   systemd.user.sessionVariables = {
