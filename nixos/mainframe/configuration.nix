@@ -240,6 +240,7 @@
         extraGroups = [
           "wheel"
           "kvm"
+          "dialout"
         ];
       };
     };
