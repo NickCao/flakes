@@ -346,5 +346,7 @@
 
   documentation.nixos.enable = false;
 
+  system.etc.overlay.enable = true;
+
   system.stateVersion = "23.11";
 }
