@@ -99,16 +99,7 @@ in
           bg = "${cst} fill";
           scale = "1.5";
         };
-        DP-2 = {
-          scale = "1.5";
-        };
       };
-      workspaceOutputAssign = [
-        {
-          workspace = "9";
-          output = "DP-2";
-        }
-      ];
       bars = [ ];
     };
   };
