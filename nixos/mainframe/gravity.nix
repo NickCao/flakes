@@ -103,10 +103,10 @@
     linkConfig = {
       MTUBytes = "1400";
     };
-    addresses = [ { addressConfig.Address = "192.0.0.2/32"; } ];
+    addresses = [ { Address = "192.0.0.2/32"; } ];
     routes = [
-      { routeConfig.Destination = "0.0.0.0/0"; }
-      { routeConfig.Destination = "2a0c:b641:69c:99cc::2/128"; }
+      { Destination = "0.0.0.0/0"; }
+      { Destination = "2a0c:b641:69c:99cc::2/128"; }
     ];
   };
 

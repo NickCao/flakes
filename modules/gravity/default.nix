@@ -185,22 +185,18 @@ in
           routingPolicyRules =
             lib.optionals (cfg.srv6.enable) [
               {
-                routingPolicyRuleConfig = {
-                  Priority = 500;
-                  Family = "ipv6";
-                  Table = 100; # localsid
-                  From = "2a0c:b641:69c::/48";
-                  To = "${cfg.srv6.prefix}6::/64";
-                };
+                Priority = 500;
+                Family = "ipv6";
+                Table = 100; # localsid
+                From = "2a0c:b641:69c::/48";
+                To = "${cfg.srv6.prefix}6::/64";
               }
             ]
             ++ [
               {
-                routingPolicyRuleConfig = {
-                  Priority = 3000;
-                  Family = "both";
-                  Table = "local";
-                };
+                Priority = 3000;
+                Family = "both";
+                Table = "local";
               }
             ];
         };
@@ -362,12 +358,10 @@ in
         name = "nat64";
         routes = [
           {
-            routeConfig = {
-              Destination = "64:ff9b::/96";
-              Table = stateful;
-            };
+            Destination = "64:ff9b::/96";
+            Table = stateful;
           }
-          { routeConfig.Destination = "10.201.0.0/16"; }
+          { Destination = "10.201.0.0/16"; }
         ];
         networkConfig.LinkLocalAddressing = false;
         linkConfig.RequiredForOnline = false;
@@ -377,12 +371,10 @@ in
         name = "divi";
         routes = [
           {
-            routeConfig = {
-              Destination = cfg.divi.prefix;
-              Table = cfg.table;
-            };
+            Destination = cfg.divi.prefix;
+            Table = cfg.table;
           }
-          { routeConfig.Destination = cfg.divi.dynamic-pool; }
+          { Destination = cfg.divi.dynamic-pool; }
         ];
         networkConfig.LinkLocalAddressing = false;
         linkConfig.RequiredForOnline = false;
