@@ -27,10 +27,7 @@
     gnupg.sshKeyPaths = [ ];
   };
 
-  nixpkgs.overlays = [
-    self.overlays.default
-    inputs.fn.overlays.default
-  ];
+  nixpkgs.overlays = [ self.overlays.default ];
 
   boot = {
     initrd.availableKernelModules = [

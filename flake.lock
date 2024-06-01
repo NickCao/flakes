@@ -162,29 +162,6 @@
         "type": "github"
       }
     },
-    "fn": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1715738292,
-        "narHash": "sha256-wTb3QzDxwx8LQ7ooTouwdXNoznfbsUAf/Tul08Gs2kU=",
-        "owner": "NickCao",
-        "repo": "fn",
-        "rev": "11d5f97c8bdeb48ee3cd6705a49e65650aa94b6d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NickCao",
-        "repo": "fn",
-        "type": "github"
-      }
-    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -385,7 +362,6 @@
         "disko": "disko",
         "dns": "dns",
         "flake-utils": "flake-utils",
-        "fn": "fn",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",

@@ -1,0 +1,18 @@
+[package]
+name = "meow"
+version = "0.1.0"
+edition = "2018"
+
+[profile.release]
+lto = true
+
+[dependencies]
+axum = "*"
+tower-http = { version = "*", features = [ "fs", "limit" ] }
+rand = "*"
+futures = "*"
+tokio = { version = "1", features = [ "full" ] }
+tokio-util = { version = "*", features = [ "compat" ] }
+url = "*"
+argh = "*"
+lazy_static = "*"

@@ -23,7 +23,6 @@ in
 
   nixpkgs.overlays = [
     self.overlays.default
-    inputs.fn.overlays.default
     (_final: prev: {
       ranet = inputs.ranet.packages.${pkgs.system}.default;
       bird = prev.bird-babel-rtt;
