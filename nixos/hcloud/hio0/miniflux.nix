@@ -23,6 +23,8 @@ in
       OAUTH2_REDIRECT_URL = "${baseURL}/oauth2/oidc/callback";
       OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://id.nichi.co/realms/nichi";
       OAUTH2_USER_CREATION = 1;
+      POLLING_FREQUENCY = 30;
+      SCHEDULER_ROUND_ROBIN_MIN_INTERVAL = 30;
     };
   };
   cloud.caddy.settings.apps.http.servers.default.routes = [
