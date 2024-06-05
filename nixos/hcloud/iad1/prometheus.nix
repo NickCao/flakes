@@ -30,10 +30,12 @@ let
 in
 {
   sops.secrets = {
-    alert = { };
     prometheus = {
       owner = config.systemd.services.prometheus.serviceConfig.User;
       restartUnits = [ "prometheus.service" ];
+    };
+    telegram = {
+      restartUnits = [ "alertmanager.service" ];
     };
   };
 
@@ -143,25 +145,25 @@ in
       configuration = {
         receivers = [
           {
-            name = "ntfy";
-            webhook_configs = [
+            name = "telegram";
+            telegram_configs = [
               {
-                url = "https://ntfy.nichi.co/alert?tpl=yes&m=${lib.escapeURL ''
-                  Alert {{.status}}
-                  {{range .alerts}}-----{{range $k,$v := .labels}}
-                  {{$k}}={{$v}}{{end}}
-                  {{end}}
-                ''}";
+                bot_token_file = "/run/credentials/alertmanager.service/telegram";
+                chat_id = 893182727;
               }
             ];
           }
         ];
         route = {
-          receiver = "ntfy";
+          receiver = "telegram";
         };
       };
     };
   };
+
+  systemd.services.alertmanager.serviceConfig.LoadCredential = [
+    "telegram:${config.sops.secrets.telegram.path}"
+  ];
 
   services.prometheus.exporters.blackbox = {
     enable = true;
