@@ -106,6 +106,7 @@ in
               {
                 alert = "NodeDown";
                 expr = ''up == 0'';
+                for = "5m";
               }
               {
                 alert = "OOM";
@@ -122,6 +123,7 @@ in
               {
                 alert = "ZoneStale";
                 expr = ''probe_dns_serial{instance="iad0.nichi.link"} != ignoring(instance) group_right() probe_dns_serial'';
+                for = "5m";
               }
             ];
           }
