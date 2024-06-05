@@ -130,10 +130,6 @@ in
     };
   };
 
-  services.telegraf.extraConfig.inputs = {
-    prometheus.urls = [ "http://localhost:11334/metrics" ];
-  };
-
   services.redis.servers.rspamd = {
     enable = true;
     port = 16380;
