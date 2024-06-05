@@ -8,6 +8,9 @@
 let
   cfg = config.services.prometheus;
   targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [ "hydra.nichi.link" ];
+  nameservers = lib.mapAttrsToList (_mame: value: value.fqdn) (
+    lib.filterAttrs (_name: value: lib.elem "nameserver" value.tags) data.nodes
+  );
 in
 {
   sops.secrets = {
@@ -58,13 +61,20 @@ in
         metrics_path = "/probe";
         params = {
           module = [ "dns_soa" ];
-          target = [ "1.0.0.1" ];
         };
-        static_configs = [ { inherit targets; } ];
+        static_configs = [ { targets = nameservers; } ];
         relabel_configs = [
           {
+            source_labels = [ "__address__" ];
+            target_label = "__param_target";
+          }
+          {
             source_labels = [ "__param_target" ];
-            target_label = "target";
+            target_label = "instance";
+          }
+          {
+            target_label = "__address__";
+            replacement = "iad1.nichi.link";
           }
         ];
       }
