@@ -119,7 +119,7 @@ in
               }
               {
                 alert = "ZoneStale";
-                expr = ''probe_dns_serial{instance="iad0.nichi.link"} - ignoring(instance) group_right() probe_dns_serial > 0'';
+                expr = ''probe_dns_serial{instance="iad0.nichi.link"} != ignoring(instance) group_right() probe_dns_serial'';
               }
             ];
           }
