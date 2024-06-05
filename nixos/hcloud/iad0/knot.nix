@@ -84,7 +84,8 @@ in
           ksk-shared = true;
           ksk-submission = "default";
           nsec3 = true;
-          nsec3-iterations = "10";
+          nsec3-iterations = "0";
+          nsec3-salt-length = "0";
           signing-threads = "12";
         }
       ];
