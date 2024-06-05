@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.services.metrics;
 in
@@ -27,25 +22,6 @@ in
       disabledCollectors = [ "arp" ];
     };
 
-    services.prometheus.exporters.blackbox = {
-      enable = true;
-      listenAddress = "127.0.0.1";
-      configFile = (pkgs.formats.yaml { }).generate "config.yml" {
-        modules = {
-          http_2xx = {
-            prober = "http";
-          };
-          dns_soa = {
-            prober = "dns";
-            dns = {
-              query_name = "nichi.co";
-              query_type = "SOA";
-            };
-          };
-        };
-      };
-    };
-
     cloud.caddy.settings.apps.http.servers.default.routes = [
       {
         match = [
@@ -67,31 +43,6 @@ in
           {
             handler = "reverse_proxy";
             upstreams = with config.services.prometheus.exporters.node; [
-              { dial = "${listenAddress}:${toString port}"; }
-            ];
-          }
-        ];
-      }
-      {
-        match = [
-          {
-            host = [ config.networking.fqdn ];
-            path = [ "/probe" ];
-          }
-        ];
-        handle = [
-          {
-            handler = "authentication";
-            providers.http_basic.accounts = [
-              {
-                username = "prometheus";
-                password = "{env.PROM_PASSWD}";
-              }
-            ];
-          }
-          {
-            handler = "reverse_proxy";
-            upstreams = with config.services.prometheus.exporters.blackbox; [
               { dial = "${listenAddress}:${toString port}"; }
             ];
           }

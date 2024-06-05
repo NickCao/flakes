@@ -11,6 +11,22 @@ let
   nameservers = lib.mapAttrsToList (_mame: value: value.fqdn) (
     lib.filterAttrs (_name: value: lib.elem "nameserver" value.tags) data.nodes
   );
+  relabel_configs = [
+    {
+      source_labels = [ "__address__" ];
+      target_label = "__param_target";
+    }
+    {
+      source_labels = [ "__param_target" ];
+      target_label = "instance";
+    }
+    {
+      target_label = "__address__";
+      replacement =
+        with config.services.prometheus.exporters.blackbox;
+        "${listenAddress}:${toString port}";
+    }
+  ];
 in
 {
   sops.secrets = {
@@ -53,50 +69,30 @@ in
       }
       {
         job_name = "dns";
-        scheme = "https";
-        basic_auth = {
-          username = "prometheus";
-          password_file = config.sops.secrets.prometheus.path;
-        };
+        scheme = "http";
         metrics_path = "/probe";
         params = {
           module = [ "dns_soa" ];
         };
         static_configs = [ { targets = nameservers; } ];
-        relabel_configs = [
-          {
-            source_labels = [ "__address__" ];
-            target_label = "__param_target";
-          }
-          {
-            source_labels = [ "__param_target" ];
-            target_label = "instance";
-          }
-          {
-            target_label = "__address__";
-            replacement = "iad1.nichi.link";
-          }
-        ];
+        inherit relabel_configs;
       }
       {
         job_name = "http";
-        scheme = "https";
-        basic_auth = {
-          username = "prometheus";
-          password_file = config.sops.secrets.prometheus.path;
-        };
+        scheme = "http";
         metrics_path = "/probe";
         params = {
           module = [ "http_2xx" ];
-          target = [ "https://nichi.co" ];
         };
-        static_configs = [ { inherit targets; } ];
-        relabel_configs = [
+        static_configs = [
           {
-            source_labels = [ "__param_target" ];
-            target_label = "target";
+            targets = [
+              "https://nichi.co"
+              "https://matrix.nichi.co"
+            ];
           }
         ];
+        inherit relabel_configs;
       }
     ];
     rules = lib.singleton (
@@ -158,6 +154,25 @@ in
         ];
         route = {
           receiver = "ntfy";
+        };
+      };
+    };
+  };
+
+  services.prometheus.exporters.blackbox = {
+    enable = true;
+    listenAddress = "127.0.0.1";
+    configFile = (pkgs.formats.yaml { }).generate "config.yml" {
+      modules = {
+        http_2xx = {
+          prober = "http";
+        };
+        dns_soa = {
+          prober = "dns";
+          dns = {
+            query_name = "nichi.co";
+            query_type = "SOA";
+          };
         };
       };
     };
