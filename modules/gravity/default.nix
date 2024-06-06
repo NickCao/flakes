@@ -457,7 +457,13 @@ in
         ];
         script = ''
           set -euo pipefail
-          source ${config.sops.secrets.gravity_registry.path}
+          for filename in registry.json combined.json
+          do
+            curl --fail --retry 3 --retry-connrefused \
+              -H @${config.sops.secrets.gravity_registry.path} \
+              https://raw.githubusercontent.com/tuna/gravity/artifacts/artifacts/$filename --output /var/lib/gravity/$filename.new
+            mv /var/lib/gravity/$filename.new /var/lib/gravity/$filename
+          done
           /run/current-system/systemd/bin/systemctl reload-or-restart --no-block gravity || true
           /run/current-system/systemd/bin/systemctl reload-or-restart --no-block gravity-ipsec || true
         '';
