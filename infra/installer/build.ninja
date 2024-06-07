@@ -1,6 +1,7 @@
-flake = ../..
-name  = invalid
-host  = invalid@invalid.invalid
+flake  = ../..
+name   = iad1
+host   = root@iad1.nichi.link
+keyref = key
 
 
 rule nix-build
@@ -43,7 +44,7 @@ build target/install: install output/nixos-install | target/stage-2
 
 
 rule secret
-  command = sops -d --extract '["nixos"]["key"]' ${in} | ssh ${host} install -Dm400 /dev/stdin /mnt/persist/var/lib/sops.key && touch ${out}
+  command = sops -d --extract '["nixos"]["${keyref}"]' ${in} | ssh ${host} install -Dm400 /dev/stdin /mnt/persist/var/lib/sops.key && touch ${out}
   description = SECRET
 
 build target/secret: secret ${flake}/infra/secrets.yaml | target/install
