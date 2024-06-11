@@ -6,7 +6,6 @@
       http-host = "127.0.0.1";
       http-port = config.lib.ports.keycloak;
       proxy = "edge";
-      hostname-strict-backchannel = true;
       hostname = "id.nichi.co";
       cache = "local";
     };
