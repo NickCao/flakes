@@ -201,7 +201,6 @@ in
     nil
     ncdu
     yubikey-manager
-    wireguard-tools
     nixfmt-rfc-style
     smartmontools
     python3
@@ -216,7 +215,6 @@ in
     wl-clipboard
     wl-mirror
     nwg-displays
-    openvpn
   ];
 
   systemd.user.sessionVariables = {
