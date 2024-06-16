@@ -419,7 +419,7 @@ in
             content = ''
               chain forward {
                 type filter hook forward priority 0;
-                tcp flags syn tcp option maxseg size set 1300
+                tcp flags syn tcp option maxseg size set 1200
               }
             '';
           };
