@@ -369,6 +369,9 @@ in
 
       systemd.network.networks.divi = {
         name = "divi";
+        linkConfig = {
+          MTUBytes = "1400";
+        };
         routes = [
           {
             Destination = cfg.divi.prefix;
