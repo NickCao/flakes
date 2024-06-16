@@ -523,7 +523,7 @@ in
             case "$PLUTO_VERB" in
               up-client)
                 ip link add "$LINK" type xfrm if_id "$PLUTO_IF_ID_OUT"
-                ip link set "$LINK" master gravity multicast on mtu 1420 up
+                ip link set "$LINK" master gravity multicast on mtu 1400 up
                 ;;
               down-client)
                 ip link del "$LINK"
