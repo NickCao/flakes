@@ -163,6 +163,8 @@ in
 
   systemd.services.matrix-sliding-sync.serviceConfig.RuntimeDirectory = [ "matrix-sliding-sync" ];
 
+  systemd.services.mautrix-telegram.serviceConfig.RuntimeMaxSec = 86400;
+
   services.mautrix-telegram = {
     enable = true;
     environmentFile = config.sops.secrets.mautrix-telegram.path;
