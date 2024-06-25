@@ -154,7 +154,7 @@
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_testing;
     kernelParams = [ "ia32_emulation=0" ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;
@@ -166,7 +166,7 @@
     cpu.amd.updateMicrocode = true;
     pulseaudio.enable = false;
     bluetooth.enable = true;
-    opengl.enable = true;
+    graphics.enable = true;
     sensor.iio.enable = true;
   };
 
