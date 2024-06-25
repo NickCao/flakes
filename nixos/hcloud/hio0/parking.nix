@@ -1,66 +1,24 @@
 { ... }:
+let
+  mkRoute = host: location: {
+    match = [ { host = [ host ]; } ];
+    handle = [
+      {
+        handler = "static_response";
+        status_code = "302";
+        headers = {
+          Location = [ location ];
+        };
+      }
+    ];
+  };
+in
 {
-
   cloud.caddy.settings.apps.http.servers.default.routes = [
-    {
-      match = [ { host = [ "wikipedia.zip" ]; } ];
-      handle = [
-        {
-          handler = "static_response";
-          status_code = "302";
-          headers = {
-            Location = [ "https://www.wikipedia.org/wiki/Wikipedia:Database_download" ];
-          };
-        }
-      ];
-    }
-    {
-      match = [ { host = [ "nixos.zip" ]; } ];
-      handle = [
-        {
-          handler = "static_response";
-          status_code = "302";
-          headers = {
-            Location = [ "https://channels.nixos.org/nixos-unstable" ];
-          };
-        }
-      ];
-    }
-    {
-      match = [ { host = [ "archlinux.icu" ]; } ];
-      handle = [
-        {
-          handler = "static_response";
-          status_code = "302";
-          headers = {
-            Location = [ "https://manjaro.org" ];
-          };
-        }
-      ];
-    }
-    {
-      match = [ { host = [ "nixos.icu" ]; } ];
-      handle = [
-        {
-          handler = "static_response";
-          status_code = "302";
-          headers = {
-            Location = [ "https://archlinux.org" ];
-          };
-        }
-      ];
-    }
-    {
-      match = [ { host = [ "systemd.services" ]; } ];
-      handle = [
-        {
-          handler = "static_response";
-          status_code = "302";
-          headers = {
-            Location = [ "https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html" ];
-          };
-        }
-      ];
-    }
+    (mkRoute "wikipedia.zip" "https://www.wikipedia.org/wiki/Wikipedia:Database_download")
+    (mkRoute "nixos.zip" "https://channels.nixos.org/nixos-unstable")
+    (mkRoute "archlinux.icu" "https://manjaro.org")
+    (mkRoute "nixos.icu" "https://archlinux.org")
+    (mkRoute "systemd.services" "https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html")
   ];
 }
