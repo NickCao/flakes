@@ -181,6 +181,12 @@ in
           file = pkgs.writeText "db.icu.nixos" (import ../../../zones/parking.nix { inherit (inputs) dns; });
         }
         {
+          domain = "systemd.services";
+          file = pkgs.writeText "db.services.systemd" (
+            import ../../../zones/parking.nix { inherit (inputs) dns; }
+          );
+        }
+        {
           domain = "really-save-nix-together.org";
           file = pkgs.writeText "db.org.really-save-nix-together" (
             import ../../../zones/parking.nix { inherit (inputs) dns; }

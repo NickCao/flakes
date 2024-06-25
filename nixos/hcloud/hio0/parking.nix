@@ -50,5 +50,17 @@
         }
       ];
     }
+    {
+      match = [ { host = [ "systemd.services" ]; } ];
+      handle = [
+        {
+          handler = "static_response";
+          status_code = "302";
+          headers = {
+            Location = [ "https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html" ];
+          };
+        }
+      ];
+    }
   ];
 }
