@@ -64,6 +64,9 @@ with lib;
       };
     };
 
+    services.timesyncd.enable = false;
+    services.ntpd-rs.enable = true;
+
     users.mutableUsers = false;
 
     environment.stub-ld.enable = false;
