@@ -20,7 +20,7 @@ in
       ROCKET_PORT = 8003;
       IP_HEADER = "X-Forwarded-For";
     };
-    backupDir = "/var/lib/bitwarden_rs/backup";
+    backupDir = "/var/lib/bitwarden_rs.bak";
     environmentFile = config.sops.secrets.vault.path;
   };
 
