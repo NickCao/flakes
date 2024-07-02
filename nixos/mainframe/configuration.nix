@@ -108,6 +108,13 @@
       dhcpV4Config.RouteMetric = 2048;
       dhcpV6Config.RouteMetric = 2048;
     };
+    "11-eth" = {
+      matchConfig = {
+        Kind = "!*";
+        Type = "ether";
+      };
+      DHCP = "yes";
+    };
   };
 
   time.timeZone = "America/New_York";
