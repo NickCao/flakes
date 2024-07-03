@@ -185,7 +185,7 @@
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
-    askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+    askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
   };
 
   services.greetd = {
