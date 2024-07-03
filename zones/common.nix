@@ -47,7 +47,7 @@ in
       target = "iad0.nichi.link.";
     }
     {
-      service = "submission";
+      service = "submissions";
       proto = "tcp";
       port = 465;
       target = "iad0.nichi.link.";
