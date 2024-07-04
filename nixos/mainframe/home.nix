@@ -215,6 +215,7 @@ in
     wl-clipboard
     wl-mirror
     nwg-displays
+    kubectl
   ];
 
   systemd.user.sessionVariables = {
