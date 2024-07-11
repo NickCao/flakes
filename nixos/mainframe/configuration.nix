@@ -246,7 +246,6 @@
         hashedPasswordFile = config.sops.secrets.passwd.path;
         extraGroups = [
           "wheel"
-          "kvm"
           "dialout"
         ];
       };
