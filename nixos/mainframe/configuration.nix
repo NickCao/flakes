@@ -268,9 +268,11 @@
   security.pam.services.swaylock = { };
   security.pam.u2f = {
     enable = true;
-    authFile = config.sops.secrets.u2f.path;
     control = "sufficient";
-    cue = true;
+    settings = {
+      cue = true;
+      authfile = config.sops.secrets.u2f.path;
+    };
   };
   security.sudo.extraConfig = ''
     Defaults lecture="never"
