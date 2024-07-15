@@ -122,7 +122,8 @@
   i18n = {
     defaultLocale = "C.UTF-8";
     inputMethod = {
-      enabled = "fcitx5";
+      enable = true;
+      type = "fcitx5";
       fcitx5.plasma6Support = true;
       fcitx5.addons = [
         pkgs.qt6Packages.fcitx5-chinese-addons
