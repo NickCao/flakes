@@ -19,6 +19,12 @@
     SystemCallFilter = null;
   };
 
+  systemd.tmpfiles.settings = {
+    "10-meow" = {
+      "/var/lib/meow".e.age = "30d";
+    };
+  };
+
   cloud.caddy.settings.apps.http.servers.default.routes = [
     {
       match = [ { host = [ "pb.nichi.co" ]; } ];
