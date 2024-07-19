@@ -73,10 +73,6 @@
         in
         {
           formatter = pkgs.nixpkgs-fmt;
-          packages = lib.packagesFromDirectoryRecursive {
-            inherit (pkgs) callPackage;
-            directory = ./pkgs;
-          };
           legacyPackages = pkgs;
           devShells.default =
             with pkgs;
@@ -98,7 +94,6 @@
         }
       )
     // {
-      hydraJobs = self.packages.x86_64-linux;
       nixosModules = import ./modules;
       overlays.default =
         final: prev:

@@ -14,13 +14,6 @@ resource "hydra_project" "nixos" {
   owner        = "terraform"
 }
 
-resource "hydra_project" "misc" {
-  name         = "misc"
-  display_name = "Misc"
-  description  = "Miscellaneous projects"
-  owner        = "terraform"
-}
-
 resource "hydra_jobset" "nixos_riscv" {
   project           = hydra_project.nixos.name
   state             = "enabled"
@@ -30,28 +23,6 @@ resource "hydra_jobset" "nixos_riscv" {
   flake_uri         = "github:NickCao/nixos-riscv"
   check_interval    = 120
   scheduling_shares = 50
-  keep_evaluations  = 3
-}
-
-resource "hydra_jobset" "misc_flakes" {
-  project           = hydra_project.misc.name
-  state             = "enabled"
-  name              = "flakes"
-  type              = "flake"
-  flake_uri         = "github:NickCao/flakes"
-  check_interval    = 120
-  scheduling_shares = 100
-  keep_evaluations  = 3
-}
-
-resource "hydra_jobset" "misc_netboot" {
-  project           = hydra_project.misc.name
-  state             = "enabled"
-  name              = "netboot"
-  type              = "flake"
-  flake_uri         = "github:NickCao/netboot"
-  check_interval    = 120
-  scheduling_shares = 100
   keep_evaluations  = 3
 }
 
