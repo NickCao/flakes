@@ -1,9 +1,0 @@
-[fcitx5-pinyin-zhwiki]
-src.archpkg = "fcitx5-pinyin-zhwiki"
-src.prefix = "0.2.5."
-fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-$ver.dict"
-
-[bird-babel-rtt]
-src.git = "https://github.com/NickCao/bird"
-src.branch = "babel-rtt"
-fetch.github = "NickCao/bird"

@@ -1,17 +1,27 @@
-{
-  source,
-  lib,
-  stdenv,
-  autoreconfHook,
-  flex,
-  bison,
-  readline,
-  libssh,
+{ lib
+, stdenv
+, fetchFromGitHub
+, autoreconfHook
+, flex
+, bison
+, readline
+, libssh
+,
 }:
 
 stdenv.mkDerivation {
-  inherit (source) pname src;
-  version = "unstable-${source.date}";
+  pname = "bird-babel-rtt";
+
+  version = "unstable-2024-03-24";
+
+  src = fetchFromGitHub {
+    owner = "NickCao";
+    repo = "bird";
+    rev = "dac2ce348f5ee321c80d219719118292f027c2d2";
+    fetchSubmodules = false;
+    sha256 = "sha256-F1UWNwXuISEhhz7BFolUJa7aSKkNpajYH46YqtcknKg=";
+  };
+
   nativeBuildInputs = [
     autoreconfHook
     flex

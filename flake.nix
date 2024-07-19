@@ -52,7 +52,6 @@
       ...
     }:
     let
-      this = import ./pkgs;
       data = builtins.fromJSON (builtins.readFile ./zones/data.json);
       lib = inputs.nixpkgs.lib;
     in
@@ -74,7 +73,10 @@
         in
         {
           formatter = pkgs.nixpkgs-fmt;
-          packages = this.packages pkgs;
+          packages = lib.packagesFromDirectoryRecursive {
+            inherit (pkgs) callPackage;
+            directory = ./pkgs;
+          };
           legacyPackages = pkgs;
           devShells.default =
             with pkgs;
@@ -98,7 +100,12 @@
     // {
       hydraJobs = self.packages.x86_64-linux;
       nixosModules = import ./modules;
-      overlays.default = this.overlay;
+      overlays.default =
+        final: prev:
+        prev.lib.packagesFromDirectoryRecursive {
+          inherit (prev) callPackage;
+          directory = ./pkgs;
+        };
       nixosConfigurations = {
         mainframe = import ./nixos/mainframe {
           system = "x86_64-linux";

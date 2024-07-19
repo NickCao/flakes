@@ -1,7 +1,7 @@
-{
-  writeShellApplication,
-  openssl,
-  coreutils,
+{ writeShellApplication
+, openssl
+, coreutils
+,
 }:
 writeShellApplication {
   name = "systemd-run-app";
