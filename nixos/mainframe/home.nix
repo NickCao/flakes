@@ -190,7 +190,7 @@ in
     tectonic
     systemd-run-app
     picocom
-    thunderbird
+    thunderbird-128
     mpv
     telegram-desktop
     nixpkgs-review
