@@ -21,7 +21,7 @@
 
   systemd.tmpfiles.settings = {
     "10-meow" = {
-      "/var/lib/meow".e.age = "30d";
+      "/var/lib/private/meow".e.age = "30d";
     };
   };
 
