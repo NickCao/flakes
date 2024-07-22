@@ -253,15 +253,6 @@
     };
   };
 
-  security.pam.loginLimits = [
-    {
-      domain = "*";
-      type = "-";
-      item = "memlock";
-      value = "unlimited";
-    }
-  ];
-
   environment.pathsToLink = [ "/share/fish" ];
   environment.backup.enable = true;
 
