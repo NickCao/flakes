@@ -127,12 +127,6 @@ in
         script = ''
           ip -4 ru del pref 0 || true
           ip -6 ru del pref 0 || true
-          if [ -z "$(ip -4 ru list pref 2000)" ]; then
-            ip -4 ru add pref 2000 l3mdev unreachable proto kernel
-          fi
-          if [ -z "$(ip -6 ru list pref 2000)" ]; then
-            ip -6 ru add pref 2000 l3mdev unreachable proto kernel
-          fi
         '';
         serviceConfig = {
           Type = "oneshot";
@@ -145,7 +139,11 @@ in
 
       systemd.network.enable = true;
 
-      systemd.network.config.networkConfig.ManageForeignRoutes = false;
+      systemd.network.config.networkConfig = {
+        ManageForeignRoutes = false;
+        # https://github.com/systemd/systemd/pull/33853
+        ManageForeignRoutingPolicyRules = false;
+      };
 
       systemd.network.netdevs = {
         gravity = {
@@ -193,6 +191,12 @@ in
               }
             ]
             ++ [
+              {
+                Priority = 2000;
+                Family = "both";
+                L3MasterDevice = true;
+                Type = "unreachable";
+              }
               {
                 Priority = 3000;
                 Family = "both";
