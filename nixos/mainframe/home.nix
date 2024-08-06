@@ -31,12 +31,6 @@ in
     config = {
       modifier = "Mod4";
       terminal = "systemd-run-app alacritty";
-      startup = [
-        { command = "systemd-run-app alacritty"; }
-        { command = "systemd-run-app firefox"; }
-        { command = "systemd-run-app telegram-desktop"; }
-        { command = "systemd-run-app thunderbird"; }
-      ];
       assigns = {
         "1" = [ { app_id = "Alacritty"; } ];
         "2" = [ { app_id = "firefox"; } ];
@@ -103,6 +97,7 @@ in
       bars = [ ];
     };
   };
+
   programs.swaylock.settings = {
     show-failed-attempts = true;
     daemonize = true;
@@ -171,6 +166,13 @@ in
       };
     };
   };
+  programs.thunderbird = {
+    enable = true;
+    package = pkgs.thunderbird-128;
+    profiles.default = {
+      isDefault = true;
+    };
+  };
 
   home.pointerCursor = {
     package = pkgs.adwaita-icon-theme;
@@ -190,7 +192,6 @@ in
     tectonic
     systemd-run-app
     picocom
-    thunderbird-128
     mpv
     telegram-desktop
     nixpkgs-review
@@ -443,6 +444,21 @@ in
       '';
     };
   };
+
+  home.file =
+    lib.mapAttrs'
+      (name: package: {
+        name = ".config/autostart/${name}.desktop";
+        value = {
+          source = "${package}/share/applications/${name}.desktop";
+        };
+      })
+      {
+        "Alacritty" = config.programs.alacritty.package;
+        "firefox" = config.programs.firefox.finalPackage;
+        "thunderbird" = config.programs.thunderbird.package;
+        "org.telegram.desktop" = pkgs.telegram-desktop;
+      };
 
   home.stateVersion = "21.11";
 }
