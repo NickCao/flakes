@@ -17,7 +17,21 @@ dns.lib.toString "nichi.link" {
   MX = with mx; [ (mx 10 "iad0.nichi.link.") ];
   TXT = [ (with spf; soft [ "mx" ]) ];
   subdomains =
-    lib.recursiveUpdate (builtins.mapAttrs (name: value: host value.ipv4 value.ipv6) nodes)
+    lib.recursiveUpdate
+      (builtins.mapAttrs (name: value: {
+        A = [ value.ipv4 ];
+        AAAA = [ value.ipv6 ];
+        HTTPS = [
+          {
+            alpn = [
+              "h3"
+              "h2"
+            ];
+            ipv4hint = [ value.ipv4 ];
+            ipv6hint = [ value.ipv6 ];
+          }
+        ];
+      }) nodes)
       {
         "iad0" = {
           DMARC = [
