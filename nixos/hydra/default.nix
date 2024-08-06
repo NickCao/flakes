@@ -58,5 +58,5 @@
   # https://github.com/NixOS/nixpkgs/issues/157449
   boot.specialFileSystems."/run".options = [ "rshared" ];
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "24.05";
 }
