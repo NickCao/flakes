@@ -4,6 +4,7 @@
   self,
   inputs,
   data,
+  modulesPath,
   ...
 }:
 let
@@ -13,11 +14,65 @@ in
 {
 
   imports = [
-    self.nixosModules.vultr
-    self.nixosModules.cloud.common
+    (modulesPath + "/profiles/qemu-guest.nix")
+    self.nixosModules.default
+    self.nixosModules.cloud.disko
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
   ];
+
+  sops = {
+    age = {
+      keyFile = "/var/lib/sops.key";
+      sshKeyPaths = [ ];
+    };
+    gnupg.sshKeyPaths = [ ];
+  };
+
+  boot = {
+    tmp.useTmpfs = true;
+    initrd.availableKernelModules = [
+      "ata_piix"
+      "uhci_hcd"
+      "virtio_pci"
+      "sr_mod"
+      "virtio_blk"
+    ];
+  };
+
+  users.users.root.openssh.authorizedKeys.keys = data.keys;
+
+  cloud.caddy.enable = true;
+  services.metrics.enable = true;
+  services.openssh.enable = true;
+
+  networking = {
+    useNetworkd = true;
+    useDHCP = false;
+    domain = "nichi.link";
+  };
+
+  systemd.network.networks = {
+    ethernet = {
+      matchConfig.Name = [
+        "en*"
+        "eth*"
+      ];
+      DHCP = "yes";
+      networkConfig = {
+        KeepConfiguration = "yes";
+        IPv6AcceptRA = "yes";
+        IPv6PrivacyExtensions = "no";
+      };
+    };
+  };
+
+  environment.persistence."/persist" = {
+    files = [ "/etc/machine-id" ];
+    directories = [ "/var" ];
+  };
+
+  environment.baseline.enable = true;
 
   services.dns.secondary.enable = hasTag "nameserver";
 
@@ -64,4 +119,7 @@ in
       ];
     };
   };
+
+  system.stateVersion = "22.05";
+
 }

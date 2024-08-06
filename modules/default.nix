@@ -13,9 +13,7 @@
       ];
     }
   );
-  vultr = import ./vultr.nix;
   cloud = {
-    common = import ./cloud/common.nix;
     disko = import ./cloud/disko.nix;
   };
 }
