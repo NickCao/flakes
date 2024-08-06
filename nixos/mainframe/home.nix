@@ -70,7 +70,7 @@ in
           "${modifier}+b" = null;
           "${modifier}+v" = null;
           "${modifier}+w" = null;
-          "${modifier}+d" = "exec ${lib.getExe pkgs.rofi-wayland} -show run -run-command 'systemd-run-app {cmd}'";
+          "${modifier}+d" = "exec ${lib.getExe pkgs.rofi-wayland} -show drun -run-command 'systemd-run-app {cmd}'";
           "${modifier}+Shift+l" = "exec loginctl lock-session";
           "${modifier}+space" = null;
           "Print" = "exec ${lib.getExe pkgs.sway-contrib.grimshot} save area $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
