@@ -38,6 +38,7 @@ in
         "4" = [ { app_id = "thunderbird"; } ];
         "5" = [ { app_id = "qemu"; } ];
       };
+      window.titlebar = false;
       window.commands = [
         {
           criteria = {
