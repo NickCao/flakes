@@ -96,11 +96,6 @@
     wireless.iwd.enable = true;
   };
 
-  systemd.network.wait-online = {
-    anyInterface = true;
-    ignoredInterfaces = [ "gravity" ];
-  };
-
   systemd.network.networks = {
     "10-wlan0" = {
       name = "wlan0";
@@ -172,7 +167,6 @@
 
   hardware = {
     cpu.amd.updateMicrocode = true;
-    pulseaudio.enable = false;
     bluetooth.enable = true;
     graphics = {
       enable = true;
