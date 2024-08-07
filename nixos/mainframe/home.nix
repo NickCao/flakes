@@ -99,12 +99,16 @@ in
     };
   };
 
-  programs.swaylock.settings = {
-    show-failed-attempts = true;
-    daemonize = true;
-    image = "${cst-blurred}";
-    scaling = "fill";
+  programs.swaylock = {
+    enable = true;
+    settings = {
+      show-failed-attempts = true;
+      daemonize = true;
+      image = "${cst-blurred}";
+      scaling = "fill";
+    };
   };
+
   programs.neovim = {
     enable = true;
     vimAlias = true;
