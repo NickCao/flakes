@@ -1,31 +1,31 @@
 locals {
   hnodes = {
     iad0 = {
-      location = "ash"
-      plan     = "cpx11"
-      tags     = ["hetzner", "nameserver"]
+      datacenter = "ash-dc1"
+      plan       = "cpx11"
+      tags       = ["hetzner", "nameserver"]
     }
     iad1 = {
-      location = "ash"
-      plan     = "cpx11"
-      tags     = ["hetzner"]
+      datacenter = "ash-dc1"
+      plan       = "cpx11"
+      tags       = ["hetzner"]
     }
     hio0 = {
-      location = "hil"
-      plan     = "cpx31"
-      tags     = ["hetzner"]
+      datacenter = "hil-dc1"
+      plan       = "cpx31"
+      tags       = ["hetzner"]
     }
   }
 }
 
 module "hcloud" {
-  source   = "./modules/hcloud"
-  for_each = local.hnodes
-  hostname = each.key
-  fqdn     = "${each.key}.nichi.link"
-  location = each.value.location
-  plan     = each.value.plan
-  tags     = each.value.tags
+  source     = "./modules/hcloud"
+  for_each   = local.hnodes
+  hostname   = each.key
+  fqdn       = "${each.key}.nichi.link"
+  datacenter = each.value.datacenter
+  plan       = each.value.plan
+  tags       = each.value.tags
 }
 
 resource "hcloud_volume" "data" {
