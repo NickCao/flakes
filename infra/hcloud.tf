@@ -1,19 +1,19 @@
 locals {
   hnodes = {
     iad0 = {
-      region = "ash-dc1"
-      plan   = "cpx11"
-      tags   = ["hetzner", "nameserver"]
+      location = "ash"
+      plan     = "cpx11"
+      tags     = ["hetzner", "nameserver"]
     }
     iad1 = {
-      region = "ash-dc1"
-      plan   = "cpx11"
-      tags   = ["hetzner"]
+      location = "ash"
+      plan     = "cpx11"
+      tags     = ["hetzner"]
     }
     hio0 = {
-      region = "hil-dc1"
-      plan   = "cpx31"
-      tags   = ["hetzner"]
+      location = "hil"
+      plan     = "cpx31"
+      tags     = ["hetzner"]
     }
   }
 }
@@ -23,7 +23,7 @@ module "hcloud" {
   for_each = local.hnodes
   hostname = each.key
   fqdn     = "${each.key}.nichi.link"
-  region   = each.value.region
+  location = each.value.location
   plan     = each.value.plan
   tags     = each.value.tags
 }

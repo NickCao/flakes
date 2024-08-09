@@ -71,6 +71,13 @@
             "id": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -84,6 +91,13 @@
             "id": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -97,6 +111,13 @@
             "id": "string",
             "ipv4": "string",
             "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "country": "string"
+              }
+            ],
             "tags": [
               "list",
               "string"
@@ -265,6 +286,10 @@
         "id": "26266153",
         "ipv4": "5.78.46.154",
         "ipv6": "2a01:4ff:1f0:f06c::1",
+        "remarks": {
+          "city": "Hillsboro, OR",
+          "country": "US"
+        },
         "tags": [
           "hetzner"
         ]
@@ -274,6 +299,10 @@
         "id": "22934188",
         "ipv4": "5.161.83.9",
         "ipv6": "2a01:4ff:f0:db00::1",
+        "remarks": {
+          "city": "Ashburn, VA",
+          "country": "US"
+        },
         "tags": [
           "hetzner",
           "nameserver"
@@ -284,6 +313,10 @@
         "id": "48450672",
         "ipv4": "5.161.180.132",
         "ipv6": "2a01:4ff:f0:26c3::1",
+        "remarks": {
+          "city": "Ashburn, VA",
+          "country": "US"
+        },
         "tags": [
           "hetzner"
         ]

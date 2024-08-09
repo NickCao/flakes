@@ -6,7 +6,7 @@ variable "fqdn" {
   type = string
 }
 
-variable "region" {
+variable "location" {
   type = string
 }
 
@@ -29,8 +29,9 @@ terraform {
 resource "hcloud_server" "server" {
   name               = var.hostname
   server_type        = var.plan
-  datacenter         = var.region
+  location           = var.location
   image              = "debian-11"
+  labels             = { for tag in var.tags : tag => "" }
   delete_protection  = true
   rebuild_protection = true
   public_net {
@@ -42,7 +43,6 @@ resource "hcloud_server" "server" {
 resource "hcloud_primary_ip" "ipv4" {
   name              = "${var.hostname}-v4"
   type              = "ipv4"
-  datacenter        = var.region
   assignee_type     = "server"
   auto_delete       = false
   delete_protection = true
@@ -51,7 +51,6 @@ resource "hcloud_primary_ip" "ipv4" {
 resource "hcloud_primary_ip" "ipv6" {
   name              = "${var.hostname}-v6"
   type              = "ipv6"
-  datacenter        = var.region
   assignee_type     = "server"
   auto_delete       = false
   delete_protection = true
@@ -67,6 +66,10 @@ resource "hcloud_rdns" "ipv6" {
   server_id  = hcloud_server.server.id
   ip_address = hcloud_server.server.ipv6_address
   dns_ptr    = var.fqdn
+}
+
+data "hcloud_location" "location" {
+  name = var.location
 }
 
 output "id" {
@@ -87,4 +90,12 @@ output "fqdn" {
 
 output "tags" {
   value = var.tags
+}
+
+output "remarks" {
+  value = {
+    // continent = data.hcloud_location.location.continent
+    country = data.hcloud_location.location.country
+    city    = data.hcloud_location.location.city
+  }
 }
