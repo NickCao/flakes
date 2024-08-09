@@ -43,6 +43,7 @@ resource "vultr_instance" "server" {
   activation_email = false
   ddos_protection  = false
   hostname         = var.fqdn
+  tags             = var.tags
   label            = var.hostname
   lifecycle {
     ignore_changes = [
