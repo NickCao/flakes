@@ -78,7 +78,7 @@ output "ipv4" {
 }
 
 output "ipv6" {
-  value = cidrhost("${hcloud_primary_ip.ipv6.ip_address}/64", 1)
+  value = cidrhost(hcloud_primary_ip.ipv6.ip_network, 1)
 }
 
 output "fqdn" {
