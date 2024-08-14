@@ -149,6 +149,12 @@ in
         SOCKSVersion = 5;
         UseProxyForDNS = true;
       };
+      DNSOverHTTPS = {
+        Enabled = true;
+        ProviderURL = "https://dns.google/dns-query";
+        Locked = true;
+        Fallback = false;
+      };
       Preferences = {
         "browser.newtabpage.activity-stream.feeds.topsites" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
