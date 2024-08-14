@@ -143,6 +143,20 @@ in
         Cryptomining = true;
         Fingerprinting = true;
       };
+      FirefoxHome = {
+        Search = true;
+        TopSites = false;
+        SponsoredTopSites = false;
+        Highlights = false;
+        Pocket = false;
+        SponsoredPocket = false;
+        Snippets = false;
+        Locked = true;
+      };
+      FirefoxSuggest = {
+        SponsoredSuggestions = false;
+        Locked = true;
+      };
       Proxy = {
         Mode = "manual";
         SOCKSProxy = "127.0.0.1:1080";
@@ -156,8 +170,6 @@ in
         Fallback = false;
       };
       Preferences = {
-        "browser.newtabpage.activity-stream.feeds.topsites" = false;
-        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
         "browser.urlbar.autoFill.adaptiveHistory.enabled" = true;
         "browser.tabs.closeWindowWithLastTab" = false;
       };
