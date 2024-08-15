@@ -168,14 +168,7 @@
   hardware = {
     cpu.amd.updateMicrocode = true;
     bluetooth.enable = true;
-    graphics = {
-      enable = true;
-      package =
-        (pkgs.mesa.overrideAttrs (attrs: {
-          # https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/30510
-          patches = attrs.patches ++ [ ./radeonsi.patch ];
-        })).drivers;
-    };
+    graphics.enable = true;
     sensor.iio.enable = true;
   };
 
