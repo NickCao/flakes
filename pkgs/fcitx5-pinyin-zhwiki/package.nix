@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchurl
-,
+{
+  lib,
+  stdenv,
+  fetchurl,
 }:
-stdenv.mkDerivation {
+
+stdenv.mkDerivation rec {
   pname = "fcitx5-pinyin-zhwiki";
-  version = "20240509";
+  version = "20240722";
 
   src = fetchurl {
-    url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20240509.dict";
-    sha256 = "sha256-uRpKPq+/xJ8akKB8ol/JRF79VfDIQ8L4SxLDXzpfPxg=";
+    url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-${version}.dict";
+    hash = "sha256-ozGXj/xZmXzopF7qiG2z+hcwGHc+3Lq6OqyFRreK9Kc=";
   };
 
   dontUnpack = true;
