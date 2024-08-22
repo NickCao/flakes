@@ -83,7 +83,7 @@
 
   services.harmonia = {
     enable = true;
-    signKeyPath = config.sops.secrets.harmonia.path;
+    signKeyPaths = [ config.sops.secrets.harmonia.path ];
     settings = {
       bind = "127.0.0.1:5000";
     };

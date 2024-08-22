@@ -207,7 +207,7 @@ in
   home.packages = with pkgs; [
     nix-update
     nix-init
-    compsize
+    # compsize
     uhk-agent
     rage
     pinentry-gtk2
