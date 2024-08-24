@@ -102,6 +102,7 @@
     vrf = [ "gravity" ];
     linkConfig = {
       MTUBytes = "1400";
+      RequiredForOnline = false;
     };
     addresses = [ { Address = "192.0.0.2/32"; } ];
     routes = [
