@@ -157,7 +157,7 @@
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_testing;
     kernelParams = [ "ia32_emulation=0" ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;
@@ -334,8 +334,6 @@
   environment.stub-ld.enable = false;
 
   documentation.nixos.enable = false;
-
-  system.etc.overlay.enable = true;
 
   system.stateVersion = "24.05";
 }
