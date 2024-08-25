@@ -7,10 +7,6 @@
 {
 
   sops.secrets = {
-    hydra = {
-      group = "hydra";
-      mode = "0440";
-    };
     hydra-github = {
       group = "hydra";
       mode = "0440";
@@ -66,18 +62,9 @@
     useSubstitutes = true;
     notificationSender = "hydra@nichi.co";
     extraConfig = ''
-      include ${config.sops.secrets.hydra.path}
       github_client_id = e55d265b1883eb42630e
       github_client_secret_file = ${config.sops.secrets.hydra-github.path}
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
-      <dynamicruncommand>
-        enable = 1
-      </dynamicruncommand>
-      <githubstatus>
-        jobs = misc:flakes:.*
-        excludeBuildFromContext = 1
-        useShortContext = 1
-      </githubstatus>
     '';
   };
 
