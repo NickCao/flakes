@@ -148,6 +148,8 @@ in
         msc3881_enabled = true;
         # Remotely silence local notifications
         msc3890_enabled = true;
+        # Sliding Sync API endpoints
+        msc3575_enabled = true;
       };
 
       rc_admin_redaction = {
