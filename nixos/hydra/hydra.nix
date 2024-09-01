@@ -62,6 +62,7 @@
     useSubstitutes = true;
     notificationSender = "hydra@nichi.co";
     extraConfig = ''
+      compress_build_logs_compression = zstd
       github_client_id = e55d265b1883eb42630e
       github_client_secret_file = ${config.sops.secrets.hydra-github.path}
       max_output_size = ${builtins.toString (32 * 1024 * 1024 * 1024)}
