@@ -15,7 +15,7 @@ vim.g.everforest_background = 'soft'
 vim.cmd.colorscheme('everforest')
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local servers = { 'gopls', 'rust_analyzer', 'nil_ls', 'clangd', 'texlab' }
+local servers = { 'gopls', 'rust_analyzer', 'nil_ls', 'clangd', 'texlab', 'ruff' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     capabilities = capabilities,
