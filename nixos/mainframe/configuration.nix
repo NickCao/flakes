@@ -336,8 +336,5 @@
 
   documentation.nixos.enable = false;
 
-  system.switch.enable = false;
-  system.switch.enableNg = true;
-
   system.stateVersion = "24.05";
 }
