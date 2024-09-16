@@ -1,3 +1,7 @@
+hotkey-overlay {
+    skip-at-startup
+}
+
 input {
     keyboard {
         xkb {
@@ -40,6 +44,11 @@ window-rule {
 window-rule {
     match app-id=r#"^thunderbird$"#
     open-on-workspace "mail"
+}
+
+window-rule {
+    match app-id=r#"^org\.pulseaudio\.pavucontrol$"#
+    default-column-width { proportion 0.4; }
 }
 
 binds {

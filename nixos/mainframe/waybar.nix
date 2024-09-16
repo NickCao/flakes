@@ -20,6 +20,7 @@ in
     "custom/nixos"
     "niri/workspaces"
     "custom/separator"
+    "niri/window"
   ];
   modules-right = [
     "tray"
@@ -49,6 +50,7 @@ in
       "mail" = "󰇮";
     };
   };
+  "niri/window" = { };
   idle_inhibitor = {
     format = mkSpan "IDLE" "{icon}";
     format-icons = {
