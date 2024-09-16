@@ -170,6 +170,7 @@ in
 
   systemd.user.sessionVariables = {
     SOPS_AGE_KEY_FILE = "$HOME/Documents/key.txt";
+    QT_QPA_PLATFORMTHEME = "gtk3";
     # cache
     CARGO_HOME = "${config.xdg.cacheHome}/cargo";
     # state
