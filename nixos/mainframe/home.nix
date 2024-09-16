@@ -364,6 +364,9 @@ in
       '';
     };
   };
+
+  systemd.user.services.swayidle.Unit.After = [ "graphical-session.target" ];
+
   services = {
     swayidle = {
       enable = true;
