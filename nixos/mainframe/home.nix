@@ -240,6 +240,7 @@ in
     wl-mirror
     nwg-displays
     kubectl
+    kind
   ];
 
   systemd.user.sessionVariables = {
