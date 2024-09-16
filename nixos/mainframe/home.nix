@@ -22,8 +22,6 @@ in
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
 
-  # swaybg: "${cst} fill"
-
   programs.swaylock = {
     enable = true;
     settings = {
@@ -362,6 +360,20 @@ in
       extraConfig = ''
         CheckHostIP no
       '';
+    };
+  };
+
+  systemd.user.services.swaybg = {
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+    Unit = {
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${lib.getExe pkgs.swaybg} -i ${cst} -m fill";
+      Restart = "on-failure";
     };
   };
 
