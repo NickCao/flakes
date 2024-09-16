@@ -241,6 +241,8 @@ in
     nwg-displays
     kubectl
     kind
+    niri
+    fuzzel
   ];
 
   systemd.user.sessionVariables = {
@@ -466,6 +468,7 @@ in
         GOPATH=${config.xdg.cacheHome}/go
         GOBIN=${config.xdg.stateHome}/go/bin
       '';
+      "niri/config.kdl".source = ./niri.kdl;
     };
   };
 

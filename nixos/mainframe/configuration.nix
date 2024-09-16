@@ -187,10 +187,7 @@
   services.greetd = {
     enable = true;
     settings = {
-      default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --cmd ${pkgs.writeShellScript "sway" ''
-        dbus-update-activation-environment --all --systemd
-        exec systemd-cat --identifier=sway sway
-      ''}";
+      default_session.command = "${lib.getExe pkgs.greetd.tuigreet} --cmd niri-session";
     };
   };
 
