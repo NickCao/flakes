@@ -18,8 +18,7 @@ in
   };
   modules-left = [
     "custom/nixos"
-    "sway/workspaces"
-    "sway/mode"
+    "niri/workspaces"
     "custom/separator"
   ];
   modules-right = [
@@ -39,17 +38,15 @@ in
     "custom/separator"
     "clock"
   ];
-  "sway/workspaces" = {
+  "niri/workspaces" = {
     all-outputs = true;
-    format = "{name} {icon}";
+    current-only = true;
+    format = "{icon}";
     format-icons = {
-      "1" = "";
-      "2" = "";
-      "3" = "";
-      "4" = "󰇮";
-      default = "";
-      focused = "";
-      urgent = "";
+      "terminal" = "";
+      "browser" = "";
+      "chat" = "";
+      "mail" = "󰇮";
     };
   };
   idle_inhibitor = {

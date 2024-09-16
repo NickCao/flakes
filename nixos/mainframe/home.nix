@@ -21,83 +21,8 @@ in
     };
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
-  wayland.windowManager.sway = {
-    enable = true;
-    systemd = {
-      enable = true;
-      xdgAutostart = true;
-    };
-    wrapperFeatures.gtk = true;
-    config = {
-      modifier = "Mod4";
-      terminal = "systemd-run-app alacritty";
-      assigns = {
-        "1" = [ { app_id = "Alacritty"; } ];
-        "2" = [ { app_id = "firefox"; } ];
-        "3" = [ { app_id = "org.telegram.desktop"; } ];
-        "4" = [ { app_id = "thunderbird"; } ];
-        "5" = [ { app_id = "qemu"; } ];
-      };
-      window.titlebar = false;
-      window.commands = [
-        {
-          criteria = {
-            app_id = "pavucontrol";
-          };
-          command = "floating enable, sticky enable, resize set width 650 px height 600px, move position cursor, move down 60";
-        }
-        {
-          criteria = {
-            title = "Extension: \\(Bitwarden Password Manager\\) - Bitwarden — Mozilla Firefox";
-          };
-          command = "floating enable";
-        }
-      ];
-      gaps = {
-        inner = 5;
-        outer = 5;
-        smartGaps = true;
-      };
-      keybindings =
-        let
-          modifier = config.wayland.windowManager.sway.config.modifier;
-        in
-        lib.mkOptionDefault {
-          "${modifier}+h" = "focus left";
-          "${modifier}+j" = "focus down";
-          "${modifier}+k" = "focus up";
-          "${modifier}+l" = "focus right";
-          "${modifier}+s" = "split toggle";
-          "${modifier}+b" = null;
-          "${modifier}+v" = null;
-          "${modifier}+w" = null;
-          "${modifier}+d" = "exec ${lib.getExe pkgs.rofi-wayland} -show drun -run-command 'systemd-run-app {cmd}'";
-          "${modifier}+Shift+l" = "exec loginctl lock-session";
-          "${modifier}+space" = null;
-          "Print" = "exec ${lib.getExe pkgs.sway-contrib.grimshot} save area $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
-          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-        };
-      input = {
-        "2362:628:PIXA3854:00_093A:0274_Touchpad" = {
-          natural_scroll = "enabled";
-          tap = "enabled";
-        };
-        "1:1:AT_Translated_Set_2_keyboard" = {
-          xkb_options = "ctrl:nocaps";
-        };
-      };
-      output = {
-        eDP-1 = {
-          bg = "${cst} fill";
-          scale = "1.5";
-        };
-      };
-      bars = [ ];
-    };
-  };
+
+  # swaybg: "${cst} fill"
 
   programs.swaylock = {
     enable = true;

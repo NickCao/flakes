@@ -1,9 +1,46 @@
+input {
+    keyboard {
+        xkb {
+            options "ctrl:nocaps"
+        }
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+}
+
 layout {
     gaps 6
-    default-column-width { }
+    default-column-width { proportion 1.0; }
 }
 
 prefer-no-csd
+
+workspace "terminal"
+workspace "browser"
+workspace "chat"
+workspace "mail"
+
+window-rule {
+    match app-id=r#"^Alacritty$"#
+    open-on-workspace "terminal"
+}
+
+window-rule {
+    match app-id=r#"^firefox$"#
+    open-on-workspace "browser"
+}
+
+window-rule {
+    match app-id=r#"^org\.telegram\.desktop$"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"^thunderbird$"#
+    open-on-workspace "mail"
+}
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
