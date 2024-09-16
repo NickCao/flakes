@@ -41,7 +41,6 @@ in
   ];
   "niri/workspaces" = {
     all-outputs = true;
-    current-only = true;
     format = "{icon}";
     format-icons = {
       "terminal" = "";

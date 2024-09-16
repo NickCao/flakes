@@ -31,17 +31,21 @@ window#waybar {
   padding: 0 10px;
   border-radius: 0;
 }
-#workspaces button.hidden {
-  background-color: #24273a;
-}
 #workspaces button.focused,
 #workspaces button.active {
   background-color: #363a4f;
   border-bottom: 4px solid #8aadf4;
 }
-#workspaces button.urgent {
-  background-color: #ed8796;
-  border-bottom: 4px solid #8aadf4;
+#workspaces button.empty {
+  font-size: 0;
+  min-width: 0;
+  min-height: 0;
+  margin: -17px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  box-shadow: none;
+  background-color: transparent;
 }
 #tray,
 #idle_inhibitor,
