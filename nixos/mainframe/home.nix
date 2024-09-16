@@ -161,7 +161,7 @@ in
     libarchive
     wl-clipboard
     wl-mirror
-    nwg-displays
+    wdisplays
     kubectl
     kind
     niri
