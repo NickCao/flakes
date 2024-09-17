@@ -57,7 +57,6 @@ in
         owner = config.systemd.services.matrix-synapse.serviceConfig.User;
       };
       matterbridge = { };
-      sliding-sync = { };
     };
   };
 
@@ -70,6 +69,7 @@ in
   systemd.services.matrix-synapse.serviceConfig.LoadCredential = [
     "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
   ];
+
   services.matrix-synapse = {
     enable = true;
     withJemalloc = true;
@@ -79,12 +79,6 @@ in
       signing_key_path = config.sops.secrets.matrix-synapse.path;
 
       media_store_path = "/data/synapse/media_store";
-
-      extra_well_known_client_content = {
-        "org.matrix.msc3575.proxy" = {
-          "url" = "https://syncv3.nichi.co";
-        };
-      };
 
       dynamic_thumbnails = true;
       allow_public_rooms_over_federation = true;
@@ -157,17 +151,6 @@ in
     };
   };
 
-  services.matrix-sliding-sync = {
-    enable = true;
-    environmentFile = config.sops.secrets.sliding-sync.path;
-    settings = {
-      SYNCV3_SERVER = config.services.matrix-synapse.settings.public_baseurl;
-      SYNCV3_BINDADDR = "/run/matrix-sliding-sync/sync.sock";
-    };
-  };
-
-  systemd.services.matrix-sliding-sync.serviceConfig.RuntimeDirectory = [ "matrix-sliding-sync" ];
-
   systemd.services.mautrix-telegram.serviceConfig.RuntimeMaxSec = 86400;
 
   services.mautrix-telegram = {
@@ -231,6 +214,7 @@ in
   };
 
   systemd.services.matterbridge.serviceConfig.EnvironmentFile = config.sops.secrets.matterbridge.path;
+
   services.matterbridge = {
     enable = true;
     configPath = toString (
@@ -286,15 +270,6 @@ in
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
-    {
-      match = [ { host = [ "syncv3.nichi.co" ]; } ];
-      handle = [
-        {
-          handler = "reverse_proxy";
-          upstreams = [ { dial = "unix/${config.services.matrix-sliding-sync.settings.SYNCV3_BINDADDR}"; } ];
-        }
-      ];
-    }
     {
       match = [ { host = [ "matrix.nichi.co" ]; } ];
       handle = [
