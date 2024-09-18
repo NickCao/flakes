@@ -165,7 +165,6 @@ in
     kubectl
     kind
     niri
-    fuzzel
   ];
 
   systemd.user.sessionVariables = {
@@ -205,6 +204,12 @@ in
       enable = true;
       nix-direnv = {
         enable = true;
+      };
+    };
+    fuzzel = {
+      enable = true;
+      settings = {
+        main.horizontal-pad = 10;
       };
     };
     git = {
