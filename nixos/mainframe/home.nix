@@ -114,7 +114,6 @@ in
   };
   programs.thunderbird = {
     enable = true;
-    package = pkgs.thunderbird-128;
     profiles.default = {
       isDefault = true;
     };
