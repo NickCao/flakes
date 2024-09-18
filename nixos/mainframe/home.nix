@@ -300,21 +300,6 @@ in
       enable = true;
       serverAliveInterval = 30;
       matchBlocks = {
-        "*.lab.pacman-thu.org" = {
-          user = "nickcao";
-          proxyJump = "pacman";
-          forwardAgent = true;
-        };
-        "*.sc.team" = {
-          user = "nickcao";
-          proxyJump = "pacman";
-          forwardAgent = true;
-        };
-        "pacman" = {
-          user = "nickcao";
-          hostname = "166.111.68.163";
-          port = 2222;
-        };
         "hydra" = {
           user = "root";
           hostname = "k17-plct.nichi.link";
@@ -327,11 +312,6 @@ in
             UserKnownHostsFile = "/dev/null";
             LogLevel = "ERROR";
           };
-        };
-        "bandit" = {
-          user = "terrier003";
-          hostname = "ec521.bu.edu";
-          port = 10001;
         };
       };
       extraConfig = ''
