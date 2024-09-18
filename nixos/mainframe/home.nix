@@ -182,12 +182,7 @@ in
       '').outPath;
   };
 
-  services.mako = {
-    enable = true;
-    extraConfig = ''
-      on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${lib.getExe pkgs.rofi-wayland} -dmenu -p 'action: '
-    '';
-  };
+  services.mako.enable = true;
 
   programs = {
     # pandoc.enable = true;
