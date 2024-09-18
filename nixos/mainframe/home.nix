@@ -9,7 +9,6 @@ let
   cst-blurred = pkgs.runCommand "chisato.jpg" { nativeBuildInputs = with pkgs; [ imagemagick ]; } ''
     convert -blur 14x5 ${cst} $out
   '';
-  tide = pkgs.fishPlugins.tide.src;
 in
 {
   gtk = {
@@ -240,7 +239,7 @@ in
       plugins = [
         {
           name = "tide";
-          src = tide;
+          inherit (pkgs.fishPlugins.tide) src;
         }
       ];
       shellInit = ''
@@ -251,10 +250,10 @@ in
           bind f accept-autosuggestion
         end
 
-        string replace -r '^' 'set -g ' < ${tide}/functions/tide/configure/icons.fish | source
-        string replace -r '^' 'set -g ' < ${tide}/functions/tide/configure/configs/lean.fish | source
-        string replace -r '^' 'set -g ' < ${tide}/functions/tide/configure/configs/lean_16color.fish | source
-        set -g tide_prompt_add_newline_before false
+        tide configure --auto --style=Lean --prompt_colors='16 colors' \
+          --show_time=No --lean_prompt_height='Two lines' \
+          --prompt_connection=Disconnected --prompt_spacing=Compact \
+          --icons='Few icons' --transient=Yes
 
         fish_config theme choose fish\ default
         set fish_color_autosuggestion white
