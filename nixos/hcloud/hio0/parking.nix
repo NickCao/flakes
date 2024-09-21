@@ -17,7 +17,6 @@ in
     (mkRoute "wikipedia.zip" "https://www.wikipedia.org/wiki/Wikipedia:Database_download")
     (mkRoute "nixos.zip" "https://channels.nixos.org/nixos-unstable")
     (mkRoute "archlinux.icu" "https://manjaro.org")
-    (mkRoute "nixos.icu" "https://archlinux.org")
     {
       match = singleton { host = singleton "systemd.services"; };
       handle = singleton {

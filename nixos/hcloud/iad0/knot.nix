@@ -177,10 +177,6 @@ in
           );
         }
         {
-          domain = "nixos.icu";
-          file = pkgs.writeText "db.icu.nixos" (import ../../../zones/parking.nix { inherit (inputs) dns; });
-        }
-        {
           domain = "systemd.services";
           file = pkgs.writeText "db.services.systemd" (
             import ../../../zones/parking.nix { inherit (inputs) dns; }
