@@ -55,6 +55,9 @@ in
       matrix-synapse-oidc = {
         owner = config.systemd.services.matrix-synapse.serviceConfig.User;
       };
+      matrix-synapse-s3 = {
+        restartUnits = [ "matrix-synapse.service" ];
+      };
       matterbridge = { };
     };
   };
@@ -65,13 +68,21 @@ in
     };
   };
 
-  systemd.services.matrix-synapse.serviceConfig.LoadCredential = [
-    "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
-  ];
+  systemd.services.matrix-synapse.serviceConfig = {
+    LoadCredential = [
+      "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
+    ];
+    EnvironmentFile = [
+      config.sops.secrets.matrix-synapse-s3.path
+    ];
+  };
 
   services.matrix-synapse = {
     enable = true;
     withJemalloc = true;
+    plugins = with config.services.matrix-synapse.package.plugins; [
+      matrix-synapse-s3-storage-provider
+    ];
     settings = {
       server_name = "nichi.co";
       public_baseurl = "https://matrix.nichi.co";
@@ -85,6 +96,19 @@ in
 
       enable_registration = true;
       registration_requires_token = true;
+
+      media_storage_providers = [
+        {
+          module = "s3_storage_provider.S3StorageProviderBackend";
+          store_local = true;
+          store_remote = false;
+          store_synchronous = true;
+          config = {
+            bucket = "nichi-matrix";
+            endpoint_url = "https://s3.us-east-005.backblazeb2.com";
+          };
+        }
+      ];
 
       listeners = [
         {
