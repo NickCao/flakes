@@ -73,12 +73,6 @@ in
     };
   };
 
-  systemd.tmpfiles.settings = {
-    "10-synapse" = {
-      "${media_store_path}/local_thumbnails".e.age = "7d";
-    };
-  };
-
   systemd.timers.matrix-synapse-s3-upload = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
