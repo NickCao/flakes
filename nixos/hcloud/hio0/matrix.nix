@@ -67,7 +67,7 @@ in
         owner = config.systemd.services.matrix-synapse.serviceConfig.User;
       };
       matrix-synapse-s3 = {
-        restartUnits = [ "matrix-synapse.service" ];
+        restartUnits = [ config.systemd.services.matrix-synapse.name ];
       };
       matterbridge = { };
     };
@@ -91,7 +91,11 @@ in
     WorkingDirectory = "%S/matrix-synapse-s3-upload";
     BindReadOnlyPaths = [
       "${
-        (pkgs.formats.yaml { }).generate "database.yaml" { postgres.database = "matrix-synapse"; }
+        (pkgs.formats.yaml { }).generate "database.yaml" {
+          postgres = {
+            inherit (config.services.matrix-synapse.settings.database.args) database;
+          };
+        }
       }:%S/matrix-synapse-s3-upload/database.yaml"
     ];
     ExecStart = with config.services.matrix-synapse.package.plugins; [
@@ -225,7 +229,7 @@ in
   services.mautrix-telegram = {
     enable = true;
     environmentFile = config.sops.secrets.mautrix-telegram.path;
-    serviceDependencies = [ "matrix-synapse.service" ];
+    serviceDependencies = [ config.systemd.services.matrix-synapse.name ];
     settings = {
       homeserver = {
         address = "http://127.0.0.1:${toString config.lib.ports.synapse}";
