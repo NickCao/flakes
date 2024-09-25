@@ -27,15 +27,3 @@ module "hcloud" {
   plan       = each.value.plan
   tags       = each.value.tags
 }
-
-resource "hcloud_volume" "data" {
-  name              = "data"
-  size              = 128
-  location          = "hil"
-  delete_protection = true
-}
-
-resource "hcloud_volume_attachment" "main" {
-  volume_id = hcloud_volume.data.id
-  server_id = module.hcloud["hio0"].id
-}
