@@ -79,6 +79,16 @@ in
     };
   };
 
+  systemd.timers.matrix-synapse-s3-upload = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      FixedRandomDelay = true;
+      OnCalendar = "daily";
+      Persistent = true;
+      RandomizedDelaySec = "4h";
+    };
+  };
+
   systemd.services.matrix-synapse-s3-upload.serviceConfig = {
     Type = "oneshot";
     inherit (config.systemd.services.matrix-synapse.serviceConfig) User Group;
@@ -89,7 +99,7 @@ in
         (lib.getExe matrix-synapse-s3-storage-provider)
         "update"
         media_store_path
-        "1d"
+        "1h"
       ])
       (utils.escapeSystemdExecArgs [
         (lib.getExe matrix-synapse-s3-storage-provider)
