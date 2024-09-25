@@ -123,8 +123,6 @@ in
       public_baseurl = "https://matrix.nichi.co";
       signing_key_path = config.sops.secrets.matrix-synapse.path;
 
-      media_store_path = "/data/synapse/media_store";
-
       dynamic_thumbnails = true;
       allow_public_rooms_over_federation = true;
       app_service_config_files = [ "/run/credentials/matrix-synapse.service/telegram" ];
@@ -136,7 +134,7 @@ in
         {
           module = "s3_storage_provider.S3StorageProviderBackend";
           store_local = true;
-          store_remote = false;
+          store_remote = true;
           store_synchronous = true;
           config = {
             bucket = b2.bucket;
