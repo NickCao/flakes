@@ -93,11 +93,20 @@ in
     Type = "oneshot";
     inherit (config.systemd.services.matrix-synapse.serviceConfig) User Group;
     EnvironmentFile = [ config.sops.secrets.matrix-synapse-s3.path ];
-    WorkingDirectory = "/data/s3_media_upload";
+    StateDirectory = [ "matrix-synapse-s3-upload" ];
+    WorkingDirectory = "%S/matrix-synapse-s3-upload";
+    BindReadOnlyPaths = [
+      "${
+        (pkgs.formats.yaml { }).generate "database.yaml" { postgres.database = "matrix-synapse"; }
+      }:%S/matrix-synapse-s3-upload/database.yaml"
+    ];
     ExecStart = with config.services.matrix-synapse.package.plugins; [
       (utils.escapeSystemdExecArgs [
         (lib.getExe matrix-synapse-s3-storage-provider)
         "update"
+        # KeyError: 'password'
+        # "--homeserver-config-path"
+        # config.services.matrix-synapse.configFile
         media_store_path
         "1h"
       ])
