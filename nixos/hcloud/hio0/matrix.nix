@@ -101,6 +101,7 @@ in
     ExecStart = with config.services.matrix-synapse.package.plugins; [
       (utils.escapeSystemdExecArgs [
         (lib.getExe matrix-synapse-s3-storage-provider)
+        "--no-progress"
         "update"
         # KeyError: 'password'
         # "--homeserver-config-path"
@@ -110,6 +111,7 @@ in
       ])
       (utils.escapeSystemdExecArgs [
         (lib.getExe matrix-synapse-s3-storage-provider)
+        "--no-progress"
         "upload"
         "--delete"
         "--endpoint-url"
