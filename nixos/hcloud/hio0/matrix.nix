@@ -1,4 +1,10 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  utils,
+  ...
+}:
 let
   conf = {
     default_server_config = {
@@ -9,6 +15,11 @@ let
     };
     show_labs_settings = true;
   };
+  b2 = {
+    endpoint = "https://s3.us-east-005.backblazeb2.com";
+    bucket = "nichi-matrix";
+  };
+  inherit (config.services.matrix-synapse.settings) media_store_path;
 in
 {
 
@@ -64,8 +75,32 @@ in
 
   systemd.tmpfiles.settings = {
     "10-synapse" = {
-      "${config.services.matrix-synapse.settings.media_store_path}/local_thumbnails".e.age = "7d";
+      "${media_store_path}/local_thumbnails".e.age = "7d";
     };
+  };
+
+  systemd.services.matrix-synapse-s3-upload.serviceConfig = {
+    Type = "oneshot";
+    inherit (config.systemd.services.matrix-synapse.serviceConfig) User Group;
+    EnvironmentFile = [ config.sops.secrets.matrix-synapse-s3.path ];
+    WorkingDirectory = "/data/s3_media_upload";
+    ExecStart = with config.services.matrix-synapse.package.plugins; [
+      (utils.escapeSystemdExecArgs [
+        (lib.getExe matrix-synapse-s3-storage-provider)
+        "update"
+        media_store_path
+        "1d"
+      ])
+      (utils.escapeSystemdExecArgs [
+        (lib.getExe matrix-synapse-s3-storage-provider)
+        "upload"
+        "--delete"
+        "--endpoint-url"
+        b2.endpoint
+        media_store_path
+        b2.bucket
+      ])
+    ];
   };
 
   systemd.services.matrix-synapse.serviceConfig = {
@@ -104,8 +139,8 @@ in
           store_remote = false;
           store_synchronous = true;
           config = {
-            bucket = "nichi-matrix";
-            endpoint_url = "https://s3.us-east-005.backblazeb2.com";
+            bucket = b2.bucket;
+            endpoint_url = b2.endpoint;
           };
         }
       ];
