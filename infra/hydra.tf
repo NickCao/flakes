@@ -34,7 +34,7 @@ resource "hydra_jobset" "nixpkgs_riscv" {
   type        = "legacy"
 
   nix_expression {
-    file  = "pkgs/top-level/release-small.nix"
+    file  = "pkgs/top-level/release.nix"
     input = "nixpkgs"
   }
 
