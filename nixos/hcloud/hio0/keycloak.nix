@@ -3,9 +3,10 @@
   services.keycloak = {
     enable = true;
     settings = {
+      http-enabled = true;
       http-host = "127.0.0.1";
       http-port = config.lib.ports.keycloak;
-      proxy = "edge";
+      proxy-headers = "xforwarded";
       hostname = "id.nichi.co";
       cache = "local";
     };
