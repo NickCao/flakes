@@ -203,7 +203,6 @@
     };
     dbus.implementation = "broker";
     pcscd.enable = true;
-    fstrim.enable = true;
     pipewire = {
       enable = true;
       pulse.enable = true;

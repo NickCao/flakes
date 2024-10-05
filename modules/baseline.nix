@@ -48,7 +48,6 @@ with lib;
     networking.firewall.enable = false;
 
     services.getty.autologinUser = "root";
-    services.fstrim.enable = true;
     services.resolved = {
       llmnr = "false";
       extraConfig = ''
