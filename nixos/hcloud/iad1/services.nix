@@ -1,4 +1,10 @@
-{ pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  utils,
+  ...
+}:
 {
 
   sops.secrets = {
@@ -7,7 +13,16 @@
   };
 
   cloud.services.fn.config = {
-    ExecStart = "${pkgs.deno}/bin/deno run --allow-env --allow-net --allow-read --no-check ${../../../fn}/index.ts";
+    ExecStart = utils.escapeSystemdExecArgs [
+      (lib.getExe pkgs.deno)
+      "run"
+      "--allow-env"
+      "--allow-net"
+      "--allow-read"
+      "--allow-import"
+      "--no-check"
+      "${../../../fn}/index.ts"
+    ];
     MemoryDenyWriteExecute = false;
     Environment = [
       "PORT=8002"
