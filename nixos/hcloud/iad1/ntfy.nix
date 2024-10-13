@@ -2,7 +2,7 @@
 {
 
   services.ntfy-sh = {
-    enable = true;
+    enable = false; # FIXME
     settings = {
       base-url = "https://ntfy.nichi.co";
       listen-http = "";

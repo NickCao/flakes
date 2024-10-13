@@ -141,8 +141,6 @@ in
 
       systemd.network.config.networkConfig = {
         ManageForeignRoutes = false;
-        # https://github.com/systemd/systemd/pull/33853
-        ManageForeignRoutingPolicyRules = false;
       };
 
       systemd.network.netdevs = {

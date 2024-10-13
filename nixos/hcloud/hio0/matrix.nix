@@ -3,6 +3,7 @@
   pkgs,
   lib,
   utils,
+  inputs,
   ...
 }:
 let
@@ -70,6 +71,9 @@ in
         restartUnits = [ config.systemd.services.matrix-synapse.name ];
       };
       matterbridge = { };
+      bouncer = {
+        restartUnits = [ config.systemd.services.bouncer.name ];
+      };
     };
   };
 
@@ -342,6 +346,12 @@ in
         };
       }
     );
+  };
+
+  cloud.services.bouncer.config = {
+    ExecStart = "${inputs.bouncer.packages.${pkgs.system}.default}/bin/bouncer";
+    Environment = [ "LISTEN_ADDRESS=127.0.0.1:${toString config.lib.ports.bouncer}" ];
+    EnvironmentFile = [ config.sops.secrets.bouncer.path ];
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = [

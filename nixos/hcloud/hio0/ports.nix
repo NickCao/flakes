@@ -5,5 +5,6 @@
     mautrix-telegram = 29317;
     meow = 8002;
     keycloak = 8125;
+    bouncer = 8126;
   };
 }
