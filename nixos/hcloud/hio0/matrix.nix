@@ -349,8 +349,11 @@ in
   };
 
   cloud.services.bouncer.config = {
-    ExecStart = "${inputs.bouncer.packages.${pkgs.system}.default}/bin/bouncer";
-    Environment = [ "LISTEN_ADDRESS=127.0.0.1:${toString config.lib.ports.bouncer}" ];
+    ExecStart = utils.escapeSystemdExecArgs [
+      (lib.getExe inputs.bouncer.packages.${pkgs.system}.default)
+      "--listen-address"
+      "127.0.0.1:${toString config.lib.ports.bouncer}"
+    ];
     EnvironmentFile = [ config.sops.secrets.bouncer.path ];
   };
 

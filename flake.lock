@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728837719,
-        "narHash": "sha256-VjTIOkwx0D2z5qoyqr6yS6qsvwJEQGIV7R2I7DcdwhU=",
+        "lastModified": 1728849914,
+        "narHash": "sha256-9kZp5OdktQf9Hl4/QVU2lpJ2dU/XNsB7cgaZlXUBsOE=",
         "owner": "NickCao",
         "repo": "bouncer",
-        "rev": "1ee43c6f8d4fdd5b9d82b2f3b4f406c5fcd8b4fa",
+        "rev": "bddff7603b5233dd58a15a3c0ef246dba6ad7480",
         "type": "github"
       },
       "original": {
