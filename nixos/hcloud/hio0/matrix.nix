@@ -356,6 +356,15 @@ in
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
     {
+      match = [ { host = [ "bouncer.nichi.co" ]; } ];
+      handle = [
+        {
+          handler = "reverse_proxy";
+          upstreams = [ { dial = "127.0.0.1:${toString config.lib.ports.bouncer}"; } ];
+        }
+      ];
+    }
+    {
       match = [ { host = [ "matrix.nichi.co" ]; } ];
       handle = [
         {
