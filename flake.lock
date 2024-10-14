@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728849914,
-        "narHash": "sha256-9kZp5OdktQf9Hl4/QVU2lpJ2dU/XNsB7cgaZlXUBsOE=",
+        "lastModified": 1728872432,
+        "narHash": "sha256-aBbP/YWLH5Fs/ks0qv4CFSYJ7ds43n8qs94FotoSBUc=",
         "owner": "NickCao",
         "repo": "bouncer",
-        "rev": "bddff7603b5233dd58a15a3c0ef246dba6ad7480",
+        "rev": "6f8fd7e80f14dbd5974d5df639e7e0be0e3e915a",
         "type": "github"
       },
       "original": {
@@ -269,11 +269,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1728823516,
-        "narHash": "sha256-Uvb03KuF1B5EMO+mmOt6WcNCcgtvkoSkk0Uli5xhmIE=",
+        "lastModified": 1728862151,
+        "narHash": "sha256-HdjxTLjmYYzwop1YmvthhL+36J2nXnFWHNdJkbYtdXo=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "7b1f1c1db840dfa9c0e225ae3cb858d52fe0f56c",
+        "rev": "b3df8721e2806c95e4d9323b6a8757029ba3058b",
         "type": "github"
       },
       "original": {

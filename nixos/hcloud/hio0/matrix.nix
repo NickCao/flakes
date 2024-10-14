@@ -354,6 +354,7 @@ in
       "--listen-address"
       "127.0.0.1:${toString config.lib.ports.bouncer}"
     ];
+    Environment = [ "RUST_LOG=warn" ];
     EnvironmentFile = [ config.sops.secrets.bouncer.path ];
   };
 
