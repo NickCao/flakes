@@ -282,11 +282,13 @@ in
     alacritty = {
       enable = true;
       settings = {
-        import = [ ./alacritty.toml ];
+        general = {
+          import = [ ./alacritty.toml ];
+        };
         font = {
           size = 15.0;
         };
-        shell = {
+        terminal.shell = {
           program = "${pkgs.tmux}/bin/tmux";
           args = [
             "new-session"

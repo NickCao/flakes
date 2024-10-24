@@ -348,6 +348,7 @@ in
     );
   };
 
+  cloud.services.bouncer.unit.After = [ config.systemd.services.matrix-synapse.name ];
   cloud.services.bouncer.config = {
     ExecStart = utils.escapeSystemdExecArgs [
       (lib.getExe inputs.bouncer.packages.${pkgs.system}.default)
