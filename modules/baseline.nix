@@ -71,6 +71,10 @@ with lib;
 
     environment.stub-ld.enable = false;
 
+    systemd.suppressedSystemUnits = [
+      "systemd-machine-id-commit.service"
+    ];
+
     programs.command-not-found.enable = false;
     documentation.nixos.enable = lib.mkForce false;
   };
