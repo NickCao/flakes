@@ -104,6 +104,7 @@ in
               handler = "tls";
               connection_policies = [
                 {
+                  alpn = [ "imap" ];
                   match = {
                     sni = [ config.networking.fqdn ];
                   };
