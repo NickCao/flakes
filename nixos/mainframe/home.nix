@@ -129,7 +129,7 @@ in
   home.packages = with pkgs; [
     nix-update
     nix-init
-    # compsize
+    compsize
     uhk-agent
     rage
     pinentry-gtk2
@@ -182,6 +182,7 @@ in
   };
 
   services.mako.enable = true;
+  services.mpris-proxy.enable = true;
 
   programs = {
     # pandoc.enable = true;
