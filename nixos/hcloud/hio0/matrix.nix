@@ -30,7 +30,7 @@ in
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_16;
+    package = pkgs.postgresql_17;
     settings = {
       max_connections = 100;
       shared_buffers = "2GB";

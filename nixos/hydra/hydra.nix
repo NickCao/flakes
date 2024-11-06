@@ -34,7 +34,7 @@
   systemd.services.nix-daemon.serviceConfig.Environment = [ "TMPDIR=/var/tmp" ];
 
   services.postgresql = {
-    package = pkgs.postgresql_16;
+    package = pkgs.postgresql_17;
     settings = {
       max_connections = 100;
       shared_buffers = "16GB";
