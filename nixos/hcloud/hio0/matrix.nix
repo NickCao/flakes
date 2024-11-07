@@ -32,6 +32,15 @@ in
     enable = true;
     package = pkgs.postgresql_17;
     settings = {
+      allow_alter_system = false;
+      # https://pgtune.leopard.in.ua
+      # DB Version: 17
+      # OS Type: linux
+      # DB Type: mixed
+      # Total Memory (RAM): 8 GB
+      # CPUs num: 4
+      # Connections num: 100
+      # Data Storage: ssd
       max_connections = 100;
       shared_buffers = "2GB";
       effective_cache_size = "6GB";
@@ -42,6 +51,7 @@ in
       random_page_cost = 1.1;
       effective_io_concurrency = 200;
       work_mem = "5242kB";
+      huge_pages = "off";
       min_wal_size = "1GB";
       max_wal_size = "4GB";
       max_worker_processes = 4;
