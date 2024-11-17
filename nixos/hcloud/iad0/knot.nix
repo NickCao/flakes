@@ -171,12 +171,6 @@ in
           file = pkgs.writeText "db.zip.nixos" (import ../../../zones/parking.nix { inherit (inputs) dns; });
         }
         {
-          domain = "archlinux.icu";
-          file = pkgs.writeText "db.icu.archlinux" (
-            import ../../../zones/parking.nix { inherit (inputs) dns; }
-          );
-        }
-        {
           domain = "systemd.services";
           file = pkgs.writeText "db.services.systemd" (
             import ../../../zones/parking.nix { inherit (inputs) dns; }
