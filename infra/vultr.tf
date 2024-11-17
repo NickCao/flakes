@@ -57,7 +57,7 @@ resource "vultr_startup_script" "script" {
   script = base64encode(<<EOT
   #!ipxe
   set cmdline sshkey="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
-  chain --autofree http://nixos.icu
+  chain --autofree http://nickcao.github.io/netboot/
   EOT
   )
 }
