@@ -265,12 +265,8 @@
       noto-fonts-cjk-serif
       noto-fonts-emoji
       jetbrains-mono
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-          "RobotoMono"
-        ];
-      })
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.roboto-mono
     ];
     fontconfig.defaultFonts = pkgs.lib.mkForce {
       serif = [
