@@ -156,6 +156,8 @@ in
       public_baseurl = "https://matrix.nichi.co";
       signing_key_path = config.sops.secrets.matrix-synapse.path;
 
+      enable_authenticated_media = false;
+
       dynamic_thumbnails = true;
       allow_public_rooms_over_federation = true;
       app_service_config_files = [ "/run/credentials/matrix-synapse.service/telegram" ];
