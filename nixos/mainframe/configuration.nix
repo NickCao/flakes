@@ -159,8 +159,8 @@
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "ia32_emulation=0" ];
+    kernelPackages = pkgs.linuxPackages_testing;
+    kernelParams = [ "ia32_emulation=0" "amdgpu.dcdebugmask=0x10" ];
     kernelModules = [ "kvm-amd" ];
     enableContainers = false;
   };
