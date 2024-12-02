@@ -45,12 +45,15 @@ in
               handle = [
                 {
                   handler = "authentication";
-                  providers.http_basic.accounts = [
-                    {
-                      username = "prometheus";
-                      password = "{env.PROM_PASSWD}";
-                    }
-                  ];
+                  providers.http_basic = {
+                    accounts = [
+                      {
+                        username = "prometheus";
+                        password = "{env.PROM_PASSWD}";
+                      }
+                    ];
+                    hash_cache = { };
+                  };
                 }
                 { handler = "metrics"; }
               ];

@@ -47,12 +47,15 @@
       handle = [
         {
           handler = "authentication";
-          providers.http_basic.accounts = [
-            {
-              username = "rait";
-              password = "{env.RAIT_PASSWD}";
-            }
-          ];
+          providers.http_basic = {
+            accounts = [
+              {
+                username = "rait";
+                password = "{env.RAIT_PASSWD}";
+              }
+            ];
+            hash_cache = { };
+          };
         }
         {
           handler = "reverse_proxy";
