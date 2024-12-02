@@ -590,7 +590,6 @@ in
           charon-systemd {
             journal {
               default = -1
-              ike = 0
             }
           }
         '';
