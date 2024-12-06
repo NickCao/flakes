@@ -1,16 +1,16 @@
 terraform {
   required_providers {
     vultr = {
-      source = "registry.terraform.io/vultr/vultr"
+      source = "vultr/vultr"
     }
     sops = {
-      source = "registry.terraform.io/carlpett/sops"
+      source = "carlpett/sops"
     }
     hydra = {
-      source = "registry.terraform.io/DeterminateSystems/hydra"
+      source = "DeterminateSystems/hydra"
     }
     hcloud = {
-      source = "registry.terraform.io/hetznercloud/hcloud"
+      source = "hetznercloud/hcloud"
     }
   }
   encryption {

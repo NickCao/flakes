@@ -6,7 +6,7 @@
   boot.loader.systemd-boot.enable = true;
 
   boot.loader.efi.efiSysMountPoint =
-    config.disko.devices.disk.vda.content.partions.esp.content.mountpoint;
+    config.disko.devices.disk.vda.content.partitions.esp.content.mountpoint;
 
   disko.devices = {
     disk.vda = {
@@ -33,10 +33,6 @@
               type = "btrfs";
               extraArgs = [ "-f" ];
               subvolumes = {
-                "boot" = {
-                  mountpoint = "/boot";
-                  mountOptions = [ "compress=zstd" ];
-                };
                 "nix" = {
                   mountpoint = "/nix";
                   mountOptions = [ "compress=zstd" ];

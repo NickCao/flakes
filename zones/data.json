@@ -256,7 +256,7 @@
       "ewr0": {
         "fqdn": "ewr0.nichi.link",
         "ipv4": "45.77.102.104",
-        "ipv6": "2001:19f0:1000:7642:5400:04ff:fe96:da39",
+        "ipv6": "2001:19f0:0005:0c76:5400:05ff:fe32:8bd8",
         "prefix": "aeb",
         "remarks": {
           "city": "New Jersey",
@@ -264,7 +264,8 @@
           "country": "US"
         },
         "tags": [
-          "vultr"
+          "vultr",
+          "uefi"
         ]
       },
       "fra0": {

@@ -21,7 +21,7 @@ locals {
     ewr0 = {
       region = "ewr"
       plan   = "vhp-1c-1gb-amd"
-      tags   = ["vultr"]
+      tags   = ["vultr", "uefi"]
       prefix = "aeb"
     }
     lax0 = {

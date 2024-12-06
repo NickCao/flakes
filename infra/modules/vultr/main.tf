@@ -29,7 +29,7 @@ variable "prefix" {
 terraform {
   required_providers {
     vultr = {
-      source = "registry.terraform.io/vultr/vultr"
+      source = "vultr/vultr"
     }
   }
 }

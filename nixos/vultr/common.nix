@@ -16,7 +16,6 @@ in
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     self.nixosModules.default
-    self.nixosModules.cloud.disko
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
   ];
