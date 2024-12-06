@@ -105,7 +105,7 @@ in
       organization = "nickcao";
       commonName = config.networking.hostName;
       port = 13000;
-      interfaces = [ "ens3" ];
+      interfaces = if (hasTag "uefi") then [ "enp1s0" ] else [ "ens3" ];
       endpoints = [
         {
           serialNumber = "0";
