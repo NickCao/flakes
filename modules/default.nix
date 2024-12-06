@@ -15,5 +15,6 @@
   );
   cloud = {
     disko = import ./cloud/disko.nix;
+    disko-uefi = import ./cloud/disko-uefi.nix;
   };
 }
