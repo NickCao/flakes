@@ -514,7 +514,7 @@ in
     })
     (mkIf cfg.ipsec.enable {
       sops.secrets.ipsec.sopsFile = ./secrets.yaml;
-      environment.systemPackages = [ pkgs.strongswan ];
+      environment.systemPackages = [ config.services.strongswan-swanctl.package ];
       environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" {
         organization = cfg.ipsec.organization;
         common_name = cfg.ipsec.commonName;
@@ -570,6 +570,7 @@ in
         };
       services.strongswan-swanctl = {
         enable = true;
+        package = pkgs.strongswan_6;
         strongswan.extraConfig = ''
           charon {
             ikesa_table_size = 32
