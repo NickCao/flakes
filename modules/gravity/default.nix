@@ -275,19 +275,6 @@ in
               };
             }
 
-            protocol kernel kernel4 {
-              ipv4 {
-                export where proto = "announce4";
-                import all;
-              };
-            }
-            protocol kernel kernel6 {
-              ipv6 {
-                export where proto = "announce6";
-                import all;
-              };
-              learn;
-            }
           ''}
           protocol kernel {
             kernel table ${toString cfg.table};
@@ -341,6 +328,20 @@ in
               route 2a0c:b641:69c::/48 via "gravity";
               route 2a0c:b641:690::/44 unreachable;
               route 2602:feda:bc0::/44 unreachable;
+            }
+            protocol kernel kernel4 {
+              ipv4 {
+                export where proto = "announce4";
+                import all;
+              };
+              learn;
+            }
+            protocol kernel kernel6 {
+              ipv6 {
+                export where proto = "announce6";
+                import all;
+              };
+              learn;
             }
             include "${config.sops.secrets.bgp_passwd.path}";
             protocol bgp vultr4 {
