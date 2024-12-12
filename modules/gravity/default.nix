@@ -275,9 +275,15 @@ in
               };
             }
 
-            protocol kernel {
+            protocol kernel kernel4 {
+              ipv4 {
+                export where proto = "announce4";
+                import all;
+              };
+            }
+            protocol kernel kernel6 {
               ipv6 {
-                export where proto = "announce";
+                export where proto = "announce6";
                 import all;
               };
               learn;
@@ -326,17 +332,32 @@ in
           }
 
           ${optionalString cfg.bird.exit.enable ''
-            protocol static announce {
+            protocol static announce4 {
+              ipv4;
+              route 44.32.148.0/24 unreachable;
+            }
+            protocol static announce6 {
               ipv6;
               route 2a0c:b641:69c::/48 via "gravity";
               route 2a0c:b641:690::/44 unreachable;
               route 2602:feda:bc0::/44 unreachable;
             }
             include "${config.sops.secrets.bgp_passwd.path}";
-            protocol bgp vultr {
+            protocol bgp vultr4 {
+              ipv4 {
+                import none;
+                export where proto = "announce4";
+              };
+              local as 209297;
+              graceful restart on;
+              multihop 2;
+              neighbor 169.254.169.254 as 64515;
+              password BGP_PASSWD;
+            }
+            protocol bgp vultr6 {
               ipv6 {
                 import none;
-                export where proto = "announce";
+                export where proto = "announce6";
               };
               local as 209297;
               graceful restart on;
