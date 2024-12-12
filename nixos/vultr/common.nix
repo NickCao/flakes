@@ -94,6 +94,7 @@ in
     };
     divi = {
       enable = true;
+      oif = if (hasTag "uefi") then "enp1s0" else "ens3";
       prefix = "2a0c:b641:69c:${prefix}4:0:4::/96";
     };
     srv6 = {
