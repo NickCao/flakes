@@ -376,6 +376,14 @@ in
         reloadUnits = [ "bird2.service" ];
       };
       services.bird2.checkConfig = false;
+      systemd.network.netdevs.amprnet.netdevConfig = {
+        Kind = "dummy";
+        Name = "amprnet";
+      };
+      systemd.network.networks.amprnet = {
+        name = "amprnet";
+        address = [ "44.32.148.1/32" ];
+      };
     })
     (mkIf cfg.divi.enable {
       systemd.network.networks.nat64 = {
