@@ -229,6 +229,7 @@ in
         after = [ "network-online.target" ];
         wantedBy = [ "multi-user.target" ];
       };
+      environment.systemPackages = [ pkgs.wireguard-tools ];
     })
     (mkIf cfg.bird.enable {
       services.bird2 = {
