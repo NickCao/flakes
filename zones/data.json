@@ -339,7 +339,7 @@
       "lax0": {
         "fqdn": "lax0.nichi.link",
         "ipv4": "144.202.117.213",
-        "ipv6": "2001:19f0:6001:2f1f:5400:04ff:fe83:6ab5",
+        "ipv6": "2001:19f0:6000:35bf:5400:05ff:fe34:bbeb",
         "prefix": "a2a",
         "remarks": {
           "city": "Los Angeles",
@@ -347,7 +347,8 @@
           "country": "US"
         },
         "tags": [
-          "vultr"
+          "vultr",
+          "uefi"
         ]
       },
       "lhr0": {
