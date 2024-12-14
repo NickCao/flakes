@@ -224,11 +224,11 @@
     },
     "impermanence": {
       "locked": {
-        "lastModified": 1731242966,
-        "narHash": "sha256-B3C3JLbGw0FtLSWCjBxU961gLNv+BOOBC6WvstKLYMw=",
+        "lastModified": 1734200366,
+        "narHash": "sha256-0NursoP4BUdnc+wy+Mq3icHkXu/RgP1Sjo0MJxV2+Dw=",
         "owner": "nix-community",
         "repo": "impermanence",
-        "rev": "3ed3f0eaae9fcc0a8331e77e9319c8a4abd8a71a",
+        "rev": "c6323585fa0035d780e3d8906eb1b24b65d19a48",
         "type": "github"
       },
       "original": {
@@ -285,11 +285,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1734097137,
-        "narHash": "sha256-U0Y+2t36ZelwLcmc+FtI+HVU1+amHy6HD/52r5iCuu8=",
+        "lastModified": 1734198161,
+        "narHash": "sha256-dvYGFuNbj0FHEtRleWrAAmJMJSttRMYtWHJBgpjWCoY=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "2ab66a2f7f37394bd2f59863d8409d6fe97acddf",
+        "rev": "af02ec1c1953868e3a9441bd4048cb4424069b47",
         "type": "github"
       },
       "original": {

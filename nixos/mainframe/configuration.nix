@@ -321,10 +321,6 @@
     };
   };
 
-  systemd.suppressedSystemUnits = [
-    "systemd-machine-id-commit.service"
-  ];
-
   hardware.keyboard.uhk.enable = true;
 
   environment.stub-ld.enable = false;
