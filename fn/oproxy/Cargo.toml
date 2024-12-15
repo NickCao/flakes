@@ -1,0 +1,15 @@
+[package]
+name = "oproxy"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.94"
+axum = "0.7.9"
+clap = { version = "4.5.23", features = ["env", "derive"] }
+opendal = { version = "0.50.2", features = ["services-s3"] }
+thiserror = "2.0.7"
+tokio = { version = "1.42.0", features = ["macros", "rt-multi-thread"] }
+tower-http = { version = "0.6.2", features = ["trace"] }
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }

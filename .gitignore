@@ -1,4 +1,5 @@
 result*
+target
 .direnv
 .deploy-gc
 .gcroots
