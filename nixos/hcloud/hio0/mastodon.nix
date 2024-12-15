@@ -37,7 +37,7 @@
       OMNIAUTH_ONLY = "true";
 
       S3_ENABLED = "true";
-      S3_ENDPOINT = "s3.us-east-005.backblazeb2.com";
+      S3_ENDPOINT = "https://s3.us-east-005.backblazeb2.com";
       S3_BUCKET = "nichi-mastodon";
       S3_ALIAS_HOST = "${WEB_DOMAIN}/system";
       S3_RETRY_LIMIT = "5";
