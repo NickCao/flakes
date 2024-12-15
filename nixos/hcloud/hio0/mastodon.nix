@@ -8,7 +8,10 @@
 
   sops.secrets = {
     mastodon = {
-      restartUnits = [ config.systemd.services.mastodon-web.name ];
+      restartUnits = [
+        config.systemd.services.mastodon-web.name
+        config.systemd.services.mastodon-sidekiq-all.name
+      ];
     };
     mastodon-readonly = {
       restartUnits = [ config.systemd.services.oproxy.name ];
@@ -16,6 +19,10 @@
   };
 
   systemd.services.mastodon-web.serviceConfig.EnvironmentFile = [
+    config.sops.secrets.mastodon.path
+  ];
+
+  systemd.services.mastodon-sidekiq-all.serviceConfig.EnvironmentFile = [
     config.sops.secrets.mastodon.path
   ];
 
