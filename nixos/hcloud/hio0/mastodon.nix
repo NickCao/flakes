@@ -18,17 +18,12 @@
     };
   };
 
-  systemd.services.mastodon-web.serviceConfig.EnvironmentFile = [
-    config.sops.secrets.mastodon.path
-  ];
-
-  systemd.services.mastodon-sidekiq-all.serviceConfig.EnvironmentFile = [
-    config.sops.secrets.mastodon.path
-  ];
-
   services.mastodon = {
     enable = true;
     localDomain = "nichi.co";
+    extraEnvFiles = [
+      config.sops.secrets.mastodon.path
+    ];
     mediaAutoRemove = {
       enable = true;
       olderThanDays = 14;
