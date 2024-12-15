@@ -6,11 +6,18 @@
 }:
 {
 
-  sops.secrets.mastodon = {
-    restartUnits = [ "mastodon-web.service" ];
+  sops.secrets = {
+    mastodon = {
+      restartUnits = [ config.systemd.services.mastodon-web.name ];
+    };
+    mastodon-readonly = {
+      restartUnits = [ config.systemd.services.oproxy.name ];
+    };
   };
 
-  systemd.services.mastodon-web.serviceConfig.EnvironmentFile = [ config.sops.secrets.mastodon.path ];
+  systemd.services.mastodon-web.serviceConfig.EnvironmentFile = [
+    config.sops.secrets.mastodon.path
+  ];
 
   services.mastodon = {
     enable = true;
@@ -24,10 +31,17 @@
       createLocally = false;
       fromAddress = "mastodon@nichi.co";
     };
-    extraConfig = {
+    extraConfig = rec {
       WEB_DOMAIN = "mastodon.nichi.co";
 
       OMNIAUTH_ONLY = "true";
+
+      S3_ENABLED = "true";
+      S3_ENDPOINT = "s3.us-east-005.backblazeb2.com";
+      S3_BUCKET = "nichi-mastodon";
+      S3_ALIAS_HOST = "${WEB_DOMAIN}/system";
+      S3_RETRY_LIMIT = "5";
+      S3_PERMISSION = "";
 
       OIDC_ENABLED = "true";
       OIDC_DISPLAY_NAME = "id.nichi.co";
@@ -35,11 +49,26 @@
       OIDC_DISCOVERY = "true";
       OIDC_SCOPE = "openid,profile,email";
       OIDC_UID_FIELD = "preferred_username";
-      OIDC_REDIRECT_URI = "https://${config.services.mastodon.extraConfig.WEB_DOMAIN}/auth/auth/openid_connect/callback";
+      OIDC_REDIRECT_URI = "https://${WEB_DOMAIN}/auth/auth/openid_connect/callback";
       OIDC_SECURITY_ASSUME_EMAIL_IS_VERIFIED = "true";
 
       OIDC_CLIENT_ID = "mastodon";
     };
+  };
+
+  cloud.services.oproxy.config = {
+    ExecStart = lib.escapeShellArgs [
+      "${pkgs.oproxy}/bin/oproxy"
+      "--s3-endpoint"
+      config.services.mastodon.extraConfig.S3_ENDPOINT
+      "--s3-bucket"
+      config.services.mastodon.extraConfig.S3_BUCKET
+      "--listen"
+      "127.0.0.1:${toString config.lib.ports.oproxy}"
+    ];
+    EnvironmentFile = [
+      config.sops.secrets.mastodon-readonly.path
+    ];
   };
 
   systemd.services.caddy.serviceConfig.SupplementaryGroups = [ "mastodon" ];
@@ -59,8 +88,10 @@
                   strip_path_prefix = "/system";
                 }
                 {
-                  handler = "file_server";
-                  root = "/var/lib/mastodon/public-system";
+                  handler = "reverse_proxy";
+                  upstreams = [
+                    { dial = "127.0.0.1:${toString config.lib.ports.oproxy}"; }
+                  ];
                 }
               ];
             }
