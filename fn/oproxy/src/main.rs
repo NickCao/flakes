@@ -1,6 +1,5 @@
 use anyhow::Result;
 use axum::{
-    body::Body,
     extract::{Path, State},
     http::{
         header::{self, InvalidHeaderValue, ToStrError},
@@ -10,8 +9,8 @@ use axum::{
     routing::get,
     Router,
 };
+use axum_extra::body::AsyncReadBody;
 use clap::Parser;
-use opendal::{services::S3, ErrorKind, Operator};
 use std::sync::Arc;
 use tokio::net::TcpListener;
 use tower_http::trace::TraceLayer;
@@ -19,62 +18,64 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
-    #[error("opendal error")]
-    Opendal(#[from] opendal::Error),
-    #[error("header error")]
+    #[error("header error: {0}")]
     Header(#[from] InvalidHeaderValue),
-    #[error("to str error")]
+    #[error("to str error: {0}")]
     ToStr(#[from] ToStrError),
+    #[error("get object error: {0}")]
+    GetObject(
+        #[from] aws_sdk_s3::error::SdkError<aws_sdk_s3::operation::get_object::GetObjectError>,
+    ),
 }
 
 impl IntoResponse for Error {
     fn into_response(self) -> axum::response::Response {
         match self {
-            Self::Opendal(err) => match err.kind() {
-                ErrorKind::NotFound => {
-                    tracing::info!(error = err.to_string());
-                    StatusCode::NOT_FOUND
-                }
-                ErrorKind::ConditionNotMatch => StatusCode::NOT_MODIFIED,
-                _ => {
-                    tracing::error!(error = err.to_string());
+            Self::GetObject(err) => {
+                tracing::error!(error = aws_sdk_s3::error::DisplayErrorContext(&err).to_string());
+                if let Some(raw) = err.raw_response() {
+                    StatusCode::from_u16(raw.status().as_u16())
+                        .unwrap_or(StatusCode::INTERNAL_SERVER_ERROR)
+                } else {
                     StatusCode::INTERNAL_SERVER_ERROR
                 }
             }
-            .into_response(),
             _ => {
                 tracing::error!(error = self.to_string());
                 StatusCode::INTERNAL_SERVER_ERROR
             }
-            .into_response(),
         }
+        .into_response()
     }
 }
 
 async fn serve(
-    State(operator): State<Arc<Operator>>,
+    State(state): State<Arc<AppState>>,
     headers: HeaderMap,
     Path(path): Path<String>,
 ) -> Result<impl IntoResponse, Error> {
-    let metadata = if let Some(etag) = headers.get(header::IF_NONE_MATCH) {
-        operator
-            .stat_with(&path)
+    let object = if let Some(etag) = headers.get(header::IF_NONE_MATCH) {
+        state
+            .client
+            .get_object()
+            .bucket(&state.bucket)
+            .key(&path)
             .if_none_match(etag.to_str()?)
-            .await?
     } else {
-        operator.stat(&path).await?
-    };
+        state.client.get_object().bucket(&state.bucket).key(&path)
+    }
+    .send()
+    .await?;
 
-    let reader = operator.reader(&path).await?;
     let mut headers = HeaderMap::new();
 
     for (k, v) in [
-        (header::CONTENT_TYPE, metadata.content_type()),
+        (header::CONTENT_TYPE, object.content_type()),
         (
             header::CONTENT_LENGTH,
-            Some(&metadata.content_length().to_string()),
+            object.content_length().map(|i| i.to_string()).as_deref(),
         ),
-        (header::ETAG, metadata.etag()),
+        (header::ETAG, object.e_tag()),
         (
             header::CACHE_CONTROL,
             Some("public, max-age=2419200, immutable"),
@@ -89,10 +90,12 @@ async fn serve(
             headers.insert(k, HeaderValue::from_str(v)?);
         }
     }
-    Ok((
-        headers,
-        Body::from_stream(reader.into_bytes_stream(..).await?),
-    ))
+    Ok((headers, AsyncReadBody::new(object.body.into_async_read())))
+}
+
+struct AppState {
+    client: aws_sdk_s3::Client,
+    bucket: String,
 }
 
 #[derive(Parser, Debug)]
@@ -117,18 +120,27 @@ async fn main() -> Result<()> {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    let operator = Operator::new(
-        S3::default()
-            .region(&args.s3_region)
-            .endpoint(&args.s3_endpoint)
-            .bucket(&args.s3_bucket),
-    )?
-    .finish();
+    let client = aws_sdk_s3::Client::from_conf(
+        aws_sdk_s3::config::Builder::from(
+            &aws_config::defaults(aws_config::BehaviorVersion::latest())
+                .endpoint_url(&args.s3_endpoint)
+                .region(aws_config::Region::new(args.s3_region))
+                .credentials_provider(
+                    aws_config::environment::EnvironmentVariableCredentialsProvider::new(),
+                )
+                .load()
+                .await,
+        )
+        .build(),
+    );
 
     let app = Router::new()
         .layer(TraceLayer::new_for_http())
         .route("/*path", get(serve))
-        .with_state(Arc::new(operator));
+        .with_state(Arc::new(AppState {
+            client,
+            bucket: args.s3_bucket,
+        }));
 
     let listener = TcpListener::bind(&args.listen).await?;
 
