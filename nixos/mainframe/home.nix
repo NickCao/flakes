@@ -7,7 +7,7 @@
 let
   cst = "${./chisato.jpg}";
   cst-blurred = pkgs.runCommand "chisato.jpg" { nativeBuildInputs = with pkgs; [ imagemagick ]; } ''
-    convert -blur 14x5 ${cst} $out
+    magick ${cst} -blur 14x5 $out
   '';
   tide = pkgs.fishPlugins.tide.src;
 in
