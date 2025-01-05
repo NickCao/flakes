@@ -136,7 +136,7 @@ async fn main() -> Result<()> {
 
     let app = Router::new()
         .layer(TraceLayer::new_for_http())
-        .route("/*path", get(serve))
+        .route("/{*path}", get(serve))
         .with_state(Arc::new(AppState {
             client,
             bucket: args.s3_bucket,
