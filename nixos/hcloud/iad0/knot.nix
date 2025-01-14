@@ -177,12 +177,6 @@ in
           );
         }
         {
-          domain = "really-save-nix-together.org";
-          file = pkgs.writeText "db.org.really-save-nix-together" (
-            import ../../../zones/parking.nix { inherit (inputs) dns; }
-          );
-        }
-        {
           domain = "gravity";
           file = config.sops.secrets.gravity.path;
           dnssec-signing = false;
