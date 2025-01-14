@@ -159,7 +159,7 @@
         "kernel.sysrq" = 1;
       };
     };
-    kernelPackages = pkgs.linuxPackages_testing;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "ia32_emulation=0"
       "amdgpu.dcdebugmask=0x10"
