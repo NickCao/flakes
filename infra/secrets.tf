@@ -19,3 +19,10 @@ provider "hydra" {
 provider "hcloud" {
   token = local.secrets.hcloud.token
 }
+
+provider "keycloak" {
+  client_id     = "terraform"
+  client_secret = local.secrets.keycloak.token
+  realm         = "nichi"
+  url           = "https://id.nichi.co"
+}

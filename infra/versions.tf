@@ -12,6 +12,9 @@ terraform {
     hcloud = {
       source = "hetznercloud/hcloud"
     }
+    keycloak = {
+      source = "keycloak/keycloak"
+    }
   }
   encryption {
     method "aes_gcm" "default" {

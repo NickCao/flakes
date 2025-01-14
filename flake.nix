@@ -90,6 +90,7 @@
                     sops
                     hydra
                     hcloud
+                    keycloak
                   ]
                 ))
               ];
