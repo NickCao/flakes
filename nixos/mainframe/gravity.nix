@@ -53,12 +53,6 @@
             strategy = "prefer_ipv4";
           }
         ];
-        rules = [
-          {
-            geosite = [ "cn" ];
-            server = "local";
-          }
-        ];
         final = "cloudflare";
       };
       inbounds = [
@@ -85,13 +79,6 @@
         }
       ];
       route = {
-        rules = [
-          {
-            geosite = [ "cn" ];
-            geoip = [ "cn" ];
-            outbound = "direct";
-          }
-        ];
         final = "gravity";
       };
     };
