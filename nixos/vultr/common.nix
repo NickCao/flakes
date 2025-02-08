@@ -79,7 +79,6 @@ in
     self.overlays.default
     (_final: prev: {
       ranet = inputs.ranet.packages.${pkgs.system}.default;
-      bird = prev.bird-babel-rtt;
     })
   ];
 

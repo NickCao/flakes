@@ -21,7 +21,6 @@ nixpkgs.lib.nixosSystem {
         self.overlays.default
         (_final: prev: {
           ranet = inputs.ranet.packages.${system}.default;
-          bird = prev.bird-babel-rtt;
         })
       ];
       nix.settings.nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];

@@ -231,8 +231,9 @@ in
       environment.systemPackages = [ pkgs.wireguard-tools ];
     })
     (mkIf cfg.bird.enable {
-      services.bird2 = {
+      services.bird = {
         enable = true;
+        package = pkgs.bird-babel-rtt;
         config = ''
           ipv6 sadr table sadr6;
           protocol device {
@@ -372,10 +373,10 @@ in
     (mkIf cfg.bird.exit.enable {
       sops.secrets.bgp_passwd = {
         sopsFile = ./secrets.yaml;
-        owner = config.systemd.services.bird2.serviceConfig.User;
-        reloadUnits = [ "bird2.service" ];
+        owner = config.systemd.services.bird.serviceConfig.User;
+        reloadUnits = [ config.systemd.services.bird.name ];
       };
-      services.bird2.checkConfig = false;
+      services.bird.checkConfig = false;
       systemd.network.netdevs.amprnet.netdevConfig = {
         Kind = "dummy";
         Name = "amprnet";

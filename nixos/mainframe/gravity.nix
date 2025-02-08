@@ -31,8 +31,8 @@
 
   systemd.services.gravity.enable = false;
 
-  systemd.services.bird2.after = [ "network-online.target" ];
-  systemd.services.bird2.wants = [ "network-online.target" ];
+  systemd.services.bird.after = [ "network-online.target" ];
+  systemd.services.bird.wants = [ "network-online.target" ];
 
   services.sing-box = {
     enable = true;
