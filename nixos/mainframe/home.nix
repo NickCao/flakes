@@ -211,11 +211,13 @@ in
       enable = true;
       userEmail = "nickcao@nichi.co";
       userName = "Nick Cao";
-      signing.key = "~/.ssh/id_ed25519";
+      signing = {
+        format = "ssh";
+        key = "~/.ssh/id_ed25519";
+      };
       extraConfig = {
         commit.gpgSign = true;
         gpg = {
-          format = "ssh";
           ssh.allowedSignersFile = toString (pkgs.writeText "allowed_signers" '''');
         };
         merge.conflictStyle = "diff3";
