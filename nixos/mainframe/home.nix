@@ -133,8 +133,6 @@ in
     uhk-agent
     rage
     pinentry-gtk2
-    texlab
-    tectonic
     systemd-run-app
     picocom
     mpv

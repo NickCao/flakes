@@ -15,7 +15,7 @@ vim.g.everforest_background = 'soft'
 vim.cmd.colorscheme('everforest')
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local servers = { 'gopls', 'rust_analyzer', 'nil_ls', 'clangd', 'texlab', 'ruff' }
+local servers = { 'gopls', 'rust_analyzer', 'nil_ls', 'clangd', 'ruff' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     capabilities = capabilities,
@@ -25,24 +25,6 @@ for _, lsp in pairs(servers) do
           command = { 'nixfmt' }
         }
       },
-      texlab = {
-        build = {
-          executable = 'tectonic',
-          args = { '-X', 'compile', '%f', '--synctex', '--keep-logs', '--keep-intermediates' },
-          forwardSearchAfter = true
-        },
-        forwardSearch = {
-          executable = 'sioyek',
-          args = {
-            '--reuse-instance',
-            '--forward-search-file',
-            '%f',
-            '--forward-search-line',
-            '%l',
-            '%p'
-          }
-        }
-      }
     }
   }
 end
