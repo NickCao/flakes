@@ -244,7 +244,7 @@ in
     };
   };
 
-  systemd.services.mautrix-telegram.serviceConfig.RuntimeMaxSec = 86400;
+  systemd.services.mautrix-telegram.serviceConfig.RuntimeMaxSec = 3600;
 
   services.mautrix-telegram = {
     enable = true;

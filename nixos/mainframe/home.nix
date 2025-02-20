@@ -88,7 +88,7 @@ in
       };
       DNSOverHTTPS = {
         Enabled = true;
-        ProviderURL = "https://dns.google/dns-query";
+        ProviderURL = "https://1.1.1.1/dns-query";
         Locked = true;
         Fallback = false;
       };
