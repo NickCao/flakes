@@ -25,7 +25,7 @@ in
 
     cloud.caddy.settings = {
       admin = {
-        listen = "unix//tmp/caddy.sock";
+        listen = "unix//run/caddy/caddy.sock";
         config.persist = false;
       };
       apps = {
@@ -72,7 +72,8 @@ in
         ExecStart = "${pkgs.caddy-nickcao}/bin/caddy run --config /etc/caddy/config.json";
         ExecReload = "${pkgs.caddy-nickcao}/bin/caddy reload --force --config /etc/caddy/config.json";
         DynamicUser = true;
-        StateDirectory = "caddy";
+        StateDirectory = [ "caddy" ];
+        RuntimeDirectory = [ "caddy" ];
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         Environment = [ "XDG_DATA_HOME=%S" ];
       };
