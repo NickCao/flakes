@@ -1,6 +1,6 @@
 flake  = ../..
 name   = invalid
-host   = root@invalid.nichi.link
+host   = root@${name}.nichi.link
 keyref = key
 
 
