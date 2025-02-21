@@ -25,9 +25,10 @@ in
       CREATE_ADMIN = 0;
       DISABLE_LOCAL_AUTH = 1;
       OAUTH2_PROVIDER = "oidc";
+      OAUTH2_OIDC_PROVIDER_NAME = "id.nichi.co";
+      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://id.nichi.co/realms/nichi";
       OAUTH2_CLIENT_ID = "miniflux";
       OAUTH2_REDIRECT_URL = "${baseURL}/oauth2/oidc/callback";
-      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://id.nichi.co/realms/nichi";
       OAUTH2_USER_CREATION = 1;
       POLLING_FREQUENCY = 30;
       SCHEDULER_ROUND_ROBIN_MIN_INTERVAL = 30;
