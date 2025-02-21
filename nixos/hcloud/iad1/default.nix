@@ -10,5 +10,4 @@
 
   sops.defaultSopsFile = ./secrets.yaml;
 
-  networking.hostName = "iad1";
 }

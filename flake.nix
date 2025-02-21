@@ -155,7 +155,10 @@
                   ]
                 )
               else if (builtins.elem "hetzner" value.tags) then
-                [ ./nixos/hcloud/${name} ]
+                [
+                  ./nixos/hcloud/${name}
+                  { networking.hostName = name; }
+                ]
               else
                 [ ./nixos/${name} ];
           }

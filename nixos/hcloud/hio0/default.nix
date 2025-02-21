@@ -15,6 +15,4 @@
 
   sops.defaultSopsFile = ./secrets.yaml;
 
-  networking.hostName = "hio0";
-
 }
