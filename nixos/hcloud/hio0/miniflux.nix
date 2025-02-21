@@ -23,6 +23,7 @@ in
     config = {
       BASE_URL = baseURL;
       CREATE_ADMIN = 0;
+      DISABLE_LOCAL_AUTH = 1;
       OAUTH2_PROVIDER = "oidc";
       OAUTH2_CLIENT_ID = "miniflux";
       OAUTH2_REDIRECT_URL = "${baseURL}/oauth2/oidc/callback";
