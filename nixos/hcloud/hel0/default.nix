@@ -8,4 +8,6 @@
 
   sops.defaultSopsFile = ./secrets.yaml;
 
+  system.stateVersion = "24.11";
+
 }
