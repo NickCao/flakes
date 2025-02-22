@@ -35,3 +35,11 @@ resource "keycloak_openid_client" "synapse" {
   web_origins            = ["https://matrix.nichi.co"]
   backchannel_logout_url = "https://matrix.nichi.co/_synapse/client/oidc/backchannel_logout"
 }
+
+resource "keycloak_realm_events" "events" {
+  realm_id                     = keycloak_realm.nichi.id
+  admin_events_enabled         = true
+  admin_events_details_enabled = true
+  events_enabled               = true
+  events_listeners             = ["jboss-logging"]
+}
