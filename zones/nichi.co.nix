@@ -19,12 +19,18 @@ dns.lib.toString "nichi.co" {
   TXT = [ (with spf; soft [ "mx" ]) ];
   HTTPS = [
     {
+      svcPriority = 1;
+      targetName = ".";
       alpn = [
         "h3"
         "h2"
       ];
       ipv4hint = [ hio0.ipv4 ];
       ipv6hint = [ hio0.ipv6 ];
+    }
+    {
+      svcPriority = 2;
+      targetName = "hio0.nichi.link.";
     }
   ];
   subdomains = {

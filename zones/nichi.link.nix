@@ -23,6 +23,8 @@ dns.lib.toString "nichi.link" {
         AAAA = [ value.ipv6 ];
         HTTPS = [
           {
+            svcPriority = 1;
+            targetName = ".";
             alpn = [
               "h3"
               "h2"

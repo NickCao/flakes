@@ -160,20 +160,31 @@ in
           domain = "scp.link";
           file = pkgs.writeText "db.link.scp" (import ../../../zones/scp.link.nix { inherit (inputs) dns; });
         }
-        {
+        rec {
           domain = "wikipedia.zip";
           file = pkgs.writeText "db.zip.wikipedia" (
-            import ../../../zones/parking.nix { inherit (inputs) dns; }
+            import ../../../zones/parking.nix {
+              inherit (inputs) dns;
+              inherit domain;
+            }
           );
         }
-        {
+        rec {
           domain = "nixos.zip";
-          file = pkgs.writeText "db.zip.nixos" (import ../../../zones/parking.nix { inherit (inputs) dns; });
+          file = pkgs.writeText "db.zip.nixos" (
+            import ../../../zones/parking.nix {
+              inherit (inputs) dns;
+              inherit domain;
+            }
+          );
         }
-        {
+        rec {
           domain = "systemd.services";
           file = pkgs.writeText "db.services.systemd" (
-            import ../../../zones/parking.nix { inherit (inputs) dns; }
+            import ../../../zones/parking.nix {
+              inherit (inputs) dns;
+              inherit domain;
+            }
           );
         }
         {
