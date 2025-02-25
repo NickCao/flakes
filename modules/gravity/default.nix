@@ -495,7 +495,7 @@ in
           set -euo pipefail
           for filename in registry.json combined.json
           do
-            curl --fail --retry 3 --retry-connrefused \
+            curl --fail --retry 5 --retry-delay 30 --retry-connrefused \
               -H @${config.sops.secrets.gravity_registry.path} \
               https://raw.githubusercontent.com/tuna/gravity/artifacts/artifacts/$filename --output /var/lib/gravity/$filename.new
             mv /var/lib/gravity/$filename.new /var/lib/gravity/$filename
