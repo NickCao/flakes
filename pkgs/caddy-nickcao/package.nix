@@ -1,6 +1,6 @@
-{ buildGo123Module, fetchFromGitHub }:
+{ buildGo124Module, fetchFromGitHub }:
 
-buildGo123Module rec {
+buildGo124Module rec {
   pname = "caddy";
   version = "0-unstable-2025-01-28";
 
