@@ -24,5 +24,9 @@ terraform {
       method   = method.aes_gcm.default
       enforced = true
     }
+    plan {
+      method   = method.aes_gcm.default
+      enforced = true
+    }
   }
 }
