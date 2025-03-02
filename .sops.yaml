@@ -1,11 +1,16 @@
 keys:
   age:
     - &self age14ccywqqxr7v2efqnmwrqfre4yr7xeeh5w292xpc64zp86y5sydeshkx3zr
-    - &other age1zxpft3utrvutt7ycfxanx8xp0gjc8mjcygv94wqw2e4w7kj29acsjx3pye
+    - &mainframe age1y0kxvry996jt4xp60ncm0pgh3av4sflwesxsydscmll304murcusta2ng8
+    - &vultr age1ku44q4wyj0duu9lrzw27r932udawa3d3566t4806mnh0rdukm4aq76wptw
+    - &hydra age1e05md5fpwdptz8fwewk7jm0c0lmp4knqhq5v5z9hdlgex5l8ecmqaugw05
     - &iad0 age1x3twmsspal4s587j6fmch0qdrqnmg5cx80mvschm56dxdzel4ptqxnqj8v
     - &iad1 age1cq06gc0fr4ythzzn7z48hpqzus88grjfgmmg8zv608lwynj8pdws7unte0
     - &hel0 age1e72h2rk9zfk4l8kwmrh7rxm6j33wc86waf6ggaseyfjsa2hm4duq4hh4ez
     - &hio0 age1g4y4h0p6rzqp7qw5ll95kcgt0zfx8u047td6p7mm48ukn3ggu4eqq7pd0g
+    - &nrt0 age1cj7nr3vxqcvyzay7sfzjv8qtpjplw2fwxes4dczy55yw87xavphsrksrz3
+    - &sin0 age109hdqsfvm05lme2wpl640zza8lsdztqcu0al2x0zsy09w8c7pylq4leyrw
+    - &sea0 age1gfqt4tz9x6y5nr0v4lgzzll7mh0yptlm2c6nv9hnps7cmu3my9qsfyrdm3
 creation_rules:
   - path_regex: infra/.*
     key_groups:
@@ -16,12 +21,14 @@ creation_rules:
       - age:
           - *self
           - *iad0
-          - *other
+          - *nrt0
+          - *sin0
+          - *sea0
   - path_regex: nixos/mainframe/.*
     key_groups:
       - age:
           - *self
-          - *other
+          - *mainframe
   - path_regex: nixos/hcloud/iad0/.*
     key_groups:
       - age:
@@ -50,16 +57,16 @@ creation_rules:
           - *iad1
           - *hio0
           - *hel0
-          - *other
+          - *mainframe
   - path_regex: modules/gravity/.*
     key_groups:
       - age:
           - *self
-          - *iad0
-          - *iad1
-          - *hio0
-          - *hel0
-          - *other
+          - *mainframe
+          - *vultr
+          - *nrt0
+          - *sin0
+          - *sea0
   - path_regex: modules/metrics/.*
     key_groups:
       - age:
@@ -68,22 +75,26 @@ creation_rules:
           - *iad1
           - *hio0
           - *hel0
-          - *other
+          - *hydra
+          - *vultr
+          - *nrt0
+          - *sin0
+          - *sea0
   - path_regex: nixos/hydra/.*
     key_groups:
       - age:
           - *self
-          - *other
+          - *hydra
   - path_regex: nixos/vultr/nrt0/.*
     key_groups:
       - age:
           - *self
-          - *other
+          - *nrt0
   - path_regex: nixos/vultr/sin0/.*
     key_groups:
       - age:
           - *self
-          - *other
+          - *sin0
   - key_groups:
       - age:
           - *self
