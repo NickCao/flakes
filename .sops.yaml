@@ -1,6 +1,6 @@
 keys:
   age:
-    - &local age14ccywqqxr7v2efqnmwrqfre4yr7xeeh5w292xpc64zp86y5sydeshkx3zr
+    - &self age14ccywqqxr7v2efqnmwrqfre4yr7xeeh5w292xpc64zp86y5sydeshkx3zr
     - &other age1zxpft3utrvutt7ycfxanx8xp0gjc8mjcygv94wqw2e4w7kj29acsjx3pye
     - &iad0 age1x3twmsspal4s587j6fmch0qdrqnmg5cx80mvschm56dxdzel4ptqxnqj8v
     - &iad1 age1cq06gc0fr4ythzzn7z48hpqzus88grjfgmmg8zv608lwynj8pdws7unte0
@@ -10,42 +10,42 @@ creation_rules:
   - path_regex: infra/.*
     key_groups:
       - age:
-          - *local
+          - *self
   - path_regex: zones/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *iad0
           - *other
   - path_regex: nixos/mainframe/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *other
   - path_regex: nixos/hcloud/iad0/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *iad0
   - path_regex: nixos/hcloud/iad1/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *iad1
   - path_regex: nixos/hcloud/hel0/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *hel0
   - path_regex: nixos/hcloud/hio0/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *hio0
   - path_regex: modules/backup/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *iad0
           - *iad1
           - *hio0
@@ -54,7 +54,7 @@ creation_rules:
   - path_regex: modules/gravity/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *iad0
           - *iad1
           - *hio0
@@ -63,7 +63,7 @@ creation_rules:
   - path_regex: modules/metrics/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *iad0
           - *iad1
           - *hio0
@@ -72,18 +72,18 @@ creation_rules:
   - path_regex: nixos/hydra/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *other
   - path_regex: nixos/vultr/nrt0/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *other
   - path_regex: nixos/vultr/sin0/.*
     key_groups:
       - age:
-          - *local
+          - *self
           - *other
   - key_groups:
       - age:
-          - *local
+          - *self
