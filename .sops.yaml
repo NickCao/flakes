@@ -3,16 +3,23 @@ keys:
     - &local age14ccywqqxr7v2efqnmwrqfre4yr7xeeh5w292xpc64zp86y5sydeshkx3zr
     - &hcloud age1ap484mksxcg5zz70yw7wjqg0l3pt5ak40eund4wc7csygdgycfrst3eqcw
     - &other age1zxpft3utrvutt7ycfxanx8xp0gjc8mjcygv94wqw2e4w7kj29acsjx3pye
+    - &hel0 age1e72h2rk9zfk4l8kwmrh7rxm6j33wc86waf6ggaseyfjsa2hm4duq4hh4ez
 creation_rules:
   - path_regex: infra/.*
     key_groups:
       - age:
           - *local
+  - path_regex: nixos/hcloud/hel0/.*
+    key_groups:
+      - age:
+          - *local
+          - *hel0
   - path_regex: nixos/hcloud/.*
     key_groups:
       - age:
           - *local
           - *hcloud
+          - *hel0
   - path_regex: nixos/.*
     key_groups:
       - age:
@@ -22,4 +29,5 @@ creation_rules:
       - age:
           - *local
           - *hcloud
+          - *hel0
           - *other
