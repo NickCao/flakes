@@ -12,7 +12,6 @@ in
     enable = true;
     config = {
       SIGNUPS_ALLOWED = false;
-      SENDS_ALLOWED = false;
       EMERGENCY_ACCESS_ALLOWED = false;
       ORG_CREATION_USERS = "none";
       DOMAIN = "https://vault.nichi.co";
