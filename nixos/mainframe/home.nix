@@ -245,6 +245,7 @@ in
           fish_vi_key_bindings
           bind f accept-autosuggestion
         end
+        set fish_cursor_insert block
 
         string replace -r '^' 'set -g ' < ${tide}/functions/tide/configure/icons.fish | source
         string replace -r '^' 'set -g ' < ${tide}/functions/tide/configure/configs/lean.fish | source
