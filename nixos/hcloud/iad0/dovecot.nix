@@ -8,10 +8,13 @@ in
     owner = cfg.user;
     reloadUnits = [ "dovecot2.service" ];
   };
+
   systemd.tmpfiles.rules = [ "d ${maildir} 0700 ${cfg.mailUser} ${cfg.mailGroup} -" ];
+
+  environment.systemPackages = [ pkgs.dovecot_pigeonhole ];
+
   services.dovecot2 = {
     enable = true;
-    modules = [ pkgs.dovecot_pigeonhole ];
     mailUser = "dovemail";
     mailGroup = "dovemail";
     sieve.extensions = [ "fileinto" ];

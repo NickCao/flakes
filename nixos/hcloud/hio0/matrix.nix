@@ -140,6 +140,10 @@ in
     LoadCredential = [
       "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
     ];
+    Environment = [
+      "AWS_REQUEST_CHECKSUM_CALCULATION=when_required"
+      "AWS_RESPONSE_CHECKSUM_VALIDATION=when_required"
+    ];
     EnvironmentFile = [
       config.sops.secrets.matrix-synapse-s3.path
     ];
