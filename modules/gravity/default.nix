@@ -447,7 +447,7 @@ in
         enable = true;
         tables = {
           filter4 = {
-            name = "filter";
+            name = "gravity-filter";
             family = "inet";
             content = ''
               chain forward {
@@ -457,7 +457,7 @@ in
             '';
           };
           filter6 = {
-            name = "filter";
+            name = "gravity-filter";
             family = "ip6";
             content = ''
               chain postrouting {
@@ -471,6 +471,7 @@ in
             '';
           };
           nat = {
+            name = "gravity-nat";
             family = "ip";
             content = ''
               chain postrouting {
