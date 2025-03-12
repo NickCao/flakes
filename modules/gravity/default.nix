@@ -60,9 +60,9 @@ in
     bird = {
       enable = mkEnableOption "bird integration";
       exit.enable = mkEnableOption "exit node";
-      prefix = mkOption {
-        type = types.str;
-        description = "prefix to be announced for local node";
+      routes = mkOption {
+        type = types.listOf types.str;
+        description = "routes to be announced for local node";
       };
       pattern = mkOption {
         type = types.str;
@@ -285,7 +285,9 @@ in
           }
           protocol static {
             ipv6 sadr;
-            route ${cfg.bird.prefix} from ::/0 unreachable;
+            ${lib.concatMapStrings (route: ''
+              ${route};
+            '') cfg.bird.routes}
             ${optionalString cfg.bird.exit.enable ''
               route 2a0c:b641:69c::/48 from ::/0 unreachable;
               route ::/0 from 2a0c:b641:69c::/48 via "stateles";

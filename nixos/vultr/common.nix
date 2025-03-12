@@ -89,7 +89,9 @@ in
     bird = {
       enable = true;
       exit.enable = true;
-      prefix = "2a0c:b641:69c:${prefix}0::/60";
+      routes = [
+        "route 2a0c:b641:69c:${prefix}0::/60 from ::/0 unreachable"
+      ];
     };
     divi = {
       enable = true;
