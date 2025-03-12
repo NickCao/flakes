@@ -18,6 +18,7 @@ in
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
+    ./tailscale.nix
   ];
 
   sops = {
