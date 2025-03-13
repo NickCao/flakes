@@ -16,7 +16,6 @@
       server_url = "https://headscale.nichi.co";
       ephemeral_node_inactivity_timeout = "120s";
       prefixes = {
-        v6 = "2a0c:b641:69c:7a10::/60";
         allocation = "random";
       };
       dns.magic_dns = false;

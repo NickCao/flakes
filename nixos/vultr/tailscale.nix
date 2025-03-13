@@ -9,10 +9,6 @@
     ];
   };
 
-  services.gravity.bird.routes = [
-    ''route 2a0c:b641:69c:7a10::/60 from ::/0 via "tailscale0"''
-  ];
-
   systemd.services.tailscaled.environment.TS_DEBUG_FIREWALL_MODE = "nftables";
 
   services.tailscale = {
@@ -26,6 +22,7 @@
       "--advertise-tags=tag:exit-node"
       "--advertise-exit-node"
       "--snat-subnet-routes=false"
+      "--stateful-filtering=false"
       "--accept-dns=false"
     ];
   };
