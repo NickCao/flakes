@@ -56,6 +56,5 @@ dns.lib.toString "nichi.co" {
     matrix.CNAME = [ "hio0.nichi.link." ];
     bouncer.CNAME = [ "hio0.nichi.link." ];
     mastodon.CNAME = [ "hio0.nichi.link." ];
-    headscale.CNAME = [ "nrt0.nichi.link." ];
   };
 }
