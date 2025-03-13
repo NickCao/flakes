@@ -448,37 +448,20 @@ in
       networking.nftables = {
         enable = true;
         tables = {
-          filter4 = {
-            name = "gravity-filter";
+          gravity = {
             family = "inet";
             content = ''
+              define divi_allow = { ${lib.concatStringsSep ", " cfg.divi.allow} }
+
               chain forward {
-                type filter hook forward priority 0;
+                type filter hook forward priority filter; policy accept;
+                ip6 daddr ${cfg.divi.prefix} ip6 saddr != $divi_allow reject with icmpv6 admin-prohibited
                 tcp flags syn tcp option maxseg size set 1200
               }
-            '';
-          };
-          filter6 = {
-            name = "gravity-filter";
-            family = "ip6";
-            content = ''
+
               chain postrouting {
-                type nat hook postrouting priority 100;
-                iifname "stateful" oifname "${cfg.divi.oif}" masquerade
-              }
-              chain forward {
-                type filter hook forward priority 0;
-                oifname "divi" ip6 saddr != { ${lib.concatStringsSep ", " cfg.divi.allow} } reject
-              }
-            '';
-          };
-          nat = {
-            name = "gravity-nat";
-            family = "ip";
-            content = ''
-              chain postrouting {
-                type nat hook postrouting priority 100;
-                oifname "${cfg.divi.oif}" masquerade
+                type nat hook postrouting priority srcnat; policy accept;
+                iifname { "stateful", "divi", "nat64" } oifname "${cfg.divi.oif}" masquerade
               }
             '';
           };
