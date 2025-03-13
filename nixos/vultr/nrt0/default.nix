@@ -18,7 +18,16 @@
       prefixes = {
         allocation = "random";
       };
-      dns.magic_dns = false;
+      dns = {
+        magic_dns = true;
+        base_domain = "ts.nichi.link";
+        nameservers = {
+          global = [
+            "1.1.1.1"
+            "1.0.0.1"
+          ];
+        };
+      };
       policy = {
         mode = "file";
         path = (pkgs.formats.json { }).generate "policy.json" {
