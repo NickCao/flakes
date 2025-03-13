@@ -27,4 +27,17 @@
     ];
   };
 
+  networking.nftables = {
+    enable = true;
+    tables.tailscale = {
+      family = "inet";
+      content = ''
+        chain postrouting {
+          type nat hook postrouting priority srcnat; policy accept;
+          iifname "tailscale0" masquerade
+        }
+      '';
+    };
+  };
+
 }
