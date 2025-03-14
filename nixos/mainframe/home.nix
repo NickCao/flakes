@@ -114,6 +114,7 @@ in
   };
   programs.thunderbird = {
     enable = true;
+    package = pkgs.thunderbird-latest;
     profiles.default = {
       isDefault = true;
     };
