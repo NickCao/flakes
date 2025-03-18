@@ -137,9 +137,6 @@ in
   };
 
   systemd.services.matrix-synapse.serviceConfig = {
-    LoadCredential = [
-      "telegram:/var/lib/mautrix-telegram/telegram-registration.yaml"
-    ];
     Environment = [
       "AWS_REQUEST_CHECKSUM_CALCULATION=when_required"
       "AWS_RESPONSE_CHECKSUM_VALIDATION=when_required"
@@ -164,7 +161,6 @@ in
 
       dynamic_thumbnails = true;
       allow_public_rooms_over_federation = true;
-      app_service_config_files = [ "/run/credentials/matrix-synapse.service/telegram" ];
 
       enable_registration = true;
       registration_requires_token = true;
