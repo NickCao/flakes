@@ -362,6 +362,17 @@ in
     );
   };
 
+  cloud.services.bouncer-anubis.config = {
+    ExecStart = utils.escapeSystemdExecArgs [
+      (lib.getExe pkgs.anubis)
+      "-bind=127.0.0.1:${toString config.lib.ports.bouncer-anubis}"
+      "-metrics-bind=127.0.0.1:${toString config.lib.ports.bouncer-anubis-metrics}"
+      "-target=http://127.0.0.1:${toString config.lib.ports.bouncer}"
+      "-serve-robots-txt"
+      "-difficulty=4"
+    ];
+  };
+
   cloud.services.bouncer.unit.After = [ config.systemd.services.matrix-synapse.name ];
   cloud.services.bouncer.config = {
     ExecStart = utils.escapeSystemdExecArgs [
@@ -379,7 +390,7 @@ in
       handle = [
         {
           handler = "reverse_proxy";
-          upstreams = [ { dial = "127.0.0.1:${toString config.lib.ports.bouncer}"; } ];
+          upstreams = [ { dial = "127.0.0.1:${toString config.lib.ports.bouncer-anubis}"; } ];
         }
       ];
     }

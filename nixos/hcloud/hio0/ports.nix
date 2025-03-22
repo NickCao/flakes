@@ -7,5 +7,7 @@
     oproxy = 8003;
     keycloak = 8125;
     bouncer = 8126;
+    bouncer-anubis = 8127;
+    bouncer-anubis-metrics = 8128;
   };
 }
