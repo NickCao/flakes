@@ -277,6 +277,7 @@ in
         set -g mouse on
         set -g status-right ""
         set -g renumber-windows on
+        set -g focus-event on
         set -ga terminal-overrides ",alacritty:Tc"
         new-session -s main
       '';
