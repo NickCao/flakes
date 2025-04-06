@@ -25,7 +25,7 @@
         "https://gitlab.com"
         "github:"
       ];
-      max-jobs = 8;
+      max-jobs = 32;
       cores = 64 / max-jobs;
     };
     channel.enable = lib.mkForce true;
