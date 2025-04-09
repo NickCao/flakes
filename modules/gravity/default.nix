@@ -355,6 +355,7 @@ in
               graceful restart on;
               multihop 2;
               neighbor 169.254.169.254 as 64515;
+              authentication md5;
               password BGP_PASSWD;
             }
             protocol bgp vultr6 {
@@ -366,6 +367,7 @@ in
               graceful restart on;
               multihop 2;
               neighbor 2001:19f0:ffff::1 as 64515;
+              authentication md5;
               password BGP_PASSWD;
             }
           ''}
