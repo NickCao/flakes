@@ -17,7 +17,8 @@ vim.cmd.colorscheme('everforest')
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local servers = { 'gopls', 'rust_analyzer', 'nil_ls', 'clangd', 'ruff' }
 for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
+  vim.lsp.enable(lsp)
+  vim.lsp.config(lsp, {
     capabilities = capabilities,
     settings = {
       ['nil'] = {
@@ -26,7 +27,7 @@ for _, lsp in pairs(servers) do
         }
       },
     }
-  }
+  })
 end
 
 -- Global mappings.
