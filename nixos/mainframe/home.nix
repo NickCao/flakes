@@ -163,6 +163,7 @@ in
     kubectl
     kind
     niri
+    bluetuith
   ];
 
   systemd.user.sessionVariables = {
