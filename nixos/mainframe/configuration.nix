@@ -19,7 +19,6 @@
       u2f = {
         mode = "0444";
       };
-      "wireless/home" = { };
       "wireless/eduroam" = { };
       "wireless/redhat" = { };
     };
@@ -32,7 +31,6 @@
 
   systemd.tmpfiles.settings = {
     "10-iwd" = {
-      "/var/lib/iwd/14MTHD.psk".C.argument = config.sops.secrets."wireless/home".path;
       "/var/lib/iwd/eduroam.8021x".C.argument = config.sops.secrets."wireless/eduroam".path;
       "/var/lib/iwd/Red Hat Wi-Fi.psk".C.argument = config.sops.secrets."wireless/redhat".path;
     };
