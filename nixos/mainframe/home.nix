@@ -164,6 +164,7 @@ in
     kind
     niri
     bluetuith
+    nautilus
   ];
 
   systemd.user.sessionVariables = {
