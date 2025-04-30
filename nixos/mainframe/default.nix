@@ -10,6 +10,7 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./gravity.nix
     ./hardware.nix
+    ./summit.nix
     self.nixosModules.default
     inputs.disko.nixosModules.disko
     inputs.impermanence.nixosModules.impermanence
