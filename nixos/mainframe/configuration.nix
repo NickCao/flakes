@@ -218,6 +218,10 @@
       pkgs.yubikey-personalization
       pkgs.libu2f-host
     ];
+    udev.extraRules = ''
+      # AIOC
+      SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="7388", MODE="0666"
+    '';
     fprintd.enable = true;
     power-profiles-daemon.enable = true;
   };
