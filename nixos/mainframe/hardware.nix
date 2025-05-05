@@ -34,7 +34,6 @@
                   crypttabExtraOpts = [
                     "same-cpu-crypt"
                     "submit-from-crypt-cpus"
-                    "fido2-device=auto"
                   ];
                 };
                 content = {
