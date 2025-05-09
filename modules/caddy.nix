@@ -29,7 +29,13 @@ in
         config.persist = false;
       };
       apps = {
-        tls.automation.policies = [ { key_type = "p256"; } ];
+        tls.automation.policies = lib.singleton {
+          key_type = "p256";
+          issuers = lib.singleton {
+            module = "acme";
+            profile = "tlsserver";
+          };
+        };
         http.grace_period = "1s";
         http.servers.default = {
           listen = [ ":443" ];
