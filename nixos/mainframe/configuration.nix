@@ -159,6 +159,15 @@
       };
     };
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelPatches = [
+      {
+        patch = pkgs.fetchpatch {
+          # https://gitlab.freedesktop.org/mesa/mesa/-/issues/12528#note_2898776
+          url = "https://gitlab.freedesktop.org/-/project/176/uploads/1e92f4d6f48df55732cde66a94db1d85/0001-turn-off-doorbell-for-vcn-ring-use.patch";
+          hash = "sha256-CSDu90At9rSPGw2p/7u9OSCLbB0jzgMypAOIlUCT1YI=";
+        };
+      }
+    ];
     kernelParams = [
       "ia32_emulation=0"
       "amdgpu.dcdebugmask=0x10"
