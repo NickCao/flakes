@@ -30,6 +30,7 @@ in
       };
       apps = {
         tls.automation.policies = lib.singleton {
+          disable_ocsp_stapling = true;
           key_type = "p256";
           issuers = lib.singleton {
             module = "acme";
