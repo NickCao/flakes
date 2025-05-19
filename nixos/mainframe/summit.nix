@@ -19,7 +19,7 @@
 
   systemd.network.networks = {
     "09-ti" = {
-      name = "enx68da73a195de";
+      name = "enp195s0f4u1";
       networkConfig = {
         ConfigureWithoutCarrier = true;
         DHCPServer = true;
