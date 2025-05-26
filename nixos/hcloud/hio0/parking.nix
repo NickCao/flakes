@@ -14,7 +14,6 @@ let
 in
 {
   cloud.caddy.settings.apps.http.servers.default.routes = [
-    (mkRoute "wikipedia.zip" "https://www.wikipedia.org/wiki/Wikipedia:Database_download")
     (mkRoute "nixos.zip" "https://channels.nixos.org/nixos-unstable")
     {
       match = singleton { host = singleton "systemd.services"; };

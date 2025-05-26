@@ -161,15 +161,6 @@ in
           file = pkgs.writeText "db.link.scp" (import ../../../zones/scp.link.nix { inherit (inputs) dns; });
         }
         rec {
-          domain = "wikipedia.zip";
-          file = pkgs.writeText "db.zip.wikipedia" (
-            import ../../../zones/parking.nix {
-              inherit (inputs) dns;
-              inherit domain;
-            }
-          );
-        }
-        rec {
           domain = "nixos.zip";
           file = pkgs.writeText "db.zip.nixos" (
             import ../../../zones/parking.nix {
