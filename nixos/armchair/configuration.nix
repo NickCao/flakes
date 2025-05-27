@@ -15,6 +15,8 @@
     settings.General.EnableNetworkConfiguration = true;
   };
 
+  hardware.asahi.extractPeripheralFirmware = false;
+
   networking.hostName = "armchair";
 
   system.stateVersion = "25.05"; # Did you read the comment?
