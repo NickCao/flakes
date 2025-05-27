@@ -15,7 +15,12 @@
     settings.General.EnableNetworkConfiguration = true;
   };
 
-  hardware.asahi.extractPeripheralFirmware = false;
+  hardware.asahi.peripheralFirmwareDirectory = pkgs.requireFile {
+    name = "asahi";
+    hashMode = "recursive";
+    hash = "sha256-Y7z8yGQOiohhOSzYS2LA04PSDcul3cYOsF72IzMIbXk=";
+    message = "";
+  };
 
   networking.hostName = "armchair";
 
