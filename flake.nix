@@ -46,6 +46,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    nixos-apple-silicon = {
+      url = "github:tpwrules/nixos-apple-silicon";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -108,6 +112,10 @@
       nixosConfigurations = {
         mainframe = import ./nixos/mainframe {
           system = "x86_64-linux";
+          inherit self nixpkgs inputs;
+        };
+        armchair = import ./nixos/armchair {
+          system = "aarch64-linux";
           inherit self nixpkgs inputs;
         };
       } // self.colmenaHive.nodes;

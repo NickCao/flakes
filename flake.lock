@@ -141,6 +141,21 @@
         "type": "github"
       }
     },
+    "flake-compat_3": {
+      "locked": {
+        "lastModified": 1688025799,
+        "narHash": "sha256-ktpB4dRtnksm9F5WawoIkEneh1nrEvuxb5lJFt1iOyw=",
+        "owner": "nix-community",
+        "repo": "flake-compat",
+        "rev": "8bf105319d44f6b9f0d764efa4fdef9f1cc9ba1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -283,13 +298,34 @@
         "type": "github"
       }
     },
+    "nixos-apple-silicon": {
+      "inputs": {
+        "flake-compat": "flake-compat_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747514947,
+        "narHash": "sha256-irRDuerdVu495nBgkhCUjCi2mRpPig0F6cKMoIOfScA=",
+        "owner": "tpwrules",
+        "repo": "nixos-apple-silicon",
+        "rev": "db46177593e24f68e802455875850cdeaf49eb1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpwrules",
+        "repo": "nixos-apple-silicon",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1748267089,
-        "narHash": "sha256-4MBltbsUutOlf55q+g3woI83dNwMkuAceLn6yJ8nxdk=",
+        "lastModified": 1748351987,
+        "narHash": "sha256-6ZEAzUR8fupWrvFfEKo42zrWBvumQ9Sfd/2qpVA8WqQ=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "43f14b3a3ee79086e7357a03b7c57d7dee4770af",
+        "rev": "b812fc8a74c3b53c8cec5e66d8a689f84191d6c1",
         "type": "github"
       },
       "original": {
@@ -381,6 +417,7 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "lanzaboote": "lanzaboote",
+        "nixos-apple-silicon": "nixos-apple-silicon",
         "nixpkgs": "nixpkgs",
         "ranet": "ranet",
         "ranet-ipsec": "ranet-ipsec",
