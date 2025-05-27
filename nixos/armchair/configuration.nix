@@ -22,8 +22,12 @@
     message = "";
   };
 
+  users.mutableUsers = lib.mkForce true;
+
   networking.hostName = "armchair";
 
-  system.stateVersion = "25.05"; # Did you read the comment?
+  environment.baseline.enable = true;
+
+  system.stateVersion = "25.05";
 
 }

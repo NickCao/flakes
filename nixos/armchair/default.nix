@@ -2,6 +2,7 @@
   system,
   nixpkgs,
   inputs,
+  self,
   ...
 }:
 
@@ -11,7 +12,9 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./hardware-configuration.nix
-    (inputs.nixos-apple-silicon.nixosModules.apple-silicon-support)
+    self.nixosModules.default
+    inputs.sops-nix.nixosModules.sops
+    inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
   ];
 
   specialArgs = {

@@ -14,8 +14,8 @@ with lib;
   };
   config = lib.mkIf cfg.enable {
     boot = {
-      kernelPackages = pkgs.linuxPackages_latest;
-      kernelParams = [ "ia32_emulation=0" ];
+      kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+      kernelParams = lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [ "ia32_emulation=0" ];
       kernel.sysctl = {
         "kernel.panic" = 60;
         "net.core.default_qdisc" = "fq";
