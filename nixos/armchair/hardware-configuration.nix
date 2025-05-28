@@ -64,7 +64,10 @@
 
   environment.persistence."/persist" = {
     files = [ "/etc/machine-id" ];
-    directories = [ "/var" ];
+    directories = [
+      "/var"
+      "/root"
+    ];
   };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

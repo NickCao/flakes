@@ -27,7 +27,6 @@
 
   networking.wireless.iwd = {
     enable = true;
-    settings.General.EnableNetworkConfiguration = true;
   };
 
   hardware.asahi.peripheralFirmwareDirectory = pkgs.requireFile {
