@@ -16,6 +16,9 @@ nixpkgs.lib.nixosSystem {
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
+    {
+      nixpkgs.overlays = [ self.overlays.default ];
+    }
   ];
 
   specialArgs = {

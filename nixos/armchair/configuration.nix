@@ -5,6 +5,23 @@
 
 {
 
+  sops = {
+    age = {
+      keyFile = "/var/lib/sops.key";
+      sshKeyPaths = [ ];
+    };
+    gnupg.sshKeyPaths = [ ];
+  };
+
+  systemd.network.networks = {
+    "10-wlan0" = {
+      name = "wlan0";
+      DHCP = "yes";
+      dhcpV4Config.RouteMetric = 2048;
+      dhcpV6Config.RouteMetric = 2048;
+    };
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -30,6 +47,34 @@
   networking.hostName = "armchair";
 
   services.openssh.enable = true;
+
+  services.gravity = {
+    enable = true;
+    reload.enable = true;
+    address = [ "2a0c:b641:69c:a230::1/128" ];
+    bird = {
+      enable = true;
+      routes = [ "route 2a0c:b641:69c:a230::/60 from ::/0 unreachable" ];
+      pattern = "grv*";
+    };
+    ipsec = {
+      enable = true;
+      organization = "nickcao";
+      commonName = "armchair";
+      port = 13000;
+      interfaces = [ "wlan0" ];
+      endpoints = [
+        {
+          serialNumber = "0";
+          addressFamily = "ip4";
+        }
+        {
+          serialNumber = "1";
+          addressFamily = "ip6";
+        }
+      ];
+    };
+  };
 
   environment.baseline.enable = true;
 
