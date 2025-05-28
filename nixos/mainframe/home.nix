@@ -312,6 +312,9 @@ in
           hostname = "k17-plct.nichi.link";
           port = 9022;
         };
+        "armchair.nichi.link" = {
+          proxyCommand = "${lib.getExe pkgs.socat} - TCP-CONNECT:[2a0c:b641:69c:a230::1]:22,so-bindtodevice=gravity";
+        };
         "*.nichi.link" = {
           user = "root";
           extraOptions = {
