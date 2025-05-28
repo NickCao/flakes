@@ -16,8 +16,11 @@
   hardware.asahi.peripheralFirmwareDirectory = pkgs.requireFile {
     name = "asahi";
     hashMode = "recursive";
-    hash = "sha256-Y7z8yGQOiohhOSzYS2LA04PSDcul3cYOsF72IzMIbXk=";
-    message = "";
+    hash = "sha256-iYDhbSPE8oO9tny1IUSpViUWx2O7PYr9jpopmftxTzU=";
+    message = "
+      nix-store --add-fixed sha256 --recursive /efi/asahi/
+      nix hash path  --algo sha256             /efi/asahi/
+    ";
   };
 
   users.users.root.openssh.authorizedKeys.keys = [
