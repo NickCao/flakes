@@ -1,6 +1,4 @@
 {
-  config,
-  lib,
   pkgs,
   ...
 }:
@@ -22,9 +20,13 @@
     message = "";
   };
 
-  users.mutableUsers = lib.mkForce true;
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji nickcao@mainframe"
+  ];
 
   networking.hostName = "armchair";
+
+  services.openssh.enable = true;
 
   environment.baseline.enable = true;
 
