@@ -47,6 +47,9 @@
 
   services.openssh.enable = true;
 
+  systemd.services.bird.after = [ "network-online.target" ];
+  systemd.services.bird.wants = [ "network-online.target" ];
+
   services.gravity = {
     enable = true;
     reload.enable = true;
