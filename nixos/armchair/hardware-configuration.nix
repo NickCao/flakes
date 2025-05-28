@@ -19,6 +19,8 @@
 
   boot.loader.efi.efiSysMountPoint = "/efi";
 
+  boot.kernel.sysctl."net.ipv4.tcp_l3mdev_accept" = lib.mkForce 1;
+
   boot.kernelPatches = lib.singleton {
     name = "enable-xfrm-interface";
     patch = null;
