@@ -19,6 +19,14 @@
 
   boot.loader.efi.efiSysMountPoint = "/efi";
 
+  boot.kernelPatches = lib.singleton {
+    name = "enable-xfrm-interface";
+    patch = null;
+    extraStructuredConfig = with lib.kernel; {
+      XFRM_INTERFACE = yes;
+    };
+  };
+
   fileSystems = {
     "/" = {
       device = "none";
