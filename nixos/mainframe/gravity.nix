@@ -15,7 +15,10 @@
       organization = "nickcao";
       commonName = "local";
       port = 13000;
-      interfaces = [ "wlan0" ];
+      interfaces = [
+        "wlan0"
+        "eth0"
+      ];
       endpoints = [
         {
           serialNumber = "0";
