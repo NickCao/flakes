@@ -78,6 +78,12 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    vim
+    git
+    waypipe
+  ];
+
   environment.baseline.enable = true;
 
   system.stateVersion = "25.05";
