@@ -84,6 +84,7 @@
     waypipe
     uv
     python3
+    lm_sensors
   ];
 
   hardware.graphics.enable = true;
