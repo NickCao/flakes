@@ -102,7 +102,13 @@
     uv
     python3
     lm_sensors
+    docker-compose
   ];
+
+  services.prometheus.exporters.node = {
+    enable = true;
+    listenAddress = "127.0.0.1";
+  };
 
   hardware.graphics.enable = true;
   hardware.asahi.useExperimentalGPUDriver = true;
