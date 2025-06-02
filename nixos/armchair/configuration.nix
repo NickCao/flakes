@@ -46,12 +46,14 @@
   users.users = {
     nickcao = {
       isNormalUser = true;
+      extraGroups = [ "video" ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji nickcao@mainframe"
       ];
     };
     ryan = {
       isNormalUser = true;
+      extraGroups = [ "video" ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBuY5QsJN/wdYf0WpRk76Qxt9f/iwQU642m4P2JZ5glE"
       ];
