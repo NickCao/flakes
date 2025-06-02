@@ -43,6 +43,20 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji nickcao@mainframe"
   ];
 
+  users.users = {
+    nickcao = {
+      isNormalUser = true;
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji nickcao@mainframe"
+      ];
+    };
+    ryan = {
+      isNormalUser = true;
+      openssh.authorizedKeys.keys = [
+      ];
+    };
+  };
+
   networking.hostName = "armchair";
 
   services.openssh.enable = true;

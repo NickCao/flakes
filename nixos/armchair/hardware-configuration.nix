@@ -67,6 +67,7 @@
     directories = [
       "/var"
       "/root"
+      "/home"
     ];
   };
 
