@@ -82,7 +82,15 @@
     vim
     git
     waypipe
+    uv
+    python3
   ];
+
+  hardware.graphics.enable = true;
+  hardware.asahi.useExperimentalGPUDriver = true;
+  hardware.asahi.experimentalGPUInstallMode = "driver";
+
+  virtualisation.podman.enable = true;
 
   environment.baseline.enable = true;
 
