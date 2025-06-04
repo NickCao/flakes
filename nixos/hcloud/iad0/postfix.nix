@@ -40,8 +40,6 @@ in
       noc@nichi.co          nickcao@nichi.co
     '';
     config = {
-      inet_protocols = "ipv4";
-
       smtp_tls_security_level = "may";
 
       smtpd_tls_chain_files = [
@@ -73,6 +71,12 @@ in
     masterConfig = {
       lmtp = {
         args = [ "flags=O" ];
+      };
+      smtp = {
+        args = [
+          "-o"
+          "inet_protocols=ipv4"
+        ];
       };
       "127.0.0.1:submission" = {
         type = "inet";
