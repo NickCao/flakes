@@ -43,6 +43,13 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji nickcao@mainframe"
   ];
 
+  services.prometheus = {
+    enable = true;
+    listenAddress = "0.0.0.0";
+    port = 9091;
+    extraFlags = [ "--web.enable-remote-write-receiver" ];
+  };
+
   users.users = {
     nickcao = {
       isNormalUser = true;
