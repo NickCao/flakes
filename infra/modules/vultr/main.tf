@@ -37,7 +37,7 @@ terraform {
 resource "vultr_instance" "server" {
   region           = var.region
   plan             = var.plan
-  # os_id            = 159
+  os_id            = 159
   script_id        = var.script
   enable_ipv6      = true
   activation_email = false
@@ -47,6 +47,7 @@ resource "vultr_instance" "server" {
   label            = var.hostname
   lifecycle {
     ignore_changes = [
+      os_id,
       script_id,
     ]
   }
