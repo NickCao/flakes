@@ -43,13 +43,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji nickcao@mainframe"
   ];
 
-  services.prometheus = {
-    enable = true;
-    listenAddress = "0.0.0.0";
-    port = 9091;
-    extraFlags = [ "--web.enable-remote-write-receiver" ];
-  };
-
   users.users = {
     nickcao = {
       isNormalUser = true;
@@ -69,7 +62,12 @@
 
   networking.hostName = "armchair";
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      GatewayPorts = "clientspecified";
+    };
+  };
 
   systemd.services.bird.after = [ "network-online.target" ];
   systemd.services.bird.wants = [ "network-online.target" ];
