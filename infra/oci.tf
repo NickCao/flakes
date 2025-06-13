@@ -1,5 +1,7 @@
 resource "oci_core_vcn" "default" {
   compartment_id = local.secrets.oci.tenancy_ocid
+  display_name   = "vcn-default"
+
   cidr_blocks    = ["10.0.0.0/16"]
   is_ipv6enabled = true
 }
@@ -7,14 +9,17 @@ resource "oci_core_vcn" "default" {
 resource "oci_core_subnet" "default" {
   compartment_id = local.secrets.oci.tenancy_ocid
   vcn_id         = oci_core_vcn.default.id
+  display_name   = "sub-default"
+
   cidr_block     = "10.0.1.0/24"
   ipv6cidr_block = cidrsubnet(oci_core_vcn.default.ipv6cidr_blocks[0], 8, 0)
 }
 
-resource "oci_core_route_table" "default" {
+resource "oci_core_default_route_table" "default" {
   compartment_id = local.secrets.oci.tenancy_ocid
-  vcn_id         = oci_core_vcn.default.id
   display_name   = "rtb-default"
+
+  manage_default_resource_id = oci_core_vcn.default.default_route_table_id
 
   route_rules {
     destination       = "0.0.0.0/0"
@@ -23,10 +28,23 @@ resource "oci_core_route_table" "default" {
   }
 }
 
-resource "oci_core_security_list" "default" { # import from default_security_list_id
+resource "oci_core_default_dhcp_options" "default" {
   compartment_id = local.secrets.oci.tenancy_ocid
-  vcn_id         = oci_core_vcn.default.id
+  display_name   = "dhc-default"
+
+  manage_default_resource_id = oci_core_vcn.default.default_dhcp_options_id
+
+  options {
+    type        = "DomainNameServer"
+    server_type = "VcnLocalPlusInternet"
+  }
+}
+
+resource "oci_core_default_security_list" "default" {
+  compartment_id = local.secrets.oci.tenancy_ocid
   display_name   = "scl-default"
+
+  manage_default_resource_id = oci_core_vcn.default.default_security_list_id
 
   egress_security_rules {
     destination_type = "CIDR_BLOCK"
