@@ -213,3 +213,44 @@ resource "oci_core_instance" "iad3" {
     nsg_ids                   = [oci_core_network_security_group.default.id]
   }
 }
+
+# resource "oci_core_instance" "iad4" {
+#   compartment_id = oci_identity_compartment.staging.id
+# 
+#   availability_domain = "vVVu:US-ASHBURN-AD-2"
+#   shape               = "VM.Standard.A1.Flex"
+#   state               = "RUNNING"
+# 
+#   metadata = {
+#     "ssh_authorized_keys" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
+#   }
+# 
+#   is_pv_encryption_in_transit_enabled = true
+# 
+#   shape_config {
+#     ocpus         = 4
+#     memory_in_gbs = 24
+#   }
+# 
+#   source_details {
+#     source_id   = "ocid1.image.oc1.iad.aaaaaaaa6lsrj4xkrbm66rm3nv7vrw5tklfhnolczi2uijmnf4xndgdq7b2q"
+#     source_type = "image"
+#   }
+# 
+#   agent_config {
+#     is_management_disabled = true
+#     is_monitoring_disabled = true
+#   }
+# 
+#   instance_options {
+#     are_legacy_imds_endpoints_disabled = true
+#   }
+# 
+#   create_vnic_details {
+#     assign_ipv6ip             = true
+#     assign_private_dns_record = false
+#     assign_public_ip          = true
+#     subnet_id                 = oci_core_subnet.default.id
+#     nsg_ids                   = [oci_core_network_security_group.default.id]
+#   }
+# }
