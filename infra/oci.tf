@@ -147,22 +147,23 @@ resource "oci_core_instance" "iad" {
     iad2 = {
       availability_domain = "vVVu:US-ASHBURN-AD-1"
       shape               = "VM.Standard.E2.1.Micro"
+      source_id           = "ocid1.image.oc1.iad.aaaaaaaapmcqm63rd6vdbcztfowph4ffgfu6dsvlj3gl5w6dvt5hfvgk3mfa"
+      ocpus               = 1
+      memory_in_gbs       = 1
     }
     iad3 = {
       availability_domain = "vVVu:US-ASHBURN-AD-1"
       shape               = "VM.Standard.E2.1.Micro"
+      source_id           = "ocid1.image.oc1.iad.aaaaaaaapmcqm63rd6vdbcztfowph4ffgfu6dsvlj3gl5w6dvt5hfvgk3mfa"
+      ocpus               = 1
+      memory_in_gbs       = 1
     }
     # iad4 = {
     #   availability_domain = "vVVu:US-ASHBURN-AD-2"
     #   shape               = "VM.Standard.A1.Flex"
-    #   shape_config {
-    #     ocpus         = 4
-    #     memory_in_gbs = 24
-    #   }
-    #   source_details {
-    #     source_id   = "ocid1.image.oc1.iad.aaaaaaaa6lsrj4xkrbm66rm3nv7vrw5tklfhnolczi2uijmnf4xndgdq7b2q"
-    #     source_type = "image"
-    #   }
+    #   source_id           = "ocid1.image.oc1.iad.aaaaaaaa6lsrj4xkrbm66rm3nv7vrw5tklfhnolczi2uijmnf4xndgdq7b2q"
+    #   ocpus               = 4
+    #   memory_in_gbs       = 24
     # }
   })
 
@@ -178,8 +179,13 @@ resource "oci_core_instance" "iad" {
 
   is_pv_encryption_in_transit_enabled = true
 
+  shape_config {
+    ocpus         = each.value.ocpus
+    memory_in_gbs = each.value.memory_in_gbs
+  }
+
   source_details {
-    source_id               = "ocid1.image.oc1.iad.aaaaaaaapmcqm63rd6vdbcztfowph4ffgfu6dsvlj3gl5w6dvt5hfvgk3mfa"
+    source_id               = each.value.source_id
     source_type             = "image"
     boot_volume_size_in_gbs = 50
   }
