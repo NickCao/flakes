@@ -1,5 +1,12 @@
-resource "oci_core_vcn" "default" {
+resource "oci_identity_compartment" "staging" {
   compartment_id = local.secrets.oci.tenancy_ocid
+  name           = "staging"
+  description    = "staging"
+  enable_delete  = true
+}
+
+resource "oci_core_vcn" "default" {
+  compartment_id = oci_identity_compartment.staging.id
   display_name   = "vcn-default"
 
   cidr_blocks    = ["10.0.0.0/16"]
@@ -7,7 +14,7 @@ resource "oci_core_vcn" "default" {
 }
 
 resource "oci_core_subnet" "default" {
-  compartment_id = local.secrets.oci.tenancy_ocid
+  compartment_id = oci_identity_compartment.staging.id
   vcn_id         = oci_core_vcn.default.id
   display_name   = "sub-default"
 
@@ -16,7 +23,7 @@ resource "oci_core_subnet" "default" {
 }
 
 resource "oci_core_default_route_table" "default" {
-  compartment_id = local.secrets.oci.tenancy_ocid
+  compartment_id = oci_identity_compartment.staging.id
   display_name   = "rtb-default"
 
   manage_default_resource_id = oci_core_vcn.default.default_route_table_id
@@ -26,10 +33,16 @@ resource "oci_core_default_route_table" "default" {
     destination_type  = "CIDR_BLOCK"
     network_entity_id = oci_core_internet_gateway.default.id
   }
+
+  route_rules {
+    destination       = "::/0"
+    destination_type  = "CIDR_BLOCK"
+    network_entity_id = oci_core_internet_gateway.default.id
+  }
 }
 
 resource "oci_core_default_dhcp_options" "default" {
-  compartment_id = local.secrets.oci.tenancy_ocid
+  compartment_id = oci_identity_compartment.staging.id
   display_name   = "dhc-default"
 
   manage_default_resource_id = oci_core_vcn.default.default_dhcp_options_id
@@ -41,7 +54,7 @@ resource "oci_core_default_dhcp_options" "default" {
 }
 
 resource "oci_core_default_security_list" "default" {
-  compartment_id = local.secrets.oci.tenancy_ocid
+  compartment_id = oci_identity_compartment.staging.id
   display_name   = "scl-default"
 
   manage_default_resource_id = oci_core_vcn.default.default_security_list_id
@@ -73,7 +86,7 @@ resource "oci_core_default_security_list" "default" {
 }
 
 resource "oci_core_network_security_group" "default" {
-  compartment_id = local.secrets.oci.tenancy_ocid
+  compartment_id = oci_identity_compartment.staging.id
   vcn_id         = oci_core_vcn.default.id
   display_name   = "nsg-default"
 }
@@ -123,35 +136,80 @@ resource "oci_core_network_security_group_security_rule" "egress-v6" {
 }
 
 resource "oci_core_internet_gateway" "default" {
-  compartment_id = local.secrets.oci.tenancy_ocid
+  compartment_id = oci_identity_compartment.staging.id
   vcn_id         = oci_core_vcn.default.id
   display_name   = "igw-default"
   enabled        = true
 }
 
-resource "oci_core_instance" "generated_oci_core_instance" {
-  availability_config {
-    recovery_action = "RESTORE_INSTANCE"
-  }
+resource "oci_core_instance" "iad2" {
+  compartment_id = oci_identity_compartment.staging.id
+
   availability_domain = "vVVu:US-ASHBURN-AD-1"
-  compartment_id      = local.secrets.oci.tenancy_ocid
-  create_vnic_details {
-    assign_ipv6ip             = "true"
-    assign_private_dns_record = "true"
-    assign_public_ip          = "true"
-    subnet_id                 = oci_core_subnet.default.id
-  }
-  display_name = "iad2"
-  instance_options {
-    are_legacy_imds_endpoints_disabled = "false"
-  }
-  is_pv_encryption_in_transit_enabled = "true"
+  shape               = "VM.Standard.E2.1.Micro"
+  state               = "RUNNING"
+
   metadata = {
     "ssh_authorized_keys" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
   }
-  shape = "VM.Standard.E2.1.Micro"
+
+  is_pv_encryption_in_transit_enabled = true
+
   source_details {
     source_id   = "ocid1.image.oc1.iad.aaaaaaaaxmcdhhangzctdwlsut42ty5jiwjysyw6kxxmxqv7wm4wmpsek7ma"
     source_type = "image"
+  }
+
+  agent_config {
+    is_management_disabled = true
+    is_monitoring_disabled = true
+  }
+
+  instance_options {
+    are_legacy_imds_endpoints_disabled = true
+  }
+
+  create_vnic_details {
+    assign_ipv6ip             = true
+    assign_private_dns_record = false
+    assign_public_ip          = true
+    subnet_id                 = oci_core_subnet.default.id
+    nsg_ids                   = [oci_core_network_security_group.default.id]
+  }
+}
+
+resource "oci_core_instance" "iad3" {
+  compartment_id = oci_identity_compartment.staging.id
+
+  availability_domain = "vVVu:US-ASHBURN-AD-1"
+  shape               = "VM.Standard.E2.1.Micro"
+  state               = "RUNNING"
+
+  metadata = {
+    "ssh_authorized_keys" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
+  }
+
+  is_pv_encryption_in_transit_enabled = true
+
+  source_details {
+    source_id   = "ocid1.image.oc1.iad.aaaaaaaaxmcdhhangzctdwlsut42ty5jiwjysyw6kxxmxqv7wm4wmpsek7ma"
+    source_type = "image"
+  }
+
+  agent_config {
+    is_management_disabled = true
+    is_monitoring_disabled = true
+  }
+
+  instance_options {
+    are_legacy_imds_endpoints_disabled = true
+  }
+
+  create_vnic_details {
+    assign_ipv6ip             = true
+    assign_private_dns_record = false
+    assign_public_ip          = true
+    subnet_id                 = oci_core_subnet.default.id
+    nsg_ids                   = [oci_core_network_security_group.default.id]
   }
 }
