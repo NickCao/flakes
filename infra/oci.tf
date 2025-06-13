@@ -179,8 +179,9 @@ resource "oci_core_instance" "iad" {
   is_pv_encryption_in_transit_enabled = true
 
   source_details {
-    source_id   = "ocid1.image.oc1.iad.aaaaaaaaxmcdhhangzctdwlsut42ty5jiwjysyw6kxxmxqv7wm4wmpsek7ma"
-    source_type = "image"
+    source_id               = "ocid1.image.oc1.iad.aaaaaaaapmcqm63rd6vdbcztfowph4ffgfu6dsvlj3gl5w6dvt5hfvgk3mfa"
+    source_type             = "image"
+    boot_volume_size_in_gbs = 50
   }
 
   agent_config {
