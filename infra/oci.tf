@@ -23,6 +23,37 @@ resource "oci_core_route_table" "default" {
   }
 }
 
+resource "oci_core_security_list" "default" { # import from default_security_list_id
+  compartment_id = local.secrets.oci.tenancy_ocid
+  vcn_id         = oci_core_vcn.default.id
+  display_name   = "scl-default"
+
+  egress_security_rules {
+    destination_type = "CIDR_BLOCK"
+    destination      = "0.0.0.0/0"
+    protocol         = "all"
+    stateless        = true
+  }
+  egress_security_rules {
+    destination_type = "CIDR_BLOCK"
+    destination      = "::/0"
+    protocol         = "all"
+    stateless        = true
+  }
+  ingress_security_rules {
+    source_type = "CIDR_BLOCK"
+    source      = "0.0.0.0/0"
+    protocol    = "all"
+    stateless   = true
+  }
+  ingress_security_rules {
+    source_type = "CIDR_BLOCK"
+    source      = "::/0"
+    protocol    = "all"
+    stateless   = true
+  }
+}
+
 resource "oci_core_network_security_group" "default" {
   compartment_id = local.secrets.oci.tenancy_ocid
   vcn_id         = oci_core_vcn.default.id
