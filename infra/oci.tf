@@ -23,6 +23,56 @@ resource "oci_core_route_table" "default" {
   }
 }
 
+resource "oci_core_network_security_group" "default" {
+  compartment_id = local.secrets.oci.tenancy_ocid
+  vcn_id         = oci_core_vcn.default.id
+  display_name   = "nsg-default"
+}
+
+resource "oci_core_network_security_group_security_rule" "ingress-v4" {
+  network_security_group_id = oci_core_network_security_group.default.id
+
+  direction = "INGRESS"
+  protocol  = "all"
+  stateless = true
+
+  source_type = "CIDR_BLOCK"
+  source      = "0.0.0.0/0"
+}
+
+resource "oci_core_network_security_group_security_rule" "ingress-v6" {
+  network_security_group_id = oci_core_network_security_group.default.id
+
+  direction = "INGRESS"
+  protocol  = "all"
+  stateless = true
+
+  source_type = "CIDR_BLOCK"
+  source      = "::/0"
+}
+
+resource "oci_core_network_security_group_security_rule" "egress-v4" {
+  network_security_group_id = oci_core_network_security_group.default.id
+
+  direction = "EGRESS"
+  protocol  = "all"
+  stateless = true
+
+  destination_type = "CIDR_BLOCK"
+  destination      = "0.0.0.0/0"
+}
+
+resource "oci_core_network_security_group_security_rule" "egress-v6" {
+  network_security_group_id = oci_core_network_security_group.default.id
+
+  direction = "EGRESS"
+  protocol  = "all"
+  stateless = true
+
+  destination_type = "CIDR_BLOCK"
+  destination      = "::/0"
+}
+
 resource "oci_core_internet_gateway" "default" {
   compartment_id = local.secrets.oci.tenancy_ocid
   vcn_id         = oci_core_vcn.default.id
