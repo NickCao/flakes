@@ -95,6 +95,7 @@
                     hydra
                     hcloud
                     keycloak
+                    oci
                   ]
                 ))
               ];
