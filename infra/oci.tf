@@ -142,11 +142,34 @@ resource "oci_core_internet_gateway" "default" {
   enabled        = true
 }
 
-resource "oci_core_instance" "iad2" {
+resource "oci_core_instance" "iad" {
+  for_each = tomap({
+    iad2 = {
+      availability_domain = "vVVu:US-ASHBURN-AD-1"
+      shape               = "VM.Standard.E2.1.Micro"
+    }
+    iad3 = {
+      availability_domain = "vVVu:US-ASHBURN-AD-1"
+      shape               = "VM.Standard.E2.1.Micro"
+    }
+    # iad4 = {
+    #   availability_domain = "vVVu:US-ASHBURN-AD-2"
+    #   shape               = "VM.Standard.A1.Flex"
+    #   shape_config {
+    #     ocpus         = 4
+    #     memory_in_gbs = 24
+    #   }
+    #   source_details {
+    #     source_id   = "ocid1.image.oc1.iad.aaaaaaaa6lsrj4xkrbm66rm3nv7vrw5tklfhnolczi2uijmnf4xndgdq7b2q"
+    #     source_type = "image"
+    #   }
+    # }
+  })
+
   compartment_id = oci_identity_compartment.staging.id
 
-  availability_domain = "vVVu:US-ASHBURN-AD-1"
-  shape               = "VM.Standard.E2.1.Micro"
+  availability_domain = each.value.availability_domain
+  shape               = each.value.shape
   state               = "RUNNING"
 
   metadata = {
@@ -177,80 +200,3 @@ resource "oci_core_instance" "iad2" {
     nsg_ids                   = [oci_core_network_security_group.default.id]
   }
 }
-
-resource "oci_core_instance" "iad3" {
-  compartment_id = oci_identity_compartment.staging.id
-
-  availability_domain = "vVVu:US-ASHBURN-AD-1"
-  shape               = "VM.Standard.E2.1.Micro"
-  state               = "RUNNING"
-
-  metadata = {
-    "ssh_authorized_keys" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
-  }
-
-  is_pv_encryption_in_transit_enabled = true
-
-  source_details {
-    source_id   = "ocid1.image.oc1.iad.aaaaaaaaxmcdhhangzctdwlsut42ty5jiwjysyw6kxxmxqv7wm4wmpsek7ma"
-    source_type = "image"
-  }
-
-  agent_config {
-    is_management_disabled = true
-    is_monitoring_disabled = true
-  }
-
-  instance_options {
-    are_legacy_imds_endpoints_disabled = true
-  }
-
-  create_vnic_details {
-    assign_ipv6ip             = true
-    assign_private_dns_record = false
-    assign_public_ip          = true
-    subnet_id                 = oci_core_subnet.default.id
-    nsg_ids                   = [oci_core_network_security_group.default.id]
-  }
-}
-
-# resource "oci_core_instance" "iad4" {
-#   compartment_id = oci_identity_compartment.staging.id
-# 
-#   availability_domain = "vVVu:US-ASHBURN-AD-2"
-#   shape               = "VM.Standard.A1.Flex"
-#   state               = "RUNNING"
-# 
-#   metadata = {
-#     "ssh_authorized_keys" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
-#   }
-# 
-#   is_pv_encryption_in_transit_enabled = true
-# 
-#   shape_config {
-#     ocpus         = 4
-#     memory_in_gbs = 24
-#   }
-# 
-#   source_details {
-#     source_id   = "ocid1.image.oc1.iad.aaaaaaaa6lsrj4xkrbm66rm3nv7vrw5tklfhnolczi2uijmnf4xndgdq7b2q"
-#     source_type = "image"
-#   }
-# 
-#   agent_config {
-#     is_management_disabled = true
-#     is_monitoring_disabled = true
-#   }
-# 
-#   instance_options {
-#     are_legacy_imds_endpoints_disabled = true
-#   }
-# 
-#   create_vnic_details {
-#     assign_ipv6ip             = true
-#     assign_private_dns_record = false
-#     assign_public_ip          = true
-#     subnet_id                 = oci_core_subnet.default.id
-#     nsg_ids                   = [oci_core_network_security_group.default.id]
-#   }
-# }
