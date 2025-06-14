@@ -14,6 +14,10 @@
   };
 
   systemd.network.networks = {
+    "10-end0" = {
+      name = "end0";
+      DHCP = "yes";
+    };
     "10-wlan0" = {
       name = "wlan0";
       DHCP = "yes";
