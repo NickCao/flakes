@@ -26,6 +26,8 @@
     };
   };
 
+  systemd.network.wait-online.anyInterface = true;
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
