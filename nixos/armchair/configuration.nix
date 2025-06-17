@@ -92,7 +92,7 @@
       organization = "nickcao";
       commonName = "armchair";
       port = 13000;
-      interfaces = [ "wlan0" ];
+      interfaces = [ "wlan0" "end0" ];
       endpoints = [
         {
           serialNumber = "0";
@@ -115,11 +115,6 @@
     lm_sensors
     docker-compose
   ];
-
-  services.prometheus.exporters.node = {
-    enable = true;
-    listenAddress = "0.0.0.0";
-  };
 
   hardware.graphics.enable = true;
   hardware.asahi.useExperimentalGPUDriver = true;
