@@ -26,7 +26,10 @@
     };
   };
 
-  systemd.network.wait-online.anyInterface = true;
+  systemd.network.wait-online = {
+    anyInterface = true;
+    extraArgs = [ "--ipv4" ];
+  };
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -92,7 +95,10 @@
       organization = "nickcao";
       commonName = "armchair";
       port = 13000;
-      interfaces = [ "wlan0" "end0" ];
+      interfaces = [
+        "wlan0"
+        "end0"
+      ];
       endpoints = [
         {
           serialNumber = "0";
