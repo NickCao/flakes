@@ -174,12 +174,7 @@ in
     CARGO_HOME = "${config.xdg.cacheHome}/cargo";
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
-    # shit
-    PYTHONSTARTUP =
-      (pkgs.writeText "start.py" ''
-        import readline
-        readline.write_history_file = lambda *args: None
-      '').outPath;
+    PYTHON_HISTORY = "${config.xdg.stateHome}/python_history";
   };
 
   services.mako.enable = true;
