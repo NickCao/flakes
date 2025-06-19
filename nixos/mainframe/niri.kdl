@@ -54,7 +54,9 @@ window-rule {
 
 window-rule {
     match app-id=r#"^org\.pulseaudio\.pavucontrol$"#
-    default-column-width { proportion 0.4; }
+    default-column-width { proportion 0.6; }
+    default-window-height { proportion 0.6; }
+    open-floating true
 }
 
 binds {
