@@ -169,15 +169,6 @@ in
             }
           );
         }
-        rec {
-          domain = "systemd.services";
-          file = pkgs.writeText "db.services.systemd" (
-            import ../../../zones/parking.nix {
-              inherit (inputs) dns;
-              inherit domain;
-            }
-          );
-        }
         {
           domain = "gravity";
           file = config.sops.secrets.gravity.path;
