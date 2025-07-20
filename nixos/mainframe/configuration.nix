@@ -174,6 +174,7 @@
     bluetooth.enable = true;
     graphics.enable = true;
     sensor.iio.enable = true;
+    rtl-sdr.enable = true;
   };
 
   services.fwupd = {
@@ -241,6 +242,7 @@
         extraGroups = [
           "wheel"
           "dialout"
+          "plugdev"
         ];
       };
     };
