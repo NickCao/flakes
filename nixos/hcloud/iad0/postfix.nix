@@ -28,18 +28,9 @@ in
 
   services.postfix = {
     enable = true;
-    hostname = config.networking.fqdn;
-    mapFiles.senders = builtins.toFile "senders" ''
-      nickcao@nichi.co      nickcao
-    '';
-    mapFiles.aliases = builtins.toFile "aliases" ''
-      hostmaster@nichi.link nickcao@nichi.co
-      hostmaster@nichi.co   nickcao@nichi.co
-      postmaster@nichi.link nickcao@nichi.co
-      postmaster@nichi.co   nickcao@nichi.co
-      noc@nichi.co          nickcao@nichi.co
-    '';
-    config = {
+    settings.main = {
+      myhostname = config.networking.fqdn;
+
       smtp_tls_security_level = "may";
 
       smtpd_tls_chain_files = [
@@ -68,7 +59,7 @@ in
       non_smtpd_milters = [ "unix:/run/rspamd/postfix.sock" ];
       internal_mail_filter_classes = [ "bounce" ];
     };
-    masterConfig = {
+    settings.master = {
       lmtp = {
         args = [ "flags=O" ];
       };
@@ -95,6 +86,16 @@ in
         };
       };
     };
+    mapFiles.senders = builtins.toFile "senders" ''
+      nickcao@nichi.co      nickcao
+    '';
+    mapFiles.aliases = builtins.toFile "aliases" ''
+      hostmaster@nichi.link nickcao@nichi.co
+      hostmaster@nichi.co   nickcao@nichi.co
+      postmaster@nichi.link nickcao@nichi.co
+      postmaster@nichi.co   nickcao@nichi.co
+      noc@nichi.co          nickcao@nichi.co
+    '';
   };
 
   services.rspamd = {
