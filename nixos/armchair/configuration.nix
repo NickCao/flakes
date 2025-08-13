@@ -97,8 +97,7 @@
   ];
 
   hardware.graphics.enable = true;
-  hardware.asahi.useExperimentalGPUDriver = true;
-  hardware.asahi.experimentalGPUInstallMode = "driver";
+  hardware.asahi.useExperimentalGPUDriver = false;
 
   virtualisation.podman.enable = true;
 
