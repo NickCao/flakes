@@ -58,6 +58,8 @@ in
       smtpd_milters = [ "unix:/run/rspamd/postfix.sock" ];
       non_smtpd_milters = [ "unix:/run/rspamd/postfix.sock" ];
       internal_mail_filter_classes = [ "bounce" ];
+
+      message_size_limit = 40960000;
     };
     settings.master = {
       lmtp = {

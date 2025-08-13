@@ -115,6 +115,7 @@
         tun-device clat
         prefix 64:ff9b::/96
         ipv4-addr 192.0.0.1
+        ipv6-addr fc00::
         map 192.0.0.2 2a0c:b641:69c:99cc::2
       ''}
     '';
