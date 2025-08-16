@@ -306,6 +306,9 @@
         ".thunderbird"
         ".config/fcitx5"
       ];
+      files = [
+        ".config/WSJT-X.ini"
+      ];
     };
   };
 

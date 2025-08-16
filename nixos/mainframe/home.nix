@@ -166,6 +166,7 @@ in
     niri
     bluetuith
     nautilus
+    wsjtx
   ];
 
   systemd.user.sessionVariables = {
