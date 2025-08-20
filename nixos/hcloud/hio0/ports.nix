@@ -9,5 +9,6 @@
     bouncer = 8126;
     bouncer-anubis = 8127;
     bouncer-anubis-metrics = 8128;
+    matrix-authentication-service = 8129;
   };
 }

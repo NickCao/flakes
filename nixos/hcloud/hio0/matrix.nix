@@ -59,6 +59,15 @@ in
       max_parallel_workers = 4;
       max_parallel_maintenance_workers = 2;
     };
+    ensureUsers = [
+      {
+        name = "matrix-authentication-service";
+        ensureDBOwnership = true;
+      }
+    ];
+    ensureDatabases = [
+      "matrix-authentication-service"
+    ];
   };
 
   services.postgresqlBackup = {
@@ -84,6 +93,8 @@ in
       bouncer = {
         restartUnits = [ config.systemd.services.bouncer.name ];
       };
+      "matrix-authentication-service/encryption" = { };
+      "matrix-authentication-service/matrix" = { };
     };
   };
 
@@ -143,6 +154,49 @@ in
     ];
     EnvironmentFile = [
       config.sops.secrets.matrix-synapse-s3.path
+    ];
+  };
+
+  cloud.services.matrix-authentication-service.config = {
+    MemoryDenyWriteExecute = false;
+    LoadCredential = [
+      "encryption:${config.sops.secrets."matrix-authentication-service/encryption".path}"
+      "matrix:${config.sops.secrets."matrix-authentication-service/matrix".path}"
+    ];
+    ExecStart = lib.escapeShellArgs [
+      (lib.getExe pkgs.matrix-authentication-service)
+      "server"
+      "--config"
+      ((pkgs.formats.yaml { }).generate "config.yaml" {
+        http = {
+          public_base = "https://matrix-auth.nichi.co/";
+          issuer = "https://matrix-auth.nichi.co/";
+          listeners = lib.singleton {
+            name = "web";
+            resources = [
+              { name = "discovery"; }
+              { name = "human"; }
+              { name = "oauth"; }
+              { name = "compat"; }
+              { name = "graphql"; }
+              { name = "assets"; }
+            ];
+            binds = lib.singleton {
+              address = "[::]:${toString config.lib.ports.matrix-authentication-service}";
+            };
+            proxy_protocol = true;
+          };
+        };
+        secrets = {
+          encryption_file = "/run/credentials/matrix-authentication-service.service/encryption";
+        };
+        matrix = {
+          kind = "synapse";
+          homeserver = config.services.matrix-synapse.settings.server_name;
+          secret_file = "/run/credentials/matrix-authentication-service.service/matrix";
+          endpoint = "http://127.0.0.1:${toString config.lib.ports.synapse}";
+        };
+      })
     ];
   };
 
@@ -393,6 +447,17 @@ in
           upstreams = [ { dial = "127.0.0.1:${toString config.lib.ports.bouncer-anubis}"; } ];
         }
       ];
+    }
+    {
+      match = [ { host = [ "matrix-auth.nichi.co" ]; } ];
+      handle = lib.singleton {
+        handler = "reverse_proxy";
+        transport = {
+          protocol = "http";
+          proxy_protocol = "v1";
+        };
+        upstreams = [ { dial = "127.0.0.1:${toString config.lib.ports.matrix-authentication-service}"; } ];
+      };
     }
     {
       match = [ { host = [ "matrix.nichi.co" ]; } ];
