@@ -94,7 +94,15 @@ in
         restartUnits = [ config.systemd.services.bouncer.name ];
       };
       "matrix-authentication-service/encryption" = { };
-      "matrix-authentication-service/matrix" = { };
+      "matrix-authentication-service/shared" = {
+        owner = config.systemd.services.matrix-synapse.serviceConfig.User;
+        restartUnits = [ config.systemd.services.matrix-synapse.name ];
+      };
+      "matrix-authentication-service/oidc-client-secret" = { };
+      "matrix-authentication-service/keys/kwwU9cVvV2" = { };
+      "matrix-authentication-service/keys/F3NNQzLmt4" = { };
+      "matrix-authentication-service/keys/f6A0kQMjmd" = { };
+      "matrix-authentication-service/keys/WNU225gZTr" = { };
     };
   };
 
@@ -157,48 +165,138 @@ in
     ];
   };
 
-  cloud.services.matrix-authentication-service.config = {
-    MemoryDenyWriteExecute = false;
-    LoadCredential = [
-      "encryption:${config.sops.secrets."matrix-authentication-service/encryption".path}"
-      "matrix:${config.sops.secrets."matrix-authentication-service/matrix".path}"
-    ];
-    ExecStart = lib.escapeShellArgs [
-      (lib.getExe pkgs.matrix-authentication-service)
-      "server"
-      "--config"
-      ((pkgs.formats.yaml { }).generate "config.yaml" {
-        http = {
-          public_base = "https://matrix-auth.nichi.co/";
-          issuer = "https://matrix-auth.nichi.co/";
-          listeners = lib.singleton {
-            name = "web";
-            resources = [
-              { name = "discovery"; }
-              { name = "human"; }
-              { name = "oauth"; }
-              { name = "compat"; }
-              { name = "graphql"; }
-              { name = "assets"; }
-            ];
-            binds = lib.singleton {
-              address = "[::]:${toString config.lib.ports.matrix-authentication-service}";
+  cloud.services.matrix-authentication-service.config =
+    let
+      configFile = (
+        (pkgs.formats.yaml { }).generate "config.yaml" {
+          http = {
+            public_base = "https://matrix-auth.nichi.co/";
+            issuer = "https://matrix-auth.nichi.co/";
+            listeners = lib.singleton {
+              name = "web";
+              resources = [
+                { name = "discovery"; }
+                { name = "human"; }
+                { name = "oauth"; }
+                { name = "compat"; }
+                { name = "graphql"; }
+                { name = "assets"; }
+              ];
+              binds = lib.singleton {
+                address = "[::]:${toString config.lib.ports.matrix-authentication-service}";
+              };
             };
-            proxy_protocol = true;
           };
-        };
-        secrets = {
-          encryption_file = "/run/credentials/matrix-authentication-service.service/encryption";
-        };
-        matrix = {
-          kind = "synapse";
-          homeserver = config.services.matrix-synapse.settings.server_name;
-          secret_file = "/run/credentials/matrix-authentication-service.service/matrix";
-          endpoint = "http://127.0.0.1:${toString config.lib.ports.synapse}";
-        };
-      })
-    ];
-  };
+          secrets = {
+            encryption_file = "/run/credentials/matrix-authentication-service.service/encryption";
+            keys = [
+              {
+                kid = "kwwU9cVvV2";
+                key_file = "/run/credentials/matrix-authentication-service.service/key-kwwU9cVvV2";
+              }
+              {
+                kid = "F3NNQzLmt4";
+                key_file = "/run/credentials/matrix-authentication-service.service/key-F3NNQzLmt4";
+              }
+              {
+                kid = "f6A0kQMjmd";
+                key_file = "/run/credentials/matrix-authentication-service.service/key-f6A0kQMjmd";
+              }
+              {
+                kid = "WNU225gZTr";
+                key_file = "/run/credentials/matrix-authentication-service.service/key-WNU225gZTr";
+              }
+            ];
+          };
+          matrix = {
+            kind = "synapse";
+            homeserver = config.services.matrix-synapse.settings.server_name;
+            secret_file = "/run/credentials/matrix-authentication-service.service/shared";
+            endpoint = "http://127.0.0.1:${toString config.lib.ports.synapse}";
+          };
+          passwords = {
+            enabled = false;
+            schemes = [
+              {
+                version = 1;
+                algorithm = "bcrypt";
+                unicode_normalization = true;
+              }
+              {
+                version = 2;
+                algorithm = "argon2id";
+              }
+            ];
+          };
+          upstream_oauth2 = {
+            providers = lib.singleton {
+              synapse_idp_id = "oidc-keycloak";
+              id = "01K34XRT1QHE1541KQ7HRRY15M";
+              issuer = "https://id.nichi.co/realms/nichi";
+              token_endpoint_auth_method = "client_secret_basic";
+              client_id = "matrix-authentication-service";
+              client_secret_file = "/run/credentials/matrix-authentication-service.service/oidc-client-secret";
+              scope = "openid profile email";
+              claims_imports = {
+                localpart = {
+                  action = "suggest";
+                  template = "{{ user.preferred_username }}";
+                };
+                displayname = {
+                  action = "suggest";
+                  template = "{{ user.name }}";
+                };
+                email = {
+                  action = "suggest";
+                  template = "{{ user.email }}";
+                  set_email_verification = "always";
+                };
+              };
+            };
+          };
+        }
+      );
+      mas = [
+        (lib.getExe pkgs.matrix-authentication-service)
+        "--config"
+        configFile
+      ];
+    in
+    {
+      MemoryDenyWriteExecute = false;
+      LoadCredential = [
+        "encryption:${config.sops.secrets."matrix-authentication-service/encryption".path}"
+        "shared:${config.sops.secrets."matrix-authentication-service/shared".path}"
+        "oidc-client-secret:${config.sops.secrets."matrix-authentication-service/oidc-client-secret".path}"
+        "key-kwwU9cVvV2:${config.sops.secrets."matrix-authentication-service/keys/kwwU9cVvV2".path}"
+        "key-F3NNQzLmt4:${config.sops.secrets."matrix-authentication-service/keys/F3NNQzLmt4".path}"
+        "key-f6A0kQMjmd:${config.sops.secrets."matrix-authentication-service/keys/f6A0kQMjmd".path}"
+        "key-WNU225gZTr:${config.sops.secrets."matrix-authentication-service/keys/WNU225gZTr".path}"
+      ];
+      ExecStartPre = [
+        (lib.escapeShellArgs (
+          mas
+          ++ [
+            "config"
+            "check"
+          ]
+        ))
+        (lib.escapeShellArgs (
+          mas
+          ++ [
+            "config"
+            "sync"
+            "--prune"
+          ]
+        ))
+      ];
+      ExecStart = lib.escapeShellArgs (
+        mas
+        ++ [
+          "server"
+        ]
+      );
+    };
 
   services.matrix-synapse = {
     enable = true;
@@ -216,7 +314,7 @@ in
       dynamic_thumbnails = true;
       allow_public_rooms_over_federation = true;
 
-      enable_registration = true;
+      enable_registration = false;
       registration_requires_token = true;
 
       media_storage_providers = [
@@ -255,26 +353,11 @@ in
         remote_media_lifetime = "14d";
       };
 
-      oidc_providers = [
-        {
-          idp_id = "keycloak";
-          idp_name = "id.nichi.co";
-          issuer = "https://id.nichi.co/realms/nichi";
-          client_id = "synapse";
-          client_secret_path = config.sops.secrets.matrix-synapse-oidc.path;
-          scopes = [
-            "openid"
-            "profile"
-          ];
-          allow_existing_users = true;
-          backchannel_logout_enabled = true;
-          user_mapping_provider.config = {
-            confirm_localpart = true;
-            localpart_template = "{{ user.preferred_username }}";
-            display_name_template = "{{ user.name }}";
-          };
-        }
-      ];
+      matrix_authentication_service = {
+        enabled = true;
+        endpoint = "http://127.0.0.1:${toString config.lib.ports.matrix-authentication-service}";
+        secret_path = config.sops.secrets."matrix-authentication-service/shared".path;
+      };
 
       experimental_features = {
         # Room summary api
@@ -452,10 +535,6 @@ in
       match = [ { host = [ "matrix-auth.nichi.co" ]; } ];
       handle = lib.singleton {
         handler = "reverse_proxy";
-        transport = {
-          protocol = "http";
-          proxy_protocol = "v1";
-        };
         upstreams = [ { dial = "127.0.0.1:${toString config.lib.ports.matrix-authentication-service}"; } ];
       };
     }

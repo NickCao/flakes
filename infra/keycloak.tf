@@ -36,6 +36,20 @@ resource "keycloak_openid_client" "synapse" {
   backchannel_logout_url = "https://matrix.nichi.co/_synapse/client/oidc/backchannel_logout"
 }
 
+# https://element-hq.github.io/matrix-authentication-service/setup/sso.html#keycloak
+resource "keycloak_openid_client" "matrix-authentication-service" {
+  realm_id    = keycloak_realm.nichi.id
+  client_id   = "matrix-authentication-service"
+  name        = "Matrix Authentication Service"
+  access_type = "CONFIDENTIAL"
+
+  standard_flow_enabled               = true
+  valid_redirect_uris                 = ["https://matrix-auth.nichi.co/upstream/callback/01K34XRT1QHE1541KQ7HRRY15M"]
+  frontchannel_logout_enabled         = false
+  backchannel_logout_session_required = true
+  backchannel_logout_url              = "https://matrix-auth.nichi.co/upstream/backchannel-logout/01K34XRT1QHE1541KQ7HRRY15M"
+}
+
 resource "keycloak_realm_events" "events" {
   realm_id                     = keycloak_realm.nichi.id
   admin_events_enabled         = true
