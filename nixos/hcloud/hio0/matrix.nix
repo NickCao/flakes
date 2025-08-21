@@ -83,9 +83,6 @@ in
       matrix-synapse = {
         owner = config.systemd.services.matrix-synapse.serviceConfig.User;
       };
-      matrix-synapse-oidc = {
-        owner = config.systemd.services.matrix-synapse.serviceConfig.User;
-      };
       matrix-synapse-s3 = {
         restartUnits = [ config.systemd.services.matrix-synapse.name ];
       };
