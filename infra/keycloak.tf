@@ -25,17 +25,6 @@ resource "keycloak_openid_client" "miniflux" {
   web_origins         = ["https://rss.nichi.co/oauth2/oidc/redirect"]
 }
 
-resource "keycloak_openid_client" "synapse" {
-  realm_id    = keycloak_realm.nichi.id
-  client_id   = "synapse"
-  name        = "Synapse"
-  access_type = "CONFIDENTIAL"
-
-  valid_redirect_uris    = ["https://matrix.nichi.co/_synapse/client/oidc/callback"]
-  web_origins            = ["https://matrix.nichi.co"]
-  backchannel_logout_url = "https://matrix.nichi.co/_synapse/client/oidc/backchannel_logout"
-}
-
 # https://element-hq.github.io/matrix-authentication-service/setup/sso.html#keycloak
 resource "keycloak_openid_client" "matrix-authentication-service" {
   realm_id    = keycloak_realm.nichi.id
