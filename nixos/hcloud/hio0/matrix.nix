@@ -215,7 +215,7 @@ in
             endpoint = "http://127.0.0.1:${toString config.lib.ports.synapse}";
           };
           passwords = {
-            enabled = false;
+            enabled = true;
             schemes = [
               {
                 version = 1;
@@ -544,6 +544,15 @@ in
         {
           handler = "subroute";
           routes = [
+            {
+              match = lib.singleton {
+                path_regexp.pattern = "^/_matrix/client/(.*)/(login|logout|refresh)";
+              };
+              handle = lib.singleton {
+                handler = "reverse_proxy";
+                upstreams = [ { dial = "127.0.0.1:${toString config.lib.ports.matrix-authentication-service}"; } ];
+              };
+            }
             {
               match = [
                 {
