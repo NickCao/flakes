@@ -371,6 +371,7 @@ in
       "go/env".text = ''
         GOPATH=${config.xdg.cacheHome}/go
         GOBIN=${config.xdg.stateHome}/go/bin
+        GOTOOLCHAIN=local
       '';
       "niri/config.kdl".source = ./niri.kdl;
     };
