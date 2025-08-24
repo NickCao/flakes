@@ -97,7 +97,6 @@
   ];
 
   hardware.graphics.enable = true;
-  hardware.asahi.useExperimentalGPUDriver = false;
 
   virtualisation.podman.enable = true;
 
