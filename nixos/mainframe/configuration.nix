@@ -119,7 +119,6 @@
     inputMethod = {
       enable = true;
       type = "fcitx5";
-      fcitx5.plasma6Support = true;
       fcitx5.waylandFrontend = true;
       fcitx5.addons = [
         pkgs.qt6Packages.fcitx5-chinese-addons
@@ -160,7 +159,7 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
-      "ia32_emulation=0"
+      # "ia32_emulation=0"
       "amdgpu.dcdebugmask=0x10"
     ];
     kernelModules = [ "kvm-amd" ];
@@ -196,7 +195,9 @@
   };
 
   services = {
-    logind.powerKey = "suspend";
+    logind.settings = {
+      Login.HandlePowerKey = "suspend";
+    };
     resolved = {
       dnssec = "false";
       llmnr = "false";
@@ -305,6 +306,7 @@
         ".ssh"
         ".thunderbird"
         ".config/fcitx5"
+        ".config/OrcaSlicer"
       ];
       files = [
         ".config/WSJT-X.ini"

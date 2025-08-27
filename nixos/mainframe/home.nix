@@ -302,8 +302,11 @@ in
     };
     ssh = {
       enable = true;
-      serverAliveInterval = 30;
+      enableDefaultConfig = false;
       matchBlocks = {
+        "*" = {
+          serverAliveInterval = 15;
+        };
         "hydra" = {
           user = "root";
           hostname = "k17-plct.nichi.link";
