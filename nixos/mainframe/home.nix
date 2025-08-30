@@ -147,7 +147,7 @@ in
     nil
     ncdu
     yubikey-manager
-    nixfmt-rfc-style
+    nixfmt
     smartmontools
     python3
     knot-dns
@@ -167,6 +167,8 @@ in
     bluetuith
     nautilus
     wsjtx
+    xwayland-satellite
+    orca-slicer
   ];
 
   systemd.user.sessionVariables = {
