@@ -92,7 +92,6 @@
                   ps: with ps; [
                     vultr
                     sops
-                    hydra
                     hcloud
                     keycloak
                     oci
