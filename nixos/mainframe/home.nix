@@ -262,7 +262,6 @@ in
       };
       shellAbbrs = {
         rebuild = "nixos-rebuild --sudo -v -L --flake ~/Projects/flakes";
-        ncp = "nix copy --from https://cache.nichi.co";
       };
     };
     tmux = {

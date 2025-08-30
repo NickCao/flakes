@@ -10,12 +10,6 @@ provider "vultr" {
   api_key = local.secrets.vultr.api_key
 }
 
-provider "hydra" {
-  host     = "https://hydra.nichi.co"
-  username = "terraform"
-  password = local.secrets.hydra.password
-}
-
 provider "hcloud" {
   token = local.secrets.hcloud.token
 }

@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.services.prometheus;
-  targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [ "hydra.nichi.link" ];
+  targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes;
   nameservers = lib.mapAttrsToList (_mame: value: value.fqdn) (
     lib.filterAttrs (_name: value: lib.elem "nameserver" value.tags) data.nodes
   );
