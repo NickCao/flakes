@@ -50,8 +50,6 @@ dns.lib.toString "nichi.co" {
     api.CNAME = [ "iad1.nichi.link." ];
     rss.CNAME = [ "hio0.nichi.link." ];
     ntfy.CNAME = [ "iad1.nichi.link." ];
-    hydra.CNAME = [ "k17-plct.nichi.link." ];
-    cache.CNAME = [ "k17-plct.nichi.link." ];
     vault.CNAME = [ "hel0.nichi.link." ];
     matrix.CNAME = [ "hio0.nichi.link." ];
     matrix-auth.CNAME = [ "hio0.nichi.link." ];

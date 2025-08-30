@@ -48,7 +48,5 @@ dns.lib.toString "nichi.link" {
             }
           ];
         };
-        "k17-plct".A = [ "110.238.111.26" ];
-        "hydra".CNAME = [ "k17-plct.nichi.link." ];
       };
 }
