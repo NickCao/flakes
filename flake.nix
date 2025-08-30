@@ -119,7 +119,8 @@
           system = "aarch64-linux";
           inherit self nixpkgs inputs;
         };
-      } // self.colmenaHive.nodes;
+      }
+      // self.colmenaHive.nodes;
       colmenaHive = inputs.colmena.lib.makeHive (
         {
           meta = {
@@ -133,12 +134,6 @@
             };
             nixpkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
           };
-          hydra =
-            { ... }:
-            {
-              deployment.targetHost = "hydra";
-              imports = [ ./nixos/hydra ];
-            };
         }
         // (lib.mapAttrs (
           name: value:
