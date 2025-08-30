@@ -55,5 +55,9 @@ dns.lib.toString "nichi.co" {
     matrix-auth.CNAME = [ "hio0.nichi.link." ];
     bouncer.CNAME = [ "hio0.nichi.link." ];
     mastodon.CNAME = [ "hio0.nichi.link." ];
+
+    # These services are no longer available
+    cache.CNAME = [ "hio0.nichi.link." ];
+    hydra.CNAME = [ "hio0.nichi.link." ];
   };
 }

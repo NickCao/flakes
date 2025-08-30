@@ -5,6 +5,26 @@
     {
       match = [
         {
+          host = [
+            "cache.nichi.co"
+            "hydra.nichi.co"
+          ];
+        }
+      ];
+      handle = [
+        {
+          handler = "static_response";
+          status_code = 404;
+          headers = {
+            Content-Type = [ "text/plain" ];
+          };
+          body = "This service is no longer available";
+        }
+      ];
+    }
+    {
+      match = [
+        {
           host = [ "nichi.co" ];
           path = [ "/.well-known/matrix/server" ];
         }
