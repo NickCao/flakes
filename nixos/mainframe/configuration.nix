@@ -214,10 +214,6 @@
         SystemMaxUse=1G
       '';
     };
-    udev.packages = [
-      pkgs.yubikey-personalization
-      pkgs.libu2f-host
-    ];
     udev.extraRules = ''
       # AIOC
       SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="7388", MODE="0666"
@@ -230,6 +226,7 @@
     adb.enable = true;
     dconf.enable = true;
     command-not-found.enable = false;
+    yubikey-manager.enable = true;
   };
 
   users = {

@@ -146,7 +146,6 @@ in
     ripgrep
     nil
     ncdu
-    yubikey-manager
     nixfmt
     smartmontools
     python3
