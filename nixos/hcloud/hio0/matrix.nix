@@ -466,6 +466,20 @@ in
           [
             (mkGateway "archlinux-cn")
             (mkGateway "archlinux-cn-offtopic")
+            {
+              enable = true;
+              name = "MontageSubs";
+              inout = [
+                {
+                  account = "irc.libera";
+                  channel = "#MontageSubs";
+                }
+                {
+                  account = "telegram.montagesubs";
+                  channel = "-1002836409049";
+                }
+              ];
+            }
           ];
         irc = {
           libera = {
@@ -490,6 +504,12 @@ in
             Server = config.services.matrix-synapse.settings.public_baseurl;
             HTMLDisable = true;
             KeepQuotedReply = true;
+          };
+        };
+        telegram = {
+          montagesubs = {
+            RemoteNickFormat = "{NICK} ";
+            MessageFormat = "HTMLNick";
           };
         };
       }
