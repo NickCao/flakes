@@ -302,6 +302,7 @@
         ".thunderbird"
         ".config/fcitx5"
         ".config/OrcaSlicer"
+        ".config/Cursor"
       ];
       files = [
         ".config/WSJT-X.ini"
