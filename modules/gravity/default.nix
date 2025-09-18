@@ -461,7 +461,7 @@ in
               chain forward {
                 type filter hook forward priority filter; policy accept;
                 ip6 daddr ${cfg.divi.prefix} ip6 saddr != $divi_allow reject with icmpv6 admin-prohibited
-                tcp flags syn tcp option maxseg size set rt mtu
+                tcp flags syn tcp option maxseg size set 1200
               }
 
               chain postrouting {
