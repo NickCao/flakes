@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 {
 
   services.gravity = {
@@ -37,54 +42,12 @@
   systemd.services.bird.after = [ "network-online.target" ];
   systemd.services.bird.wants = [ "network-online.target" ];
 
-  services.sing-box = {
-    enable = true;
-    settings = {
-      log = {
-        level = "info";
-      };
-      dns = {
-        servers = [
-          {
-            tag = "cloudflare";
-            address = "https://[2606:4700:4700::1111]/dns-query";
-            strategy = "prefer_ipv6";
-          }
-          {
-            tag = "local";
-            address = "local";
-            strategy = "prefer_ipv4";
-          }
-        ];
-        final = "cloudflare";
-      };
-      inbounds = [
-        {
-          type = "mixed";
-          tag = "inbound";
-          listen = "127.0.0.1";
-          listen_port = 1080;
-          sniff = true;
-          sniff_override_destination = true;
-        }
-      ];
-      outbounds = [
-        {
-          type = "direct";
-          tag = "gravity";
-          bind_interface = "gravity";
-          inet6_bind_address = "2a0c:b641:69c:99cc::1";
-          domain_strategy = "prefer_ipv6";
-        }
-        {
-          type = "direct";
-          tag = "direct";
-        }
-      ];
-      route = {
-        final = "gravity";
-      };
-    };
+  cloud.services.gost.config = {
+    ExecStart = utils.escapeSystemdExecArgs [
+      (lib.getExe pkgs.gost)
+      "-L"
+      "auto://127.0.0.1:1080?interface=gravity"
+    ];
   };
 
   systemd.network.networks.clat = {
