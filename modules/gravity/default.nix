@@ -393,6 +393,10 @@ in
     (mkIf cfg.divi.enable {
       systemd.network.networks.nat64 = {
         name = "nat64";
+        linkConfig = {
+          RequiredForOnline = false;
+          MTUBytes = "1300";
+        };
         routes = [
           {
             Destination = "64:ff9b::/96";
@@ -401,13 +405,13 @@ in
           { Destination = "10.201.0.0/16"; }
         ];
         networkConfig.LinkLocalAddressing = false;
-        linkConfig.RequiredForOnline = false;
       };
 
       systemd.network.networks.divi = {
         name = "divi";
         linkConfig = {
-          MTUBytes = "1400";
+          RequiredForOnline = false;
+          MTUBytes = "1300";
         };
         routes = [
           {
@@ -417,7 +421,6 @@ in
           { Destination = cfg.divi.dynamic-pool; }
         ];
         networkConfig.LinkLocalAddressing = false;
-        linkConfig.RequiredForOnline = false;
       };
 
       systemd.services.nat64 = {
@@ -458,7 +461,7 @@ in
               chain forward {
                 type filter hook forward priority filter; policy accept;
                 ip6 daddr ${cfg.divi.prefix} ip6 saddr != $divi_allow reject with icmpv6 admin-prohibited
-                tcp flags syn tcp option maxseg size set 1200
+                tcp flags syn tcp option maxseg size set rt mtu
               }
 
               chain postrouting {
