@@ -56,6 +56,7 @@ in
       activated = "OFF";
       deactivated = "ON";
     };
+    start-activated = true;
   };
   pulseaudio = {
     format = "{volume}% {icon} {format_source}";
