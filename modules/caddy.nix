@@ -81,8 +81,27 @@ in
         DynamicUser = true;
         StateDirectory = [ "caddy" ];
         RuntimeDirectory = [ "caddy" ];
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         Environment = [ "XDG_DATA_HOME=%S" ];
+        MemoryDenyWriteExecute = true;
+        RestrictNamespaces = true;
+        ProtectSystem = "strict";
+        ProtectControlGroups = "strict";
+        ProtectKernelModules = true;
+        LockPersonality = true;
+        ProtectKernelTunables = true;
+        SystemCallFilter = [ "@system-service" ];
+        SystemCallErrorNumber = "EPERM";
+        PrivateDevices = true;
+        ProtectClock = true;
+        ProtectKernelLogs = true;
+        ProtectProc = "invisible";
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
       };
       wantedBy = [ "multi-user.target" ];
       after = [
