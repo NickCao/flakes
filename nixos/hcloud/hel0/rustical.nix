@@ -30,7 +30,7 @@ let
       name = "Keycloak";
       issuer = "https://id.nichi.co/realms/nichi";
       client_id = "rustical";
-      claim_userid = "preferred_username";
+      claim_userid = "sub";
       scopes = [
         "openid"
         "profile"
