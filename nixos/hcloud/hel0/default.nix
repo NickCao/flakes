@@ -4,6 +4,7 @@
   imports = [
     ../common.nix
     ./vaultwarden.nix
+    ./rustical.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;

@@ -25,6 +25,18 @@ resource "keycloak_openid_client" "miniflux" {
   web_origins         = ["https://rss.nichi.co/oauth2/oidc/redirect"]
 }
 
+# https://lennart-k.github.io/rustical/setup/oidc/
+resource "keycloak_openid_client" "rustical" {
+  realm_id    = keycloak_realm.nichi.id
+  client_id   = "rustical"
+  name        = "Rustical"
+  access_type = "CONFIDENTIAL"
+
+  implicit_flow_enabled = true
+  standard_flow_enabled = true
+  valid_redirect_uris   = ["https://cal.nichi.co/frontend/login/oidc/callback"]
+}
+
 # https://element-hq.github.io/matrix-authentication-service/setup/sso.html#keycloak
 resource "keycloak_openid_client" "matrix-authentication-service" {
   realm_id    = keycloak_realm.nichi.id
