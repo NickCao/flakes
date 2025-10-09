@@ -208,6 +208,7 @@ in
     };
     git = {
       enable = true;
+      lfs.enable = true;
       userEmail = "nickcao@nichi.co";
       userName = "Nick Cao";
       signing = {
