@@ -90,11 +90,11 @@
                 nvfetcher
                 (opentofu.withPlugins (
                   ps: with ps; [
-                    vultr
-                    sops
-                    hcloud
-                    keycloak
-                    oci
+                    vultr_vultr
+                    carlpett_sops
+                    hetznercloud_hcloud
+                    keycloak_keycloak
+                    oracle_oci
                   ]
                 ))
               ];
