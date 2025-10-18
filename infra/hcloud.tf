@@ -17,7 +17,7 @@ locals {
     }
     hel0 = {
       datacenter = "hel1-dc2"
-      plan       = "cpx11"
+      plan       = "cx23"
       tags       = ["hetzner"]
     }
   }
