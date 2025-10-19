@@ -192,6 +192,12 @@
     };
   };
 
+  systemd.services.greetd.serviceConfig = {
+    Type = lib.mkForce "simple";
+    ExecStartPre = [ "-${pkgs.coreutils}/bin/kill -SIGRTMIN+21 1" ];
+    ExecStopPost = [ "-${pkgs.coreutils}/bin/kill -SIGRTMIN+20 1" ];
+  };
+
   services = {
     logind.settings = {
       Login.HandlePowerKey = "suspend";
