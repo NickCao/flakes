@@ -210,19 +210,23 @@ in
     git = {
       enable = true;
       lfs.enable = true;
-      userEmail = "nickcao@nichi.co";
-      userName = "Nick Cao";
       signing = {
         format = "ssh";
         key = "~/.ssh/id_ed25519";
       };
-      extraConfig = {
+      settings = {
+        user = {
+          email = "nickcao@nichi.co";
+          name = "Nick Cao";
+        };
         commit.gpgSign = true;
         gpg = {
           ssh.allowedSignersFile = toString (pkgs.writeText "allowed_signers" '''');
         };
-        merge.conflictStyle = "diff3";
-        merge.tool = "vimdiff";
+        merge = {
+          conflictStyle = "diff3";
+          tool = "vimdiff";
+        };
         mergetool = {
           keepBackup = false;
           keepTemporaries = false;
