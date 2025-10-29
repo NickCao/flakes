@@ -530,7 +530,7 @@ in
   cloud.services.bouncer.unit.After = [ config.systemd.services.matrix-synapse.name ];
   cloud.services.bouncer.config = {
     ExecStart = utils.escapeSystemdExecArgs [
-      (lib.getExe inputs.bouncer.packages.${pkgs.system}.default)
+      (lib.getExe inputs.bouncer.packages.${pkgs.stdenv.hostPlatform.system}.default)
       "--listen-address"
       "127.0.0.1:${toString config.lib.ports.bouncer}"
     ];

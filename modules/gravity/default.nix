@@ -565,7 +565,7 @@ in
         in
         {
           path = [
-            inputs.ranet-ipsec.packages.${pkgs.system}.default
+            inputs.ranet-ipsec.packages.${pkgs.stdenv.hostPlatform.system}.default
             pkgs.iproute2
           ];
           script = "${command} up";
