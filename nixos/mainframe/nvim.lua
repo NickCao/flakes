@@ -118,9 +118,7 @@ require('lualine').setup {
 require('which-key').setup {
 }
 
-require('leap').add_default_mappings()
-
-vim.keymap.del({'x', 'o'}, 'x')
-vim.keymap.del({'x', 'o'}, 'X')
+vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
+vim.keymap.set('n',             'S', '<Plug>(leap-from-window)')
 
 vim.diagnostic.config({ virtual_text = true })
