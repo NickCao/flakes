@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -89,6 +90,8 @@
       ];
     };
   };
+
+  systemd.services.dump1090-fa.serviceConfig.PrivateNetwork = lib.mkForce false;
 
   services.dump1090-fa = {
     enable = true;
