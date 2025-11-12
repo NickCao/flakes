@@ -4,10 +4,6 @@ let
 in
 {
 
-  sops.secrets.vault = {
-    restartUnits = [ "vaultwarden.service" ];
-  };
-
   services.vaultwarden = {
     enable = true;
     config = {
@@ -20,7 +16,6 @@ in
       IP_HEADER = "X-Forwarded-For";
     };
     backupDir = "/var/lib/backup/vaultwarden";
-    environmentFile = config.sops.secrets.vault.path;
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
