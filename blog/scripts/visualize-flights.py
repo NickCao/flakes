@@ -77,9 +77,9 @@ def visualize_flights(directory, output):
         showlegend=False,
         margin=dict(l=0, r=0, b=0, t=0, pad=0),
         map=dict(
-            center=dict(lat=38, lon=-97),
+            center=dict(lat=42.363056, lon=-71.006389),  # BOS
             style="carto-darkmatter",
-            zoom=4,
+            zoom=3,
         ),
     )
 
