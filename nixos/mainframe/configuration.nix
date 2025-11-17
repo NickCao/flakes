@@ -76,12 +76,11 @@
         "go"
         "uhk-agent"
         "sof-firmware"
-        "adoptopenjdk-hotspot-bin"
         "temurin-bin"
         "cargo-bootstrap"
         "rustc-bootstrap"
         "rustc-bootstrap-wrapper"
-        "electron"
+        "librusty_v8"
       ];
   };
 
