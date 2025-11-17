@@ -30,7 +30,7 @@ in
 
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_17;
+    package = pkgs.postgresql_18;
     settings = {
       allow_alter_system = false;
       # https://pgtune.leopard.in.ua
@@ -608,4 +608,5 @@ in
       ];
     }
   ];
+
 }
