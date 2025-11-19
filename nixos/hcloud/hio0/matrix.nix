@@ -33,8 +33,9 @@ in
     package = pkgs.postgresql_18;
     settings = {
       allow_alter_system = false;
+      io_method = "io_uring";
       # https://pgtune.leopard.in.ua
-      # DB Version: 17
+      # DB Version: 18
       # OS Type: linux
       # DB Type: mixed
       # Total Memory (RAM): 8 GB
@@ -50,7 +51,7 @@ in
       default_statistics_target = 100;
       random_page_cost = 1.1;
       effective_io_concurrency = 200;
-      work_mem = "5242kB";
+      work_mem = "10082kB";
       huge_pages = "off";
       min_wal_size = "1GB";
       max_wal_size = "4GB";
