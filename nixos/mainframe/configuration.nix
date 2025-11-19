@@ -81,6 +81,7 @@
         "rustc-bootstrap"
         "rustc-bootstrap-wrapper"
         "librusty_v8"
+        "linux-firmware"
       ];
   };
 
