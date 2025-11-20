@@ -72,7 +72,7 @@
     allowNonSource = false;
     allowNonSourcePredicate =
       pkg:
-      builtins.elem (lib.getName pkg) [
+      (builtins.elem (lib.getName pkg) [
         "go"
         "uhk-agent"
         "sof-firmware"
@@ -81,8 +81,11 @@
         "rustc-bootstrap"
         "rustc-bootstrap-wrapper"
         "librusty_v8"
-        "linux-firmware"
-      ];
+        "ghc-binary"
+        "intel2200BGFirmware"
+        "rtl8761b-firmware-rtk1395-zstd"
+      ])
+      || (lib.strings.hasSuffix "-firmware" (lib.getName pkg));
   };
 
   networking = {
@@ -307,6 +310,7 @@
         ".ssh"
         ".thunderbird"
         ".config/fcitx5"
+        ".config/incus"
         ".config/OrcaSlicer"
         ".config/Cursor"
       ];
