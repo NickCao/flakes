@@ -91,17 +91,6 @@
     };
   };
 
-  systemd.services.dump1090-fa.serviceConfig.PrivateNetwork = lib.mkForce false;
-
-  services.dump1090-fa = {
-    enable = true;
-    extraArgs = [
-      "--net-bind-address"
-      "127.0.0.1"
-      "--quiet"
-    ];
-  };
-
   environment.systemPackages = with pkgs; [
     vim
     git
@@ -109,8 +98,6 @@
   ];
 
   hardware.graphics.enable = true;
-
-  hardware.rtl-sdr.enable = true;
 
   virtualisation.podman.enable = true;
 
