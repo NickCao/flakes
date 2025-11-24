@@ -169,6 +169,7 @@ in
     wsjtx
     xwayland-satellite
     orca-slicer
+    incus.client
   ];
 
   systemd.user.sessionVariables = {
