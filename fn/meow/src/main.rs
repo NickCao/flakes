@@ -9,6 +9,7 @@ use axum::{
 };
 use futures::{StreamExt, TryStreamExt};
 use std::net::SocketAddr;
+use tokio::io::AsyncBufReadExt;
 use tokio_util::compat::FuturesAsyncReadCompatExt;
 use tower_http::services::ServeDir;
 use url::Url;
@@ -29,17 +30,29 @@ async fn paste(
     let key = crate::bip39::mnemonic(config.key_size);
     let mut path = std::path::PathBuf::from(&config.data_dir);
     path.push(&key);
+    let mut body = body
+        .into_data_stream()
+        .map(|item| item.map_err(|err| std::io::Error::new(std::io::ErrorKind::Other, err)))
+        .into_async_read()
+        .compat();
+    let peek = body.fill_buf().await.map_err(|e| {
+        (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            "failed to peek into body",
+        )
+    })?;
+    if infer::is_image(peek) || infer::is_video(peek) {
+        return Err((
+            StatusCode::FORBIDDEN,
+            "image or video files are not allowed",
+        ));
+    }
     let mut file = tokio::fs::OpenOptions::new()
         .create_new(true)
         .write(true)
         .open(path)
         .await
         .map_err(|_| (StatusCode::INTERNAL_SERVER_ERROR, "failed to create file"))?;
-    let mut body = body
-        .into_data_stream()
-        .map(|item| item.map_err(|err| std::io::Error::new(std::io::ErrorKind::Other, err)))
-        .into_async_read()
-        .compat();
     tokio::io::copy_buf(&mut body, &mut file)
         .await
         .map_err(|_| (StatusCode::INTERNAL_SERVER_ERROR, "failed to write to file"))?;
