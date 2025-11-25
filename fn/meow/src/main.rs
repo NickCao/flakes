@@ -35,16 +35,16 @@ async fn paste(
         .map(|item| item.map_err(|err| std::io::Error::new(std::io::ErrorKind::Other, err)))
         .into_async_read()
         .compat();
-    let peek = body.fill_buf().await.map_err(|e| {
+    let peek = body.fill_buf().await.map_err(|_| {
         (
             StatusCode::INTERNAL_SERVER_ERROR,
             "failed to peek into body",
         )
     })?;
-    if infer::is_image(peek) || infer::is_video(peek) {
+    if infer::is_image(peek) || infer::is_video(peek) || infer::is_app(peek) {
         return Err((
             StatusCode::FORBIDDEN,
-            "image or video files are not allowed",
+            "image, video or executable files are not allowed",
         ));
     }
     let mut file = tokio::fs::OpenOptions::new()
