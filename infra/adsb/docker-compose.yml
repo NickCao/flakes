@@ -10,6 +10,19 @@ services:
       - FR24KEY=${FR24_SHARING_KEY}
     tmpfs:
       - /var/log
+  piaware:
+    image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
+    container_name: piaware
+    restart: unless-stopped
+    ports:
+      - 8081:8080
+    environment:
+      - BEASTHOST=ultrafeeder
+      - TZ=${FEEDER_TZ}
+      - FEEDER_ID=${PIAWARE_FEEDER_ID}
+    tmpfs:
+      - /run:exec,size=64M
+      - /var/log
   ultrafeeder:
     image: ghcr.io/sdr-enthusiasts/docker-adsb-ultrafeeder
     # Note - if you want to enable telegraf for use with InfluxDB/Prometheus and Grafana,
@@ -54,8 +67,6 @@ services:
         adsb,feed.airplanes.live,30004,beast_reduce_plus_out;
         adsb,feed.planespotters.net,30004,beast_reduce_plus_out;
         adsb,feed.theairtraffic.com,30004,beast_reduce_plus_out;
-        adsb,data.avdelphi.com,24999,beast_reduce_plus_out;
-        adsb,skyfeed.hpradar.com,30004,beast_reduce_plus_out;
         adsb,dati.flyitalyadsb.com,4905,beast_reduce_plus_out;
         mlat,feed.adsb.fi,31090,39000;
         mlat,in.adsb.lol,31090,39001;
@@ -63,7 +74,8 @@ services:
         mlat,mlat.planespotters.net,31090,39003;
         mlat,feed.theairtraffic.com,31090,39004;
         mlat,skyfeed.hpradar.com,31090,39005;
-        mlat,dati.flyitalyadsb.com,30100,39007
+        mlat,dati.flyitalyadsb.com,30100,39007;
+        mlathub,piaware,30105,beast_in
       # If you really want to feed ADSBExchange, you can do so by adding this above:
       #        adsb,feed1.adsbexchange.com,30004,beast_reduce_plus_out,uuid=${ADSBX_UUID};
       #        mlat,feed.adsbexchange.com,31090,39008,uuid=${ADSBX_UUID}
