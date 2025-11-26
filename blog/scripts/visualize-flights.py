@@ -45,33 +45,36 @@ def visualize_flights(directory, output):
         root = tree.getroot()
         ns = {"kml": "http://www.opengis.net/kml/2.2"}
 
-        name = root.find(".//kml:Document/kml:name", ns).text.split("/")[0].strip()
-        desc = root.find(".//kml:Document/kml:description", ns).text
+        if filename.name.startswith("FlightAware"):
+            pass
+        else:
+            name = root.find(".//kml:Document/kml:name", ns).text.split("/")[0].strip()
+            desc = root.find(".//kml:Document/kml:description", ns).text
 
-        lat = []
-        lon = []
+            lat = []
+            lon = []
 
-        df = gpd.read_file(filename, layer="Trail")
-        for feature in df.geometry:
-            for linestring in feature.geoms:
-                for coord in linestring.coords:
-                    x, y, _z = coord
-                    lat = np.append(lat, y)
-                    lon = np.append(lon, x)
+            df = gpd.read_file(filename, layer="Trail")
+            for feature in df.geometry:
+                for linestring in feature.geoms:
+                    for coord in linestring.coords:
+                        x, y, _z = coord
+                        lat = np.append(lat, y)
+                        lon = np.append(lon, x)
 
-        soup = BeautifulSoup(desc, "html.parser")
-        src, dst = (h3.get_text() for h3 in soup.css.select("a h3"))
+            soup = BeautifulSoup(desc, "html.parser")
+            src, dst = (h3.get_text() for h3 in soup.css.select("a h3"))
 
-        fig.add_trace(
-            go.Scattermap(
-                mode="lines",
-                name=name,
-                hovertemplate=f"<b>{name}</b><extra><i style='color: black;'>{src} -> {dst}</i></extra>",
-                lon=lon,
-                lat=lat,
-                line=go.scattermap.Line(width=3),
+            fig.add_trace(
+                go.Scattermap(
+                    mode="lines",
+                    name=name,
+                    hovertemplate=f"<b>{name}</b><extra><i style='color: black;'>{src} -> {dst}</i></extra>",
+                    lon=lon,
+                    lat=lat,
+                    line=go.scattermap.Line(width=3),
+                )
             )
-        )
 
     fig.update_layout(
         showlegend=False,
