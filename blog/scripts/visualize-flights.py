@@ -6,6 +6,7 @@
 #   "airportsdata",
 #   "click",
 #   "geopandas",
+#   "geopy",
 #   "numpy",
 #   "plotly",
 #   "beautifulsoup4",
@@ -20,6 +21,8 @@ import xml.etree.ElementTree as ET
 import plotly.graph_objects as go
 from bs4 import BeautifulSoup
 from pathlib import Path
+from geopy.distance import distance
+from geopy.point import Point
 
 
 @click.command("visualize-flights")
@@ -61,34 +64,23 @@ def visualize_flights(directory, output):
             name = placemark.find(".//kml:name", ns).text.strip()
             src, dst = placemark.find(".//kml:description", ns).text.split(" - ")
 
-            src = icao[src]["iata"]
-            dst = icao[dst]["iata"]
-
-            a = (
-                root.findall(".//kml:Document/kml:Placemark", ns)[0]
-                .find(".//kml:Point/kml:coordinates", ns)
-                .text.split(",")
-            )
-            b = (
-                root.findall(".//kml:Document/kml:Placemark", ns)[1]
-                .find(".//kml:Point/kml:coordinates", ns)
-                .text.split(",")
-            )
-
-            lat = np.append(lat, a[1])
-            lon = np.append(lon, a[0])
+            src = icao[src]
+            dst = icao[dst]
 
             track = placemark.find(".//gx:Track", ns).findall(".//gx:coord", ns)
             for point in track:
                 x, y, _z = point.text.split(" ")
                 lat = np.append(lat, y)
                 lon = np.append(lon, x)
-
-            lat = np.append(lat, b[1])
-            lon = np.append(lon, b[0])
         else:
             name = root.find(".//kml:Document/kml:name", ns).text.split("/")[0].strip()
             desc = root.find(".//kml:Document/kml:description", ns).text
+
+            soup = BeautifulSoup(desc, "html.parser")
+            src, dst = (h3.get_text() for h3 in soup.css.select("a h3"))
+
+            src = iata[src]
+            dst = iata[dst]
 
             df = gpd.read_file(filename, layer="Trail")
             for feature in df.geometry:
@@ -98,19 +90,33 @@ def visualize_flights(directory, output):
                         lat = np.append(lat, y)
                         lon = np.append(lon, x)
 
-            soup = BeautifulSoup(desc, "html.parser")
-            src, dst = (h3.get_text() for h3 in soup.css.select("a h3"))
+        if (
+            distance(
+                Point(latitude=src["lat"], longitude=src["lon"]),
+                Point(latitude=lat[0], longitude=lon[0]),
+            ).km
+            > 5.0
+        ):
+            lat = np.concatenate(([src["lat"]], lat))
+            lon = np.concatenate(([src["lon"]], lon))
 
-            src = iata[src]["iata"]
-            dst = iata[dst]["iata"]
+        if (
+            distance(
+                Point(latitude=dst["lat"], longitude=dst["lon"]),
+                Point(latitude=lat[-1], longitude=lon[-1]),
+            ).km
+            > 5.0
+        ):
+            lat = np.append(lat, dst["lat"])
+            lon = np.append(lon, dst["lon"])
 
-        print(f"{name}: {src} -> {dst}")
+        print(f"{name}: {src['iata']} -> {dst['iata']}")
 
         fig.add_trace(
             go.Scattermap(
                 mode="lines",
                 name=name,
-                hovertemplate=f"<b>{name}</b><extra><i style='color: black;'>{src} -> {dst}</i></extra>",
+                hovertemplate=f"<b>{name}</b><extra><i style='color: black;'>{src['iata']} -> {dst['iata']}</i></extra>",
                 lon=lon,
                 lat=lat,
                 line=go.scattermap.Line(width=3),
