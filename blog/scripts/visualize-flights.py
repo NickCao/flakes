@@ -43,16 +43,45 @@ def visualize_flights(directory, output):
     for filename in directory.rglob("*.kml"):
         tree = ET.parse(filename)
         root = tree.getroot()
-        ns = {"kml": "http://www.opengis.net/kml/2.2"}
+        ns = {
+            "kml": "http://www.opengis.net/kml/2.2",
+            "gx": "http://www.google.com/kml/ext/2.2",
+        }
+
+        lat = []
+        lon = []
 
         if filename.name.startswith("FlightAware"):
-            pass
+            placemark = root.findall(".//kml:Document/kml:Placemark", ns)[2]
+            name = placemark.find(".//kml:name", ns).text.strip()
+            src, dst = placemark.find(".//kml:description", ns).text.split(" - ")
+
+            a = (
+                root.findall(".//kml:Document/kml:Placemark", ns)[0]
+                .find(".//kml:Point/kml:coordinates", ns)
+                .text.split(",")
+            )
+            b = (
+                root.findall(".//kml:Document/kml:Placemark", ns)[1]
+                .find(".//kml:Point/kml:coordinates", ns)
+                .text.split(",")
+            )
+
+            lat = np.append(lat, a[1])
+            lon = np.append(lon, a[0])
+
+            track = placemark.find(".//gx:Track", ns).findall(".//gx:coord", ns)
+            for point in track:
+                x, y, _z = point.text.split(" ")
+                lat = np.append(lat, y)
+                lon = np.append(lon, x)
+
+            lat = np.append(lat, b[1])
+            lon = np.append(lon, b[0])
         else:
+            continue
             name = root.find(".//kml:Document/kml:name", ns).text.split("/")[0].strip()
             desc = root.find(".//kml:Document/kml:description", ns).text
-
-            lat = []
-            lon = []
 
             df = gpd.read_file(filename, layer="Trail")
             for feature in df.geometry:
@@ -65,16 +94,16 @@ def visualize_flights(directory, output):
             soup = BeautifulSoup(desc, "html.parser")
             src, dst = (h3.get_text() for h3 in soup.css.select("a h3"))
 
-            fig.add_trace(
-                go.Scattermap(
-                    mode="lines",
-                    name=name,
-                    hovertemplate=f"<b>{name}</b><extra><i style='color: black;'>{src} -> {dst}</i></extra>",
-                    lon=lon,
-                    lat=lat,
-                    line=go.scattermap.Line(width=3),
-                )
+        fig.add_trace(
+            go.Scattermap(
+                mode="lines",
+                name=name,
+                hovertemplate=f"<b>{name}</b><extra><i style='color: black;'>{src} -> {dst}</i></extra>",
+                lon=lon,
+                lat=lat,
+                line=go.scattermap.Line(width=3),
             )
+        )
 
     fig.update_layout(
         showlegend=False,
