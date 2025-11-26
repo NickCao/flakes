@@ -3,6 +3,7 @@
 # /// script
 # requires-python = ">=3.12"
 # dependencies = [
+#   "airportsdata",
 #   "click",
 #   "geopandas",
 #   "numpy",
@@ -11,6 +12,7 @@
 # ]
 # ///
 
+import airportsdata
 import click
 import geopandas as gpd
 import numpy as np
@@ -40,6 +42,9 @@ from pathlib import Path
 def visualize_flights(directory, output):
     fig = go.Figure()
 
+    icao = airportsdata.load()
+    iata = airportsdata.load("IATA")
+
     for filename in directory.rglob("*.kml"):
         tree = ET.parse(filename)
         root = tree.getroot()
@@ -55,6 +60,9 @@ def visualize_flights(directory, output):
             placemark = root.findall(".//kml:Document/kml:Placemark", ns)[2]
             name = placemark.find(".//kml:name", ns).text.strip()
             src, dst = placemark.find(".//kml:description", ns).text.split(" - ")
+
+            src = icao[src]["iata"]
+            dst = icao[dst]["iata"]
 
             a = (
                 root.findall(".//kml:Document/kml:Placemark", ns)[0]
@@ -79,7 +87,6 @@ def visualize_flights(directory, output):
             lat = np.append(lat, b[1])
             lon = np.append(lon, b[0])
         else:
-            continue
             name = root.find(".//kml:Document/kml:name", ns).text.split("/")[0].strip()
             desc = root.find(".//kml:Document/kml:description", ns).text
 
@@ -93,6 +100,11 @@ def visualize_flights(directory, output):
 
             soup = BeautifulSoup(desc, "html.parser")
             src, dst = (h3.get_text() for h3 in soup.css.select("a h3"))
+
+            src = iata[src]["iata"]
+            dst = iata[dst]["iata"]
+
+        print(f"{name}: {src} -> {dst}")
 
         fig.add_trace(
             go.Scattermap(
