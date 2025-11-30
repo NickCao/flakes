@@ -247,8 +247,6 @@ in
         }
       ];
       shellInit = ''
-        set -p fish_complete_path ${pkgs.fish}/share/fish/completions
-
         set fish_greeting
 
         function fish_user_key_bindings
