@@ -83,6 +83,7 @@ binds {
     Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
     Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
 
+    Mod+Tab            { focus-workspace-previous; }
     Mod+J              { focus-workspace-down; }
     Mod+K              { focus-workspace-up; }
     Mod+Ctrl+J         { move-column-to-workspace-down; }
