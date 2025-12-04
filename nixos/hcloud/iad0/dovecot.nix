@@ -97,6 +97,11 @@ in
     '';
   };
 
+  systemd.services.caddy.serviceConfig = {
+    CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+    AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+  };
+
   cloud.caddy.settings.apps.layer4.servers = {
     imap = {
       listen = [ ":993" ];
