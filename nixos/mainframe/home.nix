@@ -357,16 +357,10 @@ in
           command = "/run/current-system/systemd/bin/systemctl suspend";
         }
       ];
-      events = [
-        {
-          event = "lock";
-          command = "${pkgs.swaylock}/bin/swaylock";
-        }
-        {
-          event = "before-sleep";
-          command = "/run/current-system/systemd/bin/loginctl lock-session";
-        }
-      ];
+      events = {
+        lock = "${pkgs.swaylock}/bin/swaylock";
+        before-sleep = "/run/current-system/systemd/bin/loginctl lock-session";
+      };
     };
   };
 
