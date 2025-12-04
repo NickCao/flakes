@@ -37,41 +37,69 @@ in
             profile = "tlsserver";
           };
         };
-        http.grace_period = "1s";
-        http.servers.default = {
-          listen = [ ":443" ];
-          strict_sni_host = false;
-          routes = [
-            {
-              match = [
-                {
-                  host = [ config.networking.fqdn ];
-                  path = [ "/caddy" ];
-                }
-              ];
-              handle = [
-                {
-                  handler = "authentication";
-                  providers.http_basic = {
-                    accounts = [
-                      {
-                        username = "prometheus";
-                        password = "{env.PROM_PASSWD}";
-                      }
-                    ];
-                    hash_cache = { };
-                  };
-                }
-                { handler = "metrics"; }
-              ];
-            }
-          ];
+        http = {
+          grace_period = "1s";
           metrics = { };
+          servers.default = {
+            listen = [
+              "fdname/${config.systemd.sockets.caddy-h2.name}"
+              "fdgramname/${config.systemd.sockets.caddy-h3.name}"
+            ];
+            listen_protocols = [
+              [
+                "h1"
+                "h2"
+              ]
+              [ "h3" ]
+            ];
+            strict_sni_host = false;
+            routes = [
+              {
+                match = [
+                  {
+                    host = [ config.networking.fqdn ];
+                    path = [ "/caddy" ];
+                  }
+                ];
+                handle = [
+                  {
+                    handler = "authentication";
+                    providers.http_basic = {
+                      accounts = [
+                        {
+                          username = "prometheus";
+                          password = "{env.PROM_PASSWD}";
+                        }
+                      ];
+                      hash_cache = { };
+                    };
+                  }
+                  { handler = "metrics"; }
+                ];
+              }
+            ];
+          };
         };
       };
     };
 
     environment.etc."caddy/config.json".source = configfile;
+
+    systemd.sockets.caddy-h2 = {
+      socketConfig = {
+        ListenStream = [ "443" ];
+        Service = config.systemd.services.caddy.name;
+      };
+      wantedBy = [ "sockets.target" ];
+    };
+
+    systemd.sockets.caddy-h3 = {
+      socketConfig = {
+        ListenDatagram = [ "443" ];
+        Service = config.systemd.services.caddy.name;
+      };
+      wantedBy = [ "sockets.target" ];
+    };
 
     systemd.services.caddy = {
       serviceConfig = {
@@ -81,8 +109,6 @@ in
         DynamicUser = true;
         StateDirectory = [ "caddy" ];
         RuntimeDirectory = [ "caddy" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         Environment = [ "XDG_DATA_HOME=%S" ];
         MemoryDenyWriteExecute = true;
         RestrictNamespaces = true;
@@ -103,13 +129,9 @@ in
           "AF_INET6"
         ];
       };
-      wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-        "network-online.target"
-      ];
-      requires = [ "network-online.target" ];
       reloadTriggers = [ configfile ];
+      after = [ "network-online.target" ];
+      requires = [ "network-online.target" ];
     };
   };
 }
