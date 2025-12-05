@@ -97,14 +97,25 @@ in
     '';
   };
 
-  systemd.services.caddy.serviceConfig = {
-    CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-    AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+  systemd.sockets.caddy-imap = {
+    socketConfig = {
+      ListenStream = [ "993" ];
+      Service = config.systemd.services.caddy.name;
+    };
+    wantedBy = [ "sockets.target" ];
+  };
+
+  systemd.sockets.caddy-submission = {
+    socketConfig = {
+      ListenStream = [ "465" ];
+      Service = config.systemd.services.caddy.name;
+    };
+    wantedBy = [ "sockets.target" ];
   };
 
   cloud.caddy.settings.apps.layer4.servers = {
     imap = {
-      listen = [ ":993" ];
+      listen = [ "fdname/${config.systemd.sockets.caddy-imap.name}" ];
       routes = [
         {
           handle = [
@@ -128,7 +139,7 @@ in
       ];
     };
     submission = {
-      listen = [ ":465" ];
+      listen = [ "fdname/${config.systemd.sockets.caddy-submission.name}" ];
       routes = [
         {
           handle = [
