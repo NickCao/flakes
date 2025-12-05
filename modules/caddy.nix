@@ -128,6 +128,7 @@ in
           "AF_INET"
           "AF_INET6"
         ];
+        CapabilityBoundingSet = "";
       };
       reloadTriggers = [ configfile ];
       after = [ "network-online.target" ];
