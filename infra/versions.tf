@@ -12,9 +12,6 @@ terraform {
     keycloak = {
       source = "keycloak/keycloak"
     }
-    oci = {
-      source = "oracle/oci"
-    }
   }
   encryption {
     method "aes_gcm" "default" {

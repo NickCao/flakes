@@ -20,11 +20,3 @@ provider "keycloak" {
   realm         = "nichi"
   url           = "https://id.nichi.co"
 }
-
-provider "oci" {
-  tenancy_ocid = local.secrets.oci.tenancy_ocid
-  user_ocid    = local.secrets.oci.user_ocid
-  private_key  = local.secrets.oci.private_key
-  fingerprint  = local.secrets.oci.fingerprint
-  region       = local.secrets.oci.region
-}
