@@ -35,6 +35,9 @@ in
           issuers = lib.singleton {
             module = "acme";
             profile = "tlsserver";
+            challenges = {
+              http.disabled = true;
+            };
           };
         };
         http = {

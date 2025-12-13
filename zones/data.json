@@ -84,6 +84,26 @@
             ]
           }
         ],
+        "hel1": [
+          "object",
+          {
+            "fqdn": "string",
+            "id": "string",
+            "ipv4": "string",
+            "ipv6": "string",
+            "remarks": [
+              "object",
+              {
+                "city": "string",
+                "country": "string"
+              }
+            ],
+            "tags": [
+              "list",
+              "string"
+            ]
+          }
+        ],
         "hio0": [
           "object",
           {
@@ -307,6 +327,19 @@
         "id": "60448395",
         "ipv4": "37.27.12.144",
         "ipv6": "2a01:4f9:c012:805a::1",
+        "remarks": {
+          "city": "Helsinki",
+          "country": "FI"
+        },
+        "tags": [
+          "hetzner"
+        ]
+      },
+      "hel1": {
+        "fqdn": "hel1.nichi.link",
+        "id": "115350779",
+        "ipv4": "157.180.31.179",
+        "ipv6": "2a01:4f9:c013:3247::1",
         "remarks": {
           "city": "Helsinki",
           "country": "FI"
