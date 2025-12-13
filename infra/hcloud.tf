@@ -20,6 +20,11 @@ locals {
       plan       = "cx23"
       tags       = ["hetzner"]
     }
+    hel1 = {
+      datacenter = "hel1-dc2"
+      plan       = "cx23"
+      tags       = ["hetzner"]
+    }
   }
 }
 
