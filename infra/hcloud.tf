@@ -5,11 +5,6 @@ locals {
       plan       = "cpx11"
       tags       = ["hetzner", "nameserver"]
     }
-    iad1 = {
-      datacenter = "ash-dc1"
-      plan       = "cpx11"
-      tags       = ["hetzner"]
-    }
     hio0 = {
       datacenter = "hil-dc1"
       plan       = "cpx31"
