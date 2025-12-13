@@ -136,7 +136,6 @@ in
     uhk-agent
     rage
     pinentry-gtk2
-    systemd-run-app
     picocom
     mpv
     telegram-desktop
