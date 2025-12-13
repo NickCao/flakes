@@ -1,7 +1,7 @@
 flake  = ../..
 name   = invalid
+keyref = invalid
 host   = root@${name}.nichi.link
-keyref = key
 
 
 rule nix-build
