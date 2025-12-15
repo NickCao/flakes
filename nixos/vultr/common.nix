@@ -104,6 +104,7 @@ in
     };
     ipsec = {
       enable = true;
+      iptfs = true;
       organization = "nickcao";
       commonName = config.networking.hostName;
       port = 13000;

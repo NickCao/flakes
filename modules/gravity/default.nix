@@ -40,6 +40,7 @@ in
         type = types.listOf types.str;
         default = [ ];
       };
+      iptfs = mkEnableOption "iptfs";
     };
     reload.enable = mkEnableOption "auto reload registry";
     config = mkOption {
@@ -537,28 +538,33 @@ in
     (mkIf cfg.ipsec.enable {
       sops.secrets.ipsec.sopsFile = ./secrets.yaml;
       environment.systemPackages = [ config.services.strongswan-swanctl.package ];
-      environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" {
-        organization = cfg.ipsec.organization;
-        common_name = cfg.ipsec.commonName;
-        endpoints = builtins.map (ep: {
-          serial_number = ep.serialNumber;
-          address_family = ep.addressFamily;
-          address = ep.address;
-          port = cfg.ipsec.port;
-          updown = pkgs.writeShellScript "updown" ''
-            LINK=gn$(printf '%08x\n' "$PLUTO_IF_ID_OUT")
-            case "$PLUTO_VERB" in
-              up-client)
-                ip link add "$LINK" type xfrm if_id "$PLUTO_IF_ID_OUT"
-                ip link set "$LINK" master gravity multicast on mtu 1400 up
-                ;;
-              down-client)
-                ip link del "$LINK"
-                ;;
-            esac
-          '';
-        }) cfg.ipsec.endpoints;
-      };
+      environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" (
+        {
+          organization = cfg.ipsec.organization;
+          common_name = cfg.ipsec.commonName;
+          endpoints = builtins.map (ep: {
+            serial_number = ep.serialNumber;
+            address_family = ep.addressFamily;
+            address = ep.address;
+            port = cfg.ipsec.port;
+            updown = pkgs.writeShellScript "updown" ''
+              LINK=gn$(printf '%08x\n' "$PLUTO_IF_ID_OUT")
+              case "$PLUTO_VERB" in
+                up-client)
+                  ip link add "$LINK" type xfrm if_id "$PLUTO_IF_ID_OUT"
+                  ip link set "$LINK" master gravity multicast on mtu 1400 up
+                  ;;
+                down-client)
+                  ip link del "$LINK"
+                  ;;
+              esac
+            '';
+          }) cfg.ipsec.endpoints;
+        }
+        // lib.optionalAttrs cfg.ipsec.iptfs {
+          experimental.iptfs = true;
+        }
+      );
       systemd.services.gravity-ipsec =
         let
           command = "ranet -c /etc/ranet/config.json -r /var/lib/gravity/registry.json -k ${config.sops.secrets.ipsec.path}";
