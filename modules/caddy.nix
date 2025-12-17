@@ -2,12 +2,14 @@
   pkgs,
   config,
   lib,
+  data,
   ...
 }:
 let
   cfg = config.cloud.caddy;
   format = pkgs.formats.json { };
   configfile = format.generate "config.json" cfg.settings;
+  inherit (data.nodes."${config.networking.hostName}") ipv4 ipv6;
 in
 {
 
@@ -60,7 +62,11 @@ in
               {
                 match = [
                   {
-                    host = [ config.networking.fqdn ];
+                    host = [
+                      config.networking.fqdn
+                      ipv4
+                      # ipv6
+                    ];
                     path = [ "/caddy" ];
                   }
                 ];
