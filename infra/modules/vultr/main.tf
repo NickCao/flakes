@@ -77,7 +77,7 @@ output "ipv4" {
 }
 
 output "ipv6" {
-  value = vultr_reverse_ipv6.reverse_ipv6.ip
+  value = cidrhost("${vultr_reverse_ipv6.reverse_ipv6.ip}/128", 0)
 }
 
 output "fqdn" {
