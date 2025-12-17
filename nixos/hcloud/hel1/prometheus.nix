@@ -91,7 +91,18 @@ in
           {
             targets = [
               "https://nichi.co"
+              "https://id.nichi.co"
+              "https://fn.nichi.co"
+              "https://pb.nichi.co"
+              "https://api.nichi.co"
+              "https://cal.nichi.co"
+              "https://rss.nichi.co"
+              "https://ntfy.nichi.co"
+              "https://vault.nichi.co"
               "https://matrix.nichi.co"
+              "https://matrix-auth.nichi.co"
+              "https://bouncer.nichi.co"
+              "https://mastodon.nichi.co"
             ];
           }
         ];
