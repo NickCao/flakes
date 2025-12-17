@@ -65,7 +65,7 @@ in
                     host = [
                       config.networking.fqdn
                       ipv4
-                      # ipv6
+                      ipv6
                     ];
                     path = [ "/caddy" ];
                   }
