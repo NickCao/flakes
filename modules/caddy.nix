@@ -34,7 +34,7 @@ in
           key_type = "p256";
           issuers = lib.singleton {
             module = "acme";
-            profile = "tlsserver";
+            profile = "shortlived";
             challenges = {
               http.disabled = true;
             };
