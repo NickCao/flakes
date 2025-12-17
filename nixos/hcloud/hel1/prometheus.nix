@@ -8,6 +8,7 @@
 let
   cfg = config.services.prometheus;
   targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes;
+  ipv4_targets = lib.mapAttrsToList (_mame: node: node.ipv4) data.nodes;
   nameservers = lib.mapAttrsToList (_mame: value: value.fqdn) (
     lib.filterAttrs (_name: value: lib.elem "nameserver" value.tags) data.nodes
   );
@@ -67,7 +68,7 @@ in
           password_file = config.sops.secrets.prometheus.path;
         };
         metrics_path = "/caddy";
-        static_configs = [ { inherit targets; } ];
+        static_configs = [ { targets = ipv4_targets; } ];
       }
       {
         job_name = "dns";
