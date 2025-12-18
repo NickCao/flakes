@@ -94,7 +94,6 @@
                     carlpett_sops
                     hetznercloud_hcloud
                     keycloak_keycloak
-                    oracle_oci
                   ]
                 ))
               ];
