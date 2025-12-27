@@ -324,6 +324,9 @@ in
             LogLevel = "ERROR";
           };
         };
+        "*.redhat.com" = {
+          proxyCommand = "${lib.getExe pkgs.netcat} -X 5 -x 127.0.0.1:1081 %h %p";
+        };
       };
       extraConfig = ''
         CheckHostIP no
