@@ -95,12 +95,21 @@
   environment.systemPackages = with pkgs; [
     vim
     git
+    tmux
     lm_sensors
   ];
 
   hardware.graphics.enable = true;
 
-  virtualisation.podman.enable = true;
+  virtualisation.incus = {
+    enable = true;
+    ui.enable = true;
+    preseed = {
+      config = {
+        "core.https_address" = ":8443";
+      };
+    };
+  };
 
   environment.baseline.enable = true;
 
