@@ -25,6 +25,28 @@
       dhcpV4Config.RouteMetric = 2048;
       dhcpV6Config.RouteMetric = 2048;
     };
+    "10-svc" = {
+      name = "svc";
+      networkConfig.IPv6SendRA = true;
+      ipv6Prefixes = lib.singleton {
+        Prefix = "2a0c:b641:69c:a231::/64";
+      };
+    };
+    gravity = {
+      routes = lib.singleton {
+        Destination = "::/0";
+        Source = "2a0c:b641:69c:a231::/64";
+      };
+    };
+  };
+
+  systemd.network.netdevs = {
+    "10-svc" = {
+      netdevConfig = {
+        Kind = "bridge";
+        Name = "svc";
+      };
+    };
   };
 
   systemd.network.wait-online = {
@@ -66,7 +88,10 @@
     address = [ "2a0c:b641:69c:a230::1/128" ];
     bird = {
       enable = true;
-      routes = [ "route 2a0c:b641:69c:a230::/60 from ::/0 unreachable" ];
+      routes = [
+        "route 2a0c:b641:69c:a230::/60 from ::/0 unreachable"
+        "route 2a0c:b641:69c:a231::/64 from ::/0 via \"svc\""
+      ];
       pattern = "grv*";
     };
     ipsec = {
