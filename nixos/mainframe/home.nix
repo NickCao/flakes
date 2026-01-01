@@ -313,8 +313,10 @@ in
         "*" = {
           serverAliveInterval = 15;
         };
-        "armchair.nichi.link" = {
-          proxyCommand = "${lib.getExe pkgs.socat} - TCP-CONNECT:[2a0c:b641:69c:a230::1]:22,so-bindtodevice=gravity";
+        "gravity" = {
+          match = "tagged gravity";
+          user = "root";
+          proxyCommand = "${lib.getExe pkgs.socat} - TCP-CONNECT:[%h]:%p,so-bindtodevice=gravity";
         };
         "*.nichi.link" = {
           user = "root";
