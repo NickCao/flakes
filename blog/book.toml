@@ -1,7 +1,6 @@
 [book]
 authors = ["Nick Cao"]
 language = "en"
-multilingual = false
 src = "src"
 title = "Nichi Yorozuya"
 
