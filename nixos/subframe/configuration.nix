@@ -12,6 +12,11 @@
   #   gnupg.sshKeyPaths = [ ];
   # };
 
+  networking = {
+    useNetworkd = true;
+    useDHCP = false;
+  };
+
   systemd.network.networks = {
     "10-eth0" = {
       name = "eth0";
@@ -42,16 +47,16 @@
     lm_sensors
   ];
 
-  # virtualisation.incus = {
-  #   enable = true;
-  #   package = pkgs.incus;
-  #   ui.enable = true;
-  #   preseed = {
-  #     config = {
-  #       "core.https_address" = ":8443";
-  #     };
-  #   };
-  # };
+  virtualisation.incus = {
+    enable = true;
+    package = pkgs.incus;
+    ui.enable = true;
+    preseed = {
+      config = {
+        "core.https_address" = ":8443";
+      };
+    };
+  };
 
   environment.baseline.enable = true;
 
