@@ -113,6 +113,10 @@
           system = "x86_64-linux";
           inherit self nixpkgs inputs;
         };
+        subframe = import ./nixos/subframe {
+          system = "aarch64-linux";
+          inherit self nixpkgs inputs;
+        };
         armchair = import ./nixos/armchair {
           system = "aarch64-linux";
           inherit self nixpkgs inputs;
