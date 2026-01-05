@@ -133,6 +133,10 @@ in
                 expr = ''node_systemd_unit_state{state="failed"} == 1'';
               }
               {
+                alert = "UnitActivating";
+                expr = ''node_systemd_unit_state{state="activating"} == 1'';
+              }
+              {
                 alert = "ZoneStale";
                 expr = ''probe_dns_serial{instance="iad0.nichi.link"} != ignoring(instance) group_right() probe_dns_serial'';
                 for = "5m";

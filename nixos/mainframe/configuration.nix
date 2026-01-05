@@ -232,7 +232,6 @@
   };
 
   programs = {
-    adb.enable = true;
     dconf.enable = true;
     command-not-found.enable = false;
     yubikey-manager.enable = true;

@@ -169,6 +169,7 @@ in
     xwayland-satellite
     orca-slicer
     incus.client
+    android-tools
   ];
 
   systemd.user.sessionVariables = {
