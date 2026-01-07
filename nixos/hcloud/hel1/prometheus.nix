@@ -135,6 +135,7 @@ in
               {
                 alert = "UnitActivating";
                 expr = ''node_systemd_unit_state{state="activating"} == 1'';
+                for = "15m";
               }
               {
                 alert = "ZoneStale";
