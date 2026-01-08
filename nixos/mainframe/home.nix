@@ -137,7 +137,9 @@ in
     rage
     pinentry-gtk2
     picocom
-    mpv
+    (mpv.override {
+      scripts = [ mpvScripts.uosc ];
+    })
     telegram-desktop
     nixpkgs-review
     xdg-utils
