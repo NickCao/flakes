@@ -1,5 +1,4 @@
 {
-  system,
   nixpkgs,
   inputs,
   self,
@@ -7,8 +6,6 @@
 }:
 
 nixpkgs.lib.nixosSystem {
-  inherit system;
-
   modules = [
     ./configuration.nix
     ./hardware-configuration.nix
