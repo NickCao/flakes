@@ -308,6 +308,7 @@
         ".mozilla"
         ".ssh"
         ".thunderbird"
+        ".config/mozilla"
         ".config/fcitx5"
         ".config/incus"
         ".config/OrcaSlicer"
