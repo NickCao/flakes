@@ -49,11 +49,12 @@ with lib;
 
     services.getty.autologinUser = "root";
     services.resolved = {
-      llmnr = "false";
-      extraConfig = ''
-        DNSStubListener=no
-        MulticastDNS=off
-      '';
+      settings.Resolve = {
+        DNSStubListener = false;
+        DNSSEC = false;
+        LLMNR = false;
+        MulticastDNS = false;
+      };
     };
 
     services.zram-generator = {

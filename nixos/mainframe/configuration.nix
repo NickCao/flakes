@@ -206,11 +206,11 @@
       Login.HandlePowerKey = "suspend";
     };
     resolved = {
-      dnssec = "false";
-      llmnr = "false";
-      extraConfig = ''
-        MulticastDNS=off
-      '';
+      settings.Resolve = {
+        DNSSEC = false;
+        LLMNR = false;
+        MulticastDNS = false;
+      };
     };
     dbus.implementation = "broker";
     pcscd.enable = true;
