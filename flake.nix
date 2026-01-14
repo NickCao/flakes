@@ -92,6 +92,8 @@
                 colmena
                 mdbook
                 nvfetcher
+                docker-compose
+                ninja
                 (opentofu.withPlugins (
                   ps: with ps; [
                     vultr_vultr
