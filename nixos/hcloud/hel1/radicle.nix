@@ -1,4 +1,9 @@
-{ config, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.radicle;
 in
@@ -33,6 +38,14 @@ in
           default = "block";
         };
       };
+    };
+  };
+
+  cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
+    match = lib.singleton { host = lib.singleton cfg.settings.node.alias; };
+    handle = lib.singleton {
+      handler = "reverse_proxy";
+      upstreams = lib.singleton { dial = "${cfg.httpd.listenAddress}:${toString cfg.httpd.listenPort}"; };
     };
   };
 }
