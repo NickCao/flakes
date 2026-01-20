@@ -55,6 +55,7 @@ dns.lib.toString "nichi.co" {
     matrix.CNAME = [ "hio0.nichi.link." ];
     matrix-auth.CNAME = [ "hio0.nichi.link." ];
     bouncer.CNAME = [ "hio0.nichi.link." ];
+    radicle.CNAME = [ "hel1.nichi.link." ];
     mastodon.CNAME = [ "hio0.nichi.link." ];
 
     # These services are no longer available

@@ -5,8 +5,8 @@
     flake-utils.url = "github:numtide/flake-utils";
     impermanence = {
       url = "github:nix-community/impermanence";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "";
+      inputs.home-manager.follows = "";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
