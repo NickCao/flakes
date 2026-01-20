@@ -38,6 +38,9 @@ in
           default = "block";
         };
       };
+      web.pinned.repositories = [
+        "rad:z2CXtgvK7GnZL3faF8tQ8YEPBZakQ" # flakes
+      ];
     };
   };
 
