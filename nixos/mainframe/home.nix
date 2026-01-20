@@ -172,6 +172,7 @@ in
     orca-slicer
     incus.client
     android-tools
+    radicle-node
   ];
 
   systemd.user.sessionVariables = {
@@ -182,6 +183,7 @@ in
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
     PYTHON_HISTORY = "${config.xdg.stateHome}/python_history";
+    RAD_HOME = "${config.xdg.configHome}/radicle";
   };
 
   services.mako.enable = true;
@@ -224,7 +226,7 @@ in
         };
         commit.gpgSign = true;
         gpg = {
-          ssh.allowedSignersFile = toString (pkgs.writeText "allowed_signers" '''');
+          ssh.allowedSignersFile = toString (pkgs.writeText "allowed_signers" "");
         };
         merge = {
           conflictStyle = "diff3";
