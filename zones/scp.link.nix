@@ -6,7 +6,9 @@ let
 in
 dns.lib.toString "scp.link" {
   inherit (common) TTL SOA NS;
+  MX = with mx; [ (mx 10 "hel1.nichi.link.") ];
   subdomains = {
+    "mail".CNAME = [ "hel1.nichi.link." ];
     "o".NS = he;
     "com".NS = he;
     "t".NS = he;
