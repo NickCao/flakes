@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -9,6 +10,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    extraSpecialArgs = { inherit inputs; };
     users.nickcao = import ./home.nix;
   };
 
@@ -312,6 +314,7 @@
         ".config/fcitx5"
         ".config/incus"
         ".config/radicle"
+        ".config/noctalia"
         ".config/OrcaSlicer"
         ".config/Cursor"
       ];

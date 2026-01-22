@@ -203,11 +203,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768927746,
-        "narHash": "sha256-zyMpWHqcpKVmRc1W2NEK7DAuyVJZV62Jdjqudg70b1k=",
+        "lastModified": 1769015285,
+        "narHash": "sha256-MlqzCJbckJsgwfkRs64H2xaX2Uxl4o6Z9XYfkYS1N/E=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "63a87808f5f9b6e4195a1d33f6ea25d23f4aa0df",
+        "rev": "ec0247a7a19f641595c24ac1ea4df6461d1cdb36",
         "type": "github"
       },
       "original": {
@@ -222,11 +222,11 @@
         "nixpkgs": []
       },
       "locked": {
-        "lastModified": 1768835187,
-        "narHash": "sha256-6nY0ixjGjPQCL+/sUC1B1MRiO1LOI3AkRSIywm3i3bE=",
+        "lastModified": 1768941735,
+        "narHash": "sha256-OyxsfXNcOkt06/kM+4bnuC8moDx+t7Qr+RB0BBa83Ig=",
         "owner": "nix-community",
         "repo": "impermanence",
-        "rev": "0d633a69480bb3a3e2f18c080d34a8fa81da6395",
+        "rev": "69ecf31e8fddc9354a4b418f3a517445d486bb54",
         "type": "github"
       },
       "original": {
@@ -302,16 +302,36 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1768915439,
-        "narHash": "sha256-wPp+7w7MeFpohKXolEMPhKP9nyjop7Tcgeleq6rZMJA=",
+        "lastModified": 1769039762,
+        "narHash": "sha256-Hk+Cur80wzXTLrQy3atSKVRUzazwZhVOwXmPSgBBMpA=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "8d3638c5f119599d7cbd805425673d96e998c58e",
+        "rev": "c75e95f1ba951d60b2126d5bdc3c963885dd8833",
         "type": "github"
       },
       "original": {
         "owner": "NickCao",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769040425,
+        "narHash": "sha256-aTbzEqQXsTKE8ZqXOPH1Khlib6jLrt2upMzvUXHQLOA=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "25a1186b4df2a7bf9997da8dde30f45c09dc2eae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
         "type": "github"
       }
     },
@@ -397,6 +417,7 @@
         "lanzaboote": "lanzaboote",
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixpkgs": "nixpkgs",
+        "noctalia": "noctalia",
         "ranet": "ranet",
         "ranet-ipsec": "ranet-ipsec",
         "sops-nix": "sops-nix"

@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 let
@@ -12,6 +13,10 @@ let
   tide = pkgs.fishPlugins.tide.src;
 in
 {
+  imports = [
+    inputs.noctalia.homeModules.default
+  ];
+
   gtk = {
     enable = true;
     font = {
@@ -186,20 +191,18 @@ in
     RAD_HOME = "${config.xdg.configHome}/radicle";
   };
 
-  services.mako.enable = true;
   services.mpris-proxy.enable = true;
+
+  programs.noctalia-shell = {
+    enable = true;
+    systemd.enable = true;
+  };
 
   programs = {
     # pandoc.enable = true;
     man.generateCaches = false;
     jq.enable = true;
     lf.enable = true;
-    waybar = {
-      enable = true;
-      settings = [ (import ./waybar.nix { inherit pkgs; }) ];
-      style = builtins.readFile ./waybar.css;
-      systemd.enable = true;
-    };
     direnv = {
       enable = true;
       nix-direnv = {
