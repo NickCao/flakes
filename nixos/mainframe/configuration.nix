@@ -204,6 +204,8 @@
   };
 
   services = {
+    pcscd.enable = true;
+    upower.enable = true;
     logind.settings = {
       Login.HandlePowerKey = "suspend";
     };
@@ -215,7 +217,6 @@
       };
     };
     dbus.implementation = "broker";
-    pcscd.enable = true;
     pipewire = {
       enable = true;
       pulse.enable = true;
