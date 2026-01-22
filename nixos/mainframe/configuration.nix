@@ -249,6 +249,7 @@
           "wheel"
           "dialout"
           "plugdev"
+          "i2c"
         ];
       };
     };
@@ -257,7 +258,6 @@
   environment.pathsToLink = [ "/share/fish" ];
   environment.backup.enable = true;
 
-  security.pam.services.swaylock = { };
   security.pam.u2f = {
     enable = true;
     control = "sufficient";
@@ -266,6 +266,7 @@
       authfile = config.sops.secrets.u2f.path;
     };
   };
+
   security.sudo.extraConfig = ''
     Defaults lecture="never"
   '';
@@ -342,6 +343,8 @@
   };
 
   hardware.keyboard.uhk.enable = true;
+
+  hardware.i2c.enable = true;
 
   environment.stub-ld.enable = false;
 

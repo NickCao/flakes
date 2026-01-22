@@ -27,16 +27,6 @@ in
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
 
-  programs.swaylock = {
-    enable = true;
-    settings = {
-      show-failed-attempts = true;
-      daemonize = true;
-      image = "${cst-blurred}";
-      scaling = "fill";
-    };
-  };
-
   programs.neovim = {
     enable = true;
     vimAlias = true;
@@ -370,7 +360,7 @@ in
         }
       ];
       events = {
-        lock = "${pkgs.swaylock}/bin/swaylock";
+        lock = "${lib.getExe config.programs.noctalia-shell.package} ipc call lockScreen lock";
         before-sleep = "/run/current-system/systemd/bin/loginctl lock-session";
       };
     };

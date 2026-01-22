@@ -68,7 +68,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Return { spawn "alacritty"; }
     Mod+D { spawn "fuzzel"; }
-    Mod+Alt+L { spawn "swaylock"; }
+    Mod+Alt+L { spawn "loginctl" "lock-session"; }
 
     Mod+Q { close-window; }
 
