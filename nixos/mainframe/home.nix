@@ -199,12 +199,6 @@ in
         enable = true;
       };
     };
-    fuzzel = {
-      enable = true;
-      settings = {
-        main.horizontal-pad = 10;
-      };
-    };
     git = {
       enable = true;
       lfs.enable = true;
