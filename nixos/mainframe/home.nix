@@ -167,7 +167,6 @@ in
     orca-slicer
     incus.client
     android-tools
-    radicle-node
   ];
 
   systemd.user.sessionVariables = {
@@ -178,7 +177,6 @@ in
     # state
     HISTFILE = "${config.xdg.stateHome}/bash_history";
     PYTHON_HISTORY = "${config.xdg.stateHome}/python_history";
-    RAD_HOME = "${config.xdg.configHome}/radicle";
   };
 
   services.mpris-proxy.enable = true;

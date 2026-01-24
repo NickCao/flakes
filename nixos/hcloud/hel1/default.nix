@@ -6,7 +6,6 @@
     ./services.nix
     ./prometheus.nix
     ./ntfy.nix
-    ./radicle.nix
     ./mailpit.nix
   ];
 

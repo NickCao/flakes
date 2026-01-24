@@ -315,7 +315,6 @@
         ".config/mozilla"
         ".config/fcitx5"
         ".config/incus"
-        ".config/radicle"
         ".config/noctalia"
         ".config/OrcaSlicer"
         ".config/Cursor"
