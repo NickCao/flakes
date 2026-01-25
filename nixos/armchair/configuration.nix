@@ -126,6 +126,8 @@
 
   hardware.graphics.enable = true;
 
+  virtualisation.podman.enable = true;
+
   environment.baseline.enable = true;
 
   system.stateVersion = "25.05";
