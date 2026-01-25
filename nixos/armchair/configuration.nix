@@ -126,17 +126,6 @@
 
   hardware.graphics.enable = true;
 
-  virtualisation.incus = {
-    enable = true;
-    package = pkgs.incus;
-    ui.enable = true;
-    preseed = {
-      config = {
-        "core.https_address" = ":8443";
-      };
-    };
-  };
-
   environment.baseline.enable = true;
 
   system.stateVersion = "25.05";
