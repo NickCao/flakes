@@ -167,6 +167,7 @@ in
     orca-slicer
     incus.client
     android-tools
+    app2unit
   ];
 
   systemd.user.sessionVariables = {

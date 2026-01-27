@@ -104,55 +104,6 @@ in
     };
   };
 
-  systemd.timers.matrix-synapse-s3-upload = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      FixedRandomDelay = true;
-      OnCalendar = "daily";
-      Persistent = true;
-      RandomizedDelaySec = "4h";
-    };
-  };
-
-  systemd.services.matrix-synapse-s3-upload.serviceConfig = {
-    Type = "oneshot";
-    inherit (config.systemd.services.matrix-synapse.serviceConfig) User Group;
-    EnvironmentFile = [ config.sops.secrets.matrix-synapse-s3.path ];
-    RuntimeDirectory = [ "matrix-synapse-s3-upload" ];
-    WorkingDirectory = "%t/matrix-synapse-s3-upload";
-    BindReadOnlyPaths = [
-      "${
-        (pkgs.formats.yaml { }).generate "database.yaml" {
-          postgres = {
-            inherit (config.services.matrix-synapse.settings.database.args) database;
-          };
-        }
-      }:%t/matrix-synapse-s3-upload/database.yaml"
-    ];
-    ExecStart = with config.services.matrix-synapse.package.plugins; [
-      (utils.escapeSystemdExecArgs [
-        (lib.getExe matrix-synapse-s3-storage-provider)
-        "--no-progress"
-        "update"
-        # KeyError: 'password'
-        # "--homeserver-config-path"
-        # config.services.matrix-synapse.configFile
-        media_store_path
-        "1h"
-      ])
-      (utils.escapeSystemdExecArgs [
-        (lib.getExe matrix-synapse-s3-storage-provider)
-        "--no-progress"
-        "upload"
-        "--delete"
-        "--endpoint-url"
-        b2.endpoint
-        media_store_path
-        b2.bucket
-      ])
-    ];
-  };
-
   systemd.services.matrix-synapse.serviceConfig = {
     Environment = [
       "AWS_REQUEST_CHECKSUM_CALCULATION=when_required"
@@ -315,6 +266,7 @@ in
       enable_registration = false;
       registration_requires_token = true;
 
+      enable_local_media_storage = false;
       media_storage_providers = [
         {
           module = "s3_storage_provider.S3StorageProviderBackend";
