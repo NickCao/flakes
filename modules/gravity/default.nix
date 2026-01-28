@@ -424,32 +424,34 @@ in
         networkConfig.LinkLocalAddressing = false;
       };
 
-      systemd.services.nat64 = {
-        serviceConfig = {
-          ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
-            tun-device nat64
-            ipv4-addr 10.201.0.1
-            ipv6-addr fc00::
-            prefix 64:ff9b::/96
-            dynamic-pool 10.201.0.0/16
-          ''}";
-        };
-        after = [ "network.target" ];
+      systemd.packages = [ pkgs.tayga ];
+
+      systemd.services."tayga@nat64" = {
+        overrideStrategy = "asDropin";
         wantedBy = [ "multi-user.target" ];
+        restartTriggers = [ config.environment.etc."tayga/nat64.conf".source ];
       };
 
-      systemd.services.divi = {
-        serviceConfig = {
-          ExecStart = "${pkgs.tayga}/bin/tayga -d --config ${pkgs.writeText "tayga.conf" ''
-            tun-device divi
-            ipv4-addr 10.200.0.1
-            prefix ${cfg.divi.prefix}
-            dynamic-pool ${cfg.divi.dynamic-pool}
-          ''}";
-        };
-        after = [ "network.target" ];
+      environment.etc."tayga/nat64.conf".text = ''
+        tun-device nat64
+        ipv4-addr 10.201.0.1
+        ipv6-addr fc00::
+        prefix 64:ff9b::/96
+        dynamic-pool 10.201.0.0/16
+      '';
+
+      systemd.services."tayga@divi" = {
+        overrideStrategy = "asDropin";
         wantedBy = [ "multi-user.target" ];
+        restartTriggers = [ config.environment.etc."tayga/divi.conf".source ];
       };
+
+      environment.etc."tayga/divi.conf".text = ''
+        tun-device divi
+        ipv4-addr 10.200.0.1
+        prefix ${cfg.divi.prefix}
+        dynamic-pool ${cfg.divi.dynamic-pool}
+      '';
 
       networking.nftables = {
         enable = true;

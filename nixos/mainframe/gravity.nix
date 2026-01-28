@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   utils,
@@ -65,25 +66,23 @@
     ];
   };
 
-  systemd.services.clatd = {
-    path = with pkgs; [
-      iproute2
-      tayga
-    ];
-    script = ''
-      ip sr tunsrc set 2a0c:b641:69c:99cc::1
-      ip r replace 64:ff9b::/96 from 2a0c:b641:69c:99c0::/60 \
-        encap seg6 mode encap segs 2a0c:b641:69c:aeb6::3 dev gravity vrf gravity mtu 1280
-      ip r replace default from 2a0c:b641:69c:99cc::1 dev gravity
-      exec tayga -d --config ${pkgs.writeText "tayga.conf" ''
-        tun-device clat
-        prefix 64:ff9b::/96
-        ipv4-addr 192.0.0.1
-        ipv6-addr fc00::
-        map 192.0.0.2 2a0c:b641:69c:99cc::2
-      ''}
-    '';
-    after = [ "network.target" ];
+  systemd.packages = [ pkgs.tayga ];
+  systemd.services."tayga@clatd" = {
+    overrideStrategy = "asDropin";
     wantedBy = [ "multi-user.target" ];
+    restartTriggers = [ config.environment.etc."tayga/clatd.conf".source ];
+    serviceConfig.ExecStartPre = [
+      "${pkgs.iproute2}/bin/ip sr tunsrc set 2a0c:b641:69c:99cc::1"
+      "${pkgs.iproute2}/bin/ip r replace 64:ff9b::/96 from 2a0c:b641:69c:99c0::/60 encap seg6 mode encap segs 2a0c:b641:69c:aeb6::3 dev gravity vrf gravity mtu 1280"
+      "${pkgs.iproute2}/bin/ip r replace default from 2a0c:b641:69c:99cc::1 dev gravity"
+    ];
   };
+
+  environment.etc."tayga/clatd.conf".text = ''
+    tun-device clat
+    prefix 64:ff9b::/96
+    ipv4-addr 192.0.0.1
+    ipv6-addr fc00::
+    map 192.0.0.2 2a0c:b641:69c:99cc::2
+  '';
 }
