@@ -124,5 +124,6 @@ in
 
   services.userborn.enable = true;
   system.etc.overlay.enable = true;
+  system.disableInstallerTools = true;
   system.stateVersion = "24.05";
 }
