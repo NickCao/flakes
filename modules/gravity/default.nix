@@ -435,9 +435,9 @@ in
       environment.etc."tayga/nat64.conf".text = ''
         tun-device nat64
         ipv4-addr 10.201.0.1
-        ipv6-addr fc00::
         prefix 64:ff9b::/96
         dynamic-pool 10.201.0.0/16
+        wkpf-strict no
       '';
 
       systemd.services."tayga@divi" = {
