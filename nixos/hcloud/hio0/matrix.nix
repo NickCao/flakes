@@ -20,7 +20,6 @@ let
     endpoint = "https://s3.us-east-005.backblazeb2.com";
     bucket = "nichi-matrix";
   };
-  inherit (config.services.matrix-synapse.settings) media_store_path;
 in
 {
 
@@ -262,6 +261,7 @@ in
 
       dynamic_thumbnails = true;
       allow_public_rooms_over_federation = true;
+      url_preview_enabled = false;
 
       enable_registration = false;
       registration_requires_token = true;
@@ -322,6 +322,13 @@ in
         msc3890_enabled = true;
         # Remove legacy mentions
         msc4210_enabled = true;
+        # MSC4293: Redact on Kick/Ban
+        msc4293_enabled = true;
+        # MSC4306: Thread Subscriptions
+        # (and MSC4308: Thread Subscriptions extension to Sliding Sync)
+        msc4306_enabled = true;
+        # MSC4380: Invite blocking
+        msc4380_enabled = true;
       };
 
       rc_admin_redaction = {
