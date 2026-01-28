@@ -122,7 +122,10 @@ in
     };
   };
 
-  services.userborn.enable = true;
+  services.userborn = {
+    enable = true;
+    passwordFilesLocation = "/persist/etc";
+  };
   system.etc.overlay.enable = true;
   system.disableInstallerTools = true;
   system.stateVersion = "24.05";
