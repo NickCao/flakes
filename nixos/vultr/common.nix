@@ -122,6 +122,7 @@ in
     };
   };
 
+  services.userborn.enable = true;
+  system.etc.overlay.enable = true;
   system.stateVersion = "24.05";
-
 }
