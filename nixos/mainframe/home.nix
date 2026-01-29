@@ -49,6 +49,10 @@ in
       :source ${./nvim.lua}
     '';
   };
+
+  # https://github.com/nix-community/home-manager/issues/8200
+  home.file.".mozilla/native-messaging-hosts".enable = false;
+
   programs.firefox = {
     enable = true;
     policies = {
@@ -108,6 +112,7 @@ in
       };
     };
   };
+
   programs.thunderbird = {
     enable = true;
     package = pkgs.thunderbird-latest;
@@ -168,6 +173,7 @@ in
     incus.client
     android-tools
     app2unit
+    bubblewrap
   ];
 
   systemd.user.sessionVariables = {
@@ -369,22 +375,16 @@ in
       '';
       "niri/config.kdl".source = ./niri.kdl;
     };
+    autostart = {
+      enable = true;
+      entries = [
+        "${config.programs.alacritty.package}/share/applications/Alacritty.desktop"
+        "${config.programs.firefox.finalPackage}/share/applications/firefox.desktop"
+        "${config.programs.thunderbird.package}/share/applications/thunderbird.desktop"
+        "${pkgs.telegram-desktop}/share/applications/org.telegram.desktop.desktop"
+      ];
+    };
   };
-
-  home.file =
-    lib.mapAttrs'
-      (name: package: {
-        name = ".config/autostart/${name}.desktop";
-        value = {
-          source = "${package}/share/applications/${name}.desktop";
-        };
-      })
-      {
-        "Alacritty" = config.programs.alacritty.package;
-        "firefox" = config.programs.firefox.finalPackage;
-        "thunderbird" = config.programs.thunderbird.package;
-        "org.telegram.desktop" = pkgs.telegram-desktop;
-      };
 
   home.stateVersion = "24.05";
 }

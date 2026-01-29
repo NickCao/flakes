@@ -309,7 +309,6 @@
         "Projects"
         ".cache"
         ".local"
-        ".mozilla"
         ".ssh"
         ".thunderbird"
         ".config/mozilla"
