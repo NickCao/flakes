@@ -324,7 +324,7 @@ in
           ${optionalString cfg.bird.exit.enable ''
             protocol static announce4 {
               ipv4;
-              route 44.32.148.0/24 unreachable;
+              route 44.32.148.0/24 via "nat64";
             }
             protocol static announce6 {
               ipv6;
@@ -469,7 +469,7 @@ in
 
               chain postrouting {
                 type nat hook postrouting priority srcnat; policy accept;
-                iifname { "stateful", "divi", "nat64" } oifname "${cfg.divi.oif}" masquerade
+                iifname { "stateful", "divi", "nat64" } oifname "${cfg.divi.oif}" ip saddr != { 44.32.148.0/24 } masquerade
               }
             '';
           };
