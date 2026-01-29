@@ -438,6 +438,8 @@ in
         prefix 64:ff9b::/96
         dynamic-pool 10.201.0.0/16
         wkpf-strict no
+
+        map 44.32.148.18 2a0c:b641:69c:99cc::2
       '';
 
       systemd.services."tayga@divi" = {
