@@ -188,6 +188,10 @@ in
 
   services.mpris-proxy.enable = true;
 
+  home.file.".cache/noctalia/wallpapers.json".text = builtins.toJSON {
+    defaultWallpaper = "${cst}";
+  };
+
   programs.noctalia-shell = {
     enable = true;
     systemd.enable = true;
@@ -330,20 +334,6 @@ in
       extraConfig = ''
         CheckHostIP no
       '';
-    };
-  };
-
-  systemd.user.services.swaybg = {
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
-    Unit = {
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-    Service = {
-      ExecStart = "${lib.getExe pkgs.swaybg} -i ${cst} -m fill";
-      Restart = "on-failure";
     };
   };
 
