@@ -18,9 +18,6 @@
     defaultSopsFile = ./secrets.yaml;
     secrets = {
       passwd.neededForUsers = true;
-      u2f = {
-        mode = "0444";
-      };
       "wireless/eduroam" = { };
       "wireless/redhat" = { };
     };
@@ -258,15 +255,6 @@
 
   environment.pathsToLink = [ "/share/fish" ];
   environment.backup.enable = true;
-
-  security.pam.u2f = {
-    enable = true;
-    control = "sufficient";
-    settings = {
-      cue = true;
-      authfile = config.sops.secrets.u2f.path;
-    };
-  };
 
   security.sudo.extraConfig = ''
     Defaults lecture="never"
