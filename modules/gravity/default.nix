@@ -392,6 +392,12 @@ in
       };
     })
     (mkIf cfg.divi.enable {
+      systemd.network.netdevs.nat64 = {
+        netdevConfig = {
+          Name = "nat64";
+          Kind = "tun";
+        };
+      };
       systemd.network.networks.nat64 = {
         name = "nat64";
         linkConfig = {
@@ -408,6 +414,12 @@ in
         networkConfig.LinkLocalAddressing = false;
       };
 
+      systemd.network.netdevs.divi = {
+        netdevConfig = {
+          Name = "divi";
+          Kind = "tun";
+        };
+      };
       systemd.network.networks.divi = {
         name = "divi";
         linkConfig = {

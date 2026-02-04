@@ -15,7 +15,6 @@ in
 
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
-    "${modulesPath}/profiles/perlless.nix"
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
