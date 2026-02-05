@@ -392,10 +392,23 @@ in
       };
     })
     (mkIf cfg.divi.enable {
+      users.users.nat64 = {
+        isSystemUser = true;
+        group = config.users.groups.nat64.name;
+      };
+      users.groups.nat64 = { };
+      users.users.divi = {
+        isSystemUser = true;
+        group = config.users.groups.divi.name;
+      };
+      users.groups.divi = { };
       systemd.network.netdevs.nat64 = {
         netdevConfig = {
           Name = "nat64";
           Kind = "tun";
+        };
+        tunConfig = {
+          User = config.users.users.nat64.name;
         };
       };
       systemd.network.networks.nat64 = {
@@ -413,11 +426,13 @@ in
         ];
         networkConfig.LinkLocalAddressing = false;
       };
-
       systemd.network.netdevs.divi = {
         netdevConfig = {
           Name = "divi";
           Kind = "tun";
+        };
+        tunConfig = {
+          User = config.users.users.divi.name;
         };
       };
       systemd.network.networks.divi = {
@@ -442,6 +457,7 @@ in
         overrideStrategy = "asDropin";
         wantedBy = [ "multi-user.target" ];
         restartTriggers = [ config.environment.etc."tayga/nat64.conf".source ];
+        serviceConfig.User = config.users.users.nat64.name;
       };
 
       environment.etc."tayga/nat64.conf".text = ''
@@ -458,6 +474,7 @@ in
         overrideStrategy = "asDropin";
         wantedBy = [ "multi-user.target" ];
         restartTriggers = [ config.environment.etc."tayga/divi.conf".source ];
+        serviceConfig.User = config.users.users.divi.name;
       };
 
       environment.etc."tayga/divi.conf".text = ''
