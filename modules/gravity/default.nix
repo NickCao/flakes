@@ -358,6 +358,7 @@ in
               neighbor 169.254.169.254 as 64515;
               authentication md5;
               password BGP_PASSWD;
+              allow as sets on;
             }
             protocol bgp vultr6 {
               ipv6 {
@@ -370,6 +371,7 @@ in
               neighbor 2001:19f0:ffff::1 as 64515;
               authentication md5;
               password BGP_PASSWD;
+              allow as sets on;
             }
           ''}
         '';
