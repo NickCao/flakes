@@ -32,3 +32,22 @@ module "hcloud" {
   plan       = each.value.plan
   tags       = each.value.tags
 }
+
+resource "hcloud_zone" "nichi_link" {
+  name = "nichi.link"
+  mode = "secondary"
+
+  primary_nameservers = [
+    {
+      address        = module.hcloud["iad0"].ipv4
+      tsig_algorithm = "hmac-sha256"
+      tsig_key       = local.secrets.hcloud.tsig
+    }
+  ]
+
+  delete_protection = true
+}
+
+output "secondary_nameservers" {
+  value = hcloud_zone.nichi_link.authoritative_nameservers.assigned
+}

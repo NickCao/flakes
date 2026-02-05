@@ -444,5 +444,17 @@
         ]
       }
     }
+  },
+  "secondary_nameservers": {
+    "sensitive": false,
+    "type": [
+      "list",
+      "string"
+    ],
+    "value": [
+      "ns1.first-ns.de.",
+      "robotns2.second-ns.de.",
+      "robotns3.second-ns.com."
+    ]
   }
 }

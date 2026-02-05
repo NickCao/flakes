@@ -2,18 +2,18 @@
 with dns.lib.combinators;
 let
   common = import ./common.nix;
-  inherit (common) nodes;
+  inherit (common) nodes secondary_nameservers;
 in
 dns.lib.toString "nichi.link" {
   inherit (common)
     TTL
     SOA
-    NS
     DKIM
     DMARC
     CAA
     SRV
     ;
+  NS = common.NS ++ secondary_nameservers;
   MX = with mx; [ (mx 10 "iad0.nichi.link.") ];
   TXT = [ (with spf; soft [ "mx" ]) ];
   subdomains =

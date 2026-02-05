@@ -38,6 +38,10 @@ in
       restartUnits = [ "knot.service" ];
       sopsFile = ../../../zones/secrets.yaml;
     };
+    tsig = {
+      owner = config.systemd.services.knot.serviceConfig.User;
+      restartUnits = [ "knot.service" ];
+    };
     gravity = {
       owner = config.systemd.services.knot.serviceConfig.User;
       reloadUnits = [ "knot.service" ];
@@ -52,6 +56,7 @@ in
 
   services.knot = {
     enable = true;
+    keyFiles = [ config.sops.secrets.tsig.path ];
     settings = {
       server = {
         async-start = true;
@@ -99,11 +104,41 @@ in
             "2606:4700:4700::1001"
           ];
         }
-      ] ++ lib.attrValues secondary;
+        {
+          id = "ns1.first-ns.de";
+          key = "nichi.link.5.161.83.9";
+          address = [
+            "213.239.242.238"
+            "2a01:4f8:0:a101::a:1"
+          ];
+        }
+        {
+          id = "robotns2.second-ns.de";
+          key = "nichi.link.5.161.83.9";
+          address = [
+            "213.133.100.103"
+            "2a01:4f8:0:1::5ddc:2"
+          ];
+        }
+        {
+          id = "robotns3.second-ns.com";
+          key = "nichi.link.5.161.83.9";
+          address = [
+            "193.47.99.3"
+            "2001:67c:192c::add:a3"
+          ];
+        }
+      ]
+      ++ lib.attrValues secondary;
       remotes = [
         {
           id = "secondary";
-          remote = lib.attrNames secondary;
+          remote = [
+            "ns1.first-ns.de"
+            "robotns2.second-ns.de"
+            "robotns3.second-ns.com"
+          ]
+          ++ lib.attrNames secondary;
         }
       ];
       submission = [

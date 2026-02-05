@@ -54,4 +54,5 @@ in
     }
   ];
   nodes = data.nodes.value;
+  secondary_nameservers = data.secondary_nameservers.value;
 }

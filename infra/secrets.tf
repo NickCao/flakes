@@ -1,9 +1,9 @@
-ephemeral "sops_file" "secrets" {
+data "sops_file" "secrets" {
   source_file = "secrets.yaml"
 }
 
 locals {
-  secrets = yamldecode(ephemeral.sops_file.secrets.raw)
+  secrets = yamldecode(data.sops_file.secrets.raw)
 }
 
 provider "vultr" {
