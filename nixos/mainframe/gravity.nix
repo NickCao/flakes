@@ -59,7 +59,7 @@
       MTUBytes = "1400";
       RequiredForOnline = false;
     };
-    addresses = [ { Address = "192.0.0.2/32"; } ];
+    addresses = [ { Address = "44.32.148.18/32"; } ];
     routes = [
       { Destination = "0.0.0.0/0"; }
       { Destination = "2a0c:b641:69c:99cc::2/128"; }
@@ -74,8 +74,6 @@
     restartTriggers = [ config.environment.etc."tayga/clatd.conf".source ];
     serviceConfig.ExecStartPre = [
       "${pkgs.iproute2}/bin/ip sr tunsrc set 2a0c:b641:69c:99cc::1"
-      "${pkgs.iproute2}/bin/ip r replace 64:ff9b::/96 from 2a0c:b641:69c:99c0::/60 encap seg6 mode encap segs 2a0c:b641:69c:aeb6::3 dev gravity vrf gravity mtu 1280"
-      "${pkgs.iproute2}/bin/ip r replace default from 2a0c:b641:69c:99cc::1 dev gravity"
     ];
   };
 
@@ -83,7 +81,7 @@
     tun-device clat
     prefix 64:ff9b::/96
     ipv4-addr 192.0.0.1
-    map 192.0.0.2 2a0c:b641:69c:99cc::2
+    map 44.32.148.18 2a0c:b641:69c:99cc::2
     map 192.0.0.3 2a0c:b641:69c:99cc::3
     wkpf-strict no
   '';

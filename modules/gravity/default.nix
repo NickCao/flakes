@@ -424,6 +424,10 @@ in
             Destination = "64:ff9b::/96";
             Table = stateful;
           }
+          {
+            Destination = "64:ff9b::/96";
+            Table = stateles;
+          }
           { Destination = "10.201.0.0/16"; }
         ];
         networkConfig.LinkLocalAddressing = false;
@@ -470,6 +474,9 @@ in
         wkpf-strict no
 
         map 44.32.148.18 2a0c:b641:69c:99cc::2
+        map 44.32.148.101 2a0c:b641:69c:1600::1
+        map 44.32.148.102 2a0c:b641:69c:30e0::1
+        map 44.32.148.114 2a0c:b641:69c:8010::1
       '';
 
       systemd.services."tayga@divi" = {
