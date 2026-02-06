@@ -9,9 +9,7 @@ let
   cfg = config.services.prometheus;
   targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes;
   ipv4_targets = lib.mapAttrsToList (_mame: node: node.ipv4) data.nodes;
-  nameservers = lib.mapAttrsToList (_mame: value: value.fqdn) (
-    lib.filterAttrs (_name: value: lib.elem "nameserver" value.tags) data.nodes
-  );
+  nameservers = data.nameservers ++ data.secondary_nameservers;
   relabel_configs = [
     {
       source_labels = [ "__address__" ];
@@ -117,12 +115,12 @@ in
             rules = [
               {
                 alert = "NodeDown";
-                expr = ''up == 0'';
+                expr = "up == 0";
                 for = "5m";
               }
               {
                 alert = "OOM";
-                expr = ''node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1'';
+                expr = "node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1";
               }
               {
                 alert = "DiskFull";
@@ -195,7 +193,7 @@ in
         dns_soa = {
           prober = "dns";
           dns = {
-            query_name = "nichi.co";
+            query_name = "nichi.link";
             query_type = "SOA";
           };
         };
