@@ -117,6 +117,8 @@ in
         "net.ipv4.tcp_l3mdev_accept" = 0;
         "net.ipv4.udp_l3mdev_accept" = 0;
         "net.ipv4.raw_l3mdev_accept" = 0;
+        "net.ipv4.icmp_errors_extension_mask" = lib.fromHexString "0x01";
+        "net.ipv6.icmp.errors_extension_mask" = lib.fromHexString "0x01";
       };
 
       systemd.services.gravity-rules = {
