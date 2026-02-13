@@ -62,7 +62,7 @@ with lib;
       enable = true;
       settings.zram0 = {
         compression-algorithm = "zstd";
-        zram-size = "ram";
+        zram-size = "ram / 2";
       };
     };
 
