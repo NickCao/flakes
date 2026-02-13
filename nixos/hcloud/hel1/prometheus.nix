@@ -140,6 +140,11 @@ in
                 expr = ''probe_dns_serial{instance="iad0.nichi.link"} != ignoring(instance) group_right() probe_dns_serial'';
                 for = "5m";
               }
+              {
+                alert = "CertExpiring";
+                expr = "probe_ssl_earliest_cert_expiry - time() < 24*3600";
+                for = "5m";
+              }
             ];
           }
         ];
