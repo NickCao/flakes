@@ -1,6 +1,5 @@
 flake  = ../..
 name   = invalid
-keyref = invalid
 host   = root@${name}.nichi.link
 
 
@@ -49,13 +48,13 @@ rule age-recipient
   command = age-keygen -y -o ${out} ${in}
 
 rule secret
-  command = sops -d --extract '["nixos"]["${keyref}"]' ${in} | ssh ${host} install -Dm400 /dev/stdin /mnt/persist/var/lib/sops.key && touch ${out}
+  command = cat ${in} | ssh ${host} install -Dm400 /dev/stdin /mnt/persist/var/lib/sops.key && touch ${out}
   description = SECRET
 
 build output/key.txt: age-keygen
 build output/recipient.txt: age-recipient output/key.txt
 
-build target/secret: secret ${flake}/infra/secrets.yaml | target/install
+build target/secret: secret output/key.txt | target/install
 
 
 rule reboot
@@ -63,6 +62,6 @@ rule reboot
   description = REBOOT
 
 build target/reboot: reboot | target/secret
+build install: phony target/reboot
 
-
-default target/reboot
+default output/recipient.txt
