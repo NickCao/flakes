@@ -17,7 +17,6 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     secrets = {
-      passwd.neededForUsers = true;
       "wireless/eduroam" = { };
       "wireless/redhat" = { };
     };
@@ -243,7 +242,7 @@
     users = {
       nickcao = {
         isNormalUser = true;
-        hashedPasswordFile = config.sops.secrets.passwd.path;
+        hashedPasswordFile = "/var/lib/passwd";
         extraGroups = [
           "wheel"
           "dialout"
