@@ -18,7 +18,7 @@ variable "tags" {
   type = list(string)
 }
 
-variable "script" {
+variable "os" {
   type = string
 }
 
@@ -37,8 +37,7 @@ terraform {
 resource "vultr_instance" "server" {
   region           = var.region
   plan             = var.plan
-  os_id            = 159
-  script_id        = var.script
+  os_id            = var.os
   enable_ipv6      = true
   activation_email = false
   ddos_protection  = false
@@ -48,7 +47,6 @@ resource "vultr_instance" "server" {
   lifecycle {
     ignore_changes = [
       os_id,
-      script_id,
     ]
   }
 }

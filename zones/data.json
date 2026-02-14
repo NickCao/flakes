@@ -386,8 +386,8 @@
       },
       "lhr0": {
         "fqdn": "lhr0.nichi.link",
-        "ipv4": "45.76.135.126",
-        "ipv6": "2001:19f0:7400:8fed:5400:4ff:fedd:8289",
+        "ipv4": "95.179.202.64",
+        "ipv6": "2001:19f0:7402:a58:5400:5ff:fef1:6a0d",
         "prefix": "244",
         "remarks": {
           "city": "London",
@@ -395,7 +395,8 @@
           "country": "GB"
         },
         "tags": [
-          "vultr"
+          "vultr",
+          "uefi"
         ]
       },
       "nrt0": {

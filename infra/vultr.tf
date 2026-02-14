@@ -45,21 +45,17 @@ locals {
     lhr0 = {
       region = "lhr"
       plan   = "vhp-1c-1gb-amd"
-      tags   = ["vultr"]
+      tags   = ["vultr", "uefi"]
       prefix = "244"
     }
   }
 }
 
-resource "vultr_startup_script" "script" {
-  name = "nixos"
-  type = "pxe"
-  script = base64encode(<<EOT
-  #!ipxe
-  set cmdline sshkey="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
-  chain --autofree http://nickcao.github.io/netboot/
-  EOT
-  )
+data "vultr_os" "debian" {
+  filter {
+    name   = "name"
+    values = ["Debian 13 x64 (trixie)"]
+  }
 }
 
 module "vultr" {
@@ -70,6 +66,6 @@ module "vultr" {
   region   = each.value.region
   plan     = each.value.plan
   tags     = each.value.tags
-  script   = vultr_startup_script.script.id
+  os       = data.vultr_os.debian.id
   prefix   = each.value.prefix
 }
