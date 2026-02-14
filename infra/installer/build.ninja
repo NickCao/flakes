@@ -42,10 +42,18 @@ rule install
 build target/install: install output/nixos-install | target/stage-2
   system = output/toplevel
 
+rule age-keygen
+  command = age-keygen -o ${out}
+
+rule age-recipient
+  command = age-keygen -y -o ${out} ${in}
 
 rule secret
   command = sops -d --extract '["nixos"]["${keyref}"]' ${in} | ssh ${host} install -Dm400 /dev/stdin /mnt/persist/var/lib/sops.key && touch ${out}
   description = SECRET
+
+build output/key.txt: age-keygen
+build output/recipient.txt: age-recipient output/key.txt
 
 build target/secret: secret ${flake}/infra/secrets.yaml | target/install
 
