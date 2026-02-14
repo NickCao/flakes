@@ -1,3 +1,6 @@
+# NOTE: post installation tasks
+# 1. populate /persist/var/lib/passwd   with hashed password
+# 2. populate /persist/var/lib/sops.key with new age tpm key
 {
   config,
   pkgs,
