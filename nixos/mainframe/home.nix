@@ -156,7 +156,6 @@ in
     mtr
     go
     gopls
-    sops
     restic
     libarchive
     wl-clipboard

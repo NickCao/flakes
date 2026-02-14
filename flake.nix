@@ -93,6 +93,8 @@
             with pkgs;
             mkShell {
               nativeBuildInputs = [
+                sops
+                age-plugin-tpm
                 colmena
                 mdbook
                 nvfetcher
