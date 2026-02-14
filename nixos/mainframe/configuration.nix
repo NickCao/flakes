@@ -1,3 +1,8 @@
+# NOTE: installation steps
+# 1. .#nixosConfigurations.mainframe.config.system.build.diskoScript
+# 2. systemd-cryptenroll --tpm2-device=auto
+# 3. sbctl create-keys && sbctl enroll-keys
+# 4. nixos-install --flake .#mainframe --no-channel-copy --no-root-passwd
 # NOTE: post installation tasks
 # 1. populate /persist/var/lib/passwd   with hashed password
 # 2. populate /persist/var/lib/sops.key with new age tpm key
