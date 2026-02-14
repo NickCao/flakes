@@ -94,6 +94,7 @@
             mkShell {
               nativeBuildInputs = [
                 sops
+                age
                 age-plugin-tpm
                 colmena
                 mdbook
