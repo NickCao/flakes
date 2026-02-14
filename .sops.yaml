@@ -11,6 +11,7 @@ keys:
     - &nrt0 age1cj7nr3vxqcvyzay7sfzjv8qtpjplw2fwxes4dczy55yw87xavphsrksrz3
     - &sin0 age109hdqsfvm05lme2wpl640zza8lsdztqcu0al2x0zsy09w8c7pylq4leyrw
     - &sea0 age1gfqt4tz9x6y5nr0v4lgzzll7mh0yptlm2c6nv9hnps7cmu3my9qsfyrdm3
+    - &lax0 age1k5edl9v0ulv7ps0cq8q87fwxjs8xwsy5rvtfd4nzuw8uxa862vaqa3nhrh
 creation_rules:
   - path_regex: infra/.*
     key_groups:
@@ -68,6 +69,7 @@ creation_rules:
           - *nrt0
           - *sin0
           - *sea0
+          - *lax0
   - path_regex: modules/metrics/.*
     key_groups:
       - age:
@@ -80,6 +82,7 @@ creation_rules:
           - *nrt0
           - *sin0
           - *sea0
+          - *lax0
   - path_regex: nixos/vultr/nrt0/.*
     key_groups:
       - age:
