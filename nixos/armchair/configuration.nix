@@ -12,6 +12,7 @@
     gnupg.sshKeyPaths = [ ];
   };
 
+  systemd.network.enable = true;
   systemd.network.networks = {
     "10-end0" = {
       name = "end0";

@@ -19,11 +19,10 @@
       enable = true;
       iptfs = true;
       organization = "nickcao";
-      commonName = "armchair";
+      commonName = "subframe";
       port = 13000;
       interfaces = [
-        "wlan0"
-        "end0"
+        "eth0"
       ];
       endpoints = [
         {
