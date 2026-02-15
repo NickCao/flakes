@@ -312,6 +312,7 @@ in
       matchBlocks = {
         "*" = {
           serverAliveInterval = 15;
+          checkHostIP = false;
         };
         "gravity" = {
           match = "tagged gravity";
@@ -330,9 +331,6 @@ in
           proxyCommand = "${lib.getExe pkgs.netcat} -X 5 -x 127.0.0.1:1081 %h %p";
         };
       };
-      extraConfig = ''
-        CheckHostIP no
-      '';
     };
   };
 
