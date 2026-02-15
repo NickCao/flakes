@@ -321,11 +321,7 @@ in
         };
         "*.nichi.link" = {
           user = "root";
-          extraOptions = {
-            StrictHostKeyChecking = "no";
-            UserKnownHostsFile = "/dev/null";
-            LogLevel = "ERROR";
-          };
+          extraOptions.UserKnownHostsFile = "~/.ssh/nichi_known_hosts";
         };
         "*.redhat.com" = {
           proxyCommand = "${lib.getExe pkgs.netcat} -X 5 -x 127.0.0.1:1081 %h %p";
