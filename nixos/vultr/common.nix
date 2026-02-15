@@ -39,6 +39,10 @@ in
     ];
   };
 
+  services.journald.extraConfig = ''
+    SystemMaxUse=2G
+  '';
+
   users.users.root.openssh.authorizedKeys.keys = data.keys;
 
   cloud.caddy.enable = true;
