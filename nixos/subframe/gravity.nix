@@ -1,5 +1,7 @@
 { lib, ... }:
 {
+  boot.kernel.sysctl."net.ipv4.tcp_l3mdev_accept" = 1;
+
   systemd.services.bird.after = [ "network-online.target" ];
   systemd.services.bird.wants = [ "network-online.target" ];
 

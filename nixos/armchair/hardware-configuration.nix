@@ -19,8 +19,6 @@
 
   boot.loader.efi.efiSysMountPoint = "/efi";
 
-  boot.kernel.sysctl."net.ipv4.tcp_l3mdev_accept" = lib.mkForce 1;
-
   fileSystems = {
     "/" = {
       device = "none";
