@@ -41,14 +41,21 @@
   environment.persistence."/persist" = {
     files = [
       "/etc/machine-id"
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_ed25519_key.pub"
-      "/etc/ssh/ssh_host_rsa_key"
-      "/etc/ssh/ssh_host_rsa_key.pub"
-
     ];
     directories = [ "/var" ];
   };
+
+  services.openssh.hostKeys = [
+    {
+      type = "rsa";
+      bits = 4096;
+      path = "/persist/etc/ssh/ssh_host_rsa_key";
+    }
+    {
+      type = "ed25519";
+      path = "/persist/etc/ssh/ssh_host_ed25519_key";
+    }
+  ];
 
   services.btrfs.autoScrub = {
     enable = true;
