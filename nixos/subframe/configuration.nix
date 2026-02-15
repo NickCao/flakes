@@ -4,13 +4,13 @@
 }:
 
 {
-  # sops = {
-  #   age = {
-  #     keyFile = "/var/lib/sops.key";
-  #     sshKeyPaths = [ ];
-  #   };
-  #   gnupg.sshKeyPaths = [ ];
-  # };
+  sops = {
+    age = {
+      keyFile = "/var/lib/sops.key";
+      sshKeyPaths = [ ];
+    };
+    gnupg.sshKeyPaths = [ ];
+  };
 
   networking = {
     useNetworkd = true;
