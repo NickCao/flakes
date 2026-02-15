@@ -16,11 +16,11 @@ keys:
     - &fra0 age199g3w0g7uf73jrw5a95vjyr7g478c7h2yxx3zhh4vp0879hrvs0qspdjxp
     - &itm0 age1x94cvg2qdtvxyc2scukgmcvln6jcm8qr28rhgv74rr5fdscu0pcqc7n0mh
 creation_rules:
-  - path_regex: infra/.*
+  - path_regex: infra/secrets\.yaml
     key_groups:
       - age:
           - *self
-  - path_regex: zones/.*
+  - path_regex: zones/secrets\.yaml
     key_groups:
       - age:
           - *self
@@ -28,32 +28,32 @@ creation_rules:
           - *nrt0
           - *sin0
           - *sea0
-  - path_regex: nixos/mainframe/.*
+  - path_regex: nixos/mainframe/secrets\.yaml
     key_groups:
       - age:
           - *self
           - *mainframe
-  - path_regex: nixos/hcloud/iad0/.*
+  - path_regex: nixos/hcloud/iad0/secrets\.yaml
     key_groups:
       - age:
           - *self
           - *iad0
-  - path_regex: nixos/hcloud/hel0/.*
+  - path_regex: nixos/hcloud/hel0/secrets\.yaml
     key_groups:
       - age:
           - *self
           - *hel0
-  - path_regex: nixos/hcloud/hel1/.*
+  - path_regex: nixos/hcloud/hel1/secrets\.yaml
     key_groups:
       - age:
           - *self
           - *hel1
-  - path_regex: nixos/hcloud/hio0/.*
+  - path_regex: nixos/hcloud/hio0/secrets\.yaml
     key_groups:
       - age:
           - *self
           - *hio0
-  - path_regex: modules/backup/.*
+  - path_regex: modules/backup/secrets\.yaml
     key_groups:
       - age:
           - *self
@@ -62,7 +62,7 @@ creation_rules:
           - *hel0
           - *hel1
           - *mainframe
-  - path_regex: modules/gravity/.*
+  - path_regex: modules/gravity/secrets\.yaml
     key_groups:
       - age:
           - *self
@@ -76,7 +76,7 @@ creation_rules:
           - *ewr0
           - *fra0
           - *itm0
-  - path_regex: modules/metrics/.*
+  - path_regex: modules/metrics/secrets\.yaml
     key_groups:
       - age:
           - *self
@@ -92,16 +92,14 @@ creation_rules:
           - *ewr0
           - *fra0
           - *itm0
-  - path_regex: nixos/vultr/nrt0/.*
+  - path_regex: nixos/vultr/nrt0/secrets\.yaml
     key_groups:
       - age:
           - *self
           - *nrt0
-  - path_regex: nixos/vultr/sin0/.*
+  - path_regex: nixos/vultr/sin0/secrets\.yaml
     key_groups:
       - age:
           - *self
           - *sin0
   - key_groups:
-      - age:
-          - *self
