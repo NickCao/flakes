@@ -3,7 +3,6 @@ keys:
     - &self age16f626svywknytgas9nksmxmmgczj34yr9wekpka6khe7qx49jqgss72ms3
     - &mainframe age1tag1qwrqs8e6h43apd7memre4x0jnpref3lzn6kqfetwjwv24s80w5pxj9gxjfg
     - &armchair age1s5rtrm895uysk36ql8tyzp7ueqrx8v6ywx4dl8lxh3lgnj9z3dfs2vkvm5
-    - &vultr age1ku44q4wyj0duu9lrzw27r932udawa3d3566t4806mnh0rdukm4aq76wptw
     - &iad0 age1x3twmsspal4s587j6fmch0qdrqnmg5cx80mvschm56dxdzel4ptqxnqj8v
     - &hel0 age1e72h2rk9zfk4l8kwmrh7rxm6j33wc86waf6ggaseyfjsa2hm4duq4hh4ez
     - &hel1 age1z92a3t3eyd4r0jswpc5yahcd0v3964uklm7v77w60wx86hcspymslsqn3a
@@ -13,6 +12,9 @@ keys:
     - &sea0 age1gfqt4tz9x6y5nr0v4lgzzll7mh0yptlm2c6nv9hnps7cmu3my9qsfyrdm3
     - &lax0 age1k5edl9v0ulv7ps0cq8q87fwxjs8xwsy5rvtfd4nzuw8uxa862vaqa3nhrh
     - &lhr0 age1x23g23c5j4u3cugzk8kv5avgvh5u6pm6937d0f20latxl563wfkqu8v0kg
+    - &ewr0 age13f0p9uj62asfdhv3j05rdy9glef7c7zvf3f5quuxl5pgwtfqafus824gdn
+    - &fra0 age199g3w0g7uf73jrw5a95vjyr7g478c7h2yxx3zhh4vp0879hrvs0qspdjxp
+    - &itm0 age1x94cvg2qdtvxyc2scukgmcvln6jcm8qr28rhgv74rr5fdscu0pcqc7n0mh
 creation_rules:
   - path_regex: infra/.*
     key_groups:
@@ -66,12 +68,14 @@ creation_rules:
           - *self
           - *mainframe
           - *armchair
-          - *vultr
           - *nrt0
           - *sin0
           - *sea0
           - *lax0
           - *lhr0
+          - *ewr0
+          - *fra0
+          - *itm0
   - path_regex: modules/metrics/.*
     key_groups:
       - age:
@@ -80,12 +84,14 @@ creation_rules:
           - *hio0
           - *hel0
           - *hel1
-          - *vultr
           - *nrt0
           - *sin0
           - *sea0
           - *lax0
           - *lhr0
+          - *ewr0
+          - *fra0
+          - *itm0
   - path_regex: nixos/vultr/nrt0/.*
     key_groups:
       - age:
