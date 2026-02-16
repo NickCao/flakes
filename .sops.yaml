@@ -104,4 +104,9 @@ creation_rules:
       - age:
           - *self
           - *sin0
+  - path_regex: nixos/subframe/secrets\.yaml
+    key_groups:
+      - age:
+          - *self
+          - *subframe
   - key_groups:

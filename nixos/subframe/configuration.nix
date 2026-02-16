@@ -10,6 +10,7 @@
       sshKeyPaths = [ ];
     };
     gnupg.sshKeyPaths = [ ];
+    defaultSopsFile = ./secrets.yaml;
   };
 
   networking = {
