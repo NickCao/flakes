@@ -79,7 +79,7 @@
     addresses = [ { Address = "44.32.148.19/32"; } ];
     routes = [
       { Destination = "0.0.0.0/0"; }
-      { Destination = "2a0c:b641:69c:a231::2/128"; }
+      { Destination = "2a0c:b641:69c:a230::64/128"; }
     ];
   };
 
@@ -94,7 +94,7 @@
     tun-device clat
     prefix 64:ff9b::/96
     ipv4-addr 192.0.0.1
-    map 44.32.148.19 2a0c:b641:69c:a231::2
+    map 44.32.148.19 2a0c:b641:69c:a230::64
     wkpf-strict no
   '';
 
