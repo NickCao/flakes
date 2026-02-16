@@ -295,6 +295,9 @@ in
               route 2a0c:b641:69c::/48 from ::/0 unreachable;
               route ::/0 from 2a0c:b641:69c::/48 via "stateles";
             ''}
+            ${optionalString cfg.divi.enable ''
+              route 64:ff9b::/96 from 2a0c:b641:69c::/48 via "stateles";
+            ''}
           }
           protocol babel {
             vrf "gravity";
