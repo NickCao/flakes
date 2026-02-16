@@ -73,7 +73,7 @@ resource "keycloak_openid_client" "homeassistant" {
 
   implicit_flow_enabled = true
   standard_flow_enabled = true
-  valid_redirect_uris   = ["https://homeassistant.nichi.co/oauth2/callback"]
+  valid_redirect_uris   = ["https://ha.nichi.co/oauth2/callback"]
 }
 
 resource "keycloak_openid_audience_protocol_mapper" "homeassistant" {
