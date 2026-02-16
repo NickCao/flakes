@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   boot.kernel.sysctl."net.ipv4.tcp_l3mdev_accept" = 1;
 
@@ -92,4 +97,7 @@
     map 44.32.148.19 2a0c:b641:69c:a231::2
     wkpf-strict no
   '';
+
+  cloud.caddy.enable = true;
+  services.metrics.enable = true;
 }
