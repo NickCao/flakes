@@ -57,6 +57,7 @@ dns.lib.toString "nichi.co" {
     bouncer.CNAME = [ "hio0.nichi.link." ];
     mastodon.CNAME = [ "hio0.nichi.link." ];
     ultrafeeder.CNAME = [ "subframe.nichi.link." ];
+    ha.CNAME = [ "subframe.nichi.link." ];
 
     # These services are no longer available
     cache.CNAME = [ "hio0.nichi.link." ];

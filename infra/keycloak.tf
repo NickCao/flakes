@@ -65,6 +65,27 @@ resource "keycloak_openid_audience_protocol_mapper" "ultrafeeder" {
   add_to_access_token      = true
 }
 
+resource "keycloak_openid_client" "homeassistant" {
+  realm_id    = keycloak_realm.nichi.id
+  client_id   = "homeassistant"
+  name        = "Home Assistant"
+  access_type = "CONFIDENTIAL"
+
+  implicit_flow_enabled = true
+  standard_flow_enabled = true
+  valid_redirect_uris   = ["https://homeassistant.nichi.co/oauth2/callback"]
+}
+
+resource "keycloak_openid_audience_protocol_mapper" "homeassistant" {
+  realm_id  = keycloak_realm.nichi.id
+  client_id = keycloak_openid_client.homeassistant.id
+  name      = "aud-mapper-homeassistant"
+
+  included_client_audience = keycloak_openid_client.homeassistant.client_id
+  add_to_id_token          = true
+  add_to_access_token      = true
+}
+
 # https://element-hq.github.io/matrix-authentication-service/setup/sso.html#keycloak
 resource "keycloak_openid_client" "matrix-authentication-service" {
   realm_id    = keycloak_realm.nichi.id
