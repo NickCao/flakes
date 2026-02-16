@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   boot.kernel.sysctl."net.ipv4.tcp_l3mdev_accept" = 1;
 
@@ -63,4 +63,33 @@
       };
     };
   };
+
+  systemd.network.networks.clat = {
+    name = "clat";
+    vrf = [ "gravity" ];
+    linkConfig = {
+      MTUBytes = "1400";
+      RequiredForOnline = false;
+    };
+    addresses = [ { Address = "44.32.148.19/32"; } ];
+    routes = [
+      { Destination = "0.0.0.0/0"; }
+      { Destination = "2a0c:b641:69c:a231::2/128"; }
+    ];
+  };
+
+  systemd.packages = [ pkgs.tayga ];
+  systemd.services."tayga@clatd" = {
+    overrideStrategy = "asDropin";
+    wantedBy = [ "multi-user.target" ];
+    restartTriggers = [ config.environment.etc."tayga/clatd.conf".source ];
+  };
+
+  environment.etc."tayga/clatd.conf".text = ''
+    tun-device clat
+    prefix 64:ff9b::/96
+    ipv4-addr 192.0.0.1
+    map 44.32.148.19 2a0c:b641:69c:a231::2
+    wkpf-strict no
+  '';
 }
