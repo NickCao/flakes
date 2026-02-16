@@ -103,7 +103,7 @@ in
   services.gravity = {
     enable = true;
     reload.enable = true;
-    address = [ "2a0c:b641:69c:${prefix}0::1/128" ];
+    address = [ "2a0c:b641:69c:${prefix}0::1/127" ];
     bird = {
       enable = true;
       exit.enable = true;

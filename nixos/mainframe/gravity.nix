@@ -10,7 +10,7 @@
   services.gravity = {
     enable = true;
     reload.enable = true;
-    address = [ "2a0c:b641:69c:99cc::1/128" ];
+    address = [ "2a0c:b641:69c:99cc::1/127" ];
     bird = {
       enable = true;
       routes = [ "route 2a0c:b641:69c:99c0::/60 from ::/0 unreachable" ];
