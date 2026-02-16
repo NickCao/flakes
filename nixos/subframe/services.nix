@@ -18,7 +18,6 @@
       (lib.getExe pkgs.oauth2-proxy)
       "--provider=keycloak-oidc"
       "--client-id=ultrafeeder"
-      "--client-secret-file=TODO"
       "--redirect-url=https://ultrafeeder.nichi.co/oauth2/callback"
       "--oidc-issuer-url=https://id.nichi.co/realms/nichi"
       "--email-domain=*"
