@@ -48,5 +48,9 @@ dns.lib.toString "nichi.link" {
             }
           ];
         };
+        "subframe" = {
+          A = [ "44.32.148.19" ];
+          AAAA = [ "2a0c:b641:69c:a230::1" ];
+        };
       };
 }
