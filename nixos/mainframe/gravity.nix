@@ -82,6 +82,7 @@
     prefix 64:ff9b::/96
     ipv4-addr 192.0.0.1
     map 44.32.148.18 2a0c:b641:69c:99cc::2
+    map 44.32.148.19 2a0c:b641:69c:a230::64
     map 192.0.0.3 2a0c:b641:69c:99cc::3
     wkpf-strict no
   '';
