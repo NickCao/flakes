@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }:
@@ -22,6 +23,27 @@
     "10-eth0" = {
       name = "eth0";
       DHCP = "yes";
+      macvlan = [
+        config.systemd.network.netdevs."10-eth0macvlan".netdevConfig.Name
+      ];
+    };
+    "10-eth0macvlan" = {
+      name = config.systemd.network.netdevs."10-eth0macvlan".netdevConfig.Name;
+      DHCP = "yes";
+      dhcpV4Config.RouteMetric = 512;
+      dhcpV6Config.RouteMetric = 512;
+    };
+  };
+
+  systemd.network.netdevs = {
+    "10-eth0macvlan" = {
+      netdevConfig = {
+        Kind = "macvlan";
+        Name = "eth0macvlan";
+      };
+      macvlanConfig = {
+        Mode = "bridge";
+      };
     };
   };
 
