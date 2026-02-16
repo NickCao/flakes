@@ -37,6 +37,28 @@ resource "keycloak_openid_client" "rustical" {
   valid_redirect_uris   = ["https://cal.nichi.co/frontend/login/oidc/callback"]
 }
 
+# https://oauth2-proxy.github.io/oauth2-proxy/configuration/providers/keycloak_oidc
+resource "keycloak_openid_client" "ultrafeeder" {
+  realm_id    = keycloak_realm.nichi.id
+  client_id   = "ultrafeeder"
+  name        = "Ultrafeeder"
+  access_type = "CONFIDENTIAL"
+
+  implicit_flow_enabled = true
+  standard_flow_enabled = true
+  valid_redirect_uris   = ["https://ultrafeeder.nichi.co/oauth2/callback"]
+}
+
+resource "keycloak_openid_audience_protocol_mapper" "ultrafeeder" {
+  realm_id  = keycloak_realm.nichi.id
+  client_id = keycloak_openid_client.ultrafeeder.id
+  name      = "aud-mapper-ultrafeeder"
+
+  included_client_audience = keycloak_openid_client.ultrafeeder.client_id
+  add_to_id_token          = true
+  add_to_access_token      = true
+}
+
 # https://element-hq.github.io/matrix-authentication-service/setup/sso.html#keycloak
 resource "keycloak_openid_client" "matrix-authentication-service" {
   realm_id    = keycloak_realm.nichi.id
