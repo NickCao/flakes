@@ -3,6 +3,12 @@ resource "keycloak_realm" "nichi" {
   default_signature_algorithm = "RS256"
 }
 
+resource "keycloak_role" "trusted" {
+  realm_id    = keycloak_realm.nichi.id
+  name        = "trusted"
+  description = "Trusted"
+}
+
 resource "keycloak_openid_client" "mastodon" {
   realm_id    = keycloak_realm.nichi.id
   client_id   = "mastodon"
