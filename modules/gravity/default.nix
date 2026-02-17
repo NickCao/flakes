@@ -3,6 +3,7 @@
   pkgs,
   lib,
   inputs,
+  utils,
   ...
 }:
 with lib;
@@ -615,19 +616,23 @@ in
       );
       systemd.services.gravity-ipsec =
         let
-          command = "ranet -c /etc/ranet/config.json -r /var/lib/gravity/registry.json -k ${config.sops.secrets.ipsec.path}";
+          ranet-exec =
+            subcommand:
+            utils.escapeSystemdExecArgs [
+              "${inputs.ranet-ipsec.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/ranet"
+              "--config=/etc/ranet/config.json"
+              "--registry=/var/lib/gravity/registry.json"
+              "--key=${config.sops.secrets.ipsec.path}"
+              subcommand
+            ];
         in
         {
-          path = [
-            inputs.ranet-ipsec.packages.${pkgs.stdenv.hostPlatform.system}.default
-            pkgs.iproute2
-          ];
-          script = "${command} up";
-          reload = "${command} up";
-          preStop = "${command} down";
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
+            ExecStart = ranet-exec "up";
+            ExecReload = ranet-exec "up";
+            ExecStop = ranet-exec "down";
           };
           unitConfig = {
             AssertFileNotEmpty = "/var/lib/gravity/registry.json";
