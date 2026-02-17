@@ -99,11 +99,6 @@ creation_rules:
       - age:
           - *self
           - *nrt0
-  - path_regex: nixos/vultr/sin0/secrets\.yaml
-    key_groups:
-      - age:
-          - *self
-          - *sin0
   - path_regex: nixos/subframe/secrets\.yaml
     key_groups:
       - age:
