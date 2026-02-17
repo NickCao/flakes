@@ -44,11 +44,6 @@ in
       iptfs = mkEnableOption "iptfs";
     };
     reload.enable = mkEnableOption "auto reload registry";
-    config = mkOption {
-      type = types.nullOr types.path;
-      default = null;
-      description = "path to ranet config";
-    };
     table = mkOption {
       type = types.int;
       default = 200;
@@ -214,25 +209,6 @@ in
           linkConfig.RequiredForOnline = false;
         };
       };
-    })
-    (mkIf (cfg.config != null) {
-      systemd.services.gravity = {
-        path = with pkgs; [ ranet ];
-        script = "ranet -c ${cfg.config} up";
-        reload = "ranet -c ${cfg.config} up";
-        preStop = "ranet -c ${cfg.config} down";
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
-        unitConfig = {
-          AssertFileNotEmpty = "/var/lib/gravity/combined.json";
-        };
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
-      };
-      environment.systemPackages = [ pkgs.wireguard-tools ];
     })
     (mkIf cfg.bird.enable {
       services.bird = {
