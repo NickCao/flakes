@@ -131,7 +131,7 @@ in
                 { name = "assets"; }
               ];
               binds = lib.singleton {
-                address = "[::]:${toString config.lib.ports.matrix-authentication-service}";
+                address = "127.0.0.1:${toString config.lib.ports.matrix-authentication-service}";
               };
             };
           };
