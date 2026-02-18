@@ -118,6 +118,7 @@ in
     };
     srv6 = {
       enable = true;
+      tunsrc = "2a0c:b641:69c:${prefix}0::1";
       prefix = "2a0c:b641:69c:${prefix}";
     };
     ipsec = {

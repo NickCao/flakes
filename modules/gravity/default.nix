@@ -90,6 +90,10 @@ in
     };
     srv6 = {
       enable = mkEnableOption "sample srv6 configuration";
+      tunsrc = mkOption {
+        type = types.str;
+        description = "tunsrc for srv6";
+      };
       prefix = mkOption {
         type = types.str;
         description = "prefix for srv6 actions";
@@ -104,8 +108,10 @@ in
         "net.vrf.strict_mode" = 1;
         "net.ipv6.conf.default.forwarding" = 1;
         "net.ipv4.conf.default.forwarding" = 1;
+        "net.ipv4.conf.default.rp_filter" = 0;
         "net.ipv6.conf.all.forwarding" = 1;
         "net.ipv4.conf.all.forwarding" = 1;
+        "net.ipv4.conf.all.rp_filter" = 0;
         # https://www.kernel.org/doc/html/latest/networking/vrf.html#applications
         # established sockets will be created in the VRF based on the ingress interface
         # in case ingress traffic comes from inside the VRF targeting VRF external addresses
@@ -176,6 +182,10 @@ in
           name = config.systemd.network.netdevs.gravity.netdevConfig.Name;
           address = cfg.address;
           linkConfig.RequiredForOnline = false;
+          routes = lib.optional (cfg.srv6.enable) {
+            Source = cfg.srv6.tunsrc;
+            Destination = "2a0c:b641:69c::/48";
+          };
           routingPolicyRules =
             lib.optionals (cfg.srv6.enable) [
               {
@@ -570,7 +580,9 @@ in
             Type = "oneshot";
             RemainAfterExit = true;
             ExecStart = builtins.map (route: "${pkgs.iproute2}/bin/ip -6 r a ${route}") routes;
+            ExecStartPost = [ "${pkgs.iproute2}/bin/ip sr tunsrc set ${cfg.srv6.tunsrc}" ];
             ExecStop = builtins.map (route: "${pkgs.iproute2}/bin/ip -6 r d ${route}") routes;
+            ExecStopPost = [ "${pkgs.iproute2}/bin/ip sr tunsrc set ::" ];
           };
         after = [ "network-online.target" ];
         wants = [ "network-online.target" ];
