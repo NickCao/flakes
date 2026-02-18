@@ -109,6 +109,9 @@ in
         "net.ipv6.conf.default.forwarding" = 1;
         "net.ipv4.conf.default.forwarding" = 1;
         "net.ipv4.conf.default.rp_filter" = 0;
+        "net.ipv6.conf.all.forwarding" = 1;
+        "net.ipv4.conf.all.forwarding" = 1;
+        "net.ipv4.conf.all.rp_filter" = 0;
         "net.ipv6.conf.*.forwarding" = 1;
         "net.ipv4.conf.*.forwarding" = 1;
         "net.ipv4.conf.*.rp_filter" = 0;
