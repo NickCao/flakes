@@ -220,11 +220,19 @@ in
             scan time 5;
           }
           ${optionalString cfg.bird.exit.enable ''
-            ipv6 table stateles;
+            ipv4 table stateles4;
+            ipv6 table stateles6;
             ipv6 table stateful;
 
-            protocol pipe stateles_pipe {
-              table stateles;
+            protocol pipe stateles4_pipe {
+              table stateles4;
+              peer table master4;
+              import all;
+              export none;
+            }
+
+            protocol pipe stateles6_pipe {
+              table stateles6;
               peer table master6;
               import all;
               export none;
@@ -237,10 +245,19 @@ in
               export none;
             }
 
-            protocol kernel stateles_kern {
+            protocol kernel stateles4_kern {
+              kernel table ${toString stateles};
+              ipv4 {
+                table stateles4;
+                import none;
+                export all;
+              };
+            }
+
+            protocol kernel stateles6_kern {
               kernel table ${toString stateles};
               ipv6 {
-                table stateles;
+                table stateles6;
                 import none;
                 export all;
               };
@@ -544,9 +561,9 @@ in
           let
             routes = [
               "blackhole default table localsid"
-              "${cfg.srv6.prefix}6::1 encap seg6local action End.DT6 vrftable stateles dev gravity table localsid"
-              "${cfg.srv6.prefix}6::2 encap seg6local action End                       dev gravity table localsid"
-              "${cfg.srv6.prefix}6::3 encap seg6local action End.DT6 vrftable stateful dev gravity table localsid"
+              "${cfg.srv6.prefix}6::1 encap seg6local action End.DT46 vrftable stateles dev gravity table localsid"
+              "${cfg.srv6.prefix}6::2 encap seg6local action End                        dev gravity table localsid"
+              "${cfg.srv6.prefix}6::3 encap seg6local action End.DT6  vrftable stateful dev gravity table localsid"
             ];
           in
           {

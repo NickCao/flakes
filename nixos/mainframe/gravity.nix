@@ -67,6 +67,16 @@
     ];
   };
 
+  systemd.network.networks.gravity = {
+    # for seg6 encap
+    routes = [
+      {
+        Source = "2a0c:b641:69c:99cc::1";
+        Destination = "::/0";
+      }
+    ];
+  };
+
   systemd.packages = [ pkgs.tayga ];
   systemd.services."tayga@clatd" = {
     overrideStrategy = "asDropin";
