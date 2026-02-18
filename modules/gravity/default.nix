@@ -557,6 +557,7 @@ in
         mode = "0644";
         text = ''
           100 localsid
+          200 gravity
           ${toString stateles} stateles
           ${toString stateful} stateful
         '';

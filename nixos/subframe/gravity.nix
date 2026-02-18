@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -62,51 +61,42 @@
       };
     };
     gravity = {
+      addresses = lib.singleton { Address = "44.32.148.19/32"; };
       routes = lib.singleton {
         Destination = "::/0";
         Source = "2a0c:b641:69c:a230::/60";
       };
+      routingPolicyRules = lib.singleton {
+        Priority = 500;
+        Family = "ipv6";
+        Table = 100; # localsid
+        From = "2a0c:b641:69c::/48";
+        To = "2a0c:b641:69c:a236::/64";
+      };
     };
   };
 
-  systemd.network.networks.clat = {
-    name = "clat";
-    vrf = [ "gravity" ];
-    linkConfig = {
-      MTUBytes = "1400";
-      RequiredForOnline = false;
-    };
-    addresses = [ { Address = "44.32.148.19/32"; } ];
-    routes = [
-      { Destination = "2a0c:b641:69c:a230::64/128"; }
-    ];
-  };
-
-  systemd.packages = [ pkgs.tayga ];
-  systemd.services."tayga@clatd" = {
-    overrideStrategy = "asDropin";
-    wantedBy = [ "multi-user.target" ];
-    restartTriggers = [ config.environment.etc."tayga/clatd.conf".source ];
+  systemd.services.gravity-srv6 = {
     serviceConfig = {
-      ExecStartPost = [
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = [
+        "${pkgs.iproute2}/bin/ip -6 r add blackhole default table 100"
+        "${pkgs.iproute2}/bin/ip -6 r add 2a0c:b641:69c:a236::1 encap seg6local action End.DT4 vrftable 200 dev gravity table 100"
         "${pkgs.iproute2}/bin/ip sr tunsrc set 2a0c:b641:69c:a230::1"
-        "${pkgs.iproute2}/bin/ip r replace default encap seg6 mode encap.red segs 2a0c:b641:69c:aeb6::1 dev gravity vrf gravity"
+        "${pkgs.iproute2}/bin/ip r add default encap seg6 mode encap.red segs 2a0c:b641:69c:aeb6::1 mtu 1400 dev gravity vrf gravity"
       ];
-      ExecStopPre = [
-        "${pkgs.iproute2}/bin/ip r delete  default encap seg6 mode encap.red segs 2a0c:b641:69c:aeb6::1 dev gravity vrf gravity"
+      ExecStop = [
+        "${pkgs.iproute2}/bin/ip -6 r del blackhole default table 100"
+        "${pkgs.iproute2}/bin/ip -6 r del 2a0c:b641:69c:a236::1 encap seg6local action End.DT4 vrftable 200 dev gravity table 100"
         "${pkgs.iproute2}/bin/ip sr tunsrc set ::"
+        "${pkgs.iproute2}/bin/ip r del default encap seg6 mode encap.red segs 2a0c:b641:69c:aeb6::1 mtu 1400 dev gravity vrf gravity"
       ];
     };
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
   };
-
-  environment.etc."tayga/clatd.conf".text = ''
-    tun-device clat
-    prefix 64:ff9b::/96
-    ipv4-addr 192.0.0.1
-    map 44.32.148.18 2a0c:b641:69c:99cc::2
-    map 44.32.148.19 2a0c:b641:69c:a230::64
-    wkpf-strict no
-  '';
 
   cloud.caddy.enable = true;
   services.metrics.enable = true;
