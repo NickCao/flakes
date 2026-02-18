@@ -90,10 +90,10 @@
     serviceConfig = {
       ExecStartPost = [
         "${pkgs.iproute2}/bin/ip sr tunsrc set 2a0c:b641:69c:a230::1"
-        "${pkgs.iproute2}/bin/ip r replace default encap seg6 mode encap segs 2a0c:b641:69c:aeb6::1 dev gravity vrf gravity"
+        "${pkgs.iproute2}/bin/ip r replace default encap seg6 mode encap.red segs 2a0c:b641:69c:aeb6::1 dev gravity vrf gravity"
       ];
       ExecStopPre = [
-        "${pkgs.iproute2}/bin/ip r delete  default encap seg6 mode encap segs 2a0c:b641:69c:aeb6::1 dev gravity vrf gravity"
+        "${pkgs.iproute2}/bin/ip r delete  default encap seg6 mode encap.red segs 2a0c:b641:69c:aeb6::1 dev gravity vrf gravity"
         "${pkgs.iproute2}/bin/ip sr tunsrc set ::"
       ];
     };
