@@ -9,6 +9,7 @@
     age = {
       keyFile = "/var/lib/sops.key";
       sshKeyPaths = [ ];
+      plugins = [ pkgs.age-plugin-tpm ];
     };
     gnupg.sshKeyPaths = [ ];
     defaultSopsFile = ./secrets.yaml;
