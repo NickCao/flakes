@@ -10,6 +10,11 @@
     restartUnits = [ config.systemd.services.oauth2-proxy-ultrafeeder.name ];
   };
 
+  cloud.services.oauth2-proxy-ultrafeeder.unit = {
+    Wants = [ "network-online.target" ];
+    After = [ "network-online.target" ];
+  };
+
   cloud.services.oauth2-proxy-ultrafeeder.config = {
     EnvironmentFile = [ config.sops.secrets.oauth2-proxy-ultrafeeder.path ];
     RuntimeDirectory = "oauth2-proxy-ultrafeeder";

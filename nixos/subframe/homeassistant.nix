@@ -10,6 +10,11 @@
     restartUnits = [ config.systemd.services.oauth2-proxy-homeassistant.name ];
   };
 
+  cloud.services.oauth2-proxy-homeassistant.unit = {
+    Wants = [ "network-online.target" ];
+    After = [ "network-online.target" ];
+  };
+
   cloud.services.oauth2-proxy-homeassistant.config = {
     EnvironmentFile = [ config.sops.secrets.oauth2-proxy-homeassistant.path ];
     RuntimeDirectory = "oauth2-proxy-homeassistant";
