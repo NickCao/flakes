@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "caddy";
-  version = "0-unstable-2026-02-09";
+  version = "0-unstable-2026-02-23";
 
   src = fetchFromGitHub {
     owner = "NickCao";
     repo = "caddy";
-    rev = "40b4f02b3e17c243714749e135407d6fbdcf5579";
-    hash = "sha256-Wsmvw44exptMclyWB26OwHbXev3zHBq4KxYyzQp2ubk=";
+    rev = "b3ee8b21519cb7ad67885c728eb602d093ace201";
+    hash = "sha256-7mbsDlZzJ72oMQoYFHU0XSdGLMGXtTylOy35ZNXY7zc=";
   };
 
-  vendorHash = "sha256-Aw4qD6Kn/gYuC3Y94OyiWWMerdk8tvtAcm5uqFUMavc=";
+  vendorHash = "sha256-aPGCTXFCedthFSt5Tzk7MKU49yv7J41g1ezVsMcm9MI=";
 
   subPackages = [ "cmd/caddy" ];
 

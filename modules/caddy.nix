@@ -24,10 +24,7 @@ in
   config = lib.mkIf cfg.enable {
 
     cloud.caddy.settings = {
-      admin = {
-        listen = "unix//run/caddy/caddy.sock";
-        config.persist = false;
-      };
+      admin.disabled = true;
       apps = {
         tls.automation.policies = lib.singleton {
           disable_ocsp_stapling = true;
@@ -114,7 +111,7 @@ in
       serviceConfig = {
         Type = "notify";
         ExecStart = "${pkgs.caddy-nickcao}/bin/caddy run --config /etc/caddy/config.json";
-        ExecReload = "${pkgs.caddy-nickcao}/bin/caddy reload --force --config /etc/caddy/config.json";
+        ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
         DynamicUser = true;
         StateDirectory = [ "caddy" ];
         RuntimeDirectory = [ "caddy" ];
