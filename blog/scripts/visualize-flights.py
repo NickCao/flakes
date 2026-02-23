@@ -41,6 +41,7 @@ from geopy.point import Point
         dir_okay=True,
         path_type=Path,
     ),
+    nargs=-1,
 )
 def visualize_flights(directory, output):
     fig = go.Figure()
@@ -48,80 +49,83 @@ def visualize_flights(directory, output):
     icao = airportsdata.load()
     iata = airportsdata.load("IATA")
 
-    for filename in directory.rglob("*.kml"):
-        tree = ET.parse(filename)
-        root = tree.getroot()
-        ns = {
-            "kml": "http://www.opengis.net/kml/2.2",
-            "gx": "http://www.google.com/kml/ext/2.2",
-        }
+    for d in directory:
+        for filename in d.rglob("*.kml"):
+            tree = ET.parse(filename)
+            root = tree.getroot()
+            ns = {
+                "kml": "http://www.opengis.net/kml/2.2",
+                "gx": "http://www.google.com/kml/ext/2.2",
+            }
 
-        lat = []
-        lon = []
+            lat = []
+            lon = []
 
-        if filename.name.startswith("FlightAware"):
-            placemark = root.findall(".//kml:Document/kml:Placemark", ns)[2]
-            name = placemark.find(".//kml:name", ns).text.strip()
-            src, dst = placemark.find(".//kml:description", ns).text.split(" - ")
+            if filename.name.startswith("FlightAware"):
+                placemark = root.findall(".//kml:Document/kml:Placemark", ns)[2]
+                name = placemark.find(".//kml:name", ns).text.strip()
+                src, dst = placemark.find(".//kml:description", ns).text.split(" - ")
 
-            src = icao[src]
-            dst = icao[dst]
+                src = icao[src]
+                dst = icao[dst]
 
-            track = placemark.find(".//gx:Track", ns).findall(".//gx:coord", ns)
-            for point in track:
-                x, y, _z = point.text.split(" ")
-                lat = np.append(lat, y)
-                lon = np.append(lon, x)
-        else:
-            name = root.find(".//kml:Document/kml:name", ns).text.split("/")[0].strip()
-            desc = root.find(".//kml:Document/kml:description", ns).text
+                track = placemark.find(".//gx:Track", ns).findall(".//gx:coord", ns)
+                for point in track:
+                    x, y, _z = point.text.split(" ")
+                    lat = np.append(lat, y)
+                    lon = np.append(lon, x)
+            else:
+                name = (
+                    root.find(".//kml:Document/kml:name", ns).text.split("/")[0].strip()
+                )
+                desc = root.find(".//kml:Document/kml:description", ns).text
 
-            soup = BeautifulSoup(desc, "html.parser")
-            src, dst = (h3.get_text() for h3 in soup.css.select("a h3"))
+                soup = BeautifulSoup(desc, "html.parser")
+                src, dst = (h3.get_text() for h3 in soup.css.select("a h3"))
 
-            src = iata[src]
-            dst = iata[dst]
+                src = iata[src]
+                dst = iata[dst]
 
-            df = gpd.read_file(filename, layer="Trail")
-            for feature in df.geometry:
-                for linestring in feature.geoms:
-                    for coord in linestring.coords:
-                        x, y, _z = coord
-                        lat = np.append(lat, y)
-                        lon = np.append(lon, x)
+                df = gpd.read_file(filename, layer="Trail")
+                for feature in df.geometry:
+                    for linestring in feature.geoms:
+                        for coord in linestring.coords:
+                            x, y, _z = coord
+                            lat = np.append(lat, y)
+                            lon = np.append(lon, x)
 
-        if (
-            distance(
-                Point(latitude=src["lat"], longitude=src["lon"]),
-                Point(latitude=lat[0], longitude=lon[0]),
-            ).km
-            > 5.0
-        ):
-            lat = np.concatenate(([src["lat"]], lat))
-            lon = np.concatenate(([src["lon"]], lon))
+            if (
+                distance(
+                    Point(latitude=src["lat"], longitude=src["lon"]),
+                    Point(latitude=lat[0], longitude=lon[0]),
+                ).km
+                > 5.0
+            ):
+                lat = np.concatenate(([src["lat"]], lat))
+                lon = np.concatenate(([src["lon"]], lon))
 
-        if (
-            distance(
-                Point(latitude=dst["lat"], longitude=dst["lon"]),
-                Point(latitude=lat[-1], longitude=lon[-1]),
-            ).km
-            > 5.0
-        ):
-            lat = np.append(lat, dst["lat"])
-            lon = np.append(lon, dst["lon"])
+            if (
+                distance(
+                    Point(latitude=dst["lat"], longitude=dst["lon"]),
+                    Point(latitude=lat[-1], longitude=lon[-1]),
+                ).km
+                > 5.0
+            ):
+                lat = np.append(lat, dst["lat"])
+                lon = np.append(lon, dst["lon"])
 
-        print(f"{name}: {src['iata']} -> {dst['iata']}")
+            print(f"{name}: {src['iata']} -> {dst['iata']}")
 
-        fig.add_trace(
-            go.Scattermap(
-                mode="lines",
-                name=name,
-                hovertemplate=f"<b>{name}</b><extra><i style='color: black;'>{src['iata']} -> {dst['iata']}</i></extra>",
-                lon=lon,
-                lat=lat,
-                line=go.scattermap.Line(width=3),
+            fig.add_trace(
+                go.Scattermap(
+                    mode="lines",
+                    name=name,
+                    hovertemplate=f"<b>{name}</b><extra><i style='color: black;'>{src['iata']} -> {dst['iata']}</i></extra>",
+                    lon=lon,
+                    lat=lat,
+                    line=go.scattermap.Line(width=3),
+                )
             )
-        )
 
     fig.update_layout(
         showlegend=False,
