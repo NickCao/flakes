@@ -21,6 +21,10 @@ creation_rules:
     key_groups:
       - age:
           - *self
+  - path_regex: infra/adsb/secrets\.env
+    key_groups:
+      - age:
+          - *self
   - path_regex: zones/secrets\.yaml
     key_groups:
       - age:
