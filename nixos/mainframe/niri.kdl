@@ -3,6 +3,11 @@ debug {
   honor-xdg-activation-with-invalid-serial
 }
 
+output "Dell Inc. DELL S2725QC 349DS84" {
+  mode "3840x2160@120.000"
+  variable-refresh-rate
+}
+
 hotkey-overlay {
     skip-at-startup
 }
