@@ -23,7 +23,6 @@
   systemd.network.networks = {
     "10-eth0" = {
       name = "eth0";
-      DHCP = "yes";
       macvlan = [
         config.systemd.network.netdevs."10-eth0macvlan".netdevConfig.Name
       ];

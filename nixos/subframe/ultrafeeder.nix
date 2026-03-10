@@ -28,9 +28,9 @@
       "--email-domain=*"
       "--allowed-role=trusted"
       "--code-challenge-method=S256"
-      "--http-address=unix://run/oauth2-proxy-ultrafeeder/proxy.sock"
+      "--http-address=unix:///run/oauth2-proxy-ultrafeeder/proxy.sock"
       "--reverse-proxy"
-      "--upstream=http://ultrafeeder.lan:8080"
+      "--upstream=unix:///run/ultrafeeder.sock"
     ];
   };
 

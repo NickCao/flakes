@@ -28,7 +28,7 @@
       commonName = "subframe";
       port = 13000;
       interfaces = [
-        "eth0"
+        "eth0macvlan"
       ];
       endpoints = [
         {
