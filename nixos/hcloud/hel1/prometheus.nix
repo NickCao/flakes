@@ -79,6 +79,16 @@ in
         inherit relabel_configs;
       }
       {
+        job_name = "dns_cds";
+        scheme = "http";
+        metrics_path = "/probe";
+        params = {
+          module = [ "dns_cds" ];
+        };
+        static_configs = [ { targets = nameservers; } ];
+        inherit relabel_configs;
+      }
+      {
         job_name = "http";
         scheme = "http";
         metrics_path = "/probe";
@@ -141,6 +151,10 @@ in
                 for = "5m";
               }
               {
+                alert = "ZoneHasCDS";
+                expr = ''probe_dns_answer_rrs{job="dns_cds"} != 0'';
+              }
+              {
                 alert = "CertExpiring";
                 expr = "probe_ssl_earliest_cert_expiry - time() < 24*3600";
                 for = "5m";
@@ -200,6 +214,13 @@ in
           dns = {
             query_name = "nichi.link";
             query_type = "SOA";
+          };
+        };
+        dns_cds = {
+          prober = "dns";
+          dns = {
+            query_name = "nichi.link";
+            query_type = "CDS";
           };
         };
       };
