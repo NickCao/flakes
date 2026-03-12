@@ -148,6 +148,7 @@ in
               {
                 alert = "ZoneFail";
                 expr = "probe_dns_query_succeeded != 1";
+                for = "5m";
               }
               {
                 alert = "ZoneStale";
