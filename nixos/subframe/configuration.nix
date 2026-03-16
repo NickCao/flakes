@@ -88,5 +88,14 @@
 
   environment.baseline.enable = true;
 
+  systemd.tmpfiles.settings."10-chromeos" = {
+    "/sys/class/leds/chromeos:white:power/brightness".w = {
+      argument = "0";
+    };
+    "/sys/class/leds/chromeos:multicolor:charging/brightness".w = {
+      argument = "0";
+    };
+  };
+
   system.stateVersion = "25.11";
 }
