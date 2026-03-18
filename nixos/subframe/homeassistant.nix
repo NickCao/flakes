@@ -18,7 +18,6 @@
   cloud.services.oauth2-proxy-homeassistant.config = {
     EnvironmentFile = [ config.sops.secrets.oauth2-proxy-homeassistant.path ];
     RuntimeDirectory = "oauth2-proxy-homeassistant";
-    UMask = "0000";
     ExecStart = utils.escapeSystemdExecArgs [
       (lib.getExe pkgs.oauth2-proxy)
       "--provider=keycloak-oidc"
@@ -28,7 +27,7 @@
       "--email-domain=*"
       "--allowed-role=trusted"
       "--code-challenge-method=S256"
-      "--http-address=unix://run/oauth2-proxy-homeassistant/proxy.sock"
+      "--http-address=unix://run/oauth2-proxy-homeassistant/proxy.sock,mode=0666"
       "--reverse-proxy"
       "--upstream=http://homeassistant.lan:8123"
     ];

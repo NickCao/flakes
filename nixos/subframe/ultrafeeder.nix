@@ -18,7 +18,6 @@
   cloud.services.oauth2-proxy-ultrafeeder.config = {
     EnvironmentFile = [ config.sops.secrets.oauth2-proxy-ultrafeeder.path ];
     RuntimeDirectory = "oauth2-proxy-ultrafeeder";
-    UMask = "0000";
     ExecStart = utils.escapeSystemdExecArgs [
       (lib.getExe pkgs.oauth2-proxy)
       "--provider=keycloak-oidc"
@@ -28,7 +27,7 @@
       "--email-domain=*"
       "--allowed-role=trusted"
       "--code-challenge-method=S256"
-      "--http-address=unix:///run/oauth2-proxy-ultrafeeder/proxy.sock"
+      "--http-address=unix:///run/oauth2-proxy-ultrafeeder/proxy.sock,mode=0666"
       "--reverse-proxy"
       "--upstream=unix:///run/ultrafeeder.sock"
     ];
