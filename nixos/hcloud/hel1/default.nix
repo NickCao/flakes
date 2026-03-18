@@ -7,6 +7,7 @@
     ./prometheus.nix
     ./ntfy.nix
     ./mailpit.nix
+    ./victorialogs.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
