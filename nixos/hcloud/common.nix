@@ -87,6 +87,7 @@
 
   cloud.caddy.enable = true;
   services.openssh.enable = true;
+  services.openssh.settings.PasswordAuthentication = false;
   services.metrics.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = data.keys;

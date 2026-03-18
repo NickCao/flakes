@@ -65,6 +65,7 @@
   };
 
   services.openssh.enable = true;
+  services.openssh.settings.PasswordAuthentication = false;
 
   environment.systemPackages = with pkgs; [
     vim
