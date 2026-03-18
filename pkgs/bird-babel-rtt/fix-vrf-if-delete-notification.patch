@@ -1,0 +1,69 @@
+From: Nick Cao <nickcao@nichi.co>
+Date: Wed, 18 Mar 2026 00:00:00 +0000
+Subject: [PATCH] nest/iface: preserve VRF master in if_delete() to fix async
+ notification race
+
+if_delete() creates a zeroed struct iface with only name and IF_SHUTDOWN
+set, then passes it to if_update_locked(). Since the zeroed struct has
+master=NULL, if_update_locked() sets it to &default_vrf at line 468.
+
+When if_update_locked() processes the deletion via the IF_CHANGE_TOO_MUCH
+branch, it:
+
+  1. Calls if_change_flags() which enqueues an async IF_CHANGE_DOWN
+     notification (or one was already pending from an earlier
+     RTM_NEWLINK admin-down event), holding a pointer to the iface
+     struct.
+  2. Calls memcpy(i, new, sizeof(*i)) which overwrites the iface
+     struct in-place, including i->master which becomes &default_vrf.
+
+When the Babel (or any VRF-bound) protocol thread later processes the
+queued notification, if_send_notify() checks if_in_vrf(i, p->vrf). Since
+i->master is now &default_vrf instead of the original VRF, the check
+fails and the notification is silently dropped. The protocol never learns
+the interface was deleted.
+
+The consequence is that the protocol keeps a zombie reference to the
+deleted interface. For Babel, this means the hello timer keeps firing
+and sendmsg() fails with ENODEV on every tick, producing an unbounded
+stream of "Socket error on <iface>: No such device" errors.
+
+With a small number of interfaces, this race is unlikely because the
+protocol thread typically drains the notification queue fast enough. But
+when many VRF interfaces are deleted in bulk (e.g., IPsec XFRM tunnels
+torn down by strongSwan), the netlink handler processes RTM_NEWLINK and
+RTM_DELLINK events faster than the protocol thread can drain them. The
+memcpy from a later RTM_DELLINK overwrites i->master while the DOWN
+notification from an earlier RTM_NEWLINK is still queued, corrupting it.
+
+In production with ~700 XFRM interfaces in a Babel mesh over IPsec, this
+results in hundreds of zombie interfaces generating ~180K errors/hour.
+
+Fix by preserving the original master and master_index in the zeroed
+struct passed to if_update_locked(). This ensures that after the memcpy,
+i->master still points to the correct VRF, and queued notifications pass
+the if_in_vrf() check regardless of timing.
+
+This bug is specific to BIRD v3's async notification model; BIRD v2 used
+synchronous notification delivery and was not affected.
+
+Signed-off-by: Nick Cao <nickcao@nichi.co>
+---
+ nest/iface.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/nest/iface.c b/nest/iface.c
+index 00217b3..33603ca 100644
+--- a/nest/iface.c
++++ b/nest/iface.c
+@@ -430,6 +430,8 @@ if_delete(struct iface *old)
+   struct iface f = {};
+   strncpy(f.name, old->name, sizeof(f.name)-1);
+   f.flags = IF_SHUTDOWN;
++  f.master = old->master;
++  f.master_index = old->master_index;
+   if_update_locked(&f);
+   IFACE_UNLOCK;
+ }
+-- 
+2.48.1

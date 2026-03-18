@@ -1,12 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, flex
-, bison
-, readline
-, libssh
-,
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  flex,
+  bison,
+  readline,
+  libssh,
 }:
 
 stdenv.mkDerivation {
@@ -32,7 +32,10 @@ stdenv.mkDerivation {
     libssh
   ];
 
-  patches = [ ./dont-create-sysconfdir-2.patch ];
+  patches = [
+    ./dont-create-sysconfdir-2.patch
+    ./fix-vrf-if-delete-notification.patch
+  ];
 
   CPP = "${stdenv.cc.targetPrefix}cpp -E";
 

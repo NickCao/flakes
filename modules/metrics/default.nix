@@ -61,7 +61,10 @@ in
 
     users.groups.vlagent-secrets = { };
 
-    systemd.services.vlagent.serviceConfig.SupplementaryGroups = [ config.users.groups.vlagent-secrets.name ];
+    systemd.services.vlagent = {
+      before = [ config.systemd.services.systemd-journal-upload.name ];
+      serviceConfig.SupplementaryGroups = [ config.users.groups.vlagent-secrets.name ];
+    };
 
     services.vlagent = {
       enable = true;
