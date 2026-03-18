@@ -30,174 +30,184 @@ in
 {
   sops.secrets = {
     prometheus = {
-      owner = config.systemd.services.prometheus.serviceConfig.User;
-      restartUnits = [ "prometheus.service" ];
+      mode = "0440";
+      group = config.users.groups.victoriametrics-secrets.name;
+      restartUnits = [ config.systemd.services.victoriametrics.name ];
     };
     telegram = {
       restartUnits = [ "alertmanager.service" ];
     };
   };
 
-  services.prometheus = {
+  users.groups.victoriametrics-secrets = { };
+
+  systemd.services.victoriametrics.serviceConfig = {
+    SupplementaryGroups = [ config.users.groups.victoriametrics-secrets.name ];
+  };
+
+  services.victoriametrics = {
     enable = true;
-    webExternalUrl = "https://${config.networking.fqdn}/prom";
-    listenAddress = "127.0.0.1";
-    port = 9090;
-    retentionTime = "7d";
-    globalConfig = {
-      scrape_interval = "1m";
-      evaluation_interval = "1m";
+    listenAddress = "127.0.0.1:9090";
+    extraOptions = [ "-http.pathPrefix=/prom" ];
+    retentionPeriod = "7d";
+    prometheusConfig = {
+      global = {
+        scrape_interval = "1m";
+      };
+      scrape_configs = [
+        {
+          job_name = "metrics";
+          scheme = "https";
+          basic_auth = {
+            username = "prometheus";
+            password_file = config.sops.secrets.prometheus.path;
+          };
+          static_configs = [ { inherit targets; } ];
+        }
+        {
+          job_name = "caddy";
+          scheme = "https";
+          basic_auth = {
+            username = "prometheus";
+            password_file = config.sops.secrets.prometheus.path;
+          };
+          metrics_path = "/caddy";
+          static_configs = [ { targets = ipv4_targets; } ];
+        }
+        {
+          job_name = "dns";
+          scheme = "http";
+          metrics_path = "/probe";
+          params = {
+            module = [ "dns_soa" ];
+          };
+          static_configs = [ { targets = nameservers; } ];
+          inherit relabel_configs;
+        }
+        {
+          job_name = "dns_cds";
+          scheme = "http";
+          metrics_path = "/probe";
+          params = {
+            module = [ "dns_cds" ];
+          };
+          static_configs = [ { targets = nameservers; } ];
+          inherit relabel_configs;
+        }
+        {
+          job_name = "http";
+          scheme = "http";
+          metrics_path = "/probe";
+          params = {
+            module = [ "http_2xx" ];
+          };
+          static_configs = [
+            {
+              targets = [
+                "https://nichi.co"
+                "https://id.nichi.co"
+                "https://fn.nichi.co"
+                "https://pb.nichi.co"
+                "https://api.nichi.co"
+                "https://cal.nichi.co"
+                "https://rss.nichi.co"
+                "https://ntfy.nichi.co"
+                "https://vault.nichi.co"
+                "https://matrix.nichi.co"
+                "https://matrix-auth.nichi.co"
+                "https://bouncer.nichi.co"
+                "https://mastodon.nichi.co"
+              ];
+            }
+          ];
+          inherit relabel_configs;
+        }
+
+      ];
     };
-    scrapeConfigs = [
-      {
-        job_name = "metrics";
-        scheme = "https";
-        basic_auth = {
-          username = "prometheus";
-          password_file = config.sops.secrets.prometheus.path;
-        };
-        static_configs = [ { inherit targets; } ];
-      }
-      {
-        job_name = "caddy";
-        scheme = "https";
-        basic_auth = {
-          username = "prometheus";
-          password_file = config.sops.secrets.prometheus.path;
-        };
-        metrics_path = "/caddy";
-        static_configs = [ { targets = ipv4_targets; } ];
-      }
-      {
-        job_name = "dns";
-        scheme = "http";
-        metrics_path = "/probe";
-        params = {
-          module = [ "dns_soa" ];
-        };
-        static_configs = [ { targets = nameservers; } ];
-        inherit relabel_configs;
-      }
-      {
-        job_name = "dns_cds";
-        scheme = "http";
-        metrics_path = "/probe";
-        params = {
-          module = [ "dns_cds" ];
-        };
-        static_configs = [ { targets = nameservers; } ];
-        inherit relabel_configs;
-      }
-      {
-        job_name = "http";
-        scheme = "http";
-        metrics_path = "/probe";
-        params = {
-          module = [ "http_2xx" ];
-        };
-        static_configs = [
-          {
-            targets = [
-              "https://nichi.co"
-              "https://id.nichi.co"
-              "https://fn.nichi.co"
-              "https://pb.nichi.co"
-              "https://api.nichi.co"
-              "https://cal.nichi.co"
-              "https://rss.nichi.co"
-              "https://ntfy.nichi.co"
-              "https://vault.nichi.co"
-              "https://matrix.nichi.co"
-              "https://matrix-auth.nichi.co"
-              "https://bouncer.nichi.co"
-              "https://mastodon.nichi.co"
-            ];
-          }
-        ];
-        inherit relabel_configs;
-      }
-    ];
-    rules = lib.singleton (
-      builtins.toJSON {
-        groups = [
-          {
-            name = "metrics";
-            rules = [
-              {
-                alert = "NodeDown";
-                expr = "up == 0";
-                for = "5m";
-              }
-              {
-                alert = "OOM";
-                expr = "node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1";
-              }
-              {
-                alert = "DiskFull";
-                expr = ''node_filesystem_avail_bytes{mountpoint=~"/persist"} / node_filesystem_size_bytes < 0.1'';
-              }
-              {
-                alert = "UnitFailed";
-                expr = ''node_systemd_unit_state{state="failed"} == 1'';
-              }
-              {
-                alert = "UnitActivating";
-                expr = ''node_systemd_unit_state{state="activating"} == 1'';
-                for = "15m";
-              }
-              {
-                alert = "ZoneFail";
-                expr = "probe_dns_query_succeeded != 1";
-                for = "5m";
-              }
-              {
-                alert = "ZoneStale";
-                expr = ''probe_dns_serial{instance="iad0.nichi.link"} != ignoring(instance) group_right() probe_dns_serial'';
-                for = "5m";
-              }
-              {
-                alert = "ZoneHasCDS";
-                expr = ''probe_dns_answer_rrs{job="dns_cds"} != 0'';
-              }
-              {
-                alert = "CertExpiring";
-                expr = "probe_ssl_earliest_cert_expiry - time() < 24*3600";
-                for = "5m";
-              }
-            ];
-          }
-        ];
-      }
-    );
-    alertmanagers = [
-      {
-        path_prefix = "/alert";
-        static_configs = [
-          { targets = [ "${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}" ]; }
-        ];
-      }
-    ];
-    alertmanager = {
-      enable = true;
-      webExternalUrl = "https://${config.networking.fqdn}/alert";
-      listenAddress = "127.0.0.1";
-      port = 9093;
-      extraFlags = [ ''--cluster.listen-address=""'' ];
-      configuration = {
-        receivers = [
-          {
-            name = "telegram";
-            telegram_configs = [
-              {
-                bot_token_file = "/run/credentials/alertmanager.service/telegram";
-                chat_id = 893182727;
-              }
-            ];
-          }
-        ];
-        route = {
-          receiver = "telegram";
-        };
+  };
+
+  services.vmalert.instances.default = {
+    enable = true;
+    settings = {
+      "httpListenAddr" = "127.0.0.1:9134";
+      "http.pathPrefix" = "/alert";
+      "datasource.url" = "http://${config.services.victoriametrics.listenAddress}/prom";
+      "notifier.url" = [
+        "http://${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}"
+      ];
+    };
+    rules = {
+      groups = [
+        {
+          name = "metrics";
+          rules = [
+            {
+              alert = "NodeDown";
+              expr = "up == 0";
+              for = "5m";
+            }
+            {
+              alert = "OOM";
+              expr = "node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1";
+            }
+            {
+              alert = "DiskFull";
+              expr = ''node_filesystem_avail_bytes{mountpoint=~"/persist"} / node_filesystem_size_bytes < 0.1'';
+            }
+            {
+              alert = "UnitFailed";
+              expr = ''node_systemd_unit_state{state="failed"} == 1'';
+            }
+            {
+              alert = "UnitActivating";
+              expr = ''node_systemd_unit_state{state="activating"} == 1'';
+              for = "15m";
+            }
+            {
+              alert = "ZoneFail";
+              expr = "probe_dns_query_succeeded != 1";
+              for = "5m";
+            }
+            {
+              alert = "ZoneStale";
+              expr = ''probe_dns_serial{instance="iad0.nichi.link"} != ignoring(instance) group_right() probe_dns_serial'';
+              for = "5m";
+            }
+            {
+              alert = "ZoneHasCDS";
+              expr = ''probe_dns_answer_rrs{job="dns_cds"} != 0'';
+            }
+            {
+              alert = "CertExpiring";
+              expr = "probe_ssl_earliest_cert_expiry - time() < 24*3600";
+              for = "5m";
+            }
+          ];
+        }
+      ];
+    };
+  };
+
+  services.prometheus.alertmanager = {
+    enable = true;
+    listenAddress = "127.0.0.1";
+    port = 9093;
+    extraFlags = [ ''--cluster.listen-address=""'' ];
+    configuration = {
+      receivers = [
+        {
+          name = "telegram";
+          telegram_configs = [
+            {
+              bot_token_file = "/run/credentials/alertmanager.service/telegram";
+              chat_id = 893182727;
+            }
+          ];
+        }
+      ];
+      route = {
+        receiver = "telegram";
       };
     };
   };
@@ -238,15 +248,17 @@ in
         {
           host = [ config.networking.fqdn ];
           path = [
-            "/prom"
-            "/prom/*"
+            "${config.services.vmalert.instances.default.settings."http.pathPrefix"}"
+            "${config.services.vmalert.instances.default.settings."http.pathPrefix"}/*"
           ];
         }
       ];
       handle = [
         {
           handler = "reverse_proxy";
-          upstreams = [ { dial = "${cfg.listenAddress}:${builtins.toString cfg.port}"; } ];
+          upstreams = [
+            { dial = "${config.services.vmalert.instances.default.settings."httpListenAddr"}"; }
+          ];
         }
       ];
     }
