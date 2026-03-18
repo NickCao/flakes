@@ -46,6 +46,9 @@ in
 
   services.victoriametrics = {
     enable = true;
+    extraOptions = [
+      "-vmalert.proxyURL=http://${config.services.vmalert.instances.default.settings."httpListenAddr"}"
+    ];
     listenAddress = "127.0.0.1:9090";
     retentionPeriod = "7d";
     prometheusConfig = {
@@ -129,7 +132,6 @@ in
     enable = true;
     settings = {
       "httpListenAddr" = "127.0.0.1:9134";
-      "http.pathPrefix" = "/alert";
       "external.url" = "https://${config.networking.fqdn}/alert";
       "datasource.url" = "http://${config.services.victoriametrics.listenAddress}";
       "notifier.url" = [
@@ -243,23 +245,19 @@ in
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
     {
-      match = [
-        {
-          host = [ config.networking.fqdn ];
-          path = [
-            "${config.services.vmalert.instances.default.settings."http.pathPrefix"}"
-            "${config.services.vmalert.instances.default.settings."http.pathPrefix"}/*"
-          ];
-        }
-      ];
-      handle = [
-        {
-          handler = "reverse_proxy";
-          upstreams = [
-            { dial = "${config.services.vmalert.instances.default.settings."httpListenAddr"}"; }
-          ];
-        }
-      ];
+      match = lib.singleton {
+        host = lib.singleton "metrics.nichi.co";
+        path = [
+          "/vmalert"
+          "/vmalert/*"
+        ];
+      };
+      handle = lib.singleton {
+        handler = "reverse_proxy";
+        upstreams = lib.singleton {
+          dial = "${config.services.victoriametrics.listenAddress}";
+        };
+      };
     }
   ];
 }

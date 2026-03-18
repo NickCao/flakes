@@ -54,6 +54,7 @@ dns.lib.toString "nichi.co" {
     vault.CNAME = [ "hel0.nichi.link." ];
     matrix.CNAME = [ "hio0.nichi.link." ];
     matrix-auth.CNAME = [ "hio0.nichi.link." ];
+    metrics.CNAME = [ "hel1.nichi.link." ];
     bouncer.CNAME = [ "hio0.nichi.link." ];
     mastodon.CNAME = [ "hio0.nichi.link." ];
     ultrafeeder.CNAME = [ "subframe.nichi.link." ];
