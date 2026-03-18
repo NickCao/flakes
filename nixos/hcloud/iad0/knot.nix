@@ -133,12 +133,15 @@ in
       remotes = [
         {
           id = "secondary";
+          remote = lib.attrNames secondary;
+        }
+        {
+          id = "secondary-hetzner";
           remote = [
             "ns1.first-ns.de"
             "robotns2.second-ns.de"
             "robotns3.second-ns.com"
-          ]
-          ++ lib.attrNames secondary;
+          ];
         }
       ];
       submission = [
@@ -184,6 +187,10 @@ in
         }
         {
           domain = "nichi.link";
+          notify = [
+            "secondary"
+            "secondary-hetzner"
+          ];
           file = pkgs.writeText "db.link.nichi" (
             import ../../../zones/nichi.link.nix {
               inherit (inputs) dns;
