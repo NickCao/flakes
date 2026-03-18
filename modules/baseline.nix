@@ -67,7 +67,10 @@ with lib;
     };
 
     services.timesyncd.enable = false;
-    services.ntpd-rs.enable = true;
+    services.ntpd-rs = {
+      enable = true;
+      settings.observability.log-level = "warn";
+    };
 
     users.mutableUsers = false;
 
