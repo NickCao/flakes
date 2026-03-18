@@ -6,7 +6,6 @@
   ...
 }:
 let
-  cfg = config.services.prometheus;
   targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [ "subframe.nichi.link" ];
   ipv4_targets = lib.mapAttrsToList (_mame: node: node.ipv4) data.nodes;
   nameservers = data.nameservers ++ data.secondary_nameservers;
@@ -48,7 +47,6 @@ in
   services.victoriametrics = {
     enable = true;
     listenAddress = "127.0.0.1:9090";
-    extraOptions = [ "-http.pathPrefix=/prom" ];
     retentionPeriod = "7d";
     prometheusConfig = {
       global = {
@@ -132,9 +130,10 @@ in
     settings = {
       "httpListenAddr" = "127.0.0.1:9134";
       "http.pathPrefix" = "/alert";
-      "datasource.url" = "http://${config.services.victoriametrics.listenAddress}/prom";
+      "external.url" = "https://${config.networking.fqdn}/alert";
+      "datasource.url" = "http://${config.services.victoriametrics.listenAddress}";
       "notifier.url" = [
-        "http://${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}"
+        "http://${config.services.prometheus.alertmanager.listenAddress}:${builtins.toString config.services.prometheus.alertmanager.port}"
       ];
     };
     rules = {
