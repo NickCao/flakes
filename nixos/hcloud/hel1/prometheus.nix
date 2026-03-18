@@ -247,17 +247,27 @@ in
     {
       match = lib.singleton {
         host = lib.singleton "metrics.nichi.co";
-        path = [
-          "/vmalert"
-          "/vmalert/*"
-        ];
       };
-      handle = lib.singleton {
-        handler = "reverse_proxy";
-        upstreams = lib.singleton {
-          dial = "${config.services.victoriametrics.listenAddress}";
-        };
-      };
+      handle = [
+        {
+          handler = "authentication";
+          providers.http_basic = {
+            accounts = [
+              {
+                username = "vm";
+                password = "{env.VM_PASSWORD}";
+              }
+            ];
+            hash_cache = { };
+          };
+        }
+        {
+          handler = "reverse_proxy";
+          upstreams = lib.singleton {
+            dial = "${config.services.victoriametrics.listenAddress}";
+          };
+        }
+      ];
     }
   ];
 }

@@ -9,7 +9,9 @@
 
   sops.secrets = {
     fn = { };
-    caddy = { };
+    caddy = {
+      restartUnits = [ config.systemd.services.caddy.name ];
+    };
   };
 
   cloud.services.fn.config = {
