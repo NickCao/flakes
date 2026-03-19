@@ -332,22 +332,6 @@ in
     };
   };
 
-  services = {
-    swayidle = {
-      enable = true;
-      timeouts = [
-        {
-          timeout = 900;
-          command = "/run/current-system/systemd/bin/systemctl suspend";
-        }
-      ];
-      events = {
-        lock = "${lib.getExe config.programs.noctalia-shell.package} ipc call lockScreen lock";
-        before-sleep = "/run/current-system/systemd/bin/loginctl lock-session";
-      };
-    };
-  };
-
   xdg = {
     enable = true;
     configFile = {
