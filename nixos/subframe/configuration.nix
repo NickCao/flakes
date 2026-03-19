@@ -65,10 +65,6 @@
   };
 
   services.openssh.enable = true;
-  services.openssh.settings = {
-    PasswordAuthentication = false;
-    KbdInteractiveAuthentication = false;
-  };
 
   environment.systemPackages = with pkgs; [
     vim

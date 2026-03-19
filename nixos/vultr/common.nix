@@ -48,10 +48,6 @@ in
   cloud.caddy.enable = true;
   services.metrics.enable = true;
   services.openssh.enable = true;
-  services.openssh.settings = {
-    PasswordAuthentication = false;
-    KbdInteractiveAuthentication = false;
-  };
 
   networking = {
     useNetworkd = true;

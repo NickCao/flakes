@@ -48,6 +48,12 @@ with lib;
 
     networking.firewall.enable = false;
 
+    services.openssh.settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PerSourceNetBlockSize = "24:64";
+    };
+
     services.getty.autologinUser = "root";
     services.resolved = {
       settings.Resolve = {
