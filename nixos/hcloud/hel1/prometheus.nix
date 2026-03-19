@@ -132,7 +132,7 @@ in
     enable = true;
     settings = {
       "httpListenAddr" = "127.0.0.1:9134";
-      "external.url" = "https://${config.networking.fqdn}/alert";
+      "external.url" = "https://metrics.nichi.co/";
       "datasource.url" = "http://${config.services.victoriametrics.listenAddress}";
       "notifier.url" = [
         "http://${config.services.prometheus.alertmanager.listenAddress}:${builtins.toString config.services.prometheus.alertmanager.port}"
