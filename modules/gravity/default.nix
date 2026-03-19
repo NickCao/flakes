@@ -336,7 +336,7 @@ in
           ${optionalString cfg.bird.exit.enable ''
             protocol static announce4 {
               ipv4;
-              route 44.32.148.0/24 via "nat64";
+              route 44.32.148.0/24 unreachable;
             }
             protocol static announce6 {
               ipv6;
@@ -441,6 +441,10 @@ in
             Table = stateles;
           }
           { Destination = "10.201.0.0/16"; }
+          { Destination = "44.32.148.18/32"; }
+          { Destination = "44.32.148.101/32"; }
+          { Destination = "44.32.148.102/32"; }
+          { Destination = "44.32.148.114/32"; }
         ];
         networkConfig.LinkLocalAddressing = false;
       };
@@ -486,7 +490,6 @@ in
         wkpf-strict no
 
         map 44.32.148.18 2a0c:b641:69c:99cc::2
-        map 44.32.148.19 2a0c:b641:69c:a230::64
         map 44.32.148.101 2a0c:b641:69c:1600::1
         map 44.32.148.102 2a0c:b641:69c:30e0::1
         map 44.32.148.114 2a0c:b641:69c:8010::1
