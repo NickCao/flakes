@@ -1,4 +1,8 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.services.metrics;
 in
@@ -52,40 +56,24 @@ in
       }
     ];
 
-    sops.secrets.vlagent = {
+    sops.secrets.systemd-journal-upload = {
       sopsFile = ./secrets.yaml;
       mode = "0440";
-      group = config.users.groups.vlagent-secrets.name;
-      restartUnits = [ config.systemd.services.vlagent.name ];
-    };
-
-    users.groups.vlagent-secrets = { };
-
-    systemd.services.vlagent = {
-      before = [ config.systemd.services.systemd-journal-upload.name ];
-      serviceConfig.SupplementaryGroups = [ config.users.groups.vlagent-secrets.name ];
-    };
-
-    services.vlagent = {
-      enable = true;
-      extraArgs = [
-        "-httpListenAddr=127.0.0.1:9429"
-        "-remoteWrite.maxDiskUsagePerURL=500MB"
-        "-remoteWrite.basicAuth.username=vlagent"
-        "-remoteWrite.basicAuth.passwordFile=${config.sops.secrets.vlagent.path}"
-      ];
-      remoteWrite = {
-        url = "https://logs.nichi.co/insert/native";
-      };
+      path = "/run/systemd/journal-upload.conf.d/90-auth.conf";
+      group = config.users.groups.systemd-journal.name;
+      restartUnits = [ config.systemd.services.systemd-journal-upload.name ];
     };
 
     services.journald.upload = {
       enable = true;
       settings.Upload = {
-        URL = "http://127.0.0.1:9429/insert/journald";
+        URL = "https://logs.nichi.co:443/insert/journald";
         NetworkTimeoutSec = "5m";
         Compression = "zstd:4";
         ForceCompression = true;
+        TrustedCertificateFile = "${config.security.pki.caBundle}";
+        ServerKeyFile = "-";
+        ServerCertificateFile = "-";
       };
     };
   };
