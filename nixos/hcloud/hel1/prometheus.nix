@@ -184,6 +184,11 @@ in
               expr = "probe_ssl_earliest_cert_expiry - time() < 24*3600";
               for = "5m";
             }
+            {
+              alert = "ConntrackFull";
+              expr = "node_nf_conntrack_entries / node_nf_conntrack_entries_limit > 0.8";
+              for = "5m";
+            }
           ];
         }
       ];

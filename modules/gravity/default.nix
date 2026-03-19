@@ -115,6 +115,7 @@ in
         "net.ipv6.conf.*.forwarding" = 1;
         "net.ipv4.conf.*.forwarding" = 1;
         "net.ipv4.conf.*.rp_filter" = 0;
+        "net.netfilter.nf_conntrack_max" = lib.mkDefault 1048576;
         # https://www.kernel.org/doc/html/latest/networking/vrf.html#applications
         # established sockets will be created in the VRF based on the ingress interface
         # in case ingress traffic comes from inside the VRF targeting VRF external addresses
