@@ -100,5 +100,8 @@
   services.timesyncd.enable = true;
   services.ntpd-rs.enable = false;
 
+  # https://github.com/systemd/systemd/issues/36498
+  boot.blacklistedKernelModules = [ "rtc_cmos" ];
+
   system.stateVersion = "25.11";
 }
