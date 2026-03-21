@@ -72,9 +72,9 @@ with lib;
       };
     };
 
-    services.timesyncd.enable = false;
+    services.timesyncd.enable = lib.mkDefault false;
     services.ntpd-rs = {
-      enable = true;
+      enable = lib.mkDefault true;
       settings.observability.log-level = "warn";
     };
 
