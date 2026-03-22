@@ -12,14 +12,14 @@
 stdenv.mkDerivation {
   pname = "bird-babel-rtt";
 
-  version = "0-unstable-2026-01-03";
+  version = "0-unstable-2026-03-23";
 
   src = fetchFromGitHub {
     owner = "NickCao";
     repo = "bird";
-    rev = "2912d03c99f99bbe2f7d5041b43a551d3156ce93";
+    rev = "36f9f42912a1adc376886de6a569aff38313326b";
     fetchSubmodules = false;
-    sha256 = "sha256-+oaYh9Zc2F1Ks2g5LB8VMm/KN0YtBHOQcBS3UpxU6mI=";
+    sha256 = "sha256-+3mObK1ikBnlCv0fEXywYrpYxmZFGuI3E9Lh67AR7No=";
   };
 
   nativeBuildInputs = [
@@ -34,7 +34,6 @@ stdenv.mkDerivation {
 
   patches = [
     ./dont-create-sysconfdir-2.patch
-    ./fix-vrf-if-delete-notification.patch
   ];
 
   CPP = "${stdenv.cc.targetPrefix}cpp -E";
