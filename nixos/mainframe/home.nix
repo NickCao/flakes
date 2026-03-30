@@ -40,7 +40,6 @@ in
       everforest
       luasnip
       vim-lastplace
-      editorconfig-nvim
       lualine-nvim
       which-key-nvim
       lualine-lsp-progress

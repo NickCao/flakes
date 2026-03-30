@@ -1,6 +1,5 @@
 vim.opt.background = 'dark'
 vim.opt.number = true
-vim.opt.termguicolors = true
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
