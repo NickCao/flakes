@@ -22,7 +22,7 @@
       name = "wlan0";
       DHCP = "yes";
       dhcpV4Config.RouteMetric = 2048;
-      dhcpV6Config.RouteMetric = 2048;
+      ipv6AcceptRAConfig.RouteMetric = 2048;
     };
   };
 
