@@ -31,7 +31,7 @@
       name = config.systemd.network.netdevs."10-eth0macvlan".netdevConfig.Name;
       DHCP = "yes";
       dhcpV4Config.RouteMetric = 512;
-      dhcpV6Config.RouteMetric = 512;
+      ipv6AcceptRAConfig.RouteMetric = 512;
     };
   };
 
