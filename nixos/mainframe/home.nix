@@ -30,6 +30,8 @@ in
 
   programs.neovim = {
     enable = true;
+    withRuby = false;
+    withPython3 = false;
     vimAlias = true;
     vimdiffAlias = true;
     defaultEditor = true;
