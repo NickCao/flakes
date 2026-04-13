@@ -5,96 +5,114 @@ let
 in
 {
   sops.secrets.dovecot = {
-    owner = cfg.user;
+    owner = cfg.settings.default_internal_user;
     reloadUnits = [ "dovecot2.service" ];
   };
 
-  systemd.tmpfiles.rules = [ "d ${maildir} 0700 ${cfg.mailUser} ${cfg.mailGroup} -" ];
+  systemd.tmpfiles.rules = [
+    "d ${maildir} 0700 ${cfg.settings.mail_uid} ${cfg.settings.mail_gid} -"
+  ];
 
   environment.systemPackages = [ pkgs.dovecot_pigeonhole ];
 
   services.dovecot2 = {
     enable = true;
-    mailUser = "dovemail";
-    mailGroup = "dovemail";
-    sieve.extensions = [ "fileinto" ];
-    sieve.scripts = {
-      after = builtins.toFile "after.sieve" ''
-        require "fileinto";
-        if header :is "X-Spam" "Yes" {
-            fileinto "Junk";
-            stop;
-        }
-      '';
-    };
-    enableLmtp = true;
+    package = pkgs.dovecot;
+    # sieve.scripts = {
+    #   after = builtins.toFile "after.sieve" ''
+    #     require "fileinto";
+    #     if header :is "X-Spam" "Yes" {
+    #         fileinto "Junk";
+    #         stop;
+    #     }
+    #   '';
+    # };
     enablePAM = false;
-    enableDHE = false;
-    mailPlugins.perProtocol.lmtp.enable = [ "sieve" ];
-    mailLocation = "maildir:~";
-    mailboxes = {
-      Drafts = {
-        auto = "subscribe";
-        specialUse = "Drafts";
+    settings = {
+      dovecot_config_version = "2.4.2";
+      dovecot_storage_version = "2.4.0";
+
+      auth_allow_cleartext = true; # TLS terminated by caddy
+      auth_mechanisms = [
+        "plain"
+        "login"
+      ];
+      auth_username_format = "%{user | username | lower}";
+
+      listen = "127.0.0.1";
+      haproxy_trusted_networks = "127.0.0.1/8";
+      ssl = false;
+
+      mail_driver = "maildir";
+      mail_uid = "dovemail";
+      mail_gid = "dovemail";
+
+      protocols = {
+        imap = true;
+        lmtp = true;
       };
-      Sent = {
-        auto = "subscribe";
-        specialUse = "Sent";
+      mail_home = "${maildir}/%{user}";
+      mail_path = "~";
+      "passdb passwd-file" = {
+        driver = "passwd-file";
+        passwd_file_path = config.sops.secrets.dovecot.path;
       };
-      Trash = {
-        auto = "subscribe";
-        specialUse = "Trash";
+      "userdb static" = {
+        driver = "static";
+        fields = {
+          uid = cfg.settings.mail_uid;
+          gid = cfg.settings.mail_gid;
+        };
       };
-      Junk = {
-        auto = "subscribe";
-        specialUse = "Junk";
+      "namespace inbox" = {
+        inbox = true;
+        "mailbox Drafts" = {
+          auto = "subscribe";
+          special_use = "\\Drafts";
+        };
+        "mailbox Junk" = {
+          auto = "subscribe";
+          special_use = "\\Junk";
+        };
+        "mailbox Sent" = {
+          auto = "subscribe";
+          special_use = "\\Sent";
+        };
+        "mailbox Trash" = {
+          auto = "subscribe";
+          special_use = "\\Trash";
+        };
+        "mailbox Archive" = {
+          auto = "subscribe";
+          special_use = "\\Archive";
+        };
       };
-      Archive = {
-        auto = "subscribe";
-        specialUse = "Archive";
+      "protocol lmtp" = {
+        mail_plugins.sieve = true;
       };
+      # sieve_extensions.fileinto = true;
+      # sieve_script.after-0 = {
+      #   type = "after";
+      #   driver = "file";
+      #   path = "/var/lib/dovecot/sieve/after";
+      # };
+      service = [
+        {
+          _section.name = "imap-login";
+          "unix_listener imap-caddy".mode = 0666;
+          "inet_listener imap".port = 0;
+          "inet_listener imaps".port = 0;
+        }
+        {
+          _section.name = "auth";
+          "unix_listener auth-postfix" = {
+            mode = 0660;
+            user = "postfix";
+            group = "postfix";
+          };
+        }
+      ];
     };
-    pluginSettings = {
-      sieve_after = "/var/lib/dovecot/sieve/after";
-    };
-    extraConfig = ''
-      listen = 127.0.0.1
-      haproxy_trusted_networks = 127.0.0.1/8
-
-      auth_username_format   = %Ln
-
-      mail_home = ${maildir}/%u
-
-      passdb {
-        driver = passwd-file
-        args = ${config.sops.secrets.dovecot.path}
-      }
-
-      userdb {
-        driver = static
-        args = uid=${cfg.mailUser} gid=${cfg.mailGroup}
-      }
-
-      service imap-login {
-        unix_listener imap-caddy {
-          mode    = 0666
-        }
-        inet_listener imap {
-          port = 0
-        }
-        inet_listener imaps {
-          port = 0
-        }
-      }
-
-      service auth {
-        unix_listener auth-postfix {
-          mode = 0660
-          user = postfix
-          group = postfix
-        }
-      }
-    '';
   };
 
   systemd.sockets.caddy-imap = {
