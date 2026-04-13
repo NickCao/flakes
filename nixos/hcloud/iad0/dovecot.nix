@@ -18,18 +18,9 @@ in
   services.dovecot2 = {
     enable = true;
     package = pkgs.dovecot;
-    # sieve.scripts = {
-    #   after = builtins.toFile "after.sieve" ''
-    #     require "fileinto";
-    #     if header :is "X-Spam" "Yes" {
-    #         fileinto "Junk";
-    #         stop;
-    #     }
-    #   '';
-    # };
     enablePAM = false;
     settings = {
-      dovecot_config_version = "2.4.2";
+      dovecot_config_version = "2.4.3";
       dovecot_storage_version = "2.4.0";
 
       auth_allow_cleartext = true; # TLS terminated by caddy
@@ -90,12 +81,16 @@ in
       "protocol lmtp" = {
         mail_plugins.sieve = true;
       };
-      # sieve_extensions.fileinto = true;
-      # sieve_script.after-0 = {
-      #   type = "after";
-      #   driver = "file";
-      #   path = "/var/lib/dovecot/sieve/after";
-      # };
+      "sieve_script spam" = {
+        sieve_script_type = "after";
+        path = pkgs.writeText "spam.sieve" ''
+          require "fileinto";
+          if header :is "X-Spam" "Yes" {
+              fileinto "Junk";
+              stop;
+          }
+        '';
+      };
       service = [
         {
           _section.name = "imap-login";
