@@ -6,7 +6,7 @@
   ...
 }:
 let
-  targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [ "subframe.nichi.link" ];
+  targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes; # ++ [ "subframe.nichi.link" ];
   ipv4_targets = lib.mapAttrsToList (_mame: node: node.ipv4) data.nodes;
   nameservers = data.nameservers ++ data.secondary_nameservers;
   relabel_configs = [
