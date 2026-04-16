@@ -61,7 +61,7 @@
 
   hardware.graphics.enable = true;
 
-  virtualisation.podman.enable = true;
+  virtualisation.docker.enable = true;
 
   environment.baseline.enable = true;
 
