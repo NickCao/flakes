@@ -432,27 +432,11 @@ in
         };
         private_chat_portal_meta = false;
         relay = {
+          enabled = true;
           admin_only = true;
           allow_bridge = false;
           prefer_default = true;
           default_relays = [ 5296957089 ];
-          displayname_format = "{{ .DisambiguatedName }}";
-          enabled = true;
-          message_formats = {
-            "m.audio" =
-              "<b>{{ .Sender.DisambiguatedName }}</b> sent an audio file{{ if .Caption }}: {{ .Caption }}{{ end }}";
-            "m.emote" = "* <b>{{ .Sender.DisambiguatedName }}</b> {{ .Message }}";
-            "m.file" =
-              "<b>{{ .Sender.DisambiguatedName }}</b> sent a file{{ if .Caption }}: {{ .Caption }}{{ end }}";
-            "m.image" =
-              "<b>{{ .Sender.DisambiguatedName }}</b> sent an image{{ if .Caption }}: {{ .Caption }}{{ end }}";
-            "m.location" =
-              "<b>{{ .Sender.DisambiguatedName }}</b> sent a location{{ if .Caption }}: {{ .Caption }}{{ end }}";
-            "m.notice" = "<b>{{ .Sender.DisambiguatedName }}</b>: {{ .Message }}";
-            "m.text" = "<b>{{ .Sender.DisambiguatedName }}</b>: {{ .Message }}";
-            "m.video" =
-              "<b>{{ .Sender.DisambiguatedName }}</b> sent a video{{ if .Caption }}: {{ .Caption }}{{ end }}";
-          };
         };
         resend_bridge_info = false;
         revert_failed_state_changes = false;
@@ -469,51 +453,14 @@ in
         type = "postgres";
         uri = "postgres:///mautrix-telegram?host=/run/postgresql";
       };
-      direct_media = {
-        allow_proxy = true;
-        enabled = false;
-        media_id_prefix = null;
-        server_key = "generate";
-        server_name = "discord-media.example.com";
-        well_known_response = null;
-      };
+      public_media.enabled = false;
+      direct_media.enabled = false;
       double_puppet = {
         allow_discovery = false;
         secrets = { };
         servers = { };
       };
-      encryption = {
-        allow = false;
-        allow_key_sharing = true;
-        appservice = false;
-        default = false;
-        delete_keys = {
-          delete_fully_used_on_decrypt = false;
-          delete_on_device_delete = false;
-          delete_outbound_on_ack = false;
-          delete_outdated_inbound = false;
-          delete_prev_on_new_session = false;
-          dont_store_outbound = false;
-          periodically_delete_expired = false;
-          ratchet_on_decrypt = false;
-        };
-        msc4190 = false;
-        msc4392 = false;
-        pickle_key = "generate";
-        require = false;
-        rotation = {
-          disable_device_change_key_rotation = false;
-          enable_custom = false;
-          messages = 100;
-          milliseconds = 604800000;
-        };
-        self_sign = false;
-        verification_levels = {
-          receive = "unverified";
-          send = "unverified";
-          share = "cross-signed-tofu";
-        };
-      };
+      encryption.allow = false;
       env_config_prefix = "MAUTRIX_TELEGRAM_";
       homeserver = {
         address = "http://127.0.0.1:${toString config.lib.ports.synapse}";
@@ -597,14 +544,6 @@ in
         debug_endpoints = false;
         enable_session_transfers = false;
         shared_secret = "disable";
-      };
-      public_media = {
-        enabled = false;
-        expiry = 0;
-        hash_length = 32;
-        path_prefix = "/_mautrix/publicmedia";
-        signing_key = "generate";
-        use_database = false;
       };
     };
   };
