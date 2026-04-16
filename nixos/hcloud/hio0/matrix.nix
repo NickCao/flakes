@@ -552,8 +552,8 @@ in
             height = 256;
             width = 256;
           };
-          convert_from_webm = false;
-          target = "webm";
+          convert_from_webm = true;
+          target = "webp";
         };
         api_hash = "d524b414d21f4d37f08684c1df41ac9c";
         api_id = 611335;
