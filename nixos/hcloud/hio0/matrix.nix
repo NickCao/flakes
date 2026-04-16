@@ -345,7 +345,7 @@ in
     };
   };
 
-  systemd.services.mautrix-telegram.serviceConfig.RuntimeMaxSec = 3600;
+  # systemd.services.mautrix-telegram.serviceConfig.RuntimeMaxSec = 3600;
 
   services.mautrix-telegram = {
     enable = true;
@@ -434,7 +434,8 @@ in
         relay = {
           admin_only = true;
           allow_bridge = false;
-          default_relays = [ ];
+          prefer_default = true;
+          default_relays = [ 5296957089 ];
           displayname_format = "{{ .DisambiguatedName }}";
           enabled = true;
           message_formats = {
@@ -452,7 +453,6 @@ in
             "m.video" =
               "<b>{{ .Sender.DisambiguatedName }}</b> sent a video{{ if .Caption }}: {{ .Caption }}{{ end }}";
           };
-          prefer_default = true;
         };
         resend_bridge_info = false;
         revert_failed_state_changes = false;
