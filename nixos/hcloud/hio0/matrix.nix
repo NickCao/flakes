@@ -335,6 +335,13 @@ in
         per_second = 1000;
         burst_count = 10000;
       };
+
+      rc_joins = {
+        local = {
+          per_second = 10000;
+          burst_count = 10000;
+        };
+      };
     };
   };
 
@@ -345,57 +352,259 @@ in
     environmentFile = config.sops.secrets.mautrix-telegram.path;
     serviceDependencies = [ config.systemd.services.matrix-synapse.name ];
     settings = {
-      homeserver = {
-        address = "http://127.0.0.1:${toString config.lib.ports.synapse}";
-        domain = config.services.matrix-synapse.settings.server_name;
-      };
       appservice = {
         address = "http://127.0.0.1:${toString config.lib.ports.mautrix-telegram}";
-        database = "postgres:///mautrix-telegram?host=/run/postgresql";
         hostname = "127.0.0.1";
         port = config.lib.ports.mautrix-telegram;
-        provisioning.enabled = false;
+
+        username_template = "telegram_{{.}}";
+        ephemeral_events = true;
+        async_transactions = false;
+
+        id = "telegram";
+        bot = {
+          username = "telegrambot";
+          displayname = "Telegram bridge bot";
+          avatar = "mxc://maunium.net/tJCRmUyJDsgRNgqhOgoiHWbX";
+        };
+      };
+      backfill = {
+        enabled = false;
+        max_catchup_messages = 500;
+        max_initial_messages = 50;
+        queue = {
+          batch_delay = 20;
+          batch_size = 100;
+          enabled = false;
+          manual = false;
+          max_batches = -1;
+          max_batches_override = { };
+        };
+        threads = {
+          max_initial_messages = 50;
+        };
+        unread_hours_threshold = 720;
       };
       bridge = {
-        displayname_template = "{displayname}";
-        public_portals = true;
-        delivery_error_reports = true;
-        incoming_bridge_error_reports = true;
+        async_events = false;
         bridge_matrix_leave = false;
-        relay_user_distinguishers = [ ];
-        create_group_on_invite = false;
-        animated_sticker = {
-          target = "webp";
-          convert_from_webm = true;
+        bridge_notices = false;
+        bridge_status_notices = "errors";
+        cleanup_on_logout = {
+          enabled = false;
+          bad_credentials = {
+            private = "nothing";
+            relayed = "nothing";
+            shared_has_users = "nothing";
+            shared_no_users = "nothing";
+          };
+          manual = {
+            private = "nothing";
+            relayed = "nothing";
+            shared_has_users = "nothing";
+            shared_no_users = "nothing";
+          };
         };
-        state_event_formats = {
-          join = "";
-          leave = "";
-          name_change = "";
-        };
+        command_prefix = "!tg";
+        cross_room_replies = false;
+        deduplicate_matrix_messages = false;
+        enable_send_state_requests = false;
+        kick_matrix_users = true;
+        mute_only_on_create = true;
+        no_bridge_info_state_key = false;
+        only_bridge_tags = [
+          "m.favourite"
+          "m.lowpriority"
+        ];
         permissions = {
-          "*" = "relaybot";
-          "@nickcao:nichi.co" = "admin";
-          "@lilydjwg:mozilla.org" = "admin";
+          "*" = "relay";
           "@i:steamedfish.org" = "user";
+          "@lilydjwg:mozilla.org" = "admin";
+          "@nickcao:nichi.co" = "admin";
+          "@mautrix:nichi.co" = "admin";
         };
-        relaybot = {
-          authless_portals = false;
+        personal_filtering_spaces = false;
+        phone_numbers_in_profile = false;
+        portal_create_filter = {
+          always_deny_from_login = [ ];
+          list = [ ];
+          mode = "deny";
+        };
+        private_chat_portal_meta = false;
+        relay = {
+          admin_only = true;
+          allow_bridge = false;
+          default_relays = [ ];
+          displayname_format = "{{ .DisambiguatedName }}";
+          enabled = true;
+          message_formats = {
+            "m.audio" =
+              "<b>{{ .Sender.DisambiguatedName }}</b> sent an audio file{{ if .Caption }}: {{ .Caption }}{{ end }}";
+            "m.emote" = "* <b>{{ .Sender.DisambiguatedName }}</b> {{ .Message }}";
+            "m.file" =
+              "<b>{{ .Sender.DisambiguatedName }}</b> sent a file{{ if .Caption }}: {{ .Caption }}{{ end }}";
+            "m.image" =
+              "<b>{{ .Sender.DisambiguatedName }}</b> sent an image{{ if .Caption }}: {{ .Caption }}{{ end }}";
+            "m.location" =
+              "<b>{{ .Sender.DisambiguatedName }}</b> sent a location{{ if .Caption }}: {{ .Caption }}{{ end }}";
+            "m.notice" = "<b>{{ .Sender.DisambiguatedName }}</b>: {{ .Message }}";
+            "m.text" = "<b>{{ .Sender.DisambiguatedName }}</b>: {{ .Message }}";
+            "m.video" =
+              "<b>{{ .Sender.DisambiguatedName }}</b> sent a video{{ if .Caption }}: {{ .Caption }}{{ end }}";
+          };
+          prefer_default = true;
+        };
+        resend_bridge_info = false;
+        revert_failed_state_changes = false;
+        split_portals = false;
+        tag_only_on_create = true;
+        unknown_error_auto_reconnect = "5m";
+        unknown_error_max_auto_reconnects = 10;
+      };
+      database = {
+        max_conn_idle_time = null;
+        max_conn_lifetime = null;
+        max_idle_conns = 1;
+        max_open_conns = 5;
+        type = "postgres";
+        uri = "postgres:///mautrix-telegram?host=/run/postgresql";
+      };
+      direct_media = {
+        allow_proxy = true;
+        enabled = false;
+        media_id_prefix = null;
+        server_key = "generate";
+        server_name = "discord-media.example.com";
+        well_known_response = null;
+      };
+      double_puppet = {
+        allow_discovery = false;
+        secrets = { };
+        servers = { };
+      };
+      encryption = {
+        allow = false;
+        allow_key_sharing = true;
+        appservice = false;
+        default = false;
+        delete_keys = {
+          delete_fully_used_on_decrypt = false;
+          delete_on_device_delete = false;
+          delete_outbound_on_ack = false;
+          delete_outdated_inbound = false;
+          delete_prev_on_new_session = false;
+          dont_store_outbound = false;
+          periodically_delete_expired = false;
+          ratchet_on_decrypt = false;
+        };
+        msc4190 = false;
+        msc4392 = false;
+        pickle_key = "generate";
+        require = false;
+        rotation = {
+          disable_device_change_key_rotation = false;
+          enable_custom = false;
+          messages = 100;
+          milliseconds = 604800000;
+        };
+        self_sign = false;
+        verification_levels = {
+          receive = "unverified";
+          send = "unverified";
+          share = "cross-signed-tofu";
         };
       };
-      telegram = {
-        api_id = 611335;
-        api_hash = "d524b414d21f4d37f08684c1df41ac9c";
-        device_info = {
-          app_version = "3.5.2";
-        };
-        force_refresh_interval_seconds = 3600;
+      env_config_prefix = "MAUTRIX_TELEGRAM_";
+      homeserver = {
+        address = "http://127.0.0.1:${toString config.lib.ports.synapse}";
+        async_media = true;
+        domain = "nichi.co";
+        message_send_checkpoint_endpoint = null;
+        ping_interval_seconds = 0;
+        software = "standard";
+        status_endpoint = null;
+        websocket = false;
       };
       logging = {
-        loggers = {
-          mau.level = "WARNING";
-          telethon.level = "WARNING";
+        min_level = "warn";
+        writers = [
+          {
+            format = "pretty";
+            type = "stdout";
+          }
+        ];
+      };
+      matrix = {
+        delivery_receipts = false;
+        federate_rooms = true;
+        ghost_extra_profile_info = false;
+        message_error_notices = true;
+        message_status_events = false;
+        sync_direct_chat_list = false;
+        upload_file_threshold = 5242880;
+      };
+      network = {
+        always_custom_emoji_reaction = false;
+        always_tombstone_on_supergroup_migration = false;
+        animated_sticker = {
+          args = {
+            fps = 25;
+            height = 256;
+            width = 256;
+          };
+          convert_from_webm = false;
+          target = "webm";
         };
+        api_hash = "d524b414d21f4d37f08684c1df41ac9c";
+        api_id = 611335;
+        contact_avatars = false;
+        contact_names = false;
+        device_info = {
+          app_version = "auto";
+          device_model = "mautrix-telegram";
+          lang_code = "en";
+          system_lang_code = "en";
+          system_version = null;
+        };
+        disable_view_once = false;
+        displayname_template = "{{ if .Deleted }}Deleted account {{ .UserID }}{{ else }}{{ .FullName }}{{ end }}";
+        image_as_file_pixels = 16777216;
+        max_member_count = -1;
+        member_list = {
+          max_initial_sync = 100;
+          skip_deleted = true;
+          sync_broadcast_channels = false;
+        };
+        ping = {
+          interval_seconds = 30;
+          timeout_seconds = 10;
+        };
+        saved_message_avatar = "mxc://maunium.net/XhhfHoPejeneOngMyBbtyWDk";
+        sync = {
+          create_limit = 15;
+          direct_chats = true;
+          login_sync_limit = 15;
+          update_limit = 100;
+        };
+        takeout = {
+          backward_backfill = false;
+          dialog_sync = false;
+          forward_backfill = false;
+        };
+      };
+      provisioning = {
+        allow_matrix_auth = false;
+        debug_endpoints = false;
+        enable_session_transfers = false;
+        shared_secret = "disable";
+      };
+      public_media = {
+        enabled = false;
+        expiry = 0;
+        hash_length = 32;
+        path_prefix = "/_mautrix/publicmedia";
+        signing_key = "generate";
+        use_database = false;
       };
     };
   };
