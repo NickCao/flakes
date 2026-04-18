@@ -1,11 +1,14 @@
-import { HTMLRewriter } from "https://deno.land/x/html_rewriter@v0.1.0-pre.17/index.ts";
-
-export async function rants({ params }) {
-  let resp = await fetch("https://t.me/s/".concat(params.id));
-  resp = new Response(resp.body, resp);
-  resp.headers.delete("X-Frame-Options");
-  resp.headers.delete("Set-Cookie");
-  return new HTMLRewriter().on("*", new ElementHandler()).transform(resp);
+export async function rants(req) {
+  let url = new URL(req.params.id, "https://t.me/s/");
+  if (url.origin !== "https://t.me") {
+    throw new Error("URL does not match expected origin");
+  }
+  let resp = await fetch(url);
+  let html = await resp.text();
+  let result = new HTMLRewriter().on("*", new ElementHandler()).transform(html);
+  return new Response(result, {
+    headers: { "content-type": "text/html; charset=utf-8" },
+  });
 }
 
 class ElementHandler {

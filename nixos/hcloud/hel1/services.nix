@@ -16,20 +16,12 @@
 
   cloud.services.fn.config = {
     ExecStart = utils.escapeSystemdExecArgs [
-      (lib.getExe pkgs.deno)
+      (lib.getExe pkgs.bun)
       "run"
-      "--allow-env"
-      "--allow-net"
-      "--allow-read"
-      "--allow-import"
-      "--no-check"
       "${../../../fn}/index.ts"
     ];
     MemoryDenyWriteExecute = false;
-    Environment = [
-      "PORT=8002"
-      "DENO_DIR=/tmp"
-    ];
+    Environment = [ "PORT=8002" ];
     EnvironmentFile = [ config.sops.secrets.fn.path ];
   };
 
