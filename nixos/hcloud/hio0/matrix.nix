@@ -305,6 +305,7 @@ in
 
       matrix_authentication_service = {
         enabled = true;
+        force_http2 = true;
         endpoint = "http://127.0.0.1:${toString config.lib.ports.matrix-authentication-service}";
         secret_path = config.sops.secrets."matrix-authentication-service/shared".path;
       };
