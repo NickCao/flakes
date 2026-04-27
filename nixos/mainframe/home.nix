@@ -141,6 +141,7 @@ in
     pinentry-gtk2
     picocom
     (mpv.override {
+      youtubeSupport = false;
       scripts = [ mpvScripts.uosc ];
     })
     telegram-desktop
