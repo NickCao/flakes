@@ -184,6 +184,13 @@
     rtl-sdr.enable = true;
   };
 
+  # https://www.shrey.com/blog/fixing-microphone-on-framework-13-amd-linux/
+  services.pipewire.wireplumber.extraConfig."50-disable-ucm" = {
+    "monitor.alsa.properties" = {
+      "alsa.use-ucm" = false;
+    };
+  };
+
   services.fwupd = {
     enable = true;
     extraRemotes = [ "lvfs-testing" ];
