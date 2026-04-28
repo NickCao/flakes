@@ -111,11 +111,6 @@
           };
           eth-1 = {
             type = "nic";
-            parent = "svc";
-            nictype = "bridged";
-          };
-          eth-2 = {
-            type = "nic";
             network = "default";
           };
         };
