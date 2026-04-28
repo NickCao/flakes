@@ -5,6 +5,10 @@
 }:
 
 {
+  nixpkgs.config.permittedInsecurePackages = [
+    "minio-2025-10-15T17-29-55Z"
+  ];
+
   sops = {
     age = {
       keyFile = "/var/lib/sops.key";
