@@ -93,6 +93,22 @@
           source = "/incus";
         };
       };
+      profiles = lib.singleton {
+        name = "default";
+        devices = {
+          root = {
+            type = "disk";
+            path = "/";
+            pool = "default";
+            size = "16GiB";
+          };
+          eth-1 = {
+            type = "nic";
+            parent = "svc";
+            nictype = "bridged";
+          };
+        };
+      };
     };
   };
 
