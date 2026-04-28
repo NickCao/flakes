@@ -37,6 +37,10 @@
                     mountpoint = "/nix";
                     mountOptions = [ "compress-force=zstd" ];
                   };
+                  "/incus" = {
+                    mountpoint = "/incus";
+                    mountOptions = [ "compress-force=zstd" ];
+                  };
                 };
               };
             };

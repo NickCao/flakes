@@ -1,4 +1,5 @@
 {
+  lib,
   config,
   pkgs,
   ...
@@ -84,6 +85,13 @@
     preseed = {
       config = {
         "core.https_address" = ":8443";
+      };
+      storage_pools = lib.singleton {
+        name = "default";
+        driver = "btrfs";
+        config = {
+          source = "/incus";
+        };
       };
     };
   };
