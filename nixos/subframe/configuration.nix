@@ -93,6 +93,13 @@
           source = "/incus";
         };
       };
+      networks = lib.singleton {
+        name = "default";
+        type = "macvlan";
+        config = {
+          parent = "eth0";
+        };
+      };
       profiles = lib.singleton {
         name = "default";
         devices = {
@@ -106,6 +113,10 @@
             type = "nic";
             parent = "svc";
             nictype = "bridged";
+          };
+          eth-2 = {
+            type = "nic";
+            network = "default";
           };
         };
       };
