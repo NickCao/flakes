@@ -81,6 +81,7 @@
   virtualisation.incus = {
     enable = true;
     package = pkgs.incus;
+    bucketSupport = false;
     ui.enable = true;
     preseed = {
       config = {
