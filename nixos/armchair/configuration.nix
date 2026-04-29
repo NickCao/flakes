@@ -18,8 +18,8 @@
       name = "end0";
       DHCP = "yes";
     };
-    "10-wlan0" = {
-      name = "wlan0";
+    "10-wld0" = {
+      name = "wld0";
       DHCP = "yes";
       dhcpV4Config.RouteMetric = 2048;
       ipv6AcceptRAConfig.RouteMetric = 2048;
