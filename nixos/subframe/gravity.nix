@@ -19,7 +19,6 @@
         "route 2a0c:b641:69c:a230::/60 from ::/0 unreachable"
         "route 2a0c:b641:69c:a231::/64 from ::/0 via \"svc\""
       ];
-      pattern = "grv*";
     };
     ipsec = {
       enable = true;

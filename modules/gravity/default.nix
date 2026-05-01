@@ -61,11 +61,6 @@ in
         type = types.listOf types.str;
         description = "routes to be announced for local node";
       };
-      pattern = mkOption {
-        type = types.str;
-        default = "grv*";
-        description = "pattern for wireguard interfaces";
-      };
     };
     divi = {
       enable = mkEnableOption "sample divi configuration";
@@ -313,15 +308,6 @@ in
               import all;
             };
             randomize router id;
-            interface "${cfg.bird.pattern}" {
-              type tunnel;
-              link quality etx;
-              rxcost 32;
-              hello interval 20 s;
-              rtt cost 1024;
-              rtt max 1024 ms;
-              rx buffer 2000;
-            };
             interface "gn*" {
               type tunnel;
               link quality etx;

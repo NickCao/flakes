@@ -14,7 +14,6 @@
     bird = {
       enable = true;
       routes = [ "route 2a0c:b641:69c:99c0::/60 from ::/0 unreachable" ];
-      pattern = "grv*";
     };
     ipsec = {
       enable = true;
