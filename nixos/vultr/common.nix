@@ -95,9 +95,6 @@ in
 
   nixpkgs.overlays = [
     self.overlays.default
-    (_final: prev: {
-      ranet = inputs.ranet.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    })
   ];
 
   services.gravity = {

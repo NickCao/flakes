@@ -19,9 +19,6 @@ nixpkgs.lib.nixosSystem {
       {
         nixpkgs.overlays = [
           self.overlays.default
-          (_final: prev: {
-            ranet = inputs.ranet.packages.${config.nixpkgs.hostPlatform}.default;
-          })
         ];
         nix.settings.nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
         nix.registry.p.flake = self;
