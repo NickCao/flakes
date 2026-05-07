@@ -72,8 +72,9 @@ in
         driver = "passwd-file";
         passwd_file_path = config.sops.secrets.dovecot.path;
       };
-      "userdb static" = {
-        driver = "static";
+      "userdb passwd-file" = {
+        driver = "passwd-file";
+        passwd_file_path = config.sops.secrets.dovecot.path;
         fields = {
           uid = cfg.settings.mail_uid;
           gid = cfg.settings.mail_gid;
