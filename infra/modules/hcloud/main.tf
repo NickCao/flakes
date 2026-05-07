@@ -44,7 +44,6 @@ resource "hcloud_primary_ip" "ipv4" {
   name              = "${var.hostname}-v4"
   type              = "ipv4"
   location          = var.location
-  assignee_type     = "server"
   auto_delete       = false
   delete_protection = true
 }
@@ -53,7 +52,6 @@ resource "hcloud_primary_ip" "ipv6" {
   name              = "${var.hostname}-v6"
   type              = "ipv6"
   location          = var.location
-  assignee_type     = "server"
   auto_delete       = false
   delete_protection = true
 }

@@ -100,6 +100,16 @@ resource "keycloak_openid_client" "matrix-authentication-service" {
   backchannel_logout_url              = "https://matrix-auth.nichi.co/upstream/backchannel-logout/01K34XRT1QHE1541KQ7HRRY15M"
 }
 
+resource "keycloak_openid_client" "thunderbird" {
+  realm_id    = keycloak_realm.nichi.id
+  client_id   = "thunderbird"
+  name        = "Thunderbird"
+  access_type = "PUBLIC"
+
+  standard_flow_enabled = true
+  valid_redirect_uris   = ["https://localhost"]
+}
+
 resource "keycloak_realm_events" "events" {
   realm_id                     = keycloak_realm.nichi.id
   admin_events_enabled         = true
