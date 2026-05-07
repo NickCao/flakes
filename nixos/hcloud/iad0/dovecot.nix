@@ -27,8 +27,32 @@ in
       auth_mechanisms = [
         "plain"
         "login"
+        "oauthbearer"
+        "xoauth2"
       ];
       auth_username_format = "%{user | username | lower}";
+
+      # https://utcc.utoronto.ca/~cks/space/blog/sysadmin/DovecotOAuth2ForAuthNotes
+      # https://github.com/raa-org/thunderbird-custom-idp
+      # {
+      #   "hostname": "iad0.nichi.link",
+      #   "issuer": "id.nichi.co",
+      #   "clientId": "thunderbird",
+      #   "clientSecret": "",
+      #   "usePkce": true,
+      #   "authorizationEndpoint": "https://id.nichi.co/realms/nichi/protocol/openid-connect/auth",
+      #   "tokenEndpoint": "https://id.nichi.co/realms/nichi/protocol/openid-connect/token",
+      #   "redirectUri": "https://localhost",
+      #   "scopes": {
+      #     "imap": "openid email profile",
+      #     "smtp": "openid email profile"
+      #   }
+      # }
+      oauth2 = {
+        introspection_mode = "auth";
+        introspection_url = "https://id.nichi.co/realms/nichi/protocol/openid-connect/userinfo";
+        username_attribute = "preferred_username";
+      };
 
       listen = "127.0.0.1";
       haproxy_trusted_networks = "127.0.0.1/8";
