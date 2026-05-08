@@ -44,8 +44,8 @@ in
       #   "tokenEndpoint": "https://id.nichi.co/realms/nichi/protocol/openid-connect/token",
       #   "redirectUri": "https://localhost",
       #   "scopes": {
-      #     "imap": "openid email profile",
-      #     "smtp": "openid email profile"
+      #     "imap": "openid email profile offline_access",
+      #     "smtp": "openid email profile offline_access"
       #   }
       # }
       oauth2 = {
