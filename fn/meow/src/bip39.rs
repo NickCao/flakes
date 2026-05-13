@@ -7,7 +7,7 @@ lazy_static::lazy_static! {
 /// generate a mnemonic of length `len`, separated by hyphen
 pub fn mnemonic(len: usize) -> String {
     WORDLIST
-        .choose_multiple(&mut rand::rng(), len)
+        .sample(&mut rand::rng(), len)
         .copied()
         .collect::<Vec<&str>>()
         .join("-")
