@@ -104,6 +104,7 @@
                     carlpett_sops
                     hetznercloud_hcloud
                     keycloak_keycloak
+                    scaleway_scaleway
                   ]
                 ))
               ];

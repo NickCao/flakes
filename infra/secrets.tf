@@ -20,3 +20,9 @@ provider "keycloak" {
   realm         = "nichi"
   url           = "https://id.nichi.co"
 }
+
+provider "scaleway" {
+  organization_id = local.secrets.scaleway.organization_id
+  access_key      = local.secrets.scaleway.access_key
+  secret_key      = local.secrets.scaleway.secret_key
+}

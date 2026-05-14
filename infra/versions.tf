@@ -9,6 +9,9 @@ terraform {
     hcloud = {
       source = "hetznercloud/hcloud"
     }
+    scaleway = {
+      source = "scaleway/scaleway"
+    }
     keycloak = {
       source = "keycloak/keycloak"
     }
