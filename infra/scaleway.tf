@@ -61,7 +61,7 @@ resource "scaleway_secret" "rclone" {
 resource "scaleway_secret_version" "rclone_v1" {
   region    = scaleway_object_bucket.nichi_backup_par.region
   secret_id = scaleway_secret.rclone.id
-  data = <<EOT
+  data      = <<EOT
 [b2]
 type = b2
 account = ${local.secrets.b2.account}
@@ -72,10 +72,10 @@ hard_delete = true
 type = s3
 provider = Scaleway
 env_auth = false
-endpoint = s3.fr-par.scw.cloud
+endpoint = s3.${scaleway_object_bucket.nichi_backup_par.region}.scw.cloud
 access_key_id = ${scaleway_iam_api_key.rclone.access_key}
 secret_access_key = ${scaleway_iam_api_key.rclone.secret_key}
-region = fr-par
+region = ${scaleway_object_bucket.nichi_backup_par.region}
 location_constraint =
 acl = private
 force_path_style = false
@@ -84,6 +84,7 @@ storage_class = ONEZONE_IA
 EOT
 }
 
+# TODO: add monitoring
 resource "scaleway_job_definition" "rclone" {
   project_id = scaleway_account_project.storage.id
 
@@ -99,12 +100,17 @@ resource "scaleway_job_definition" "rclone" {
   args = [
     "sync",
     "--checksum", "--progress",
-    "--transfers", "32",
+    "--transfers", "8",
     "b2:nichi-backup", "scaleway:nichi-backup-par",
   ]
 
   secret_reference {
     secret_id = scaleway_secret.rclone.id
     file      = "/config/rclone/rclone.conf"
+  }
+
+  cron {
+    schedule = "30 1 * * *"
+    timezone = "Etc/UTC"
   }
 }
