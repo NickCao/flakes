@@ -101,7 +101,7 @@ resource "scaleway_job_definition" "rclone" {
     "sync",
     "--checksum", "--progress",
     "--transfers", "8",
-    "b2:nichi-backup", "scaleway:nichi-backup-par",
+    "b2:nichi-backup", "scaleway:${scaleway_object_bucket.nichi_backup_par.name}",
   ]
 
   secret_reference {
