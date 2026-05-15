@@ -8,6 +8,11 @@ resource "scaleway_object_bucket" "nichi_backup_par" {
   name   = "nichi-backup-par"
   region = "fr-par"
 
+  # TODO: https://github.com/scaleway/terraform-provider-scaleway/issues/3999
+  # versioning {
+  #   enabled = true
+  # }
+
   lifecycle_rule {
     enabled                                = true
     abort_incomplete_multipart_upload_days = 1
