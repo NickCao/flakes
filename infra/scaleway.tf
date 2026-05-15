@@ -43,7 +43,8 @@ resource "scaleway_object_bucket_policy" "nichi_backup_par" {
           ]
         },
         Resource : [
-          scaleway_object_bucket.nichi_backup_par.name
+          scaleway_object_bucket.nichi_backup_par.name,
+          "${scaleway_object_bucket.nichi_backup_par.name}/*"
         ],
       },
       {
@@ -56,7 +57,8 @@ resource "scaleway_object_bucket_policy" "nichi_backup_par" {
           ]
         },
         Resource : [
-          scaleway_object_bucket.nichi_backup_par.name
+          scaleway_object_bucket.nichi_backup_par.name,
+          "${scaleway_object_bucket.nichi_backup_par.name}/*"
         ],
       }
     ]
