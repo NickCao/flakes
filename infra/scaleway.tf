@@ -158,3 +158,27 @@ resource "scaleway_job_definition" "rclone" {
     timezone = "Etc/UTC"
   }
 }
+
+data "scaleway_cockpit_sources" "metrics" {
+  project_id = scaleway_account_project.storage.id
+
+  origin = "scaleway"
+  type   = "metrics"
+}
+
+resource "scaleway_cockpit_exporter" "victoriametrics" {
+  project_id = scaleway_account_project.storage.id
+
+  name   = "victoriametrics"
+  region = scaleway_object_bucket.nichi_backup_par.region
+
+  datasource_id     = data.scaleway_cockpit_sources.metrics.sources[0].id
+  exported_products = ["object-storage", "serverless-jobs"]
+
+  otlp_destination {
+    endpoint = "https://metrics.nichi.co/opentelemetry"
+    headers = {
+      Authorization = "Basic ${local.secrets.victoriametrics.basic}"
+    }
+  }
+}

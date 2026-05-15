@@ -48,6 +48,7 @@ in
     enable = true;
     extraOptions = [
       "-vmalert.proxyURL=http://${config.services.vmalert.instances.default.settings."httpListenAddr"}"
+      "-opentelemetry.usePrometheusNaming"
     ];
     listenAddress = "127.0.0.1:9090";
     retentionPeriod = "7d";
