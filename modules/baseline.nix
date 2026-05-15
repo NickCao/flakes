@@ -24,6 +24,8 @@ with lib;
         # https://github.com/quic-go/quic-go/wiki/UDP-Buffer-Sizes
         "net.core.rmem_max" = 7500000;
         "net.core.wmem_max" = 7500000;
+        # https://www.openwall.com/lists/oss-security/2026/05/15/2
+        "kernel.yama.ptrace_scope" = 2;
       };
     };
 
