@@ -21,6 +21,48 @@ resource "scaleway_object_bucket_acl" "nichi_backup_par" {
   acl    = "private"
 }
 
+data "scaleway_iam_user" "nickcao" {
+  email = "nickcao@nichi.co"
+}
+
+resource "scaleway_object_bucket_policy" "nichi_backup_par" {
+  project_id = scaleway_account_project.storage.id
+
+  bucket = scaleway_object_bucket.nichi_backup_par.id
+  policy = jsonencode({
+    Version : "2023-04-17",
+    Id : "NichiBackupParBucketPolicy",
+    Statement : [
+      {
+        Sid : "User",
+        Action : "*",
+        Effect : "Allow",
+        Principal : {
+          SCW : [
+            "user_id:${data.scaleway_iam_user.nickcao.id}",
+          ]
+        },
+        Resource : [
+          scaleway_object_bucket.nichi_backup_par.name
+        ],
+      },
+      {
+        Sid : "Application",
+        Action : "*",
+        Effect : "Allow",
+        Principal : {
+          SCW : [
+            "application_id:${scaleway_iam_application.rclone.id}"
+          ]
+        },
+        Resource : [
+          scaleway_object_bucket.nichi_backup_par.name
+        ],
+      }
+    ]
+  })
+}
+
 # FIXME: enable manually
 # https://github.com/scaleway/terraform-provider-scaleway/issues/3985
 # resource "scaleway_object_bucket_server_side_encryption_configuration" "nichi_backup_par" {
