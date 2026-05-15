@@ -77,17 +77,17 @@ resource "scaleway_object_bucket_policy" "nichi_backup_par" {
   })
 }
 
-# FIXME: enable manually
+# FIXME: set IAM key preferred project to storage
 # https://github.com/scaleway/terraform-provider-scaleway/issues/3985
-# resource "scaleway_object_bucket_server_side_encryption_configuration" "nichi_backup_par" {
-#   bucket = scaleway_object_bucket.nichi_backup_par.name
-#
-#   rule {
-#     apply_server_side_encryption_by_default {
-#       sse_algorithm = "AES256"
-#     }
-#   }
-# }
+resource "scaleway_object_bucket_server_side_encryption_configuration" "nichi_backup_par" {
+  bucket = scaleway_object_bucket.nichi_backup_par.name
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
 
 resource "scaleway_iam_application" "rclone" {
   name = "rclone"
