@@ -49,7 +49,14 @@ resource "scaleway_object_bucket_policy" "nichi_backup_par" {
       },
       {
         Sid : "Application",
-        Action : "*",
+        # https://rclone.org/s3/#s3-permissions
+        Action : [
+          "s3:ListBucket",
+          "s3:DeleteObject",
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:PutObjectAcl"
+        ],
         Effect : "Allow",
         Principal : {
           SCW : [
@@ -143,6 +150,7 @@ resource "scaleway_job_definition" "rclone" {
   image_uri = "ghcr.io/rclone/rclone:1.74.1"
   args = [
     "sync",
+    "--s3-no-check-bucket",
     "--checksum", "--progress",
     "--transfers", "8",
     "b2:nichi-backup", "scaleway:${scaleway_object_bucket.nichi_backup_par.name}",
