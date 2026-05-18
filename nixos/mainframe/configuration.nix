@@ -184,12 +184,15 @@
     rtl-sdr.enable = true;
   };
 
-  # https://www.shrey.com/blog/fixing-microphone-on-framework-13-amd-linux/
-  services.pipewire.wireplumber.extraConfig."50-disable-ucm" = {
-    "monitor.alsa.properties" = {
-      "alsa.use-ucm" = false;
-    };
-  };
+  # The framework bios wrongly reports the ACP device as wired, causing
+  # issues with alsa ucm, but also generally adding a phantom interface
+  # to the system.
+  #
+  # See discussion in https://github.com/NixOS/nixos-hardware/issues/1603
+  boot.blacklistedKernelModules = [
+    "snd_acp70"
+    "snd_acp_pci"
+  ];
 
   services.fwupd = {
     enable = true;
