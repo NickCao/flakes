@@ -315,22 +315,21 @@ in
     ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
+      settings = {
         "*" = {
-          serverAliveInterval = 15;
-          checkHostIP = false;
+          ServerAliveInterval = 15;
+          CheckHostIP = false;
         };
-        "gravity" = {
-          match = "tagged gravity";
-          user = "root";
-          proxyCommand = "${lib.getExe pkgs.socat} - TCP-CONNECT:[%h]:%p,so-bindtodevice=gravity";
+        "Match tagged gravity" = {
+          User = "root";
+          ProxyCommand = "${lib.getExe pkgs.socat} - TCP-CONNECT:[%h]:%p,so-bindtodevice=gravity";
         };
         "*.nichi.link" = {
-          user = "root";
-          extraOptions.UserKnownHostsFile = "~/.ssh/nichi_known_hosts";
+          User = "root";
+          UserKnownHostsFile = "~/.ssh/nichi_known_hosts";
         };
         "*.redhat.com" = {
-          proxyCommand = "${lib.getExe pkgs.netcat} -X 5 -x 127.0.0.1:1081 %h %p";
+          ProxyCommand = "${lib.getExe pkgs.netcat} -X 5 -x 127.0.0.1:1081 %h %p";
         };
       };
     };
