@@ -171,6 +171,11 @@
       "amdgpu.dcdebugmask=0x10"
     ];
     kernelModules = [ "kvm-amd" ];
+    extraModulePackages = [
+      (pkgs.callPackage ./btmtk.nix {
+        kernel = config.boot.kernelPackages.kernel;
+      })
+    ];
     enableContainers = false;
   };
 
