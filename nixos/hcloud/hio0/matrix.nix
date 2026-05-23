@@ -429,7 +429,7 @@ in
         portal_create_filter = {
           always_deny_from_login = [ ];
           list = [ ];
-          mode = "deny";
+          mode = "allow";
         };
         private_chat_portal_meta = false;
         relay = {
