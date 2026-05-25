@@ -311,8 +311,6 @@ in
       };
 
       experimental_features = {
-        # Room summary api
-        msc3266_enabled = true;
         # Removing account data
         msc3391_enabled = true;
         # Thread notifications
