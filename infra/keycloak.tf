@@ -38,7 +38,7 @@ resource "keycloak_openid_client" "rustical" {
   name        = "Rustical"
   access_type = "CONFIDENTIAL"
 
-  implicit_flow_enabled = true
+  implicit_flow_enabled = false
   standard_flow_enabled = true
   valid_redirect_uris   = ["https://cal.nichi.co/frontend/login/oidc/callback"]
 }
@@ -50,7 +50,7 @@ resource "keycloak_openid_client" "ultrafeeder" {
   name        = "Ultrafeeder"
   access_type = "CONFIDENTIAL"
 
-  implicit_flow_enabled = true
+  implicit_flow_enabled = false
   standard_flow_enabled = true
   valid_redirect_uris   = ["https://ultrafeeder.nichi.co/oauth2/callback"]
 }
@@ -71,7 +71,7 @@ resource "keycloak_openid_client" "homeassistant" {
   name        = "Home Assistant"
   access_type = "CONFIDENTIAL"
 
-  implicit_flow_enabled = true
+  implicit_flow_enabled = false
   standard_flow_enabled = true
   valid_redirect_uris   = ["https://ha.nichi.co/oauth2/callback"]
 }
@@ -93,6 +93,7 @@ resource "keycloak_openid_client" "matrix-authentication-service" {
   name        = "Matrix Authentication Service"
   access_type = "CONFIDENTIAL"
 
+  implicit_flow_enabled               = false
   standard_flow_enabled               = true
   valid_redirect_uris                 = ["https://matrix-auth.nichi.co/upstream/callback/01K34XRT1QHE1541KQ7HRRY15M"]
   frontchannel_logout_enabled         = false
@@ -106,6 +107,7 @@ resource "keycloak_openid_client" "thunderbird" {
   name        = "Thunderbird"
   access_type = "PUBLIC"
 
+  implicit_flow_enabled = false
   standard_flow_enabled = true
   valid_redirect_uris   = ["https://localhost"]
 }
