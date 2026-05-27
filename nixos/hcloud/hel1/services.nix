@@ -76,18 +76,6 @@
               ];
             }
             {
-              match = [ { path = [ "/pay" ]; } ];
-              handle = [
-                {
-                  handler = "static_response";
-                  status_code = "302";
-                  headers = {
-                    Location = [ "https://buy.stripe.com/cN27sA4TM7uMgRa145" ];
-                  };
-                }
-              ];
-            }
-            {
               match = [ { path = [ "/rants/*" ]; } ];
               handle = [
                 {
