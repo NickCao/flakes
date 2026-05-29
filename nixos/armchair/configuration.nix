@@ -1,9 +1,16 @@
 {
+  lib,
   pkgs,
   ...
 }:
 
 {
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "asahi"
+    ];
+
   sops = {
     age = {
       keyFile = "/var/lib/sops.key";
