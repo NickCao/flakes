@@ -8,14 +8,17 @@ resource "scaleway_object_bucket" "nichi_backup_par" {
   name   = "nichi-backup-par"
   region = "fr-par"
 
-  # TODO: https://github.com/scaleway/terraform-provider-scaleway/issues/3999
-  # versioning {
-  #   enabled = true
-  # }
+  versioning {
+    enabled = true
+  }
 
   lifecycle_rule {
     enabled                                = true
     abort_incomplete_multipart_upload_days = 1
+
+    noncurrent_version_expiration {
+      noncurrent_days = 30
+    }
   }
 }
 
@@ -81,6 +84,7 @@ resource "scaleway_object_bucket_policy" "nichi_backup_par" {
 # https://github.com/scaleway/terraform-provider-scaleway/issues/3985
 resource "scaleway_object_bucket_server_side_encryption_configuration" "nichi_backup_par" {
   bucket = scaleway_object_bucket.nichi_backup_par.name
+  region = scaleway_object_bucket.nichi_backup_par.region
 
   rule {
     apply_server_side_encryption_by_default {
