@@ -185,7 +185,21 @@ account = ${local.secrets.b2.account}
 key = ${local.secrets.b2.key}
 hard_delete = true
 
-[scaleway]
+[ams]
+type = s3
+provider = Scaleway
+env_auth = false
+endpoint = s3.${module.nichi_backup_ams.region}.scw.cloud
+access_key_id = ${scaleway_iam_api_key.rclone.access_key}
+secret_access_key = ${scaleway_iam_api_key.rclone.secret_key}
+region = ${module.nichi_backup_ams.region}
+location_constraint =
+acl = private
+force_path_style = false
+server_side_encryption =
+storage_class = ONEZONE_IA
+
+[par]
 type = s3
 provider = Scaleway
 env_auth = false
@@ -219,7 +233,8 @@ resource "scaleway_job_definition" "rclone" {
     "--s3-no-check-bucket",
     "--checksum", "--progress",
     "--transfers", "8",
-    "b2:nichi-backup", "scaleway:${module.nichi_backup_par.name}",
+    "ams:${module.nichi_backup_ams.name}",
+    "par:${module.nichi_backup_par.name}",
   ]
 
   secret_reference {
