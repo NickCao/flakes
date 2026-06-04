@@ -2,31 +2,11 @@ resource "scaleway_account_project" "storage" {
   name = "storage"
 }
 
-resource "scaleway_object_bucket" "nichi_backup_par" {
+module "nichi_backup_par" {
+  source     = "./modules/scaleway_bucket"
   project_id = scaleway_account_project.storage.id
-
-  name   = "nichi-backup-par"
-  region = "fr-par"
-
-  versioning {
-    enabled = true
-  }
-
-  lifecycle_rule {
-    enabled                                = true
-    abort_incomplete_multipart_upload_days = 1
-
-    noncurrent_version_expiration {
-      noncurrent_days = 30
-    }
-  }
-}
-
-resource "scaleway_object_bucket_acl" "nichi_backup_par" {
-  project_id = scaleway_account_project.storage.id
-
-  bucket = scaleway_object_bucket.nichi_backup_par.id
-  acl    = "private"
+  name       = "nichi-backup-par"
+  region     = "fr-par"
 }
 
 data "scaleway_iam_user" "nickcao" {
@@ -36,7 +16,7 @@ data "scaleway_iam_user" "nickcao" {
 resource "scaleway_object_bucket_policy" "nichi_backup_par" {
   project_id = scaleway_account_project.storage.id
 
-  bucket = scaleway_object_bucket.nichi_backup_par.id
+  bucket = module.nichi_backup_par.id
   policy = jsonencode({
     Version : "2023-04-17",
     Id : "NichiBackupParBucketPolicy",
@@ -51,8 +31,8 @@ resource "scaleway_object_bucket_policy" "nichi_backup_par" {
           ]
         },
         Resource : [
-          scaleway_object_bucket.nichi_backup_par.name,
-          "${scaleway_object_bucket.nichi_backup_par.name}/*"
+          module.nichi_backup_par.name,
+          "${module.nichi_backup_par.name}/*"
         ],
       },
       {
@@ -72,25 +52,12 @@ resource "scaleway_object_bucket_policy" "nichi_backup_par" {
           ]
         },
         Resource : [
-          scaleway_object_bucket.nichi_backup_par.name,
-          "${scaleway_object_bucket.nichi_backup_par.name}/*"
+          module.nichi_backup_par.name,
+          "${module.nichi_backup_par.name}/*"
         ],
       }
     ]
   })
-}
-
-# FIXME: set IAM key preferred project to storage
-# https://github.com/scaleway/terraform-provider-scaleway/issues/3985
-resource "scaleway_object_bucket_server_side_encryption_configuration" "nichi_backup_par" {
-  bucket = scaleway_object_bucket.nichi_backup_par.name
-  region = scaleway_object_bucket.nichi_backup_par.region
-
-  rule {
-    apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
-    }
-  }
 }
 
 resource "scaleway_iam_application" "rclone" {
@@ -115,11 +82,11 @@ resource "scaleway_secret" "rclone" {
   project_id = scaleway_account_project.storage.id
 
   name   = "rclone"
-  region = scaleway_object_bucket.nichi_backup_par.region
+  region = module.nichi_backup_par.region
 }
 
 resource "scaleway_secret_version" "rclone_v1" {
-  region    = scaleway_object_bucket.nichi_backup_par.region
+  region    = module.nichi_backup_par.region
   secret_id = scaleway_secret.rclone.id
   data      = <<EOT
 [b2]
@@ -132,10 +99,10 @@ hard_delete = true
 type = s3
 provider = Scaleway
 env_auth = false
-endpoint = s3.${scaleway_object_bucket.nichi_backup_par.region}.scw.cloud
+endpoint = s3.${module.nichi_backup_par.region}.scw.cloud
 access_key_id = ${scaleway_iam_api_key.rclone.access_key}
 secret_access_key = ${scaleway_iam_api_key.rclone.secret_key}
-region = ${scaleway_object_bucket.nichi_backup_par.region}
+region = ${module.nichi_backup_par.region}
 location_constraint =
 acl = private
 force_path_style = false
@@ -149,7 +116,7 @@ resource "scaleway_job_definition" "rclone" {
   project_id = scaleway_account_project.storage.id
 
   name   = "rclone"
-  region = scaleway_object_bucket.nichi_backup_par.region
+  region = module.nichi_backup_par.region
 
   timeout                = "30m"
   cpu_limit              = 1120
@@ -162,7 +129,7 @@ resource "scaleway_job_definition" "rclone" {
     "--s3-no-check-bucket",
     "--checksum", "--progress",
     "--transfers", "8",
-    "b2:nichi-backup", "scaleway:${scaleway_object_bucket.nichi_backup_par.name}",
+    "b2:nichi-backup", "scaleway:${module.nichi_backup_par.name}",
   ]
 
   secret_reference {
@@ -187,7 +154,7 @@ resource "scaleway_cockpit_exporter" "victoriametrics" {
   project_id = scaleway_account_project.storage.id
 
   name   = "victoriametrics"
-  region = scaleway_object_bucket.nichi_backup_par.region
+  region = module.nichi_backup_par.region
 
   datasource_id     = data.scaleway_cockpit_sources.metrics.sources[0].id
   exported_products = ["object-storage", "serverless-jobs"]
