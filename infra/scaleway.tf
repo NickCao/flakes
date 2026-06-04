@@ -9,6 +9,13 @@ module "nichi_backup_par" {
   region     = "fr-par"
 }
 
+module "nichi_backup_ams" {
+  source     = "./modules/scaleway_bucket"
+  project_id = scaleway_account_project.storage.id
+  name       = "nichi-backup-ams"
+  region     = "nl-ams"
+}
+
 data "scaleway_iam_user" "nickcao" {
   email = "nickcao@nichi.co"
 }
