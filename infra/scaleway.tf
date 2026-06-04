@@ -20,6 +20,71 @@ data "scaleway_iam_user" "nickcao" {
   email = "nickcao@nichi.co"
 }
 
+resource "scaleway_object_bucket_policy" "nichi_backup_ams" {
+  project_id = scaleway_account_project.storage.id
+
+  bucket = module.nichi_backup_ams.id
+  policy = jsonencode({
+    Version : "2023-04-17",
+    Id : "NichiBackupAmsBucketPolicy",
+    Statement : [
+      {
+        Sid : "User",
+        Action : "*",
+        Effect : "Allow",
+        Principal : {
+          SCW : [
+            "user_id:${data.scaleway_iam_user.nickcao.id}",
+          ]
+        },
+        Resource : [
+          module.nichi_backup_ams.name,
+          "${module.nichi_backup_ams.name}/*"
+        ],
+      },
+      {
+        Sid : "Rclone",
+        # https://rclone.org/s3/#s3-permissions
+        Action : [
+          "s3:ListBucket",
+          "s3:GetObject",
+        ],
+        Effect : "Allow",
+        Principal : {
+          SCW : [
+            "application_id:${scaleway_iam_application.rclone.id}"
+          ]
+        },
+        Resource : [
+          module.nichi_backup_ams.name,
+          "${module.nichi_backup_ams.name}/*"
+        ],
+      },
+      {
+        Sid : "Restic",
+        # https://rclone.org/s3/#s3-permissions
+        Action : [
+          "s3:ListBucket",
+          "s3:DeleteObject",
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:PutObjectAcl"
+        ],
+        Effect : "Allow",
+        Principal : {
+          SCW : [
+            "application_id:${scaleway_iam_application.restic.id}"
+          ]
+        },
+        Resource : [
+          module.nichi_backup_ams.name,
+          "${module.nichi_backup_ams.name}/*"
+        ],
+      }
+    ]
+  })
+}
+
 resource "scaleway_object_bucket_policy" "nichi_backup_par" {
   project_id = scaleway_account_project.storage.id
 
@@ -65,6 +130,24 @@ resource "scaleway_object_bucket_policy" "nichi_backup_par" {
       }
     ]
   })
+}
+
+resource "scaleway_iam_application" "restic" {
+  name = "restic"
+}
+
+resource "scaleway_iam_policy" "restic" {
+  name           = "restic"
+  application_id = scaleway_iam_application.restic.id
+  rule {
+    project_ids          = [scaleway_account_project.storage.id]
+    permission_set_names = ["ObjectStorageFullAccess"]
+  }
+}
+
+resource "scaleway_iam_api_key" "restic" {
+  application_id     = scaleway_iam_application.restic.id
+  default_project_id = scaleway_account_project.storage.id
 }
 
 resource "scaleway_iam_application" "rclone" {
