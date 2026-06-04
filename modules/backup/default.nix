@@ -27,6 +27,7 @@ in
       passwordFile = config.sops.secrets.restic-pass.path;
       environmentFile = config.sops.secrets.restic-envs.path;
       paths = [ "/persist" ];
+      extraOptions = [ "s3.storage-class=ONEZONE_IA" ];
       extraBackupArgs = [
         "--one-file-system"
         "--exclude-caches"
