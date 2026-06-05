@@ -179,12 +179,6 @@ resource "scaleway_secret_version" "rclone_v1" {
   region    = module.nichi_backup_par.region
   secret_id = scaleway_secret.rclone.id
   data      = <<EOT
-[b2]
-type = b2
-account = ${local.secrets.b2.account}
-key = ${local.secrets.b2.key}
-hard_delete = true
-
 [ams]
 type = s3
 provider = Scaleway
