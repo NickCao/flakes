@@ -163,7 +163,7 @@ in
             }
             {
               alert = "UnitActivating";
-              expr = ''node_systemd_unit_state{state="activating"} == 1'';
+              expr = ''node_systemd_unit_state{state="activating", name!="restic-backups-persist.service"} == 1'';
               for = "15m";
             }
             {
