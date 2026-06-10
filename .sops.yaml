@@ -72,7 +72,7 @@ creation_rules:
       - age:
           - *self
           - *mainframe
-          - *subframe
+          - *armchair
           - *nrt0
           - *sin0
           - *sea0
@@ -85,7 +85,7 @@ creation_rules:
     key_groups:
       - age:
           - *self
-          - *subframe
+          - *armchair
           - *iad0
           - *hio0
           - *hel0

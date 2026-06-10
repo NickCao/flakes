@@ -9,6 +9,7 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./configuration.nix
     ./hardware-configuration.nix
+    ./gravity.nix
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence

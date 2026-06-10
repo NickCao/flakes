@@ -17,17 +17,16 @@
       enable = true;
       routes = [
         "route 2a0c:b641:69c:a230::/60 from ::/0 unreachable"
-        "route 2a0c:b641:69c:a231::/64 from ::/0 via \"svc\""
       ];
     };
     ipsec = {
       enable = true;
       iptfs = true;
       organization = "nickcao";
-      commonName = "subframe";
+      commonName = "armchair";
       port = 13000;
       interfaces = [
-        "eth0macvlan"
+        "end0"
       ];
       endpoints = [
         {
@@ -42,23 +41,7 @@
     };
   };
 
-  systemd.network.netdevs = {
-    "10-svc" = {
-      netdevConfig = {
-        Kind = "bridge";
-        Name = "svc";
-      };
-    };
-  };
-
   systemd.network.networks = {
-    "10-svc" = {
-      name = "svc";
-      networkConfig.IPv6SendRA = true;
-      ipv6Prefixes = lib.singleton {
-        Prefix = "2a0c:b641:69c:a231::/64";
-      };
-    };
     gravity = {
       addresses = lib.singleton { Address = "44.32.148.19/32"; };
       routes = lib.singleton {

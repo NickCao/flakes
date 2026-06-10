@@ -57,7 +57,10 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji nickcao@mainframe"
   ];
 
-  networking.hostName = "armchair";
+  networking = {
+    hostName = "armchair";
+    domain = "nichi.link";
+  };
 
   services.openssh.enable = true;
 
