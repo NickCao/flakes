@@ -95,7 +95,6 @@
                 age-plugin-tpm
                 colmena
                 mdbook
-                nvfetcher
                 docker-compose
                 ninja
                 (opentofu.withPlugins (
