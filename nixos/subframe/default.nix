@@ -11,8 +11,6 @@ nixpkgs.lib.nixosSystem {
     ./hardware-configuration.nix
     ./filesystem.nix
     ./gravity.nix
-    ./ultrafeeder.nix
-    ./homeassistant.nix
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     inputs.disko.nixosModules.disko
