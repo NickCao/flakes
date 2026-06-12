@@ -12,14 +12,14 @@
 stdenv.mkDerivation {
   pname = "bird-babel-rtt";
 
-  version = "0-unstable-2026-05-25";
+  version = "0-unstable-2026-06-10";
 
   src = fetchFromGitHub {
     owner = "NickCao";
     repo = "bird";
-    rev = "18175de3cc75b4e662b5f43d8a93a1c062a8b3ab";
+    rev = "610811002a4efa3c4096987fbc86c117314f203c";
     fetchSubmodules = false;
-    sha256 = "sha256-royFZqKaxATG8utJBLScUb50P82W/jjtkk3lWp1Gp2w=";
+    sha256 = "sha256-IRMMfgUQoO1NfkiNp3Ey5BtnO4y8JhTdJV5M0bYI+Es=";
   };
 
   nativeBuildInputs = [
