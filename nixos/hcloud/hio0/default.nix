@@ -5,6 +5,7 @@
     ../common.nix
     ./blog.nix
     ./matrix.nix
+    ./draupnir.nix
     ./pb.nix
     ./mastodon.nix
     ./miniflux.nix
