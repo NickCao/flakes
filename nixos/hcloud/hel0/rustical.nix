@@ -23,9 +23,8 @@ in
         allow_password_login = false;
       };
       http = {
-        host = "127.0.0.1";
+        bind = "127.0.0.1:4000";
         payload_limit_mb = 4;
-        port = 4000;
         session_cookie_samesite_strict = false;
       };
       nextcloud_login = {
@@ -53,7 +52,7 @@ in
     handle = lib.singleton {
       handler = "reverse_proxy";
       upstreams = lib.singleton {
-        dial = "${cfg.http.host}:${toString cfg.http.port}";
+        dial = cfg.http.bind;
       };
     };
   };
