@@ -172,7 +172,7 @@ in
     nautilus
     wsjtx
     xwayland-satellite
-    orca-slicer
+    # orca-slicer
     incus.client
     android-tools
     app2unit
