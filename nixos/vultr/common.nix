@@ -37,6 +37,7 @@ in
       "sr_mod"
       "virtio_blk"
     ];
+    kernelPackages = pkgs.linuxPackages_7_0;
   };
 
   services.journald.extraConfig = ''
