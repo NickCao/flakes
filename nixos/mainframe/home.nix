@@ -175,8 +175,8 @@ in
     # orca-slicer
     incus.client
     android-tools
-    app2unit
     bubblewrap
+    ddcutil
   ];
 
   systemd.user.sessionVariables = {
@@ -191,13 +191,18 @@ in
 
   services.mpris-proxy.enable = true;
 
-  home.file.".cache/noctalia/wallpapers.json".text = builtins.toJSON {
-    defaultWallpaper = "${cst}";
-  };
-
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
     systemd.enable = true;
+    settings = {
+      wallpaper = {
+        enabled = true;
+        default.path = cst;
+      };
+      lockscreen = {
+        wallpaper = cst-blurred;
+      };
+    };
   };
 
   programs = {
