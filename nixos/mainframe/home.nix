@@ -202,6 +202,36 @@ in
       lockscreen = {
         wallpaper = cst-blurred;
       };
+      bar.default = {
+        thickness = 45;
+        scale = 1.2;
+
+        margin_edge = 5;
+        margin_opposite_edge = 3;
+        margin_ends = 5;
+
+        background_opacity = 0.5;
+
+        start = [
+          "sysmon"
+          "active_window"
+        ];
+        center = [
+          "workspaces"
+        ];
+        end = [
+          "caffeine"
+          "media"
+          "tray"
+          "notifications"
+          "volume"
+          "brightness"
+          "bluetooth"
+          "clock"
+          "battery"
+          "control-center"
+        ];
+      };
     };
   };
 
