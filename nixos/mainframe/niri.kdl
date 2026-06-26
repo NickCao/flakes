@@ -72,7 +72,7 @@ window-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Return { spawn "alacritty"; }
-    Mod+D { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Mod+D { spawn "noctalia" "msg" "panel-open" "launcher"; }
     Mod+Alt+L { spawn "loginctl" "lock-session"; }
 
     Mod+Q { close-window; }

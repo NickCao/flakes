@@ -320,9 +320,7 @@
         ".config/mozilla"
         ".config/fcitx5"
         ".config/incus"
-        ".config/noctalia"
         ".config/OrcaSlicer"
-        ".config/Cursor"
       ];
       files = [
         ".config/WSJT-X.ini"
