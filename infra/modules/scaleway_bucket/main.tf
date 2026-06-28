@@ -45,7 +45,7 @@ resource "scaleway_object_bucket" "main" {
     abort_incomplete_multipart_upload_days = 1
 
     noncurrent_version_expiration {
-      noncurrent_days = 30
+      noncurrent_days = 15
     }
   }
 }

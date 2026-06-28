@@ -264,4 +264,11 @@ resource "scaleway_cockpit_exporter" "victoriametrics" {
       Authorization = "Basic ${local.secrets.victoriametrics.basic}"
     }
   }
+
+  # FIXME
+  lifecycle {
+    ignore_changes = [
+      otlp_destination
+    ]
+  }
 }

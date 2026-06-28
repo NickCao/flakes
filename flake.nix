@@ -27,7 +27,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
     colmena = {
-      url = "github:zhaofengli/colmena";
+      url = "github:nix-community/colmena";
       inputs.stable.follows = "nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
