@@ -91,7 +91,7 @@ in
       DNSOverHTTPS = {
         Enabled = true;
         ProviderURL = "https://1.1.1.1/dns-query";
-        Locked = true;
+        Locked = false;
         Fallback = false;
       };
       Preferences = {
@@ -363,7 +363,7 @@ in
           User = "root";
           UserKnownHostsFile = "~/.ssh/nichi_known_hosts";
         };
-        "*.redhat.com" = {
+        "Match tagged redhat" = {
           ProxyCommand = "${lib.getExe pkgs.netcat} -X 5 -x 127.0.0.1:1081 %h %p";
         };
       };
