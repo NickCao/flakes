@@ -96,6 +96,7 @@ in
       hostmaster@nichi.co   nickcao@nichi.co
       postmaster@nichi.link nickcao@nichi.co
       postmaster@nichi.co   nickcao@nichi.co
+      noc@nichi.link        nickcao@nichi.co
       noc@nichi.co          nickcao@nichi.co
     '';
   };

@@ -8,6 +8,7 @@
     ./ntfy.nix
     ./mailpit.nix
     ./victorialogs.nix
+    ./acme-dns.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;

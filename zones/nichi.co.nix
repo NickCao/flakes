@@ -58,6 +58,7 @@ dns.lib.toString "nichi.co" {
     metrics.CNAME = [ "hel1.nichi.link." ];
     bouncer.CNAME = [ "hio0.nichi.link." ];
     mastodon.CNAME = [ "hio0.nichi.link." ];
+    acme-dns.NS = [ "hel1.nichi.link." ];
 
     # These services are no longer available
     cache.CNAME = [ "hio0.nichi.link." ];
