@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   self,
   inputs,
   data,
@@ -37,7 +36,6 @@ in
       "sr_mod"
       "virtio_blk"
     ];
-    kernelPackages = pkgs.linuxPackages_7_0;
   };
 
   services.journald.extraConfig = ''
@@ -121,7 +119,7 @@ in
     };
     ipsec = {
       enable = true;
-      iptfs = true;
+      iptfs = false;
       organization = "nickcao";
       commonName = config.networking.hostName;
       port = 13000;
