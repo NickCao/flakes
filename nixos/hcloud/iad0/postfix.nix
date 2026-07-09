@@ -21,8 +21,9 @@ in
 
   systemd.services.postfix.serviceConfig = {
     PrivateTmp = true;
+    Environment = [ "CAROOT=/tmp/caroot" ];
     ExecStartPre = ''
-      ${pkgs.openssl}/bin/openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout /tmp/selfsigned.key -out /tmp/selfsigned.crt -batch
+      ${pkgs.mkcert}/bin/mkcert -cert-file /tmp/selfsigned.crt -key-file /tmp/selfsigned.key iad0.nichi.link
     '';
   };
 
