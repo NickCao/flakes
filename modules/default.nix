@@ -10,6 +10,7 @@
         (import ./cloud/services.nix)
         (import ./gravity)
         (import ./backup)
+        (import ./stalwart.nix)
       ];
     }
   );
