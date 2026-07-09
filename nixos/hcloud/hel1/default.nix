@@ -6,9 +6,9 @@
     ./services.nix
     ./prometheus.nix
     ./ntfy.nix
-    ./mailpit.nix
     ./victorialogs.nix
     ./acme-dns.nix
+    ./stalwart.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
