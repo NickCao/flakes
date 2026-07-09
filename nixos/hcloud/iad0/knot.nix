@@ -176,6 +176,13 @@ in
           zonefile-sync = "-1";
         }
       ];
+      acl = [
+        {
+          id = "stalwart";
+          key = "stalwart";
+          action = "update";
+        }
+      ];
       zone = [
         {
           domain = "firstparty";
@@ -201,6 +208,7 @@ in
         {
           domain = "scp.link";
           file = pkgs.writeText "db.link.scp" (import ../../../zones/scp.link.nix { inherit (inputs) dns; });
+          acl = [ "stalwart" ];
         }
         rec {
           domain = "nixos.zip";
