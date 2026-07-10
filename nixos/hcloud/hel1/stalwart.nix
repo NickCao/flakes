@@ -47,6 +47,27 @@
             directoryId = "#directory-keycloak";
           };
         }
+        {
+          "@type" = "destroy";
+          object = "NetworkListener";
+          value = {
+            name = "https";
+          };
+        }
+        {
+          "@type" = "destroy";
+          object = "NetworkListener";
+          value = {
+            name = "pop3s";
+          };
+        }
+        {
+          "@type" = "destroy";
+          object = "NetworkListener";
+          value = {
+            name = "sieve";
+          };
+        }
       ];
     };
   };
