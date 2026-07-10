@@ -69,6 +69,20 @@ resource "keycloak_openid_client" "thunderbird" {
   valid_redirect_uris   = ["https://localhost"]
 }
 
+resource "keycloak_openid_client_scope" "stalwart" {
+  realm_id            = keycloak_realm.nichi.id
+  name                = "stalwart"
+  description         = "Stalwart mail and collaboration server"
+  consent_screen_text = "Stalwart mail and collaboration server"
+}
+
+resource "keycloak_openid_audience_protocol_mapper" "stalwart" {
+  realm_id                 = keycloak_realm.nichi.id
+  name                     = "stalwart"
+  client_scope_id          = keycloak_openid_client_scope.stalwart.id
+  included_custom_audience = "stalwart"
+}
+
 resource "keycloak_openid_client" "stalwart-webui" {
   realm_id    = keycloak_realm.nichi.id
   client_id   = "stalwart-webui"
@@ -82,6 +96,15 @@ resource "keycloak_openid_client" "stalwart-webui" {
   web_origins                     = ["+"]
 
   pkce_code_challenge_method = "S256"
+
+  consent_required          = true
+  display_on_consent_screen = false
+}
+
+resource "keycloak_openid_client_default_scopes" "stalwart-webui" {
+  realm_id       = keycloak_realm.nichi.id
+  client_id      = keycloak_openid_client.stalwart-webui.id
+  default_scopes = ["profile", "email", keycloak_openid_client_scope.stalwart.name]
 }
 
 resource "keycloak_realm_events" "events" {
