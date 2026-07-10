@@ -14,6 +14,15 @@
       credentialFile = config.sops.secrets.stalwart.path;
       plan = [
         {
+          "@type" = "update";
+          object = "BlobStore";
+          value = {
+            "@type" = "FileSystem";
+            path = "/var/lib/stalwart/blobs";
+            depth = 2;
+          };
+        }
+        {
           "@type" = "upsert";
           object = "Directory";
           matchOn = [ "description" ];
