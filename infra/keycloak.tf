@@ -69,6 +69,21 @@ resource "keycloak_openid_client" "thunderbird" {
   valid_redirect_uris   = ["https://localhost"]
 }
 
+resource "keycloak_openid_client" "stalwart-webui" {
+  realm_id    = keycloak_realm.nichi.id
+  client_id   = "stalwart-webui"
+  name        = "Stalwart Webui"
+  access_type = "PUBLIC"
+
+  implicit_flow_enabled           = false
+  standard_flow_enabled           = true
+  valid_redirect_uris             = ["https://mail.scp.link/account/oauth/callback"]
+  valid_post_logout_redirect_uris = ["https://mail.scp.link/account/login"]
+  web_origins                     = ["+"]
+
+  pkce_code_challenge_method = "S256"
+}
+
 resource "keycloak_realm_events" "events" {
   realm_id                     = keycloak_realm.nichi.id
   admin_events_enabled         = true
