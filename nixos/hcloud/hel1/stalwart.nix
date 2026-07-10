@@ -124,9 +124,6 @@
                 "127.0.0.1:8080" = true;
               };
               useTls = false;
-              overrideProxyTrustedNetworks = {
-                "127.0.0.1" = true;
-              };
             };
             networklistener-smtp = {
               name = "smtp";
