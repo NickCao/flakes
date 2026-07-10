@@ -113,6 +113,49 @@
             };
           };
         }
+        {
+          "@type" = "upsert";
+          object = "DnsServer";
+          matchOn = [ "description" ];
+          value = {
+            dnsserver-iad0 = {
+              "@type" = "Tsig";
+              description = "iad0.nichi.link";
+              # FIXME: secrets
+            };
+          };
+        }
+        {
+          "@type" = "upsert";
+          matchOn = [ "name" ];
+          object = "Domain";
+          value = {
+            domain-scp-link = {
+              isEnabled = true;
+              name = "scp.link";
+              description = "scp.link";
+              # FIXME: acme
+              dnsManagement = {
+                "@type" = "Automatic";
+                origin = null;
+                dnsServerId = "#dnsserver-iad0";
+                publishRecords = {
+                  autoConfig = true;
+                  autoConfigLegacy = false;
+                  autoDiscover = false;
+                  caa = false; # prevents caddy from renewing cert
+                  dkim = true;
+                  dmarc = true;
+                  mtaSts = true;
+                  mx = true;
+                  spf = true;
+                  srv = true;
+                  tlsRpt = true;
+                };
+              };
+            };
+          };
+        }
       ];
     };
   };
