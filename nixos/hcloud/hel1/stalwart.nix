@@ -9,9 +9,6 @@
 
   services.stalwart = {
     enable = true;
-    # credentialFile = pkgs.writeText "stalwart-creds" ''
-    #   STALWART_RECOVERY_ADMIN=admin:f44278e8bad73a35384c726d0416ee37
-    # '';
     apply = {
       enable = true;
       credentialFile = config.sops.secrets.stalwart.path;
