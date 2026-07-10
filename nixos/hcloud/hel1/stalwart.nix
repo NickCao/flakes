@@ -248,6 +248,13 @@
             };
           };
         }
+        {
+          "@type" = "update";
+          object = "HttpForm";
+          value = {
+            enable = false;
+          };
+        }
       ];
     };
   };
