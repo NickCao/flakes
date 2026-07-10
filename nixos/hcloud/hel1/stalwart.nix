@@ -156,6 +156,39 @@
             };
           };
         }
+        {
+          "@type" = "update";
+          object = "SystemSettings";
+          value = {
+            defaultHostname = "hel1.nichi.link";
+            services = {
+              smtp = {
+                hostname = "mail.scp.link";
+                cleartext = false;
+              };
+              imap = {
+                hostname = "mail.scp.link";
+                cleartext = false;
+              };
+              jmap = {
+                hostname = "mail.scp.link";
+                cleartext = false;
+              };
+              caldav = {
+                hostname = "mail.scp.link";
+                cleartext = false;
+              };
+              carddav = {
+                hostname = "mail.scp.link";
+                cleartext = false;
+              };
+              webdav = {
+                hostname = "mail.scp.link";
+                cleartext = false;
+              };
+            };
+          };
+        }
       ];
     };
   };
