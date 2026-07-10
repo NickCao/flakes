@@ -18,10 +18,10 @@
       plan = [
         {
           "@type" = "upsert";
-          matchOn = [ "description" ];
           object = "Directory";
+          matchOn = [ "description" ];
           value = {
-            directory-iz07tzgaaaqa = {
+            directory-keycloak = {
               "@type" = "Oidc";
               description = "keycloak";
               memberTenantId = null;
@@ -38,6 +38,13 @@
                 stalwart = true;
               };
             };
+          };
+        }
+        {
+          "@type" = "update";
+          object = "Authentication";
+          value = {
+            directoryId = "#directory-keycloak";
           };
         }
       ];
