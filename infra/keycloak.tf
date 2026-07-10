@@ -58,17 +58,6 @@ resource "keycloak_openid_client" "matrix-authentication-service" {
   backchannel_logout_url              = "https://matrix-auth.nichi.co/upstream/backchannel-logout/01K34XRT1QHE1541KQ7HRRY15M"
 }
 
-resource "keycloak_openid_client" "thunderbird" {
-  realm_id    = keycloak_realm.nichi.id
-  client_id   = "thunderbird"
-  name        = "Thunderbird"
-  access_type = "PUBLIC"
-
-  implicit_flow_enabled = false
-  standard_flow_enabled = true
-  valid_redirect_uris   = ["https://localhost"]
-}
-
 resource "keycloak_openid_client_scope" "stalwart" {
   realm_id            = keycloak_realm.nichi.id
   name                = "stalwart"
@@ -104,6 +93,28 @@ resource "keycloak_openid_client" "stalwart-webui" {
 resource "keycloak_openid_client_default_scopes" "stalwart-webui" {
   realm_id       = keycloak_realm.nichi.id
   client_id      = keycloak_openid_client.stalwart-webui.id
+  default_scopes = ["profile", "email", keycloak_openid_client_scope.stalwart.name]
+}
+
+resource "keycloak_openid_client" "thunderbird" {
+  realm_id    = keycloak_realm.nichi.id
+  client_id   = "thunderbird"
+  name        = "Thunderbird"
+  access_type = "PUBLIC"
+
+  implicit_flow_enabled = false
+  standard_flow_enabled = true
+  valid_redirect_uris   = ["https://localhost"]
+
+  pkce_code_challenge_method = "S256"
+
+  consent_required          = true
+  display_on_consent_screen = false
+}
+
+resource "keycloak_openid_client_default_scopes" "thunderbird" {
+  realm_id       = keycloak_realm.nichi.id
+  client_id      = keycloak_openid_client.thunderbird.id
   default_scopes = ["profile", "email", keycloak_openid_client_scope.stalwart.name]
 }
 
