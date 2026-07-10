@@ -17,6 +17,10 @@
 
   services.stalwart = {
     enable = true;
+    settings = {
+      "@type" = "Sqlite";
+      path = "/var/lib/stalwart/db.sqlite";
+    };
     apply = {
       enable = true;
       credentialFile = config.sops.secrets.stalwart.path;
