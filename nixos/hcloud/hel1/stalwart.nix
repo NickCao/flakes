@@ -7,6 +7,14 @@
 {
   sops.secrets.stalwart = { };
 
+  services.redis.servers.stalwart = {
+    enable = true;
+  };
+
+  systemd.services.stalwart.serviceConfig.SupplementaryGroups = [
+    config.services.redis.servers.stalwart.group
+  ];
+
   services.stalwart = {
     enable = true;
     apply = {
@@ -20,6 +28,14 @@
             "@type" = "FileSystem";
             path = "/var/lib/stalwart/blobs";
             depth = 2;
+          };
+        }
+        {
+          "@type" = "update";
+          object = "InMemoryStore";
+          value = {
+            "@type" = "Redis";
+            url = "redis+unix://${config.services.redis.servers.stalwart.unixSocket}";
           };
         }
         {
