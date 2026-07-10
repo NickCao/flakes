@@ -44,6 +44,24 @@
         }
         {
           "@type" = "upsert";
+          object = "Tracer";
+          matchOn = [ "@type" ];
+          value = {
+            tracer-stdout = {
+              "@type" = "Stdout";
+              enable = true;
+              buffered = true;
+              ansi = false;
+              multiline = false;
+              level = "info";
+              lossy = false;
+              events = { };
+              eventsPolicy = "exclude";
+            };
+          };
+        }
+        {
+          "@type" = "upsert";
           object = "Directory";
           matchOn = [ "description" ];
           value = {
