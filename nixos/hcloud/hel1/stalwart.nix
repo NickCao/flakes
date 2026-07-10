@@ -205,6 +205,24 @@
           object = "SystemSettings";
           value = {
             defaultHostname = "hel1.nichi.link";
+            defaultDomainId = "#domain-scp-link";
+            defaultCertificateId = null;
+
+            threadPoolSize = null;
+            maxConnections = 8192;
+            proxyTrustedNetworks = {
+              "127.0.0.1" = true;
+            };
+
+            mailExchangers = {
+              "0" = {
+                hostname = null;
+                priority = 10;
+              };
+            };
+
+            providerInfo = { };
+
             services = {
               smtp = {
                 hostname = "mail.scp.link";
