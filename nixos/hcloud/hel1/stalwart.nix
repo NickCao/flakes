@@ -161,7 +161,13 @@
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
-    match = lib.singleton { host = lib.singleton "mail.scp.link"; };
+    match = lib.singleton {
+      host = [
+        "mail.scp.link"
+        "mta-sts.scp.link"
+        "ua-auto-config.scp.link"
+      ];
+    };
     handle = lib.singleton {
       handler = "reverse_proxy";
       transport = {
