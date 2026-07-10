@@ -68,6 +68,51 @@
             name = "sieve";
           };
         }
+        {
+          "@type" = "upsert";
+          object = "NetworkListener";
+          matchOn = [ "name" ];
+          value = {
+            networklistener-http = {
+              name = "http";
+              protocol = "http";
+              bind = {
+                "127.0.0.1:8080" = true;
+              };
+              useTls = false;
+              overrideProxyTrustedNetworks = {
+                "127.0.0.1" = true;
+              };
+            };
+            networklistener-smtp = {
+              name = "smtp";
+              protocol = "smtp";
+              bind = {
+                "[::]:25" = true;
+              };
+              useTls = true;
+              tlsImplicit = false;
+            };
+            networklistener-submissions = {
+              name = "submissions";
+              protocol = "smtp";
+              bind = {
+                "[::]:465" = true;
+              };
+              useTls = true;
+              tlsImplicit = true;
+            };
+            networklistener-imaps = {
+              name = "imaps";
+              protocol = "imap";
+              bind = {
+                "[::]:993" = true;
+              };
+              useTls = true;
+              tlsImplicit = true;
+            };
+          };
+        }
       ];
     };
   };
