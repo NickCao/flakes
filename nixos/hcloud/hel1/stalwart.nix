@@ -17,9 +17,20 @@
     listenPort = 7700;
   };
 
-  systemd.services.stalwart.serviceConfig.SupplementaryGroups = [
-    config.services.redis.servers.stalwart.group
-  ];
+  systemd.services.stalwart.serviceConfig = {
+    SupplementaryGroups = [
+      config.services.redis.servers.stalwart.group
+    ];
+    RefreshOnReload = [ "credentials" ];
+    LoadCredential =
+      let
+        src = "/var/lib/caddy/certificates/acme-v02.api.letsencrypt.org-directory";
+      in
+      [
+        "hel1.nichi.link.crt:${src}/hel1.nichi.link/hel1.nichi.link.crt"
+        "hel1.nichi.link.key:${src}/hel1.nichi.link/hel1.nichi.link.key"
+      ];
+  };
 
   services.stalwart = {
     enable = true;
@@ -63,6 +74,26 @@
             timeout = 30000;
             failOnTimeout = true;
             allowInvalidCerts = false;
+          };
+        }
+        {
+          "@type" = "upsert";
+          object = "Certificate";
+          matchOn = [ "subjectAlternativeNames" ];
+          value = {
+            certificate-hel0 = {
+              subjectAlternativeNames = {
+                "hel1.nichi.link" = true;
+              };
+              certificate = {
+                "@type" = "File";
+                filePath = "/run/credentials/stalwart.service/hel1.nichi.link.crt";
+              };
+              privateKey = {
+                "@type" = "File";
+                filePath = "/run/credentials/stalwart.service/hel1.nichi.link.key";
+              };
+            };
           };
         }
         {
