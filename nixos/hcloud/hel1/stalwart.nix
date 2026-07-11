@@ -243,9 +243,19 @@
             domain-scp-link = {
               isEnabled = true;
               name = "scp.link";
+              aliases = { };
               description = "scp.link";
+              catchAllAddress = null;
+              subAddressing = {
+                "@type" = "Enabled";
+              };
+              allowRelaying = true;
+              reportAddressUri = "mailto:postmaster";
               certificateManagement = {
                 "@type" = "Manual";
+              };
+              dkimManagement = {
+                "@type" = "Automatic";
               };
               dnsManagement = {
                 "@type" = "Automatic";
