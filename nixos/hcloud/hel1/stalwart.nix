@@ -11,6 +11,12 @@
     enable = true;
   };
 
+  services.meilisearch = {
+    enable = true;
+    listenAddress = "127.0.0.1";
+    listenPort = 7700;
+  };
+
   systemd.services.stalwart.serviceConfig.SupplementaryGroups = [
     config.services.redis.servers.stalwart.group
   ];
@@ -40,6 +46,23 @@
           value = {
             "@type" = "Redis";
             url = "redis+unix://${config.services.redis.servers.stalwart.unixSocket}";
+          };
+        }
+        {
+          "@type" = "update";
+          object = "SearchStore";
+          value = {
+            "@type" = "Meilisearch";
+            url = "http://${config.services.meilisearch.listenAddress}:${toString config.services.meilisearch.listenPort}";
+            httpAuth = {
+              "@type" = "Unauthenticated";
+            };
+            httpHeaders = { };
+            maxRetries = 120;
+            pollInterval = 500;
+            timeout = 30000;
+            failOnTimeout = true;
+            allowInvalidCerts = false;
           };
         }
         {
