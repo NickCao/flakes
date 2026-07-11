@@ -29,6 +29,8 @@
       [
         "hel1.nichi.link.crt:${src}/hel1.nichi.link/hel1.nichi.link.crt"
         "hel1.nichi.link.key:${src}/hel1.nichi.link/hel1.nichi.link.key"
+        "mail.scp.link.crt:${src}/mail.scp.link/mail.scp.link.crt"
+        "mail.scp.link.key:${src}/mail.scp.link/mail.scp.link.key"
       ];
   };
 
@@ -92,6 +94,19 @@
               privateKey = {
                 "@type" = "File";
                 filePath = "/run/credentials/stalwart.service/hel1.nichi.link.key";
+              };
+            };
+            certificate-mail = {
+              subjectAlternativeNames = {
+                "mail.scp.link" = true;
+              };
+              certificate = {
+                "@type" = "File";
+                filePath = "/run/credentials/stalwart.service/mail.scp.link.crt";
+              };
+              privateKey = {
+                "@type" = "File";
+                filePath = "/run/credentials/stalwart.service/mail.scp.link.key";
               };
             };
           };
@@ -229,7 +244,9 @@
               isEnabled = true;
               name = "scp.link";
               description = "scp.link";
-              # FIXME: acme
+              certificateManagement = {
+                "@type" = "Manual";
+              };
               dnsManagement = {
                 "@type" = "Automatic";
                 origin = null;
