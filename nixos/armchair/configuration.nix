@@ -53,7 +53,11 @@ in
 
   boot.kernel.sysctl."vm.mmap_rnd_bits" = 31;
 
-  hardware.asahi.peripheralFirmwareDirectory = vendorfw;
+  hardware.asahi = {
+    enable = true;
+    peripheralFirmwareDirectory = vendorfw;
+  };
+
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji nickcao@mainframe"
   ];
