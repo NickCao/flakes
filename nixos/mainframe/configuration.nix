@@ -44,7 +44,7 @@
   };
 
   nix = {
-    package = pkgs.nixVersions.stable;
+    package = pkgs.nixVersions.latest;
     channel.enable = false;
     settings = {
       trusted-users = [
