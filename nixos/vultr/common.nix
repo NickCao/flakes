@@ -52,6 +52,10 @@ in
     useNetworkd = true;
     useDHCP = false;
     domain = "nichi.link";
+    nameservers = [
+      "8.8.8.8"
+      "8.8.4.4"
+    ];
   };
 
   systemd.network.networks = {
