@@ -139,6 +139,7 @@ in
     compsize
     uhk-agent
     rage
+    secretspec
     pinentry-gtk2
     picocom
     (mpv.override {
