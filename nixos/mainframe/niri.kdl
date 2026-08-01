@@ -37,10 +37,21 @@ layout {
 
 prefer-no-csd
 
-workspace "terminal"
-workspace "browser"
-workspace "chat"
-workspace "mail"
+workspace "terminal" {
+    open-on-output "Dell Inc. DELL S2725QC 349DS84"
+}
+
+workspace "browser" {
+    open-on-output "Dell Inc. DELL S2725QC 349DS84"
+}
+
+workspace "chat" {
+    open-on-output "Dell Inc. DELL S2725QC 349DS84"
+}
+
+workspace "mail" {
+    open-on-output "Dell Inc. DELL S2725QC 349DS84"
+}
 
 window-rule {
     match at-startup=true app-id=r#"^Alacritty$"#
