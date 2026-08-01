@@ -116,6 +116,8 @@
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
+  hardware.graphics.enable = true;
+
   environment.baseline.enable = true;
 
   systemd.tmpfiles.settings."10-chromeos" = {
