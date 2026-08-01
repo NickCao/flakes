@@ -60,6 +60,9 @@
         "auto-allocate-uids"
         "cgroups"
       ];
+      system-features = [
+        "uid-range"
+      ];
       builders-use-substitutes = true;
       keep-derivations = true;
       auto-allocate-uids = true;
