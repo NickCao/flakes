@@ -381,10 +381,10 @@ in
         GOTOOLCHAIN=local
       '';
       "niri/config.kdl".source = ./niri.kdl;
-      "containers/containers.conf".text = ''
-        [engine]
-        runtime = "krun"
-      '';
+      # "containers/containers.conf".text = ''
+      #   [engine]
+      #   runtime = "krun"
+      # '';
     };
     autostart = {
       enable = true;
