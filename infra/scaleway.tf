@@ -16,8 +16,28 @@ module "nichi_backup_ams" {
   region     = "nl-ams"
 }
 
+module "nichi_litestream_par" {
+  source     = "./modules/scaleway_bucket"
+  project_id = scaleway_account_project.storage.id
+  name       = "nichi-litestream-par"
+  region     = "fr-par"
+}
+
 data "scaleway_iam_user" "nickcao" {
   email = "nickcao@nichi.co"
+}
+
+locals {
+  statement_user = {
+    Sid : "User",
+    Action : "*",
+    Effect : "Allow",
+    Principal : {
+      SCW : [
+        "user_id:${data.scaleway_iam_user.nickcao.id}",
+      ]
+    }
+  }
 }
 
 resource "scaleway_object_bucket_policy" "nichi_backup_ams" {
@@ -28,20 +48,12 @@ resource "scaleway_object_bucket_policy" "nichi_backup_ams" {
     Version : "2023-04-17",
     Id : "NichiBackupAmsBucketPolicy",
     Statement : [
-      {
-        Sid : "User",
-        Action : "*",
-        Effect : "Allow",
-        Principal : {
-          SCW : [
-            "user_id:${data.scaleway_iam_user.nickcao.id}",
-          ]
-        },
+      merge(local.statement_user, {
         Resource : [
           module.nichi_backup_ams.name,
           "${module.nichi_backup_ams.name}/*"
         ],
-      },
+      }),
       {
         Sid : "Rclone",
         # https://rclone.org/s3/#s3-permissions
@@ -93,20 +105,12 @@ resource "scaleway_object_bucket_policy" "nichi_backup_par" {
     Version : "2023-04-17",
     Id : "NichiBackupParBucketPolicy",
     Statement : [
-      {
-        Sid : "User",
-        Action : "*",
-        Effect : "Allow",
-        Principal : {
-          SCW : [
-            "user_id:${data.scaleway_iam_user.nickcao.id}",
-          ]
-        },
+      merge(local.statement_user, {
         Resource : [
           module.nichi_backup_par.name,
           "${module.nichi_backup_par.name}/*"
         ],
-      },
+      }),
       {
         Sid : "Application",
         # https://rclone.org/s3/#s3-permissions
@@ -132,6 +136,45 @@ resource "scaleway_object_bucket_policy" "nichi_backup_par" {
   })
 }
 
+resource "scaleway_object_bucket_policy" "nichi_litestream_par" {
+  project_id = scaleway_account_project.storage.id
+
+  bucket = module.nichi_litestream_par.id
+  policy = jsonencode({
+    Version : "2023-04-17",
+    Id : "NichiLitestreamParBucketPolicy",
+    Statement : [
+      merge(local.statement_user, {
+        Resource : [
+          module.nichi_litestream_par.name,
+          "${module.nichi_litestream_par.name}/*"
+        ],
+      }),
+      {
+        Sid : "Application",
+        # https://litestream.io/guides/s3/#option-1-explicit-permissions-on-both-arns-recommended-for-restrictive-policies
+        Action : [
+          "s3:GetBucketLocation",
+          "s3:ListBucket",
+          "s3:PutObject",
+          "s3:DeleteObject",
+          "s3:GetObject"
+        ],
+        Effect : "Allow",
+        Principal : {
+          SCW : [
+            "application_id:${scaleway_iam_application.litestream.id}"
+          ]
+        },
+        Resource : [
+          module.nichi_litestream_par.name,
+          "${module.nichi_litestream_par.name}/*"
+        ],
+      }
+    ]
+  })
+}
+
 resource "scaleway_iam_application" "restic" {
   name = "restic"
 }
@@ -147,6 +190,24 @@ resource "scaleway_iam_policy" "restic" {
 
 resource "scaleway_iam_api_key" "restic" {
   application_id     = scaleway_iam_application.restic.id
+  default_project_id = scaleway_account_project.storage.id
+}
+
+resource "scaleway_iam_application" "litestream" {
+  name = "litestream"
+}
+
+resource "scaleway_iam_policy" "litestream" {
+  name           = "litestream"
+  application_id = scaleway_iam_application.litestream.id
+  rule {
+    project_ids          = [scaleway_account_project.storage.id]
+    permission_set_names = ["ObjectStorageFullAccess"]
+  }
+}
+
+resource "scaleway_iam_api_key" "litestream" {
+  application_id     = scaleway_iam_application.litestream.id
   default_project_id = scaleway_account_project.storage.id
 }
 

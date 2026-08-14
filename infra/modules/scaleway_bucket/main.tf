@@ -57,9 +57,9 @@ resource "scaleway_object_bucket_acl" "main" {
   acl    = "private"
 }
 
-# FIXME: set IAM key preferred project to storage
-# https://github.com/scaleway/terraform-provider-scaleway/issues/3985
 resource "scaleway_object_bucket_server_side_encryption_configuration" "main" {
+  project_id = var.project_id
+
   bucket = var.name
   region = var.region
 
