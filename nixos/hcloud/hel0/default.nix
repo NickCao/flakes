@@ -5,6 +5,7 @@
     ../common.nix
     ./vaultwarden.nix
     ./rustical.nix
+    ./litestream.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
