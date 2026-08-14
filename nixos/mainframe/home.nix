@@ -140,7 +140,7 @@ in
     uhk-agent
     rage
     secretspec
-    pinentry-gtk2
+    pinentry-gnome3
     picocom
     (mpv.override {
       youtubeSupport = false;
