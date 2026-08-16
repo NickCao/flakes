@@ -512,6 +512,7 @@ in
           system_lang_code = "en";
           system_version = null;
         };
+        bridge_communities = false;
         disable_view_once = false;
         displayname_template = "{{ if .Deleted }}Deleted account {{ .UserID }}{{ else }}{{ .FullName }}{{ end }}";
         image_as_file_pixels = 16777216;
