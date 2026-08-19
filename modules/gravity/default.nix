@@ -431,6 +431,7 @@ in
           { Destination = "44.32.148.101/32"; }
           { Destination = "44.32.148.102/32"; }
           { Destination = "44.32.148.114/32"; }
+          { Destination = "44.32.148.148/32"; }
         ];
         networkConfig.LinkLocalAddressing = false;
       };
@@ -479,6 +480,7 @@ in
         map 44.32.148.101 2a0c:b641:69c:1600::1
         map 44.32.148.102 2a0c:b641:69c:30e0::1
         map 44.32.148.114 2a0c:b641:69c:8010::1
+        map 44.32.148.148 2a0c:b641:69c:6780::1
       '';
 
       systemd.services."tayga@divi" = {
