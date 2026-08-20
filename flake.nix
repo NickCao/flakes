@@ -54,6 +54,10 @@
       url = "github:noctalia-dev/noctalia/v5.0.0-beta.8";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    jetpack = {
+      url = "github:anduril/jetpack-nixos/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -125,6 +129,9 @@
           inherit self nixpkgs inputs;
         };
         armchair = import ./nixos/armchair {
+          inherit self nixpkgs inputs;
+        };
+        jetson = import ./nixos/jetson {
           inherit self nixpkgs inputs;
         };
       }

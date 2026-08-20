@@ -13,6 +13,10 @@ let
   tide = pkgs.fishPlugins.tide.src;
 in
 {
+  disabledModules = [
+    "programs/noctalia.nix"
+  ];
+
   imports = [
     inputs.noctalia.homeModules.default
   ];
