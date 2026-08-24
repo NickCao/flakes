@@ -314,6 +314,7 @@ in
         rebuild = "nixos-rebuild --sudo -v -L --flake ~/Projects/flakes";
         subframe-rebuild = "nixos-rebuild -v -L --flake ~/Projects/flakes#subframe --target-host root@subframe.lan";
         armchair-rebuild = "nixos-rebuild -v -L --flake ~/Projects/flakes#armchair --target-host root@armchair.lan --build-host root@armchair.lan --no-reexec";
+        jetson-rebuild = "nixos-rebuild -v -L --flake ~/Projects/flakes#jetson --target-host root@jetson.lan --build-host root@armchair.lan --no-reexec";
       };
     };
     tmux = {
