@@ -10,6 +10,7 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./hardware-configuration.nix
     ./gravity.nix
+    ./ups.nix
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
