@@ -124,7 +124,16 @@ in
           ];
           inherit relabel_configs;
         }
-
+        {
+          job_name = "ups";
+          scheme = "https";
+          metrics_path = "/ups_metrics";
+          basic_auth = {
+            username = "prometheus";
+            password_file = config.sops.secrets.prometheus.path;
+          };
+          static_configs = [ { targets = [ "armchair.nichi.link" ]; } ];
+        }
       ];
     };
   };
