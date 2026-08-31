@@ -10,7 +10,7 @@
     mode = "none";
     upsd = {
       enable = true;
-      listen = lib.singleton { address = "*"; };
+      listen = lib.singleton { address = "192.168.1.210"; };
     };
     ups.cp1500 = {
       driver = "usbhid-ups";

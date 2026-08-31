@@ -140,7 +140,7 @@
     mode = "netclient";
     upsmon = {
       monitor.cp1500 = {
-        system = "cp1500@armchair.lan";
+        system = "cp1500@192.168.1.210";
         type = "secondary";
         user = "secondary";
         passwordFile = toString (pkgs.writeText "password" "secondary");
