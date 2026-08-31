@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   power.ups = {
     enable = true;
@@ -10,6 +15,10 @@
     ups.cp1500 = {
       driver = "usbhid-ups";
       port = "auto";
+    };
+    users.secondary = {
+      passwordFile = toString (pkgs.writeText "password" "secondary");
+      upsmon = "secondary";
     };
   };
 
