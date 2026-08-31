@@ -1,9 +1,12 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   power.ups = {
     enable = true;
     mode = "none";
-    upsd.enable = true;
+    upsd = {
+      enable = true;
+      listen = lib.singleton { address = "*"; };
+    };
     ups.cp1500 = {
       driver = "usbhid-ups";
       port = "auto";
