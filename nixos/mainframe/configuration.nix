@@ -248,11 +248,7 @@
       enable = true;
       pulse.enable = true;
     };
-    journald = {
-      extraConfig = ''
-        SystemMaxUse=1G
-      '';
-    };
+    journald.settings.Journal.SystemMaxUse = "1G";
     udev.extraRules = ''
       # AIOC
       SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="7388", MODE="0666"

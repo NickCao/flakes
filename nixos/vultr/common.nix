@@ -38,9 +38,7 @@ in
     ];
   };
 
-  services.journald.extraConfig = ''
-    SystemMaxUse=2G
-  '';
+  services.journald.settings.Journal.SystemMaxUse = "2G";
 
   users.users.root.openssh.authorizedKeys.keys = data.keys;
 

@@ -51,11 +51,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     noctalia = {
-      url = "github:noctalia-dev/noctalia/v5.0.0-beta.8";
+      url = "github:noctalia-dev/noctalia/v5.0.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     jetpack = {
-      url = "github:anduril/jetpack-nixos/master";
+      url = "github:NickCao/jetpack-nixos/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
