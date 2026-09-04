@@ -50,10 +50,6 @@
       url = "github:nix-community/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia/v5.0.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     jetpack = {
       url = "github:NickCao/jetpack-nixos/master";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -324,27 +324,6 @@
         "type": "github"
       }
     },
-    "noctalia": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1788454679,
-        "narHash": "sha256-diS3b69rt/IqehH/8Tsd8/JEQmogVc1ml6FP+iTwBzg=",
-        "owner": "noctalia-dev",
-        "repo": "noctalia",
-        "rev": "f95e95cafde8c23f1d3a62b969e2b5717c96d741",
-        "type": "github"
-      },
-      "original": {
-        "owner": "noctalia-dev",
-        "ref": "v5.0.1",
-        "repo": "noctalia",
-        "type": "github"
-      }
-    },
     "ranet-ipsec": {
       "inputs": {
         "flake-utils": [
@@ -381,7 +360,6 @@
         "lanzaboote": "lanzaboote",
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixpkgs": "nixpkgs",
-        "noctalia": "noctalia",
         "ranet-ipsec": "ranet-ipsec",
         "sops-nix": "sops-nix"
       }

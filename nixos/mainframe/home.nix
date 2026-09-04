@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 let
@@ -13,14 +12,6 @@ let
   tide = pkgs.fishPlugins.tide.src;
 in
 {
-  disabledModules = [
-    "programs/noctalia.nix"
-  ];
-
-  imports = [
-    inputs.noctalia.homeModules.default
-  ];
-
   gtk = {
     enable = true;
     font = {
