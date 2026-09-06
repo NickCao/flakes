@@ -26,6 +26,9 @@
     };
   };
 
+  systemd.services.upsd.after = [ "network-online.target" ];
+  systemd.services.upsd.wants = [ "network-online.target" ];
+
   services.prometheus.exporters.nut = {
     enable = true;
     listenAddress = "127.0.0.1";
