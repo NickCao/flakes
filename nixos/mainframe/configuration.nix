@@ -217,17 +217,19 @@
     askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
   };
 
-  services.greetd = {
+  services.greetd.enable = true;
+
+  services.displayManager.sessionPackages = [ pkgs.niri ];
+  services.displayManager.noctalia-greeter = {
     enable = true;
     settings = {
-      default_session.command = "${lib.getExe pkgs.tuigreet} --cmd niri-session";
+      cursor.size = 24;
+      keyboard.layout = "us";
     };
-  };
-
-  systemd.services.greetd.serviceConfig = {
-    Type = lib.mkForce "simple";
-    ExecStartPre = [ "-${pkgs.coreutils}/bin/kill -SIGRTMIN+21 1" ];
-    ExecStopPost = [ "-${pkgs.coreutils}/bin/kill -SIGRTMIN+20 1" ];
+    cursorTheme = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+    };
   };
 
   services = {
@@ -285,7 +287,10 @@
   security.sudo.extraConfig = ''
     Defaults lecture="never"
   '';
-  security.polkit.enable = true;
+  security.polkit = {
+    enable = true;
+    enablePkexecWrapper = true;
+  };
 
   fonts = {
     enableDefaultPackages = false;
