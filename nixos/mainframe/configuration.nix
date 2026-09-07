@@ -219,12 +219,12 @@
 
   services.greetd.enable = true;
 
-  services.displayManager.sessionPackages = [ pkgs.niri ];
   services.displayManager.noctalia-greeter = {
     enable = true;
     settings = {
       cursor.size = 24;
       keyboard.layout = "us";
+      auth.allow_empty_password = true;
     };
     cursorTheme = {
       package = pkgs.bibata-cursors;
@@ -233,6 +233,7 @@
   };
 
   services = {
+    gnome.gnome-keyring.enable = false;
     pcscd.enable = true;
     upower.enable = true;
     logind.settings = {
@@ -260,6 +261,7 @@
   };
 
   programs = {
+    niri.enable = true;
     dconf.enable = true;
     command-not-found.enable = false;
     yubikey-manager.enable = true;
@@ -339,15 +341,6 @@
         ".config/WSJT-X.ini"
       ];
     };
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-gnome
-    ];
-    configPackages = [ pkgs.niri ];
   };
 
   services.zram-generator = {

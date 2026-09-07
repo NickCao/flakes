@@ -164,7 +164,6 @@ in
     wdisplays
     kubectl
     kind
-    niri
     bluetuith
     nautilus
     wsjtx
