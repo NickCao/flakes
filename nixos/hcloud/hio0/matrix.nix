@@ -330,8 +330,13 @@ in
         msc4380_enabled = true;
       };
 
+      rc_message = {
+        per_second = 10000;
+        burst_count = 10000;
+      };
+
       rc_admin_redaction = {
-        per_second = 1000;
+        per_second = 10000;
         burst_count = 10000;
       };
 
