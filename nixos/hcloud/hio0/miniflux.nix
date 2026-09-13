@@ -30,8 +30,6 @@ in
       OAUTH2_CLIENT_ID = "miniflux";
       OAUTH2_REDIRECT_URL = "${baseURL}/oauth2/oidc/callback";
       OAUTH2_USER_CREATION = 1;
-      POLLING_FREQUENCY = 30;
-      SCHEDULER_ROUND_ROBIN_MIN_INTERVAL = 30;
     };
   };
 
