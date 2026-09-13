@@ -282,7 +282,7 @@ resource "scaleway_job_definition" "rclone" {
   memory_limit           = 512
   local_storage_capacity = 1000
 
-  image_uri = "ghcr.io/rclone/rclone:1.74.1"
+  image_uri = "ghcr.io/rclone/rclone:1.75.1"
   args = [
     "sync",
     "--s3-no-check-bucket",
