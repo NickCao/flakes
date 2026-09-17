@@ -125,3 +125,18 @@ resource "keycloak_realm_events" "events" {
   events_enabled               = true
   events_listeners             = ["jboss-logging"]
 }
+
+# https://gist.github.com/tashian/2299ea8b0ee0236267659f3a92ef7cea
+resource "keycloak_openid_client" "step_ca" {
+  realm_id    = keycloak_realm.nichi.id
+  client_id   = "step-ca"
+  name        = "Step CA"
+  access_type = "CONFIDENTIAL"
+
+  implicit_flow_enabled               = false
+  standard_flow_enabled               = true
+  valid_redirect_uris                 = ["http://127.0.0.1:10000/*"]
+  web_origins                         = ["http://127.0.0.1:10000"]
+  frontchannel_logout_enabled         = false
+  backchannel_logout_session_required = true
+}
