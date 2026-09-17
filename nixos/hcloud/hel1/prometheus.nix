@@ -35,6 +35,11 @@ in
     telegram = {
       restartUnits = [ "alertmanager.service" ];
     };
+    scw-cockpit-par = {
+      mode = "0440";
+      group = config.users.groups.victoriametrics-secrets.name;
+      restartUnits = [ config.systemd.services.victoriametrics.name ];
+    };
   };
 
   users.groups.victoriametrics-secrets = { };
@@ -132,6 +137,20 @@ in
             password_file = config.sops.secrets.prometheus.path;
           };
           static_configs = [ { targets = [ "armchair.nichi.link" ]; } ];
+        }
+        {
+          job_name = "scw-par";
+          honor_labels = true;
+          scheme = "https";
+          metrics_path = "/federate";
+          authorization = {
+            type = "Bearer";
+            credentials_file = config.sops.secrets.scw-cockpit-par.path;
+          };
+          params."match[]" = [ ''{region="fr-par"}'' ];
+          static_configs = [
+            { targets = [ "83fd8c66-5954-409b-ae56-ca154f4f50b8.metrics.cockpit.fr-par.scw.cloud" ]; }
+          ];
         }
       ];
     };
@@ -257,31 +276,24 @@ in
     };
   };
 
-  cloud.caddy.settings.apps.http.servers.default.routes = [
-    {
-      match = lib.singleton {
-        host = lib.singleton "metrics.nichi.co";
+  cloud.caddy.settings.apps.http.servers.default.tls_connection_policies = lib.singleton {
+    match = {
+      sni = lib.singleton "metrics.nichi.co";
+    };
+    client_authentication = {
+      mode = "require_and_verify";
+      ca = {
+        provider = "file";
+        pem_files = lib.singleton (pkgs.writeText "root.pem" data.ca);
       };
-      handle = [
-        {
-          handler = "authentication";
-          providers.http_basic = {
-            accounts = [
-              {
-                username = "vm";
-                password = "{env.VM_PASSWORD}";
-              }
-            ];
-            hash_cache = { };
-          };
-        }
-        {
-          handler = "reverse_proxy";
-          upstreams = lib.singleton {
-            dial = "${config.services.victoriametrics.listenAddress}";
-          };
-        }
-      ];
-    }
-  ];
+    };
+  };
+
+  cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
+    match = lib.singleton { host = lib.singleton "metrics.nichi.co"; };
+    handle = lib.singleton {
+      handler = "reverse_proxy";
+      upstreams = lib.singleton { dial = "${config.services.victoriametrics.listenAddress}"; };
+    };
+  };
 }
