@@ -24,6 +24,13 @@ let
         "${listenAddress}:${toString port}";
     }
   ];
+  tls_config = {
+    ca_file = "${
+      pkgs.cacert.override {
+        extraCertificateFiles = lib.singleton config.passthru.intermediate;
+      }
+    }/etc/ssl/certs/ca-bundle.crt";
+  };
 in
 {
   sops.secrets = {
@@ -64,6 +71,7 @@ in
         {
           job_name = "metrics";
           scheme = "https";
+          inherit tls_config;
           basic_auth = {
             username = "prometheus";
             password_file = config.sops.secrets.prometheus.path;
@@ -73,11 +81,12 @@ in
         {
           job_name = "caddy";
           scheme = "https";
+          metrics_path = "/caddy";
+          inherit tls_config;
           basic_auth = {
             username = "prometheus";
             password_file = config.sops.secrets.prometheus.path;
           };
-          metrics_path = "/caddy";
           static_configs = [ { inherit targets; } ];
         }
         {

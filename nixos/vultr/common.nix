@@ -42,7 +42,10 @@ in
 
   users.users.root.openssh.authorizedKeys.keys = data.keys;
 
-  cloud.caddy.enable = true;
+  cloud.caddy = {
+    enable = true;
+    selfsigned = true;
+  };
   services.metrics.enable = true;
   services.openssh.enable = true;
 

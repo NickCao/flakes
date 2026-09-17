@@ -8,12 +8,29 @@ let
   cfg = config.cloud.caddy;
   format = pkgs.formats.json { };
   configfile = format.generate "config.json" cfg.settings;
+  # TODO: automatic refresh
+  intermediate = pkgs.writeText "intermediate.pem" ''
+    -----BEGIN CERTIFICATE-----
+    MIIB4DCCAYegAwIBAgIRAJcwTG2ONvZSkBUK5BaV+t0wCgYIKoZIzj0EAwIwOjEX
+    MBUGA1UEChMOTmljaGkgWW9yb3p1eWExHzAdBgNVBAMTFk5pY2hpIFlvcm96dXlh
+    IFJvb3QgQ0EwHhcNMjYwOTE3MDI0NjE5WhcNMzYwOTE0MDI0NjE5WjBCMRcwFQYD
+    VQQKEw5OaWNoaSBZb3JvenV5YTEnMCUGA1UEAxMeTmljaGkgWW9yb3p1eWEgSW50
+    ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEsP6Ndy2m23x8
+    /TYQ21n5jRv6tG2Yih8Pp02Qm8MXHzDR4Fxnm9hRUA2iaNVRRRxyb9QmVoW6UNnY
+    WB5FE59EW6NmMGQwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+    HQYDVR0OBBYEFI4+Bt14wcFXkgkR+bFbTMVTCnhzMB8GA1UdIwQYMBaAFP+wQMNW
+    k50Tqg/a+TYZwI6chbJmMAoGCCqGSM49BAMCA0cAMEQCIGWQ3V8qwGvZ1nO9HrqE
+    mfPXWjzSj7qCroqjOwJwelzAAiAOrT0NL8I+bkvKxazWl/hxsZ/F5Nof6s1U1qyf
+    x4n/lw==
+    -----END CERTIFICATE-----
+  '';
 in
 {
 
   options = {
     cloud.caddy = {
       enable = lib.mkEnableOption "caddy api gateway";
+      selfsigned = lib.mkEnableOption "selfsigned fqdn certificate";
       mtls = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [ ];
@@ -26,21 +43,38 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
+    passthru = { inherit intermediate; };
     cloud.caddy.settings = {
       admin.disabled = true;
       apps = {
-        tls.automation.policies = lib.singleton {
-          disable_ocsp_stapling = true;
-          key_type = "p256";
-          issuers = lib.singleton {
-            module = "acme";
-            profile = "shortlived";
-            challenges = {
-              http.disabled = true;
+        tls.certificates = lib.mkIf cfg.selfsigned {
+          automate = lib.singleton config.networking.fqdn;
+        };
+        tls.automation.policies =
+          lib.optional cfg.selfsigned {
+            subjects = lib.singleton config.networking.fqdn;
+            disable_ocsp_stapling = true;
+            key_type = "p256";
+            issuers = lib.singleton {
+              module = "acme";
+              ca = "https://ca.nichi.co:8443/acme/acme/directory";
+              trusted_roots_pem_files = lib.singleton intermediate;
+              challenges = {
+                http.disabled = true;
+              };
+            };
+          }
+          ++ lib.singleton {
+            disable_ocsp_stapling = true;
+            key_type = "p256";
+            issuers = lib.singleton {
+              module = "acme";
+              profile = "shortlived";
+              challenges = {
+                http.disabled = true;
+              };
             };
           };
-        };
         http = {
           grace_period = "1s";
           metrics = { };
@@ -66,24 +100,7 @@ in
                   mode = "require_and_verify";
                   ca = {
                     provider = "file";
-                    pem_files = lib.singleton (
-                      # TODO: automatic refresh
-                      pkgs.writeText "intermediate.pem" ''
-                        -----BEGIN CERTIFICATE-----
-                        MIIB4DCCAYegAwIBAgIRAJcwTG2ONvZSkBUK5BaV+t0wCgYIKoZIzj0EAwIwOjEX
-                        MBUGA1UEChMOTmljaGkgWW9yb3p1eWExHzAdBgNVBAMTFk5pY2hpIFlvcm96dXlh
-                        IFJvb3QgQ0EwHhcNMjYwOTE3MDI0NjE5WhcNMzYwOTE0MDI0NjE5WjBCMRcwFQYD
-                        VQQKEw5OaWNoaSBZb3JvenV5YTEnMCUGA1UEAxMeTmljaGkgWW9yb3p1eWEgSW50
-                        ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEsP6Ndy2m23x8
-                        /TYQ21n5jRv6tG2Yih8Pp02Qm8MXHzDR4Fxnm9hRUA2iaNVRRRxyb9QmVoW6UNnY
-                        WB5FE59EW6NmMGQwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-                        HQYDVR0OBBYEFI4+Bt14wcFXkgkR+bFbTMVTCnhzMB8GA1UdIwQYMBaAFP+wQMNW
-                        k50Tqg/a+TYZwI6chbJmMAoGCCqGSM49BAMCA0cAMEQCIGWQ3V8qwGvZ1nO9HrqE
-                        mfPXWjzSj7qCroqjOwJwelzAAiAOrT0NL8I+bkvKxazWl/hxsZ/F5Nof6s1U1qyf
-                        x4n/lw==
-                        -----END CERTIFICATE-----
-                      ''
-                    );
+                    pem_files = lib.singleton intermediate;
                   };
                 };
               }
