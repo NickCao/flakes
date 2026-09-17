@@ -52,7 +52,8 @@ in
               ]
               [ "h3" ]
             ];
-            strict_sni_host = false;
+            strict_sni_host = true;
+            tls_connection_policies = lib.mkAfter [ { } ];
             routes = [
               {
                 match = [
