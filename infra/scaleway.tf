@@ -303,33 +303,15 @@ resource "scaleway_job_definition" "rclone" {
   }
 }
 
-data "scaleway_cockpit_sources" "metrics" {
+resource "scaleway_cockpit_token" "victoriametrics_par" {
   project_id = scaleway_account_project.storage.id
+  name       = "victoriametrics-par"
 
-  origin = "scaleway"
-  type   = "metrics"
-}
-
-resource "scaleway_cockpit_exporter" "victoriametrics" {
-  project_id = scaleway_account_project.storage.id
-
-  name   = "victoriametrics"
   region = module.nichi_backup_par.region
 
-  datasource_id     = data.scaleway_cockpit_sources.metrics.sources[0].id
-  exported_products = ["object-storage", "serverless-jobs"]
-
-  otlp_destination {
-    endpoint = "https://metrics.nichi.co/opentelemetry"
-    headers = {
-      Authorization = "Basic ${local.secrets.victoriametrics.basic}"
-    }
-  }
-
-  # FIXME
-  lifecycle {
-    ignore_changes = [
-      otlp_destination
-    ]
+  scopes {
+    query_metrics = true
+    write_metrics = false
+    write_logs    = false
   }
 }
