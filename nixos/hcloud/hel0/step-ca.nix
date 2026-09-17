@@ -44,6 +44,10 @@
       authority = {
         provisioners = [
           {
+            type = "ACME";
+            name = "ACME";
+          }
+          {
             type = "OIDC";
             name = "Keyclock";
             clientID = "step-ca";
@@ -60,6 +64,20 @@
             };
           }
         ];
+        policy = {
+          x509 = {
+            allow = {
+              dns = [
+                "*.nichi.link"
+                "*.nichi.co"
+              ];
+              email = [
+                "@nichi.co"
+              ];
+              allowWildcardNames = false;
+            };
+          };
+        };
       };
     };
   };
