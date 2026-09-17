@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   ...
 }:
 {
@@ -45,11 +46,11 @@
         provisioners = [
           {
             type = "ACME";
-            name = "ACME";
+            name = "acme";
           }
           {
             type = "OIDC";
-            name = "Keyclock";
+            name = "keyclock";
             clientID = "step-ca";
             # In the context of step-ca, the client "secret" is not actually a secret and is available
             # via the CA's /provisioners configuration endpoint, because every step client needs to use it locally.
@@ -62,17 +63,35 @@
               allowRenewalAfterExpiry = false;
               disableSmallstepExtensions = false;
             };
+            options = {
+              x509.templateFile = pkgs.writeText "" ''
+                {
+                  "sans": {{ toJson .SANs }},
+                {{- if typeIs "*rsa.PublicKey" .Insecure.CR.PublicKey }}
+                  "keyUsage": ["keyEncipherment", "digitalSignature"],
+                {{- else }}
+                  "keyUsage": ["digitalSignature"],
+                {{- end }}
+                  "extKeyUsage": ["clientAuth"]
+                }
+              '';
+            };
           }
         ];
         policy = {
           x509 = {
             allow = {
+              # ACME
               dns = [
                 "*.nichi.link"
                 "*.nichi.co"
               ];
+              # OIDC
               email = [
                 "@nichi.co"
+              ];
+              uri = [
+                "id.nichi.co"
               ];
               allowWildcardNames = false;
             };
