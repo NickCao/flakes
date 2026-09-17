@@ -5,6 +5,8 @@
 }:
 let
   cfg = config.services.metrics;
+  certDir = "/var/lib/caddy/certificates/ca.nichi.co-8443-acme-acme-directory";
+  certBase = "${certDir}/${config.networking.fqdn}/${config.networking.fqdn}";
 in
 {
   options.services.metrics = {
@@ -56,12 +58,12 @@ in
       }
     ];
 
-    sops.secrets.systemd-journal-upload = {
-      sopsFile = ./secrets.yaml;
-      mode = "0440";
-      path = "/run/systemd/journal-upload.conf.d/90-auth.conf";
-      group = config.users.groups.systemd-journal.name;
-      restartUnits = [ config.systemd.services.systemd-journal-upload.name ];
+    systemd.services.systemd-journal-upload.serviceConfig = {
+      RefreshOnReload = [ "credentials" ];
+      LoadCredential = [
+        "key:${certBase}.key"
+        "crt:${certBase}.crt"
+      ];
     };
 
     services.journald.upload = {
@@ -72,8 +74,8 @@ in
         Compression = "zstd:4";
         ForceCompression = true;
         TrustedCertificateFile = "${config.security.pki.caBundle}";
-        ServerKeyFile = "-";
-        ServerCertificateFile = "-";
+        ServerKeyFile = "/run/credentials/systemd-journal-upload.service/key";
+        ServerCertificateFile = "/run/credentials/systemd-journal-upload.service/crt";
       };
     };
   };
