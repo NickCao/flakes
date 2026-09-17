@@ -3,7 +3,7 @@
   config,
   lib,
   ...
-}@args:
+}:
 let
   cfg = config.cloud.caddy;
   format = pkgs.formats.json { };
@@ -89,37 +89,27 @@ in
               }
               { }
             ];
-            routes = [
-              {
-                match = [
-                  {
-                    host = [
-                      config.networking.fqdn
-                    ]
-                    ++ lib.optionals (args ? data && args.data.nodes ? "${config.networking.hostName}") [
-                      args.data.nodes."${config.networking.hostName}".ipv4
-                      args.data.nodes."${config.networking.hostName}".ipv6
+            routes = lib.singleton {
+              match = lib.singleton {
+                host = lib.singleton config.networking.fqdn;
+                path = lib.singleton "/caddy";
+              };
+              handle = [
+                {
+                  handler = "authentication";
+                  providers.http_basic = {
+                    accounts = [
+                      {
+                        username = "prometheus";
+                        password = "{env.PROM_PASSWD}";
+                      }
                     ];
-                    path = [ "/caddy" ];
-                  }
-                ];
-                handle = [
-                  {
-                    handler = "authentication";
-                    providers.http_basic = {
-                      accounts = [
-                        {
-                          username = "prometheus";
-                          password = "{env.PROM_PASSWD}";
-                        }
-                      ];
-                      hash_cache = { };
-                    };
-                  }
-                  { handler = "metrics"; }
-                ];
-              }
-            ];
+                    hash_cache = { };
+                  };
+                }
+                { handler = "metrics"; }
+              ];
+            };
           };
         };
       };
