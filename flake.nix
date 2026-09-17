@@ -64,6 +64,20 @@
     }:
     let
       data = builtins.fromJSON (builtins.readFile ./zones/data.json);
+      ca = ''
+        -----BEGIN CERTIFICATE-----
+        MIIBtjCCAV2gAwIBAgIQLAO8d2WFg6TQBTolXlvIqzAKBggqhkjOPQQDAjA6MRcw
+        FQYDVQQKEw5OaWNoaSBZb3JvenV5YTEfMB0GA1UEAxMWTmljaGkgWW9yb3p1eWEg
+        Um9vdCBDQTAeFw0yNjA5MTcwMjQ2MThaFw0zNjA5MTQwMjQ2MThaMDoxFzAVBgNV
+        BAoTDk5pY2hpIFlvcm96dXlhMR8wHQYDVQQDExZOaWNoaSBZb3JvenV5YSBSb290
+        IENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEuGymbkRdanAlZJ6jNzFEAg7V
+        /nOAD45HAUPqgONTV+nHxBeGeyvCCnLNdJhzUkr6lntUwimDFhDOsUxxFoJmlqNF
+        MEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE
+        FP+wQMNWk50Tqg/a+TYZwI6chbJmMAoGCCqGSM49BAMCA0cAMEQCIAttSSh4pQZ+
+        WDzCwWA6+n69Q5g0ENVCVNA8p0swKGUhAiB2NZ8omqzHc5ETjbetT5AgtZjv6w+6
+        iVgRV880BVK4gA==
+        -----END CERTIFICATE-----
+      '';
       lib = inputs.nixpkgs.lib;
     in
     flake-utils.lib.eachSystem
@@ -125,7 +139,12 @@
           inherit self nixpkgs inputs;
         };
         armchair = import ./nixos/armchair {
-          inherit self nixpkgs inputs;
+          inherit
+            self
+            nixpkgs
+            inputs
+            ca
+            ;
         };
         jetson = import ./nixos/jetson {
           inherit self nixpkgs inputs;

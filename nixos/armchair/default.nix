@@ -1,6 +1,7 @@
 {
   nixpkgs,
   inputs,
+  ca,
   self,
   ...
 }:
@@ -11,6 +12,7 @@ nixpkgs.lib.nixosSystem {
     ./hardware-configuration.nix
     ./gravity.nix
     ./ups.nix
+    ./proxy.nix
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
@@ -21,6 +23,6 @@ nixpkgs.lib.nixosSystem {
   ];
 
   specialArgs = {
-    inherit inputs;
+    inherit inputs ca;
   };
 }
