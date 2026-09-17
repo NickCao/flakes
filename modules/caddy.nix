@@ -30,9 +30,6 @@ in
   options = {
     cloud.caddy = {
       enable = lib.mkEnableOption "caddy api gateway";
-      selfsigned = lib.mkEnableOption "selfsigned fqdn certificate" // {
-        default = true;
-      };
       mtls = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [ ];
@@ -49,11 +46,11 @@ in
     cloud.caddy.settings = {
       admin.disabled = true;
       apps = {
-        tls.certificates = lib.mkIf cfg.selfsigned {
+        tls.certificates = {
           automate = lib.singleton config.networking.fqdn;
         };
-        tls.automation.policies =
-          lib.optional cfg.selfsigned {
+        tls.automation.policies = [
+          {
             subjects = lib.singleton config.networking.fqdn;
             disable_ocsp_stapling = true;
             key_type = "p256";
@@ -66,7 +63,7 @@ in
               };
             };
           }
-          ++ lib.singleton {
+          {
             disable_ocsp_stapling = true;
             key_type = "p256";
             issuers = lib.singleton {
@@ -76,7 +73,8 @@ in
                 http.disabled = true;
               };
             };
-          };
+          }
+        ];
         http = {
           grace_period = "1s";
           metrics = { };
