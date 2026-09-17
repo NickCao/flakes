@@ -44,18 +44,6 @@
       ];
       handle = [
         {
-          handler = "authentication";
-          providers.http_basic = {
-            accounts = [
-              {
-                username = "prometheus";
-                password = "{env.PROM_PASSWD}";
-              }
-            ];
-            hash_cache = { };
-          };
-        }
-        {
           handler = "reverse_proxy";
           upstreams = with config.services.prometheus.exporters.nut; [
             { dial = "${listenAddress}:${toString port}"; }

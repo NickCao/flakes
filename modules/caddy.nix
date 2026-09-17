@@ -42,7 +42,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    passthru = { inherit intermediate; };
+    passthru =
+      let
+        certDir = "/var/lib/caddy/certificates/ca.nichi.co-8443-acme-acme-directory";
+        certBase = "${certDir}/${config.networking.fqdn}/${config.networking.fqdn}";
+      in
+      {
+        inherit intermediate;
+        hostCrt = "${certBase}.crt";
+        hostKey = "${certBase}.key";
+      };
+    cloud.caddy.mtls = lib.singleton config.networking.fqdn;
     cloud.caddy.settings = {
       admin.disabled = true;
       apps = {
@@ -111,21 +121,7 @@ in
                 host = lib.singleton config.networking.fqdn;
                 path = lib.singleton "/caddy";
               };
-              handle = [
-                {
-                  handler = "authentication";
-                  providers.http_basic = {
-                    accounts = [
-                      {
-                        username = "prometheus";
-                        password = "{env.PROM_PASSWD}";
-                      }
-                    ];
-                    hash_cache = { };
-                  };
-                }
-                { handler = "metrics"; }
-              ];
+              handle = lib.singleton { handler = "metrics"; };
             };
           };
         };

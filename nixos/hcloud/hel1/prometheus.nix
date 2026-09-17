@@ -26,15 +26,12 @@ let
   ];
   tls_config = {
     ca_file = config.passthru.intermediate;
+    cert_file = "/run/credentials/victoriametrics.service/crt";
+    key_file = "/run/credentials/victoriametrics.service/key";
   };
 in
 {
   sops.secrets = {
-    prometheus = {
-      mode = "0440";
-      group = config.users.groups.victoriametrics-secrets.name;
-      restartUnits = [ config.systemd.services.victoriametrics.name ];
-    };
     telegram = {
       restartUnits = [ "alertmanager.service" ];
     };
@@ -49,6 +46,11 @@ in
 
   systemd.services.victoriametrics.serviceConfig = {
     SupplementaryGroups = [ config.users.groups.victoriametrics-secrets.name ];
+    RefreshOnReload = [ "credentials" ];
+    LoadCredential = [
+      "key:${config.passthru.hostKey}"
+      "crt:${config.passthru.hostCrt}"
+    ];
   };
 
   services.victoriametrics = {
@@ -68,10 +70,6 @@ in
           job_name = "metrics";
           scheme = "https";
           inherit tls_config;
-          basic_auth = {
-            username = "prometheus";
-            password_file = config.sops.secrets.prometheus.path;
-          };
           static_configs = [ { inherit targets; } ];
         }
         {
@@ -79,10 +77,6 @@ in
           scheme = "https";
           metrics_path = "/caddy";
           inherit tls_config;
-          basic_auth = {
-            username = "prometheus";
-            password_file = config.sops.secrets.prometheus.path;
-          };
           static_configs = [ { inherit targets; } ];
         }
         {
@@ -138,10 +132,6 @@ in
           scheme = "https";
           metrics_path = "/ups_metrics";
           inherit tls_config;
-          basic_auth = {
-            username = "prometheus";
-            password_file = config.sops.secrets.prometheus.path;
-          };
           static_configs = [ { targets = [ "armchair.nichi.link" ]; } ];
         }
         {
