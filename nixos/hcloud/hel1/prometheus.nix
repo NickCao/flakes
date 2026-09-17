@@ -25,11 +25,7 @@ let
     }
   ];
   tls_config = {
-    ca_file = "${
-      pkgs.cacert.override {
-        extraCertificateFiles = lib.singleton config.passthru.intermediate;
-      }
-    }/etc/ssl/certs/ca-bundle.crt";
+    ca_file = config.passthru.intermediate;
   };
 in
 {
@@ -141,6 +137,7 @@ in
           job_name = "ups";
           scheme = "https";
           metrics_path = "/ups_metrics";
+          inherit tls_config;
           basic_auth = {
             username = "prometheus";
             password_file = config.sops.secrets.prometheus.path;
