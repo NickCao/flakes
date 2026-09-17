@@ -80,6 +80,9 @@
     wantedBy = [ "multi-user.target" ];
   };
 
-  cloud.caddy.enable = true;
+  cloud.caddy = {
+    enable = true;
+    selfsigned = true;
+  };
   services.metrics.enable = true;
 }
