@@ -45,6 +45,10 @@
       authority = {
         provisioners = [
           {
+            type = "ACME";
+            name = "acme";
+          }
+          {
             type = "OIDC";
             name = "keyclock";
             clientID = "step-ca";
@@ -71,6 +75,9 @@
         policy = {
           x509 = {
             allow = {
+              dns = [
+                "*.nichi.link"
+              ];
               email = [
                 "@nichi.co"
               ];
