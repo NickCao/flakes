@@ -20,17 +20,6 @@ resource "keycloak_openid_client" "mastodon" {
   web_origins         = ["https://mastodon.nichi.co"]
 }
 
-resource "keycloak_openid_client" "miniflux" {
-  realm_id    = keycloak_realm.nichi.id
-  client_id   = "miniflux"
-  name        = "Miniflux"
-  access_type = "CONFIDENTIAL"
-
-  base_url            = "https://rss.nichi.co"
-  valid_redirect_uris = ["https://rss.nichi.co/oauth2/oidc/callback"]
-  web_origins         = ["https://rss.nichi.co/oauth2/oidc/redirect"]
-}
-
 # https://lennart-k.github.io/rustical/setup/oidc/
 resource "keycloak_openid_client" "rustical" {
   realm_id    = keycloak_realm.nichi.id
