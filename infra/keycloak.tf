@@ -135,8 +135,11 @@ resource "keycloak_openid_client" "step_ca" {
 
   implicit_flow_enabled               = false
   standard_flow_enabled               = true
-  valid_redirect_uris                 = ["http://127.0.0.1:10000/*"]
-  web_origins                         = ["http://127.0.0.1:10000"]
+  valid_redirect_uris                 = ["http://127.0.0.1/*"]
+  web_origins                         = ["http://127.0.0.1"]
   frontchannel_logout_enabled         = false
   backchannel_logout_session_required = true
+  service_accounts_enabled            = false
+  direct_access_grants_enabled        = false
+  pkce_code_challenge_method          = "S256"
 }
