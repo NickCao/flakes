@@ -17,8 +17,8 @@
   };
   services.step-ca = {
     enable = true;
-    address = "127.0.0.1";
-    port = 7363;
+    address = "[::]";
+    port = 8443;
     intermediatePasswordFile = config.sops.secrets."step-ca/password".path;
     settings = {
       root = config.sops.secrets."step-ca/root_ca.crt".path;
@@ -64,3 +64,4 @@
     };
   };
 }
+# step ca bootstrap --ca-url https://ca.nichi.co:8443 --fingerprint 1653b77b96c657f8a4d793238a0abf5d4b4dce76ac710fbfa08092c640f73697
