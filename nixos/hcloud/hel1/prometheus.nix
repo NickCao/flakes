@@ -149,6 +149,7 @@ in
           };
           params."match[]" = [ ''{region="fr-par"}'' ];
           static_configs = [
+            # TODO: read this from terraform state
             { targets = [ "83fd8c66-5954-409b-ae56-ca154f4f50b8.metrics.cockpit.fr-par.scw.cloud" ]; }
           ];
         }
