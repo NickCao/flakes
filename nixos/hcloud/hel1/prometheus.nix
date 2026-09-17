@@ -7,7 +7,6 @@
 }:
 let
   targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [ "armchair.nichi.link" ];
-  ipv4_targets = lib.mapAttrsToList (_mame: node: node.ipv4) data.nodes;
   nameservers = data.nameservers ++ data.secondary_nameservers;
   relabel_configs = [
     {
@@ -74,7 +73,7 @@ in
             password_file = config.sops.secrets.prometheus.path;
           };
           metrics_path = "/caddy";
-          static_configs = [ { targets = ipv4_targets; } ];
+          static_configs = [ { inherit targets; } ];
         }
         {
           job_name = "dns";
