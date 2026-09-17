@@ -64,21 +64,6 @@
     }:
     let
       data = builtins.fromJSON (builtins.readFile ./zones/data.json);
-      ca = ''
-        -----BEGIN CERTIFICATE-----
-        MIIB4DCCAYegAwIBAgIRAJcwTG2ONvZSkBUK5BaV+t0wCgYIKoZIzj0EAwIwOjEX
-        MBUGA1UEChMOTmljaGkgWW9yb3p1eWExHzAdBgNVBAMTFk5pY2hpIFlvcm96dXlh
-        IFJvb3QgQ0EwHhcNMjYwOTE3MDI0NjE5WhcNMzYwOTE0MDI0NjE5WjBCMRcwFQYD
-        VQQKEw5OaWNoaSBZb3JvenV5YTEnMCUGA1UEAxMeTmljaGkgWW9yb3p1eWEgSW50
-        ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEsP6Ndy2m23x8
-        /TYQ21n5jRv6tG2Yih8Pp02Qm8MXHzDR4Fxnm9hRUA2iaNVRRRxyb9QmVoW6UNnY
-        WB5FE59EW6NmMGQwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-        HQYDVR0OBBYEFI4+Bt14wcFXkgkR+bFbTMVTCnhzMB8GA1UdIwQYMBaAFP+wQMNW
-        k50Tqg/a+TYZwI6chbJmMAoGCCqGSM49BAMCA0cAMEQCIGWQ3V8qwGvZ1nO9HrqE
-        mfPXWjzSj7qCroqjOwJwelzAAiAOrT0NL8I+bkvKxazWl/hxsZ/F5Nof6s1U1qyf
-        x4n/lw==
-        -----END CERTIFICATE-----
-      '';
       lib = inputs.nixpkgs.lib;
     in
     flake-utils.lib.eachSystem
@@ -140,12 +125,7 @@
           inherit self nixpkgs inputs;
         };
         armchair = import ./nixos/armchair {
-          inherit
-            self
-            nixpkgs
-            inputs
-            ca
-            ;
+          inherit self nixpkgs inputs;
         };
         jetson = import ./nixos/jetson {
           inherit self nixpkgs inputs;
@@ -164,7 +144,6 @@
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
                 "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAICKH4SwgJUkebLaYlrPsNDtnTNtoGRi3Qp/L6POetgySAAAACnNzaDptYXN0ZXI="
               ];
-              data.ca = ca;
             };
             nixpkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
           };

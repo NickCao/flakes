@@ -277,19 +277,7 @@ in
     };
   };
 
-  cloud.caddy.settings.apps.http.servers.default.tls_connection_policies = lib.singleton {
-    match = {
-      sni = lib.singleton "metrics.nichi.co";
-    };
-    client_authentication = {
-      mode = "require_and_verify";
-      ca = {
-        provider = "file";
-        pem_files = lib.singleton (pkgs.writeText "root.pem" data.ca);
-      };
-    };
-  };
-
+  cloud.caddy.mtls = lib.singleton "metrics.nichi.co";
   cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
     match = lib.singleton { host = lib.singleton "metrics.nichi.co"; };
     handle = lib.singleton {

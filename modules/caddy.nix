@@ -14,6 +14,10 @@ in
   options = {
     cloud.caddy = {
       enable = lib.mkEnableOption "caddy api gateway";
+      mtls = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [ ];
+      };
       settings = lib.mkOption {
         type = lib.types.submodule { freeformType = format.type; };
         default = { };
@@ -53,7 +57,38 @@ in
               [ "h3" ]
             ];
             strict_sni_host = true;
-            tls_connection_policies = lib.mkAfter [ { } ];
+            tls_connection_policies = lib.mkAfter [
+              {
+                match = {
+                  sni = cfg.mtls;
+                };
+                client_authentication = {
+                  mode = "require_and_verify";
+                  ca = {
+                    provider = "file";
+                    pem_files = lib.singleton (
+                      # TODO: automatic refresh
+                      pkgs.writeText "intermediate.pem" ''
+                        -----BEGIN CERTIFICATE-----
+                        MIIB4DCCAYegAwIBAgIRAJcwTG2ONvZSkBUK5BaV+t0wCgYIKoZIzj0EAwIwOjEX
+                        MBUGA1UEChMOTmljaGkgWW9yb3p1eWExHzAdBgNVBAMTFk5pY2hpIFlvcm96dXlh
+                        IFJvb3QgQ0EwHhcNMjYwOTE3MDI0NjE5WhcNMzYwOTE0MDI0NjE5WjBCMRcwFQYD
+                        VQQKEw5OaWNoaSBZb3JvenV5YTEnMCUGA1UEAxMeTmljaGkgWW9yb3p1eWEgSW50
+                        ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEsP6Ndy2m23x8
+                        /TYQ21n5jRv6tG2Yih8Pp02Qm8MXHzDR4Fxnm9hRUA2iaNVRRRxyb9QmVoW6UNnY
+                        WB5FE59EW6NmMGQwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+                        HQYDVR0OBBYEFI4+Bt14wcFXkgkR+bFbTMVTCnhzMB8GA1UdIwQYMBaAFP+wQMNW
+                        k50Tqg/a+TYZwI6chbJmMAoGCCqGSM49BAMCA0cAMEQCIGWQ3V8qwGvZ1nO9HrqE
+                        mfPXWjzSj7qCroqjOwJwelzAAiAOrT0NL8I+bkvKxazWl/hxsZ/F5Nof6s1U1qyf
+                        x4n/lw==
+                        -----END CERTIFICATE-----
+                      ''
+                    );
+                  };
+                };
+              }
+              { }
+            ];
             routes = [
               {
                 match = [

@@ -1,7 +1,6 @@
 {
   nixpkgs,
   inputs,
-  ca,
   self,
   ...
 }:
@@ -23,6 +22,6 @@ nixpkgs.lib.nixosSystem {
   ];
 
   specialArgs = {
-    inherit inputs ca;
+    inherit inputs;
   };
 }

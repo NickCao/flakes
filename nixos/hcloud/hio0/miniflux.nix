@@ -37,19 +37,7 @@ in
     };
   };
 
-  cloud.caddy.settings.apps.http.servers.default.tls_connection_policies = lib.singleton {
-    match = {
-      sni = lib.singleton hostName;
-    };
-    client_authentication = {
-      mode = "require_and_verify";
-      ca = {
-        provider = "file";
-        pem_files = lib.singleton (pkgs.writeText "root.pem" data.ca);
-      };
-    };
-  };
-
+  cloud.caddy.mtls = lib.singleton hostName;
   cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
     match = lib.singleton { host = lib.singleton hostName; };
     handle = lib.singleton {
