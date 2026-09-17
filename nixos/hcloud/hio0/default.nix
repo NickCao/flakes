@@ -11,6 +11,7 @@
     ./miniflux.nix
     ./keycloak.nix
     ./ports.nix
+    { cloud.caddy.selfsigned = true; }
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
