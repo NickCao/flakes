@@ -57,12 +57,6 @@
             # Reference: https://smallstep.com/docs/step-ca/provisioners/#oauthoidc-single-sign-on
             clientSecret = "9fVRwZbRgCeOOy3rdabUeG22f1N2t9j1Nh6TfcsMn8zxAtfZeAIjvpL5HYtCdcXCavJ7OjvLglHUF3AcYKMDFr";
             configurationEndpoint = "https://id.nichi.co/realms/nichi/.well-known/openid-configuration";
-            claims = {
-              enableSSHCA = false;
-              disableRenewal = false;
-              allowRenewalAfterExpiry = false;
-              disableSmallstepExtensions = false;
-            };
             options = {
               x509.templateFile = pkgs.writeText "" ''
                 {
