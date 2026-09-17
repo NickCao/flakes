@@ -1,4 +1,10 @@
-{ config, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  data,
+  ...
+}:
 let
   hostName = "rss.nichi.co";
   baseURL = "https://${hostName}";
@@ -24,24 +30,32 @@ in
       BASE_URL = baseURL;
       CREATE_ADMIN = 0;
       DISABLE_LOCAL_AUTH = 1;
-      OAUTH2_PROVIDER = "oidc";
-      OAUTH2_OIDC_PROVIDER_NAME = "id.nichi.co";
-      OAUTH2_OIDC_DISCOVERY_ENDPOINT = "https://id.nichi.co/realms/nichi";
-      OAUTH2_CLIENT_ID = "miniflux";
-      OAUTH2_REDIRECT_URL = "${baseURL}/oauth2/oidc/callback";
-      OAUTH2_USER_CREATION = 1;
+
+      TRUSTED_REVERSE_PROXY_NETWORKS = "127.0.0.1/32";
+      AUTH_PROXY_HEADER = "X-Auth-Request-User";
+      AUTH_PROXY_USER_CREATION = 0;
     };
   };
 
-  cloud.caddy.settings.apps.http.servers.default.routes = [
-    {
-      match = [ { host = [ hostName ]; } ];
-      handle = [
-        {
-          handler = "reverse_proxy";
-          upstreams = [ { dial = "unix//run/miniflux.sock"; } ];
-        }
-      ];
-    }
-  ];
+  cloud.caddy.settings.apps.http.servers.default.tls_connection_policies = lib.singleton {
+    match = {
+      sni = lib.singleton hostName;
+    };
+    client_authentication = {
+      mode = "require_and_verify";
+      ca = {
+        provider = "file";
+        pem_files = lib.singleton (pkgs.writeText "root.pem" data.ca);
+      };
+    };
+  };
+
+  cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
+    match = lib.singleton { host = lib.singleton hostName; };
+    handle = lib.singleton {
+      handler = "reverse_proxy";
+      headers.request.set."X-Auth-Request-User" = lib.singleton "{http.request.tls.client.san.emails.0}";
+      upstreams = lib.singleton { dial = "unix//run/miniflux.sock"; };
+    };
+  };
 }

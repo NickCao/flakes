@@ -210,15 +210,6 @@ in
           file = pkgs.writeText "db.link.scp" (import ../../../zones/scp.link.nix { inherit (inputs) dns; });
           acl = [ "stalwart" ];
         }
-        rec {
-          domain = "nixos.zip";
-          file = pkgs.writeText "db.zip.nixos" (
-            import ../../../zones/parking.nix {
-              inherit (inputs) dns;
-              inherit domain;
-            }
-          );
-        }
         {
           domain = "gravity";
           file = config.sops.secrets.gravity.path;

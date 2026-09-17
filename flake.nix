@@ -164,6 +164,7 @@
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji"
                 "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAICKH4SwgJUkebLaYlrPsNDtnTNtoGRi3Qp/L6POetgySAAAACnNzaDptYXN0ZXI="
               ];
+              data.ca = ca;
             };
             nixpkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
           };
