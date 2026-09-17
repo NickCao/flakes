@@ -30,7 +30,9 @@ in
   options = {
     cloud.caddy = {
       enable = lib.mkEnableOption "caddy api gateway";
-      selfsigned = lib.mkEnableOption "selfsigned fqdn certificate";
+      selfsigned = lib.mkEnableOption "selfsigned fqdn certificate" // {
+        default = true;
+      };
       mtls = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [ ];

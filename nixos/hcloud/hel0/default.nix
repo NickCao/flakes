@@ -7,7 +7,6 @@
     ./rustical.nix
     ./litestream.nix
     ./step-ca.nix
-    { cloud.caddy.selfsigned = true; }
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
