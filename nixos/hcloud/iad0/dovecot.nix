@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.dovecot2;
   maildir = "/var/spool/mail";
@@ -151,6 +156,10 @@ in
     wantedBy = [ "sockets.target" ];
   };
 
+  cloud.caddy.settings.apps.tls.certificates = {
+    automate = lib.singleton "mail.nichi.co";
+  };
+
   cloud.caddy.settings.apps.layer4.servers = {
     imap = {
       listen = [ "fdname/${config.systemd.sockets.caddy-imap.name}" ];
@@ -159,14 +168,12 @@ in
           handle = [
             {
               handler = "tls";
-              connection_policies = [
-                {
-                  alpn = [ "imap" ];
-                  match = {
-                    sni = [ config.networking.fqdn ];
-                  };
-                }
-              ];
+              connection_policies = lib.singleton {
+                alpn = [ "imap" ];
+                match = {
+                  sni = lib.singleton "mail.nichi.co";
+                };
+              };
             }
             {
               handler = "proxy";
@@ -183,13 +190,11 @@ in
           handle = [
             {
               handler = "tls";
-              connection_policies = [
-                {
-                  match = {
-                    sni = [ config.networking.fqdn ];
-                  };
-                }
-              ];
+              connection_policies = lib.singleton {
+                match = {
+                  sni = lib.singleton "mail.nichi.co";
+                };
+              };
             }
             {
               handler = "proxy";

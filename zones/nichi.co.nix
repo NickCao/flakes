@@ -53,6 +53,7 @@ dns.lib.toString "nichi.co" {
     cal.CNAME = [ "hel0.nichi.link." ];
     rss.CNAME = [ "hio0.nichi.link." ];
     logs.CNAME = [ "hel1.nichi.link." ];
+    mail.CNAME = [ "iad0.nichi.link." ];
     ntfy.CNAME = [ "hel1.nichi.link." ];
     vault.CNAME = [ "hel0.nichi.link." ];
     immich.CNAME = [ "armchair.nichi.link." ];
