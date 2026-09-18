@@ -39,6 +39,14 @@ in
       ];
     };
 
+    systemd.services.systemd-journal-upload-reload = {
+      startAt = "hourly";
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${config.systemd.package}/bin/systemctl try-reload-or-restart systemd-journal-upload.service";
+      };
+    };
+
     services.journald.upload = {
       enable = true;
       settings.Upload = {

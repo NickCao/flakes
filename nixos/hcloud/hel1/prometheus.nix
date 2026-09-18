@@ -53,6 +53,14 @@ in
     ];
   };
 
+  systemd.services.victoriametrics-reload = {
+    startAt = "hourly";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${config.systemd.package}/bin/systemctl try-reload-or-restart victoriametrics.service";
+    };
+  };
+
   services.victoriametrics = {
     enable = true;
     extraOptions = [
