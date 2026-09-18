@@ -1,8 +1,6 @@
 {
   config,
-  pkgs,
   lib,
-  data,
   ...
 }:
 let
@@ -10,10 +8,6 @@ let
   baseURL = "https://${hostName}";
 in
 {
-  sops.secrets.miniflux = {
-    restartUnits = [ config.systemd.services.miniflux.name ];
-  };
-
   # https://miniflux.app/docs/howto.html#systemd-socket-activation
   systemd.sockets.miniflux = {
     wantedBy = [ "sockets.target" ];
@@ -25,7 +19,6 @@ in
 
   services.miniflux = {
     enable = true;
-    adminCredentialsFile = config.sops.secrets.miniflux.path;
     config = {
       BASE_URL = baseURL;
       CREATE_ADMIN = 0;
