@@ -25,7 +25,6 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     secrets = {
-      "wireless/eduroam" = { };
       "wireless/redhat" = { };
     };
     age = {
@@ -38,7 +37,6 @@
 
   systemd.tmpfiles.settings = {
     "10-iwd" = {
-      "/var/lib/iwd/eduroam.8021x".C.argument = config.sops.secrets."wireless/eduroam".path;
       "/var/lib/iwd/Red Hat Wi-Fi.psk".C.argument = config.sops.secrets."wireless/redhat".path;
     };
   };
