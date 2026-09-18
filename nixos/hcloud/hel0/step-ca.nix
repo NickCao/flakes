@@ -57,6 +57,10 @@
             # Reference: https://smallstep.com/docs/step-ca/provisioners/#oauthoidc-single-sign-on
             clientSecret = "9fVRwZbRgCeOOy3rdabUeG22f1N2t9j1Nh6TfcsMn8zxAtfZeAIjvpL5HYtCdcXCavJ7OjvLglHUF3AcYKMDFr";
             configurationEndpoint = "https://id.nichi.co/realms/nichi/.well-known/openid-configuration";
+            claims = {
+              maxTLSCertDuration = "720h";
+              defaultTLSCertDuration = "720h";
+            };
             options = {
               x509.templateFile = pkgs.writeText "" ''
                 {
