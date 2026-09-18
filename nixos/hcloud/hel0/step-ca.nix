@@ -55,7 +55,7 @@
             # In the context of step-ca, the client "secret" is not actually a secret and is available
             # via the CA's /provisioners configuration endpoint, because every step client needs to use it locally.
             # Reference: https://smallstep.com/docs/step-ca/provisioners/#oauthoidc-single-sign-on
-            clientSecret = "9fVRwZbRgCeOOy3rdabUeG22f1N2t9j1Nh6TfcsMn8zxAtfZeAIjvpL5HYtCdcXCavJ7OjvLglHUF3AcYKMDFr";
+            clientSecret = "9fVRwZbRgCeOOy3rdabUeG22f1N2t9j1Nh6TfcsMn8zxAtfZeAIjvpL5HYtCdcXCavJ7OjvLglHUF3AcYKMDFr"; # notsecret
             configurationEndpoint = "https://id.nichi.co/realms/nichi/.well-known/openid-configuration";
             claims = {
               maxTLSCertDuration = "720h";
