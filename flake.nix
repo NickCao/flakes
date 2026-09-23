@@ -51,7 +51,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     jetpack = {
-      url = "github:NickCao/jetpack-nixos/master";
+      url = "github:anduril/jetpack-nixos/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -78,7 +78,6 @@
             inherit system;
             overlays = [
               self.overlays.default
-              inputs.colmena.overlay
             ];
           };
         in
