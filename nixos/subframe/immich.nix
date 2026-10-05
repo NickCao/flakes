@@ -1,7 +1,7 @@
 { ... }: {
   services.immich = {
     enable = true;
-    host = "";
+    host = "127.0.0.1";
     port = 2283;
     settings = { };
     environment = { };
