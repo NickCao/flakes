@@ -6,7 +6,10 @@
   ...
 }:
 let
-  targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [ "armchair.nichi.link" ];
+  targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [
+    "armchair.nichi.link"
+    "subframe.nichi.link"
+  ];
   nameservers = data.nameservers ++ data.secondary_nameservers;
   relabel_configs = [
     {
