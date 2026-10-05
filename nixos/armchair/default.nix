@@ -11,13 +11,24 @@ nixpkgs.lib.nixosSystem {
     ./hardware-configuration.nix
     ./gravity.nix
     ./ups.nix
-    ./proxy.nix
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
     {
-      nixpkgs.overlays = [ self.overlays.default ];
+      nixpkgs.overlays = [
+        self.overlays.default
+        (nixpkgs.lib.mkAfter (
+          final: prev: {
+            uboot-asahi = prev.uboot-asahi.overrideAttrs (oldAttrs: {
+              makeFlags = [
+                "DTC=${nixpkgs.lib.getExe final.buildPackages.dtc}"
+              ]
+              ++ oldAttrs.makeFlags;
+            });
+          }
+        ))
+      ];
     }
   ];
 

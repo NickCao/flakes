@@ -48,7 +48,7 @@ dns.lib.toString "nichi.co" {
     id.CNAME = [ "hio0.nichi.link." ];
     fn.CNAME = [ "hel1.nichi.link." ];
     pb.CNAME = [ "hio0.nichi.link." ];
-    ha.CNAME = [ "armchair.nichi.link." ];
+    ha.CNAME = [ "subframe.nichi.link." ];
     api.CNAME = [ "hel1.nichi.link." ];
     cal.CNAME = [ "hel0.nichi.link." ];
     rss.CNAME = [ "hio0.nichi.link." ];
@@ -56,7 +56,7 @@ dns.lib.toString "nichi.co" {
     mail.CNAME = [ "iad0.nichi.link." ];
     ntfy.CNAME = [ "hel1.nichi.link." ];
     vault.CNAME = [ "hel0.nichi.link." ];
-    immich.CNAME = [ "armchair.nichi.link." ];
+    immich.CNAME = [ "subframe.nichi.link." ];
     matrix.CNAME = [ "hio0.nichi.link." ];
     matrix-auth.CNAME = [ "hio0.nichi.link." ];
     metrics.CNAME = [ "hel1.nichi.link." ];
