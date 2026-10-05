@@ -7,7 +7,6 @@
 }:
 let
   targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [
-    "armchair.nichi.link"
     "subframe.nichi.link"
   ];
   nameservers = data.nameservers ++ data.secondary_nameservers;
@@ -143,7 +142,7 @@ in
           scheme = "https";
           metrics_path = "/ups_metrics";
           inherit tls_config;
-          static_configs = [ { targets = [ "armchair.nichi.link" ]; } ];
+          static_configs = [ { targets = [ "subframe.nichi.link" ]; } ];
         }
         {
           job_name = "scw-par";
