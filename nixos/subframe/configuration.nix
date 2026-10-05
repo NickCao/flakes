@@ -135,18 +135,5 @@
   # https://github.com/systemd/systemd/issues/36498
   boot.blacklistedKernelModules = [ "rtc_cmos" ];
 
-  power.ups = {
-    enable = true;
-    mode = "netclient";
-    upsmon = {
-      monitor.cp1500 = {
-        system = "cp1500@192.168.1.210";
-        type = "secondary";
-        user = "secondary";
-        passwordFile = toString (pkgs.writeText "password" "secondary");
-      };
-    };
-  };
-
   system.stateVersion = "25.11";
 }

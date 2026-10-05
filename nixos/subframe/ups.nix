@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
@@ -13,7 +12,7 @@
       listen = [
         { address = "::1"; }
         { address = "127.0.0.1"; }
-        { address = "192.168.1.210"; }
+        { address = "192.168.1.183"; }
       ];
     };
     ups.cp1500 = {

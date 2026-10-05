@@ -12,6 +12,7 @@ nixpkgs.lib.nixosSystem {
     ./filesystem.nix
     ./immich.nix
     ./gravity.nix
+    ./ups.nix
     self.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     inputs.disko.nixosModules.disko
