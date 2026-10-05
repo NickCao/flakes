@@ -576,11 +576,13 @@ in
             ExecStartPost = [
               "${pkgs.iproute2}/bin/ip sr tunsrc set ${cfg.srv6.tunsrc}"
               "${pkgs.iproute2}/bin/ip r add 44.32.148.19 encap seg6 mode encap.red segs 2a0c:b641:69c:a236::1 dev gravity"
+              "${pkgs.iproute2}/bin/ip r add 44.32.148.20 encap seg6 mode encap.red segs 2a0c:b641:69c:6556::1 dev gravity"
             ];
             ExecStop = builtins.map (route: "${pkgs.iproute2}/bin/ip -6 r d ${route}") routes;
             ExecStopPost = [
               "${pkgs.iproute2}/bin/ip sr tunsrc set ::"
               "${pkgs.iproute2}/bin/ip r del 44.32.148.19 encap seg6 mode encap.red segs 2a0c:b641:69c:a236::1 dev gravity"
+              "${pkgs.iproute2}/bin/ip r del 44.32.148.20 encap seg6 mode encap.red segs 2a0c:b641:69c:6556::1 dev gravity"
             ];
           };
         after = [ "network-online.target" ];

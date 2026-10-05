@@ -73,6 +73,7 @@ creation_rules:
           - *self
           - *mainframe
           - *armchair
+          - *subframe
           - *nrt0
           - *sin0
           - *sea0
