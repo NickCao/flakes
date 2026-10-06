@@ -198,6 +198,12 @@ in
       lockscreen = {
         wallpaper = cst-blurred;
       };
+      notification = {
+        follow_focused_output = true;
+      };
+      osd = {
+        follow_focused_output = true;
+      };
       bar.default = {
         thickness = 45;
         scale = 1.2;

@@ -17,16 +17,6 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [
         self.overlays.default
-        (nixpkgs.lib.mkAfter (
-          final: prev: {
-            uboot-asahi = prev.uboot-asahi.overrideAttrs (oldAttrs: {
-              makeFlags = [
-                "DTC=${nixpkgs.lib.getExe final.buildPackages.dtc}"
-              ]
-              ++ oldAttrs.makeFlags;
-            });
-          }
-        ))
       ];
     }
   ];
