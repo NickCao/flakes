@@ -191,11 +191,19 @@ in
     enable = true;
     systemd.enable = true;
     settings = {
+      audio = {
+        enable_sounds = false;
+      };
+      brightness = {
+        enable_ddcutil = true;
+        minimum_brightness = 0.01;
+      };
       wallpaper = {
         enabled = true;
         default.path = cst;
       };
       lockscreen = {
+        transition = [ "zoom" ];
         wallpaper = cst-blurred;
       };
       notification = {
@@ -203,6 +211,9 @@ in
       };
       osd = {
         follow_focused_output = true;
+      };
+      shell = {
+        launch_apps_as_systemd_services = true;
       };
       bar.default = {
         thickness = 45;
