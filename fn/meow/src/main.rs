@@ -84,12 +84,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: AppConfig = argh::from_env();
 
     let app = Router::new()
-        .layer(tower_http::limit::RequestBodyLimitLayer::new(
-            20 * 1024 * 1024, // limit request body to 20M
-        ))
         .route("/", get(index))
         .route("/", post(paste))
         .fallback_service(get_service(ServeDir::new(&args.data_dir)))
+        .layer(tower_http::limit::RequestBodyLimitLayer::new(
+            20 * 1024 * 1024, // limit request body to 20M
+        ))
         .with_state(args.clone());
 
     let listener = tokio::net::TcpListener::bind(&args.listen).await?;
