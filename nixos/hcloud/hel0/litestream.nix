@@ -5,8 +5,11 @@
   };
 
   systemd.services.litestream.serviceConfig = {
-    AmbientCapabilities = [ "CAP_DAC_OVERRIDE" ]; # FIXME
-    StateDirectory = [ "litestream" ];
+    DynamicUser = true;
+    StateDirectory = [
+      "litestream"
+      "rustical"
+    ];
   };
 
   services.litestream = {
