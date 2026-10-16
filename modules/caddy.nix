@@ -2,12 +2,14 @@
   pkgs,
   config,
   lib,
+  utils,
   ...
 }:
 let
   cfg = config.cloud.caddy;
   format = pkgs.formats.json { };
   configfile = format.generate "config.json" cfg.settings;
+  metricsAddress = "127.0.0.1:9320";
   # TODO: automatic refresh
   intermediate = pkgs.writeText "intermediate.pem" ''
     -----BEGIN CERTIFICATE-----
@@ -116,10 +118,13 @@ in
               }
               { }
             ];
+          };
+          servers.metrics = {
+            listen = [ metricsAddress ];
+            automatic_https.disable = true;
             routes = lib.singleton {
               match = lib.singleton {
-                host = lib.singleton config.networking.fqdn;
-                path = lib.singleton "/caddy";
+                path = lib.singleton "/metrics";
               };
               handle = lib.singleton { handler = "metrics"; };
             };
@@ -178,6 +183,17 @@ in
       reloadTriggers = [ configfile ];
       after = [ "network-online.target" ];
       requires = [ "network-online.target" ];
+    };
+
+    cloud.services.spiffe-caddy.config = {
+      ExecStart = utils.escapeSystemdExecArgs [
+        (lib.getExe pkgs.ghostunnel)
+        "server"
+        "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
+        "--listen=[::]:9319"
+        "--target=${metricsAddress}"
+        "--allow-uri=spiffe://nichi.link/victoriametrics"
+      ];
     };
 
     systemd.services.spire-agent.serviceConfig.AmbientCapabilities = [

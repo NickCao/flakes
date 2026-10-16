@@ -11,6 +11,7 @@ let
     "subframe.nichi.link"
   ];
   node_exporter_targets = lib.map (v: "${v}:9317") targets;
+  caddy_targets = lib.map (v: "${v}:9319") targets;
   nameservers = data.nameservers ++ data.secondary_nameservers;
   relabel_configs = [
     {
@@ -109,9 +110,10 @@ in
         {
           job_name = "caddy";
           scheme = "https";
-          metrics_path = "/caddy";
-          inherit tls_config;
-          static_configs = [ { inherit targets; } ];
+          tls_config = spiffe_tls_config // {
+            server_name = "caddy.nichi.link";
+          };
+          static_configs = [ { targets = caddy_targets; } ];
         }
         {
           job_name = "dns";

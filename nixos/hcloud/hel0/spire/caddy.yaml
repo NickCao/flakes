@@ -1,0 +1,9 @@
+apiVersion: spire.spiffe.io/v1alpha1
+kind: ClusterStaticEntry
+spec:
+  parentID: spiffe://nichi.link/any
+  spiffeID: spiffe://nichi.link/caddy
+  dnsNames:
+    - caddy.nichi.link
+  selectors:
+    - systemd:id:spiffe-caddy.service
