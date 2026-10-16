@@ -9,7 +9,6 @@ let
   cfg = config.cloud.caddy;
   format = pkgs.formats.json { };
   configfile = format.generate "config.json" cfg.settings;
-  metricsAddress = "127.0.0.1:9320";
   # TODO: automatic refresh
   intermediate = pkgs.writeText "intermediate.pem" ''
     -----BEGIN CERTIFICATE-----
@@ -93,7 +92,7 @@ in
             );
           };
           servers.metrics = {
-            listen = [ metricsAddress ];
+            listen = [ "unix//run/caddy/metrics.sock|0660" ];
             automatic_https.disable = true;
             routes = lib.singleton {
               match = lib.singleton {
@@ -158,13 +157,19 @@ in
       requires = [ "network-online.target" ];
     };
 
+    systemd.services.spiffe-caddy = {
+      wants = [ config.systemd.services.caddy.name ];
+      after = [ config.systemd.services.caddy.name ];
+    };
+
     cloud.services.spiffe-caddy.config = {
+      Group = "caddy";
       ExecStart = utils.escapeSystemdExecArgs [
         (lib.getExe pkgs.ghostunnel)
         "server"
         "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
         "--listen=[::]:9319"
-        "--target=${metricsAddress}"
+        "--target=unix:/run/caddy/metrics.sock"
         "--allow-uri=spiffe://nichi.link/victoriametrics"
       ];
     };
