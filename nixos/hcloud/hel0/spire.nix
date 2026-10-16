@@ -72,7 +72,7 @@ in
         staticManifestPath = ./spire;
       })
     ];
-    SupplementaryGroups = [ "spire-server" ];
+    User = "spire-server";
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
