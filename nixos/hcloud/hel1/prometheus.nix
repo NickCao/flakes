@@ -8,6 +8,7 @@
 }:
 let
   targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [
+    "armchair.nichi.link"
     "subframe.nichi.link"
   ];
   node_exporter_targets = lib.map (v: "${v}:9317") targets;
