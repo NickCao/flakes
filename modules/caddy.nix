@@ -44,37 +44,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    passthru =
-      let
-        certDir = "/var/lib/caddy/certificates/ca.nichi.co-8443-acme-acme-directory";
-        certBase = "${certDir}/${config.networking.fqdn}/${config.networking.fqdn}";
-      in
-      {
-        inherit intermediate;
-        hostCrt = "${certBase}.crt";
-        hostKey = "${certBase}.key";
-      };
-    cloud.caddy.mtls = lib.singleton config.networking.fqdn;
     cloud.caddy.settings = {
       admin.disabled = true;
       apps = {
-        tls.certificates = {
-          automate = lib.singleton config.networking.fqdn;
-        };
         tls.automation.policies = [
-          {
-            subjects = lib.singleton config.networking.fqdn;
-            disable_ocsp_stapling = true;
-            key_type = "p256";
-            issuers = lib.singleton {
-              module = "acme";
-              ca = "https://ca.nichi.co:8443/acme/acme/directory";
-              trusted_roots_pem_files = lib.singleton intermediate;
-              challenges = {
-                http.disabled = true;
-              };
-            };
-          }
           {
             disable_ocsp_stapling = true;
             key_type = "p256";
@@ -103,8 +76,8 @@ in
               [ "h3" ]
             ];
             strict_sni_host = true;
-            tls_connection_policies = lib.mkAfter [
-              {
+            tls_connection_policies = lib.mkAfter (
+              lib.optional (cfg.mtls != [ ]) {
                 match = {
                   sni = cfg.mtls;
                 };
@@ -116,8 +89,8 @@ in
                   };
                 };
               }
-              { }
-            ];
+              ++ [ { } ]
+            );
           };
           servers.metrics = {
             listen = [ metricsAddress ];

@@ -29,11 +29,6 @@ let
         "${listenAddress}:${toString port}";
     }
   ];
-  tls_config = {
-    ca_file = config.passthru.intermediate;
-    cert_file = "/run/credentials/victoriametrics.service/crt";
-    key_file = "/run/credentials/victoriametrics.service/key";
-  };
   spiffe_tls_config = {
     ca_file = "/var/lib/victoriametrics/svid_bundle.pem";
     cert_file = "/var/lib/victoriametrics/svid.pem";
@@ -56,11 +51,6 @@ in
 
   systemd.services.victoriametrics.serviceConfig = {
     SupplementaryGroups = [ config.users.groups.victoriametrics-secrets.name ];
-    RefreshOnReload = [ "credentials" ];
-    LoadCredential = [
-      "key:${config.passthru.hostKey}"
-      "crt:${config.passthru.hostCrt}"
-    ];
   };
 
   cloud.services.spiffe-victoriametrics.config = {
@@ -76,14 +66,6 @@ in
       })
     ];
     StateDirectory = [ "victoriametrics" ];
-  };
-
-  systemd.services.victoriametrics-reload = {
-    startAt = "hourly";
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${config.systemd.package}/bin/systemctl try-reload-or-restart victoriametrics.service";
-    };
   };
 
   services.victoriametrics = {

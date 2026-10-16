@@ -45,10 +45,6 @@
       authority = {
         provisioners = [
           {
-            type = "ACME";
-            name = "acme";
-          }
-          {
             type = "OIDC";
             name = "keyclock";
             clientID = "step-ca";
