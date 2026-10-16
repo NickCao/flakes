@@ -35,10 +35,29 @@ in
 
     systemd.sockets.spiffe-systemd-journal-upload = {
       wantedBy = [ "sockets.target" ];
-      requiredBy = [ config.systemd.services.spiffe-systemd-journal-upload.name ];
-      listenStreams = [ "127.0.0.1:9430" ]; # TODO: secure this
-      socketConfig.FileDescriptorName = "spiffe-systemd-journal-upload";
+      requiredBy = [
+        config.systemd.services.spiffe-systemd-journal-upload.name
+        config.systemd.services.systemd-journal-upload.name
+      ];
+      before = [
+        config.systemd.services.systemd-journal-upload.name
+      ];
+      listenStreams = [ "127.0.0.1:8000" ];
+      socketConfig = {
+        PrivateNetwork = true;
+        FileDescriptorName = "spiffe-systemd-journal-upload";
+      };
     };
+
+    systemd.services.systemd-journal-upload = {
+      unitConfig.JoinsNamespaceOf = config.systemd.sockets.spiffe-systemd-journal-upload.name;
+      serviceConfig.PrivateNetwork = true;
+    };
+
+    # Restart the service when the socket changes
+    systemd.services.spiffe-systemd-journal-upload.restartTriggers = [
+      config.systemd.units.${config.systemd.sockets.spiffe-systemd-journal-upload.name}.unit
+    ];
 
     cloud.services.spiffe-systemd-journal-upload.config = {
       ExecStart = utils.escapeSystemdExecArgs [
@@ -54,7 +73,7 @@ in
     services.journald.upload = {
       enable = true;
       settings.Upload = {
-        URL = "http://127.0.0.1:9430/insert/journald";
+        URL = "http://127.0.0.1:8000/insert/journald";
         NetworkTimeoutSec = "5m";
         Compression = "zstd:4";
         ForceCompression = true;
