@@ -1,0 +1,7 @@
+apiVersion: spire.spiffe.io/v1alpha1
+kind: ClusterStaticEntry
+spec:
+  parentID: spiffe://nichi.link/mainframe
+  spiffeID: spiffe://nichi.link/nickcao
+  selectors:
+    - systemd:id:user@1000.service

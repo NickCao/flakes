@@ -50,10 +50,14 @@ in
           plugin_cmd = lib.getExe' pkgs.spire-tpm-plugin "tpm_attestor_server";
           plugin_data = {
             hash_path = toString (
-              pkgs.linkFarm "tpm-hashes" {
-                # subframe
-                "0de4d6b5b1b88b4687510969da833985b191e2fc49c162faaaa31959ff37dae9" = pkgs.emptyFile;
-              }
+              pkgs.linkFarm "tpm-hashes" (
+                lib.genAttrs [
+                  # subframe
+                  "0de4d6b5b1b88b4687510969da833985b191e2fc49c162faaaa31959ff37dae9"
+                  # mainframe
+                  "e2c790072d02cfc3ce976943ad663ab0462522127c036daa6154a4370ff4922c"
+                ] (_: pkgs.emptyFile)
+              )
             );
           };
         };

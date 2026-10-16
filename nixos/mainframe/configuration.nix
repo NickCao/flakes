@@ -352,6 +352,11 @@
 
   hardware.i2c.enable = true;
 
+  cloud.spire.agent = {
+    enable = true;
+    tpm = true;
+  };
+
   environment.stub-ld.enable = false;
 
   documentation.nixos.enable = false;
