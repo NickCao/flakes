@@ -1,4 +1,10 @@
-{ lib, config, ... }:
+{
+  lib,
+  utils,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (config.services.spire.server.settings.server.federation) bundle_endpoint;
 in
@@ -41,6 +47,32 @@ in
         };
       };
     };
+  };
+
+  cloud.services.spire-controller-manager.config = {
+    ExecStart = utils.escapeSystemdExecArgs [
+      (lib.getExe pkgs.spire-controller-manager)
+      "-config"
+      ((pkgs.formats.yaml { }).generate "spire-controller-manager.yaml" {
+        apiVersion = "spire.spiffe.io/v1alpha1";
+        kind = "ControllerManagerConfig";
+
+        clusterName = "default";
+        clusterDomain = "nichi.link";
+
+        trustDomain = "nichi.link";
+        spireServerSocketPath = "/run/spire/server/private/api.sock";
+
+        reconcile = {
+          clusterSPIFFEIDs = false;
+          clusterFederatedTrustDomains = false;
+          clusterStaticEntries = true;
+        };
+
+        staticManifestPath = ./spire;
+      })
+    ];
+    SupplementaryGroups = [ "spire-server" ];
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
