@@ -14,6 +14,7 @@ in
     settings = {
       server = {
         audit_log_enabled = true;
+        # audit_log_exclude_agent_sync = true;
         bind_address = "[::]";
         bind_port = 9443;
         prune_attested_nodes_expired_for = "24h";
