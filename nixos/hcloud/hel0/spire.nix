@@ -40,7 +40,7 @@ in
           keys_path = "/var/lib/spire/server/keys.json";
         };
         NodeAttestor.http_challenge.plugin_data = {
-          allowed_dns_patterns = [ "[a-z0-9]{1,63}\.nichi\.link" ];
+          allowed_dns_patterns = [ "^[a-z0-9]{1,63}\\.nichi\\.link$" ];
           required_port = 81;
           tofu = false;
           # verify_client_ip = true;
