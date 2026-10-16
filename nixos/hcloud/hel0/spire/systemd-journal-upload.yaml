@@ -1,0 +1,7 @@
+apiVersion: spire.spiffe.io/v1alpha1
+kind: ClusterStaticEntry
+spec:
+  parentID: spiffe://nichi.link/any
+  spiffeID: spiffe://nichi.link/systemd-journal-upload
+  selectors:
+    - systemd:id:spiffe-systemd-journal-upload.service
