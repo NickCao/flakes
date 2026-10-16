@@ -30,9 +30,6 @@ creation_rules:
       - age:
           - *self
           - *iad0
-          - *nrt0
-          - *sin0
-          - *sea0
   - path_regex: nixos/mainframe/secrets\.yaml
     key_groups:
       - age:
