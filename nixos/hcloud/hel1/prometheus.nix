@@ -3,6 +3,7 @@
   pkgs,
   lib,
   data,
+  utils,
   ...
 }:
 let
@@ -53,6 +54,21 @@ in
       "key:${config.passthru.hostKey}"
       "crt:${config.passthru.hostCrt}"
     ];
+  };
+
+  cloud.services.spiffe-victoriametrics.config = {
+    ExecStart = utils.escapeSystemdExecArgs [
+      (lib.getExe pkgs.spiffe-helper)
+      "-config"
+      ((pkgs.formats.json { }).generate "spiffe-victoriametrics.json" {
+        agent_address = "/run/spire/agent/public/api.sock";
+        cert_dir = "/var/lib/victoriametrics";
+        svid_file_name = "svid.pem";
+        svid_key_file_name = "svid_key.pem";
+        svid_bundle_file_name = "svid_bundle.pem";
+      })
+    ];
+    StateDirectory = [ "victoriametrics" ];
   };
 
   systemd.services.victoriametrics-reload = {
