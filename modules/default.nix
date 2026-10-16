@@ -5,6 +5,7 @@
       imports = [
         (import ./baseline.nix)
         (import ./caddy.nix)
+        (import ./ghostunnel.nix)
         (import ./metrics)
         (import ./dns/spiffe.nix)
         (import ./dns/secondary)

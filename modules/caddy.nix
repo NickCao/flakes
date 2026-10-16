@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  utils,
   ...
 }:
 let
@@ -165,17 +164,13 @@ in
       after = [ config.systemd.services.caddy.name ];
     };
 
-    cloud.services.spiffe-caddy.config = {
-      Group = "caddy";
-      ExecStart = utils.escapeSystemdExecArgs [
-        (lib.getExe pkgs.ghostunnel)
-        "server"
-        "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
-        "--listen=[::]:9319"
-        "--target=unix:/run/caddy/metrics.sock"
-        "--allow-uri=spiffe://nichi.link/victoriametrics"
-      ];
+    cloud.ghostunnel.servers.spiffe-caddy = {
+      listen = "[::]:9319";
+      target = "unix:/run/caddy/metrics.sock";
+      allowURIs = [ "spiffe://nichi.link/victoriametrics" ];
     };
+
+    cloud.services.spiffe-caddy.config.Group = "caddy";
 
     systemd.services.spire-agent.serviceConfig = {
       AmbientCapabilities = lib.mkIf (!config.cloud.spire.tpm) [

@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  utils,
-  pkgs,
   ...
 }:
 {
@@ -11,15 +9,10 @@
     listenAddress = "127.0.0.1:9428";
   };
 
-  cloud.services.spiffe-victorialogs.config = {
-    ExecStart = utils.escapeSystemdExecArgs [
-      (lib.getExe pkgs.ghostunnel)
-      "server"
-      "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
-      "--listen=[::]:9429"
-      "--target=${config.services.victorialogs.listenAddress}"
-      "--allow-uri=spiffe://nichi.link/systemd-journal-upload"
-    ];
+  cloud.ghostunnel.servers.spiffe-victorialogs = {
+    listen = "[::]:9429";
+    target = config.services.victorialogs.listenAddress;
+    allowURIs = [ "spiffe://nichi.link/systemd-journal-upload" ];
   };
 
   cloud.caddy.mtls = lib.singleton "logs.nichi.co";

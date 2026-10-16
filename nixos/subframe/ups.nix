@@ -1,8 +1,6 @@
 {
   config,
   pkgs,
-  lib,
-  utils,
   ...
 }:
 {
@@ -35,16 +33,9 @@
     listenAddress = "127.0.0.1";
   };
 
-  cloud.services.spiffe-prometheus-nut-exporter.config = {
-    ExecStart =
-      with config.services.prometheus.exporters.nut;
-      utils.escapeSystemdExecArgs [
-        (lib.getExe pkgs.ghostunnel)
-        "server"
-        "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
-        "--listen=[::]:9318"
-        "--target=${listenAddress}:${toString port}"
-        "--allow-uri=spiffe://nichi.link/victoriametrics"
-      ];
+  cloud.ghostunnel.servers.spiffe-prometheus-nut-exporter = {
+    listen = "[::]:9318";
+    target = with config.services.prometheus.exporters.nut; "${listenAddress}:${toString port}";
+    allowURIs = [ "spiffe://nichi.link/victoriametrics" ];
   };
 }

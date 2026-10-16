@@ -1,8 +1,6 @@
 {
   config,
-  utils,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -41,17 +39,15 @@ in
       config.systemd.units.${config.systemd.sockets.prometheus-node-exporter.name}.unit
     ];
 
-    cloud.services.spiffe-prometheus-node-exporter.config = {
-      ExecStart = utils.escapeSystemdExecArgs [
-        (lib.getExe pkgs.ghostunnel)
-        "server"
-        "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
-        "--listen=[::]:9317"
-        "--target=unix:/run/prometheus-node-exporter.sock"
-        "--allow-uri=spiffe://nichi.link/victoriametrics"
-      ];
-      SupplementaryGroups = [ config.services.prometheus.exporters.node.group ];
+    cloud.ghostunnel.servers.spiffe-prometheus-node-exporter = {
+      listen = "[::]:9317";
+      target = "unix:/run/prometheus-node-exporter.sock";
+      allowURIs = [ "spiffe://nichi.link/victoriametrics" ];
     };
+
+    cloud.services.spiffe-prometheus-node-exporter.config.SupplementaryGroups = [
+      config.services.prometheus.exporters.node.group
+    ];
 
     systemd.sockets.spiffe-systemd-journal-upload = {
       wantedBy = [ "sockets.target" ];
@@ -79,15 +75,10 @@ in
       config.systemd.units.${config.systemd.sockets.spiffe-systemd-journal-upload.name}.unit
     ];
 
-    cloud.services.spiffe-systemd-journal-upload.config = {
-      ExecStart = utils.escapeSystemdExecArgs [
-        (lib.getExe pkgs.ghostunnel)
-        "client"
-        "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
-        "--listen=systemd:spiffe-systemd-journal-upload"
-        "--target=logs.nichi.co:9429"
-        "--verify-uri=spiffe://nichi.link/victorialogs"
-      ];
+    cloud.ghostunnel.clients.spiffe-systemd-journal-upload = {
+      listen = "systemd:spiffe-systemd-journal-upload";
+      target = "logs.nichi.co:9429";
+      verifyURI = "spiffe://nichi.link/victorialogs";
     };
 
     services.journald.upload = {
