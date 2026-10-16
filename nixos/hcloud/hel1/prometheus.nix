@@ -33,6 +33,11 @@ let
     cert_file = "/run/credentials/victoriametrics.service/crt";
     key_file = "/run/credentials/victoriametrics.service/key";
   };
+  spiffe_tls_config = {
+    ca_file = "/var/lib/victoriametrics/svid_bundle.pem";
+    cert_file = "/var/lib/victoriametrics/svid.pem";
+    key_file = "/var/lib/victoriametrics/svid_key.pem";
+  };
 in
 {
   sops.secrets = {
@@ -96,10 +101,7 @@ in
         {
           job_name = "metrics";
           scheme = "https";
-          tls_config = {
-            ca_file = "/var/lib/victoriametrics/svid_bundle.pem";
-            cert_file = "/var/lib/victoriametrics/svid.pem";
-            key_file = "/var/lib/victoriametrics/svid_key.pem";
+          tls_config = spiffe_tls_config // {
             server_name = "prometheus-node-exporter.nichi.link";
           };
           static_configs = [ { targets = node_exporter_targets; } ];
@@ -163,8 +165,10 @@ in
           job_name = "ups";
           scheme = "https";
           metrics_path = "/ups_metrics";
-          inherit tls_config;
-          static_configs = [ { targets = [ "subframe.nichi.link" ]; } ];
+          tls_config = spiffe_tls_config // {
+            server_name = "prometheus-nut-exporter.nichi.link";
+          };
+          static_configs = [ { targets = [ "subframe.nichi.link:9318" ]; } ];
         }
         {
           job_name = "scw-par";

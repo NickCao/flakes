@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  lib,
+  utils,
   ...
 }:
 {
@@ -33,22 +35,16 @@
     listenAddress = "127.0.0.1";
   };
 
-  cloud.caddy.settings.apps.http.servers.default.routes = [
-    {
-      match = [
-        {
-          host = [ config.networking.fqdn ];
-          path = [ "/ups_metrics" ];
-        }
+  cloud.services.spiffe-prometheus-nut-exporter.config = {
+    ExecStart =
+      with config.services.prometheus.exporters.nut;
+      utils.escapeSystemdExecArgs [
+        (lib.getExe pkgs.ghostunnel)
+        "server"
+        "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
+        "--listen=[::]:9318"
+        "--target=${listenAddress}:${toString port}"
+        "--allow-uri=spiffe://nichi.link/victoriametrics"
       ];
-      handle = [
-        {
-          handler = "reverse_proxy";
-          upstreams = with config.services.prometheus.exporters.nut; [
-            { dial = "${listenAddress}:${toString port}"; }
-          ];
-        }
-      ];
-    }
-  ];
+  };
 }
