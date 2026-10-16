@@ -20,17 +20,17 @@ in
       disabledCollectors = [ "arp" ];
     };
 
-    cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
-      match = lib.singleton {
-        host = lib.singleton config.networking.fqdn;
-        path = lib.singleton "/metrics";
-      };
-      handle = lib.singleton {
-        handler = "reverse_proxy";
-        upstreams =
-          with config.services.prometheus.exporters.node;
-          lib.singleton { dial = "${listenAddress}:${toString port}"; };
-      };
+    cloud.services.spiffe-prometheus-node-exporter.config = {
+      ExecStart =
+        with config.services.prometheus.exporters.node;
+        utils.escapeSystemdExecArgs [
+          (lib.getExe pkgs.ghostunnel)
+          "server"
+          "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
+          "--listen=[::]:9317"
+          "--target=${listenAddress}:${toString port}"
+          "--allow-uri=spiffe://nichi.link/victoriametrics"
+        ];
     };
 
     systemd.sockets.spiffe-systemd-journal-upload = {

@@ -10,6 +10,7 @@ let
   targets = lib.mapAttrsToList (_mame: node: node.fqdn) data.nodes ++ [
     "subframe.nichi.link"
   ];
+  node_exporter_targets = lib.map (v: "${v}:9317") targets;
   nameservers = data.nameservers ++ data.secondary_nameservers;
   relabel_configs = [
     {
@@ -95,8 +96,13 @@ in
         {
           job_name = "metrics";
           scheme = "https";
-          inherit tls_config;
-          static_configs = [ { inherit targets; } ];
+          tls_config = {
+            ca_file = "/var/lib/victoriametrics/svid_bundle.pem";
+            cert_file = "/var/lib/victoriametrics/svid.pem";
+            key_file = "/var/lib/victoriametrics/svid_key.pem";
+            server_name = "prometheus-node-exporter.nichi.link";
+          };
+          static_configs = [ { targets = node_exporter_targets; } ];
         }
         {
           job_name = "caddy";
