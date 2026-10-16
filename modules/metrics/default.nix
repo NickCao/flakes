@@ -18,19 +18,39 @@ in
       listenAddress = "127.0.0.1";
       enabledCollectors = [ "systemd" ];
       disabledCollectors = [ "arp" ];
+      extraFlags = [ "--web.systemd-socket" ];
     };
 
+    systemd.sockets.prometheus-node-exporter = {
+      wantedBy = [ "sockets.target" ];
+      requiredBy = [
+        config.systemd.services.prometheus-node-exporter.name
+        config.systemd.services.spiffe-prometheus-node-exporter.name
+      ];
+      before = [
+        config.systemd.services.spiffe-prometheus-node-exporter.name
+      ];
+      listenStreams = [ "/run/prometheus-node-exporter.sock" ];
+      socketConfig = {
+        SocketGroup = config.services.prometheus.exporters.node.group;
+        SocketMode = "0660";
+      };
+    };
+
+    systemd.services.prometheus-node-exporter.restartTriggers = [
+      config.systemd.units.${config.systemd.sockets.prometheus-node-exporter.name}.unit
+    ];
+
     cloud.services.spiffe-prometheus-node-exporter.config = {
-      ExecStart =
-        with config.services.prometheus.exporters.node;
-        utils.escapeSystemdExecArgs [
-          (lib.getExe pkgs.ghostunnel)
-          "server"
-          "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
-          "--listen=[::]:9317"
-          "--target=${listenAddress}:${toString port}"
-          "--allow-uri=spiffe://nichi.link/victoriametrics"
-        ];
+      ExecStart = utils.escapeSystemdExecArgs [
+        (lib.getExe pkgs.ghostunnel)
+        "server"
+        "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
+        "--listen=[::]:9317"
+        "--target=unix:/run/prometheus-node-exporter.sock"
+        "--allow-uri=spiffe://nichi.link/victoriametrics"
+      ];
+      SupplementaryGroups = [ config.services.prometheus.exporters.node.group ];
     };
 
     systemd.sockets.spiffe-systemd-journal-upload = {
