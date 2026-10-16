@@ -1,4 +1,7 @@
-{ ... }:
+{ lib, config, ... }:
+let
+  inherit (config.services.spire.server.settings.server.federation) bundle_endpoint;
+in
 {
   services.spire.server = {
     enable = true;
@@ -12,6 +15,13 @@
           country = [ "US" ];
           organization = [ "Nichi Yorozuya" ];
           common_name = "SPIRE";
+        };
+        federation = {
+          bundle_endpoint = {
+            address = "127.0.0.1";
+            port = 7910;
+            profile.https_spiffe = { };
+          };
         };
       };
       plugins = {
@@ -28,6 +38,20 @@
           tofu = false;
           # verify_client_ip = true;
         };
+      };
+    };
+  };
+
+  cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
+    match = lib.singleton { host = lib.singleton "spire.nichi.co"; };
+    handle = lib.singleton {
+      handler = "reverse_proxy";
+      transport = {
+        protocol = "http";
+        tls.insecure_skip_verify = true;
+      };
+      upstreams = lib.singleton {
+        dial = "${bundle_endpoint.address}:${toString bundle_endpoint.port}";
       };
     };
   };
