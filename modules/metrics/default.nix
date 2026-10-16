@@ -1,6 +1,8 @@
 {
   config,
+  utils,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -29,6 +31,21 @@ in
           with config.services.prometheus.exporters.node;
           lib.singleton { dial = "${listenAddress}:${toString port}"; };
       };
+    };
+
+    cloud.services.spiffe-systemd-journal-upload.config = {
+      ExecStart = utils.escapeSystemdExecArgs [
+        (lib.getExe pkgs.spiffe-helper)
+        "-config"
+        ((pkgs.formats.json { }).generate "spiffe-sysemd-journal-upload.json" {
+          agent_address = "/run/spire/agent/public/api.sock";
+          cert_dir = "/var/lib/spiffe-systemd-journal-upload";
+          svid_file_name = "svid.pem";
+          svid_key_file_name = "svid_key.pem";
+          svid_bundle_file_name = "svid_bundle.pem";
+        })
+      ];
+      StateDirectory = [ "spiffe-systemd-journal-upload" ];
     };
 
     systemd.services.systemd-journal-upload.serviceConfig = {

@@ -10,6 +10,7 @@ in
         audit_log_enabled = true;
         bind_address = "[::]";
         bind_port = 9443;
+        prune_attested_nodes_expired_for = "24h";
         trust_domain = "nichi.link";
         ca_subject = {
           country = [ "US" ];
