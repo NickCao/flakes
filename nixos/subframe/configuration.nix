@@ -129,6 +129,8 @@
     };
   };
 
+  cloud.spire.tpm = true;
+
   services.timesyncd.enable = true;
   services.ntpd-rs.enable = false;
 

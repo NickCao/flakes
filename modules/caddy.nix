@@ -40,6 +40,9 @@ in
         default = { };
       };
     };
+    cloud.spire = {
+      tpm = lib.mkEnableOption "spire tpm attestation";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -174,9 +177,14 @@ in
       ];
     };
 
-    systemd.services.spire-agent.serviceConfig.AmbientCapabilities = [
-      "CAP_NET_BIND_SERVICE"
-    ];
+    systemd.services.spire-agent.serviceConfig = {
+      AmbientCapabilities = lib.mkIf (!config.cloud.spire.tpm) [
+        "CAP_NET_BIND_SERVICE"
+      ];
+      SupplementaryGroups = lib.mkIf (config.cloud.spire.tpm) [
+        "tss"
+      ];
+    };
 
     services.spire.agent = {
       enable = true;
@@ -191,9 +199,17 @@ in
         };
         plugins = {
           KeyManager.memory = { };
-          NodeAttestor.http_challenge.plugin_data = {
-            hostname = config.networking.fqdn;
-            port = 81;
+          NodeAttestor = {
+            http_challenge = lib.mkIf (!config.cloud.spire.tpm) {
+              plugin_data = {
+                hostname = config.networking.fqdn;
+                port = 81;
+              };
+            };
+            tpm = lib.mkIf (config.cloud.spire.tpm) {
+              plugin_cmd = lib.getExe' pkgs.spire-tpm-plugin "tpm_attestor_agent";
+              plugin_data = { };
+            };
           };
           WorkloadAttestor.systemd = { };
         };

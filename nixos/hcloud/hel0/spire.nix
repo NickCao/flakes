@@ -46,6 +46,17 @@ in
           tofu = false;
           # verify_client_ip = true;
         };
+        NodeAttestor.tpm = {
+          plugin_cmd = lib.getExe' pkgs.spire-tpm-plugin "tpm_attestor_server";
+          plugin_data = {
+            hash_path = toString (
+              pkgs.linkFarm "tpm-hashes" {
+                # subframe
+                "0de4d6b5b1b88b4687510969da833985b191e2fc49c162faaaa31959ff37dae9" = pkgs.emptyFile;
+              }
+            );
+          };
+        };
       };
     };
   };

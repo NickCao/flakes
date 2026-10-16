@@ -1,7 +1,7 @@
 apiVersion: spire.spiffe.io/v1alpha1
 kind: ClusterStaticEntry
 spec:
-  parentID: spiffe://nichi.link/spire/agent/http_challenge/subframe.nichi.link
+  parentID: spiffe://nichi.link/spire/agent/tpm/0de4d6b5b1b88b4687510969da833985b191e2fc49c162faaaa31959ff37dae9
   spiffeID: spiffe://nichi.link/prometheus-nut-exporter
   dnsNames:
     - prometheus-nut-exporter.nichi.link
