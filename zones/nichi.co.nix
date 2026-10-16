@@ -56,6 +56,7 @@ dns.lib.toString "nichi.co" {
     mail.CNAME = [ "iad0.nichi.link." ];
     ntfy.CNAME = [ "hel1.nichi.link." ];
     vault.CNAME = [ "hel0.nichi.link." ];
+    spire.CNAME = [ "hel0.nichi.link." ];
     immich.CNAME = [ "subframe.nichi.link." ];
     matrix.CNAME = [ "hio0.nichi.link." ];
     matrix-auth.CNAME = [ "hio0.nichi.link." ];
