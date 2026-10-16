@@ -7,6 +7,7 @@
     ./rustical.nix
     ./litestream.nix
     ./step-ca.nix
+    ./spire.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
