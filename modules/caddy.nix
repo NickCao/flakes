@@ -24,6 +24,23 @@ let
     x4n/lw==
     -----END CERTIFICATE-----
   '';
+  # TODO: automatic refresh
+  spire_trust_bundle = pkgs.writeText "spire.pem" ''
+    -----BEGIN CERTIFICATE-----
+    MIICMTCCAdegAwIBAgIRANiHljW8vkMRPwsxKwvN9MIwCgYIKoZIzj0EAwIwaDEL
+    MAkGA1UEBhMCVVMxFzAVBgNVBAoTDk5pY2hpIFlvcm96dXlhMQ4wDAYDVQQDEwVT
+    UElSRTEwMC4GA1UEBRMnMjg3ODE3MjUzNzg0MzkwMzg1NzUyNDc4ODU5MjYzMzUw
+    Nzk3NTA2MB4XDTI2MTAxNjAxMzU0OFoXDTI2MTAxNzAxMzU1OFowaDELMAkGA1UE
+    BhMCVVMxFzAVBgNVBAoTDk5pY2hpIFlvcm96dXlhMQ4wDAYDVQQDEwVTUElSRTEw
+    MC4GA1UEBRMnMjg3ODE3MjUzNzg0MzkwMzg1NzUyNDc4ODU5MjYzMzUwNzk3NTA2
+    MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIxsKmTs45HkDPNYd45Pojuhii24Q
+    JvJTRWf3xUxtg+xhGPWxqpiB0H/Fj4WAU71PF6UrGG/vI+Em9sAYDc4h06NiMGAw
+    DgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFBi8JSEd
+    mI2NMqX+M3b70X6sBFkpMB4GA1UdEQQXMBWGE3NwaWZmZTovL25pY2hpLmxpbmsw
+    CgYIKoZIzj0EAwIDSAAwRQIhAJOnjIN9IX9UYCHOo/Csx4pc7OA8XnwItkEdyiRX
+    jnYmAiAapJS+/CamREvxpeHz1Wnor3VsPkbSNJpTOS4hiQo92g==
+    -----END CERTIFICATE-----
+  '';
 in
 {
 
@@ -178,6 +195,31 @@ in
       reloadTriggers = [ configfile ];
       after = [ "network-online.target" ];
       requires = [ "network-online.target" ];
+    };
+
+    systemd.services.spire-agent.serviceConfig.AmbientCapabilities = [
+      "CAP_NET_BIND_SERVICE"
+    ];
+
+    services.spire.agent = {
+      enable = true;
+      settings = {
+        agent = {
+          rebootstrap_mode = "auto";
+          server_address = "spire.nichi.co";
+          server_port = 9443;
+          trust_domain = "nichi.link";
+          trust_bundle_path = spire_trust_bundle;
+        };
+        plugins = {
+          KeyManager.memory = { };
+          NodeAttestor.http_challenge.plugin_data = {
+            hostname = config.networking.fqdn;
+            port = 81;
+          };
+          WorkloadAttestor.systemd = { };
+        };
+      };
     };
   };
 }
