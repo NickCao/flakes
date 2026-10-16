@@ -33,47 +33,31 @@ in
       };
     };
 
+    systemd.sockets.spiffe-systemd-journal-upload = {
+      wantedBy = [ "sockets.target" ];
+      requiredBy = [ config.systemd.services.spiffe-systemd-journal-upload.name ];
+      listenStreams = [ "127.0.0.1:9430" ]; # TODO: secure this
+      socketConfig.FileDescriptorName = "spiffe-systemd-journal-upload";
+    };
+
     cloud.services.spiffe-systemd-journal-upload.config = {
       ExecStart = utils.escapeSystemdExecArgs [
-        (lib.getExe pkgs.spiffe-helper)
-        "-config"
-        ((pkgs.formats.json { }).generate "spiffe-sysemd-journal-upload.json" {
-          agent_address = "/run/spire/agent/public/api.sock";
-          cert_dir = "/var/lib/spiffe-systemd-journal-upload";
-          svid_file_name = "svid.pem";
-          svid_key_file_name = "svid_key.pem";
-          svid_bundle_file_name = "svid_bundle.pem";
-        })
+        (lib.getExe pkgs.ghostunnel)
+        "client"
+        "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
+        "--listen=systemd:spiffe-systemd-journal-upload"
+        "--target=logs.nichi.co:9429"
+        "--verify-uri=spiffe://nichi.link/victorialogs"
       ];
-      StateDirectory = [ "spiffe-systemd-journal-upload" ];
-    };
-
-    systemd.services.systemd-journal-upload.serviceConfig = {
-      RefreshOnReload = [ "credentials" ];
-      LoadCredential = [
-        "key:${config.passthru.hostKey}"
-        "crt:${config.passthru.hostCrt}"
-      ];
-    };
-
-    systemd.services.systemd-journal-upload-reload = {
-      startAt = "hourly";
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${config.systemd.package}/bin/systemctl try-reload-or-restart systemd-journal-upload.service";
-      };
     };
 
     services.journald.upload = {
       enable = true;
       settings.Upload = {
-        URL = "https://logs.nichi.co:443/insert/journald";
+        URL = "http://127.0.0.1:9430/insert/journald";
         NetworkTimeoutSec = "5m";
         Compression = "zstd:4";
         ForceCompression = true;
-        TrustedCertificateFile = "${config.security.pki.caBundle}";
-        ServerKeyFile = "/run/credentials/systemd-journal-upload.service/key";
-        ServerCertificateFile = "/run/credentials/systemd-journal-upload.service/crt";
       };
     };
   };
