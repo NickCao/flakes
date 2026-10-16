@@ -6,6 +6,7 @@
         (import ./baseline.nix)
         (import ./caddy.nix)
         (import ./metrics)
+        (import ./dns/spiffe.nix)
         (import ./dns/secondary)
         (import ./cloud/services.nix)
         (import ./gravity)
