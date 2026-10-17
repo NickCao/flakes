@@ -173,6 +173,7 @@ in
     android-tools
     bubblewrap
     ddcutil
+    openbao
   ];
 
   systemd.user.sessionVariables = {
