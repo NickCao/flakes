@@ -10,15 +10,19 @@
     restartUnits = [ config.systemd.services.openbao.name ];
   };
 
-  systemd.services.openbao.serviceConfig.LoadCredential = [
-    "current_key:${config.sops.secrets.openbao.path}"
-  ];
+  systemd.services.openbao = {
+    restartIfChanged = lib.mkForce true; # auto unseal
+    serviceConfig.LoadCredential = [
+      "current_key:${config.sops.secrets.openbao.path}"
+    ];
+  };
 
   services.openbao = {
     enable = true;
     settings = {
       api_addr = "unix:///run/openbao/openbao.sock";
       disable_clustering = true;
+      ui = true;
       listener.unix = {
         type = "unix";
         address = "/run/openbao/openbao.sock";
@@ -78,6 +82,14 @@
       ];
     };
   };
+
+  cloud.ghostunnel.servers.spiffe-openbao = {
+    listen = "[::]:9545";
+    target = "unix:/run/openbao/openbao.sock";
+    allowURIs = [ "spiffe://nichi.link/nickcao" ];
+  };
+
+  cloud.services.spiffe-openbao.config.User = "openbao";
 
   cloud.services.spire-oidc-discovery-provider.config = {
     ExecStart = utils.escapeSystemdExecArgs [
