@@ -86,7 +86,7 @@
   cloud.ghostunnel.servers.spiffe-openbao = {
     listen = "[::]:9545";
     target = "unix:/run/openbao/openbao.sock";
-    allowURIs = [ "spiffe://nichi.link/nickcao" ];
+    allowURIs = [ "spiffe://nichi.link/openbao-agent-proxy" ];
   };
 
   cloud.services.spiffe-openbao.config.User = "openbao";
