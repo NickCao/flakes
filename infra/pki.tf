@@ -46,3 +46,83 @@ resource "vault_pki_secret_backend_intermediate_set_signed" "pki_users_intermedi
   certificate = vault_pki_secret_backend_root_sign_intermediate.pki_users_intermediate.certificate_bundle
 }
 
+resource "vault_jwt_auth_backend" "oidc" {
+  path = "oidc"
+  type = "oidc"
+
+  oidc_discovery_url = "https://id.nichi.co/realms/nichi"
+  oidc_client_id     = keycloak_openid_client.openbao.client_id
+  oidc_client_secret = keycloak_openid_client.openbao.client_secret
+}
+
+resource "vault_pki_secret_backend_role" "oidc_user" {
+  backend    = vault_mount.pki_users_intermediate.path
+  name       = "user"
+  issuer_ref = "default"
+
+  ttl     = 30 * 24 * 60 * 60
+  max_ttl = 30 * 24 * 60 * 60
+
+  allowed_domains_template = true
+  allowed_domains = [
+    "{{identity.entity.aliases.${vault_jwt_auth_backend.oidc.accessor}.metadata.email}}"
+  ]
+
+  allow_bare_domains          = true
+  allow_subdomains            = false
+  allow_localhost             = false
+  allow_ip_sans               = false
+  allow_wildcard_certificates = false
+
+  require_cn          = false
+  use_csr_common_name = false
+  use_csr_sans        = false
+
+  key_type       = "any"
+  key_usage      = ["DigitalSignature"]
+  client_flag    = true
+  server_flag    = false
+  generate_lease = false
+
+  depends_on = [
+    vault_pki_secret_backend_intermediate_set_signed.pki_users_intermediate
+  ]
+}
+
+resource "vault_policy" "oidc_user_certificates" {
+  name = "oidc-user-certificates"
+
+  policy = <<-EOT
+    path "${vault_mount.pki_users_intermediate.path}/sign/${vault_pki_secret_backend_role.oidc_user.name}" {
+      capabilities = ["update"]
+
+      required_parameters = ["csr", "alt_names"]
+
+      allowed_parameters = {
+        csr       = []
+        alt_names = []
+        ttl       = []
+        format    = []
+      }
+    }
+  EOT
+}
+
+resource "vault_jwt_auth_backend_role" "oidc_user" {
+  backend   = vault_jwt_auth_backend.oidc.path
+  role_name = "user-certificates"
+  role_type = "oidc"
+
+  user_claim            = "sub"
+  oidc_scopes           = ["email"]
+  allowed_redirect_uris = keycloak_openid_client.openbao.valid_redirect_uris
+
+  claim_mappings = {
+    email = "email"
+  }
+
+  token_policies = [vault_policy.oidc_user_certificates.name]
+  token_ttl      = 15 * 60
+  token_max_ttl  = 15 * 60
+}
+

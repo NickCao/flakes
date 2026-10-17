@@ -115,16 +115,18 @@ resource "keycloak_realm_events" "events" {
   events_listeners             = ["jboss-logging"]
 }
 
-# https://gist.github.com/tashian/2299ea8b0ee0236267659f3a92ef7cea
-resource "keycloak_openid_client" "step_ca" {
+resource "keycloak_openid_client" "openbao" {
   realm_id    = keycloak_realm.nichi.id
-  client_id   = "step-ca"
-  name        = "Step CA"
+  client_id   = "openbao"
+  name        = "OpenBao"
   access_type = "CONFIDENTIAL"
 
-  implicit_flow_enabled               = false
-  standard_flow_enabled               = true
-  valid_redirect_uris                 = ["http://127.0.0.1/*"]
+  implicit_flow_enabled = false
+  standard_flow_enabled = true
+  valid_redirect_uris = [
+    "http://localhost:8250/oidc/callback",
+    "http://127.0.0.1:8200/ui/vault/auth/oidc/oidc/callback",
+  ]
   web_origins                         = ["http://127.0.0.1"]
   frontchannel_logout_enabled         = false
   backchannel_logout_session_required = true
