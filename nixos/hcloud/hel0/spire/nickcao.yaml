@@ -5,3 +5,4 @@ spec:
   spiffeID: spiffe://nichi.link/nickcao
   selectors:
     - systemd:id:user@1000.service
+    - unix:user:nickcao

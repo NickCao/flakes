@@ -48,6 +48,7 @@ in
           };
         };
         WorkloadAttestor.systemd = { };
+        WorkloadAttestor.unix = { };
       };
     };
   };
