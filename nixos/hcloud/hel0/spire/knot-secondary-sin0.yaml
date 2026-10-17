@@ -1,9 +1,0 @@
-apiVersion: spire.spiffe.io/v1alpha1
-kind: ClusterStaticEntry
-spec:
-  parentID: spiffe://nichi.link/spire/agent/http_challenge/sin0.nichi.link
-  spiffeID: spiffe://nichi.link/knot-secondary
-  dnsNames:
-    - knot-secondary.nichi.link
-  selectors:
-    - systemd:id:spiffe-knot.service

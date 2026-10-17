@@ -8,7 +8,6 @@
         (import ./spire-agent.nix)
         (import ./ghostunnel.nix)
         (import ./metrics)
-        (import ./dns/spiffe.nix)
         (import ./dns/secondary)
         (import ./cloud/services.nix)
         (import ./gravity)

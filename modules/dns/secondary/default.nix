@@ -13,6 +13,18 @@ in
     enable = mkEnableOption "secondary dns service";
   };
   config = mkIf cfg.enable {
+    sops.secrets = {
+      "quic/key" = {
+        owner = config.systemd.services.knot.serviceConfig.User;
+        restartUnits = [ "knot.service" ];
+        sopsFile = ../../../zones/secrets.yaml;
+      };
+      "quic/cert" = {
+        owner = config.systemd.services.knot.serviceConfig.User;
+        restartUnits = [ "knot.service" ];
+        sopsFile = ../../../zones/secrets.yaml;
+      };
+    };
     services.knot = {
       enable = true;
       settings = {
@@ -30,6 +42,8 @@ in
             "0.0.0.0"
             "::"
           ];
+          key-file = config.sops.secrets."quic/key".path;
+          cert-file = config.sops.secrets."quic/cert".path;
         };
 
         log = [
@@ -47,7 +61,7 @@ in
               data.nodes.iad0.ipv6
             ];
             quic = true;
-            cert-hostname = "knot-primary.nichi.link";
+            cert-key = "ZvTOnBFFp0WBMFOu62pjGrYVeBOQK3STxJu99C9BuGA=";
           }
           {
             id = "cloudflare";
