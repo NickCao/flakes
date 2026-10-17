@@ -1,19 +1,55 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
   cfg = config.services.rustical.settings;
 in
 {
-  sops.secrets.rustical = {
-    restartUnits = [ "rustical.service" ];
+  systemd.services.rustical = {
+    serviceConfig = {
+      RestartSec = 10;
+      EnvironmentFile = [ "-%t/rustical/credentials" ];
+    };
+    path = [ pkgs.getent ]; # for bao agent
+    preStart = ''
+      ${lib.getExe' pkgs.spire "spire-agent"} api fetch jwt \
+        -audience openbao \
+        -socketPath /run/spire/agent/public/api.sock \
+        -output json | ${lib.getExe pkgs.jq} -r '.[0].svids.[0].svid' \
+        > /run/rustical/token
+      ${lib.getExe pkgs.openbao} agent -exit-after-auth \
+        -config ${pkgs.writeText "rustical-openbao-agent.hcl" ''
+          vault {
+            address = "http://127.0.0.1:8200"
+          }
+          auto_auth {
+            method "jwt" {
+              mount_path = "auth/spiffe"
+              config {
+                path = "/run/rustical/token"
+                role = "rustical"
+              }
+            }
+          }
+          template {
+            perms = "0600"
+            contents = <<EOT
+          {{ with secret "secrets/oidc_client_rustical" }}
+          RUSTICAL_OIDC__CLIENT_ID={{ .Data.data.client_id }}
+          RUSTICAL_OIDC__CLIENT_SECRET={{ .Data.data.client_secret }}
+          {{ end }}
+          EOT
+            destination = "/run/rustical/credentials"
+          }
+        ''}
+    '';
   };
 
   services.rustical = {
     enable = true;
-    environmentFiles = [ config.sops.secrets.rustical.path ];
     settings = {
       dav_push = {
         enabled = true;

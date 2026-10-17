@@ -36,6 +36,17 @@ resource "vault_kv_secret_v2" "scaleway_iam_litestream" {
   )
 }
 
+resource "vault_kv_secret_v2" "oidc_client_rustical" {
+  mount = vault_mount.secrets.path
+  name  = "oidc_client_rustical"
+  data_json = jsonencode(
+    {
+      client_id     = keycloak_openid_client.rustical.client_id
+      client_secret = keycloak_openid_client.rustical.client_secret
+    }
+  )
+}
+
 resource "vault_policy" "restic" {
   name = "restic"
 
@@ -78,4 +89,26 @@ resource "vault_jwt_auth_backend_role" "litestream" {
   backend = "spiffe"
 
   token_policies = [vault_policy.litestream.name]
+}
+
+resource "vault_policy" "rustical" {
+  name = "rustical"
+
+  policy = <<EOT
+path "${vault_kv_secret_v2.oidc_client_rustical.path}" {
+  capabilities = ["read"]
+}
+EOT
+}
+
+resource "vault_jwt_auth_backend_role" "rustical" {
+  role_name       = "rustical"
+  role_type       = "jwt"
+  user_claim      = "sub"
+  bound_audiences = ["openbao"]
+  bound_subject   = "spiffe://nichi.link/rustical"
+
+  backend = "spiffe"
+
+  token_policies = [vault_policy.rustical.name]
 }
