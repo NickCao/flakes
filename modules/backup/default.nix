@@ -63,6 +63,7 @@ in
               }
             }
             template {
+              perms = "0600"
               contents = <<EOT
             {{ with secret "secrets/scaleway_iam_restic" }}
             [default]
@@ -78,7 +79,10 @@ in
 
     systemd.services.restic-backups-persist = {
       environment.AWS_SHARED_CREDENTIALS_FILE = "/run/restic-backups-persist/credentials";
-      serviceConfig.Environment = [ "GOGC=20" ];
+      serviceConfig = {
+        Environment = [ "GOGC=20" ];
+        RuntimeDirectoryMode = "0700";
+      };
     };
   };
 }

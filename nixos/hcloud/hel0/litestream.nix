@@ -11,6 +11,7 @@
       RuntimeDirectory = [
         "litestream"
       ];
+      RuntimeDirectoryMode = "0700";
     };
     environment = {
       AWS_SHARED_CREDENTIALS_FILE = "/run/litestream/credentials";
@@ -37,6 +38,7 @@
             }
           }
           template {
+            perms = "0600"
             contents = <<EOT
           {{ with secret "secrets/scaleway_iam_litestream" }}
           [default]
