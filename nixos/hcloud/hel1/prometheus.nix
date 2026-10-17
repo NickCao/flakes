@@ -134,7 +134,6 @@ in
                 "https://pb.nichi.co"
                 "https://api.nichi.co"
                 "https://cal.nichi.co"
-                "https://rss.nichi.co"
                 "https://ntfy.nichi.co"
                 "https://vault.nichi.co"
                 "https://matrix.nichi.co"
@@ -192,6 +191,11 @@ in
             {
               alert = "NodeDown";
               expr = "up == 0";
+              for = "5m";
+            }
+            {
+              alert = "ProbeFail";
+              expr = ''probe_success == 0'';
               for = "5m";
             }
             {
