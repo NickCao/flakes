@@ -26,3 +26,11 @@ provider "scaleway" {
   access_key      = local.secrets.scaleway.access_key
   secret_key      = local.secrets.scaleway.secret_key
 }
+
+provider "vault" {
+  address = "http://127.0.0.1:8200"
+  auth_login_jwt {
+    mount = "spiffe"
+    role  = "admin"
+  }
+}

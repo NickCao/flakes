@@ -15,6 +15,9 @@ terraform {
     keycloak = {
       source = "keycloak/keycloak"
     }
+    vault = {
+      source = "hashicorp/vault"
+    }
   }
   encryption {
     method "aes_gcm" "default" {
