@@ -8,6 +8,7 @@
     ./litestream.nix
     ./step-ca.nix
     ./spire.nix
+    ./openbao.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
