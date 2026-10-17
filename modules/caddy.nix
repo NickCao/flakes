@@ -111,6 +111,7 @@ in
         Service = config.systemd.services.caddy.name;
       };
       wantedBy = [ "sockets.target" ];
+      requiredBy = [ config.systemd.services.caddy.name ];
     };
 
     systemd.sockets.caddy-h3 = {
@@ -119,6 +120,7 @@ in
         Service = config.systemd.services.caddy.name;
       };
       wantedBy = [ "sockets.target" ];
+      requiredBy = [ config.systemd.services.caddy.name ];
     };
 
     systemd.services.caddy = {
