@@ -6,7 +6,6 @@
     ./vaultwarden.nix
     ./rustical.nix
     ./litestream.nix
-    ./step-ca.nix
     ./spire.nix
     ./openbao.nix
   ];
