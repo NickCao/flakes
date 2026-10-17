@@ -13,3 +13,25 @@ resource "vault_kv_secret_v2" "scaleway_cockpit_par" {
     }
   )
 }
+
+resource "vault_kv_secret_v2" "scaleway_iam_restic" {
+  mount = vault_mount.secrets.path
+  name  = "scaleway_iam_restic"
+  data_json = jsonencode(
+    {
+      access_key = scaleway_iam_api_key.restic.access_key
+      secret_key = scaleway_iam_api_key.restic.secret_key
+    }
+  )
+}
+
+resource "vault_kv_secret_v2" "scaleway_iam_litestream" {
+  mount = vault_mount.secrets.path
+  name  = "scaleway_iam_litestream"
+  data_json = jsonencode(
+    {
+      access_key = scaleway_iam_api_key.litestream.access_key
+      secret_key = scaleway_iam_api_key.litestream.secret_key
+    }
+  )
+}
