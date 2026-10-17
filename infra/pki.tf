@@ -76,7 +76,7 @@ resource "vault_pki_secret_backend_role" "oidc_user" {
 
   require_cn          = false
   use_csr_common_name = false
-  use_csr_sans        = false
+  use_csr_sans        = true
 
   key_type       = "any"
   key_usage      = ["DigitalSignature"]
@@ -95,12 +95,9 @@ resource "vault_policy" "oidc_user_certificates" {
   policy = <<-EOT
     path "${vault_mount.pki_users_intermediate.path}/sign/${vault_pki_secret_backend_role.oidc_user.name}" {
       capabilities = ["update"]
-
-      required_parameters = ["csr", "alt_names"]
-
+      required_parameters = ["csr"]
       allowed_parameters = {
         csr       = []
-        alt_names = []
         ttl       = []
         format    = []
       }
