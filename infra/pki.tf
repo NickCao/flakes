@@ -35,6 +35,7 @@ resource "vault_pki_secret_backend_intermediate_cert_request" "pki_users_interme
 
 resource "vault_pki_secret_backend_root_sign_intermediate" "pki_users_intermediate" {
   backend     = vault_mount.pki_users.path
+  issuer_ref  = vault_pki_secret_backend_root_cert.users.issuer_id
   csr         = vault_pki_secret_backend_intermediate_cert_request.pki_users_intermediate.csr
   common_name = vault_pki_secret_backend_intermediate_cert_request.pki_users_intermediate.common_name
   ttl         = "8760h"
@@ -42,6 +43,6 @@ resource "vault_pki_secret_backend_root_sign_intermediate" "pki_users_intermedia
 
 resource "vault_pki_secret_backend_intermediate_set_signed" "pki_users_intermediate" {
   backend     = vault_mount.pki_users_intermediate.path
-  certificate = vault_pki_secret_backend_root_sign_intermediate.pki_users_intermediate.certificate
+  certificate = vault_pki_secret_backend_root_sign_intermediate.pki_users_intermediate.certificate_bundle
 }
 
