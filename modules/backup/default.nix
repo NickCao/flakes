@@ -64,11 +64,11 @@ in
             }
             template {
               contents = <<EOT
-              {{ with secret "secrets/scaleway_iam_restic" }}
-              [default]
-              aws_access_key_id={{ .Data.data.access_key }}
-              aws_secret_access_key={{ .Data.data.secret_key }}
-              {{ end }}
+            {{ with secret "secrets/scaleway_iam_restic" }}
+            [default]
+            aws_access_key_id={{ .Data.data.access_key }}
+            aws_secret_access_key={{ .Data.data.secret_key }}
+            {{ end }}
             EOT
               destination = "/run/restic-backups-persist/credentials"
             }
