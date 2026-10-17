@@ -35,3 +35,26 @@ resource "vault_kv_secret_v2" "scaleway_iam_litestream" {
     }
   )
 }
+
+resource "vault_policy" "restic" {
+  name = "restic"
+
+  policy = <<EOT
+path "${vault_kv_secret_v2.scaleway_iam_restic.path}" {
+  capabilities = ["read"]
+}
+EOT
+}
+
+
+resource "vault_jwt_auth_backend_role" "restic" {
+  role_name       = "restic"
+  role_type       = "jwt"
+  user_claim      = "sub"
+  bound_audiences = ["openbao"]
+  bound_subject   = "spiffe://nichi.link/restic"
+
+  backend = "spiffe"
+
+  token_policies = [vault_policy.restic.name]
+}

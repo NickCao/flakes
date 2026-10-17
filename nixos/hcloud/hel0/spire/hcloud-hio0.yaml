@@ -1,0 +1,7 @@
+apiVersion: spire.spiffe.io/v1alpha1
+kind: ClusterStaticEntry
+spec:
+  parentID: spiffe://nichi.link/spire/server
+  spiffeID: spiffe://nichi.link/hcloud
+  selectors:
+    - http_challenge:hostname:hio0.nichi.link

@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.environment.backup;
 in
@@ -17,15 +22,11 @@ in
       restic-pass = {
         sopsFile = ./secrets.yaml;
       };
-      restic-envs = {
-        sopsFile = ./secrets.yaml;
-      };
     };
 
     services.restic.backups.persist = {
       repositoryFile = config.sops.secrets.restic-repo.path;
       passwordFile = config.sops.secrets.restic-pass.path;
-      environmentFile = config.sops.secrets.restic-envs.path;
       paths = [ "/persist" ];
       exclude = [ "/persist/var/lib/systemd/coredump" ];
       extraOptions = [ "s3.storage-class=ONEZONE_IA" ];
@@ -41,9 +42,42 @@ in
         FixedRandomDelay = true;
         Persistent = true;
       };
+      backupPrepareCommand = ''
+        ${lib.getExe' pkgs.spire "spire-agent"} api fetch jwt \
+          -audience openbao \
+          -socketPath /run/spire/agent/public/api.sock \
+          -output json | ${lib.getExe pkgs.jq} -r '.[0].svids.[0].svid' \
+          > /run/restic-backups-persist/token
+        ${lib.getExe pkgs.openbao} agent -exit-after-auth \
+          -config ${pkgs.writeText "restic-openbao-agent.hcl" ''
+            vault {
+              address = "http://127.0.0.1:8200"
+            }
+            auto_auth {
+              method "jwt" {
+                mount_path = "auth/spiffe"
+                config {
+                  path = "/run/restic-backups-persist/token"
+                  role = "restic"
+                }
+              }
+            }
+            template {
+              contents = <<EOT
+              {{ with secret "secrets/scaleway_iam_restic" }}
+              [default]
+              aws_access_key_id={{ .Data.data.access_key }}
+              aws_secret_access_key={{ .Data.data.secret_key }}
+              {{ end }}
+            EOT
+              destination = "/run/restic-backups-persist/credentials"
+            }
+          ''}
+      '';
     };
 
     systemd.services.restic-backups-persist = {
+      environment.AWS_SHARED_CREDENTIALS_FILE = "/run/restic-backups-persist/credentials";
       serviceConfig.Environment = [ "GOGC=20" ];
     };
   };

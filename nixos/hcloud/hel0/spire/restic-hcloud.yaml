@@ -1,0 +1,7 @@
+apiVersion: spire.spiffe.io/v1alpha1
+kind: ClusterStaticEntry
+spec:
+  parentID: spiffe://nichi.link/hcloud
+  spiffeID: spiffe://nichi.link/restic
+  selectors:
+    - systemd:id:restic-backups-persist.service
