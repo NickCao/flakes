@@ -25,6 +25,7 @@ let
           [
             (lib.getExe pkgs.ghostunnel)
             mode
+            "--shutdown-timeout=5s"
             "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
             "--listen=${tunnel.listen}"
             "--target=${tunnel.target}"
