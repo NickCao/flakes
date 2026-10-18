@@ -34,7 +34,10 @@ in
         "/persist/var/lib/spire"
         "/persist/var/lib/systemd/coredump"
       ];
-      extraOptions = [ "s3.storage-class=ONEZONE_IA" ];
+      extraOptions = [
+        "s3.storage-class=ONEZONE_IA"
+        "s3.connections=16"
+      ];
       extraBackupArgs = [
         "--one-file-system"
         "--exclude-caches"
