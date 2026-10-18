@@ -98,7 +98,7 @@
       "-config"
       ((pkgs.formats.json { }).generate "spire-oidc-discovery-provider.json" {
         domains = [ "127.0.0.1" ];
-        insecure_addr = "127.0.0.1:7529";
+        insecure_addr = "127.0.0.1:7529"; # FIXME
         allow_insecure_scheme = true;
         workload_api = {
           socket_path = "/run/spire/agent/public/api.sock";

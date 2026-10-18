@@ -10,7 +10,7 @@
       hostname = "id.nichi.co";
       cache = "local";
     };
-    database.passwordFile = toString (pkgs.writeText "password" "keycloak");
+    database.passwordFile = toString (pkgs.writeText "password" "keycloak"); # FIXME
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = [
