@@ -344,7 +344,7 @@ in
               };
               learn;
             }
-            include "${config.sops.secrets.bgp_passwd.path}";
+            include "/run/bird/credentials";
             protocol bgp vultr4 {
               ipv4 {
                 import none;
@@ -376,11 +376,6 @@ in
       };
     })
     (mkIf cfg.bird.exit.enable {
-      sops.secrets.bgp_passwd = {
-        sopsFile = ./secrets.yaml;
-        owner = config.systemd.services.bird.serviceConfig.User;
-        reloadUnits = [ config.systemd.services.bird.name ];
-      };
       services.bird.checkConfig = false;
       systemd.network.netdevs.amprnet.netdevConfig = {
         Kind = "dummy";
@@ -389,6 +384,16 @@ in
       systemd.network.networks.amprnet = {
         name = "amprnet";
         address = [ "44.32.148.1/32" ];
+      };
+      systemd.services.bird.preStart = config.lib.openbao.mkAgent {
+        role = "bgp";
+        tokenPath = "/run/bird/token";
+        destination = "/run/bird/credentials";
+        contents = ''
+          {{ with secret "secrets/vultr_bgp_password" }}
+          define BGP_PASSWD = "{{ .Data.data.password }}";
+          {{ end }}
+        '';
       };
     })
     (mkIf cfg.divi.enable {

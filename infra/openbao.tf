@@ -50,6 +50,17 @@ resource "vault_kv_secret_v2" "oidc_client_rustical" {
   )
 }
 
+resource "vault_kv_secret_v2" "vultr_bgp_password" {
+  mount                = vault_mount.secrets.path
+  name                 = "vultr_bgp_password"
+  data_json_wo_version = 1
+  data_json_wo = jsonencode(
+    {
+      password = local.secrets.vultr.bgp_password
+    }
+  )
+}
+
 resource "vault_policy" "restic" {
   name = "restic"
 
@@ -136,4 +147,26 @@ resource "vault_jwt_auth_backend_role" "victoriametrics" {
   backend = "spiffe"
 
   token_policies = [vault_policy.victoriametrics.name]
+}
+
+resource "vault_policy" "bgp" {
+  name = "bgp"
+
+  policy = <<EOT
+path "${vault_kv_secret_v2.vultr_bgp_password.path}" {
+  capabilities = ["read"]
+}
+EOT
+}
+
+resource "vault_jwt_auth_backend_role" "bgp" {
+  role_name       = "bgp"
+  role_type       = "jwt"
+  user_claim      = "sub"
+  bound_audiences = ["openbao"]
+  bound_subject   = "spiffe://nichi.link/bgp"
+
+  backend = "spiffe"
+
+  token_policies = [vault_policy.bgp.name]
 }

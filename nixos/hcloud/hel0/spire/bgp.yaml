@@ -1,0 +1,7 @@
+apiVersion: spire.spiffe.io/v1alpha1
+kind: ClusterStaticEntry
+spec:
+  parentID: spiffe://nichi.link/tags/vultr
+  spiffeID: spiffe://nichi.link/bgp
+  selectors:
+    - systemd:id:bird.service
