@@ -14,42 +14,17 @@ in
       EnvironmentFile = [ "-%t/rustical/credentials" ];
     };
     path = [ pkgs.getent ]; # for bao agent
-    preStart = ''
-      ${lib.getExe' pkgs.spire "spire-agent"} api fetch jwt \
-        -audience openbao \
-        -socketPath /run/spire/agent/public/api.sock \
-        -output json | ${lib.getExe pkgs.jq} -r '.[0].svids.[0].svid' \
-        > /run/rustical/token
-      ${lib.getExe pkgs.openbao} agent -exit-after-auth \
-        -config ${pkgs.writeText "rustical-openbao-agent.hcl" ''
-          vault {
-            address = "http://127.0.0.1:8200"
-          }
-          auto_auth {
-            method "jwt" {
-              mount_path = "auth/spiffe"
-              config {
-                path = "/run/rustical/token"
-                role = "rustical"
-              }
-            }
-          }
-          template_config {
-            exit_on_retry_failure = true
-          }
-          template {
-            error_on_missing_key = true
-            perms = "0600"
-            contents = <<EOT
-          {{ with secret "secrets/oidc_client_rustical" }}
-          RUSTICAL_OIDC__CLIENT_ID={{ .Data.data.client_id }}
-          RUSTICAL_OIDC__CLIENT_SECRET={{ .Data.data.client_secret }}
-          {{ end }}
-          EOT
-            destination = "/run/rustical/credentials"
-          }
-        ''}
-    '';
+    preStart = config.lib.openbao.mkAgent {
+      role = "rustical";
+      tokenPath = "/run/rustical/token";
+      destination = "/run/rustical/credentials";
+      contents = ''
+        {{ with secret "secrets/oidc_client_rustical" }}
+        RUSTICAL_OIDC__CLIENT_ID={{ .Data.data.client_id }}
+        RUSTICAL_OIDC__CLIENT_SECRET={{ .Data.data.client_secret }}
+        {{ end }}
+      '';
+    };
   };
 
   services.rustical = {

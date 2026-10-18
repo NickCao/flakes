@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   utils,
   ...
 }:
@@ -65,43 +64,18 @@ in
           (utils.systemdUtils.lib.makeJobScript {
             name = "restic-prepare-secret";
             enableStrictShellChecks = true;
-            text = ''
-              ${lib.getExe' pkgs.spire "spire-agent"} api fetch jwt \
-                -audience openbao \
-                -socketPath /run/spire/agent/public/api.sock \
-                -output json | ${lib.getExe pkgs.jq} -r '.[0].svids.[0].svid' \
-                > /run/restic-backups-persist/token
-              ${lib.getExe pkgs.openbao} agent -exit-after-auth \
-                -config ${pkgs.writeText "restic-openbao-agent.hcl" ''
-                  vault {
-                    address = "http://127.0.0.1:8200"
-                  }
-                  auto_auth {
-                    method "jwt" {
-                      mount_path = "auth/spiffe"
-                      config {
-                        path = "/run/restic-backups-persist/token"
-                        role = "restic"
-                      }
-                    }
-                  }
-                  template_config {
-                    exit_on_retry_failure = true
-                  }
-                  template {
-                    error_on_missing_key = true
-                    perms = "0600"
-                    contents = <<EOT
-                  {{ with secret "secrets/scaleway_iam_restic" }}
-                  RESTIC_REPOSITORY=s3:{{ .Data.data.api_endpoint }}/{{ .Data.data.name }}/${cfg.prefix}
-                  AWS_ACCESS_KEY_ID={{ .Data.data.access_key }}
-                  AWS_SECRET_ACCESS_KEY={{ .Data.data.secret_key }}
-                  {{ end }}
-                  EOT
-                    destination = "/run/restic-backups-persist/credentials"
-                  }
-                ''}
-            '';
+            text = config.lib.openbao.mkAgent {
+              role = "restic";
+              tokenPath = "/run/restic-backups-persist/token";
+              destination = "/run/restic-backups-persist/credentials";
+              contents = ''
+                {{ with secret "secrets/scaleway_iam_restic" }}
+                RESTIC_REPOSITORY=s3:{{ .Data.data.api_endpoint }}/{{ .Data.data.name }}/${cfg.prefix}
+                AWS_ACCESS_KEY_ID={{ .Data.data.access_key }}
+                AWS_SECRET_ACCESS_KEY={{ .Data.data.secret_key }}
+                {{ end }}
+              '';
+            };
           })
         ];
       };

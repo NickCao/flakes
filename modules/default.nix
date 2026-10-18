@@ -6,6 +6,7 @@
         (import ./baseline.nix)
         (import ./caddy.nix)
         (import ./spire-agent.nix)
+        (import ./openbao-agent.nix)
         (import ./ghostunnel.nix)
         (import ./metrics)
         (import ./dns/secondary)

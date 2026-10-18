@@ -47,42 +47,17 @@ in
       EnvironmentFile = [ "-%t/victoriametrics/credentials" ];
     };
     path = [ pkgs.getent ]; # for bao agent
-    preStart = ''
-      ${lib.getExe' pkgs.spire "spire-agent"} api fetch jwt \
-        -audience openbao \
-        -socketPath /run/spire/agent/public/api.sock \
-        -output json | ${lib.getExe pkgs.jq} -r '.[0].svids.[0].svid' \
-        > /run/victoriametrics/token
-      ${lib.getExe pkgs.openbao} agent -exit-after-auth \
-        -config ${pkgs.writeText "victoriametrics-openbao-agent.hcl" ''
-          vault {
-            address = "http://127.0.0.1:8200"
-          }
-          auto_auth {
-            method "jwt" {
-              mount_path = "auth/spiffe"
-              config {
-                path = "/run/victoriametrics/token"
-                role = "victoriametrics"
-              }
-            }
-          }
-          template_config {
-            exit_on_retry_failure = true
-          }
-          template {
-            error_on_missing_key = true
-            perms = "0600"
-            contents = <<EOT
-          {{ with secret "secrets/scaleway_cockpit_par" }}
-          SCW_COCKPIT_PAR_URL={{ .Data.data.url }}
-          SCW_COCKPIT_PAR_SECRET_KEY={{ .Data.data.secret_key }}
-          {{ end }}
-          EOT
-            destination = "/run/victoriametrics/credentials"
-          }
-        ''}
-    '';
+    preStart = config.lib.openbao.mkAgent {
+      role = "victoriametrics";
+      tokenPath = "/run/victoriametrics/token";
+      destination = "/run/victoriametrics/credentials";
+      contents = ''
+        {{ with secret "secrets/scaleway_cockpit_par" }}
+        SCW_COCKPIT_PAR_URL={{ .Data.data.url }}
+        SCW_COCKPIT_PAR_SECRET_KEY={{ .Data.data.secret_key }}
+        {{ end }}
+      '';
+    };
   };
 
   cloud.services.spiffe-victoriametrics.config = {
