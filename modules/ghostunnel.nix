@@ -21,14 +21,11 @@ let
     mode:
     lib.mapAttrs (
       _: tunnel: {
-        unit = {
-          After = [ "network-online.target" ];
-          Wants = [ "network-online.target" ];
-        };
         config.ExecStart = utils.escapeSystemdExecArgs (
           [
             (lib.getExe pkgs.ghostunnel)
             mode
+            "--skip-resolve"
             "--shutdown-timeout=5s"
             "--use-workload-api-addr=unix:///run/spire/agent/public/api.sock"
             "--listen=${tunnel.listen}"
