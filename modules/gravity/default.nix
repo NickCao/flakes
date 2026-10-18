@@ -385,15 +385,18 @@ in
         name = "amprnet";
         address = [ "44.32.148.1/32" ];
       };
-      systemd.services.bird.preStart = config.lib.openbao.mkAgent {
-        role = "bgp";
-        tokenPath = "/run/bird/token";
-        destination = "/run/bird/credentials";
-        contents = ''
-          {{ with secret "secrets/vultr_bgp_password" }}
-          define BGP_PASSWD = "{{ .Data.data.password }}";
-          {{ end }}
-        '';
+      systemd.services.bird = {
+        serviceConfig.RestartSec = 10;
+        preStart = config.lib.openbao.mkAgent {
+          role = "bgp";
+          tokenPath = "/run/bird/token";
+          destination = "/run/bird/credentials";
+          contents = ''
+            {{ with secret "secrets/vultr_bgp_password" }}
+            define BGP_PASSWD = "{{ .Data.data.password }}";
+            {{ end }}
+          '';
+        };
       };
     })
     (mkIf cfg.divi.enable {
