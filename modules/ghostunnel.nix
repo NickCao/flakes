@@ -21,6 +21,10 @@ let
     mode:
     lib.mapAttrs (
       _: tunnel: {
+        unit = {
+          After = [ "network-online.target" ];
+          Wants = [ "network-online.target" ];
+        };
         config.ExecStart = utils.escapeSystemdExecArgs (
           [
             (lib.getExe pkgs.ghostunnel)
