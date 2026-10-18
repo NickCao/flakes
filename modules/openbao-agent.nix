@@ -1,13 +1,23 @@
 { lib, pkgs, ... }:
 {
   lib.openbao.mkAgent =
-    { role, tokenPath, destination, contents }:
+    {
+      role,
+      tokenPath,
+      destination,
+      contents,
+    }:
     ''
-      ${lib.getExe' pkgs.spire "spire-agent"} api fetch jwt \
-        -audience openbao \
-        -socketPath /run/spire/agent/public/api.sock \
-        -output json | ${lib.getExe pkgs.jq} -r '.[0].svids.[0].svid' \
-        > ${tokenPath}
+      ${lib.getExe pkgs.spiffe-helper} \
+        -config ${pkgs.writeText "${role}-spiffe-helper.hcl" ''
+          daemon_mode = false
+          agent_address = "/run/spire/agent/public/api.sock"
+
+          jwt_svids = [{
+            jwt_audience = "openbao"
+            jwt_svid_file_name = "${tokenPath}"
+          }]
+        ''}
       ${lib.getExe pkgs.openbao} agent -exit-after-auth \
         -config ${pkgs.writeText "${role}-openbao-agent.hcl" ''
           vault {
