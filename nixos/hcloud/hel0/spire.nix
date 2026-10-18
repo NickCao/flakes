@@ -3,10 +3,31 @@
   utils,
   pkgs,
   config,
+  data,
   ...
 }:
 let
   inherit (config.services.spire.server.settings.server.federation) bundle_endpoint;
+  yaml = pkgs.formats.yaml { };
+  tagManifests = lib.concatMapAttrs (
+    name: node:
+    lib.listToAttrs (
+      map (
+        tag:
+        lib.nameValuePair "tag-${tag}-${name}.yaml" (
+          yaml.generate "tag-${tag}-${name}.yaml" {
+            apiVersion = "spire.spiffe.io/v1alpha1";
+            kind = "ClusterStaticEntry";
+            spec = {
+              parentID = "spiffe://nichi.link/spire/server";
+              spiffeID = "spiffe://nichi.link/tags/${tag}";
+              selectors = [ "http_challenge:hostname:${node.fqdn}" ];
+            };
+          }
+        )
+      ) node.tags
+    )
+  ) data.nodes;
 in
 {
   services.spire.server = {
@@ -69,7 +90,7 @@ in
     ExecStart = utils.escapeSystemdExecArgs [
       (lib.getExe pkgs.spire-controller-manager)
       "-config"
-      ((pkgs.formats.yaml { }).generate "spire-controller-manager.yaml" {
+      (yaml.generate "spire-controller-manager.yaml" {
         apiVersion = "spire.spiffe.io/v1alpha1";
         kind = "ControllerManagerConfig";
 
@@ -85,7 +106,9 @@ in
           clusterStaticEntries = true;
         };
 
-        staticManifestPath = ./spire;
+        staticManifestPath = pkgs.linkFarm "spire-manifests" (
+          lib.mapAttrs (name: _: ./spire + "/${name}") (builtins.readDir ./spire) // tagManifests
+        );
       })
     ];
     User = "spire-server";
