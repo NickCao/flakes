@@ -11,22 +11,26 @@ in
 
   options.environment.backup = {
     enable = lib.mkEnableOption "backup";
+    prefix = lib.mkOption {
+      type = lib.types.nonEmptyStr;
+      default = "hosts/${config.networking.hostName}";
+    };
+    passwordFile = lib.mkOption {
+      type = lib.types.str;
+      default = config.sops.secrets.restic-password.path;
+    };
   };
 
   config = lib.mkIf cfg.enable {
-
-    sops.secrets = {
-      restic-repo = {
-        sopsFile = ./secrets.yaml;
-      };
-      restic-pass = {
-        sopsFile = ./secrets.yaml;
-      };
+    sops.secrets.restic-repo.sopsFile = ./secrets.yaml;
+    sops.templates.restic-repo = {
+      content = "${config.sops.placeholder.restic-repo}/${cfg.prefix}";
     };
 
     services.restic.backups.persist = {
-      repositoryFile = config.sops.secrets.restic-repo.path;
-      passwordFile = config.sops.secrets.restic-pass.path;
+      repositoryFile = config.sops.templates.restic-repo.path;
+      passwordFile = cfg.passwordFile;
+      initialize = true;
       paths = [ "/persist" ];
       exclude = [
         "/persist/var/lib/sops.key"

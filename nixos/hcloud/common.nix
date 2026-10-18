@@ -27,6 +27,8 @@
     gnupg.sshKeyPaths = [ ];
   };
 
+  sops.secrets.restic-password = { };
+
   nixpkgs.overlays = [ self.overlays.default ];
 
   boot = {

@@ -26,6 +26,7 @@
     defaultSopsFile = ./secrets.yaml;
     secrets = {
       "wireless/redhat" = { };
+      restic-password = { };
     };
     age = {
       keyFile = "/var/lib/sops.key";
