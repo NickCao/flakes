@@ -42,7 +42,7 @@ in
 
   users.users.root.openssh.authorizedKeys.keys = data.keys;
 
-  cloud.caddy.enable = true;
+  cloud.spire.agent.enable = true;
   services.metrics.enable = true;
   services.openssh.enable = true;
 

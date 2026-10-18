@@ -12,7 +12,14 @@ let
     "subframe.nichi.link"
   ];
   node_exporter_targets = lib.map (v: "${v}:9317") targets;
-  caddy_targets = lib.map (v: "${v}:9319") targets;
+  caddy_targets =
+    lib.mapAttrsToList (_name: node: "${node.fqdn}:9319") (
+      lib.filterAttrs (_k: v: !builtins.elem "vultr" v.tags) data.nodes
+    )
+    ++ [
+      "armchair.nichi.link:9319"
+      "subframe.nichi.link:9319"
+    ];
   nameservers = data.nameservers ++ data.secondary_nameservers;
   relabel_configs = [
     {
