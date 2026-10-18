@@ -44,6 +44,11 @@ in
         "--no-scan"
         "--retry-lock 2h"
       ];
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 12"
+      ];
       timerConfig = {
         OnCalendar = "daily";
         RandomizedDelaySec = "4h";
