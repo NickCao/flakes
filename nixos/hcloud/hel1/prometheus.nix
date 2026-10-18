@@ -67,7 +67,11 @@ in
               }
             }
           }
+          template_config {
+            exit_on_retry_failure = true
+          }
           template {
+            error_on_missing_key = true
             perms = "0600"
             contents = <<EOT
           {{ with secret "secrets/scaleway_cockpit_par" }}

@@ -23,11 +23,15 @@ output "id" {
 }
 
 output "name" {
-  value = var.name
+  value = scaleway_object_bucket.main.name
 }
 
 output "region" {
-  value = var.region
+  value = scaleway_object_bucket.main.region
+}
+
+output "api_endpoint" {
+  value = scaleway_object_bucket.main.api_endpoint
 }
 
 resource "scaleway_object_bucket" "main" {

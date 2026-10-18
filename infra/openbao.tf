@@ -20,8 +20,10 @@ resource "vault_kv_secret_v2" "scaleway_iam_restic" {
   name  = "scaleway_iam_restic"
   data_json = jsonencode(
     {
-      access_key = scaleway_iam_api_key.restic.access_key
-      secret_key = scaleway_iam_api_key.restic.secret_key
+      api_endpoint = module.nichi_backup_ams.api_endpoint
+      name         = module.nichi_backup_ams.name
+      access_key   = scaleway_iam_api_key.restic.access_key
+      secret_key   = scaleway_iam_api_key.restic.secret_key
     }
   )
 }
