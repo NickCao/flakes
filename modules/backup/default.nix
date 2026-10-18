@@ -30,6 +30,7 @@ in
       paths = [ "/persist" ];
       exclude = [
         "/persist/var/lib/sops.key"
+        "/persist/var/lib/spire"
         "/persist/var/lib/systemd/coredump"
       ];
       extraOptions = [ "s3.storage-class=ONEZONE_IA" ];
