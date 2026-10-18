@@ -23,6 +23,7 @@
       api_addr = "unix:///run/openbao/openbao.sock";
       disable_clustering = true;
       ui = true;
+      log_requests_level = "info";
       listener.unix = {
         type = "unix";
         address = "/run/openbao/openbao.sock";
