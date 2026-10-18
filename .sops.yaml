@@ -58,15 +58,6 @@ creation_rules:
       - age:
           - *self
           - *hio0
-  - path_regex: modules/backup/secrets\.yaml
-    key_groups:
-      - age:
-          - *self
-          - *iad0
-          - *hio0
-          - *hel0
-          - *hel1
-          - *mainframe
   - path_regex: modules/gravity/secrets\.yaml
     key_groups:
       - age:
