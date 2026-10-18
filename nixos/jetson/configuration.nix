@@ -30,7 +30,7 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji nickcao@mainframe"
   ];
 
-  services.journald.storage = "volatile";
+  services.journald.settings.Journal.Storage = "volatile";
 
   environment.baseline.enable = true;
 
