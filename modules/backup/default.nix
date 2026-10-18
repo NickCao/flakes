@@ -28,7 +28,10 @@ in
       repositoryFile = config.sops.secrets.restic-repo.path;
       passwordFile = config.sops.secrets.restic-pass.path;
       paths = [ "/persist" ];
-      exclude = [ "/persist/var/lib/systemd/coredump" ];
+      exclude = [
+        "/persist/var/lib/sops.key"
+        "/persist/var/lib/systemd/coredump"
+      ];
       extraOptions = [ "s3.storage-class=ONEZONE_IA" ];
       extraBackupArgs = [
         "--one-file-system"
