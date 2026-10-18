@@ -34,6 +34,7 @@ in
         "/persist/var/lib/systemd/coredump"
       ];
       extraOptions = [
+        "s3.bucket-lookup=dns"
         "s3.storage-class=ONEZONE_IA"
         "s3.connections=16"
       ];
