@@ -1,4 +1,6 @@
 terraform {
+  required_version = ">= 1.11.0"
+
   required_providers {
     vultr = {
       source = "vultr/vultr"
@@ -8,6 +10,9 @@ terraform {
     }
     hcloud = {
       source = "hetznercloud/hcloud"
+    }
+    random = {
+      source = "hashicorp/random"
     }
     scaleway = {
       source = "scaleway/scaleway"

@@ -102,6 +102,7 @@
                     keycloak_keycloak
                     scaleway_scaleway
                     hashicorp_vault
+                    hashicorp_random
                   ]
                 ))
               ];

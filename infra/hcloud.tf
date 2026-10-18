@@ -33,6 +33,10 @@ module "hcloud" {
   tags     = each.value.tags
 }
 
+resource "random_bytes" "hetzner_tsig" {
+  length = 32
+}
+
 resource "hcloud_zone" "nichi_link" {
   name = "nichi.link"
   mode = "secondary"
@@ -41,7 +45,7 @@ resource "hcloud_zone" "nichi_link" {
     {
       address        = module.hcloud["iad0"].ipv4
       tsig_algorithm = "hmac-sha256"
-      tsig_key       = local.secrets.hcloud.tsig
+      tsig_key       = random_bytes.hetzner_tsig.base64
     }
   ]
 
