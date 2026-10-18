@@ -37,21 +37,48 @@ let
   };
 in
 {
-  sops.secrets = {
-    telegram = {
-      restartUnits = [ "alertmanager.service" ];
-    };
-    scw-cockpit-par = {
-      mode = "0440";
-      group = config.users.groups.victoriametrics-secrets.name;
-      restartUnits = [ config.systemd.services.victoriametrics.name ];
-    };
+  sops.secrets.telegram = {
+    restartUnits = [ "alertmanager.service" ];
   };
 
-  users.groups.victoriametrics-secrets = { };
-
-  systemd.services.victoriametrics.serviceConfig = {
-    SupplementaryGroups = [ config.users.groups.victoriametrics-secrets.name ];
+  systemd.services.victoriametrics = {
+    serviceConfig = {
+      RestartSec = lib.mkForce 10;
+      EnvironmentFile = [ "-%t/victoriametrics/credentials" ];
+    };
+    path = [ pkgs.getent ]; # for bao agent
+    preStart = ''
+      ${lib.getExe' pkgs.spire "spire-agent"} api fetch jwt \
+        -audience openbao \
+        -socketPath /run/spire/agent/public/api.sock \
+        -output json | ${lib.getExe pkgs.jq} -r '.[0].svids.[0].svid' \
+        > /run/victoriametrics/token
+      ${lib.getExe pkgs.openbao} agent -exit-after-auth \
+        -config ${pkgs.writeText "victoriametrics-openbao-agent.hcl" ''
+          vault {
+            address = "http://127.0.0.1:8200"
+          }
+          auto_auth {
+            method "jwt" {
+              mount_path = "auth/spiffe"
+              config {
+                path = "/run/victoriametrics/token"
+                role = "victoriametrics"
+              }
+            }
+          }
+          template {
+            perms = "0600"
+            contents = <<EOT
+          {{ with secret "secrets/scaleway_cockpit_par" }}
+          SCW_COCKPIT_PAR_URL={{ .Data.data.url }}
+          SCW_COCKPIT_PAR_SECRET_KEY={{ .Data.data.secret_key }}
+          {{ end }}
+          EOT
+            destination = "/run/victoriametrics/credentials"
+          }
+        ''}
+    '';
   };
 
   cloud.services.spiffe-victoriametrics.config = {
@@ -161,12 +188,11 @@ in
           metrics_path = "/federate";
           authorization = {
             type = "Bearer";
-            credentials_file = config.sops.secrets.scw-cockpit-par.path;
+            credentials = "%{SCW_COCKPIT_PAR_SECRET_KEY}";
           };
           params."match[]" = [ ''{region="fr-par"}'' ];
           static_configs = [
-            # TODO: read this from terraform state
-            { targets = [ "83fd8c66-5954-409b-ae56-ca154f4f50b8.metrics.cockpit.fr-par.scw.cloud" ]; }
+            { targets = [ "%{SCW_COCKPIT_PAR_URL}" ]; }
           ];
         }
       ];
@@ -195,7 +221,7 @@ in
             }
             {
               alert = "ProbeFail";
-              expr = ''probe_success == 0'';
+              expr = "probe_success == 0";
               for = "5m";
             }
             {

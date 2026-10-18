@@ -10,6 +10,7 @@ resource "vault_kv_secret_v2" "scaleway_cockpit_par" {
   data_json = jsonencode(
     {
       secret_key = scaleway_cockpit_token.victoriametrics_par.secret_key
+      url        = data.scaleway_cockpit_source.metrics_par.url
     }
   )
 }
@@ -111,4 +112,26 @@ resource "vault_jwt_auth_backend_role" "rustical" {
   backend = "spiffe"
 
   token_policies = [vault_policy.rustical.name]
+}
+
+resource "vault_policy" "victoriametrics" {
+  name = "victoriametrics"
+
+  policy = <<EOT
+path "${vault_kv_secret_v2.scaleway_cockpit_par.path}" {
+  capabilities = ["read"]
+}
+EOT
+}
+
+resource "vault_jwt_auth_backend_role" "victoriametrics" {
+  role_name       = "victoriametrics"
+  role_type       = "jwt"
+  user_claim      = "sub"
+  bound_audiences = ["openbao"]
+  bound_subject   = "spiffe://nichi.link/victoriametrics-scrape"
+
+  backend = "spiffe"
+
+  token_policies = [vault_policy.victoriametrics.name]
 }

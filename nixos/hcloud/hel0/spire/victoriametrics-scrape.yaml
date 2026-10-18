@@ -1,0 +1,7 @@
+apiVersion: spire.spiffe.io/v1alpha1
+kind: ClusterStaticEntry
+spec:
+  parentID: spiffe://nichi.link/spire/agent/http_challenge/hel1.nichi.link
+  spiffeID: spiffe://nichi.link/victoriametrics-scrape
+  selectors:
+    - systemd:id:victoriametrics.service

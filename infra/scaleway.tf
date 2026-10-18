@@ -315,3 +315,12 @@ resource "scaleway_cockpit_token" "victoriametrics_par" {
     write_logs    = false
   }
 }
+
+data "scaleway_cockpit_source" "metrics_par" {
+  project_id = scaleway_account_project.storage.id
+
+  region = module.nichi_backup_par.region
+
+  type   = "metrics"
+  origin = "scaleway"
+}
