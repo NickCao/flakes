@@ -9,21 +9,28 @@
 let
   inherit (config.services.spire.server.settings.server.federation) bundle_endpoint;
   yaml = pkgs.formats.yaml { };
+  mkNodeManifest =
+    name: node: spiffeID:
+    yaml.generate name {
+      apiVersion = "spire.spiffe.io/v1alpha1";
+      kind = "ClusterStaticEntry";
+      spec = {
+        parentID = "spiffe://nichi.link/spire/server";
+        inherit spiffeID;
+        selectors = [ "http_challenge:hostname:${node.fqdn}" ];
+      };
+    };
+  anyManifests = lib.mapAttrs' (
+    name: node:
+    lib.nameValuePair "${name}.yaml" (mkNodeManifest "${name}.yaml" node "spiffe://nichi.link/any")
+  ) data.nodes;
   tagManifests = lib.concatMapAttrs (
     name: node:
     lib.listToAttrs (
       map (
         tag:
         lib.nameValuePair "tag-${tag}-${name}.yaml" (
-          yaml.generate "tag-${tag}-${name}.yaml" {
-            apiVersion = "spire.spiffe.io/v1alpha1";
-            kind = "ClusterStaticEntry";
-            spec = {
-              parentID = "spiffe://nichi.link/spire/server";
-              spiffeID = "spiffe://nichi.link/tags/${tag}";
-              selectors = [ "http_challenge:hostname:${node.fqdn}" ];
-            };
-          }
+          mkNodeManifest "tag-${tag}-${name}.yaml" node "spiffe://nichi.link/tags/${tag}"
         )
       ) node.tags
     )
@@ -107,7 +114,9 @@ in
         };
 
         staticManifestPath = pkgs.linkFarm "spire-manifests" (
-          lib.mapAttrs (name: _: ./spire + "/${name}") (builtins.readDir ./spire) // tagManifests
+          lib.mapAttrs (name: _: ./spire + "/${name}") (builtins.readDir ./spire)
+          // anyManifests
+          // tagManifests
         );
       })
     ];
