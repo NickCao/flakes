@@ -61,6 +61,18 @@ resource "vault_kv_secret_v2" "vultr_bgp_password" {
   )
 }
 
+resource "vault_kv_secret_v2" "gravity" {
+  mount                = vault_mount.secrets.path
+  name                 = "gravity"
+  data_json_wo_version = 1
+  data_json_wo = jsonencode(
+    {
+      registry    = local.secrets.gravity.registry
+      private_key = local.secrets.gravity.private_key
+    }
+  )
+}
+
 resource "vault_policy" "restic" {
   name = "restic"
 
@@ -169,4 +181,26 @@ resource "vault_jwt_auth_backend_role" "bgp" {
   backend = "spiffe"
 
   token_policies = [vault_policy.bgp.name]
+}
+
+resource "vault_policy" "gravity" {
+  name = "gravity"
+
+  policy = <<EOT
+path "${vault_kv_secret_v2.gravity.path}" {
+  capabilities = ["read"]
+}
+EOT
+}
+
+resource "vault_jwt_auth_backend_role" "gravity" {
+  role_name       = "gravity"
+  role_type       = "jwt"
+  user_claim      = "sub"
+  bound_audiences = ["openbao"]
+  bound_subject   = "spiffe://nichi.link/gravity"
+
+  backend = "spiffe"
+
+  token_policies = [vault_policy.gravity.name]
 }

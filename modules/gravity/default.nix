@@ -575,10 +575,7 @@ in
       };
     })
     (mkIf cfg.ipsec.enable {
-      sops.secrets = {
-        ipsec.sopsFile = ./secrets.yaml;
-        gravity_registry.sopsFile = ./secrets.yaml;
-      };
+      cloud.spire.agent.enable = true;
       environment.systemPackages = [ config.services.strongswan-swanctl.package ];
       environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" (
         {
@@ -615,27 +612,55 @@ in
               "${inputs.ranet-ipsec.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/ranet"
               "--config=/etc/ranet/config.json"
               "--registry=/run/gravity/registry.json"
-              "--key=${config.sops.secrets.ipsec.path}"
+              "--key=/run/gravity/ipsec.key"
               subcommand
             ];
-          registry-update = pkgs.writeShellApplication {
-            name = "gravity-registry-update";
+          prepare = pkgs.writeShellApplication {
+            name = "gravity-ipsec-prepare";
             runtimeInputs = with pkgs; [
               curl
               coreutils
+              getent
             ];
             text = ''
+              ${config.lib.openbao.mkAgent {
+                role = "gravity";
+                tokenPath = "/run/gravity/token";
+                templates = [
+                  {
+                    destination = "/run/gravity/ipsec.key";
+                    contents = ''
+                      {{- with secret "secrets/gravity" -}}
+                      {{ .Data.data.private_key }}
+                      {{- end -}}
+                    '';
+                  }
+                  {
+                    destination = "/run/gravity/registry.headers";
+                    contents = ''
+                      {{- with secret "secrets/gravity" -}}
+                      {{- $authorization := sprig_trim .Data.data.registry -}}
+                      {{- if not (regexMatch "(?i)^authorization:[\\x20-\\x7e]+$" $authorization) -}}
+                      {{- sprig_fail "Registry authorization must contain a single Authorization header" -}}
+                      {{- end -}}
+                      {{ $authorization }}
+                      {{- end -}}
+                    '';
+                  }
+                ];
+              }}
+
               registry=/run/gravity/registry.json
               trap 'rm -f "$registry.new"' EXIT
 
               curl --fail --retry 5 --retry-delay 30 --retry-connrefused \
-                -H @${config.sops.secrets.gravity_registry.path} \
+                -H @/run/gravity/registry.headers \
                 https://raw.githubusercontent.com/tuna/gravity/artifacts/artifacts/registry.json --output "$registry.new"
               mv "$registry.new" "$registry"
             '';
           };
           ranet-up = [
-            (lib.getExe registry-update)
+            (lib.getExe prepare)
             (ranet-exec "up")
           ];
         in
@@ -644,6 +669,7 @@ in
             Type = "oneshot";
             RemainAfterExit = true;
             RuntimeDirectory = "gravity";
+            RuntimeDirectoryMode = "0700";
             ExecStart = ranet-up;
             ExecReload = ranet-up;
             ExecStop = ranet-exec "down";
