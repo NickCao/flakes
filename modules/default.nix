@@ -9,7 +9,6 @@
         (import ./openbao-agent.nix)
         (import ./ghostunnel.nix)
         (import ./metrics)
-        (import ./dns/secondary)
         (import ./cloud/services.nix)
         (import ./gravity)
         (import ./backup)
@@ -17,6 +16,7 @@
       ];
     }
   );
+  dns.secondary = import ./dns/secondary;
   cloud = {
     disko = import ./cloud/disko.nix;
     disko-uefi = import ./cloud/disko-uefi.nix;

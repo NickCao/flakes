@@ -1,5 +1,7 @@
 {
   config,
+  lib,
+  name,
   self,
   inputs,
   data,
@@ -7,7 +9,7 @@
   ...
 }:
 let
-  hasTag = tag: builtins.elem tag config.deployment.tags;
+  hasTag = tag: builtins.elem tag data.nodes.${name}.tags;
   prefix = data.nodes."${config.networking.hostName}".prefix;
 in
 {
@@ -15,16 +17,21 @@ in
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
     self.nixosModules.default
-    inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
-  ];
-
-  sops = {
-    age = {
-      keyFile = "/var/lib/sops.key";
-      sshKeyPaths = [ ];
+  ]
+  ++ lib.optional (hasTag "nameserver") {
+    imports = [
+      inputs.sops-nix.nixosModules.sops
+      self.nixosModules.dns.secondary
+    ];
+    sops = {
+      age = {
+        keyFile = "/var/lib/sops.key";
+        sshKeyPaths = [ ];
+      };
+      gnupg.sshKeyPaths = [ ];
     };
-    gnupg.sshKeyPaths = [ ];
+    services.dns.secondary.enable = true;
   };
 
   boot = {
@@ -91,8 +98,6 @@ in
   ];
 
   environment.baseline.enable = true;
-
-  services.dns.secondary.enable = hasTag "nameserver";
 
   nixpkgs.overlays = [
     self.overlays.default
