@@ -576,6 +576,7 @@ in
     })
     (mkIf cfg.ipsec.enable {
       cloud.spire.agent.enable = true;
+      users.groups.strongswan = { };
       environment.systemPackages = [ config.services.strongswan-swanctl.package ];
       environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" (
         {
@@ -668,6 +669,10 @@ in
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
+            DynamicUser = true;
+            SupplementaryGroups = [ config.users.groups.strongswan.name ];
+            CapabilityBoundingSet = "";
+            AmbientCapabilities = "";
             RuntimeDirectory = "gravity";
             RuntimeDirectoryMode = "0700";
             ExecStart = ranet-up;
@@ -702,6 +707,7 @@ in
         enable = true;
         strongswan.extraConfig = ''
           charon {
+            group = ${config.users.groups.strongswan.name}
             ikesa_table_size = 32
             ikesa_table_segments = 4
             reuse_ikesa = no
