@@ -388,7 +388,7 @@ in
         serviceConfig.RestartSec = 10;
         preStart = config.lib.openbao.mkAgent {
           role = "bgp";
-          tokenPath = "/run/bird/token";
+          runtimeDir = "/run/bird";
           templates = lib.singleton {
             destination = "/run/bird/credentials";
             contents = ''
@@ -630,7 +630,7 @@ in
             text = ''
               ${config.lib.openbao.mkAgent {
                 role = "gravity";
-                tokenPath = "/run/gravity/token";
+                runtimeDir = "/run/gravity";
                 templates = [
                   {
                     destination = "/run/gravity/ipsec.key";

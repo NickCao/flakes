@@ -67,7 +67,7 @@ in
             enableStrictShellChecks = true;
             text = config.lib.openbao.mkAgent {
               role = "restic";
-              tokenPath = "/run/restic-backups-persist/token";
+              runtimeDir = "/run/restic-backups-persist";
               templates = lib.singleton {
                 destination = "/run/restic-backups-persist/credentials";
                 contents = ''

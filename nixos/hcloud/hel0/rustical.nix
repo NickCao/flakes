@@ -16,7 +16,7 @@ in
     path = [ pkgs.getent ]; # for bao agent
     preStart = config.lib.openbao.mkAgent {
       role = "rustical";
-      tokenPath = "/run/rustical/token";
+      runtimeDir = "/run/rustical";
       templates = lib.singleton {
         destination = "/run/rustical/credentials";
         contents = ''

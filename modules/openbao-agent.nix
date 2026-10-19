@@ -3,7 +3,7 @@
   lib.openbao.mkAgent =
     {
       role,
-      tokenPath,
+      runtimeDir,
       templates,
     }:
     ''
@@ -14,7 +14,7 @@
 
           jwt_svids = [{
             jwt_audience = "openbao"
-            jwt_svid_file_name = "${tokenPath}"
+            jwt_svid_file_name = "${runtimeDir}/jwt_svid.token"
           }]
         ''}
       ${lib.getExe pkgs.openbao} agent -exit-after-auth \
@@ -26,7 +26,7 @@
             method "jwt" {
               mount_path = "auth/spiffe"
               config {
-                path = "${tokenPath}"
+                path = "${runtimeDir}/jwt_svid.token"
                 role = "${role}"
               }
             }

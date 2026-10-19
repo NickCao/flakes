@@ -24,7 +24,7 @@
     path = [ pkgs.getent ]; # for bao agent
     preStart = config.lib.openbao.mkAgent {
       role = "litestream";
-      tokenPath = "/run/litestream/token";
+      runtimeDir = "/run/litestream";
       templates = lib.singleton {
         destination = "/run/litestream/credentials";
         contents = ''

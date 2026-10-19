@@ -56,7 +56,7 @@ in
     path = [ pkgs.getent ]; # for bao agent
     preStart = config.lib.openbao.mkAgent {
       role = "victoriametrics";
-      tokenPath = "/run/victoriametrics/token";
+      runtimeDir = "/run/victoriametrics";
       templates = lib.singleton {
         destination = "/run/victoriametrics/credentials";
         contents = ''
