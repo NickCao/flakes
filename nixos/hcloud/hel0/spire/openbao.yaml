@@ -3,5 +3,7 @@ kind: ClusterStaticEntry
 spec:
   parentID: spiffe://nichi.link/spire/agent/http_challenge/hel0.nichi.link
   spiffeID: spiffe://nichi.link/openbao
+  dnsNames:
+    - openbao.nichi.link
   selectors:
     - systemd:id:spiffe-openbao.service

@@ -12,15 +12,25 @@
           daemon_mode = false
           agent_address = "/run/spire/agent/public/api.sock"
 
+          cert_dir = "${runtimeDir}"
+          cert_file_mode = 0600
+          svid_file_name = "svid.pem"
+          svid_key_file_name = "svid_key.pem"
+          svid_bundle_file_name = "svid_bundle.pem"
+
           jwt_svids = [{
             jwt_audience = "openbao"
-            jwt_svid_file_name = "${runtimeDir}/jwt_svid.token"
+            jwt_svid_file_name = "jwt_svid.token"
           }]
         ''}
       ${lib.getExe pkgs.openbao} agent -exit-after-auth \
         -config ${pkgs.writeText "${role}-openbao-agent.hcl" ''
           vault {
-            address = "http://127.0.0.1:8200"
+            address = "https://bao.nichi.co:9545"
+            ca_cert = "${runtimeDir}/svid_bundle.pem"
+            client_cert = "${runtimeDir}/svid.pem"
+            client_key = "${runtimeDir}/svid_key.pem"
+            tls_server_name = "openbao.nichi.link"
           }
           auto_auth {
             method "jwt" {
