@@ -21,14 +21,6 @@ in
       "vendorfw"
     ];
 
-  sops = {
-    age = {
-      keyFile = "/var/lib/sops.key";
-      sshKeyPaths = [ ];
-    };
-    gnupg.sshKeyPaths = [ ];
-  };
-
   systemd.network.enable = true;
   systemd.network.networks = {
     "10-end0" = {

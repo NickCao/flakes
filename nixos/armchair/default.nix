@@ -11,7 +11,6 @@ nixpkgs.lib.nixosSystem {
     ./hardware-configuration.nix
     ./gravity.nix
     self.nixosModules.default
-    inputs.sops-nix.nixosModules.sops
     inputs.impermanence.nixosModules.impermanence
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
     {
