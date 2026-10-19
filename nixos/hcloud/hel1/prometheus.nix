@@ -57,19 +57,21 @@ in
     preStart = config.lib.openbao.mkAgent {
       role = "victoriametrics";
       tokenPath = "/run/victoriametrics/token";
-      destination = "/run/victoriametrics/credentials";
-      contents = ''
-        {{ with secret "secrets/scaleway_cockpit_par" }}
-        {{ if not (regexMatch "^https://[0-9a-zA-Z]([0-9a-zA-Z-]{0,61}[0-9a-zA-Z])?([.][0-9a-zA-Z]([0-9a-zA-Z-]{0,61}[0-9a-zA-Z])?)+$" .Data.data.url) }}
-        {{ sprig_fail "Scaleway Cockpit url must be https:// followed by a domain name only" }}
-        {{ end }}
-        {{ if not (regexMatch "^[0-9a-zA-Z-]+$" .Data.data.secret_key) }}
-        {{ sprig_fail "Scaleway secret_key must be non-empty and contain only letters, digits, or dashes" }}
-        {{ end }}
-        SCW_COCKPIT_PAR_URL={{ .Data.data.url }}
-        SCW_COCKPIT_PAR_SECRET_KEY={{ .Data.data.secret_key }}
-        {{ end }}
-      '';
+      templates = lib.singleton {
+        destination = "/run/victoriametrics/credentials";
+        contents = ''
+          {{ with secret "secrets/scaleway_cockpit_par" }}
+          {{ if not (regexMatch "^https://[0-9a-zA-Z]([0-9a-zA-Z-]{0,61}[0-9a-zA-Z])?([.][0-9a-zA-Z]([0-9a-zA-Z-]{0,61}[0-9a-zA-Z])?)+$" .Data.data.url) }}
+          {{ sprig_fail "Scaleway Cockpit url must be https:// followed by a domain name only" }}
+          {{ end }}
+          {{ if not (regexMatch "^[0-9a-zA-Z-]+$" .Data.data.secret_key) }}
+          {{ sprig_fail "Scaleway secret_key must be non-empty and contain only letters, digits, or dashes" }}
+          {{ end }}
+          SCW_COCKPIT_PAR_URL={{ .Data.data.url }}
+          SCW_COCKPIT_PAR_SECRET_KEY={{ .Data.data.secret_key }}
+          {{ end }}
+        '';
+      };
     };
   };
 

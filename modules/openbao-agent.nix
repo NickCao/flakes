@@ -4,8 +4,7 @@
     {
       role,
       tokenPath,
-      destination,
-      contents,
+      templates,
     }:
     ''
       ${lib.getExe pkgs.spiffe-helper} \
@@ -35,14 +34,16 @@
           template_config {
             exit_on_retry_failure = true
           }
-          template {
-            error_on_missing_key = true
-            perms = "0600"
-            contents = <<EOT
-          ${lib.removeSuffix "\n" contents}
-          EOT
-            destination = "${destination}"
-          }
+          ${lib.concatMapStringsSep "\n" (template: ''
+            template {
+              error_on_missing_key = true
+              perms = "0600"
+              contents = <<EOT
+            ${lib.removeSuffix "\n" template.contents}
+            EOT
+              destination = "${template.destination}"
+            }
+          '') templates}
         ''}
     '';
 }

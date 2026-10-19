@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   systemd.services.litestream = {
     serviceConfig = {
@@ -20,20 +25,22 @@
     preStart = config.lib.openbao.mkAgent {
       role = "litestream";
       tokenPath = "/run/litestream/token";
-      destination = "/run/litestream/credentials";
-      contents = ''
-        {{ with secret "secrets/scaleway_iam_litestream" }}
-        {{ if not (regexMatch "^[0-9a-zA-Z]+$" .Data.data.access_key) }}
-        {{ sprig_fail "Scaleway access_key must be a non-empty alphanumeric string" }}
-        {{ end }}
-        {{ if not (regexMatch "^[0-9a-zA-Z-]+$" .Data.data.secret_key) }}
-        {{ sprig_fail "Scaleway secret_key must be non-empty and contain only letters, digits, or dashes" }}
-        {{ end }}
-        [default]
-        aws_access_key_id={{ .Data.data.access_key }}
-        aws_secret_access_key={{ .Data.data.secret_key }}
-        {{ end }}
-      '';
+      templates = lib.singleton {
+        destination = "/run/litestream/credentials";
+        contents = ''
+          {{ with secret "secrets/scaleway_iam_litestream" }}
+          {{ if not (regexMatch "^[0-9a-zA-Z]+$" .Data.data.access_key) }}
+          {{ sprig_fail "Scaleway access_key must be a non-empty alphanumeric string" }}
+          {{ end }}
+          {{ if not (regexMatch "^[0-9a-zA-Z-]+$" .Data.data.secret_key) }}
+          {{ sprig_fail "Scaleway secret_key must be non-empty and contain only letters, digits, or dashes" }}
+          {{ end }}
+          [default]
+          aws_access_key_id={{ .Data.data.access_key }}
+          aws_secret_access_key={{ .Data.data.secret_key }}
+          {{ end }}
+        '';
+      };
     };
   };
 

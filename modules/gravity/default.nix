@@ -389,15 +389,17 @@ in
         preStart = config.lib.openbao.mkAgent {
           role = "bgp";
           tokenPath = "/run/bird/token";
-          destination = "/run/bird/credentials";
-          contents = ''
-            {{ with secret "secrets/vultr_bgp_password" }}
-            {{ if not (regexMatch "^[0-9a-zA-Z]+$" .Data.data.password) }}
-            {{ sprig_fail "BGP password must be a non-empty alphanumeric string" }}
-            {{ end }}
-            define BGP_PASSWD = "{{ .Data.data.password }}";
-            {{ end }}
-          '';
+          templates = lib.singleton {
+            destination = "/run/bird/credentials";
+            contents = ''
+              {{ with secret "secrets/vultr_bgp_password" }}
+              {{ if not (regexMatch "^[0-9a-zA-Z]+$" .Data.data.password) }}
+              {{ sprig_fail "BGP password must be a non-empty alphanumeric string" }}
+              {{ end }}
+              define BGP_PASSWD = "{{ .Data.data.password }}";
+              {{ end }}
+            '';
+          };
         };
       };
     })

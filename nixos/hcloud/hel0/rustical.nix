@@ -17,19 +17,21 @@ in
     preStart = config.lib.openbao.mkAgent {
       role = "rustical";
       tokenPath = "/run/rustical/token";
-      destination = "/run/rustical/credentials";
-      contents = ''
-        {{ with secret "secrets/oidc_client_rustical" }}
-        {{ if not (regexMatch "^[0-9a-zA-Z]+$" .Data.data.client_id) }}
-        {{ sprig_fail "Rustical client_id must be a non-empty alphanumeric string" }}
-        {{ end }}
-        {{ if not (regexMatch "^[0-9a-zA-Z]+$" .Data.data.client_secret) }}
-        {{ sprig_fail "Rustical client_secret must be a non-empty alphanumeric string" }}
-        {{ end }}
-        RUSTICAL_OIDC__CLIENT_ID={{ .Data.data.client_id }}
-        RUSTICAL_OIDC__CLIENT_SECRET={{ .Data.data.client_secret }}
-        {{ end }}
-      '';
+      templates = lib.singleton {
+        destination = "/run/rustical/credentials";
+        contents = ''
+          {{ with secret "secrets/oidc_client_rustical" }}
+          {{ if not (regexMatch "^[0-9a-zA-Z]+$" .Data.data.client_id) }}
+          {{ sprig_fail "Rustical client_id must be a non-empty alphanumeric string" }}
+          {{ end }}
+          {{ if not (regexMatch "^[0-9a-zA-Z]+$" .Data.data.client_secret) }}
+          {{ sprig_fail "Rustical client_secret must be a non-empty alphanumeric string" }}
+          {{ end }}
+          RUSTICAL_OIDC__CLIENT_ID={{ .Data.data.client_id }}
+          RUSTICAL_OIDC__CLIENT_SECRET={{ .Data.data.client_secret }}
+          {{ end }}
+        '';
+      };
     };
   };
 

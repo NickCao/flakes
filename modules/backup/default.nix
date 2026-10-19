@@ -68,26 +68,28 @@ in
             text = config.lib.openbao.mkAgent {
               role = "restic";
               tokenPath = "/run/restic-backups-persist/token";
-              destination = "/run/restic-backups-persist/credentials";
-              contents = ''
-                {{ with secret "secrets/scaleway_iam_restic" }}
-                {{ if not (regexMatch "^https://[0-9a-zA-Z]([0-9a-zA-Z-]{0,61}[0-9a-zA-Z])?([.][0-9a-zA-Z]([0-9a-zA-Z-]{0,61}[0-9a-zA-Z])?)+$" .Data.data.api_endpoint) }}
-                {{ sprig_fail "Restic api_endpoint must be https:// followed by a domain name only" }}
-                {{ end }}
-                {{ if not (regexMatch "^[0-9a-zA-Z]+$" .Data.data.access_key) }}
-                {{ sprig_fail "Scaleway access_key must be a non-empty alphanumeric string" }}
-                {{ end }}
-                {{ if not (regexMatch "^[0-9a-zA-Z-]+$" .Data.data.secret_key) }}
-                {{ sprig_fail "Scaleway secret_key must be non-empty and contain only letters, digits, or dashes" }}
-                {{ end }}
-                {{ if not (regexMatch "^[0-9a-zA-Z-]+$" .Data.data.name) }}
-                {{ sprig_fail "Restic bucket name must be non-empty and contain only letters, digits, or dashes" }}
-                {{ end }}
-                RESTIC_REPOSITORY=s3:{{ .Data.data.api_endpoint }}/{{ .Data.data.name }}/${cfg.prefix}
-                AWS_ACCESS_KEY_ID={{ .Data.data.access_key }}
-                AWS_SECRET_ACCESS_KEY={{ .Data.data.secret_key }}
-                {{ end }}
-              '';
+              templates = lib.singleton {
+                destination = "/run/restic-backups-persist/credentials";
+                contents = ''
+                  {{ with secret "secrets/scaleway_iam_restic" }}
+                  {{ if not (regexMatch "^https://[0-9a-zA-Z]([0-9a-zA-Z-]{0,61}[0-9a-zA-Z])?([.][0-9a-zA-Z]([0-9a-zA-Z-]{0,61}[0-9a-zA-Z])?)+$" .Data.data.api_endpoint) }}
+                  {{ sprig_fail "Restic api_endpoint must be https:// followed by a domain name only" }}
+                  {{ end }}
+                  {{ if not (regexMatch "^[0-9a-zA-Z]+$" .Data.data.access_key) }}
+                  {{ sprig_fail "Scaleway access_key must be a non-empty alphanumeric string" }}
+                  {{ end }}
+                  {{ if not (regexMatch "^[0-9a-zA-Z-]+$" .Data.data.secret_key) }}
+                  {{ sprig_fail "Scaleway secret_key must be non-empty and contain only letters, digits, or dashes" }}
+                  {{ end }}
+                  {{ if not (regexMatch "^[0-9a-zA-Z-]+$" .Data.data.name) }}
+                  {{ sprig_fail "Restic bucket name must be non-empty and contain only letters, digits, or dashes" }}
+                  {{ end }}
+                  RESTIC_REPOSITORY=s3:{{ .Data.data.api_endpoint }}/{{ .Data.data.name }}/${cfg.prefix}
+                  AWS_ACCESS_KEY_ID={{ .Data.data.access_key }}
+                  AWS_SECRET_ACCESS_KEY={{ .Data.data.secret_key }}
+                  {{ end }}
+                '';
+              };
             };
           })
         ];
