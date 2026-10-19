@@ -11,11 +11,6 @@ keys:
     - &nrt0 age1cj7nr3vxqcvyzay7sfzjv8qtpjplw2fwxes4dczy55yw87xavphsrksrz3
     - &sin0 age109hdqsfvm05lme2wpl640zza8lsdztqcu0al2x0zsy09w8c7pylq4leyrw
     - &sea0 age1gfqt4tz9x6y5nr0v4lgzzll7mh0yptlm2c6nv9hnps7cmu3my9qsfyrdm3
-    - &lax0 age1k5edl9v0ulv7ps0cq8q87fwxjs8xwsy5rvtfd4nzuw8uxa862vaqa3nhrh
-    - &lhr0 age1x23g23c5j4u3cugzk8kv5avgvh5u6pm6937d0f20latxl563wfkqu8v0kg
-    - &ewr0 age13f0p9uj62asfdhv3j05rdy9glef7c7zvf3f5quuxl5pgwtfqafus824gdn
-    - &fra0 age199g3w0g7uf73jrw5a95vjyr7g478c7h2yxx3zhh4vp0879hrvs0qspdjxp
-    - &itm0 age1x94cvg2qdtvxyc2scukgmcvln6jcm8qr28rhgv74rr5fdscu0pcqc7n0mh
 creation_rules:
   - path_regex: infra/secrets\.yaml
     key_groups:
