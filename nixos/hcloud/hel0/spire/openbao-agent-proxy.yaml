@@ -1,7 +1,7 @@
 apiVersion: spire.spiffe.io/v1alpha1
 kind: ClusterStaticEntry
 spec:
-  parentID: spiffe://nichi.link/any
+  parentID: spiffe://nichi.link/mainframe
   spiffeID: spiffe://nichi.link/openbao-agent-proxy
   selectors:
     - systemd:id:spiffe-openbao-agent-proxy.service

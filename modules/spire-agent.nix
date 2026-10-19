@@ -51,11 +51,5 @@ in
         WorkloadAttestor.unix = { };
       };
     };
-
-    cloud.ghostunnel.clients.spiffe-openbao-agent-proxy = {
-      listen = "127.0.0.1:8200"; # TODO: listen on uds
-      target = "bao.nichi.co:9545";
-      verifyURI = "spiffe://nichi.link/openbao";
-    };
   };
 }
