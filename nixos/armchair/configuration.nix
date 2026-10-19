@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  utils,
   ...
 }:
 let
@@ -44,6 +45,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernel.sysctl."vm.mmap_rnd_bits" = 31;
+  boot.kernelModules = [ "tpm_vtpm_proxy" ];
 
   hardware.asahi = {
     enable = true;
@@ -69,6 +71,42 @@ in
     tmux
     lm_sensors
   ];
+
+  users.groups.vtpm = { };
+  services.udev.extraRules = ''
+    KERNEL=="vtpmx", GROUP="vtpm", MODE="0660", TAG+="systemd"
+    # go-attestation falls back to the raw device for the virtual TPM.
+    SUBSYSTEM=="tpm", KERNEL=="tpm[0-9]*", GROUP="tss", MODE="0660"
+  '';
+
+  cloud.services.swtpm = {
+    unit = {
+      Requires = [ "dev-vtpmx.device" ];
+      After = [ "dev-vtpmx.device" ];
+    };
+    config = {
+      ExecStart = utils.escapeSystemdExecArgs [
+        (lib.getExe pkgs.swtpm)
+        "chardev"
+        "--vtpm-proxy"
+        "--tpm2"
+        "--tpmstate"
+        "dir=/var/lib/swtpm,mode=0600"
+      ];
+      StateDirectory = "swtpm";
+      StateDirectoryMode = "0700";
+      SupplementaryGroups = [ "vtpm" ];
+      PrivateUsers = false;
+      PrivateDevices = false;
+      CapabilityBoundingSet = [ "CAP_SYS_ADMIN" ];
+      AmbientCapabilities = [ "CAP_SYS_ADMIN" ];
+      DevicePolicy = "closed";
+      DeviceAllow = [ "/dev/vtpmx rw" ];
+      RestartSec = 10;
+    };
+  };
+
+  cloud.spire.agent.tpm = true;
 
   hardware.graphics.enable = true;
 

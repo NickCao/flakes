@@ -18,9 +18,6 @@ in
       AmbientCapabilities = lib.mkIf (!cfg.tpm) [
         "CAP_NET_BIND_SERVICE"
       ];
-      SupplementaryGroups = lib.mkIf cfg.tpm [
-        "tss"
-      ];
     };
 
     services.spire.agent.enable = true;

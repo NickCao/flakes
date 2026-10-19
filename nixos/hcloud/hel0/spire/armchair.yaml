@@ -4,4 +4,4 @@ spec:
   parentID: spiffe://nichi.link/spire/server
   spiffeID: spiffe://nichi.link/armchair
   selectors:
-    - http_challenge:hostname:armchair.nichi.link
+    - tpm:pub_hash:3493a775ce695bf69a47f80a5c7b9631e22fb2de6bc8cf0f637547fba57e982a

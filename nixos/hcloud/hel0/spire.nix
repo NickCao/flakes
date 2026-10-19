@@ -84,6 +84,8 @@ in
                   "0de4d6b5b1b88b4687510969da833985b191e2fc49c162faaaa31959ff37dae9"
                   # mainframe
                   "e2c790072d02cfc3ce976943ad663ab0462522127c036daa6154a4370ff4922c"
+                  # armchair
+                  "3493a775ce695bf69a47f80a5c7b9631e22fb2de6bc8cf0f637547fba57e982a"
                 ] (_: pkgs.emptyFile)
               )
             );
