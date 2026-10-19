@@ -576,6 +576,10 @@ in
     })
     (mkIf cfg.ipsec.enable {
       cloud.spire.agent.enable = true;
+      users.users.strongswan = {
+        isSystemUser = true;
+        group = config.users.groups.strongswan.name;
+      };
       users.groups.strongswan = { };
       environment.systemPackages = [ config.services.strongswan-swanctl.package ];
       environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" (
@@ -691,6 +695,10 @@ in
           wantedBy = [ "multi-user.target" ];
           reloadTriggers = [ config.environment.etc."ranet/config.json".source ];
         };
+      systemd.services.strongswan-swanctl.serviceConfig = {
+        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
+        SecureBits = "no-setuid-fixup";
+      };
       systemd.services.gravity-reload = {
         serviceConfig = {
           Type = "oneshot";
@@ -707,6 +715,7 @@ in
         enable = true;
         strongswan.extraConfig = ''
           charon {
+            user = ${config.users.users.strongswan.name}
             group = ${config.users.groups.strongswan.name}
             ikesa_table_size = 32
             ikesa_table_segments = 4
