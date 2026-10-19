@@ -1,0 +1,7 @@
+apiVersion: spire.spiffe.io/v1alpha1
+kind: ClusterStaticEntry
+spec:
+  parentID: spiffe://nichi.link/spire/server
+  spiffeID: spiffe://nichi.link/any
+  selectors:
+    - tpm:pub_hash:0de4d6b5b1b88b4687510969da833985b191e2fc49c162faaaa31959ff37dae9

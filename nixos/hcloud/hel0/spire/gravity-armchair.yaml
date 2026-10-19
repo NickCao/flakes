@@ -1,0 +1,7 @@
+apiVersion: spire.spiffe.io/v1alpha1
+kind: ClusterStaticEntry
+spec:
+  parentID: spiffe://nichi.link/armchair
+  spiffeID: spiffe://nichi.link/gravity
+  selectors:
+    - systemd:id:gravity-ipsec.service
