@@ -13,6 +13,7 @@ let
   stateles = config.systemd.network.netdevs.stateles.vrfConfig.Table;
 in
 {
+  imports = [ inputs.strongswan-kernel-rust.nixosModules.default ];
   options.services.gravity = {
     enable = mkEnableOption "gravity overlay network, next generation";
     ipsec = {
@@ -576,11 +577,6 @@ in
     })
     (mkIf cfg.ipsec.enable {
       cloud.spire.agent.enable = true;
-      users.users.strongswan = {
-        isSystemUser = true;
-        group = config.users.groups.strongswan.name;
-      };
-      users.groups.strongswan = { };
       environment.systemPackages = [ config.services.strongswan-swanctl.package ];
       environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" (
         {
@@ -591,18 +587,6 @@ in
             address_family = ep.addressFamily;
             address = ep.address;
             port = cfg.ipsec.port;
-            updown = pkgs.writeShellScript "updown" ''
-              LINK=gn$(printf '%08x\n' "$PLUTO_IF_ID_OUT")
-              case "$PLUTO_VERB" in
-                up-client)
-                  ip link add "$LINK" type xfrm if_id "$PLUTO_IF_ID_OUT"
-                  ip link set "$LINK" master gravity multicast on mtu 1400 up
-                  ;;
-                down-client)
-                  ip link del "$LINK"
-                  ;;
-              esac
-            '';
           }) cfg.ipsec.endpoints;
         }
         // lib.optionalAttrs cfg.ipsec.iptfs {
@@ -615,6 +599,7 @@ in
             subcommand:
             utils.escapeSystemdExecArgs [
               "${inputs.ranet-ipsec.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/ranet"
+              "--vici=/run/strongswan/charon.vici"
               "--config=/etc/ranet/config.json"
               "--registry=/run/gravity/registry.json"
               "--key=/run/gravity/ipsec.key"
@@ -674,7 +659,7 @@ in
             Type = "oneshot";
             RemainAfterExit = true;
             DynamicUser = true;
-            SupplementaryGroups = [ config.users.groups.strongswan.name ];
+            SupplementaryGroups = [ config.users.groups.ipsec.name ];
             CapabilityBoundingSet = "";
             AmbientCapabilities = "";
             RuntimeDirectory = "gravity";
@@ -695,10 +680,6 @@ in
           wantedBy = [ "multi-user.target" ];
           reloadTriggers = [ config.environment.etc."ranet/config.json".source ];
         };
-      systemd.services.strongswan-swanctl.serviceConfig = {
-        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-        SecureBits = "no-setuid-fixup";
-      };
       systemd.services.gravity-reload = {
         serviceConfig = {
           Type = "oneshot";
@@ -711,12 +692,14 @@ in
         };
         wantedBy = [ "timers.target" ];
       };
+      services.charon-kernel = {
+        enable = true;
+        interfaceNamePrefix = "gn";
+      };
       services.strongswan-swanctl = {
         enable = true;
         strongswan.extraConfig = ''
           charon {
-            user = ${config.users.users.strongswan.name}
-            group = ${config.users.groups.strongswan.name}
             ikesa_table_size = 32
             ikesa_table_segments = 4
             reuse_ikesa = no
@@ -725,13 +708,21 @@ in
             port_nat_t = ${toString cfg.ipsec.port}
             retransmit_timeout = 30
             retransmit_base = 1
+            load_modular = yes
             plugins {
+              include ${config.services.strongswan-swanctl.package}/share/strongswan/templates/config/plugins/*.conf
               socket-default {
                 set_source = yes
                 set_sourceif = yes
               }
               dhcp {
                 load = no
+              }
+              kernel-netlink {
+                load = no
+              }
+              kernel-rust {
+                load = yes
               }
             }
           }

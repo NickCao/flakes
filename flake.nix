@@ -26,6 +26,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    strongswan-kernel-rust = {
+      url = "github:NickCao/strongswan-kernel-rust";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     colmena = {
       url = "github:nix-community/colmena";
       inputs.stable.follows = "nixpkgs";

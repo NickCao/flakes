@@ -211,11 +211,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792429124,
-        "narHash": "sha256-ob9F5dUrqWPL9nY+BOpnrmSC6us8JE+nsbDFriJ/b4c=",
+        "lastModified": 1792442014,
+        "narHash": "sha256-KRdh34cIB68eRjMacJmC7zzoRbYiaG2Y/xRFuYxq6s4=",
         "owner": "anduril",
         "repo": "jetpack-nixos",
-        "rev": "8c412601a4918a879a4990878cb5a8c252372bbd",
+        "rev": "c247798c3724b88d22e59497f359511051c7e21c",
         "type": "github"
       },
       "original": {
@@ -342,7 +342,8 @@
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixpkgs": "nixpkgs",
         "ranet-ipsec": "ranet-ipsec",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "strongswan-kernel-rust": "strongswan-kernel-rust"
       }
     },
     "rust-overlay": {
@@ -358,6 +359,27 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "rev": "87ffb7f777aef2e2647fd8fd718a5b3cbc825588",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
+      "inputs": {
+        "nixpkgs": [
+          "strongswan-kernel-rust",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792395246,
+        "narHash": "sha256-SfVFE7TKuByeQRwhVbaVrvTV/lI41AYK9CYSfB+pIis=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "550547cefc67e01a6fd11a09e4096a3c844ca840",
         "type": "github"
       },
       "original": {
@@ -383,6 +405,27 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "strongswan-kernel-rust": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+        "lastModified": 1792446308,
+        "narHash": "sha256-CzcoK7ra0MTKeP+TPLMA8vt1SxrX+oUsaUE/lwuy2PU=",
+        "owner": "NickCao",
+        "repo": "strongswan-kernel-rust",
+        "rev": "577a508b8cb30750c564d192f5111899507f7159",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NickCao",
+        "repo": "strongswan-kernel-rust",
         "type": "github"
       }
     },
