@@ -43,7 +43,6 @@ in
       };
       iptfs = mkEnableOption "iptfs";
     };
-    reload.enable = mkEnableOption "auto reload registry";
     table = mkOption {
       type = types.int;
       default = 200;
@@ -531,34 +530,6 @@ in
         };
       };
     })
-    (mkIf cfg.reload.enable {
-      sops.secrets.gravity_registry.sopsFile = ./secrets.yaml;
-      systemd.tmpfiles.rules = [ "d /var/lib/gravity 0755 root root - -" ];
-      systemd.services.gravity-registry = {
-        path = with pkgs; [
-          curl
-          jq
-          coreutils
-        ];
-        script = ''
-          set -euo pipefail
-
-          curl --fail --retry 5 --retry-delay 30 --retry-connrefused \
-            -H @${config.sops.secrets.gravity_registry.path} \
-            https://raw.githubusercontent.com/tuna/gravity/artifacts/artifacts/registry.json --output /var/lib/gravity/registry.json.new
-          mv /var/lib/gravity/registry.json.new /var/lib/gravity/registry.json
-
-          /run/current-system/systemd/bin/systemctl reload-or-restart --no-block gravity-ipsec || true
-        '';
-        serviceConfig.Type = "oneshot";
-      };
-      systemd.timers.gravity-registry = {
-        timerConfig = {
-          OnCalendar = "*:0/15";
-        };
-        wantedBy = [ "timers.target" ];
-      };
-    })
     (mkIf cfg.srv6.enable {
       environment.etc."iproute2/rt_tables.d/gravity.conf" = {
         mode = "0644";
@@ -602,7 +573,10 @@ in
       };
     })
     (mkIf cfg.ipsec.enable {
-      sops.secrets.ipsec.sopsFile = ./secrets.yaml;
+      sops.secrets = {
+        ipsec.sopsFile = ./secrets.yaml;
+        gravity_registry.sopsFile = ./secrets.yaml;
+      };
       environment.systemPackages = [ config.services.strongswan-swanctl.package ];
       environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" (
         {
@@ -638,21 +612,39 @@ in
             utils.escapeSystemdExecArgs [
               "${inputs.ranet-ipsec.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/ranet"
               "--config=/etc/ranet/config.json"
-              "--registry=/var/lib/gravity/registry.json"
+              "--registry=/run/gravity/registry.json"
               "--key=${config.sops.secrets.ipsec.path}"
               subcommand
             ];
+          registry-update = pkgs.writeShellApplication {
+            name = "gravity-registry-update";
+            runtimeInputs = with pkgs; [
+              curl
+              coreutils
+            ];
+            text = ''
+              registry=/run/gravity/registry.json
+              trap 'rm -f "$registry.new"' EXIT
+
+              curl --fail --retry 5 --retry-delay 30 --retry-connrefused \
+                -H @${config.sops.secrets.gravity_registry.path} \
+                https://raw.githubusercontent.com/tuna/gravity/artifacts/artifacts/registry.json --output "$registry.new"
+              mv "$registry.new" "$registry"
+            '';
+          };
+          ranet-up = [
+            (lib.getExe registry-update)
+            (ranet-exec "up")
+          ];
         in
         {
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
-            ExecStart = ranet-exec "up";
-            ExecReload = ranet-exec "up";
+            RuntimeDirectory = "gravity";
+            ExecStart = ranet-up;
+            ExecReload = ranet-up;
             ExecStop = ranet-exec "down";
-          };
-          unitConfig = {
-            AssertFileNotEmpty = "/var/lib/gravity/registry.json";
           };
           bindsTo = [ "strongswan-swanctl.service" ];
           wants = [
@@ -666,6 +658,18 @@ in
           wantedBy = [ "multi-user.target" ];
           reloadTriggers = [ config.environment.etc."ranet/config.json".source ];
         };
+      systemd.services.gravity-reload = {
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${config.systemd.package}/bin/systemctl reload-or-restart gravity-ipsec.service";
+        };
+      };
+      systemd.timers.gravity-reload = {
+        timerConfig = {
+          OnCalendar = "*:0/15";
+        };
+        wantedBy = [ "timers.target" ];
+      };
       services.strongswan-swanctl = {
         enable = true;
         strongswan.extraConfig = ''
