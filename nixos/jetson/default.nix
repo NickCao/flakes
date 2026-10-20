@@ -16,4 +16,7 @@ nixpkgs.lib.nixosSystem {
     inputs.impermanence.nixosModules.impermanence
     inputs.jetpack.nixosModules.default
   ];
+  specialArgs = {
+    inherit inputs;
+  };
 }
