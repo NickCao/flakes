@@ -65,13 +65,13 @@
         "${pkgs.iproute2}/bin/ip -6 r add blackhole default table 100"
         "${pkgs.iproute2}/bin/ip -6 r add 2a0c:b641:69c:a236::1 encap seg6local action End.DT4 vrftable 200 dev gravity table 100"
         "${pkgs.iproute2}/bin/ip sr tunsrc set 2a0c:b641:69c:a230::1"
-        "${pkgs.iproute2}/bin/ip r add default encap seg6 mode encap.red segs 2a0c:b641:69c:aeb6::1 mtu 1400 dev gravity vrf gravity"
+        "${pkgs.iproute2}/bin/ip r add default encap seg6 mode encap.red segs 2a0c:b641:69c:aeb6::1 mtu 1280 dev gravity vrf gravity"
       ];
       ExecStop = [
         "${pkgs.iproute2}/bin/ip -6 r del blackhole default table 100"
         "${pkgs.iproute2}/bin/ip -6 r del 2a0c:b641:69c:a236::1 encap seg6local action End.DT4 vrftable 200 dev gravity table 100"
         "${pkgs.iproute2}/bin/ip sr tunsrc set ::"
-        "${pkgs.iproute2}/bin/ip r del default encap seg6 mode encap.red segs 2a0c:b641:69c:aeb6::1 mtu 1400 dev gravity vrf gravity"
+        "${pkgs.iproute2}/bin/ip r del default encap seg6 mode encap.red segs 2a0c:b641:69c:aeb6::1 mtu 1280 dev gravity vrf gravity"
       ];
     };
     after = [ "network-online.target" ];
