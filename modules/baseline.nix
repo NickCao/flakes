@@ -14,7 +14,6 @@ with lib;
   };
   config = lib.mkIf cfg.enable {
     boot = {
-      initrd.systemd.enable = true;
       kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
       kernelParams = lib.optionals pkgs.stdenv.hostPlatform.isx86_64 [ "ia32_emulation=0" ];
       kernel.sysctl = {
