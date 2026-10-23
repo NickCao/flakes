@@ -657,6 +657,8 @@ in
         {
           serviceConfig = {
             Type = "oneshot";
+            Restart = "on-failure";
+            RestartSec = 10;
             RemainAfterExit = true;
             DynamicUser = true;
             SupplementaryGroups = [ config.users.groups.ipsec.name ];
