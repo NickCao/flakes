@@ -16,7 +16,6 @@
     };
     ipsec = {
       enable = true;
-      iptfs = false;
       organization = "nickcao";
       commonName = "local";
       port = 13000;

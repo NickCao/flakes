@@ -20,7 +20,6 @@
     };
     ipsec = {
       enable = true;
-      iptfs = true;
       organization = "nickcao";
       commonName = "subframe";
       port = 13000;
