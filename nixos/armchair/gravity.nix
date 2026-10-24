@@ -24,7 +24,7 @@
       commonName = "armchair";
       port = 13000;
       interfaces = [
-        "end0"
+        "end0macvlan"
       ];
       endpoints = [
         {
