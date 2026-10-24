@@ -416,11 +416,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1792801105,
-        "narHash": "sha256-wTQiwgroLN/glC2jAtBbYpy+fgXoue9uPCth8hZiaZk=",
+        "lastModified": 1792846407,
+        "narHash": "sha256-KxuKMDstx/x7CWa6BENzLBu3sHSn0fMj8M9vbe97BfE=",
         "owner": "NickCao",
         "repo": "strongswan-kernel-rust",
-        "rev": "f9b158cc32b8c4d95e7ac059fe3107f5850870b9",
+        "rev": "e5ab251bf25ce7812ed69c9f781e6816a3a986d6",
         "type": "github"
       },
       "original": {
