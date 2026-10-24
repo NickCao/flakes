@@ -10,6 +10,7 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./hardware-configuration.nix
     ./gravity.nix
+    ./ups.nix
     self.nixosModules.default
     inputs.impermanence.nixosModules.impermanence
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support

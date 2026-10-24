@@ -12,7 +12,6 @@ nixpkgs.lib.nixosSystem {
     ./filesystem.nix
     ./immich.nix
     ./gravity.nix
-    ./ups.nix
     self.nixosModules.default
     inputs.disko.nixosModules.disko
     inputs.impermanence.nixosModules.impermanence

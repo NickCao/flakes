@@ -173,7 +173,7 @@ in
           tls_config = spiffe_tls_config // {
             server_name = "prometheus-nut-exporter.nichi.link";
           };
-          static_configs = [ { targets = [ "subframe.nichi.link:9318" ]; } ];
+          static_configs = [ { targets = [ "armchair.nichi.link:9318" ]; } ];
         }
         {
           job_name = "scw-par";
