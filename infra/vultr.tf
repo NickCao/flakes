@@ -20,7 +20,7 @@ locals {
     }
     ewr0 = {
       region = "ewr"
-      plan   = "vhp-1c-1gb-amd"
+      plan   = "vhf-1c-1gb"
       tags   = ["vultr", "uefi"]
       prefix = "aeb"
     }
@@ -32,14 +32,14 @@ locals {
     }
     itm0 = {
       region = "itm"
-      plan   = "vhp-1c-1gb-amd"
-      tags   = ["vultr"]
+      plan   = "vhf-1c-1gb"
+      tags   = ["vultr", "uefi"]
       prefix = "a4b"
     }
     fra0 = {
       region = "fra"
-      plan   = "vhp-1c-1gb-amd"
-      tags   = ["vultr"]
+      plan   = "vhf-1c-1gb"
+      tags   = ["vultr", "uefi"]
       prefix = "38c"
     }
     lhr0 = {

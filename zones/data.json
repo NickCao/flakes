@@ -275,8 +275,8 @@
     "value": {
       "ewr0": {
         "fqdn": "ewr0.nichi.link",
-        "ipv4": "45.77.102.104",
-        "ipv6": "2001:19f0:5:c76:5400:5ff:fe32:8bd8",
+        "ipv4": "104.156.251.176",
+        "ipv6": "2001:19f0:4000:34e2:5400:6ff:fef0:4757",
         "prefix": "aeb",
         "remarks": {
           "city": "New Jersey",
@@ -290,8 +290,8 @@
       },
       "fra0": {
         "fqdn": "fra0.nichi.link",
-        "ipv4": "95.179.169.2",
-        "ipv6": "2a05:f480:1800:e26:5400:4ff:fe8a:60b3",
+        "ipv4": "108.61.210.239",
+        "ipv6": "2001:19f0:6c01:13b6:5400:6ff:fef0:41cc",
         "prefix": "38c",
         "remarks": {
           "city": "Frankfurt",
@@ -299,7 +299,8 @@
           "country": "DE"
         },
         "tags": [
-          "vultr"
+          "vultr",
+          "uefi"
         ]
       },
       "hel0": {
@@ -357,8 +358,8 @@
       },
       "itm0": {
         "fqdn": "itm0.nichi.link",
-        "ipv4": "64.176.39.8",
-        "ipv6": "2401:c080:3800:2638:5400:4ff:fe4a:9cbc",
+        "ipv4": "64.176.34.133",
+        "ipv6": "2401:c080:3800:2d47:5400:6ff:fef0:35d8",
         "prefix": "a4b",
         "remarks": {
           "city": "Osaka",
@@ -366,7 +367,8 @@
           "country": "JP"
         },
         "tags": [
-          "vultr"
+          "vultr",
+          "uefi"
         ]
       },
       "lax0": {
