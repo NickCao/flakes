@@ -33,6 +33,9 @@
           addressFamily = "ip6";
         }
       ];
+      experimental = {
+        trap = true;
+      };
     };
   };
 

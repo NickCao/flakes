@@ -315,11 +315,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786909236,
-        "narHash": "sha256-U9445WUb7yZIqwsmemiyVZ0LCWuqB2Ohz9jtyQ1gQoM=",
+        "lastModified": 1792806014,
+        "narHash": "sha256-WqoGIK0bIBgOFd8EkfiwGxDdEQhXdxxfup1ObIuK/c0=",
         "owner": "NickCao",
         "repo": "ranet",
-        "rev": "b0e52359f7c5816263f83cd5f12065945c5e4eaa",
+        "rev": "102752738fbdb676a01bd43a07025540db02fc9f",
         "type": "github"
       },
       "original": {
@@ -416,11 +416,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1792712890,
-        "narHash": "sha256-LexHFjl//xXE93x1aR8HIkDgjoVpa48++/DA4EbWYzY=",
+        "lastModified": 1792801105,
+        "narHash": "sha256-wTQiwgroLN/glC2jAtBbYpy+fgXoue9uPCth8hZiaZk=",
         "owner": "NickCao",
         "repo": "strongswan-kernel-rust",
-        "rev": "96dfb995f805421c9d37024337348499fc1013a4",
+        "rev": "f9b158cc32b8c4d95e7ac059fe3107f5850870b9",
         "type": "github"
       },
       "original": {

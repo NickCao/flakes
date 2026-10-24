@@ -42,7 +42,10 @@ in
         type = types.listOf types.str;
         default = [ ];
       };
-      iptfs = mkEnableOption "iptfs";
+      experimental = {
+        iptfs = mkEnableOption "iptfs";
+        trap = mkEnableOption "trap";
+      };
     };
     table = mkOption {
       type = types.int;
@@ -578,21 +581,17 @@ in
     (mkIf cfg.ipsec.enable {
       cloud.spire.agent.enable = true;
       environment.systemPackages = [ config.services.strongswan-swanctl.package ];
-      environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" (
-        {
-          organization = cfg.ipsec.organization;
-          common_name = cfg.ipsec.commonName;
-          endpoints = builtins.map (ep: {
-            serial_number = ep.serialNumber;
-            address_family = ep.addressFamily;
-            address = ep.address;
-            port = cfg.ipsec.port;
-          }) cfg.ipsec.endpoints;
-        }
-        // lib.optionalAttrs cfg.ipsec.iptfs {
-          experimental.iptfs = true;
-        }
-      );
+      environment.etc."ranet/config.json".source = (pkgs.formats.json { }).generate "config.json" ({
+        organization = cfg.ipsec.organization;
+        common_name = cfg.ipsec.commonName;
+        endpoints = builtins.map (ep: {
+          serial_number = ep.serialNumber;
+          address_family = ep.addressFamily;
+          address = ep.address;
+          port = cfg.ipsec.port;
+        }) cfg.ipsec.endpoints;
+        experimental = cfg.ipsec.experimental;
+      });
       systemd.services.gravity-ipsec =
         let
           ranet-exec =
