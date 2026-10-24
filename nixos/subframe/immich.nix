@@ -3,17 +3,9 @@
     enable = true;
     host = "127.0.0.1";
     port = 2283;
-    settings = {
-      ffmpeg.accel = "vaapi";
-    };
+    settings = { };
     environment = { };
-    accelerationDevices = [ "/dev/dri/renderD128" ];
   };
-
-  systemd.services.immich-server.serviceConfig.SupplementaryGroups = [
-    "video"
-    "render"
-  ];
 
   cloud.caddy.mtls = [ "immich.nichi.co" ];
   cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
