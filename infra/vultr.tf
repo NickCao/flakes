@@ -26,7 +26,7 @@ locals {
     }
     lax0 = {
       region = "lax"
-      plan   = "vhp-1c-1gb-amd"
+      plan   = "vhf-1c-1gb"
       tags   = ["vultr", "uefi"]
       prefix = "a2a"
     }
@@ -44,7 +44,7 @@ locals {
     }
     lhr0 = {
       region = "lhr"
-      plan   = "vhp-1c-1gb-amd"
+      plan   = "vhf-1c-1gb"
       tags   = ["vultr", "uefi"]
       prefix = "244"
     }
