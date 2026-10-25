@@ -1,6 +1,5 @@
 {
   lib,
-  config,
   pkgs,
   ...
 }:
@@ -8,34 +7,7 @@
 {
   networking = {
     useNetworkd = true;
-    useDHCP = false;
-  };
-
-  systemd.network.networks = {
-    "10-eth0" = {
-      name = "eth0";
-      macvlan = [
-        config.systemd.network.netdevs."10-eth0macvlan".netdevConfig.Name
-      ];
-    };
-    "10-eth0macvlan" = {
-      name = config.systemd.network.netdevs."10-eth0macvlan".netdevConfig.Name;
-      DHCP = "yes";
-      dhcpV4Config.RouteMetric = 512;
-      ipv6AcceptRAConfig.RouteMetric = 512;
-    };
-  };
-
-  systemd.network.netdevs = {
-    "10-eth0macvlan" = {
-      netdevConfig = {
-        Kind = "macvlan";
-        Name = "eth0macvlan";
-      };
-      macvlanConfig = {
-        Mode = "bridge";
-      };
-    };
+    useDHCP = true;
   };
 
   systemd.network.wait-online = {
@@ -84,6 +56,7 @@
         type = "macvlan";
         config = {
           parent = "eth0";
+          vlan = 103;
         };
       };
       profiles = lib.singleton {
