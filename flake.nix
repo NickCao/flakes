@@ -165,12 +165,7 @@
                 [
                   ./nixos/vultr/common.nix
                   { networking.hostName = name; }
-                  (
-                    if (builtins.elem "uefi" value.tags) then
-                      self.nixosModules.cloud.disko-uefi
-                    else
-                      self.nixosModules.cloud.disko
-                  )
+                  self.nixosModules.cloud.disko-uefi
                 ]
               else if (builtins.elem "hetzner" value.tags) then
                 [

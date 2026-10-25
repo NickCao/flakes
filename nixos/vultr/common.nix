@@ -115,7 +115,7 @@ in
     };
     divi = {
       enable = true;
-      oif = if (hasTag "uefi") then "enp1s0" else "ens3";
+      oif = "enp1s0";
       prefix = "2a0c:b641:69c:${prefix}4:0:4::/96";
     };
     srv6 = {
@@ -128,7 +128,7 @@ in
       organization = "nickcao";
       commonName = config.networking.hostName;
       port = 13000;
-      interfaces = if (hasTag "uefi") then [ "enp1s0" ] else [ "ens3" ];
+      interfaces = [ "enp1s0" ];
       endpoints = [
         {
           serialNumber = "0";

@@ -284,8 +284,7 @@
           "country": "US"
         },
         "tags": [
-          "vultr",
-          "uefi"
+          "vultr"
         ]
       },
       "fra0": {
@@ -299,8 +298,7 @@
           "country": "DE"
         },
         "tags": [
-          "vultr",
-          "uefi"
+          "vultr"
         ]
       },
       "hel0": {
@@ -367,8 +365,7 @@
           "country": "JP"
         },
         "tags": [
-          "vultr",
-          "uefi"
+          "vultr"
         ]
       },
       "lax0": {
@@ -382,8 +379,7 @@
           "country": "US"
         },
         "tags": [
-          "vultr",
-          "uefi"
+          "vultr"
         ]
       },
       "lhr0": {
@@ -397,8 +393,7 @@
           "country": "GB"
         },
         "tags": [
-          "vultr",
-          "uefi"
+          "vultr"
         ]
       },
       "nrt0": {
@@ -413,7 +408,6 @@
         },
         "tags": [
           "vultr",
-          "uefi",
           "nameserver"
         ]
       },
@@ -429,7 +423,6 @@
         },
         "tags": [
           "vultr",
-          "uefi",
           "nameserver"
         ]
       },
@@ -445,7 +438,6 @@
         },
         "tags": [
           "vultr",
-          "uefi",
           "nameserver"
         ]
       }

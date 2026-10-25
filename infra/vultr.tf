@@ -3,49 +3,49 @@ locals {
     nrt0 = {
       region = "nrt"
       plan   = "vhf-1c-1gb"
-      tags   = ["vultr", "uefi", "nameserver"]
+      tags   = ["vultr", "nameserver"]
       prefix = "786"
     }
     sin0 = {
       region = "sgp"
       plan   = "vhf-1c-1gb"
-      tags   = ["vultr", "uefi", "nameserver"]
+      tags   = ["vultr", "nameserver"]
       prefix = "f25"
     }
     sea0 = {
       region = "sea"
       plan   = "vhf-1c-1gb"
-      tags   = ["vultr", "uefi", "nameserver"]
+      tags   = ["vultr", "nameserver"]
       prefix = "4ed"
     }
     ewr0 = {
       region = "ewr"
       plan   = "vhf-1c-1gb"
-      tags   = ["vultr", "uefi"]
+      tags   = ["vultr"]
       prefix = "aeb"
     }
     lax0 = {
       region = "lax"
       plan   = "vhf-1c-1gb"
-      tags   = ["vultr", "uefi"]
+      tags   = ["vultr"]
       prefix = "a2a"
     }
     itm0 = {
       region = "itm"
       plan   = "vhf-1c-1gb"
-      tags   = ["vultr", "uefi"]
+      tags   = ["vultr"]
       prefix = "a4b"
     }
     fra0 = {
       region = "fra"
       plan   = "vhf-1c-1gb"
-      tags   = ["vultr", "uefi"]
+      tags   = ["vultr"]
       prefix = "38c"
     }
     lhr0 = {
       region = "lhr"
       plan   = "vhf-1c-1gb"
-      tags   = ["vultr", "uefi"]
+      tags   = ["vultr"]
       prefix = "244"
     }
   }
