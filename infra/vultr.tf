@@ -8,14 +8,14 @@ locals {
     }
     sin0 = {
       region = "sgp"
-      plan   = "vc2-1c-1gb"
-      tags   = ["vultr", "nameserver"]
+      plan   = "vhf-1c-1gb"
+      tags   = ["vultr", "uefi", "nameserver"]
       prefix = "f25"
     }
     sea0 = {
       region = "sea"
-      plan   = "vhp-1c-1gb-amd"
-      tags   = ["vultr", "nameserver"]
+      plan   = "vhf-1c-1gb"
+      tags   = ["vultr", "uefi", "nameserver"]
       prefix = "4ed"
     }
     ewr0 = {

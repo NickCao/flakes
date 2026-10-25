@@ -419,8 +419,8 @@
       },
       "sea0": {
         "fqdn": "sea0.nichi.link",
-        "ipv4": "104.238.153.235",
-        "ipv6": "2001:19f0:8001:1276:5400:4ff:fe82:c30c",
+        "ipv4": "149.28.12.120",
+        "ipv6": "2001:19f0:8000:3654:5400:6ff:fef1:c750",
         "prefix": "4ed",
         "remarks": {
           "city": "Seattle",
@@ -429,13 +429,14 @@
         },
         "tags": [
           "vultr",
+          "uefi",
           "nameserver"
         ]
       },
       "sin0": {
         "fqdn": "sin0.nichi.link",
-        "ipv4": "45.32.119.153",
-        "ipv6": "2001:19f0:4400:6a40:5400:4ff:fe19:b6d8",
+        "ipv4": "45.77.169.67",
+        "ipv6": "2001:19f0:4400:4e8e:5400:6ff:fef1:bf27",
         "prefix": "f25",
         "remarks": {
           "city": "Singapore",
@@ -444,6 +445,7 @@
         },
         "tags": [
           "vultr",
+          "uefi",
           "nameserver"
         ]
       }
