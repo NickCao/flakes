@@ -11,8 +11,12 @@
   };
 
   systemd.network.wait-online = {
-    anyInterface = true;
-    extraArgs = [ "--ipv4" ];
+    anyInterface = false;
+    extraArgs = [
+      "-i"
+      "eth0"
+      "--ipv4"
+    ];
   };
 
   boot.loader.systemd-boot.enable = true;
