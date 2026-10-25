@@ -403,8 +403,8 @@
       },
       "nrt0": {
         "fqdn": "nrt0.nichi.link",
-        "ipv4": "45.32.61.43",
-        "ipv6": "2001:19f0:7001:53db:5400:4ff:fe19:b7a0",
+        "ipv4": "198.13.49.224",
+        "ipv6": "2401:c080:1000:433d:5400:6ff:fef0:b9bb",
         "prefix": "786",
         "remarks": {
           "city": "Tokyo",
@@ -413,6 +413,7 @@
         },
         "tags": [
           "vultr",
+          "uefi",
           "nameserver"
         ]
       },

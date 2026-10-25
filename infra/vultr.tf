@@ -2,8 +2,8 @@ locals {
   nodes = {
     nrt0 = {
       region = "nrt"
-      plan   = "vc2-1c-1gb"
-      tags   = ["vultr", "nameserver"]
+      plan   = "vhf-1c-1gb"
+      tags   = ["vultr", "uefi", "nameserver"]
       prefix = "786"
     }
     sin0 = {
