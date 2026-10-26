@@ -38,21 +38,15 @@ in
       auth_username_format = "%{user | username | lower}";
 
       # https://utcc.utoronto.ca/~cks/space/blog/sysadmin/DovecotOAuth2ForAuthNotes
-      # https://github.com/raa-org/thunderbird-custom-idp
-      # {
-      #   "hostname": "iad0.nichi.link",
-      #   "issuer": "id.nichi.co",
-      #   "clientId": "thunderbird",
-      #   "clientSecret": "",
-      #   "usePkce": true,
-      #   "authorizationEndpoint": "https://id.nichi.co/realms/nichi/protocol/openid-connect/auth",
-      #   "tokenEndpoint": "https://id.nichi.co/realms/nichi/protocol/openid-connect/token",
-      #   "redirectUri": "https://localhost",
-      #   "scopes": {
-      #     "imap": "openid email profile offline_access",
-      #     "smtp": "openid email profile offline_access"
-      #   }
-      # }
+      # https://bugzilla.mozilla.org/show_bug.cgi?id=1602166
+      # Account Settings -> Server Settings -> Advanced
+      # Use custom OAuth2 settings: true
+      # Client ID: thunderbird
+      # Authorization endpoint: https://id.nichi.co/realms/nichi/protocol/openid-connect/auth
+      # Token endpoint: https://id.nichi.co/realms/nichi/protocol/openid-connect/token
+      # Scopes: openid email profile offline_access
+      # Redirect URI: http://localhost
+      # Use PKCE: true
       oauth2 = {
         introspection_mode = "auth";
         introspection_url = "https://id.nichi.co/realms/nichi/protocol/openid-connect/userinfo";
