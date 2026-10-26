@@ -93,7 +93,7 @@ resource "keycloak_openid_client" "thunderbird" {
 
   implicit_flow_enabled = false
   standard_flow_enabled = true
-  valid_redirect_uris   = ["https://localhost"]
+  valid_redirect_uris   = ["http://localhost"]
 
   pkce_code_challenge_method = "S256"
 
