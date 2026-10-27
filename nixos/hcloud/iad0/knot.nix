@@ -190,7 +190,12 @@ in
         }
         {
           domain = "nichi.co";
-          file = pkgs.writeText "db.co.nichi" (import ../../../zones/nichi.co.nix { inherit (inputs) dns; });
+          file = pkgs.writeText "db.co.nichi" (
+            import ../../../zones/nichi.co.nix {
+              inherit (inputs) dns;
+              inherit lib;
+            }
+          );
         }
         {
           domain = "nichi.link";
