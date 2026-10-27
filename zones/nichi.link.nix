@@ -21,18 +21,6 @@ dns.lib.toString "nichi.link" {
       (builtins.mapAttrs (name: value: {
         A = [ value.ipv4 ];
         AAAA = [ value.ipv6 ];
-        HTTPS = [
-          {
-            svcPriority = 1;
-            targetName = ".";
-            alpn = [
-              "h3"
-              "h2"
-            ];
-            ipv4hint = [ value.ipv4 ];
-            ipv6hint = [ value.ipv6 ];
-          }
-        ];
       }) nodes)
       {
         "iad0" = {
