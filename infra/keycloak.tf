@@ -147,9 +147,11 @@ resource "keycloak_realm_client_policy_profile" "cimd" {
         "stalw.art", # client_uri in CIMD
         "mail.scp.link",
       ])
-      cimd-restrict-same-domain                                = false
-      cimd-required-properties                                 = jsonencode([])
-      cimd-resource-indicator-allow-list                       = jsonencode([])
+      cimd-restrict-same-domain = false
+      cimd-required-properties  = jsonencode([])
+      cimd-resource-indicator-allow-list = jsonencode([
+        "https://mail.scp.link"
+      ])
       only-allow-confidential-client                           = false
       accept-public-client-with-confidential-client-only-grant = false
     }

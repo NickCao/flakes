@@ -3,7 +3,10 @@
   services.keycloak = {
     enable = true;
     package = pkgs.keycloak.override {
-      extraFeatures = [ "cimd" ];
+      extraFeatures = [
+        "cimd"
+        "resource-indicators"
+      ];
     };
     settings = {
       http-enabled = true;
