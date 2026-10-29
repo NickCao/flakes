@@ -181,3 +181,43 @@ resource "keycloak_realm_client_policy_profile_policy" "pkce" {
     keycloak_realm_client_policy_profile.pkce.name
   ]
 }
+
+// https://datatracker.ietf.org/doc/html/draft-ietf-mailmaint-oauth-public-06
+resource "keycloak_openid_client_scope" "mail" {
+  realm_id            = keycloak_realm.nichi.id
+  name                = "urn:ietf:params:oauth:scope:mail"
+  description         = "Requests access for a client to manage the user's email"
+  consent_screen_text = "Email"
+}
+
+resource "keycloak_openid_client_scope" "contacts" {
+  realm_id            = keycloak_realm.nichi.id
+  name                = "urn:ietf:params:oauth:scope:contacts"
+  description         = "Requests access for a client to manage the user's contacts"
+  consent_screen_text = "Contacts"
+}
+
+resource "keycloak_openid_client_scope" "calendars" {
+  realm_id            = keycloak_realm.nichi.id
+  name                = "urn:ietf:params:oauth:scope:calendars"
+  description         = "Requests access for a client to manage the user's calendars"
+  consent_screen_text = "Calendars"
+}
+
+resource "keycloak_openid_client_scope" "files" {
+  realm_id            = keycloak_realm.nichi.id
+  name                = "urn:ietf:params:oauth:scope:files"
+  description         = "Requests access for a client to manage the user's files"
+  consent_screen_text = "Files"
+}
+
+resource "keycloak_realm_optional_client_scopes" "oauth_public" {
+  realm_id = keycloak_realm.nichi.id
+  optional_scopes = [
+    "offline_access",
+    keycloak_openid_client_scope.mail.name,
+    keycloak_openid_client_scope.contacts.name,
+    keycloak_openid_client_scope.calendars.name,
+    keycloak_openid_client_scope.files.name
+  ]
+}
