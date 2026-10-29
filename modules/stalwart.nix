@@ -14,7 +14,7 @@ in
 
   options.services.stalwart = {
     enable = lib.mkEnableOption "Stalwart, an open-source mail and collaboration server";
-    package = lib.mkPackageOption pkgs "stalwart_0_16" { };
+    package = lib.mkPackageOption pkgs "stalwart_1_0" { };
     credentialFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = null;
