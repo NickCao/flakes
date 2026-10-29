@@ -140,7 +140,7 @@
               allowInvalidCerts = false;
               skipAudienceValidation = false;
               lenientIssuerMatch = false;
-              unscopedTokens = "full"; # FIXME
+              unscopedTokens = "interoperable"; # TODO: support these scopes
               opaqueTokenValidation = "none";
               acceptedAudiences = { };
 
