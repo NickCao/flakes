@@ -6,30 +6,6 @@
 {
   sops.secrets.stalwart = { };
 
-  services.redis.servers.stalwart = {
-    enable = true;
-  };
-
-  services.meilisearch = {
-    enable = true;
-    listenAddress = "127.0.0.1";
-    listenPort = 7700;
-  };
-
-  systemd.services.stalwart.serviceConfig = {
-    SupplementaryGroups = [
-      config.services.redis.servers.stalwart.group
-    ];
-    RefreshOnReload = [ "credentials" ];
-    LoadCredential =
-      let
-        src = "/var/lib/caddy/certificates/acme-v02.api.letsencrypt.org-directory";
-      in
-      [
-        "mail.scp.link.crt:${src}/mail.scp.link/mail.scp.link.crt"
-        "mail.scp.link.key:${src}/mail.scp.link/mail.scp.link.key"
-      ];
-  };
 
   services.stalwart = {
     enable = true;
