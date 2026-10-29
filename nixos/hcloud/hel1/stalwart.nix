@@ -182,7 +182,7 @@
               allowInvalidCerts = false;
               skipAudienceValidation = false;
               lenientIssuerMatch = false;
-              unscopedTokens = "interoperable"; # TODO: support these scopes
+              unscopedTokens = "reject";
               opaqueTokenValidation = "none";
               acceptedAudiences = { };
 
