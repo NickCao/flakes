@@ -47,7 +47,7 @@
         {
           "@type" = "reconcile";
           object = "Tracer";
-          matchOn = "*";
+          matchOn = [ "@type" ];
           value = {
             tracer-journal = {
               "@type" = "Stdout";
@@ -59,6 +59,13 @@
               eventsPolicy = "exclude";
               events = { };
             };
+          };
+        }
+        {
+          "@type" = "update";
+          object = "SystemSettings";
+          value = {
+            defaultHostname = config.networking.fqdn;
           };
         }
         {
