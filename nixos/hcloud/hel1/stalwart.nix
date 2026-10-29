@@ -43,6 +43,55 @@
             "@type" = "Default";
           };
         }
+        {
+          "@type" = "reconcile";
+          matchOn = [ "name" ];
+          object = "NetworkListener";
+          value = {
+            networklistener-http = {
+              name = "http";
+              protocol = "http";
+              bind = {
+                "127.0.0.1:8080" = true;
+              };
+              overrideProxyTrustedNetworks = {
+                "127.0.0.1" = true;
+              };
+              useTls = false;
+              implicitTls = false;
+            };
+            networklistener-imaps = {
+              name = "imaps";
+              protocol = "imap";
+              bind = {
+                "[::]:993" = true;
+              };
+              overrideProxyTrustedNetworks = { };
+              useTls = true;
+              implicitTls = true;
+            };
+            networklistener-submissions = {
+              name = "submissions";
+              protocol = "smtp";
+              bind = {
+                "[::]:465" = true;
+              };
+              overrideProxyTrustedNetworks = { };
+              useTls = true;
+              implicitTls = true;
+            };
+            networklistener-smtp = {
+              name = "smtp";
+              protocol = "smtp";
+              bind = {
+                "[::]:25" = true;
+              };
+              overrideProxyTrustedNetworks = { };
+              useTls = true;
+              implicitTls = false;
+            };
+          };
+        }
       ];
     };
   };
