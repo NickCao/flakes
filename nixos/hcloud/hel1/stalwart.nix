@@ -6,6 +6,9 @@
 {
   sops.secrets.stalwart = { };
 
+  systemd.services.stalwart.environment = {
+    STALWART_PUBLIC_URL = "https://mail.scp.link";
+  };
 
   services.stalwart = {
     enable = true;
