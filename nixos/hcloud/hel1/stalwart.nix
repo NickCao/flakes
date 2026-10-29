@@ -66,6 +66,24 @@
           object = "SystemSettings";
           value = {
             defaultHostname = config.networking.fqdn;
+            mailExchangers = {
+              "0" = {
+                hostname = config.networking.fqdn;
+                priority = 10;
+              };
+            };
+            services =
+              let
+                hostname = "mail.scp.link";
+              in
+              {
+                jmap = { inherit hostname; };
+                imap = { inherit hostname; };
+                smtp = { inherit hostname; };
+                caldav = { inherit hostname; };
+                carddav = { inherit hostname; };
+                webdav = { inherit hostname; };
+              };
           };
         }
         {

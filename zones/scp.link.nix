@@ -4,7 +4,7 @@ let
   he = builtins.map (x: "ns${builtins.toString x}.he.net.") (builtins.genList (x: x + 1) 5);
 in
 dns.lib.toString "scp.link" {
-  inherit (common) TTL SOA NS;
+  inherit (common) TTL SOA NS CAA;
   subdomains = {
     "mail".CNAME = [ "hel1.nichi.link." ];
     "o".NS = he;
