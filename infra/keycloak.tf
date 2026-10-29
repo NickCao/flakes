@@ -152,6 +152,7 @@ resource "keycloak_realm_client_policy_profile_policy" "cimd" {
   ]
 }
 
+# https://github.com/keycloak/keycloak/pull/53929
 resource "keycloak_realm_client_policy_profile" "pkce" {
   name     = "pkce"
   realm_id = keycloak_realm.nichi.id
