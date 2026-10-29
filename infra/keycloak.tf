@@ -58,7 +58,7 @@ resource "keycloak_openid_audience_protocol_mapper" "stalwart" {
   realm_id                 = keycloak_realm.nichi.id
   name                     = "stalwart"
   client_scope_id          = keycloak_openid_client_scope.stalwart.id
-  included_custom_audience = "stalwart"
+  included_custom_audience = "https://mail.scp.link"
 }
 
 resource "keycloak_openid_client" "thunderbird" {
