@@ -61,30 +61,6 @@ resource "keycloak_openid_audience_protocol_mapper" "stalwart" {
   included_custom_audience = "stalwart"
 }
 
-resource "keycloak_openid_client" "stalwart-webui" {
-  realm_id    = keycloak_realm.nichi.id
-  client_id   = "stalwart-webui"
-  name        = "Stalwart Webui"
-  access_type = "PUBLIC"
-
-  implicit_flow_enabled           = false
-  standard_flow_enabled           = true
-  valid_redirect_uris             = ["https://mail.scp.link/account/oauth/callback"]
-  valid_post_logout_redirect_uris = ["https://mail.scp.link/account/login"]
-  web_origins                     = ["+"]
-
-  pkce_code_challenge_method = "S256"
-
-  consent_required          = true
-  display_on_consent_screen = false
-}
-
-resource "keycloak_openid_client_default_scopes" "stalwart-webui" {
-  realm_id       = keycloak_realm.nichi.id
-  client_id      = keycloak_openid_client.stalwart-webui.id
-  default_scopes = ["profile", "email", keycloak_openid_client_scope.stalwart.name]
-}
-
 resource "keycloak_openid_client" "thunderbird" {
   realm_id    = keycloak_realm.nichi.id
   client_id   = "thunderbird"
