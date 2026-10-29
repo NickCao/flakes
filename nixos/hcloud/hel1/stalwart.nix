@@ -50,8 +50,10 @@
           matchOn = "*";
           value = {
             tracer-journal = {
-              "@type" = "Journal";
+              "@type" = "Stdout";
               enable = true;
+              ansi = false;
+              multiline = false;
               level = "info";
               lossy = false;
               eventsPolicy = "exclude";
