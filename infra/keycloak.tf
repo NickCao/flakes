@@ -151,3 +151,32 @@ resource "keycloak_realm_client_policy_profile_policy" "cimd" {
     keycloak_realm_client_policy_profile.cimd.name
   ]
 }
+
+resource "keycloak_realm_client_policy_profile" "pkce" {
+  name     = "pkce"
+  realm_id = keycloak_realm.nichi.id
+
+  executor {
+    name = "pkce-enforcer"
+    configuration = {
+      auto-configure = true
+    }
+  }
+}
+
+resource "keycloak_realm_client_policy_profile_policy" "pkce" {
+  name     = "pkce"
+  realm_id = keycloak_realm.nichi.id
+
+  condition {
+    name = "client-updater-context"
+    configuration = {
+      is-negative-logic    = false
+      update-client-source = jsonencode(["ByAnonymous"])
+    }
+  }
+
+  profiles = [
+    keycloak_realm_client_policy_profile.pkce.name
+  ]
+}
