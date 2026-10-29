@@ -134,3 +134,42 @@ resource "keycloak_openid_client" "openbao" {
   direct_access_grants_enabled        = false
   pkce_code_challenge_method          = "S256"
 }
+
+resource "keycloak_realm_client_policy_profile" "cimd" {
+  name     = "cimd"
+  realm_id = keycloak_realm.nichi.id
+
+  executor {
+    name = "client-id-metadata-document"
+    configuration = {
+      cimd-allow-http-scheme = false
+      cimd-allow-permitted-domains = jsonencode([
+        "stalw.art", # client_uri in CIMD
+        "mail.scp.link",
+      ])
+      cimd-restrict-same-domain                                = false
+      cimd-required-properties                                 = jsonencode([])
+      cimd-resource-indicator-allow-list                       = jsonencode([])
+      only-allow-confidential-client                           = false
+      accept-public-client-with-confidential-client-only-grant = false
+    }
+  }
+}
+
+resource "keycloak_realm_client_policy_profile_policy" "cimd" {
+  name     = "cimd"
+  realm_id = keycloak_realm.nichi.id
+
+  condition {
+    name = "client-id-uri"
+    configuration = {
+      is-negative-logic                     = false,
+      client-id-uri-scheme                  = jsonencode(["https"])
+      client-id-uri-allow-permitted-domains = jsonencode(["mail.scp.link"])
+    }
+  }
+
+  profiles = [
+    keycloak_realm_client_policy_profile.cimd.name
+  ]
+}
