@@ -2,6 +2,9 @@
 {
   services.keycloak = {
     enable = true;
+    package = pkgs.keycloak.override {
+      extraFeatures = [ "cimd" ];
+    };
     settings = {
       http-enabled = true;
       http-host = "127.0.0.1";
