@@ -121,6 +121,37 @@
             };
           };
         }
+        {
+          "@type" = "reconcile";
+          object = "Directory";
+          matchOn = [ "description" ];
+          value = {
+            directory-keycloack = {
+              "@type" = "Oidc";
+              description = "keycloak";
+              issuerUrl = "https://id.nichi.co/realms/nichi";
+              usernameDomain = "scp.link";
+
+              claimUsername = "preferred_username";
+              claimName = "name";
+              claimGroups = null;
+
+              allowIdTokenClaims = false;
+              allowInvalidCerts = false;
+              skipAudienceValidation = false;
+              lenientIssuerMatch = false;
+              unscopedTokens = "full"; # FIXME
+              opaqueTokenValidation = "none";
+              acceptedAudiences = { };
+
+              introspectionAuthMethod = "clientSecretBasic";
+              introspectionClientId = null;
+              introspectionClientSecret = {
+                "@type" = "None";
+              };
+            };
+          };
+        }
       ];
     };
   };
