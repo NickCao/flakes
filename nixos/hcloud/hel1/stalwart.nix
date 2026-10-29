@@ -11,10 +11,10 @@
     enable = true;
     settings = {
       "@type" = "Sqlite";
-      path = "/var/lib/stalwart/db.sqlite";
+      path = "/var/lib/stalwart/data.sqlite";
     };
     apply = {
-      enable = true;
+      enable = false;
       credentialFile = config.sops.secrets.stalwart.path;
       plan = [
         {
