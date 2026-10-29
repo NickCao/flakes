@@ -94,6 +94,13 @@
           };
         }
         {
+          "@type" = "update";
+          object = "SpamSettings";
+          value = {
+            spamFilterRulesUrl = "file://${pkgs.stalwart_1_0.spam-filter}/spam-filter-rules.json.gz";
+          };
+        }
+        {
           "@type" = "reconcile";
           object = "Application";
           matchOn = [
