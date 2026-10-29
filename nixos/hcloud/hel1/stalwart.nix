@@ -46,6 +46,21 @@
         }
         {
           "@type" = "reconcile";
+          object = "Tracer";
+          matchOn = "*";
+          value = {
+            tracer-journal = {
+              "@type" = "Journal";
+              enable = true;
+              level = "info";
+              lossy = false;
+              eventsPolicy = "exclude";
+              events = { };
+            };
+          };
+        }
+        {
+          "@type" = "reconcile";
           object = "NetworkListener";
           matchOn = [ "name" ];
           value = {
