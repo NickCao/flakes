@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -45,8 +46,8 @@
         }
         {
           "@type" = "reconcile";
-          matchOn = [ "name" ];
           object = "NetworkListener";
+          matchOn = [ "name" ];
           value = {
             networklistener-http = {
               name = "http";
@@ -89,6 +90,27 @@
               overrideProxyTrustedNetworks = { };
               useTls = true;
               implicitTls = false;
+            };
+          };
+        }
+        {
+          "@type" = "reconcile";
+          object = "Application";
+          matchOn = [
+            "description"
+          ];
+          value = {
+            application-webui = {
+              enable = true;
+              description = "Stalwart Web Interface";
+              resourceUrl = "file://${pkgs.stalwart_1_0.webui}/webui.zip";
+              oauthClientId = null;
+              unpackDirectory = null;
+              autoUpdateInterval = 7776000000;
+              urlPrefix = {
+                "/admin" = true;
+                "/account" = true;
+              };
             };
           };
         }

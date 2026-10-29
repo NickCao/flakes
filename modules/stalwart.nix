@@ -59,6 +59,7 @@ in
         ];
         StateDirectory = "stalwart";
         DynamicUser = true;
+        PrivateTmp = true;
       }
       // lib.optionalAttrs (cfg.credentialFile != null) {
         EnvironmentFile = cfg.credentialFile;
