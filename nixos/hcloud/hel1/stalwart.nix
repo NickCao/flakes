@@ -6,7 +6,8 @@
 }:
 let
   inherit (config.networking) fqdn;
-  host = "mail.scp.link";
+  base = "scp.link";
+  host = "mail.${base}";
 in
 {
   sops.secrets.stalwart = { };
@@ -180,7 +181,7 @@ in
               "@type" = "Oidc";
               description = "keycloak";
               issuerUrl = "https://id.nichi.co/realms/nichi";
-              usernameDomain = "scp.link";
+              usernameDomain = base;
 
               claimUsername = "preferred_username";
               claimName = "name";
@@ -231,7 +232,7 @@ in
           value = {
             domain-default = {
               enable = true;
-              name = "scp.link";
+              name = base;
               aliases = { };
               description = null;
               catchAllAddress = null;
@@ -321,8 +322,8 @@ in
       match = lib.singleton {
         host = [
           host
-          "mta-sts.scp.link"
-          "ua-auto-config.scp.link"
+          "mta-sts.${base}"
+          "ua-auto-config.${base}"
         ];
       };
       handle = lib.singleton {
