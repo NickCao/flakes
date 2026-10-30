@@ -100,16 +100,16 @@ in
               useTls = false;
               implicitTls = false;
             };
-            # networklistener-imaps = {
-            #   name = "imaps";
-            #   protocol = "imap";
-            #   bind = {
-            #     "[::]:993" = true;
-            #   };
-            #   overrideProxyTrustedNetworks = { };
-            #   useTls = true;
-            #   implicitTls = true;
-            # };
+            networklistener-imaps = {
+              name = "imaps";
+              protocol = "imap";
+              bind = {
+                "[::]:993" = true;
+              };
+              overrideProxyTrustedNetworks = { };
+              useTls = true;
+              implicitTls = true;
+            };
             networklistener-submissions = {
               name = "submissions";
               protocol = "smtp";
@@ -120,16 +120,16 @@ in
               useTls = true;
               implicitTls = true;
             };
-            # networklistener-smtp = {
-            #   name = "smtp";
-            #   protocol = "smtp";
-            #   bind = {
-            #     "[::]:25" = true;
-            #   };
-            #   overrideProxyTrustedNetworks = { };
-            #   useTls = true;
-            #   implicitTls = false;
-            # };
+            networklistener-smtp = {
+              name = "smtp";
+              protocol = "smtp";
+              bind = {
+                "[::]:25" = true;
+              };
+              overrideProxyTrustedNetworks = { };
+              useTls = true;
+              implicitTls = false;
+            };
           };
         }
         {
