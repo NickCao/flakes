@@ -140,6 +140,20 @@ in
           };
         }
         {
+          "@type" = "update";
+          object = "Jmap";
+          value = {
+            maxUploadSize = 100000000;
+          };
+        }
+        {
+          "@type" = "update";
+          object = "Email";
+          value = {
+            maxAttachmentSize = 100000000;
+          };
+        }
+        {
           "@type" = "reconcile";
           object = "Application";
           matchOn = [
