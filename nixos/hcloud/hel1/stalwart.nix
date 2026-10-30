@@ -13,6 +13,7 @@ in
   sops.secrets = {
     stalwart = { };
     stalwart-tsig = { };
+    stalwart-prom = { };
   };
 
   systemd.services.stalwart.environment = {
@@ -66,6 +67,20 @@ in
               lossy = false;
               eventsPolicy = "exclude";
               events = { };
+            };
+          };
+        }
+        {
+          "@type" = "update";
+          object = "Metrics";
+          value = {
+            prometheus = {
+              "@type" = "Enabled";
+              authUsername = "prometheus";
+              authSecret = {
+                "@type" = "File";
+                filePath = "/run/credentials/stalwart.service/prom";
+              };
             };
           };
         }
@@ -322,6 +337,7 @@ in
         "${fqdn}.crt:${src}/${fqdn}/${fqdn}.crt"
         "${fqdn}.key:${src}/${fqdn}/${fqdn}.key"
         "tsig:${config.sops.secrets.stalwart-tsig.path}"
+        "prom:${config.sops.secrets.stalwart-prom.path}"
       ];
   };
 
