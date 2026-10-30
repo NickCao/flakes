@@ -83,6 +83,8 @@ in
             pkgs.writeText "plan.ndjson" (lib.concatMapStringsSep "\n" (op: builtins.toJSON op) applyCfg.plan)
           }"
           "${lib.getExe pkgs.stalwart-cli} create Action/ReloadSettings --json '{}'"
+          "${lib.getExe pkgs.stalwart-cli} create Action/ReloadTlsCertificates --json '{}'"
+          "${lib.getExe pkgs.stalwart-cli} create Action/UpdateApps --json '{}'"
         ];
       }
       // lib.optionalAttrs (applyCfg.credentialFile != null) {
