@@ -389,6 +389,7 @@ in
         address = [ "44.32.148.1/32" ];
       };
       systemd.services.bird = {
+        restartIfChanged = false;
         serviceConfig.RestartSec = 10;
         preStart = config.lib.openbao.mkAgent {
           role = "bgp";
@@ -680,6 +681,7 @@ in
           ];
           wantedBy = [ "multi-user.target" ];
           reloadTriggers = [ config.environment.etc."ranet/config.json".source ];
+          restartIfChanged = false;
         };
       systemd.services.gravity-reload = {
         serviceConfig = {
