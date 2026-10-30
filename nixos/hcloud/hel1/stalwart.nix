@@ -67,35 +67,6 @@ in
           };
         }
         {
-          "@type" = "update";
-          object = "SystemSettings";
-          value = {
-            defaultHostname = fqdn;
-            mailExchangers = {
-              "0" = {
-                hostname = fqdn;
-                priority = 10;
-              };
-            };
-            services = {
-              imap = { };
-              smtp = { };
-              jmap = {
-                hostname = host;
-              };
-              caldav = {
-                hostname = host;
-              };
-              carddav = {
-                hostname = host;
-              };
-              webdav = {
-                hostname = host;
-              };
-            };
-          };
-        }
-        {
           "@type" = "reconcile";
           object = "NetworkListener";
           matchOn = [ "name" ];
@@ -263,6 +234,37 @@ in
               };
               dkimManagement = {
                 "@type" = "Automatic";
+              };
+            };
+          };
+        }
+        {
+          "@type" = "update";
+          object = "SystemSettings";
+          value = {
+            defaultHostname = fqdn;
+            defaultDomainId = "#domain-default";
+            defaultCertificateId = "#certificate-default";
+            mailExchangers = {
+              "0" = {
+                hostname = fqdn;
+                priority = 10;
+              };
+            };
+            services = {
+              imap = { };
+              smtp = { };
+              jmap = {
+                hostname = host;
+              };
+              caldav = {
+                hostname = host;
+              };
+              carddav = {
+                hostname = host;
+              };
+              webdav = {
+                hostname = host;
               };
             };
           };
