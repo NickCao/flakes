@@ -270,9 +270,7 @@ in
                 publishRecords = {
                   dkim = true;
                   dmarc = true;
-                  mtaSts = true;
                   tlsRpt = true;
-                  autoConfig = true;
                 };
               };
               certificateManagement = {

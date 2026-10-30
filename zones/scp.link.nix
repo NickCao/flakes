@@ -16,6 +16,16 @@ dns.lib.toString "scp.link" {
   TXT = with spf; [ (strict [ "mx" ]) ];
 
   subdomains = {
+    # stalwart
+    "ua-auto-config".CNAME = [ "hel1.nichi.link." ];
+    "_ua-auto-config".TXT = [
+      "v=UAAC1; a=sha256; d=5AxaZQTZ9WSSH1/AhLwMORH6s3hrdf21aLw9Fkt6Te8=" # FIXME
+    ];
+    "mta-sts".CNAME = [ "hel1.nichi.link." ];
+    "_mta-sts".TXT = [
+      "v=STSv1; id=5685670329720542694" # FIXME
+    ];
+
     "mail".CNAME = [ "hel1.nichi.link." ];
     "o".NS = he;
     "com".NS = he;
