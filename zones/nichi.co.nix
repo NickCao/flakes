@@ -70,5 +70,9 @@ dns.lib.toString "nichi.co" {
     # These services are no longer available
     cache.CNAME = [ "hio0.nichi.link." ];
     hydra.CNAME = [ "hio0.nichi.link." ];
+
+    # stalwart
+    "ua-auto-config".CNAME = [ "iad0.nichi.link." ];
+    "mta-sts".CNAME = [ "iad0.nichi.link." ];
   };
 }
