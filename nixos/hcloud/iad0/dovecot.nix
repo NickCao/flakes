@@ -41,10 +41,11 @@ in
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1602166
       # Account Settings -> Server Settings -> Advanced
       # Use custom OAuth2 settings: true
-      # Client ID: thunderbird
+      # Client ID: https://mail.scp.link/oauth-clients/thunderbird.json
       # Authorization endpoint: https://id.nichi.co/realms/nichi/protocol/openid-connect/auth
       # Token endpoint: https://id.nichi.co/realms/nichi/protocol/openid-connect/token
       # Scopes: openid email profile offline_access
+      # Scopes (additional for stalwart): stalwart urn:ietf:params:oauth:scope:mail
       # Redirect URI: http://localhost
       # Use PKCE: true
       oauth2 = {
