@@ -74,7 +74,9 @@ dns.lib.toString "nichi.co" {
     hydra.CNAME = [ "hio0.nichi.link." ];
 
     # stalwart
-    _dmarc.TXT = [ "v=DMARC1; p=reject; rua=mailto:postmaster@nichi.co" ];
+    _dmarc.TXT = [
+      "v=DMARC1; p=quarantine; rua=mailto:postmaster@nichi.co" # relaxed
+    ];
     mta-sts.CNAME = [ "iad0.nichi.link." ];
     ua-auto-config.CNAME = [ "iad0.nichi.link." ];
     _domainkey.subdomains = {
