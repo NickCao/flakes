@@ -10,7 +10,10 @@ let
   host = "mail.${base}";
 in
 {
-  sops.secrets.stalwart = { };
+  sops.secrets = {
+    stalwart = { };
+    stalwart-tsig = { };
+  };
 
   systemd.services.stalwart.environment = {
     STALWART_PUBLIC_URL = "https://${host}";
@@ -148,7 +151,7 @@ in
           object = "Directory";
           matchOn = [ "description" ];
           value = {
-            directory-keycloack = {
+            directory-keycloak = {
               "@type" = "Oidc";
               description = "keycloak";
               issuerUrl = "https://id.nichi.co/realms/nichi";
@@ -175,6 +178,13 @@ in
           };
         }
         {
+          "@type" = "update";
+          object = "Authentication";
+          value = {
+            directoryId = "#directory-keycloak";
+          };
+        }
+        {
           "@type" = "reconcile";
           object = "Certificate";
           matchOn = [ "subjectAlternativeNames" ];
@@ -191,6 +201,26 @@ in
                 "@type" = "File";
                 filePath = "/run/credentials/stalwart.service/${fqdn}.key";
               };
+            };
+          };
+        }
+        {
+          "@type" = "reconcile";
+          object = "DnsServer";
+          matchOn = [
+            "description"
+          ];
+          value = {
+            dnsserver-default = {
+              "@type" = "Tsig";
+              description = "iad0.nichi.link";
+              host = "5.161.83.9";
+              keyName = "stalwart";
+              key = {
+                "@type" = "File";
+                filePath = "/run/credentials/stalwart.service/tsig";
+              };
+              tsigAlgorithm = "hmac-sha256";
             };
           };
         }
@@ -216,7 +246,7 @@ in
 
               dnsManagement = {
                 "@type" = "Automatic";
-                dnsServerId = "jl7benlyaaaa"; # FIXME
+                dnsServerId = "#dnsserver-default";
                 origin = null;
                 publishRecords = {
                   dkim = true;
@@ -287,6 +317,7 @@ in
       [
         "${fqdn}.crt:${src}/${fqdn}/${fqdn}.crt"
         "${fqdn}.key:${src}/${fqdn}/${fqdn}.key"
+        "tsig:${config.sops.secrets.stalwart-tsig.path}"
       ];
   };
 
