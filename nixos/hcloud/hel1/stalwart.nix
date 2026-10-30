@@ -78,8 +78,8 @@
               in
               {
                 jmap = { inherit hostname; };
-                imap = { inherit hostname; };
-                smtp = { inherit hostname; };
+                imap = { };
+                smtp = { };
                 caldav = { inherit hostname; };
                 carddav = { inherit hostname; };
                 webdav = { inherit hostname; };
@@ -194,8 +194,45 @@
             };
           };
         }
+        {
+          "@type" = "reconcile";
+          object = "Certificate";
+          matchOn = [ "subjectAlternativeNames" ];
+          value = {
+            certificate-hel1 = {
+              subjectAlternativeNames = {
+                "hel1.nichi.link" = true;
+              };
+              certificate = {
+                "@type" = "File";
+                filePath = "/run/credentials/stalwart.service/hel1.nichi.link.crt";
+              };
+              privateKey = {
+                "@type" = "File";
+                filePath = "/run/credentials/stalwart.service/hel1.nichi.link.key";
+              };
+            };
+          };
+        }
       ];
     };
+  };
+
+  cloud.caddy.settings.apps.tls.certificates = {
+    automate = lib.singleton config.networking.fqdn;
+  };
+
+  # TODO: periodically reload certificate
+  systemd.services.stalwart.serviceConfig = {
+    RefreshOnReload = [ "credentials" ];
+    LoadCredential =
+      let
+        src = "/var/lib/caddy/certificates/acme-v02.api.letsencrypt.org-directory";
+      in
+      [
+        "hel1.nichi.link.crt:${src}/hel1.nichi.link/hel1.nichi.link.crt"
+        "hel1.nichi.link.key:${src}/hel1.nichi.link/hel1.nichi.link.key"
+      ];
   };
 
   cloud.caddy.settings.apps.http.servers.default.routes = [

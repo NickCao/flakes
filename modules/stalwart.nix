@@ -78,11 +78,12 @@ in
         EnvironmentFile = applyCfg.credentialFile;
         RuntimeDirectory = [ "stalwart-apply" ];
         Environment = [ "HOME=%t/stalwart-apply" ];
-        ExecStart = "${lib.getExe pkgs.stalwart-cli} apply --file ${
-          pkgs.writeText "plan.ndjson" (lib.concatMapStringsSep "\n" (op: builtins.toJSON op) applyCfg.plan)
-        }";
-        Restart = "on-failure";
-        RestartSec = 3;
+        ExecStart = [
+          "${lib.getExe pkgs.stalwart-cli} apply --file ${
+            pkgs.writeText "plan.ndjson" (lib.concatMapStringsSep "\n" (op: builtins.toJSON op) applyCfg.plan)
+          }"
+          "${lib.getExe pkgs.stalwart-cli} create Action/ReloadSettings --json '{}'"
+        ];
       }
       // lib.optionalAttrs (applyCfg.credentialFile != null) {
         EnvironmentFile = applyCfg.credentialFile;
