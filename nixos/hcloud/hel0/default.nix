@@ -3,7 +3,6 @@
   imports = [
     ../common.nix
     ./vaultwarden.nix
-    ./rustical.nix
     ./spire.nix
     ./openbao.nix
   ];
