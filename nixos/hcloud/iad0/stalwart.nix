@@ -191,7 +191,7 @@ in
 
               allowIdTokenClaims = false;
               allowInvalidCerts = false;
-              skipAudienceValidation = false;
+              skipAudienceValidation = true; # FIXME
               lenientIssuerMatch = false;
               unscopedTokens = "reject";
               opaqueTokenValidation = "none";
