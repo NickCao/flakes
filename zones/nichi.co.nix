@@ -10,13 +10,15 @@ dns.lib.toString "nichi.co" {
     SOA
     NS
     DKIM
-    DMARC
     CAA
     ;
   A = [ hio0.ipv4 ];
   AAAA = [ hio0.ipv6 ];
+
+  # stalwart
   MX = with mx; [ (mx 10 "iad0.nichi.link.") ];
   TXT = [ (with spf; soft [ "mx" ]) ];
+
   HTTPS = [
     {
       svcPriority = 1;
@@ -72,7 +74,16 @@ dns.lib.toString "nichi.co" {
     hydra.CNAME = [ "hio0.nichi.link." ];
 
     # stalwart
-    "ua-auto-config".CNAME = [ "iad0.nichi.link." ];
-    "mta-sts".CNAME = [ "iad0.nichi.link." ];
+    _dmarc.TXT = [ "v=DMARC1; p=reject; rua=mailto:postmaster@nichi.co" ];
+    mta-sts.CNAME = [ "iad0.nichi.link." ];
+    ua-auto-config.CNAME = [ "iad0.nichi.link." ];
+    _domainkey.subdomains = {
+      v1-ed25519-20261030.TXT = [
+        "v=DKIM1; k=ed25519; h=sha256; p=p06CFpS0yzwJwTUO+/+x78xyisZKE1lOGxmW5H+oLY0="
+      ];
+      v1-rsa-20261030.TXT = [
+        "v=DKIM1; k=rsa; h=sha256; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2KeGBIo38RX8p19VjOPBLBpTTAxSYtMrQAGUxABdHmlMvYW6uv7wThULpCoC1ASXR300VVYPsf1QPFQZwt90AJRccoXziO/bfpvLOCpOcElHgURBf0vWUR+hrh8pQ1peBeKzv+1wgjdZA2XJ001Kl2U/mWJo9sKFG/My6aqABbYDWzBvk8TURFpEZuNh+BAdpXGtMIlAlc3CV6o7M/ijhiIcgjDfa+nQFJJ87r70VFaDoBWYgUUH69Utwtll/OK3u364fispBkI9t+eYgRX5HzfxwtG8z0AwFg+6GlxpPHU7wBaZ7evEAWGwVI05HvidtexrVRYrqCAoXOGhdd2jCwIDAQAB"
+      ];
+    };
   };
 }
