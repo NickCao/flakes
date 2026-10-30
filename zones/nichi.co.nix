@@ -9,7 +9,6 @@ dns.lib.toString "nichi.co" {
     TTL
     SOA
     NS
-    DKIM
     CAA
     ;
   A = [ hio0.ipv4 ];

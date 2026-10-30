@@ -13,14 +13,6 @@ in
     minimum = 300;
   };
   NS = builtins.map (name: "${name}.") data.nameservers.value;
-  DKIM = [
-    {
-      selector = "20230826";
-      k = "rsa";
-      p = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/zQOxo7Gt2FLp6XRXtagzbbD5iV67FAONTTespTjkobZHAkupDo+05af5N5+E4BOVqlBKiQVQHTooX1iwKeaIF5XjwI2HFbBVRMiYrNlsTEYQM9TRuRVXOzkmFFdCQiL1mC8LwDgKxuH7Af1myDtXIO/1o6QjG4+Yt9LkEHL5MwIDAQAB";
-      s = [ "email" ];
-    }
-  ];
   DMARC = [
     {
       p = "reject";
