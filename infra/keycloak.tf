@@ -99,12 +99,14 @@ resource "keycloak_realm_client_policy_profile" "cimd" {
       cimd-allow-http-scheme = false
       cimd-allow-permitted-domains = jsonencode([
         "stalw.art", # client_uri in CIMD
+        "mail.nichi.co",
         "mail.scp.link",
         "localhost", # thunderbird
       ])
       cimd-restrict-same-domain = false
       cimd-required-properties  = jsonencode([])
       cimd-resource-indicator-allow-list = jsonencode([
+        "https://mail.nichi.co",
         "https://mail.scp.link"
       ])
       only-allow-confidential-client                           = false
@@ -122,7 +124,7 @@ resource "keycloak_realm_client_policy_profile_policy" "cimd" {
     configuration = {
       is-negative-logic                     = false,
       client-id-uri-scheme                  = jsonencode(["https"])
-      client-id-uri-allow-permitted-domains = jsonencode(["mail.scp.link"])
+      client-id-uri-allow-permitted-domains = jsonencode(["mail.nichi.co", "mail.scp.link"])
     }
   }
 
