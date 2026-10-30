@@ -269,9 +269,6 @@ in
                 origin = null;
                 publishRecords = {
                   dkim = true;
-                  tlsa = true;
-                  spf = true;
-                  mx = true;
                   dmarc = true;
                   mtaSts = true;
                   tlsRpt = true;
