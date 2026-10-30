@@ -4,6 +4,9 @@
   pkgs,
   ...
 }:
+let
+  inherit (config.networking) fqdn;
+in
 {
   sops.secrets.stalwart = { };
 
@@ -65,10 +68,10 @@
           "@type" = "update";
           object = "SystemSettings";
           value = {
-            defaultHostname = config.networking.fqdn;
+            defaultHostname = fqdn;
             mailExchangers = {
               "0" = {
-                hostname = config.networking.fqdn;
+                hostname = fqdn;
                 priority = 10;
               };
             };
@@ -199,17 +202,17 @@
           object = "Certificate";
           matchOn = [ "subjectAlternativeNames" ];
           value = {
-            certificate-hel1 = {
+            certificate-default = {
               subjectAlternativeNames = {
-                "hel1.nichi.link" = true;
+                "${fqdn}" = true;
               };
               certificate = {
                 "@type" = "File";
-                filePath = "/run/credentials/stalwart.service/hel1.nichi.link.crt";
+                filePath = "/run/credentials/stalwart.service/${fqdn}.crt";
               };
               privateKey = {
                 "@type" = "File";
-                filePath = "/run/credentials/stalwart.service/hel1.nichi.link.key";
+                filePath = "/run/credentials/stalwart.service/${fqdn}.key";
               };
             };
           };
@@ -263,7 +266,7 @@
   };
 
   cloud.caddy.settings.apps.tls.certificates = {
-    automate = lib.singleton config.networking.fqdn;
+    automate = lib.singleton fqdn;
   };
 
   # TODO: periodically reload certificate
@@ -274,8 +277,8 @@
         src = "/var/lib/caddy/certificates/acme-v02.api.letsencrypt.org-directory";
       in
       [
-        "hel1.nichi.link.crt:${src}/hel1.nichi.link/hel1.nichi.link.crt"
-        "hel1.nichi.link.key:${src}/hel1.nichi.link/hel1.nichi.link.key"
+        "${fqdn}.crt:${src}/${fqdn}/${fqdn}.crt"
+        "${fqdn}.key:${src}/${fqdn}/${fqdn}.key"
       ];
   };
 
