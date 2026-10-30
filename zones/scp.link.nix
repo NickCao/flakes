@@ -28,7 +28,7 @@ dns.lib.toString "scp.link" {
     _dmarc.TXT = [
       "v=DMARC1; p=reject; rua=mailto:postmaster@scp.link"
     ];
-    _smtp.subdomains._tls.TXT = [
+    _tls.subdomains._smtp.TXT = [
       "v=TLSRPTv1; rua=mailto:postmaster@scp.link"
     ];
 
