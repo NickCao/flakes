@@ -110,16 +110,16 @@ in
             #   useTls = true;
             #   implicitTls = true;
             # };
-            # networklistener-submissions = {
-            #   name = "submissions";
-            #   protocol = "smtp";
-            #   bind = {
-            #     "[::]:465" = true;
-            #   };
-            #   overrideProxyTrustedNetworks = { };
-            #   useTls = true;
-            #   implicitTls = true;
-            # };
+            networklistener-submissions = {
+              name = "submissions";
+              protocol = "smtp";
+              bind = {
+                "[::]:465" = true;
+              };
+              overrideProxyTrustedNetworks = { };
+              useTls = true;
+              implicitTls = true;
+            };
             # networklistener-smtp = {
             #   name = "smtp";
             #   protocol = "smtp";
