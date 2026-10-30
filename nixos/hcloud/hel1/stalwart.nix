@@ -6,12 +6,13 @@
 }:
 let
   inherit (config.networking) fqdn;
+  host = "mail.scp.link";
 in
 {
   sops.secrets.stalwart = { };
 
   systemd.services.stalwart.environment = {
-    STALWART_PUBLIC_URL = "https://mail.scp.link";
+    STALWART_PUBLIC_URL = "https://${host}";
   };
 
   services.stalwart = {
@@ -75,18 +76,22 @@ in
                 priority = 10;
               };
             };
-            services =
-              let
-                hostname = "mail.scp.link";
-              in
-              {
-                jmap = { inherit hostname; };
-                imap = { };
-                smtp = { };
-                caldav = { inherit hostname; };
-                carddav = { inherit hostname; };
-                webdav = { inherit hostname; };
+            services = {
+              imap = { };
+              smtp = { };
+              jmap = {
+                hostname = host;
               };
+              caldav = {
+                hostname = host;
+              };
+              carddav = {
+                hostname = host;
+              };
+              webdav = {
+                hostname = host;
+              };
+            };
           };
         }
         {
@@ -285,7 +290,7 @@ in
   cloud.caddy.settings.apps.http.servers.default.routes = [
     {
       match = lib.singleton {
-        host = [ "mail.scp.link" ];
+        host = [ host ];
         path = [ "/oauth-clients/thunderbird.json" ];
       };
       handle = lib.singleton {
@@ -295,7 +300,7 @@ in
           Content-Type = [ "application/json" ];
         };
         body = builtins.toJSON {
-          client_id = "https://mail.scp.link/oauth-clients/thunderbird.json";
+          client_id = "https://${host}/oauth-clients/thunderbird.json";
           client_name = "Thunderbird";
           redirect_uris = [
             "http://localhost"
@@ -315,7 +320,7 @@ in
     {
       match = lib.singleton {
         host = [
-          "mail.scp.link"
+          host
           "mta-sts.scp.link"
           "ua-auto-config.scp.link"
         ];
