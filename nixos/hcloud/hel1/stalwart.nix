@@ -177,6 +177,7 @@ in
             };
           };
         }
+        # NOTE: https://support.stalw.art/t/blank-page-for-superuser-with-admin-role/1393
         {
           "@type" = "update";
           object = "Authentication";
