@@ -181,7 +181,7 @@ resource "scaleway_object_bucket_policy" "nichi_litestream_par" {
           "s3:GetObject"
         ],
         Resource : [
-          "${module.nichi_litestream_par.name}/rustical/*",
+          "${module.nichi_litestream_par.name}/stalwart/*",
         ],
       }
     ]

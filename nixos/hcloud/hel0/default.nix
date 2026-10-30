@@ -4,7 +4,6 @@
     ../common.nix
     ./vaultwarden.nix
     ./rustical.nix
-    ./litestream.nix
     ./spire.nix
     ./openbao.nix
   ];

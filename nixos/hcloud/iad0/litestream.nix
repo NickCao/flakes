@@ -11,7 +11,7 @@
       DynamicUser = true;
       StateDirectory = [
         "litestream"
-        "rustical"
+        "stalwart"
       ];
       RuntimeDirectory = [
         "litestream"
@@ -55,10 +55,10 @@
 
       dbs = [
         {
-          path = "/var/lib/rustical/db.sqlite3";
+          path = "/var/lib/stalwart/data.sqlite";
           replica = {
             type = "s3";
-            path = "rustical";
+            path = "stalwart";
           };
         }
       ];

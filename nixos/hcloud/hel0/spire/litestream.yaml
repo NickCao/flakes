@@ -1,7 +1,7 @@
 apiVersion: spire.spiffe.io/v1alpha1
 kind: ClusterStaticEntry
 spec:
-  parentID: spiffe://nichi.link/spire/agent/http_challenge/hel0.nichi.link
+  parentID: spiffe://nichi.link/spire/agent/http_challenge/iad0.nichi.link
   spiffeID: spiffe://nichi.link/litestream
   selectors:
     - systemd:id:litestream.service
