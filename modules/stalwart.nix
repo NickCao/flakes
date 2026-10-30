@@ -44,22 +44,28 @@ in
       path = lib.mkDefault "/var/lib/stalwart";
     };
 
-    systemd.packages = [ cfg.package ];
-
     systemd.services.stalwart = {
+      description = "Stalwart Server";
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
-      unitConfig = {
-        # Conflicts = [ "" ];
-        ConditionPathExists = [ "" ];
-      };
       serviceConfig = {
+        Type = "notify";
+        LimitNOFILE = 65536;
+        KillMode = "process";
+        KillSignal = "SIGINT";
+        Restart = "on-failure";
+        RestartSec = 5;
         ExecStart = [
-          ""
           "${lib.getExe cfg.package} --config=${settingsFormat.generate "config.json" cfg.settings}"
         ];
-        StateDirectory = "stalwart";
+        SyslogIdentifier = "stalwart";
+        StateDirectory = [ "stalwart" ];
+        User = "stalwart";
+        Group = "stalwart";
         DynamicUser = true;
         PrivateTmp = true;
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
       }
       // lib.optionalAttrs (cfg.credentialFile != null) {
         EnvironmentFile = cfg.credentialFile;

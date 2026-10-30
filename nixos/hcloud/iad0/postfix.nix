@@ -72,22 +72,6 @@ in
           "inet_protocols=ipv4"
         ];
       };
-      "127.0.0.1:submission" = {
-        type = "inet";
-        private = false;
-        command = "smtpd";
-        args = mkOpts {
-          smtpd_tls_security_level = "none";
-          smtpd_sasl_auth_enable = "yes";
-          smtpd_sasl_type = "dovecot";
-          smtpd_sasl_path = "/run/dovecot2/auth-postfix";
-          smtpd_sender_login_maps = "hash:/etc/postfix/senders";
-          smtpd_client_restrictions = "permit_sasl_authenticated,reject";
-          smtpd_sender_restrictions = "reject_sender_login_mismatch";
-          smtpd_recipient_restrictions = "reject_non_fqdn_recipient,reject_unknown_recipient_domain,permit_sasl_authenticated,reject";
-          smtpd_upstream_proxy_protocol = "haproxy";
-        };
-      };
     };
     mapFiles.senders = builtins.toFile "senders" ''
       nickcao@nichi.co      nickcao

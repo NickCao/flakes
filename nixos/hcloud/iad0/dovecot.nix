@@ -144,14 +144,6 @@ in
     wantedBy = [ "sockets.target" ];
   };
 
-  systemd.sockets.caddy-submission = {
-    socketConfig = {
-      ListenStream = [ "465" ];
-      Service = config.systemd.services.caddy.name;
-    };
-    wantedBy = [ "sockets.target" ];
-  };
-
   cloud.caddy.settings.apps.tls.certificates = {
     automate = lib.singleton fqdn;
   };
@@ -174,28 +166,6 @@ in
             {
               handler = "proxy";
               upstreams = [ { dial = [ "unix//run/dovecot2/imap-caddy" ]; } ];
-            }
-          ];
-        }
-      ];
-    };
-    submission = {
-      listen = [ "fdname/${config.systemd.sockets.caddy-submission.name}" ];
-      routes = [
-        {
-          handle = [
-            {
-              handler = "tls";
-              connection_policies = lib.singleton {
-                match = {
-                  sni = lib.singleton fqdn;
-                };
-              };
-            }
-            {
-              handler = "proxy";
-              upstreams = [ { dial = [ "127.0.0.1:587" ]; } ];
-              proxy_protocol = "v2";
             }
           ];
         }
