@@ -269,8 +269,6 @@ in
                 origin = null;
                 publishRecords = {
                   dkim = true;
-                  dmarc = true;
-                  tlsRpt = true;
                 };
               };
               certificateManagement = {

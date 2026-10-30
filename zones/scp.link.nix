@@ -25,6 +25,12 @@ dns.lib.toString "scp.link" {
     "_mta-sts".TXT = [
       "v=STSv1; id=5685670329720542694" # FIXME
     ];
+    _dmarc.TXT = [
+      "v=DMARC1; p=reject; rua=mailto:postmaster@scp.link"
+    ];
+    _smtp.subdomains._tls.TXT = [
+      "v=TLSRPTv1; rua=mailto:postmaster@scp.link"
+    ];
 
     "mail".CNAME = [ "hel1.nichi.link." ];
     "o".NS = he;
