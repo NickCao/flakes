@@ -150,25 +150,38 @@ resource "scaleway_object_bucket_policy" "nichi_litestream_par" {
           "${module.nichi_litestream_par.name}/*"
         ],
       }),
+      # https://litestream.io/guides/s3/#option-1-explicit-permissions-on-both-arns-recommended-for-restrictive-policies
       {
-        Sid : "Application",
-        # https://litestream.io/guides/s3/#option-1-explicit-permissions-on-both-arns-recommended-for-restrictive-policies
-        Action : [
-          "s3:GetBucketLocation",
-          "s3:ListBucket",
-          "s3:PutObject",
-          "s3:DeleteObject",
-          "s3:GetObject"
-        ],
+        Sid : "ApplicationBucket",
         Effect : "Allow",
         Principal : {
           SCW : [
             "application_id:${scaleway_iam_application.litestream.id}"
           ]
         },
+        Action : [
+          "s3:GetBucketLocation",
+          "s3:ListBucket",
+        ],
         Resource : [
           module.nichi_litestream_par.name,
-          "${module.nichi_litestream_par.name}/*"
+        ],
+      },
+      {
+        Sid : "ApplicationObject",
+        Effect : "Allow",
+        Principal : {
+          SCW : [
+            "application_id:${scaleway_iam_application.litestream.id}"
+          ]
+        },
+        Action : [
+          "s3:PutObject",
+          "s3:DeleteObject",
+          "s3:GetObject"
+        ],
+        Resource : [
+          "${module.nichi_litestream_par.name}/rustical/*",
         ],
       }
     ]
