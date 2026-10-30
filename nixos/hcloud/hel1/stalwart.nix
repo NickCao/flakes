@@ -214,6 +214,50 @@
             };
           };
         }
+        {
+          "@type" = "reconcile";
+          object = "Domain";
+          matchOn = [
+            "name"
+          ];
+          value = {
+            domain-default = {
+              enable = true;
+              name = "scp.link";
+              aliases = { };
+              description = null;
+              catchAllAddress = null;
+              allowRelaying = false;
+              reportAddressUri = "mailto:postmaster";
+
+              subAddressing = {
+                "@type" = "Enabled";
+              };
+
+              dnsManagement = {
+                "@type" = "Automatic";
+                dnsServerId = "jl7benlyaaaa"; # FIXME
+                origin = null;
+                publishRecords = {
+                  dkim = true;
+                  tlsa = true;
+                  spf = true;
+                  mx = true;
+                  dmarc = true;
+                  mtaSts = true;
+                  tlsRpt = true;
+                  autoConfig = true;
+                };
+              };
+              certificateManagement = {
+                "@type" = "Manual";
+              };
+              dkimManagement = {
+                "@type" = "Automatic";
+              };
+            };
+          };
+        }
       ];
     };
   };
