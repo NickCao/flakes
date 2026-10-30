@@ -7,6 +7,7 @@
 let
   cfg = config.services.dovecot2;
   maildir = "/var/spool/mail";
+  fqdn = config.networking.fqdn;
 in
 {
   sops.secrets.dovecot = {
@@ -152,7 +153,7 @@ in
   };
 
   cloud.caddy.settings.apps.tls.certificates = {
-    automate = lib.singleton "mail.nichi.co";
+    automate = lib.singleton fqdn;
   };
 
   cloud.caddy.settings.apps.layer4.servers = {
@@ -166,7 +167,7 @@ in
               connection_policies = lib.singleton {
                 alpn = [ "imap" ];
                 match = {
-                  sni = lib.singleton "mail.nichi.co";
+                  sni = lib.singleton fqdn;
                 };
               };
             }
@@ -187,7 +188,7 @@ in
               handler = "tls";
               connection_policies = lib.singleton {
                 match = {
-                  sni = lib.singleton "mail.nichi.co";
+                  sni = lib.singleton fqdn;
                 };
               };
             }
