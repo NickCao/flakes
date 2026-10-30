@@ -198,21 +198,52 @@
     };
   };
 
-  cloud.caddy.settings.apps.http.servers.default.routes = lib.singleton {
-    match = lib.singleton {
-      host = [
-        "mail.scp.link"
-        "mta-sts.scp.link"
-        "ua-auto-config.scp.link"
-      ];
-    };
-    handle = lib.singleton {
-      handler = "reverse_proxy";
-      transport = {
-        protocol = "http";
-        proxy_protocol = "v2";
+  cloud.caddy.settings.apps.http.servers.default.routes = [
+    {
+      match = lib.singleton {
+        host = [ "mail.scp.link" ];
+        path = [ "/oauth-clients/thunderbird.json" ];
       };
-      upstreams = lib.singleton { dial = "127.0.0.1:8080"; };
-    };
-  };
+      handle = lib.singleton {
+        handler = "static_response";
+        status_code = 200;
+        headers = {
+          Content-Type = [ "application/json" ];
+        };
+        body = builtins.toJSON {
+          client_id = "https://mail.scp.link/oauth-clients/thunderbird.json";
+          client_name = "Thunderbird";
+          redirect_uris = [
+            "http://localhost"
+          ];
+          grant_types = [
+            "authorization_code"
+            "refresh_token"
+          ];
+          response_types = [
+            "code"
+          ];
+          application_type = "native";
+          token_endpoint_auth_method = "none";
+        };
+      };
+    }
+    {
+      match = lib.singleton {
+        host = [
+          "mail.scp.link"
+          "mta-sts.scp.link"
+          "ua-auto-config.scp.link"
+        ];
+      };
+      handle = lib.singleton {
+        handler = "reverse_proxy";
+        transport = {
+          protocol = "http";
+          proxy_protocol = "v2";
+        };
+        upstreams = lib.singleton { dial = "127.0.0.1:8080"; };
+      };
+    }
+  ];
 }

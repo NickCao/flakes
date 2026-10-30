@@ -61,28 +61,6 @@ resource "keycloak_openid_audience_protocol_mapper" "stalwart" {
   included_custom_audience = "https://mail.scp.link"
 }
 
-resource "keycloak_openid_client" "thunderbird" {
-  realm_id    = keycloak_realm.nichi.id
-  client_id   = "thunderbird"
-  name        = "Thunderbird"
-  access_type = "PUBLIC"
-
-  implicit_flow_enabled = false
-  standard_flow_enabled = true
-  valid_redirect_uris   = ["http://localhost"]
-
-  pkce_code_challenge_method = "S256"
-
-  consent_required          = true
-  display_on_consent_screen = false
-}
-
-resource "keycloak_openid_client_default_scopes" "thunderbird" {
-  realm_id       = keycloak_realm.nichi.id
-  client_id      = keycloak_openid_client.thunderbird.id
-  default_scopes = ["profile", "email", keycloak_openid_client_scope.stalwart.name]
-}
-
 resource "keycloak_realm_events" "events" {
   realm_id                     = keycloak_realm.nichi.id
   admin_events_enabled         = true
@@ -122,6 +100,7 @@ resource "keycloak_realm_client_policy_profile" "cimd" {
       cimd-allow-permitted-domains = jsonencode([
         "stalw.art", # client_uri in CIMD
         "mail.scp.link",
+        "localhost", # thunderbird
       ])
       cimd-restrict-same-domain = false
       cimd-required-properties  = jsonencode([])
@@ -215,6 +194,7 @@ resource "keycloak_realm_optional_client_scopes" "oauth_public" {
   realm_id = keycloak_realm.nichi.id
   optional_scopes = [
     "offline_access",
+    keycloak_openid_client_scope.stalwart.name,
     keycloak_openid_client_scope.mail.name,
     keycloak_openid_client_scope.contacts.name,
     keycloak_openid_client_scope.calendars.name,
