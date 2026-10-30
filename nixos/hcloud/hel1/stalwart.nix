@@ -12,7 +12,6 @@ in
 {
   sops.secrets = {
     stalwart = { };
-    stalwart-tsig = { };
     stalwart-prom = { };
   };
 
@@ -225,26 +224,6 @@ in
         }
         {
           "@type" = "reconcile";
-          object = "DnsServer";
-          matchOn = [
-            "description"
-          ];
-          value = {
-            dnsserver-default = {
-              "@type" = "Tsig";
-              description = "iad0.nichi.link";
-              host = "5.161.83.9";
-              keyName = "stalwart";
-              key = {
-                "@type" = "File";
-                filePath = "/run/credentials/stalwart.service/tsig";
-              };
-              tsigAlgorithm = "hmac-sha256";
-            };
-          };
-        }
-        {
-          "@type" = "reconcile";
           object = "Domain";
           matchOn = [
             "name"
@@ -264,12 +243,7 @@ in
               };
 
               dnsManagement = {
-                "@type" = "Automatic";
-                dnsServerId = "#dnsserver-default";
-                origin = null;
-                publishRecords = {
-                  dkim = true;
-                };
+                "@type" = "Manual";
               };
               certificateManagement = {
                 "@type" = "Manual";
@@ -329,7 +303,6 @@ in
       [
         "${fqdn}.crt:${src}/${fqdn}/${fqdn}.crt"
         "${fqdn}.key:${src}/${fqdn}/${fqdn}.key"
-        "tsig:${config.sops.secrets.stalwart-tsig.path}"
         "prom:${config.sops.secrets.stalwart-prom.path}"
       ];
   };
