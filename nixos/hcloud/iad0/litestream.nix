@@ -9,14 +9,11 @@
     serviceConfig = {
       RestartSec = 10;
       DynamicUser = true;
+      RuntimeDirectory = [ "litestream" ];
+      RuntimeDirectoryMode = "0700";
       StateDirectory = [
-        "litestream"
         "stalwart"
       ];
-      RuntimeDirectory = [
-        "litestream"
-      ];
-      RuntimeDirectoryMode = "0700";
     };
     environment = {
       AWS_SHARED_CREDENTIALS_FILE = "/run/litestream/credentials";
