@@ -197,6 +197,13 @@ in
           };
         }
         {
+          "@type" = "update";
+          object = "Calendar";
+          value = {
+            defaultHrefName = null;
+          };
+        }
+        {
           "@type" = "reconcile";
           object = "Application";
           matchOn = [
