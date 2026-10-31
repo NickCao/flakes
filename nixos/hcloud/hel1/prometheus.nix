@@ -173,7 +173,19 @@ in
           tls_config = spiffe_tls_config // {
             server_name = "prometheus-nut-exporter.nichi.link";
           };
-          static_configs = [ { targets = [ "armchair.nichi.link:9318" ]; } ];
+          static_configs = lib.singleton {
+            targets = lib.singleton "armchair.nichi.link:9318";
+          };
+        }
+        {
+          job_name = "litestream";
+          scheme = "https";
+          tls_config = spiffe_tls_config // {
+            server_name = "litestream-metrics.nichi.link";
+          };
+          static_configs = lib.singleton {
+            targets = lib.singleton "iad0.nichi.link:9377";
+          };
         }
         {
           job_name = "scw-par";
@@ -258,6 +270,10 @@ in
               alert = "ConntrackFull";
               expr = "node_nf_conntrack_entries / node_nf_conntrack_entries_limit > 0.8";
               for = "5m";
+            }
+            {
+              alert = "LitestreamSyncError";
+              expr = "litestream_sync_error_count > 0";
             }
           ];
         }

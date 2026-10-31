@@ -41,9 +41,17 @@
     };
   };
 
+  cloud.ghostunnel.servers.spiffe-litestream-metrics = {
+    listen = "[::]:9377";
+    target = config.services.litestream.settings.addr;
+    allowURIs = [ "spiffe://nichi.link/victoriametrics" ];
+  };
+
   services.litestream = {
     enable = true;
     settings = rec {
+      addr = "127.0.0.1:9376"; # metrics
+
       sync-interval = "1m";
       max-sync-ltx-files = 0;
       region = "fr-par";
