@@ -4,24 +4,7 @@
   utils,
   ...
 }:
-let
-  vendorfw = pkgs.requireFile {
-    name = "vendorfw";
-    hashMode = "recursive";
-    hash = "sha256-tTQYYxEOWTYCePwohNVzJhf2rbBmRt2fJzgDfGa7tlE=";
-    message = "
-      nix-store --add-fixed sha256 --recursive /efi/vendorfw/
-      nix hash path  --algo sha256             /efi/vendorfw/
-    ";
-  };
-in
 {
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "vendorfw"
-    ];
-
   systemd.network.enable = true;
   systemd.network.networks = {
     "10-end0" = {
@@ -47,10 +30,7 @@ in
   boot.kernel.sysctl."vm.mmap_rnd_bits" = 31;
   boot.kernelModules = [ "tpm_vtpm_proxy" ];
 
-  hardware.asahi = {
-    enable = true;
-    peripheralFirmwareDirectory = vendorfw;
-  };
+  hardware.asahi.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOLQwaWXeJipSuAB+lV202yJOtAgJSNzuldH7JAf2jji nickcao@mainframe"
@@ -62,8 +42,6 @@ in
   };
 
   services.openssh.enable = true;
-
-  system.extraDependencies = [ vendorfw ];
 
   environment.systemPackages = with pkgs; [
     vim
