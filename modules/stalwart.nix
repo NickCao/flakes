@@ -107,7 +107,7 @@ in
         Environment = [ "HOME=%t/stalwart-reload-certificate" ];
         DynamicUser = true;
         ExecStart = [
-          "+${config.systemd.package}/bin/systemctl reload stalwart.service"
+          "!${config.systemd.package}/bin/systemctl reload stalwart.service"
           "${lib.getExe pkgs.stalwart-cli} create Action/ReloadTlsCertificates --json '{}'"
         ];
       };
