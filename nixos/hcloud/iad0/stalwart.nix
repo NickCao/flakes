@@ -28,6 +28,21 @@ in
     STALWART_PUBLIC_URL = "https://${host}";
   };
 
+  services.unbound = {
+    enable = true;
+    resolveLocalQueries = false;
+    settings = {
+      server = {
+        interface = [
+          "::1"
+          "127.0.0.1"
+        ];
+        port = 5353;
+        log-queries = true;
+      };
+    };
+  };
+
   services.stalwart = {
     enable = true;
     settings = {
@@ -138,6 +153,25 @@ in
               overrideProxyTrustedNetworks = { };
               useTls = true;
               implicitTls = false;
+            };
+          };
+        }
+        {
+          "@type" = "update";
+          object = "DnsResolver";
+          value = {
+            "@type" = "Custom";
+            servers = {
+              "0" = {
+                protocol = "udp";
+                address = "127.0.0.1";
+                port = 5353;
+              };
+              "1" = {
+                protocol = "tcp";
+                address = "127.0.0.1";
+                port = 5353;
+              };
             };
           };
         }
