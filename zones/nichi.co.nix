@@ -75,8 +75,11 @@ dns.lib.toString "nichi.co" {
     _dmarc.TXT = [
       "v=DMARC1; p=quarantine; rua=mailto:postmaster@nichi.co" # relaxed
     ];
+    _tls.subdomains._smtp.TXT = [ "v=TLSRPTv1; rua=mailto:postmaster@nichi.co" ];
     mta-sts.CNAME = [ "iad0.nichi.link." ];
+    _mta-sts.TXT = [ "v=STSv1; id=14391765601562851456" ];
     ua-auto-config.CNAME = [ "iad0.nichi.link." ];
+    _ua-auto-config.TXT = [ "v=UAAC1; a=sha256; d=U0QCf6RYDOg0nvrsk57qjQ04TUfuvvch2b6WfklEmsU=" ];
     _domainkey.subdomains = {
       v1-ed25519-20261030.TXT = [
         "v=DKIM1; k=ed25519; h=sha256; p=p06CFpS0yzwJwTUO+/+x78xyisZKE1lOGxmW5H+oLY0="
