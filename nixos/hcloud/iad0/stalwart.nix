@@ -316,7 +316,6 @@ in
     automate = lib.singleton fqdn;
   };
 
-  # TODO: periodically reload certificate
   systemd.services.stalwart.serviceConfig = {
     RefreshOnReload = [ "credentials" ];
     LoadCredential =

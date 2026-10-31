@@ -28,8 +28,7 @@ in
     apply = {
       enable = lib.mkEnableOption "Stalwart declarative configuration";
       credentialFile = lib.mkOption {
-        type = lib.types.nullOr lib.types.path;
-        default = null;
+        type = lib.types.path;
       };
       plan = lib.mkOption {
         type = lib.types.listOf settingsFormat.type;
@@ -84,6 +83,7 @@ in
         EnvironmentFile = applyCfg.credentialFile;
         RuntimeDirectory = [ "stalwart-apply" ];
         Environment = [ "HOME=%t/stalwart-apply" ];
+        DynamicUser = true;
         ExecStart = [
           "${lib.getExe pkgs.stalwart-cli} apply --file ${
             pkgs.writeText "plan.ndjson" (lib.concatMapStringsSep "\n" (op: builtins.toJSON op) applyCfg.plan)
@@ -92,9 +92,24 @@ in
           "${lib.getExe pkgs.stalwart-cli} create Action/ReloadTlsCertificates --json '{}'"
           "${lib.getExe pkgs.stalwart-cli} create Action/UpdateApps --json '{}'"
         ];
-      }
-      // lib.optionalAttrs (applyCfg.credentialFile != null) {
+      };
+    };
+
+    systemd.services.stalwart-reload-certificate = lib.mkIf applyCfg.enable {
+      description = "Reload Stalwart certificate";
+      after = [ "stalwart.service" ];
+      requires = [ "stalwart.service" ];
+      startAt = "daily";
+      serviceConfig = {
+        Type = "oneshot";
         EnvironmentFile = applyCfg.credentialFile;
+        RuntimeDirectory = [ "stalwart-reload-certificate" ];
+        Environment = [ "HOME=%t/stalwart-reload-certificate" ];
+        DynamicUser = true;
+        ExecStart = [
+          "+${config.systemd.package}/bin/systemctl reload stalwart.service"
+          "${lib.getExe pkgs.stalwart-cli} create Action/ReloadTlsCertificates --json '{}'"
+        ];
       };
     };
   };
