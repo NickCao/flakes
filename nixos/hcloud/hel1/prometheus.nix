@@ -154,7 +154,7 @@ in
                 "https://fn.nichi.co"
                 "https://pb.nichi.co"
                 "https://api.nichi.co"
-                "https://cal.nichi.co"
+                "https://mail.nichi.co/account/"
                 "https://ntfy.nichi.co"
                 "https://vault.nichi.co"
                 "https://matrix.nichi.co"
