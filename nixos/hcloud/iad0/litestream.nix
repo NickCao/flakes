@@ -47,7 +47,7 @@
   services.litestream = {
     enable = true;
     settings = rec {
-      sync-interval = "30m";
+      sync-interval = "1m";
       max-sync-ltx-files = 0;
       region = "fr-par";
       endpoint = "s3.${region}.scw.cloud";
