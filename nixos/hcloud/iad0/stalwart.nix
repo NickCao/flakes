@@ -349,6 +349,7 @@ in
           value = {
             mailinglist-noc = {
               name = "noc";
+              domainId = "#domain-default";
               description = null;
               aliases = { };
               recipients = {
