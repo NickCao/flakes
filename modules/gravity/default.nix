@@ -186,7 +186,10 @@ in
         gravity = {
           name = config.systemd.network.netdevs.gravity.netdevConfig.Name;
           address = cfg.address;
-          linkConfig.RequiredForOnline = false;
+          linkConfig = {
+            RequiredForOnline = false;
+            Group = 1;
+          };
           routingPolicyRules =
             lib.optionals (cfg.srv6.enable) [
               {
@@ -532,6 +535,11 @@ in
                 type nat hook postrouting priority srcnat; policy accept;
                 iifname { "stateful", "divi", "nat64" } oifname "${cfg.divi.oif}" ip saddr != { 44.32.148.0/24 } masquerade
               }
+
+              chain postrouting_filter {
+                type filter hook postrouting priority filter; policy accept;
+                meta mark & 0x00000001 != 0 meta oifgroup 1 counter drop
+              }
             '';
           };
         };
@@ -590,6 +598,7 @@ in
           address_family = ep.addressFamily;
           address = ep.address;
           port = cfg.ipsec.port;
+          fwmark = "0x00000001/0x00000001";
         }) cfg.ipsec.endpoints;
         experimental = cfg.ipsec.experimental;
       });
