@@ -340,6 +340,23 @@ in
             };
           };
         }
+        {
+          "@type" = "reconcile";
+          object = "MailingList";
+          matchOn = [
+            "name"
+          ];
+          value = {
+            mailinglist-noc = {
+              name = "noc";
+              description = null;
+              aliases = { };
+              recipients = {
+                "nickcao@nichi.co" = true;
+              };
+            };
+          };
+        }
       ];
     };
   };
