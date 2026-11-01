@@ -57,6 +57,10 @@
       type = "ed25519";
       path = "/persist/etc/ssh/ssh_host_ed25519_key";
     }
+    {
+      type = "mldsa44-ed25519";
+      path = "/persist/etc/ssh/ssh_host_mldsa44_ed25519_key";
+    }
   ];
 
   services.btrfs.autoScrub = {
