@@ -223,6 +223,19 @@ in
           linkConfig.RequiredForOnline = false;
         };
       };
+
+      networking.nftables = {
+        enable = true;
+        tables.gravity-loop-prevention = {
+          family = "inet";
+          content = ''
+            chain postrouting-filter {
+              type filter hook postrouting priority filter; policy accept;
+              meta mark & 0x00000001 != 0 meta oifgroup 1 counter drop
+            }
+          '';
+        };
+      };
     })
     (mkIf cfg.bird.enable {
       services.bird = {
@@ -534,11 +547,6 @@ in
               chain postrouting {
                 type nat hook postrouting priority srcnat; policy accept;
                 iifname { "stateful", "divi", "nat64" } oifname "${cfg.divi.oif}" ip saddr != { 44.32.148.0/24 } masquerade
-              }
-
-              chain postrouting_filter {
-                type filter hook postrouting priority filter; policy accept;
-                meta mark & 0x00000001 != 0 meta oifgroup 1 counter drop
               }
             '';
           };
