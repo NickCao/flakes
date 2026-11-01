@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "name": "nichi.co OAuth Provider",
+  "version": "1.0",
+  "applications": {
+    "gecko": {
+      "id": "oauth-provider@nichi.co",
+      "strict_min_version": "159.0"
+    }
+  },
+  "oauth_provider": {
+    "issuer": "id.nichi.co",
+    "clientId": "https://mail.nichi.co/oauth-clients/thunderbird.json",
+    "clientSecret": "",
+    "issuerIdentifier": "https://id.nichi.co/realms/nichi",
+    "authorizationEndpoint": "https://id.nichi.co/realms/nichi/protocol/openid-connect/auth",
+    "tokenEndpoint": "https://id.nichi.co/realms/nichi/protocol/openid-connect/token",
+    "redirectionEndpoint": "http://localhost",
+    "usePKCE": true,
+    "useExternalBrowser": true,
+    "hostnames": [
+      "mail.nichi.co",
+      "iad0.nichi.link"
+    ],
+    "emailDomains": [
+      "nichi.co"
+    ],
+    "scopes": "openid email profile offline_access urn:ietf:params:oauth:scope:mail urn:ietf:params:oauth:scope:calendars"
+  }
+}
