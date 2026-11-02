@@ -252,6 +252,12 @@ in
     plugins = with config.services.matrix-synapse.package.plugins; [
       matrix-synapse-s3-storage-provider
     ];
+    log.loggers = {
+      "synapse.access".level = "WARNING";
+      "synapse.federation.transport.server.federation".level = "WARNING";
+      "synapse.federation.sender.transaction_manager".level = "WARNING";
+      "synapse.http.matrixfederationclient".level = "WARNING";
+    };
     settings = {
       server_name = "nichi.co";
       public_baseurl = "https://matrix.nichi.co";
