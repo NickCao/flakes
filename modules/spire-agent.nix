@@ -14,10 +14,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.services.spire-agent.serviceConfig = {
-      AmbientCapabilities = lib.mkIf (!cfg.tpm) [
-        "CAP_NET_BIND_SERVICE"
-      ];
+    systemd.services.spire-agent = {
+      # switch-to-configuration reload units before restarting stopped (changed) units
+      # so those using spiffe during reload would hang waiting for spire-agent to start
+      stopIfChanged = false;
+      serviceConfig = {
+        AmbientCapabilities = lib.mkIf (!cfg.tpm) [
+          "CAP_NET_BIND_SERVICE"
+        ];
+      };
     };
 
     services.spire.agent.enable = true;
