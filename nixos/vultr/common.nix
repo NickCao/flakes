@@ -146,6 +146,10 @@ in
     };
   };
 
+  # FIXME: causing a dependency cycle on shutdown
+  # local-fs-pre.target: Found ordering cycle: persist.mount/stop after var.mount/stop
+  # after userborn.service/stop after systemd-tmpfiles-setup-dev.service/stop
+  # after local-fs-pre.target/stop - after persist.mount
   services.userborn = {
     enable = true;
     passwordFilesLocation = "/persist/etc";
