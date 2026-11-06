@@ -72,7 +72,7 @@ in
           allowed_dns_patterns = [ "^[a-z0-9]{1,63}\\.nichi\\.link$" ];
           required_port = 81;
           tofu = false;
-          # verify_client_ip = true;
+          verify_client_ip = true;
         };
         NodeAttestor.tpm = {
           plugin_cmd = lib.getExe' pkgs.spire-tpm-plugin "tpm_attestor_server";
