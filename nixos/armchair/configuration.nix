@@ -30,6 +30,10 @@
   boot.kernel.sysctl."vm.mmap_rnd_bits" = 31;
   boot.kernelModules = [ "tpm_vtpm_proxy" ];
 
+  boot.kernelPatches = [
+    pkgs.kernelPatches.tools_128bit_types
+  ];
+
   hardware.asahi.enable = true;
 
   users.users.root.openssh.authorizedKeys.keys = [

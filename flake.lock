@@ -211,11 +211,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793150277,
-        "narHash": "sha256-BiGHn6cYXtDT2jFlAxYmfpEu5yIMtCFWpRiCI7wqyDo=",
+        "lastModified": 1794080817,
+        "narHash": "sha256-IMiMewM5pW0seCiN3LXOlwjI4WZcEuId/xOFPx2lIvQ=",
         "owner": "anduril",
         "repo": "jetpack-nixos",
-        "rev": "7fde791978b0b476abda2a6fc9b96d813d39c640",
+        "rev": "335ee1b30aee62439e150a77acaa508cefc7fa91",
         "type": "github"
       },
       "original": {
@@ -292,11 +292,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1794075442,
-        "narHash": "sha256-tanlyZenQLz2wn+jz/2B/Y/ZBXozMrMAQYYJ1AiLmHE=",
+        "lastModified": 1794077762,
+        "narHash": "sha256-uFEdx7legvMnM4xWEaeTcN6+JJpnvdU3EeH+ElsLg7M=",
         "owner": "NickCao",
         "repo": "nixpkgs",
-        "rev": "17349925fe64a94a1be6d9c16036d2630d1ca1a8",
+        "rev": "25744010890729672b846b7aff1d8c89f0ba01c3",
         "type": "github"
       },
       "original": {
@@ -416,11 +416,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1794059868,
-        "narHash": "sha256-UbPyc5x4tkNWGeN4lWf9DZWla8GDvUWEfgrPpCVDMiA=",
+        "lastModified": 1794081472,
+        "narHash": "sha256-Em0iObWDX69ihLfcwwCQP2FRLcpB/jnBgPviVYZbk7Q=",
         "owner": "NickCao",
         "repo": "strongswan-kernel-rust",
-        "rev": "1819c57c7df1a96153cfc1c914d98e65e7096acc",
+        "rev": "6d0092a897546760d77131e5a56042ceadebe747",
         "type": "github"
       },
       "original": {
