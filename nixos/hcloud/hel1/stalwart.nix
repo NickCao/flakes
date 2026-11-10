@@ -17,6 +17,7 @@ in
 
   systemd.services.stalwart.environment = {
     STALWART_PUBLIC_URL = "https://${host}";
+    # STALWART_UPDATE_ROLE_PERMISSIONS = "true";
   };
 
   services.stalwart = {
@@ -191,10 +192,6 @@ in
             };
           };
         }
-        # NOTE: https://support.stalw.art/t/blank-page-for-superuser-with-admin-role/1393
-        # User Roles: User
-        # Group Roles: Group
-        # Admin Roles: System Administrator, User
         {
           "@type" = "update";
           object = "Authentication";
