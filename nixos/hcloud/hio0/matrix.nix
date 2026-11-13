@@ -529,7 +529,7 @@ in
         image_as_file_pixels = 16777216;
         max_member_count = -1;
         member_list = {
-          max_initial_sync = 100;
+          max_initial_sync = 2000;
           skip_deleted = true;
           sync_broadcast_channels = false;
         };
