@@ -214,6 +214,17 @@ in
                 "/account" = true;
               };
             };
+            application-mobileconfig = {
+              enable = true;
+              description = "Stalwart mobileconfig";
+              resourceUrl = "https://github.com/NickCao/stalwart-mobileconfig/releases/download/v0.1.4/stalwart-mobileconfig.zip";
+              oauthClientId = null;
+              unpackDirectory = null;
+              autoUpdateInterval = 7776000000;
+              urlPrefix = {
+                "/mobileconfig" = true;
+              };
+            };
           };
         }
         {
@@ -233,7 +244,7 @@ in
 
               allowIdTokenClaims = false;
               allowInvalidCerts = false;
-              skipAudienceValidation = true; # FIXME
+              skipAudienceValidation = true; # FIXME: thunderbird does not set resources parameter
               lenientIssuerMatch = false;
               unscopedTokens = "reject";
               opaqueTokenValidation = "none";

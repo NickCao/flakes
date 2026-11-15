@@ -180,6 +180,27 @@ resource "keycloak_openid_client_scope" "files" {
   consent_screen_text = "Files"
 }
 
+resource "keycloak_openid_client_scope" "stalwart_security" {
+  realm_id            = keycloak_realm.nichi.id
+  name                = "urn:stalwart:oauth:scope:security"
+  description         = "Requests access for a client to manage the user's Stalwart security settings"
+  consent_screen_text = "Stalwart security settings"
+}
+
+resource "keycloak_openid_client_scope" "stalwart_settings" {
+  realm_id            = keycloak_realm.nichi.id
+  name                = "urn:stalwart:oauth:scope:settings"
+  description         = "Requests access for a client to manage the user's Stalwart settings"
+  consent_screen_text = "Stalwart settings"
+}
+
+resource "keycloak_openid_client_scope" "stalwart_full" {
+  realm_id            = keycloak_realm.nichi.id
+  name                = "urn:stalwart:oauth:scope:full"
+  description         = "Requests access for a client to manage the user's Stalwart full access"
+  consent_screen_text = "Stalwart full access"
+}
+
 resource "keycloak_realm_optional_client_scopes" "oauth_public" {
   realm_id = keycloak_realm.nichi.id
   optional_scopes = [
@@ -188,6 +209,9 @@ resource "keycloak_realm_optional_client_scopes" "oauth_public" {
     keycloak_openid_client_scope.mail.name,
     keycloak_openid_client_scope.contacts.name,
     keycloak_openid_client_scope.calendars.name,
-    keycloak_openid_client_scope.files.name
+    keycloak_openid_client_scope.files.name,
+    keycloak_openid_client_scope.stalwart_security.name,
+    keycloak_openid_client_scope.stalwart_settings.name,
+    keycloak_openid_client_scope.stalwart_full.name
   ]
 }
