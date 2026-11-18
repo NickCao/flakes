@@ -171,7 +171,7 @@ in
           "@type" = "update";
           object = "SpamSettings";
           value = {
-            spamFilterRulesUrl = "file://${pkgs.stalwart_1_0.spam-filter}/spam-filter-rules.json.gz";
+            spamFilterRulesUrl = "file://${pkgs.stalwart_1.spam-filter}/spam-filter-rules.json.gz";
           };
         }
         {
@@ -205,7 +205,7 @@ in
             application-webui = {
               enable = true;
               description = "Stalwart Web Interface";
-              resourceUrl = "file://${pkgs.stalwart_1_0.webui}/webui.zip";
+              resourceUrl = "file://${pkgs.stalwart_1.webui}/webui.zip";
               oauthClientId = null;
               unpackDirectory = null;
               autoUpdateInterval = 7776000000;
